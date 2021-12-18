@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.R
@@ -51,6 +52,9 @@ class ReadingFragment : BaseFragment() {
             ReadingLayout(R.drawable.ic_flayer_2, R.color.black),
             ReadingLayout(R.drawable.ic_flayer_4, R.color.black),
             ReadingLayout(R.drawable.ic_buku, R.color.black),
+            ReadingLayout(R.drawable.ic_artboard9, R.color.white),
+            ReadingLayout(R.drawable.ic_artboard8, R.color.white),
+            ReadingLayout(R.drawable.ic_artboard7, R.color.white),
         )
 
         return layouts[(layouts.indices).random()]
@@ -66,7 +70,7 @@ class ReadingFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = this@ReadingFragment
             mainText.movementMethod = LinkMovementMethod.getInstance()
-            backgroundDrawable = resources.getDrawable(layout.background, null)
+            backgroundDrawable = ResourcesCompat.getDrawable(resources, layout.background, null)
             textColor = resources.getColor(layout.color, null)
         }
 
