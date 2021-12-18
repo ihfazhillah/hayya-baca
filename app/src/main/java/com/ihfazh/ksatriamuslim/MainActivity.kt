@@ -21,6 +21,14 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHostFragment.navController
 
+        navController.addOnDestinationChangedListener{_, destination, _ ->
+            if (destination.id == R.id.readerFragment){
+                supportActionBar?.hide()
+            } else {
+                supportActionBar?.show()
+            }
+        }
+
 
 //
 //        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)

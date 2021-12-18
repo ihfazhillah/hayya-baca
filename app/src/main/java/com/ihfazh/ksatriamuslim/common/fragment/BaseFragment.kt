@@ -21,15 +21,15 @@ abstract class BaseFragment: Fragment() {
 //
 //        return super.onCreateView(inflater, container, savedInstanceState)
 //    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (getShowStatusBarStatus()) {
-            (activity as AppCompatActivity).supportActionBar?.show()
-        } else {
-            (activity as AppCompatActivity).supportActionBar?.hide()
-        }
-    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        if (getShowStatusBarStatus()) {
+//            (activity as AppCompatActivity).supportActionBar?.show()
+//        } else {
+//            (activity as AppCompatActivity).supportActionBar?.hide()
+//        }
+//    }
 
     open fun getShowStatusBarStatus(): Boolean = true
 }

@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="@string/reader"
-        android:id="@+id/readerFragment"
-        android:icon="@drawable/ic_baseline_menu_book_24"
-        />
-    <item
         android:title="@string/about"
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_baseline_info_24"
