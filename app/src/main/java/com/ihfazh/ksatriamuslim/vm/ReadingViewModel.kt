@@ -93,5 +93,4 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
         tts.stop()
         tts.shutdown()
     }
-
 }

@@ -7,4 +7,5 @@
     <string name="background_image">Background Image</string>
     <string name="next_page">Next Page</string>
     <string name="prev_page">Prev Page</string>
+    <string name="back_to_home">Back To Home</string>
 </resources>
