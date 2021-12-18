@@ -17,7 +17,7 @@ class ReadingRepositoryImpl: ReadingRepository {
         "Suatu hari, Nabi Muhammad bersama pamannya pergi berdagang menuju Syam." ,
         "Ketika hendak sampai, disana ada Ahli Ibadah yang bernama Buhairo." ,
         "Buhairo memperhatikan kafilah dagang, kemudian memegang tangan Nabi Muhammad Seraya berkata" ,
-        "“Ini adalah tuannya manusia, ini adalah utusan Alloh, diutus sebagai rahmat semesta alam”" ,
+        "Orang ini adalah tuannya manusia, orang ini adalah utusan Alloh, dia diutus sebagai rahmat semesta alam”" ,
         "Orang orang bertanya “kok kamu bisa tahu?”" ,
         "Buhairo menjawab “Kalian ketika melewati Al ‘Aqobah semua pepohonan dan bebatuan sujud kepadanya." ,
         "Pepohonan dan bebatuan tidaklah sujud kecuali kepada nabi." ,
