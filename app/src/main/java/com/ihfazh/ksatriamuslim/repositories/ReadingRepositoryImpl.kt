@@ -21,7 +21,7 @@ class ReadingRepositoryImpl: ReadingRepository {
         "Orang orang bertanya “kok kamu bisa tahu?”" ,
         "Buhairo menjawab “Kalian ketika melewati Al ‘Aqobah semua pepohonan dan bebatuan sujud kepadanya." ,
         "Pepohonan dan bebatuan tidaklah sujud kecuali kepada nabi." ,
-        "Aku juga tahu karena ada cap kenabian di punggungnya seperti apel.”" ,
+        "Aku juga tahu karena ada cap kenabian di punggungnya yang bentuknya seperti buah apel.”" ,
         "Lalu buhairo mempersiapkan hidangan untuk kafilah dagang dan kemudian mengantarkannya." ,
         "Pada saat itu, Nabi Muhammad sedang menjaga unta." ,
         "Buhairo berkata: “panggil dia”. " ,

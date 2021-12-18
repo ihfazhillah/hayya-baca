@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
+import com.ihfazh.ksatriamuslim.domain.ReadingLayout
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,15 +44,30 @@ class ReadingFragment : BaseFragment() {
         }
     }
 
+    fun generateLayout(): ReadingLayout{
+        val layouts = listOf(
+            ReadingLayout(R.drawable.ic_artboard10, R.color.white),
+            ReadingLayout(R.drawable.ic_flayer_1, R.color.black),
+            ReadingLayout(R.drawable.ic_flayer_2, R.color.black),
+            ReadingLayout(R.drawable.ic_flayer_4, R.color.black),
+            ReadingLayout(R.drawable.ic_buku, R.color.black),
+        )
+
+        return layouts[(layouts.indices).random()]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val layout = generateLayout()
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
             lifecycleOwner = this@ReadingFragment
             mainText.movementMethod = LinkMovementMethod.getInstance()
+            backgroundDrawable = resources.getDrawable(layout.background, null)
+            textColor = resources.getColor(layout.color, null)
         }
 
         viewModel.bookId.value = args.bookId
