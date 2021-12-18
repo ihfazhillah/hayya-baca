@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
@@ -27,6 +28,7 @@ class ReadingFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val args: ReadingFragmentArgs by navArgs()
 
     private val viewModel: ReadingViewModel by viewModels()
     private lateinit var navigator: Navigator
@@ -48,11 +50,10 @@ class ReadingFragment : BaseFragment() {
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
             lifecycleOwner = this@ReadingFragment
-
             mainText.movementMethod = LinkMovementMethod.getInstance()
         }
 
-
+        viewModel.bookId.value = args.bookId
         return binding.root
     }
 

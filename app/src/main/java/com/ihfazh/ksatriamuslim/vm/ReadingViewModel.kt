@@ -22,6 +22,8 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val page: LiveData<Int>
         get() = _page
 
+    val bookId = MutableLiveData<String>()
+
     init {
         _page.value = 1
         tts = TextToSpeech(application.applicationContext, this)
@@ -31,7 +33,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val mainText = MediatorLiveData<SpannedString>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                val string = repositoryImpl.getText(page)
+                val string = repositoryImpl.getText(bookId.value!!, page)
 
                 val final = buildSpannedString {
                     string.split(" ").forEach {
@@ -58,7 +60,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val hasNext = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = repositoryImpl.hasNext(page)
+                value = repositoryImpl.hasNext(bookId.value!!, page)
             }
         }
     }
@@ -66,7 +68,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val hasPrev = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = repositoryImpl.hasPrev(page)
+                value = repositoryImpl.hasPrev(bookId.value!!, page)
             }
         }
     }
