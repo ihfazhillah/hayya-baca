@@ -10,7 +10,11 @@
         android:name="com.ihfazh.ksatriamuslim.fragments.ReadingFragment"
         android:label="fragment_reading"
         tools:layout="@layout/fragment_reading"
-        />
+        >
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/aboutFragment"
@@ -27,7 +31,9 @@
         >
         <action
             android:id="@+id/action_homeFragment_to_readerFragment"
-            app:destination="@id/readerFragment" />
+            app:destination="@id/readerFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
