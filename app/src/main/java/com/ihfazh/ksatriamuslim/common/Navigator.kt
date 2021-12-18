@@ -6,6 +6,6 @@ import com.ihfazh.ksatriamuslim.R
 
 class Navigator(val view: View?) {
     fun goHome(){
-        view?.findNavController()?.navigate(R.id.homeFragment)
+        view?.findNavController()?.navigateUp()
     }
 }
