@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/readerFragment"
+    android:id="@+id/main_navigation">
+
+    <fragment
+        android:id="@+id/readerFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ReadingFragment"
+        android:label="fragment_reading"
+        />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.AboutFragment"
+        android:label="fragment_about"
+        />
+
+</navigation>
