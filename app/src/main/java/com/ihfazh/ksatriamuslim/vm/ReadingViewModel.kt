@@ -1,33 +1,30 @@
 package com.ihfazh.ksatriamuslim.vm
 
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
+import android.app.Application
+import android.speech.tts.TextToSpeech
 import android.text.SpannedString
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.TextView
 import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
-import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.repositories.ReadingRepositoryImpl
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.log
+import java.util.*
 
-class ReadingViewModel: ViewModel() {
+class ReadingViewModel(application: Application): AndroidViewModel(application),
+    TextToSpeech.OnInitListener {
 
     private val repositoryImpl = ReadingRepositoryImpl()
+    private  val tts: TextToSpeech
 
-//    val page = MutableLiveData<Int>().apply {
-//        value = 1
-//    }
     private val _page = MutableLiveData<Int>()
     val page: LiveData<Int>
         get() = _page
 
     init {
         _page.value = 1
+        tts = TextToSpeech(application.applicationContext, this)
     }
 
 
@@ -42,6 +39,7 @@ class ReadingViewModel: ViewModel() {
                         setSpan(object: ClickableSpan(){
                             override fun onClick(p0: View) {
                                 println("clicked $it")
+                                tts.speak(it, TextToSpeech.QUEUE_FLUSH, null)
                             }
 
                             override fun updateDrawState(ds: TextPaint) {
@@ -75,20 +73,25 @@ class ReadingViewModel: ViewModel() {
 
 
     fun nextPage(){
-        println("next page")
         _page.value = (_page.value)?.inc() ?: 0
-        println(_page.value)
     }
 
     fun prevPage(){
-        print("prev page")
         _page.value = (_page.value)?.dec() ?: 0
-        println(_page.value)
-//        page.postValue(page.value!! - 1)
-//        println("prev page clicked")
-//        page.value = page.value?.let {
-//            it - 1
-//        }
+    }
+
+    override fun onInit(status: Int) {
+        if (status != TextToSpeech.ERROR){
+            val locale = Locale("id", "ID")
+            tts.language = locale
+            tts.setEngineByPackageName("com.google.android.tts")
+        }
+
+    }
+
+    fun clearTTS(){
+        tts.stop()
+        tts.shutdown()
     }
 
 }

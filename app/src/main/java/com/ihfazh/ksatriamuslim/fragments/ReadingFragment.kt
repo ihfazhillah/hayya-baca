@@ -70,4 +70,9 @@ class ReadingFragment : Fragment() {
                 }
             }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearTTS()
+    }
 }
