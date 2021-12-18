@@ -1,6 +1,15 @@
 package com.ihfazh.ksatriamuslim.vm
 
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
+import android.text.TextPaint
+import android.text.style.ClickableSpan
+import android.view.View
+import android.widget.TextView
+import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.repositories.ReadingRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,11 +31,27 @@ class ReadingViewModel: ViewModel() {
     }
 
 
-    val mainText = MediatorLiveData<String>().apply {
+    val mainText = MediatorLiveData<SpannedString>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
                 val string = repositoryImpl.getText(page)
-                value = string
+
+                val final = buildSpannedString {
+                    string.split(" ").forEach {
+                        append(it)
+                        setSpan(object: ClickableSpan(){
+                            override fun onClick(p0: View) {
+                                println("clicked $it")
+                            }
+
+                            override fun updateDrawState(ds: TextPaint) {
+                                ds.isUnderlineText = false
+                            }
+                        }, length - it.length, length, 0)
+                        append(" ")
+                    }
+                }
+                value =  final
             }
 
         }
