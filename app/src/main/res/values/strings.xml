@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reader">Reader</string>
     <string name="about">About</string>
+    <string name="background_image">Background Image</string>
+    <string name="next_page">Next Page</string>
+    <string name="prev_page">Prev Page</string>
 </resources>
