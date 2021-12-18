@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_arrow_circle_left_solid.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_left_solid_off.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_arrow_circle_right_solid.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_right_solid_off.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/drawable/left_solid_button.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/next_button.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/prev_button.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/fragment_reading.xml" value="0.3567708333333333" />
