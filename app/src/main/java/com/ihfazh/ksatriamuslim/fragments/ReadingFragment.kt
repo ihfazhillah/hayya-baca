@@ -42,6 +42,7 @@ class ReadingFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
+            lifecycleOwner = this@ReadingFragment
         }
         return binding.root
     }

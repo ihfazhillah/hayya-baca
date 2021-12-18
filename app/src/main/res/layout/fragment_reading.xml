@@ -59,9 +59,12 @@
             android:layout_marginBottom="25dp"
             android:background="@null"
             android:clickable="@{vm.hasNext}"
+            android:enabled="@{vm.hasNext}"
+            android:onClick="@{() -> vm.nextPage()}"
             android:contentDescription="@string/next_page" />
 
         <ImageButton
+            android:enabled="@{vm.hasPrev}"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/prev_icon"
@@ -74,13 +77,14 @@
             android:layout_marginStart="30dp"
             android:layout_marginBottom="25dp"
             android:clickable="@{vm.hasPrev}"
+            android:onClick="@{() -> vm.prevPage()}"
             android:contentDescription="@string/prev_page" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1"
-            android:text="@{vm.page.toString()}"
+            android:text='@{String.valueOf(vm.page)}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

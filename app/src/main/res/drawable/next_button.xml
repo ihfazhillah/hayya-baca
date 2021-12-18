@@ -11,6 +11,13 @@
         android:drawable="@drawable/ic_arrow_circle_right_solid"
         />
     <item android:state_pressed="true"
+        android:state_active="true"
+        android:drawable="@drawable/ic_arrow_circle_right_solid_off"
+        />
+    <item android:state_selected="false"
+        android:drawable="@drawable/ic_arrow_circle_right_solid"
+        />
+    <item android:state_selected="true"
         android:drawable="@drawable/ic_arrow_circle_right_solid_off"
         />
 
