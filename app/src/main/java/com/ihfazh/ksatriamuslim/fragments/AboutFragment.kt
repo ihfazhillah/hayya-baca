@@ -5,8 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
+import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.Client
+import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
+import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +48,25 @@ class AboutFragment : BaseFragment() {
     }
 
     override fun getShowStatusBarStatus(): Boolean = true
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val btnUpload = view.findViewById<Button>(R.id.updateDataBtn)
+
+        val local = AppDatabase.getDB(requireContext())
+        val remote = Client.getService()
+
+        val bookRepository = BookRepositoryImpl(local, remote)
+        val backgroundRepository = ReadingBackgroundRepositoryImpl(local, remote)
+        btnUpload.setOnClickListener {
+            lifecycleScope.launch {
+                bookRepository.getBooksSummary(forceFetch = true)
+                backgroundRepository.getBackgrounds(forceFetch = true)
+                findNavController().navigateUp()
+            }
+        }
+    }
 
     companion object {
         /**

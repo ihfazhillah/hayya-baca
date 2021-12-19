@@ -18,10 +18,10 @@ class ReadingBackgroundRepositoryImpl(
         return backgrounds?.get((backgrounds.indices).random())
     }
 
-    override suspend fun getBackgrounds(): List<Background>? {
+    override suspend fun getBackgrounds(forceFetch: Boolean): List<Background>? {
         val localBackgrounds = local.backgroundDao().getAll()
 
-        if (localBackgrounds.isEmpty()){
+        if (forceFetch || localBackgrounds.isEmpty()){
             val index = remote.getBackgroundIndex()
             val backgroundDetails: List<BackgroundResponse>? = index.urls?.let{ urls ->
                 urls.map{

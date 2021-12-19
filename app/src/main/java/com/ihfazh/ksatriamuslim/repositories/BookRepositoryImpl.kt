@@ -13,9 +13,9 @@ class BookRepositoryImpl(
     private val local: AppDatabase,
     private val remote: KsatriaMuslimService
 ): BookRepository {
-    override suspend fun getBooksSummary(): List<BookSummary> {
+    override suspend fun getBooksSummary(forceFetch: Boolean): List<BookSummary> {
         val localBooks = local.bookDao().getAll()
-        if (localBooks.isEmpty()){
+        if (forceFetch || localBooks.isEmpty()){
             val indexBooks = remote.getBooks()
 
             val bookSummaries = indexBooks.urls?.map {  url ->
