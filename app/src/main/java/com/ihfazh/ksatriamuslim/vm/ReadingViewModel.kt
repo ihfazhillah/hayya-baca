@@ -10,6 +10,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
+import androidx.navigation.findNavController
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
@@ -17,6 +18,7 @@ import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
+import com.ihfazh.ksatriamuslim.repositories.KoinRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import kotlinx.coroutines.launch
 import java.util.*
@@ -45,6 +47,8 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     private val repository: ReadingBackgroundRepositoryImpl
 
+    private val koinRepository = KoinRepositoryImpl(getApplication())
+
     init {
         _page.value = 1
         tts = TextToSpeech(application.applicationContext, this)
@@ -64,8 +68,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
                 // load image
                 val imageUrl = "https://ksatriamuslim.com/${bg.src}"
-                val request = ImageRequest.Builder(application.applicationContext)
-                    .data(imageUrl)
+                val request = ImageRequest.Builder(application.applicationContext).data(imageUrl)
                     .fallback(R.drawable.ic_artboard8)
                     .build()
 
@@ -80,30 +83,35 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 }
 
 
+    val isFinish = MutableLiveData(false)
+
     val mainText = MediatorLiveData<SpannedString>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
                 val string = bookRepository.getPage(bookId.value!!, page)
+                if (string != null) {
+                    val final = buildSpannedString {
+                        string.split(" ").forEach {
+                            append(it)
+                            setSpan(object: ClickableSpan(){
+                                override fun onClick(p0: View) {
+                                    println("clicked $it")
+                                    tts.speak(it, TextToSpeech.QUEUE_FLUSH, null)
+                                }
 
-                val final = buildSpannedString {
-                    string.split(" ").forEach {
-                        append(it)
-                        setSpan(object: ClickableSpan(){
-                            override fun onClick(p0: View) {
-                                println("clicked $it")
-                                tts.speak(it, TextToSpeech.QUEUE_FLUSH, null)
-                            }
-
-                            override fun updateDrawState(ds: TextPaint) {
-                                ds.isUnderlineText = false
-                            }
-                        }, length - it.length, length, 0)
-                        append(" ")
+                                override fun updateDrawState(ds: TextPaint) {
+                                    ds.isUnderlineText = false
+                                }
+                            }, length - it.length, length, 0)
+                            append(" ")
+                        }
                     }
+                    value =  final
+                } else {
+                    koinRepository.increaseMine()
+                    isFinish.value = true
                 }
-                value =  final
             }
-
         }
     }
 

@@ -76,8 +76,6 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="25dp"
             android:background="@null"
-            android:clickable="@{vm.hasNext}"
-            android:enabled="@{vm.hasNext}"
             android:onClick="@{() -> vm.nextPage()}"
             android:contentDescription="@string/next_page" />
 

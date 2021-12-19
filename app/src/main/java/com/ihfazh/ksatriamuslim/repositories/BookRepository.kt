@@ -6,7 +6,7 @@ import com.ihfazh.ksatriamuslim.domain.BookSummary
 interface BookRepository {
     suspend fun getBooksSummary(): List<BookSummary>
     suspend fun getBook(id: String): Book
-    suspend fun getPage(id: String, page: Int): String
+    suspend fun getPage(id: String, page: Int): String?
     suspend fun hasNext(id: String, page: Int): Boolean
     suspend fun hasPrev(id: String, page: Int): Boolean
 }

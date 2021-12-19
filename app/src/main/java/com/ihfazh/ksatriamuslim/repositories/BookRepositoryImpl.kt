@@ -39,9 +39,9 @@ class BookRepositoryImpl(
         return local.bookDao().getById(id).toBook()
     }
 
-    override suspend fun getPage(id: String, page: Int): String {
+    override suspend fun getPage(id: String, page: Int): String? {
         val book = getBook(id)
-        return book.pages[page - 1]
+        return book.pages.getOrNull(page - 1)
     }
 
     override suspend fun hasNext(id: String, page: Int): Boolean {

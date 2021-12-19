@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
@@ -50,34 +51,15 @@ class ReadingFragment : BaseFragment() {
         }
     }
 
-    fun generateLayout(): ReadingLayout{
-        val layouts = listOf(
-            ReadingLayout(R.drawable.ic_artboard10, R.color.white),
-            ReadingLayout(R.drawable.ic_flayer_1, R.color.black),
-            ReadingLayout(R.drawable.ic_flayer_2, R.color.black),
-            ReadingLayout(R.drawable.ic_flayer_4, R.color.black),
-            ReadingLayout(R.drawable.ic_buku, R.color.black),
-            ReadingLayout(R.drawable.ic_artboard9, R.color.white),
-            ReadingLayout(R.drawable.ic_artboard8, R.color.white),
-            ReadingLayout(R.drawable.ic_artboard7, R.color.white),
-        )
-
-
-        return layouts[(layouts.indices).random()]
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val layout = generateLayout()
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
             lifecycleOwner = this@ReadingFragment
             mainText.movementMethod = LinkMovementMethod.getInstance()
-            backgroundDrawable = ResourcesCompat.getDrawable(resources, layout.background, null)
-            textColor = resources.getColor(layout.color, null)
         }
 
         viewModel.bookId.value = args.bookId
@@ -86,14 +68,14 @@ class ReadingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigator = Navigator(view)
+        navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
-        lifecycleScope.launch{
-            val service = Client.getService()
-            val local = AppDatabase.getDB(requireContext())
-            val repository = ReadingBackgroundRepositoryImpl(local, service)
-            println("get background object")
-            println(repository.getBackground())
+
+        // handle up to home
+        viewModel.isFinish.observe(viewLifecycleOwner){ finished ->
+            if (finished){
+                findNavController().navigateUp()
+            }
         }
     }
 
@@ -121,7 +103,7 @@ class ReadingFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         viewModel.clearTTS()
+        super.onDestroy()
     }
 }
