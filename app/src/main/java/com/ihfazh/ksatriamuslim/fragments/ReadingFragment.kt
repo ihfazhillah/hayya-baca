@@ -15,6 +15,7 @@ import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.domain.ReadingLayout
+import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
@@ -61,12 +62,6 @@ class ReadingFragment : BaseFragment() {
             ReadingLayout(R.drawable.ic_artboard7, R.color.white),
         )
 
-        lifecycleScope.launch{
-            val service = Client.getService()
-            val repository = ReadingBackgroundRepositoryImpl(service)
-            println("get background object")
-            println(repository.getBackground())
-        }
 
         return layouts[(layouts.indices).random()]
     }
@@ -93,6 +88,13 @@ class ReadingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         navigator = Navigator(view)
         binding.nav = navigator
+        lifecycleScope.launch{
+            val service = Client.getService()
+            val local = AppDatabase.getDB(requireContext())
+            val repository = ReadingBackgroundRepositoryImpl(local, service)
+            println("get background object")
+            println(repository.getBackground())
+        }
     }
 
 
