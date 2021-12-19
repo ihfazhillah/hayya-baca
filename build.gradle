@@ -6,6 +6,7 @@ buildscript {
         nav_version = "2.3.5"
         lifecycle_version = "2.4.0"
         recycler_view_version = "1.2.1"
+        room_version = "2.4.0"
 
     }
     repositories {
