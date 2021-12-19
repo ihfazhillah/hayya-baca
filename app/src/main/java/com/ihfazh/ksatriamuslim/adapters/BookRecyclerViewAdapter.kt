@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.ihfazh.ksatriamuslim.databinding.BookItemBinding
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.domain.BookSummary
@@ -16,6 +17,9 @@ class BookViewHolder(private val binding: BookItemBinding): RecyclerView.ViewHol
             val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
             it.findNavController().navigate(action)
         }
+
+        val url = "https://ksatriamuslim.com/${book.thumbnailSrc}"
+        binding.imageThumbnail.load(url)
     }
 }
 
