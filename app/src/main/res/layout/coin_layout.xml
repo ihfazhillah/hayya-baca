@@ -9,7 +9,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:rotation="-10"
+        android:rotationX="-30"
+        android:rotationY="-5">
 
         <ImageView
             android:id="@+id/coinIcon"
@@ -26,16 +30,15 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="10"
-            android:text='@{coin.balance + ""}'
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/playtime"
+            android:text='@{coin.balance + ""}'
             android:textColor="#b45e28"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@id/coinIcon"
             app:layout_constraintEnd_toStartOf="@id/coinIcon"
             app:layout_constraintTop_toTopOf="@id/coinIcon"
-            android:layout_marginEnd="5dp"
-            />
+            tools:text="10" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
