@@ -6,10 +6,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.ksatriamuslim.databinding.BookItemBinding
 import com.ihfazh.ksatriamuslim.domain.Book
+import com.ihfazh.ksatriamuslim.domain.BookSummary
 import com.ihfazh.ksatriamuslim.fragments.HomeFragmentDirections
 
 class BookViewHolder(private val binding: BookItemBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(book: Book) {
+    fun bind(book: BookSummary) {
         binding.title.text = book.title
         binding.root.setOnClickListener{
             val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
@@ -19,7 +20,7 @@ class BookViewHolder(private val binding: BookItemBinding): RecyclerView.ViewHol
 }
 
 class BookRecyclerViewAdapter: RecyclerView.Adapter<BookViewHolder>() {
-    private val arrayList = arrayListOf<Book>()
+    private val arrayList = arrayListOf<BookSummary>()
     lateinit var binding: BookItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -36,7 +37,7 @@ class BookRecyclerViewAdapter: RecyclerView.Adapter<BookViewHolder>() {
     override fun getItemCount(): Int {
         return arrayList.size }
 
-    fun setBooks(books: List<Book>){
+    fun setBooks(books: List<BookSummary>){
         arrayList.clear()
         arrayList.addAll(books)
         notifyDataSetChanged()
