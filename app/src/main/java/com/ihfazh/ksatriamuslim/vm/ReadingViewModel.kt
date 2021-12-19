@@ -16,15 +16,18 @@ import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
+import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.ReadingRepositoryImpl
 import kotlinx.coroutines.launch
 import java.util.*
 
 class ReadingViewModel(application: Application): AndroidViewModel(application),
     TextToSpeech.OnInitListener {
 
-    private val repositoryImpl = ReadingRepositoryImpl()
+    private val local = AppDatabase.getDB(application.applicationContext)
+    private val remote = Client.getService()
+    private val bookRepository = BookRepositoryImpl(local, remote)
+
     private  val tts: TextToSpeech
 
     private val _page = MutableLiveData<Int>()
@@ -80,7 +83,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val mainText = MediatorLiveData<SpannedString>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                val string = repositoryImpl.getText(bookId.value!!, page)
+                val string = bookRepository.getPage(bookId.value!!, page)
 
                 val final = buildSpannedString {
                     string.split(" ").forEach {
@@ -107,7 +110,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val hasNext = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = repositoryImpl.hasNext(bookId.value!!, page)
+                value = bookRepository.hasNext(bookId.value!!, page)
             }
         }
     }
@@ -115,7 +118,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     val hasPrev = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = repositoryImpl.hasPrev(bookId.value!!, page)
+                value = bookRepository.hasPrev(bookId.value!!, page)
             }
         }
     }
