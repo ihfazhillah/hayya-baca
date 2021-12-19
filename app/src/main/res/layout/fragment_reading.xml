@@ -8,6 +8,7 @@
     <data>
         <import type="kotlin.jvm.functions.Function0"/>
         <import type="kotlin.Unit"/>
+        <import type="android.view.View"/>
 
         <variable
             name="vm"
@@ -38,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/background_image"
-            android:src="@{backgroundDrawable}"
+            android:src="@{vm.backgroundImage}"
             android:scaleType="fitXY"
             android:contentDescription="@string/background_image" />
 
@@ -58,7 +59,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/main_text"
-            android:textColor="@{textColor}"
+            android:textColor="@{vm.textColor}"
             android:bufferType="spannable"
             android:shadowColor="@android:color/darker_gray"
             android:shadowRadius="5"
@@ -107,7 +108,7 @@
             android:layout_marginBottom="25dp"
             android:fontFamily="@font/playtime"
             android:textSize="20sp"
-            android:textColor="@{textColor}"
+            android:textColor="@{vm.textColor}"
             android:id="@+id/page_number"
             />
 
@@ -124,6 +125,18 @@
             android:layout_marginStart="30dp"
             android:onClick="@{() -> nav.goHome()}"
             android:contentDescription="@string/back_to_home" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_artboard9"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

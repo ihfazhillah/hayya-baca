@@ -1,6 +1,8 @@
 package com.ihfazh.ksatriamuslim.vm
 
 import android.app.Application
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.speech.tts.TextToSpeech
 import android.text.SpannedString
 import android.text.TextPaint
@@ -8,6 +10,13 @@ import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
+import coil.imageLoader
+import coil.request.ImageRequest
+import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.domain.Background
+import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.Client
+import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingRepositoryImpl
 import kotlinx.coroutines.launch
 import java.util.*
@@ -24,10 +33,48 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     val bookId = MutableLiveData<String>()
 
+    val loading = MutableLiveData(false)
+    val background = MutableLiveData<Background?>()
+
+    val textColor = MutableLiveData(Color.BLACK)
+    val backgroundImage = MutableLiveData<Drawable>()
+
+
+    private val repository: ReadingBackgroundRepositoryImpl
+
     init {
         _page.value = 1
         tts = TextToSpeech(application.applicationContext, this)
+
+        // add background repository
+        val remote = Client.getService()
+        val local = AppDatabase.getDB(application.applicationContext)
+        repository = ReadingBackgroundRepositoryImpl(local, remote)
+        loading.value = true
+
+        viewModelScope.launch {
+            val bg = repository.getBackground()
+            background.value = bg
+
+            if (bg != null){
+                textColor.value = Color.parseColor(bg.text_color)
+
+                // load image
+                val imageUrl = "https://ksatriamuslim.com/${bg.src}"
+                val request = ImageRequest.Builder(application.applicationContext)
+                    .data(imageUrl)
+                    .fallback(R.drawable.ic_artboard8)
+                    .build()
+
+                val drawable = application.applicationContext.imageLoader.execute(request).drawable
+                drawable?.also {
+                    backgroundImage.value = it
+                }
+
+                loading.value = false
+        }
     }
+}
 
 
     val mainText = MediatorLiveData<SpannedString>().apply {
