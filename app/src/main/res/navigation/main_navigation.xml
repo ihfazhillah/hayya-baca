@@ -33,7 +33,7 @@
             android:id="@+id/action_homeFragment_to_readerFragment"
             app:destination="@id/readerFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
 
 </navigation>
