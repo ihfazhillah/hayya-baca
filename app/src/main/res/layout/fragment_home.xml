@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.ihfazh.ksatriamuslim.vm.HomeViewModel" />
+        <variable
+            name="koinViewModel"
+            type="com.ihfazh.ksatriamuslim.vm.KoinViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,6 +31,17 @@
             tools:layoutManager="GridLayoutManager"
             tools:listitem="@layout/book_item"
             tools:spanCount="3" />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            layout="@layout/coin_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:coin="@{koinViewModel.koin}"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

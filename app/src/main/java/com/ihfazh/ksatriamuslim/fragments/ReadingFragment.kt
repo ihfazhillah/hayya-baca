@@ -6,21 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
-import com.ihfazh.ksatriamuslim.domain.ReadingLayout
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.Client
-import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +35,8 @@ class ReadingFragment : BaseFragment() {
     private val args: ReadingFragmentArgs by navArgs()
 
     private val viewModel: ReadingViewModel by viewModels()
+    private val koinViewModel: KoinViewModel by activityViewModels()
+
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
 
@@ -74,6 +71,7 @@ class ReadingFragment : BaseFragment() {
         // handle up to home
         viewModel.isFinish.observe(viewLifecycleOwner){ finished ->
             if (finished){
+                koinViewModel.increaseMyCoin()
                 findNavController().navigateUp()
             }
         }

@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
+import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +30,8 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: HomeViewModel by viewModels()
+    private val koinViewModel: KoinViewModel by activityViewModels()
+
     lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,8 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
+            koinViewModel = this@HomeFragment.koinViewModel
         }
 
         val rvAdapter = BookRecyclerViewAdapter()

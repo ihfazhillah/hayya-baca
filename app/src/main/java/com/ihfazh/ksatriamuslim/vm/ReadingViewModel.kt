@@ -10,7 +10,6 @@ import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
-import androidx.navigation.findNavController
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
@@ -18,7 +17,6 @@ import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.KoinRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import kotlinx.coroutines.launch
 import java.util.*
@@ -47,7 +45,6 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     private val repository: ReadingBackgroundRepositoryImpl
 
-    private val koinRepository = KoinRepositoryImpl(getApplication())
 
     init {
         _page.value = 1
@@ -108,7 +105,6 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
                     }
                     value =  final
                 } else {
-                    koinRepository.increaseMine()
                     isFinish.value = true
                 }
             }
