@@ -1,5 +1,7 @@
 package com.ihfazh.ksatriamuslim.repositories
 
+import com.ihfazh.ksatriamuslim.domain.Background
+
 class ReadingRepositoryImpl: ReadingRepository {
     private val pages = listOf(
         "Nabi Muhammad",
@@ -52,5 +54,9 @@ class ReadingRepositoryImpl: ReadingRepository {
 
     override suspend fun hasPrev(bookId: String, page: Int): Boolean {
         return page > 1
+    }
+
+    override suspend fun getBackground(): Background {
+        TODO("Not yet implemented")
     }
 }

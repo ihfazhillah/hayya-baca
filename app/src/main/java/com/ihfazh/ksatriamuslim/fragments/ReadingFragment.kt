@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.domain.ReadingLayout
+import com.ihfazh.ksatriamuslim.remote.Client
+import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +60,13 @@ class ReadingFragment : BaseFragment() {
             ReadingLayout(R.drawable.ic_artboard8, R.color.white),
             ReadingLayout(R.drawable.ic_artboard7, R.color.white),
         )
+
+        lifecycleScope.launch{
+            val service = Client.getService()
+            val repository = ReadingBackgroundRepositoryImpl(service)
+            println("get background object")
+            println(repository.getBackground())
+        }
 
         return layouts[(layouts.indices).random()]
     }
