@@ -2,9 +2,11 @@ package com.ihfazh.ksatriamuslim.repositories
 
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.local.data.BackgroundEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
 import com.ihfazh.ksatriamuslim.remote.data.BackgroundResponse
+import com.ihfazh.ksatriamuslim.toBackground
+import com.ihfazh.ksatriamuslim.toBackgroundEntity
+import com.ihfazh.ksatriamuslim.toBackgrounds
 
 class ReadingBackgroundRepositoryImpl(
     private val local: AppDatabase,
@@ -46,22 +48,3 @@ class ReadingBackgroundRepositoryImpl(
 }
 
 
-private fun BackgroundResponse.toBackgroundEntity(): BackgroundEntity {
-    val id = title.split(" ").joinToString("-")
-    return BackgroundEntity(id, title, backgroundImage, textColor)
-}
-
-private fun BackgroundResponse.toBackground(): Background {
-    val id = title.split(" ").joinToString("-")
-    return Background(
-        id = id,
-        title = title,
-        src = backgroundImage,
-        text_color = textColor
-    )
-}
-
-fun List<BackgroundEntity>.toBackgrounds(): List<Background> =
-    this.map {
-        Background(it.id, it.title, it.src, it.text_color)
-    }

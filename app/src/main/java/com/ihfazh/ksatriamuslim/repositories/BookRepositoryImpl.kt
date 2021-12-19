@@ -3,10 +3,11 @@ package com.ihfazh.ksatriamuslim.repositories
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.domain.BookSummary
 import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.local.data.BookEntity
-import com.ihfazh.ksatriamuslim.local.data.BookSummaryEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
-import com.ihfazh.ksatriamuslim.remote.data.BookDetailResponse
+import com.ihfazh.ksatriamuslim.toBook
+import com.ihfazh.ksatriamuslim.toBookEntity
+import com.ihfazh.ksatriamuslim.toBookSummaries
+import com.ihfazh.ksatriamuslim.toBookSummary
 
 class BookRepositoryImpl(
     private val local: AppDatabase,
@@ -39,31 +40,3 @@ class BookRepositoryImpl(
     }
 }
 
-private fun BookEntity.toBook(): Book {
-    return Book(id, pages.split("+=+=+"))
-}
-
-private fun BookDetailResponse.toBookSummary(): BookSummary {
-    val id = title.lowercase().replace(" ", "-")
-
-    return BookSummary(
-        id, title, thumbnail
-    )
-
-}
-
-private fun BookDetailResponse.toBookEntity(): BookEntity {
-    val pages = content.map{
-        it.pageText
-    }
-        .joinToString("+=+=+")
-    val id = title.lowercase().replace(" ", "-")
-    return BookEntity(
-        id, title, thumbnail, pages
-    )
-}
-
-private fun List<BookSummaryEntity>.toBookSummaries(): List<BookSummary> =
-    map {
-        BookSummary(it.id, it.title, it.thumbnailSrc)
-    }
