@@ -57,6 +57,7 @@ class ReadingFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = this@ReadingFragment
             mainText.movementMethod = LinkMovementMethod.getInstance()
+            koinViewModel = this@ReadingFragment.koinViewModel
         }
 
         viewModel.bookId.value = args.bookId

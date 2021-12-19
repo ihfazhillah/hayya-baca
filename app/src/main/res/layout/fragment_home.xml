@@ -33,15 +33,17 @@
             tools:spanCount="3" />
 
         <include
+            layout="@layout/coin_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            layout="@layout/coin_layout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:rotation="0"
+            android:rotationX="0"
+            android:rotationY="0"
             app:coin="@{koinViewModel.koin}"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
