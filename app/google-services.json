@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "440202219688",
+    "project_id": "ksatriamuslim-fb899",
+    "storage_bucket": "ksatriamuslim-fb899.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440202219688:android:58c98428bdc15f79bef29d",
+        "android_client_info": {
+          "package_name": "com.ihfazh.ksatriamuslim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440202219688-115vlvbfeen3b10ip8hj1gtn3rk8l4ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg5C4DrGg8IUzj9ua_4jJD2eili5Ie1w0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440202219688-115vlvbfeen3b10ip8hj1gtn3rk8l4ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
