@@ -9,12 +9,21 @@ import com.ihfazh.ksatriamuslim.local.data.BookSummaryEntity
 import com.ihfazh.ksatriamuslim.remote.data.BackgroundResponse
 import com.ihfazh.ksatriamuslim.remote.data.BookDetailResponse
 
+
+fun getIdFromPath(path: String): String{
+    val files = path.split("/")
+    val fileName = files.last()
+
+    return fileName.replace(".json", "")
+}
+
+
 fun BookEntity.toBook(): Book {
     return Book(id, pages.split("+=+=+"))
 }
 
-fun BookDetailResponse.toBookSummary(): BookSummary {
-    val id = title.lowercase().replace(" ", "-")
+fun BookDetailResponse.toBookSummary(path: String): BookSummary {
+    val id = getIdFromPath(path)
 
     return BookSummary(
         id, title, thumbnail
@@ -22,12 +31,14 @@ fun BookDetailResponse.toBookSummary(): BookSummary {
 
 }
 
-fun BookDetailResponse.toBookEntity(): BookEntity {
+fun BookDetailResponse.toBookEntity(path: String): BookEntity {
     val pages = content.map{
         it.pageText
     }
         .joinToString("+=+=+")
-    val id = title.lowercase().replace(" ", "-")
+
+    val id = getIdFromPath(path)
+
     return BookEntity(
         id, title, thumbnail, pages
     )
