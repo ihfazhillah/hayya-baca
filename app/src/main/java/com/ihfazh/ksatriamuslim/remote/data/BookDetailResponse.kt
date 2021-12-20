@@ -10,6 +10,9 @@ data class BookDetailResponse(
 	@field:SerializedName("title")
 	val title: String,
 
+	@field:SerializedName("ref")
+	val ref: String,
+
 	@field:SerializedName("content")
 	val content: List<ContentItem>
 )
