@@ -22,10 +22,10 @@ class BookRepositoryImpl(
                 val detailBook = remote.getBookDetail(url)
 
                 // cache to db
-                val bookEntity = detailBook.toBookEntity()
+                val bookEntity = detailBook.toBookEntity(url)
                 local.bookDao().insert(bookEntity)
 
-                val summaryBook: BookSummary = detailBook.toBookSummary()
+                val summaryBook: BookSummary = detailBook.toBookSummary(url)
                 summaryBook
             } ?: emptyList()
 
