@@ -8,6 +8,7 @@ import android.text.SpannedString
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
 import coil.imageLoader
@@ -61,7 +62,6 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
             background.value = bg
 
             if (bg != null){
-                textColor.value = Color.parseColor(bg.text_color)
 
                 // load image
                 val imageUrl = "https://ksatriamuslim.com/${bg.src}"
@@ -70,8 +70,15 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
                     .build()
 
                 val drawable = application.applicationContext.imageLoader.execute(request).drawable
-                drawable?.also {
-                    backgroundImage.value = it
+
+                if (drawable != null){
+                    drawable.also {
+                        backgroundImage.value = it
+                        textColor.value = Color.parseColor(bg.text_color)
+                    }
+                } else {
+                    backgroundImage.value = AppCompatResources.getDrawable(application, R.drawable.ic_artboard8)
+                    textColor.value = Color.parseColor("#ffffff")
                 }
 
                 loading.value = false
