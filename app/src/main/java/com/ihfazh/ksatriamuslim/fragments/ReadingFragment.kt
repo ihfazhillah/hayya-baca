@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.animation.Animator
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -60,6 +61,24 @@ class ReadingFragment : BaseFragment() {
             lifecycleOwner = this@ReadingFragment
             mainText.movementMethod = LinkMovementMethod.getInstance()
             koinViewModel = this@ReadingFragment.koinViewModel
+
+            loading.addAnimatorListener(object: Animator.AnimatorListener{
+                override fun onAnimationStart(p0: Animator?) {
+                    viewModel.animationRunning.value = true
+                }
+
+                override fun onAnimationEnd(p0: Animator?) {
+                    viewModel.animationRunning.value = false
+                }
+
+                override fun onAnimationCancel(p0: Animator?) {
+                    viewModel.animationRunning.value = false
+                }
+
+                override fun onAnimationRepeat(p0: Animator?) {
+                    viewModel.animationRunning.value = false
+                }
+            })
         }
 
         viewModel.bookId.value = args.bookId

@@ -135,10 +135,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.loading ? View.VISIBLE : View.INVISIBLE}"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             android:scaleType="fitXY"
+            android:id="@+id/loading"
             />
 
 

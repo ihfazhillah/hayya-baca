@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.animation.Animator
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
