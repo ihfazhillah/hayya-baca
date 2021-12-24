@@ -127,17 +127,20 @@
             android:onClick="@{() -> nav.goHome()}"
             android:contentDescription="@string/back_to_home" />
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_artboard9"
-            android:scaleType="fitXY"
+            app:lottie_rawRes="@raw/book_loader"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
-        />
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:scaleType="fitXY"
+            />
+
 
         <include
             layout="@layout/coin_layout"
