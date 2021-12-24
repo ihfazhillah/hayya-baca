@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
@@ -39,6 +41,7 @@ class ReadingFragment : BaseFragment() {
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +72,19 @@ class ReadingFragment : BaseFragment() {
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
 
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.dapat_koin_1).apply {
+            setOnCompletionListener {
+                it.release()
+            }
+        }
+
         // handle up to home
         viewModel.isFinish.observe(viewLifecycleOwner){ finished ->
             if (finished){
                 koinViewModel.increaseMyCoin()
+                mediaPlayer.start()
+
+                // todo navigate to dapat coin animation
                 findNavController().navigateUp()
             }
         }
