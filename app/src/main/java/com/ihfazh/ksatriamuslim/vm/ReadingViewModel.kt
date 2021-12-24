@@ -23,11 +23,6 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-// TODO: move it
-sealed class MergedData
-data class BackgroundLoadingData(val isLoading: Boolean): MergedData()
-data class AnimationRunningData(val isLoading: Boolean): MergedData()
-
 class ReadingViewModel(application: Application): AndroidViewModel(application),
     TextToSpeech.OnInitListener {
 
@@ -56,30 +51,30 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
         var _backgroundLoading = true
         var _animationLoading = true
-        var final = true
+        var finalLoading: Boolean
 
         addSource(animationRunning){
             _animationLoading = it
-            final = _animationLoading && _backgroundLoading
+            finalLoading = _animationLoading && _backgroundLoading
 
-            if (!final){
+            if (!finalLoading){
                 removeSource(animationRunning)
                 removeSource(backgroundLoading)
             }
 
-            value = final
+            value = finalLoading
         }
 
         addSource(backgroundLoading){
             _backgroundLoading = true
-            final = _animationLoading && _backgroundLoading
+            finalLoading = _animationLoading && _backgroundLoading
 
-            if (!final){
+            if (!finalLoading){
                 removeSource(animationRunning)
                 removeSource(backgroundLoading)
             }
 
-            value = final
+            value = finalLoading
         }
     }
 
