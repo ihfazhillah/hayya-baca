@@ -12,6 +12,7 @@ buildscript {
         firebase_version = "29.0.3"
         firebase_crashlytics_gradle_plugin_version = "2.8.1"
         google_service_plugin_version = "4.3.10"
+        lottie_version = "4.2.2"
 
     }
     repositories {
