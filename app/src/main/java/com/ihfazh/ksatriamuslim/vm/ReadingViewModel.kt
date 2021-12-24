@@ -22,6 +22,12 @@ import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import kotlinx.coroutines.launch
 import java.util.*
 
+
+// TODO: move it
+sealed class MergedData
+data class BackgroundLoadingData(val isLoading: Boolean): MergedData()
+data class AnimationRunningData(val isLoading: Boolean): MergedData()
+
 class ReadingViewModel(application: Application): AndroidViewModel(application),
     TextToSpeech.OnInitListener {
 
@@ -37,11 +43,46 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     val bookId = MutableLiveData<String>()
 
-    val loading = MutableLiveData(false)
     val background = MutableLiveData<Background?>()
 
     val textColor = MutableLiveData(Color.BLACK)
     val backgroundImage = MutableLiveData<Drawable>()
+
+
+    private val backgroundLoading = MutableLiveData(true)
+    val animationRunning = MutableLiveData(true)
+
+    val loading = MediatorLiveData<Boolean>().apply {
+
+        var _backgroundLoading = true
+        var _animationLoading = true
+        var final = true
+
+        addSource(animationRunning){
+            _animationLoading = it
+            final = _animationLoading && _backgroundLoading
+
+            if (!final){
+                removeSource(animationRunning)
+                removeSource(backgroundLoading)
+            }
+
+            value = final
+        }
+
+        addSource(backgroundLoading){
+            _backgroundLoading = true
+            final = _animationLoading && _backgroundLoading
+
+            if (!final){
+                removeSource(animationRunning)
+                removeSource(backgroundLoading)
+            }
+
+            value = final
+        }
+    }
+
 
 
     private val repository: ReadingBackgroundRepositoryImpl
@@ -55,7 +96,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
         val remote = Client.getService()
         val local = AppDatabase.getDB(application.applicationContext)
         repository = ReadingBackgroundRepositoryImpl(local, remote)
-        loading.value = true
+        backgroundLoading.value = true
 
         viewModelScope.launch {
             val bg = repository.getBackground()
@@ -81,7 +122,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
                     textColor.value = Color.parseColor("#ffffff")
                 }
 
-                loading.value = false
+                backgroundLoading.value = false
         }
     }
 }
