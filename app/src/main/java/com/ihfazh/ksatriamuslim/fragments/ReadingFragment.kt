@@ -41,7 +41,6 @@ class ReadingFragment : BaseFragment() {
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
-    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,20 +71,11 @@ class ReadingFragment : BaseFragment() {
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
 
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.dapat_koin_1).apply {
-            setOnCompletionListener {
-                it.release()
-            }
-        }
-
-        // handle up to home
         viewModel.isFinish.observe(viewLifecycleOwner){ finished ->
             if (finished){
                 koinViewModel.increaseMyCoin()
-                mediaPlayer.start()
-
-                // todo navigate to dapat coin animation
-                findNavController().navigateUp()
+                val action = ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
+                findNavController().navigate(action)
             }
         }
     }
