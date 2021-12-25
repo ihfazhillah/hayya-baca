@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentCoinCongratulateBinding
+import com.ihfazh.ksatriamuslim.repositories.CongratulateAudioRepositoryImpl
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,12 +63,19 @@ class CoinCongratulateFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.dapat_koin_1).apply {
-            setOnCompletionListener {
-                it.release()
+
+        val audioRepository = CongratulateAudioRepositoryImpl()
+
+        lifecycleScope.launchWhenCreated {
+            mediaPlayer = MediaPlayer.create(requireContext(), audioRepository.getRandomAudio()).apply {
+                setOnCompletionListener {
+                    it.release()
+                }
             }
+            mediaPlayer.start()
         }
-        mediaPlayer.start()
+
+
     }
 
     companion object {
