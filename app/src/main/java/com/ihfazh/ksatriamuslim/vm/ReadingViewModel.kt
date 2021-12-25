@@ -112,13 +112,14 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
                     drawable.also {
                         backgroundImage.value = it
                         textColor.value = Color.parseColor(bg.text_color)
+                        backgroundLoading.value = false
                     }
                 } else {
                     backgroundImage.value = AppCompatResources.getDrawable(application, R.drawable.ic_artboard8)
                     textColor.value = Color.parseColor("#ffffff")
+                    backgroundLoading.value = false
                 }
 
-                backgroundLoading.value = false
         }
     }
 }
