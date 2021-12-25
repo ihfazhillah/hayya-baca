@@ -8,4 +8,5 @@
     <string name="next_page">Next Page</string>
     <string name="prev_page">Prev Page</string>
     <string name="back_to_home">Back To Home</string>
+    <string name="updateData">update_data</string>
 </resources>
