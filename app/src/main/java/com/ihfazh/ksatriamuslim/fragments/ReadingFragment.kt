@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ReadingFragment : BaseFragment() {
+
     val showFragment = false
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -48,6 +50,9 @@ class ReadingFragment : BaseFragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this){
+            isEnabled = false
         }
     }
 
