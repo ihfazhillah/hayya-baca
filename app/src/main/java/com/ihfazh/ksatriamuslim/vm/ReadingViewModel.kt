@@ -4,16 +4,17 @@ import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.speech.tts.TextToSpeech
-import android.text.SpannedString
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.text.buildSpannedString
 import androidx.lifecycle.*
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
@@ -100,7 +101,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
             if (bg != null){
 
                 // load image
-                val imageUrl = "https://ksatriamuslim.com/${bg.src}"
+                val imageUrl = Constants.getKsatriaMuslimAbsoluteUrl(bg.src)
                 val request = ImageRequest.Builder(application.applicationContext).data(imageUrl)
                     .fallback(R.drawable.ic_artboard8)
                     .build()
@@ -125,28 +126,26 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     val isFinish = MutableLiveData(false)
 
-    val mainText = MediatorLiveData<SpannedString>().apply {
-        addSource(_page){ page ->
+    val mainText = MediatorLiveData<SpannableString>().apply {
+        addSource(_page) { page ->
             viewModelScope.launch {
                 val string = bookRepository.getPage(bookId.value!!, page)
                 if (string != null) {
-                    val final = buildSpannedString {
-                        string.split(" ").forEach {
-                            append(it)
-                            setSpan(object: ClickableSpan(){
-                                override fun onClick(p0: View) {
-                                    println("clicked $it")
-                                    tts.speak(it, TextToSpeech.QUEUE_FLUSH, null)
-                                }
+                    val final = SpannableString(string)
+                    Constants.getWordsPatterns().findAll(string).forEach {
+                        final.setSpan(object : ClickableSpan() {
+                            override fun onClick(p0: View) {
+                                tts.speak(it.value, TextToSpeech.QUEUE_FLUSH, null)
+                            }
 
-                                override fun updateDrawState(ds: TextPaint) {
-                                    ds.isUnderlineText = false
-                                }
-                            }, length - it.length, length, 0)
-                            append(" ")
-                        }
+                            override fun updateDrawState(ds: TextPaint) {
+                                ds.isUnderlineText = false
+                            }
+
+                        }, it.range.first, it.range.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
-                    value =  final
+
+                    value = final
                 } else {
                     isFinish.value = true
                 }
