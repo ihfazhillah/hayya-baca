@@ -1,20 +1,20 @@
 package com.ihfazh.ksatriamuslim.local
 
 import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.ihfazh.ksatriamuslim.local.converters.Converters
 import com.ihfazh.ksatriamuslim.local.data.BackgroundEntity
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 
 @Database(
     entities = [BackgroundEntity::class, BookEntity::class],
-    version = 2,
+    version = 3,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
-    ]
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3)
+    ],
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun backgroundDao(): BackgroundDao
     abstract fun bookDao(): BookDao
