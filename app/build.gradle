@@ -91,10 +91,14 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
 
     implementation "com.google.firebase:firebase-crashlytics-ktx"
+    implementation "com.google.firebase:firebase-messaging-ktx"
     implementation "com.google.firebase:firebase-analytics-ktx"
+
 
     // lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
 
 }
