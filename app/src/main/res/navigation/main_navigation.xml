@@ -35,6 +35,10 @@
         <action
             android:id="@+id/action_homeFragment_to_readerFragment"
             app:destination="@id/readerFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
     </fragment>
