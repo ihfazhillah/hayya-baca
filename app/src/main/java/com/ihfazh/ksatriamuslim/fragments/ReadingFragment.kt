@@ -1,22 +1,20 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.animation.Animator
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.ihfazh.ksatriamuslim.R
-import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.common.Navigator
+import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
@@ -63,7 +61,7 @@ class ReadingFragment : BaseFragment() {
         // Inflate the layout for this fragment
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
-            lifecycleOwner = this@ReadingFragment
+            lifecycleOwner = viewLifecycleOwner
             mainText.movementMethod = LinkMovementMethod.getInstance()
             koinViewModel = this@ReadingFragment.koinViewModel
 
