@@ -19,7 +19,7 @@ fun getIdFromPath(path: String): String{
 
 
 fun BookEntity.toBook(): Book {
-    return Book(id, pages.split("+=+=+"))
+    return Book(id, pages.split("+=+=+"), locallyCreated, gift_opened)
 }
 
 fun BookDetailResponse.toBookSummary(path: String): BookSummary {
@@ -46,7 +46,7 @@ fun BookDetailResponse.toBookEntity(path: String): BookEntity {
 
 fun List<BookSummaryEntity>.toBookSummaries(): List<BookSummary> =
     map {
-        BookSummary(it.id, it.title, it.thumbnailSrc)
+        BookSummary(it.id, it.title, it.thumbnailSrc, it.locallyCreated, it.gift_opened)
     }
 
  fun BackgroundResponse.toBackgroundEntity(): BackgroundEntity {

@@ -2,12 +2,13 @@ package com.ihfazh.ksatriamuslim.fragments
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
@@ -52,12 +53,19 @@ class HomeFragment : Fragment() {
             koinViewModel = this@HomeFragment.koinViewModel
         }
 
-        val rvAdapter = BookRecyclerViewAdapter()
+        val rvAdapter = BookRecyclerViewAdapter { view, book ->
+            if (!book.gift_opened) {
+                viewModel.openGift(book.id)
+            } else {
+                val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
+                findNavController().navigate(action)
+            }
+        }
 
         val spanCount = 5
         binding.bookRv.adapter = rvAdapter
         binding.bookRv.layoutManager = GridLayoutManager(context, spanCount)
-        binding.bookRv.addItemDecoration(object: RecyclerView.ItemDecoration(){
+        binding.bookRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
             // https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
             override fun getItemOffsets(
                 outRect: Rect,
@@ -67,24 +75,28 @@ class HomeFragment : Fragment() {
             ) {
 //                super.getItemOffsets(outRect, view, parent, state)
                 val position = parent.getChildAdapterPosition(view)
-                val column = position % spanCount;
+                val column = position % spanCount
 
                 val spacing = 5 // in px
                 val includeEdge = true
 
                 if (includeEdge) {
-                    outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-                    outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+                    outRect.left =
+                        spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
+                    outRect.right =
+                        (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
 
                     if (position < spanCount) { // top edge
-                        outRect.top = spacing;
+                        outRect.top = spacing
                     }
-                    outRect.bottom = spacing; // item bottom
+                    outRect.bottom = spacing // item bottom
                 } else {
-                    outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                    outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                    outRect.left =
+                        column * spacing / spanCount // column * ((1f / spanCount) * spacing)
+                    outRect.right =
+                        spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
                     if (position >= spanCount) {
-                        outRect.top = spacing; // item top
+                        outRect.top = spacing // item top
                     }
                 }
             }

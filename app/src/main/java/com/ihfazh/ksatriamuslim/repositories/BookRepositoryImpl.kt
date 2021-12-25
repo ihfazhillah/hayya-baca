@@ -8,6 +8,7 @@ import com.ihfazh.ksatriamuslim.toBook
 import com.ihfazh.ksatriamuslim.toBookEntity
 import com.ihfazh.ksatriamuslim.toBookSummaries
 import com.ihfazh.ksatriamuslim.toBookSummary
+import java.util.*
 
 class BookRepositoryImpl(
     private val local: AppDatabase,
@@ -22,8 +23,19 @@ class BookRepositoryImpl(
                 val detailBook = remote.getBookDetail(url)
 
                 // cache to db
+
                 val bookEntity = detailBook.toBookEntity(url)
+
+                // get again from db to differentiate between new and not
+                val localBook = getBook(bookEntity.id)
+
+                if (localBook == null) {
+                    bookEntity.gift_opened = false
+                    bookEntity.locallyCreated = Date()
+                }
+
                 local.bookDao().insert(bookEntity)
+
 
                 val summaryBook: BookSummary = detailBook.toBookSummary(url)
                 summaryBook
@@ -35,22 +47,29 @@ class BookRepositoryImpl(
         return localBooks.toBookSummaries()
     }
 
-    override suspend fun getBook(id: String): Book {
-        return local.bookDao().getById(id).toBook()
+    override suspend fun getBook(id: String): Book? {
+        return local.bookDao().getById(id)?.toBook()
     }
 
     override suspend fun getPage(id: String, page: Int): String? {
         val book = getBook(id)
-        return book.pages.getOrNull(page - 1)
+        return book?.pages?.getOrNull(page - 1)
     }
 
     override suspend fun hasNext(id: String, page: Int): Boolean {
         val book = getBook(id)
-        return page < book.pages.size
+
+        return book?.let {
+            page < book.pages.size
+        } ?: false
     }
 
     override suspend fun hasPrev(id: String, page: Int): Boolean {
         return page > 1
+    }
+
+    override suspend fun openGift(id: String) {
+        local.bookDao().openGift(id)
     }
 }
 
