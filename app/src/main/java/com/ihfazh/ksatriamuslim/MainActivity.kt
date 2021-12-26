@@ -7,6 +7,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.workDataOf
+import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -27,15 +31,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        val repo = SpeakWordRepositoryImpl(applicationContext, Client.getService())
-//        lifecycleScope.launch{
-//            repo.saveAudios()
-//        }
+        handleUpdateDataNotification()
+    }
 
+    private fun handleUpdateDataNotification() {
+        val action = intent.getStringExtra("click_action")
+        val actionType = intent.getStringExtra("type_action")
 
-//
-//        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-//        bottomNav.setupWithNavController(navController)
+        if (action == "update_data") {
+            val workerRequest = OneTimeWorkRequest.Builder(ForceUpdateAllData::class.java)
+                .setInputData(
+                    workDataOf(
+                        "type" to actionType
+                    )
+                )
+                .build()
+
+            WorkManager.getInstance(this).enqueue(workerRequest)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
