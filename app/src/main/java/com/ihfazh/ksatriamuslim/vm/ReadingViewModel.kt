@@ -3,7 +3,6 @@ package com.ihfazh.ksatriamuslim.vm
 import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.speech.tts.TextToSpeech
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -15,23 +14,22 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
+import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import kotlinx.coroutines.launch
-import java.util.*
 
 
-class ReadingViewModel(application: Application): AndroidViewModel(application),
-    TextToSpeech.OnInitListener {
+class ReadingViewModel(application: Application) : AndroidViewModel(application) {
 
     private val local = AppDatabase.getDB(application.applicationContext)
     private val remote = Client.getService()
     private val bookRepository = BookRepositoryImpl(local, remote)
 
-    private  val tts: TextToSpeech
+    private val wordSpeak = WordSpeak(application.applicationContext)
 
     private val _page = MutableLiveData<Int>()
     val page: LiveData<Int>
@@ -86,7 +84,6 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
 
     init {
         _page.value = 1
-        tts = TextToSpeech(application.applicationContext, this)
 
         // add background repository
         val remote = Client.getService()
@@ -136,7 +133,7 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
                     Constants.getWordsPatterns().findAll(string).forEach {
                         final.setSpan(object : ClickableSpan() {
                             override fun onClick(p0: View) {
-                                tts.speak(it.value, TextToSpeech.QUEUE_FLUSH, null)
+                                wordSpeak.speak(it.value)
                             }
 
                             override fun updateDrawState(ds: TextPaint) {
@@ -171,25 +168,15 @@ class ReadingViewModel(application: Application): AndroidViewModel(application),
     }
 
 
-    fun nextPage(){
+    fun nextPage() {
         _page.value = (_page.value)?.inc() ?: 0
     }
 
-    fun prevPage(){
+    fun prevPage() {
         _page.value = (_page.value)?.dec() ?: 0
     }
 
-    override fun onInit(status: Int) {
-        if (status != TextToSpeech.ERROR){
-            val locale = Locale("id", "ID")
-            tts.language = locale
-            tts.setEngineByPackageName("com.google.android.tts")
-        }
-
-    }
-
-    fun clearTTS(){
-        tts.stop()
-        tts.shutdown()
+    fun releaseWordSpeak() {
+        wordSpeak.release()
     }
 }
