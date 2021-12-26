@@ -126,7 +126,7 @@ class ReadingFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        viewModel.clearTTS()
+        viewModel.releaseWordSpeak()
         super.onDestroy()
     }
 }

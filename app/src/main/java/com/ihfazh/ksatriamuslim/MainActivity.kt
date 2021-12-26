@@ -1,16 +1,12 @@
 package com.ihfazh.ksatriamuslim
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -23,13 +19,18 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHostFragment.navController
 
-        navController.addOnDestinationChangedListener{_, destination, _ ->
-            if (destination.id == R.id.readerFragment){
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.readerFragment) {
                 supportActionBar?.hide()
             } else {
                 supportActionBar?.show()
             }
         }
+
+//        val repo = SpeakWordRepositoryImpl(applicationContext, Client.getService())
+//        lifecycleScope.launch{
+//            repo.saveAudios()
+//        }
 
 
 //
