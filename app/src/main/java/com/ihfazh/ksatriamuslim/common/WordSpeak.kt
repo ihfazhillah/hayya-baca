@@ -4,6 +4,10 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.speech.tts.TextToSpeech
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
@@ -12,6 +16,7 @@ class WordSpeak(
     val context: Context
 ) : TextToSpeech.OnInitListener {
     private val tts = TextToSpeech(context, this)
+    private val firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
 
     override fun onInit(status: Int) {
         if (status != TextToSpeech.ERROR) {
@@ -27,6 +32,11 @@ class WordSpeak(
     }
 
     fun speak(text: String) {
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.VALUE, text)
+            param(FirebaseAnalytics.Param.ITEM_VARIANT, "clicked")
+        }
+
         val audioUrl = context.getExternalFilesDir("ksatriamuslim_audio")?.path?.plus(
             "/${
                 Constants.slugify(text)
@@ -74,6 +84,10 @@ class WordSpeak(
     }
 
     private fun speakTTS(text: String) {
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.VALUE, text)
+            param(FirebaseAnalytics.Param.ITEM_VARIANT, "clicked audio not found")
+        }
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null)
     }
 }
