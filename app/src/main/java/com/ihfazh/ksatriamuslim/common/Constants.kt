@@ -9,7 +9,8 @@ object Constants {
     fun getKsatriaMuslimAbsoluteUrl(path: String) = "$baseKsatriaMuslim/$path"
 
     val specialWords = listOf(
-        "Shollallohu 'alaihi wasallam"
+        "Shollallohu 'alaihi wasallam",
+        "لا اله الا الله محمد رسول الله"
     )
 
     fun getWordsPatterns() = Regex(
@@ -17,13 +18,21 @@ object Constants {
         RegexOption.IGNORE_CASE
     )
 
-    // from https://gist.github.com/adrianoluis/641e21dc24a1dbfb09e203d857ae76a3
-    fun slugify(word: String, replacement: String = "-") = Normalizer
-        .normalize(word, Normalizer.Form.NFD)
-        .replace("[^\\p{ASCII}]".toRegex(), "")
-        .replace("[^a-zA-Z0-9\\s]+".toRegex(), "").trim()
-        .replace("\\s+".toRegex(), replacement)
-        .lowercase(Locale.getDefault())
+    fun slugify(word: String, replacement: String = "-") = if (isArabic(word)) {
+        word.replace("\\s+".toRegex(), replacement)
+    } else {
+        // from https://gist.github.com/adrianoluis/641e21dc24a1dbfb09e203d857ae76a3
+        Normalizer
+            .normalize(word, Normalizer.Form.NFD)
+            .replace("[^\\p{ASCII}]".toRegex(), "")
+            .replace("[^a-zA-Z0-9\\s]+".toRegex(), "").trim()
+            .replace("\\s+".toRegex(), replacement)
+            .lowercase(Locale.getDefault())
+    }
+
+    fun isArabic(word: String): Boolean {
+        return Regex("[\\x{0600}-\\x{06FF}]").containsMatchIn(word)
+    }
 
     fun getKsatriaMuslimAudioUrl(text: String): String {
         val slug = slugify(text)
