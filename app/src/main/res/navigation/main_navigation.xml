@@ -6,11 +6,16 @@
     android:id="@+id/main_navigation">
 
     <fragment
+        android:id="@+id/tryMotionFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
+        android:label="try_fragment"
+        tools:layout="@layout/fragment_motion_layout_try" />
+
+    <fragment
         android:id="@+id/readerFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ReadingFragment"
         android:label="fragment_reading"
-        tools:layout="@layout/fragment_reading"
-        >
+        tools:layout="@layout/fragment_reading">
         <argument
             android:name="bookId"
             app:argType="string" />
