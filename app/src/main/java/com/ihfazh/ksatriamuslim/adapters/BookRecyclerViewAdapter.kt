@@ -23,6 +23,10 @@ class BookViewHolder(private val binding: BookItemBinding, private val listener:
             listener(it, book)
         }
 
+        binding.cardBookItem.setOnClickListener {
+            listener(it, book)
+        }
+
         val url = "https://ksatriamuslim.com/${book.thumbnailSrc}"
         binding.imageThumbnail.load(url)
     }
