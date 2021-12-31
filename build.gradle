@@ -14,6 +14,7 @@ buildscript {
         google_service_plugin_version = "4.3.10"
         lottie_version = "4.2.2"
         work_version = "2.7.1"
+        card_version = "1.0.0"
 
     }
     repositories {
