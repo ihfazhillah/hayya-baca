@@ -43,6 +43,8 @@ class WordSpeak(
             }.mp3"
         )
 
+        println("AUDIO URL : $audioUrl")
+
         if (audioUrl == null) {
             speakTTS(text)
             return
