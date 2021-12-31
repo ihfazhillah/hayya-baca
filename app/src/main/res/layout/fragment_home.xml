@@ -16,6 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/ic_artboard8"
         tools:context=".fragments.HomeFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,12 @@
             tools:itemCount="2"
             tools:layoutManager="GridLayoutManager"
             tools:listitem="@layout/book_item"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/book_list_background"
+            android:padding="10dp"
             tools:spanCount="3" />
 
         <include
@@ -38,9 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:rotation="0"
-            android:rotationX="0"
-            android:rotationY="0"
             app:coin="@{koinViewModel.koin}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
