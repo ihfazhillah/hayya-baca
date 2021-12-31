@@ -72,13 +72,13 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/next_icon"
-            android:src="@drawable/next_button"
+            android:background="@drawable/circle_button_background"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="25dp"
-            android:background="@null"
+            android:src="@drawable/ic_baseline_navigate_next_24"
             android:onClick="@{() -> vm.nextPage()}"
             android:contentDescription="@string/next_page" />
 
@@ -87,8 +87,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/prev_icon"
-            android:src="@drawable/prev_button"
-            android:background="@null"
+            android:background="@drawable/circle_button_background"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
             android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,10 +114,13 @@
             />
 
         <ImageButton
+            android:background="@drawable/circle_button_background"
+            android:shadowColor="@color/black"
+            android:shadowDy="10"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_baseline_home_24"
-            android:background="@null"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black"
