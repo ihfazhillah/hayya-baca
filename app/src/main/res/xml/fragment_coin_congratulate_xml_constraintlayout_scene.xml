@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/coin"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/coin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/start_permulaan">
+        <Constraint
+            android:id="@id/coin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end_permulaan">
+        <Constraint
+            android:id="@id/coin"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+
+    <Transition
+        android:id="@+id/permulaan"
+        app:autoTransition="animateToEnd"
+        app:constraintSetEnd="@id/start"
+        app:constraintSetStart="@id/start_permulaan">
+
+        <KeyFrameSet>
+            <KeyPosition
+                app:framePosition="10"
+                app:keyPositionType="deltaRelative"
+                app:motionTarget="@+id/coin"
+                app:percentY="1" />
+            <KeyAttribute
+                android:scaleX="0.2"
+                android:scaleY="0.2"
+                app:framePosition="63"
+                app:motionTarget="@+id/coin" />
+        </KeyFrameSet>
+    </Transition>
+
+    <Transition
+        android:id="@+id/afterClickCoin"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="1000"
+        app:motionInterpolator="easeInOut">
+
+        <OnClick
+            app:clickAction="transitionToEnd"
+            app:targetId="@id/coin" />
+
+        <KeyFrameSet>
+            <KeyCycle
+                android:translationX="50dp"
+                app:framePosition="0"
+                app:motionTarget="@id/coin"
+                app:waveOffset="0"
+                app:wavePeriod="0"
+                app:waveShape="sin" />
+            <KeyCycle
+                android:translationX="50dp"
+                app:framePosition="50"
+                app:motionTarget="@id/coin"
+                app:waveOffset="0"
+                app:wavePeriod="1"
+                app:waveShape="sin" />
+            <KeyCycle
+                android:translationX="50dp"
+                app:framePosition="100"
+                app:motionTarget="@id/coin"
+                app:waveOffset="0"
+                app:wavePeriod="0"
+                app:waveShape="sin" />
+            <KeyAttribute
+                android:rotation="360"
+                app:framePosition="50"
+                app:motionTarget="@id/coin" />
+
+            <KeyAttribute
+                android:alpha="0"
+                android:rotation="720"
+                app:framePosition="100"
+                app:motionTarget="@id/coin" />
+        </KeyFrameSet>
+
+    </Transition>
+</MotionScene>

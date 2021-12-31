@@ -1,13 +1,13 @@
 package com.ihfazh.ksatriamuslim.fragments
 
-import android.animation.Animator
 import android.media.MediaPlayer
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
@@ -32,6 +32,7 @@ class CoinCongratulateFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var binding: FragmentCoinCongratulateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +49,9 @@ class CoinCongratulateFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentCoinCongratulateBinding.inflate(
+        binding = FragmentCoinCongratulateBinding.inflate(
             inflater, container, false
         ).apply {
-            btnHome.setOnClickListener {
-                val direction = CoinCongratulateFragmentDirections.actionCoinCongratulateFragmentToHomeFragment()
-                findNavController().navigate(direction)
-            }
 
         }
         return binding.root
@@ -67,14 +64,59 @@ class CoinCongratulateFragment : BaseFragment() {
         val audioRepository = CongratulateAudioRepositoryImpl()
 
         lifecycleScope.launchWhenCreated {
-            mediaPlayer = MediaPlayer.create(requireContext(), audioRepository.getRandomAudio()).apply {
-                setOnCompletionListener {
-                    it.release()
+            mediaPlayer =
+                MediaPlayer.create(requireContext(), audioRepository.getRandomAudio()).apply {
+                    setOnCompletionListener {
+                        it.release()
+                    }
                 }
-            }
             mediaPlayer.start()
         }
 
+        val motion = view.findViewById<MotionLayout>(R.id.constraintLayout)
+        val transitionListiner = object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int
+            ) {
+            }
+
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                if (currentId == R.id.end) {
+                    val mp = MediaPlayer.create(context, R.raw.clinking_coin).apply {
+                        setOnCompletionListener {
+                            it.release()
+                        }
+                    }
+                    mp?.start()
+
+                    val direction =
+                        CoinCongratulateFragmentDirections.actionCoinCongratulateFragmentToHomeFragment()
+                    findNavController().navigate(direction)
+                }
+            }
+
+            override fun onTransitionTrigger(
+                motionLayout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+            }
+        }
+
+        motion.apply {
+            setTransitionListener(transitionListiner)
+        }
 
     }
 
