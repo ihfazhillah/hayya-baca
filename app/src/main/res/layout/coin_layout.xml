@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="coin" type="com.ihfazh.ksatriamuslim.domain.Koin" />
+
+        <variable
+            name="coin"
+            type="com.ihfazh.ksatriamuslim.domain.Koin" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layoutDescription="@xml/coin_layout_xml_constraintlayout2_scene2">
 
 
         <TextView
@@ -26,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="@id/coinIcon"
             app:layout_constraintStart_toEndOf="@+id/coinIcon"
             app:layout_constraintTop_toTopOf="@id/coinIcon"
-            tools:text="100" />
+            tools:text="10000" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/coinIcon"
@@ -41,5 +46,5 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/km_coin_detak_jantung" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
