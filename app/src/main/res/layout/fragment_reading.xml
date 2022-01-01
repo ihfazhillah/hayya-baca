@@ -66,6 +66,7 @@
             android:bufferType="spannable"
             android:shadowColor="@android:color/darker_gray"
             android:shadowRadius="5"
+            android:textColorHighlight="@color/white"
             />
 
         <ImageButton
