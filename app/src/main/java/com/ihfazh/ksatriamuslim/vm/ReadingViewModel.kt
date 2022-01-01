@@ -3,11 +3,15 @@ package com.ihfazh.ksatriamuslim.vm
 import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
+import android.text.style.AbsoluteSizeSpan
 import android.text.style.ClickableSpan
+import android.text.style.RelativeSizeSpan
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.*
 import coil.imageLoader
@@ -134,6 +138,31 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
                         final.setSpan(object : ClickableSpan() {
                             override fun onClick(p0: View) {
                                 wordSpeak.speak(it.value)
+
+                                val tv = p0 as TextView
+                                val spanned = tv.text as Spannable
+                                val start = spanned.getSpanStart(this)
+                                val end = spanned.getSpanEnd(this)
+
+                                spanned.setSpan(
+                                    RelativeSizeSpan(1.2f),
+                                    start,
+                                    end,
+                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                )
+
+
+                                android.os.Handler(Looper.getMainLooper()).postDelayed(
+                                    {
+                                        spanned.setSpan(
+                                            AbsoluteSizeSpan(35, true),
+                                            start,
+                                            end,
+                                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                        )
+                                    }, 1000
+                                )
+
                             }
 
                             override fun updateDrawState(ds: TextPaint) {
