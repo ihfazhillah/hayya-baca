@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+        <KeyFrameSet></KeyFrameSet>
+        <OnClick motion:clickAction="toggle" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-14dp"
+            motion:layout_constraintBottom_toBottomOf="@id/coinIcon"
+            motion:layout_constraintStart_toEndOf="@+id/coinIcon"
+            motion:layout_constraintTop_toTopOf="@id/coinIcon"></Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-14dp"
+            android:rotationX="360"
+            motion:layout_constraintBottom_toBottomOf="@id/coinIcon"
+            motion:layout_constraintStart_toEndOf="@+id/coinIcon"
+            motion:layout_constraintTop_toTopOf="@id/coinIcon"></Constraint>
+        <Constraint
+            android:id="@+id/coinIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.051"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.0" />
+    </ConstraintSet>
+</MotionScene>
