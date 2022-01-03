@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.fragments
 import android.animation.Animator
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,11 @@ import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
+import com.microsoft.cognitiveservices.speech.ResultReason
+import com.microsoft.cognitiveservices.speech.SpeechConfig
+import com.microsoft.cognitiveservices.speech.SpeechRecognizer
+import com.microsoft.cognitiveservices.speech.audio.AudioConfig
+import kotlin.concurrent.thread
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,13 +99,50 @@ class ReadingFragment : BaseFragment() {
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
 
-        viewModel.isFinish.observe(viewLifecycleOwner){ finished ->
-            if (finished){
+        viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
+            if (finished) {
                 koinViewModel.increaseMyCoin()
-                val action = ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
+                val action =
+                    ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
                 findNavController().navigate(action)
             }
         }
+
+
+        // check initial implementation
+        thread {
+            val speechConfig =
+                SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeast")
+            fromMic(speechConfig)
+        }
+    }
+
+    private fun fromMic(speechConfig: SpeechConfig?) {
+        if (speechConfig == null) {
+            return
+        }
+
+        val audioConfig = AudioConfig.fromDefaultMicrophoneInput()
+        val recognizer = SpeechRecognizer(speechConfig, audioConfig)
+
+        recognizer.recognizing.addEventListener { any, speechRecognitionEventArgs ->
+            if (speechRecognitionEventArgs.result.reason == ResultReason.RecognizedSpeech) {
+                Log.d(TAG, "fromMic: result text: ${speechRecognitionEventArgs.result.text}")
+            } else {
+                Log.d(TAG, "fromMic: Result not found")
+            }
+
+        }
+
+//        recognizer.recognizeOnceAsync().apply {
+//            val result = get()
+//
+//            val detail = CancellationDetails.fromResult(result)
+//            Log.d(TAG, "recognized: ${result.text}")
+//            Log.d(TAG, "reason: ${result.reason}")
+//            Log.d(TAG, "detail: ${detail.errorDetails}")
+//        }
+        recognizer.startContinuousRecognitionAsync().get()
     }
 
 
@@ -115,6 +158,7 @@ class ReadingFragment : BaseFragment() {
          * @return A new instance of fragment ReadingFragment.
          */
         // TODO: Rename and change types and number of parameters
+        const val TAG = "Fragment Reading"
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ReadingFragment().apply {
@@ -129,4 +173,5 @@ class ReadingFragment : BaseFragment() {
         viewModel.releaseWordSpeak()
         super.onDestroy()
     }
+
 }

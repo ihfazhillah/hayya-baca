@@ -57,6 +57,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constrain_layout_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.cardview:cardview:$card_version"
+    implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.19.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
