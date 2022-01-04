@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.Manifest
 import android.animation.Animator
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,15 +17,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.common.Navigator
+import com.ihfazh.ksatriamuslim.common.VoiceStreamer
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
-import com.microsoft.cognitiveservices.speech.ResultReason
-import com.microsoft.cognitiveservices.speech.SpeechConfig
-import com.microsoft.cognitiveservices.speech.SpeechRecognizer
-import com.microsoft.cognitiveservices.speech.audio.AudioConfig
-import kotlin.concurrent.thread
+import java.io.File
+import java.io.FileOutputStream
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +38,7 @@ private const val ARG_PARAM2 = "param2"
 class ReadingFragment : BaseFragment() {
 
     val showFragment = false
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -49,13 +50,43 @@ class ReadingFragment : BaseFragment() {
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
 
+    private lateinit var voiceStreamer: VoiceStreamer
+
+    private var path: String? = null
+    private var file: File? = null
+    private var outputStream: FileOutputStream? = null
+
+    private val recordPermission = Manifest.permission.RECORD_AUDIO
+    private val askPermissionContract =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
+            if (ok) {
+                startVoiceStreamer()
+            } else {
+                Log.w(TAG, "Permission not granted. Skipping..")
+
+            }
+        }
+
+    private fun startVoiceStreamer() {
+        voiceStreamer = VoiceStreamer().apply {
+            onVoiceAvailable = {
+                outputStream?.write(it)
+            }
+            onStreamingFinished = {
+                outputStream?.close()
+            }
+            startVoiceStreaming()
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this){
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
             isEnabled = false
         }
     }
@@ -108,31 +139,36 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
+        file = File(requireContext().filesDir, "auditemp.mp3")
+        outputStream = file?.outputStream()
+
+        askPermissionContract.launch(recordPermission)
+
 
         // check initial implementation
-        thread {
-            val speechConfig =
-                SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeast")
-            fromMic(speechConfig)
-        }
+//        thread {
+//            val speechConfig =
+//                SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeast")
+//            fromMic(speechConfig)
+//        }
     }
 
-    private fun fromMic(speechConfig: SpeechConfig?) {
-        if (speechConfig == null) {
-            return
-        }
-
-        val audioConfig = AudioConfig.fromDefaultMicrophoneInput()
-        val recognizer = SpeechRecognizer(speechConfig, audioConfig)
-
-        recognizer.recognizing.addEventListener { any, speechRecognitionEventArgs ->
-            if (speechRecognitionEventArgs.result.reason == ResultReason.RecognizedSpeech) {
-                Log.d(TAG, "fromMic: result text: ${speechRecognitionEventArgs.result.text}")
-            } else {
-                Log.d(TAG, "fromMic: Result not found")
-            }
-
-        }
+//    private fun fromMic(speechConfig: SpeechConfig?) {
+//        if (speechConfig == null) {
+//            return
+//        }
+//
+//        val audioConfig = AudioConfig.fromDefaultMicrophoneInput()
+//        val recognizer = SpeechRecognizer(speechConfig, audioConfig)
+//
+//        recognizer.recognizing.addEventListener { any, speechRecognitionEventArgs ->
+//            if (speechRecognitionEventArgs.result.reason == ResultReason.RecognizedSpeech) {
+//                Log.d(TAG, "fromMic: result text: ${speechRecognitionEventArgs.result.text}")
+//            } else {
+//                Log.d(TAG, "fromMic: Result not found")
+//            }
+//
+//        }
 
 //        recognizer.recognizeOnceAsync().apply {
 //            val result = get()
@@ -142,8 +178,8 @@ class ReadingFragment : BaseFragment() {
 //            Log.d(TAG, "reason: ${result.reason}")
 //            Log.d(TAG, "detail: ${detail.errorDetails}")
 //        }
-        recognizer.startContinuousRecognitionAsync().get()
-    }
+//        recognizer.startContinuousRecognitionAsync().get()
+//    }
 
 
     override fun getShowStatusBarStatus(): Boolean = false
@@ -171,6 +207,7 @@ class ReadingFragment : BaseFragment() {
 
     override fun onDestroy() {
         viewModel.releaseWordSpeak()
+        voiceStreamer.stopVoiceStreaming()
         super.onDestroy()
     }
 
