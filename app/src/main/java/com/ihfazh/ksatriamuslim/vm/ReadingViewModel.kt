@@ -20,6 +20,8 @@ import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.domain.Background
+import com.ihfazh.ksatriamuslim.domain.TextPage
+import com.ihfazh.ksatriamuslim.domain.WordPage
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
@@ -121,62 +123,80 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
                     backgroundLoading.value = false
                 }
 
+            }
         }
     }
-}
 
 
     val isFinish = MutableLiveData(false)
 
-    val mainText = MediatorLiveData<SpannableString>().apply {
+    private val textPage = MediatorLiveData<TextPage>().apply {
         addSource(_page) { page ->
             viewModelScope.launch {
                 val string = bookRepository.getPage(bookId.value!!, page)
-                if (string != null) {
-                    val final = SpannableString(string)
-                    Constants.getWordsPatterns().findAll(string).forEach {
-                        final.setSpan(object : ClickableSpan() {
-                            override fun onClick(p0: View) {
-                                wordSpeak.speak(it.value)
-
-                                val tv = p0 as TextView
-                                val spanned = tv.text as Spannable
-                                val start = spanned.getSpanStart(this)
-                                val end = spanned.getSpanEnd(this)
-
-                                spanned.setSpan(
-                                    RelativeSizeSpan(1.2f),
-                                    start,
-                                    end,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-
-
-                                android.os.Handler(Looper.getMainLooper()).postDelayed(
-                                    {
-                                        spanned.setSpan(
-                                            AbsoluteSizeSpan(35, true),
-                                            start,
-                                            end,
-                                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                        )
-                                    }, 1000
-                                )
-
-                            }
-
-                            override fun updateDrawState(ds: TextPaint) {
-                                ds.isUnderlineText = false
-                            }
-
-                        }, it.range.first, it.range.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    }
-
-                    value = final
-                } else {
+                if (string == null) {
                     isFinish.value = true
+                } else {
+                    val words = Constants.getWordsPatterns().findAll(string).map {
+                        WordPage(
+                            it.value,
+                            it.range.first,
+                            it.range.last,
+                            false
+                        )
+                    }.toList()
+
+                    value = TextPage(string, words)
                 }
             }
+        }
+    }
+
+
+    val mainText = MediatorLiveData<SpannableString>().apply {
+        addSource(textPage) { pageString ->
+            val final = SpannableString(pageString.originalText)
+            pageString.words.forEach {
+                final.setSpan(
+                    object : ClickableSpan() {
+                        override fun onClick(p0: View) {
+                            wordSpeak.speak(it.text)
+
+                            val tv = p0 as TextView
+                            val spanned = tv.text as Spannable
+                            val start = spanned.getSpanStart(this)
+                            val end = spanned.getSpanEnd(this)
+
+                            spanned.setSpan(
+                                RelativeSizeSpan(1.2f),
+                                start,
+                                end,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+
+
+                            android.os.Handler(Looper.getMainLooper()).postDelayed(
+                                {
+                                    spanned.setSpan(
+                                        AbsoluteSizeSpan(35, true),
+                                        start,
+                                        end,
+                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                    )
+                                }, 1000
+                            )
+
+                        }
+
+                        override fun updateDrawState(ds: TextPaint) {
+                            ds.isUnderlineText = false
+                        }
+
+                    }, it.startPos, it.endPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
+            value = final
         }
     }
 

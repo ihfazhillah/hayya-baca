@@ -100,7 +100,7 @@ class ReadingFragment : BaseFragment() {
 
 
 
-            startContinuousRecognitionAsync()
+//            startContinuousRecognitionAsync()
         }
 
         Log.d(TAG, "startVoiceStreamer: get start recognizer: $speechRecognizer")
