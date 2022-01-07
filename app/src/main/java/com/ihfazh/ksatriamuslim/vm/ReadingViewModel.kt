@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.View
 import android.widget.TextView
@@ -146,7 +147,18 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
                         )
                     }.toList()
 
-                    value = TextPage(string, words)
+                    // TODO: untuk actual flip isRead nanti ada di fragment
+
+                    val finalWords = words.mapIndexed { index, wordPage ->
+                        if (index % 2 == 0) {
+                            wordPage.copy(isRead = true)
+                        } else {
+                            wordPage
+                        }
+                    }
+
+
+                    value = TextPage(string, finalWords)
                 }
             }
         }
@@ -157,6 +169,15 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
         addSource(textPage) { pageString ->
             val final = SpannableString(pageString.originalText)
             pageString.words.forEach {
+                if (it.isRead) {
+                    final.setSpan(
+                        ForegroundColorSpan(Color.RED),
+                        it.startPos,
+                        it.endPos + 1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+
                 final.setSpan(
                     object : ClickableSpan() {
                         override fun onClick(p0: View) {
