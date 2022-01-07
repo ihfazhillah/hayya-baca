@@ -184,6 +184,22 @@ class ReadingFragment : BaseFragment() {
 
         askPermissionContract.launch(recordPermission)
 
+        view.setOnClickListener {
+            val textPage = viewModel.textPage.value
+            if (textPage != null) {
+                val index = (textPage.words.indices).random()
+                val words = textPage.words.mapIndexed { idx, wordPage ->
+                    if (index == idx) {
+                        wordPage.copy(isRead = !wordPage.isRead)
+                    } else {
+                        wordPage
+                    }
+                }
+                viewModel.textPage.value = textPage.copy(words = words)
+            }
+
+        }
+
 
         // check initial implementation
 //        thread {

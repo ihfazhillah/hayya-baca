@@ -131,7 +131,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
     val isFinish = MutableLiveData(false)
 
-    private val textPage = MediatorLiveData<TextPage>().apply {
+    val textPage = MediatorLiveData<TextPage>().apply {
         addSource(_page) { page ->
             viewModelScope.launch {
                 val string = bookRepository.getPage(bookId.value!!, page)
@@ -147,18 +147,8 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
                         )
                     }.toList()
 
-                    // TODO: untuk actual flip isRead nanti ada di fragment
 
-                    val finalWords = words.mapIndexed { index, wordPage ->
-                        if (index % 2 == 0) {
-                            wordPage.copy(isRead = true)
-                        } else {
-                            wordPage
-                        }
-                    }
-
-
-                    value = TextPage(string, finalWords)
+                    value = TextPage(string, words)
                 }
             }
         }
