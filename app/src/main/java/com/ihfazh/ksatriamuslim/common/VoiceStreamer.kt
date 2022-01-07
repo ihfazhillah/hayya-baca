@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.util.Log
 import java.util.concurrent.Executors
 
 
@@ -49,7 +48,7 @@ class VoiceStreamer {
                 while (isStreaming) {
                     minBufferSize = read(buffer, 0, buffer.size)
                     onVoiceAvailable?.invoke(buffer)
-                    Log.d(TAG, "MinBufferSize: $minBufferSize")
+//                    Log.d(TAG, "MinBufferSize: $minBufferSize")
                 }
             }
         } catch (e: Exception) {
