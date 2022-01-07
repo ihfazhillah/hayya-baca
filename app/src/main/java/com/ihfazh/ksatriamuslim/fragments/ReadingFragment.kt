@@ -22,6 +22,10 @@ import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
+import com.microsoft.cognitiveservices.speech.SourceLanguageConfig
+import com.microsoft.cognitiveservices.speech.SpeechConfig
+import com.microsoft.cognitiveservices.speech.SpeechRecognizer
+import com.microsoft.cognitiveservices.speech.audio.*
 import java.io.File
 import java.io.FileOutputStream
 
@@ -55,6 +59,8 @@ class ReadingFragment : BaseFragment() {
     private var path: String? = null
     private var file: File? = null
     private var outputStream: FileOutputStream? = null
+    private var speechRecognizer: SpeechRecognizer? = null
+    private var inputStream: PushAudioInputStream? = null
 
     private val recordPermission = Manifest.permission.RECORD_AUDIO
     private val askPermissionContract =
@@ -68,12 +74,46 @@ class ReadingFragment : BaseFragment() {
         }
 
     private fun startVoiceStreamer() {
+        val config =
+            SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeastasia")
+                .apply {
+                }
+        val audioFormat = AudioStreamFormat.getWaveFormatPCM(44000, 16, 1)
+        inputStream = AudioInputStream.createPushStream(audioFormat)
+        val languageConfig = SourceLanguageConfig.fromLanguage("id-ID")
+
+        speechRecognizer = SpeechRecognizer(
+            config,
+            languageConfig,
+            AudioConfig.fromStreamInput(inputStream)
+        ).apply {
+            recognizing.addEventListener { any, event ->
+                Log.d(TAG, "sedang proses: ${event.result.text}")
+
+            }
+            recognized.addEventListener { any, event ->
+                Log.d(TAG, "sudah dapat dari proses proses: ${event.result.text}")
+
+            }
+
+            Log.d(TAG, "language $languageConfig")
+
+
+
+            startContinuousRecognitionAsync()
+        }
+
+        Log.d(TAG, "startVoiceStreamer: get start recognizer: $speechRecognizer")
+
+
         voiceStreamer = VoiceStreamer().apply {
             onVoiceAvailable = {
-                outputStream?.write(it)
+//                outputStream?.write(it)
+                inputStream?.write(it)
             }
             onStreamingFinished = {
-                outputStream?.close()
+//                outputStream?.close()
+                inputStream?.close()
             }
             startVoiceStreaming()
         }
@@ -208,6 +248,7 @@ class ReadingFragment : BaseFragment() {
     override fun onDestroy() {
         viewModel.releaseWordSpeak()
         voiceStreamer.stopVoiceStreaming()
+        speechRecognizer?.close()
         super.onDestroy()
     }
 
