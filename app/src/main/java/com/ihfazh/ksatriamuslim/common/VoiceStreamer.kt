@@ -34,7 +34,7 @@ class VoiceStreamer {
             val buffer = ByteArray(minBufferSize)
             if (voiceRecorder == null) {
                 AudioRecord(
-                    MediaRecorder.AudioSource.MIC,
+                    MediaRecorder.AudioSource.VOICE_COMMUNICATION,
                     sampleRate,
                     channelConfig,
                     audioFormat,
