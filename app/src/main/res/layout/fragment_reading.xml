@@ -143,11 +143,21 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             android:scaleType="fitXY"
-            android:id="@+id/loading"
-            />
+            android:id="@+id/loading" />
 
 
         <include
+            android:id="@+id/starLayout"
+            layout="@layout/star_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/coinLayout"
+            app:layout_constraintEnd_toStartOf="@id/coinLayout"
+            app:layout_constraintTop_toTopOf="@id/coinLayout" />
+
+        <include
+            android:id="@+id/coinLayout"
             layout="@layout/coin_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
