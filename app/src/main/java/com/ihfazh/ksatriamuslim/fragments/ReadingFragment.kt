@@ -17,17 +17,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.common.Navigator
+import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.common.VoiceStreamer
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
-import com.microsoft.cognitiveservices.speech.SourceLanguageConfig
-import com.microsoft.cognitiveservices.speech.SpeechConfig
-import com.microsoft.cognitiveservices.speech.SpeechRecognizer
 import com.microsoft.cognitiveservices.speech.audio.*
-import java.io.File
-import java.io.FileOutputStream
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,13 +50,7 @@ class ReadingFragment : BaseFragment() {
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
 
-    private lateinit var voiceStreamer: VoiceStreamer
-
-    private var path: String? = null
-    private var file: File? = null
-    private var outputStream: FileOutputStream? = null
-    private var speechRecognizer: SpeechRecognizer? = null
-    private var inputStream: PushAudioInputStream? = null
+    private var voiceStreamer: VoiceStreamer? = null
 
     private val recordPermission = Manifest.permission.RECORD_AUDIO
     private val askPermissionContract =
@@ -74,50 +64,15 @@ class ReadingFragment : BaseFragment() {
         }
 
     private fun startVoiceStreamer() {
-        val config =
-            SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeastasia")
-                .apply {
-                }
-        val audioFormat = AudioStreamFormat.getWaveFormatPCM(44000, 16, 1)
-        inputStream = AudioInputStream.createPushStream(audioFormat)
-        val languageConfig = SourceLanguageConfig.fromLanguage("id-ID")
-
-        speechRecognizer = SpeechRecognizer(
-            config,
-            languageConfig,
-            AudioConfig.fromStreamInput(inputStream)
-        ).apply {
-            recognizing.addEventListener { any, event ->
-                Log.d(TAG, "sedang proses: ${event.result.text}")
-
-            }
-            recognized.addEventListener { any, event ->
-                Log.d(TAG, "sudah dapat dari proses proses: ${event.result.text}")
-
-            }
-
-            Log.d(TAG, "language $languageConfig")
-
-
-
-//            startContinuousRecognitionAsync()
-        }
-
-        Log.d(TAG, "startVoiceStreamer: get start recognizer: $speechRecognizer")
-
-
         voiceStreamer = VoiceStreamer().apply {
             onVoiceAvailable = {
-//                outputStream?.write(it)
-                inputStream?.write(it)
+                Recognizer.feedAudio(it)
             }
             onStreamingFinished = {
-//                outputStream?.close()
-                inputStream?.close()
             }
-            startVoiceStreaming()
         }
 
+        voiceStreamer?.startVoiceStreaming()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,6 +84,7 @@ class ReadingFragment : BaseFragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             isEnabled = false
         }
+        askPermissionContract.launch(recordPermission)
     }
 
     override fun onCreateView(
@@ -162,6 +118,16 @@ class ReadingFragment : BaseFragment() {
         }
 
         viewModel.bookId.value = args.bookId
+        viewModel.isFinish.observe(viewLifecycleOwner) {
+            if (it) {
+                voiceStreamer?.stopVoiceStreaming()
+            }
+        }
+        viewModel.page.observe(viewLifecycleOwner) {
+            voiceStreamer?.stopVoiceStreaming()
+            voiceStreamer?.startVoiceStreaming()
+        }
+
         return binding.root
     }
 
@@ -179,63 +145,8 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
-        file = File(requireContext().filesDir, "auditemp.mp3")
-        outputStream = file?.outputStream()
-
-        askPermissionContract.launch(recordPermission)
-
-        view.setOnClickListener {
-            val textPage = viewModel.textPage.value
-            if (textPage != null) {
-                val index = (textPage.words.indices).random()
-                val words = textPage.words.mapIndexed { idx, wordPage ->
-                    if (index == idx) {
-                        wordPage.copy(isRead = !wordPage.isRead)
-                    } else {
-                        wordPage
-                    }
-                }
-                viewModel.textPage.value = textPage.copy(words = words)
-            }
-
-        }
-
-
-        // check initial implementation
-//        thread {
-//            val speechConfig =
-//                SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeast")
-//            fromMic(speechConfig)
-//        }
     }
 
-//    private fun fromMic(speechConfig: SpeechConfig?) {
-//        if (speechConfig == null) {
-//            return
-//        }
-//
-//        val audioConfig = AudioConfig.fromDefaultMicrophoneInput()
-//        val recognizer = SpeechRecognizer(speechConfig, audioConfig)
-//
-//        recognizer.recognizing.addEventListener { any, speechRecognitionEventArgs ->
-//            if (speechRecognitionEventArgs.result.reason == ResultReason.RecognizedSpeech) {
-//                Log.d(TAG, "fromMic: result text: ${speechRecognitionEventArgs.result.text}")
-//            } else {
-//                Log.d(TAG, "fromMic: Result not found")
-//            }
-//
-//        }
-
-//        recognizer.recognizeOnceAsync().apply {
-//            val result = get()
-//
-//            val detail = CancellationDetails.fromResult(result)
-//            Log.d(TAG, "recognized: ${result.text}")
-//            Log.d(TAG, "reason: ${result.reason}")
-//            Log.d(TAG, "detail: ${detail.errorDetails}")
-//        }
-//        recognizer.startContinuousRecognitionAsync().get()
-//    }
 
 
     override fun getShowStatusBarStatus(): Boolean = false
@@ -263,9 +174,13 @@ class ReadingFragment : BaseFragment() {
 
     override fun onDestroy() {
         viewModel.releaseWordSpeak()
-        voiceStreamer.stopVoiceStreaming()
-        speechRecognizer?.close()
+//        voiceStreamer?.stopVoiceStreaming()
         super.onDestroy()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        voiceStreamer?.stopVoiceStreaming()
     }
 
 }
