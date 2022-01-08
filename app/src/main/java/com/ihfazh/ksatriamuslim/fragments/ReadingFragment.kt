@@ -23,6 +23,7 @@ import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
+import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
 import me.xdrop.fuzzywuzzy.FuzzySearch
 
@@ -47,6 +48,7 @@ class ReadingFragment : BaseFragment() {
 
     private val viewModel: ReadingViewModel by viewModels()
     private val koinViewModel: KoinViewModel by activityViewModels()
+    private val starViewModel: StarViewModel by activityViewModels()
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
@@ -97,7 +99,6 @@ class ReadingFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             mainText.movementMethod = LinkMovementMethod.getInstance()
-            koinViewModel = this@ReadingFragment.koinViewModel
 
             loading.addAnimatorListener(object: Animator.AnimatorListener{
                 override fun onAnimationStart(p0: Animator?) {
@@ -150,7 +151,14 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
+        initializeStarAndCoin()
+
         return binding.root
+    }
+
+    private fun initializeStarAndCoin() {
+        binding.coinLayout.coin = koinViewModel
+        binding.starLayout.star = starViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
