@@ -5,6 +5,7 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import java.util.concurrent.Executors
+import kotlin.math.abs
 
 
 typealias OnVoiceAvailable = (buffer: ByteArray) -> Unit
@@ -46,9 +47,12 @@ class VoiceStreamer {
             voiceRecorder?.apply {
                 startRecording()
                 while (isStreaming) {
+
                     minBufferSize = read(buffer, 0, buffer.size)
-                    onVoiceAvailable?.invoke(buffer)
-//                    Log.d(TAG, "MinBufferSize: $minBufferSize")
+                    if (isHearingVoice(buffer, minBufferSize)) {
+                        onVoiceAvailable?.invoke(buffer)
+                    }
+
                 }
             }
         } catch (e: Exception) {
@@ -75,4 +79,38 @@ class VoiceStreamer {
         isStreaming = true
         executor.submit(runnableAudioStream)
     }
+
+    /*
+    private boolean isHearingVoice(byte[] buffer, int size) {
+            for (int i = 0; i < size - 1; i += 2) {
+                // The buffer has LINEAR16 in little endian.
+                int s = buffer[i + 1];
+                if (s < 0) s *= -1;
+                s <<= 8;
+                s += Math.abs(buffer[i]);
+                if (s > AMPLITUDE_THRESHOLD) {
+                    return true;
+                }
+            }
+            return false;
+        }
+     */
+
+    private fun isHearingVoice(buffer: ByteArray, size: Int): Boolean {
+
+        for (i in 0 until size step 2) {
+            var s = buffer[i + 1].toInt()
+            if (s < 0) {
+                s *= -1
+            }
+            s = s shl 8
+            s += abs(buffer[i].toInt())
+            if (s > 1500) {
+                return true
+            }
+        }
+        return false
+    }
+
+
 }
