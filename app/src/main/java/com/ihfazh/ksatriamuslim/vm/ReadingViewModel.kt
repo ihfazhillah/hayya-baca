@@ -11,6 +11,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -227,9 +228,24 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    val percentage = MutableLiveData<Float>()
 
     fun nextPage() {
+        val _percentage = calculatePercentage()
+        percentage.value = _percentage
+
         _page.value = (_page.value)?.inc() ?: 0
+    }
+
+    private fun calculatePercentage(): Float {
+        val words = textPage.value!!.words
+        Log.d(TAG, "words size: ${words.size}")
+        val readWords = words.filter { it.isRead }
+        Log.d(TAG, "readWords size: ${readWords.size}")
+
+        val percentage = readWords.size.toFloat() / words.size.toFloat()
+        Log.d(TAG, "Percentage: $percentage")
+        return percentage * 100f
     }
 
     fun prevPage() {
@@ -238,5 +254,9 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
     fun releaseWordSpeak() {
         wordSpeak.release()
+    }
+
+    companion object {
+        const val TAG = "Reading View Model"
     }
 }

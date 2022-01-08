@@ -175,6 +175,18 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
+        viewModel.percentage.observe(viewLifecycleOwner) { percent ->
+            val incrementor = when {
+                percent >= 75 -> 4
+                percent >= 50 -> 3
+                percent >= 25 -> 2
+                percent >= 1 -> 1
+                else -> 0
+            }
+            starViewModel.increaseMyCoin(incrementor)
+        }
+
+
     }
 
 
