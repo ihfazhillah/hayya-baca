@@ -130,30 +130,34 @@ class ReadingFragment : BaseFragment() {
             voiceStreamer?.startVoiceStreaming()
         }
 
-        Recognizer.onRecognized = { text ->
-            val page = viewModel.textPage.value
-            if (page != null) {
-                Log.d(TAG, "Text from recognized: $text")
-                val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
-                val words = (page.words zip extracted).map {
-                    val word = it.first
-                    val result = it.second
-                    Log.d(TAG, "Result: $result")
 
-                    if (result.score >= 60) {
-                        word.copy(isRead = true)
-                    } else {
-                        word
-                    }
-                }
-
-                viewModel.textPage.postValue(page.copy(words = words))
-            }
-        }
+        Recognizer.onRecognized = { text -> flipIsRead(text) }
+        Recognizer.onRecognizing = { text -> flipIsRead(text) }
 
         initializeStarAndCoin()
 
         return binding.root
+    }
+
+    private fun flipIsRead(text: String) {
+        val page = viewModel.textPage.value
+        if (page != null) {
+            Log.d(TAG, "Text from recognized: $text")
+            val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
+            val words = (page.words zip extracted).map {
+                val word = it.first
+                val result = it.second
+                Log.d(TAG, "Result: $result")
+
+                if (result.score >= 60) {
+                    word.copy(isRead = true)
+                } else {
+                    word
+                }
+            }
+
+            viewModel.textPage.postValue(page.copy(words = words))
+        }
     }
 
     private fun initializeStarAndCoin() {
