@@ -15,6 +15,7 @@ import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
+import com.ihfazh.ksatriamuslim.vm.StarViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
     private val viewModel: HomeViewModel by viewModels()
     private val koinViewModel: KoinViewModel by activityViewModels()
+    private val starViewModel: StarViewModel by activityViewModels()
 
     lateinit var binding: FragmentHomeBinding
 
@@ -50,7 +52,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            koinViewModel = this@HomeFragment.koinViewModel
         }
 
         val rvAdapter = BookRecyclerViewAdapter { view, book ->
@@ -62,7 +63,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val spanCount = 5
+        val spanCount = 3
         binding.bookRv.adapter = rvAdapter
         binding.bookRv.layoutManager = GridLayoutManager(context, spanCount)
         binding.bookRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -102,12 +103,17 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.books.observe(viewLifecycleOwner){
+        viewModel.books.observe(viewLifecycleOwner) {
             rvAdapter.setBooks(it)
         }
 
-
+        initializeStar()
         return binding.root
+    }
+
+    private fun initializeStar() {
+        binding.starLayout.star = starViewModel
+        binding.coinLayout.coin = koinViewModel
     }
 
     companion object {

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             Recognizer.initialize()
             Recognizer.startRecognizing()
         }
+
     }
 
     private fun handleUpdateDataNotification() {

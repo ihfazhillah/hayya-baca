@@ -156,7 +156,6 @@
             android:rotation="0"
             android:rotationX="0"
             android:rotationY="0"
-            app:coin="@{koinViewModel.koin}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
