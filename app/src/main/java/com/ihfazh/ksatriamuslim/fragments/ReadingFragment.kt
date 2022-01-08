@@ -24,6 +24,7 @@ import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
+import me.xdrop.fuzzywuzzy.FuzzySearch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,6 +127,27 @@ class ReadingFragment : BaseFragment() {
         viewModel.page.observe(viewLifecycleOwner) {
             voiceStreamer?.stopVoiceStreaming()
             voiceStreamer?.startVoiceStreaming()
+        }
+
+        Recognizer.onRecognized = { text ->
+            val page = viewModel.textPage.value
+            if (page != null) {
+                Log.d(TAG, "Text from recognized: $text")
+                val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
+                val words = (page.words zip extracted).map {
+                    val word = it.first
+                    val result = it.second
+                    Log.d(TAG, "Result: $result")
+
+                    if (result.score >= 60) {
+                        word.copy(isRead = true)
+                    } else {
+                        word
+                    }
+                }
+
+                viewModel.textPage.postValue(page.copy(words = words))
+            }
         }
 
         return binding.root
