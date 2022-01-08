@@ -1,6 +1,8 @@
 package com.ihfazh.ksatriamuslim
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         handleUpdateDataNotification()
+
+        Handler(Looper.getMainLooper()).post {
+            Recognizer.initialize()
+            Recognizer.startRecognizing()
+        }
     }
 
     private fun handleUpdateDataNotification() {
@@ -67,10 +75,16 @@ class MainActivity : AppCompatActivity() {
             R.id.coinCongratulateFragment
         )
         val child = navController.currentDestination?.id
-        if (fragmentsCannotBack.contains(child) && keyCode == KeyEvent.KEYCODE_BACK){
+        if (fragmentsCannotBack.contains(child) && keyCode == KeyEvent.KEYCODE_BACK) {
             return false
         }
 
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        Recognizer.stopRecognizing()
+        Recognizer.destroy()
+        super.onDestroy()
     }
 }

@@ -104,5 +104,8 @@ dependencies {
 
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
+    // fuzzywuzzy
+    implementation "me.xdrop:fuzzywuzzy:$fuzzy_wuzzy_version"
+
 
 }
