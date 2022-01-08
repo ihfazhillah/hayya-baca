@@ -40,12 +40,22 @@
             tools:spanCount="3" />
 
         <include
+            android:id="@+id/starLayout"
+            layout="@layout/star_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/coinLayout"
+            app:layout_constraintEnd_toStartOf="@id/coinLayout"
+            app:layout_constraintTop_toTopOf="@id/coinLayout" />
+
+        <include
+            android:id="@+id/coinLayout"
             layout="@layout/coin_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            app:coin="@{koinViewModel.koin}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

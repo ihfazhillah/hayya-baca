@@ -6,11 +6,11 @@
     <data>
 
         <variable
-            name="coin"
-            type="com.ihfazh.ksatriamuslim.vm.KoinViewModel" />
+            name="star"
+            type="com.ihfazh.ksatriamuslim.vm.StarViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,30 +21,29 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-14dp"
+            android:layout_marginStart="-20dp"
             android:background="@drawable/coin_text_background"
             android:clickable="true"
             android:fontFamily="@font/playtime"
-            android:text='@{coin.koin.balance + ""}'
+            android:text='@{star.star.count + ""}'
             android:textColor="#b55e28"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/coinIcon"
-            app:layout_constraintStart_toEndOf="@+id/coinIcon"
-            app:layout_constraintTop_toTopOf="@id/coinIcon"
+            app:layout_constraintBottom_toBottomOf="@id/starIcon"
+            app:layout_constraintStart_toEndOf="@+id/starIcon"
+            app:layout_constraintTop_toTopOf="@id/starIcon"
             tools:text="10000" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/coinIcon"
+        <ImageView
+            android:id="@+id/starIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/ic_star_1957919"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/km_coin_detak_jantung" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
