@@ -27,7 +27,6 @@ import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
-import me.xdrop.fuzzywuzzy.FuzzySearch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -128,7 +127,9 @@ class ReadingFragment : BaseFragment() {
             }
         }
         viewModel.page.observe(viewLifecycleOwner) {
+//            Recognizer.stopRecognizing()
             voiceStreamer?.stopVoiceStreaming()
+//            Recognizer.startRecognizing()
             voiceStreamer?.startVoiceStreaming()
         }
 
@@ -145,18 +146,36 @@ class ReadingFragment : BaseFragment() {
         val page = viewModel.textPage.value
         if (page != null) {
             Log.d(TAG, "Text from recognized: $text")
-            val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
-            val words = (page.words zip extracted).map {
-                val word = it.first
-                val result = it.second
-                Log.d(TAG, "Result: $result")
+//            val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
+//            val words = (page.words zip extracted).map {
+//                val word = it.first
+//                val result = it.second
+//                Log.d(TAG, "Result: $result")
+//
+//                val wordSize = word.text.length
+//                val resultSize = text.length
+//
+//                val isSizeAlmostSame = resultSize >= wordSize - 2
+//
+//                if (result.score >= 85 && isSizeAlmostSame) {
+//                    word.copy(isRead = true)
+//                } else {
+//                    word
+//                }
+//            }
 
-                if (result.score >= 85) {
-                    word.copy(isRead = true)
+            val splitResult = text.split(" ").joinToString("|")
+            val pattern = Regex(splitResult, RegexOption.IGNORE_CASE)
+
+            val words = page.words.map {
+                if (pattern.matches(it.text)) {
+                    it.copy(isRead = true)
                 } else {
-                    word
+                    it
                 }
             }
+
+            Log.d(TAG, "flipIsRead: Result flip $words")
 
             viewModel.textPage.postValue(page.copy(words = words))
         }
