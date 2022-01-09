@@ -29,121 +29,113 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".fragments.ReadingFragment">
+        android:layout_height="match_parent">
 
 
         <ImageView
+            android:id="@+id/background_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/background_image"
-            android:src="@{vm.backgroundImage}"
+            android:contentDescription="@string/background_image"
             android:scaleType="fitXY"
-            android:contentDescription="@string/background_image" />
+            android:src="@{vm.backgroundImage}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_marginBottom="25dp"
+            android:id="@+id/main_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vm.mainText}"
-            tools:text="Ini Adalah text yang akan dibaca sama anak anak \n Perlu yang panjang sekali sebetulnya"
-            android:textSize="35sp"
-            android:textAlignment="center"
+            android:layout_marginBottom="25dp"
+            android:bufferType="spannable"
             android:fontFamily="@font/playtime"
             android:paddingStart="100dp"
             android:paddingEnd="100dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/main_text"
-            android:textColor="@{vm.textColor}"
-            android:bufferType="spannable"
             android:shadowColor="@android:color/darker_gray"
             android:shadowRadius="5"
+            android:text="@{vm.mainText}"
+            android:textAlignment="center"
+            android:textColor="@{vm.textColor}"
             android:textColorHighlight="@color/white"
-            />
+            android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:id="@+id/next_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/next_icon"
-            android:background="@drawable/circle_button_background"
-            android:scaleType="centerInside"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="25dp"
-            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:background="@drawable/circle_button_background"
+            android:contentDescription="@string/next_page"
             android:onClick="@{() -> vm.nextPage()}"
-            android:contentDescription="@string/next_page" />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
-            android:enabled="@{vm.hasPrev}"
+            android:id="@+id/prev_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/prev_icon"
-            android:background="@drawable/circle_button_background"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-            android:scaleType="centerInside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="25dp"
+            android:background="@drawable/circle_button_background"
             android:clickable="@{vm.hasPrev}"
+            android:contentDescription="@string/prev_page"
+            android:enabled="@{vm.hasPrev}"
             android:onClick="@{() -> vm.prevPage()}"
-            android:contentDescription="@string/prev_page" />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:id="@+id/page_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="1"
-            android:text='@{String.valueOf(vm.page)}'
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="25dp"
             android:fontFamily="@font/playtime"
-            android:textSize="20sp"
+            android:text='@{String.valueOf(vm.page)}'
             android:textColor="@{vm.textColor}"
-            android:id="@+id/page_number"
-            />
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:background="@drawable/circle_button_background"
-            android:shadowColor="@color/black"
-            android:shadowDy="10"
+            android:id="@+id/btn_home"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_baseline_home_24"
-            android:shadowRadius="10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black"
-            android:id="@+id/btn_home"
-            android:layout_marginTop="25dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/circle_button_background"
+            android:contentDescription="@string/back_to_home"
             android:onClick="@{() -> nav.goHome()}"
-            android:contentDescription="@string/back_to_home" />
+            android:src="@drawable/ic_baseline_home_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:lottie_rawRes="@raw/book_loader"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="fitXY"
             android:visibility="@{vm.loading ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:scaleType="fitXY"
-            android:id="@+id/loading" />
+            app:lottie_rawRes="@raw/book_loader" />
 
 
         <include
@@ -157,18 +149,28 @@
             app:layout_constraintTop_toTopOf="@id/coinLayout" />
 
         <include
-            android:id="@+id/coinLayout"
             layout="@layout/coin_layout"
+            android:id="@+id/coinLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="30dp"
-            android:rotation="0"
-            android:rotationX="0"
-            android:rotationY="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:id="@+id/starAddedTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="200sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="+4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

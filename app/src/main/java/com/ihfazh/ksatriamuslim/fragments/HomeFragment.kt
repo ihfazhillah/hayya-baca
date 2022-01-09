@@ -108,6 +108,8 @@ class HomeFragment : Fragment() {
         }
 
         initializeStar()
+
+
         return binding.root
     }
 
