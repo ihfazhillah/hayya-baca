@@ -5,7 +5,6 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import java.util.concurrent.Executors
-import kotlin.math.abs
 
 
 typealias OnVoiceAvailable = (buffer: ByteArray) -> Unit
@@ -97,20 +96,20 @@ class VoiceStreamer {
      */
 
     private fun isHearingVoice(buffer: ByteArray, size: Int): Boolean {
+        return true
 
-        for (i in 0 until size step 2) {
-            var s = buffer[i + 1].toInt()
-            if (s < 0) {
-                s *= -1
-            }
-            s = s shl 8
-            s += abs(buffer[i].toInt())
-            if (s > 1500) {
-                return true
-            }
-        }
-        return false
+//        for (i in 0 until size step 2) {
+//            var s = buffer[i + 1].toInt()
+//            if (s < 0) {
+//                s *= -1
+//            }
+//            s = s shl 8
+//            s += abs(buffer[i].toInt())
+//            if (s > 1500) {
+//                return true
+//            }
+//        }
+//        return false
     }
-
 
 }
