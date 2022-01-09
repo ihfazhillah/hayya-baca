@@ -2,6 +2,8 @@ package com.ihfazh.ksatriamuslim.fragments
 
 import android.Manifest
 import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -188,6 +190,22 @@ class ReadingFragment : BaseFragment() {
                 else -> 0
             }
             starViewModel.increaseMyCoin(incrementor)
+
+
+            if (incrementor > 0) {
+                binding.starAddedTv.text = "+$incrementor"
+                binding.starAddedTv.visibility = View.VISIBLE
+                val horizontalPositionAnim =
+                    ObjectAnimator.ofFloat(binding.starAddedTv, "translationX", 0f, 1000f)
+                val topPositionAnim =
+                    ObjectAnimator.ofFloat(binding.starAddedTv, "translationY", 0f, -1000f)
+                val scaleX = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleX", 1f, 0f)
+                val scaleY = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleY", 1f, 0f)
+                val set = AnimatorSet()
+                set.duration = 1000
+                set.playTogether(topPositionAnim, horizontalPositionAnim, scaleX, scaleY)
+                set.start()
+            }
         }
 
 
