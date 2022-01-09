@@ -25,6 +25,7 @@ class VoiceStreamer {
         private const val channelConfig = AudioFormat.CHANNEL_IN_MONO
         private const val audioFormat = AudioFormat.ENCODING_PCM_16BIT
         private var minBufferSize: Int = 1024
+        private var actualMinBufferSize = 1024
     }
 
     @SuppressLint("MissingPermission")
@@ -37,7 +38,7 @@ class VoiceStreamer {
                     sampleRate,
                     channelConfig,
                     audioFormat,
-                    minBufferSize * 2
+                    actualMinBufferSize * 2
                 ).also {
                     voiceRecorder = it
                 }
@@ -48,7 +49,12 @@ class VoiceStreamer {
                 while (isStreaming) {
 
                     minBufferSize = read(buffer, 0, buffer.size)
-                    if (isHearingVoice(buffer, minBufferSize)) {
+
+                    if (isHearingVoice(
+                            buffer,
+                            minBufferSize
+                        ) && minBufferSize != AudioRecord.ERROR_INVALID_OPERATION
+                    ) {
                         onVoiceAvailable?.invoke(buffer)
                     }
 
@@ -66,6 +72,7 @@ class VoiceStreamer {
 
     fun stopVoiceStreaming() {
         isStreaming = false
+        voiceRecorder?.stop()
         voiceRecorder?.release()
         voiceRecorder = null
         if (runnableAudioStream.isAlive) {
