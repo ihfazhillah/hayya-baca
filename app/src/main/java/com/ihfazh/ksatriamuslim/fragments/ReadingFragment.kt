@@ -151,7 +151,7 @@ class ReadingFragment : BaseFragment() {
                 val result = it.second
                 Log.d(TAG, "Result: $result")
 
-                if (result.score >= 60) {
+                if (result.score >= 85) {
                     word.copy(isRead = true)
                 } else {
                     word
