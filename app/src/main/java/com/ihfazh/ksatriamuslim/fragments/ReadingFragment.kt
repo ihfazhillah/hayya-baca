@@ -20,7 +20,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.common.Recognizer
-import com.ihfazh.ksatriamuslim.common.VoiceStreamer
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
@@ -54,30 +53,30 @@ class ReadingFragment : BaseFragment() {
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
 
-    private var voiceStreamer: VoiceStreamer? = null
+//    private var voiceStreamer: VoiceStreamer? = null
 
     private val recordPermission = Manifest.permission.RECORD_AUDIO
     private val askPermissionContract =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
             if (ok) {
-                startVoiceStreamer()
+                Recognizer.startRecognizing()
             } else {
                 Log.w(TAG, "Permission not granted. Skipping..")
 
             }
         }
 
-    private fun startVoiceStreamer() {
-        voiceStreamer = VoiceStreamer().apply {
-            onVoiceAvailable = {
-                Recognizer.feedAudio(it)
-            }
-            onStreamingFinished = {
-            }
-        }
-
-        voiceStreamer?.startVoiceStreaming()
-    }
+//    private fun startVoiceStreamer() {
+//        voiceStreamer = VoiceStreamer().apply {
+//            onVoiceAvailable = {
+//                Recognizer.feedAudio(it)
+//            }
+//            onStreamingFinished = {
+//            }
+//        }
+//
+//        voiceStreamer?.startVoiceStreaming()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,14 +122,20 @@ class ReadingFragment : BaseFragment() {
         viewModel.bookId.value = args.bookId
         viewModel.isFinish.observe(viewLifecycleOwner) {
             if (it) {
-                voiceStreamer?.stopVoiceStreaming()
+                Recognizer.stopRecognizing()
+//                voiceStreamer?.stopVoiceStreaming()
             }
         }
         viewModel.page.observe(viewLifecycleOwner) {
 //            Recognizer.stopRecognizing()
-            voiceStreamer?.stopVoiceStreaming()
+//            voiceStreamer?.stopVoiceStreaming()
 //            Recognizer.startRecognizing()
-            voiceStreamer?.startVoiceStreaming()
+//            voiceStreamer?.startVoiceStreaming()
+//            Recognizer.stopRecognizing{
+//                Recognizer.startRecognizing{
+//                    Log.d(TAG, "Mulai recognizing....")
+//                }
+//            }
         }
 
 
@@ -259,11 +264,6 @@ class ReadingFragment : BaseFragment() {
         viewModel.releaseWordSpeak()
 //        voiceStreamer?.stopVoiceStreaming()
         super.onDestroy()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        voiceStreamer?.stopVoiceStreaming()
     }
 
 }
