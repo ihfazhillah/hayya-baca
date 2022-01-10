@@ -8,7 +8,9 @@ import kotlinx.coroutines.launch
 
 class Navigator(val view: View?, private val lifecycleCoroutineScope: LifecycleCoroutineScope) {
     fun goHome(){
-        view?.findNavController()?.navigateUp()
+        Recognizer.stopRecognizing {
+            view?.findNavController()?.navigateUp()
+        }
     }
 
     fun finish(){

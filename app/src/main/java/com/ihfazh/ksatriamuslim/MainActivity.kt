@@ -1,8 +1,6 @@
 package com.ihfazh.ksatriamuslim
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -36,10 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         handleUpdateDataNotification()
 
-        Handler(Looper.getMainLooper()).post {
-            Recognizer.initialize()
-            Recognizer.startRecognizing()
-        }
+        Recognizer.initialize()
 
     }
 
@@ -84,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Recognizer.stopRecognizing()
         Recognizer.destroy()
         super.onDestroy()
     }

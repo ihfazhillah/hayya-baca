@@ -1,38 +1,70 @@
 package com.ihfazh.ksatriamuslim.common
 
 import android.util.Log
+import com.ihfazh.ksatriamuslim.MicrophoneAudioInput
 import com.microsoft.cognitiveservices.speech.SourceLanguageConfig
 import com.microsoft.cognitiveservices.speech.SpeechConfig
 import com.microsoft.cognitiveservices.speech.SpeechRecognizer
 import com.microsoft.cognitiveservices.speech.audio.AudioConfig
 import com.microsoft.cognitiveservices.speech.audio.AudioInputStream
-import com.microsoft.cognitiveservices.speech.audio.AudioStreamFormat
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 
 typealias OnRecognizing = (text: String) -> Unit
 typealias OnRecognized = (text: String) -> Unit
 
+
 object Recognizer {
+    private var executorService = Executors.newCachedThreadPool()
+
+    private fun <T> setOnTaskCompletedListener(
+        task: Future<T>,
+        onTaskCompletedListener: (T) -> Unit
+    ) {
+        executorService.submit {
+            val result = task.get()
+            onTaskCompletedListener.invoke(result)
+        }
+
+    }
+
+    private var microphoneStream: MicrophoneAudioInput? = null
+    private fun createMicrophoneStream(): MicrophoneAudioInput {
+        if (microphoneStream != null) {
+            microphoneStream?.close()
+            microphoneStream = null
+        }
+
+        return MicrophoneAudioInput().also {
+            microphoneStream = it
+        }
+    }
+
     private const val TAG = "Recognizer"
     private var speechRecognizer: SpeechRecognizer? = null
-    val audioFormat = AudioStreamFormat.getWaveFormatPCM(44000, 16, 1)
-    var inputStream = AudioInputStream.createPushStream(audioFormat)
 
     var onRecognizing: OnRecognizing? = null
     var onRecognized: OnRecognized? = null
 
-    fun startRecognizing() {
+    fun startRecognizing(listener: (() -> Unit)? = null) {
         Log.d(TAG, "startRecognizing: $speechRecognizer")
-        speechRecognizer?.startContinuousRecognitionAsync()
+        speechRecognizer?.run {
+            val task = startContinuousRecognitionAsync()
+            setOnTaskCompletedListener(task) {
+                listener?.invoke()
+            }
+        }
     }
 
-    fun stopRecognizing() {
-        speechRecognizer?.stopContinuousRecognitionAsync()
-    }
+    fun stopRecognizing(listener: (() -> Unit)? = null) {
+        Log.d(TAG, "stopRecognizing: stopping recongintion")
+        speechRecognizer?.run {
+            val task = stopContinuousRecognitionAsync()
+            setOnTaskCompletedListener(task) {
+                listener?.invoke()
+            }
 
-    fun feedAudio(byteArray: ByteArray) {
-//        Log.d(TAG, "feedAudio: got bytarray of audio $byteArray")
-//        Log.d(TAG, "feedAudio: input stream: $inputStream")
-        inputStream?.write(byteArray)
+        }
     }
 
     fun destroy() {
@@ -40,29 +72,27 @@ object Recognizer {
             speechRecognizer?.close()
             speechRecognizer = null
         }
-
-        if (inputStream != null) {
-            inputStream?.close()
-            inputStream = null
-        }
     }
 
     fun initialize() {
-//        val job = Job()
-//        withContext(Dispatchers.Main + job){
         Log.d(TAG, "initialize recognizer")
         val config =
             SpeechConfig.fromSubscription("0f2f91cdaf924e4791ab1d253873a0f3", "southeastasia")
         val languageConfig = SourceLanguageConfig.fromLanguage("id-ID")
+        val microphone = createMicrophoneStream()
+        val stream = AudioInputStream.createPullStream(microphone, microphone.format)
+        val audioConfig = AudioConfig.fromStreamInput(stream)
 
         speechRecognizer = SpeechRecognizer(
             config,
             languageConfig,
-            AudioConfig.fromStreamInput(inputStream)
+            audioConfig
         ).apply {
             recognizing.addEventListener { any, event ->
-                Log.d(TAG, "sedang proses: ${event.result.text}")
-                onRecognizing?.invoke(event.result.text)
+                Log.d(
+                    TAG,
+                    "sedang proses: ${event.result.text}"
+                ); onRecognizing?.invoke(event.result.text)
 
             }
             recognized.addEventListener { any, event ->
@@ -72,7 +102,6 @@ object Recognizer {
             }
         }
 
-//        }
 
         if (speechRecognizer != null) {
             Log.d(TAG, "speech recognizer initialized....")
