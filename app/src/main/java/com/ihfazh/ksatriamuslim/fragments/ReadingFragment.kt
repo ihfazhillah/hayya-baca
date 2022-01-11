@@ -1,6 +1,5 @@
 package com.ihfazh.ksatriamuslim.fragments
 
-import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,9 +37,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ReadingFragment : BaseFragment() {
 
-    val showFragment = false
 
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private val args: ReadingFragmentArgs by navArgs()
@@ -53,31 +49,6 @@ class ReadingFragment : BaseFragment() {
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
 
-//    private var voiceStreamer: VoiceStreamer? = null
-
-    private val recordPermission = Manifest.permission.RECORD_AUDIO
-    private val askPermissionContract =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
-            if (ok) {
-                Recognizer.startRecognizing()
-            } else {
-                Log.w(TAG, "Permission not granted. Skipping..")
-
-            }
-        }
-
-//    private fun startVoiceStreamer() {
-//        voiceStreamer = VoiceStreamer().apply {
-//            onVoiceAvailable = {
-//                Recognizer.feedAudio(it)
-//            }
-//            onStreamingFinished = {
-//            }
-//        }
-//
-//        voiceStreamer?.startVoiceStreaming()
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -87,7 +58,7 @@ class ReadingFragment : BaseFragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             isEnabled = false
         }
-        askPermissionContract.launch(recordPermission)
+        Recognizer.startRecognizing()
     }
 
     override fun onCreateView(
@@ -123,19 +94,7 @@ class ReadingFragment : BaseFragment() {
         viewModel.isFinish.observe(viewLifecycleOwner) {
             if (it) {
                 Recognizer.stopRecognizing()
-//                voiceStreamer?.stopVoiceStreaming()
             }
-        }
-        viewModel.page.observe(viewLifecycleOwner) {
-//            Recognizer.stopRecognizing()
-//            voiceStreamer?.stopVoiceStreaming()
-//            Recognizer.startRecognizing()
-//            voiceStreamer?.startVoiceStreaming()
-//            Recognizer.stopRecognizing{
-//                Recognizer.startRecognizing{
-//                    Log.d(TAG, "Mulai recognizing....")
-//                }
-//            }
         }
 
 
@@ -262,7 +221,6 @@ class ReadingFragment : BaseFragment() {
 
     override fun onDestroy() {
         viewModel.releaseWordSpeak()
-//        voiceStreamer?.stopVoiceStreaming()
         super.onDestroy()
     }
 

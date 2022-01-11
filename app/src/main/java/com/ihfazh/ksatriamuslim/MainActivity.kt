@@ -1,9 +1,12 @@
 package com.ihfazh.ksatriamuslim
 
+import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -34,8 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         handleUpdateDataNotification()
 
-        Recognizer.initialize()
-
+        askPermissionContract.launch(permission)
     }
 
     private fun handleUpdateDataNotification() {
@@ -81,5 +83,20 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         Recognizer.destroy()
         super.onDestroy()
+    }
+
+    // PERMISSIONS
+    private val permission = Manifest.permission.RECORD_AUDIO
+    private val askPermissionContract =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                Recognizer.initialize()
+            } else {
+                Log.w(TAG, "Permission not granted. Recording not started.")
+            }
+        }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
