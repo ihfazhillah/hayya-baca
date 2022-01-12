@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.common.Recognizer
+import com.ihfazh.ksatriamuslim.common.RecognizerListener
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
@@ -91,15 +94,22 @@ class ReadingFragment : BaseFragment() {
         }
 
         viewModel.bookId.value = args.bookId
-        viewModel.isFinish.observe(viewLifecycleOwner) {
-            if (it) {
-                Recognizer.stopRecognizing()
+
+
+        Recognizer.onRecognized = { text -> RecognizerListener.onRecognized(text) }
+        Recognizer.onRecognizing = { text -> RecognizerListener.onRecognizing(text) }
+        RecognizerListener.onTextPageChange = { textPage ->
+            viewModel.textPage.value?.run {
+                if (textPage.originalText == originalText) {
+                    viewModel.textPage.postValue(textPage)
+                }
             }
         }
-
-
-        Recognizer.onRecognized = { text -> flipIsRead(text) }
-        Recognizer.onRecognizing = { text -> flipIsRead(text) }
+        RecognizerListener.onPercetangeChange = {
+            Handler(Looper.getMainLooper()).post {
+                animatePercentChange(it)
+            }
+        }
 
         initializeStarAndCoin()
 
@@ -157,6 +167,8 @@ class ReadingFragment : BaseFragment() {
 
         viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
             if (finished) {
+                viewModel.calculatePercentage()
+                Recognizer.stopRecognizing()
                 koinViewModel.increaseMyCoin()
                 val action =
                     ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
@@ -164,36 +176,45 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
-        viewModel.percentage.observe(viewLifecycleOwner) { percent ->
-            val incrementor = when {
-                percent >= 75 -> 4
-                percent >= 50 -> 3
-                percent >= 25 -> 2
-                percent >= 1 -> 1
-                else -> 0
-            }
-            starViewModel.increaseMyCoin(incrementor)
-
-
-            if (incrementor > 0) {
-                binding.starAddedTv.text = "+$incrementor"
-                binding.starAddedTv.visibility = View.VISIBLE
-                val horizontalPositionAnim =
-                    ObjectAnimator.ofFloat(binding.starAddedTv, "translationX", 0f, 1000f)
-                val topPositionAnim =
-                    ObjectAnimator.ofFloat(binding.starAddedTv, "translationY", 0f, -1000f)
-                val scaleX = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleX", 1f, 0f)
-                val scaleY = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleY", 1f, 0f)
-                val set = AnimatorSet()
-                set.duration = 1000
-                set.playTogether(topPositionAnim, horizontalPositionAnim, scaleX, scaleY)
-                set.start()
+        viewModel.textPage.observe(viewLifecycleOwner) {
+            if (RecognizerListener.queue.find { textPage -> textPage.originalText == it.originalText } == null) {
+                RecognizerListener.queue.add(it)
             }
         }
 
+//        viewModel.percentage.observe(viewLifecycleOwner) { percent ->
+//            animatePercentChange(percent)
+//        }
+//
 
     }
 
+    private fun animatePercentChange(percent: Float) {
+        val incrementor = when {
+            percent >= 75 -> 4
+            percent >= 50 -> 3
+            percent >= 25 -> 2
+            percent >= 1 -> 1
+            else -> 0
+        }
+        starViewModel.increaseMyCoin(incrementor)
+
+
+        if (incrementor > 0) {
+            binding.starAddedTv.text = "+$incrementor"
+            binding.starAddedTv.visibility = View.VISIBLE
+            val horizontalPositionAnim =
+                ObjectAnimator.ofFloat(binding.starAddedTv, "translationX", 0f, 1000f)
+            val topPositionAnim =
+                ObjectAnimator.ofFloat(binding.starAddedTv, "translationY", 0f, -1000f)
+            val scaleX = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleX", 1f, 0f)
+            val scaleY = ObjectAnimator.ofFloat(binding.starAddedTv, "scaleY", 1f, 0f)
+            val set = AnimatorSet()
+            set.duration = 1000
+            set.playTogether(topPositionAnim, horizontalPositionAnim, scaleX, scaleY)
+            set.start()
+        }
+    }
 
 
     override fun getShowStatusBarStatus(): Boolean = false
