@@ -12,6 +12,7 @@ import java.util.concurrent.Future
 
 typealias OnRecognizing = (text: String) -> Unit
 typealias OnRecognized = (text: String) -> Unit
+typealias OnCanceled = (cancelReason: String) -> Unit
 
 
 object Recognizer {
@@ -45,6 +46,7 @@ object Recognizer {
 
     var onRecognizing: OnRecognizing? = null
     var onRecognized: OnRecognized? = null
+    var onCanceled: OnCanceled? = null
 
     fun startRecognizing(listener: (() -> Unit)? = null) {
         Log.d(TAG, "startRecognizing: $speechRecognizer")
@@ -99,6 +101,24 @@ object Recognizer {
                 Log.d(TAG, "sudah dapat dari proses proses: ${event.result.text}")
                 onRecognized?.invoke(event.result.text)
 
+            }
+
+            sessionStarted.addEventListener { any, eventArgs ->
+                Log.d(TAG, "session started detected ${eventArgs.sessionId}")
+            }
+            sessionStopped.addEventListener { any, eventArgs ->
+                Log.d(TAG, "session stopped detected ${eventArgs.sessionId}")
+            }
+
+            speechStartDetected.addEventListener { any, recognitionEventArgs ->
+                Log.d(TAG, "speech detected start ${recognitionEventArgs.offset}")
+            }
+            speechEndDetected.addEventListener { any, event ->
+                Log.d(TAG, "speech detected start ${event.offset}")
+            }
+            canceled.addEventListener { any, cancel ->
+                Log.d(TAG, "speech cancelled, ${cancel.errorCode} - ${cancel.errorDetails}")
+                onCanceled?.invoke(cancel.errorDetails)
             }
         }
 
