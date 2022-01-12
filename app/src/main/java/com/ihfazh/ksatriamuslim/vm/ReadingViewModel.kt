@@ -231,13 +231,10 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val percentage = MutableLiveData<Float>()
 
     fun nextPage() {
-        val _percentage = calculatePercentage()
-        percentage.value = _percentage
-
         _page.value = (_page.value)?.inc() ?: 0
     }
 
-    private fun calculatePercentage(): Float {
+    fun calculatePercentage() {
         val words = textPage.value!!.words
         Log.d(TAG, "words size: ${words.size}")
         val readWords = words.filter { it.isRead }
@@ -245,7 +242,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
         val percentage = readWords.size.toFloat() / words.size.toFloat()
         Log.d(TAG, "Percentage: $percentage")
-        return percentage * 100f
+        this.percentage.value = percentage * 100f
     }
 
     fun prevPage() {
