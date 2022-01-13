@@ -27,6 +27,8 @@ import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,7 +63,10 @@ class ReadingFragment : BaseFragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             isEnabled = false
         }
-        Recognizer.startRecognizing()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            Recognizer.startRecognizing()
+        }
     }
 
     override fun onCreateView(
@@ -168,11 +173,13 @@ class ReadingFragment : BaseFragment() {
         viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
             if (finished) {
                 viewModel.calculatePercentage()
-                Recognizer.stopRecognizing()
                 koinViewModel.increaseMyCoin()
                 val action =
                     ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
                 findNavController().navigate(action)
+                lifecycleScope.launch {
+                    Recognizer.stopRecognizing()
+                }
             }
         }
 
