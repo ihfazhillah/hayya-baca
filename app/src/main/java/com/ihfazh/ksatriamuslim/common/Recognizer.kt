@@ -7,8 +7,7 @@ import com.microsoft.cognitiveservices.speech.SpeechConfig
 import com.microsoft.cognitiveservices.speech.SpeechRecognizer
 import com.microsoft.cognitiveservices.speech.audio.AudioConfig
 import com.microsoft.cognitiveservices.speech.audio.AudioInputStream
-import java.util.concurrent.Executors
-import java.util.concurrent.Future
+import kotlin.coroutines.suspendCoroutine
 
 typealias OnRecognizing = (text: String) -> Unit
 typealias OnRecognized = (text: String) -> Unit
@@ -16,18 +15,7 @@ typealias OnCanceled = (cancelReason: String) -> Unit
 
 
 object Recognizer {
-    private var executorService = Executors.newCachedThreadPool()
 
-    private fun <T> setOnTaskCompletedListener(
-        task: Future<T>,
-        onTaskCompletedListener: (T) -> Unit
-    ) {
-        executorService.submit {
-            val result = task.get()
-            onTaskCompletedListener.invoke(result)
-        }
-
-    }
 
     private var microphoneStream: MicrophoneAudioInput? = null
     private fun createMicrophoneStream(): MicrophoneAudioInput {
@@ -48,24 +36,19 @@ object Recognizer {
     var onRecognized: OnRecognized? = null
     var onCanceled: OnCanceled? = null
 
-    fun startRecognizing(listener: (() -> Unit)? = null) {
+    suspend fun startRecognizing() {
         Log.d(TAG, "startRecognizing: $speechRecognizer")
-        speechRecognizer?.run {
-            val task = startContinuousRecognitionAsync()
-            setOnTaskCompletedListener(task) {
-                listener?.invoke()
+        return suspendCoroutine {
+            speechRecognizer?.run {
+                startContinuousRecognitionAsync().get()
             }
         }
     }
 
-    fun stopRecognizing(listener: (() -> Unit)? = null) {
+    suspend fun stopRecognizing(listener: (() -> Unit)? = null) {
         Log.d(TAG, "stopRecognizing: stopping recongintion")
-        speechRecognizer?.run {
-            val task = stopContinuousRecognitionAsync()
-            setOnTaskCompletedListener(task) {
-                listener?.invoke()
-            }
-
+        return suspendCoroutine {
+            speechRecognizer?.stopContinuousRecognitionAsync()?.get()
         }
     }
 
