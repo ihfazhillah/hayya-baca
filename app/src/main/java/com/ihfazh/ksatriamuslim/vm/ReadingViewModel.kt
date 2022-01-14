@@ -56,38 +56,8 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     private val backgroundLoading = MutableLiveData(true)
     val animationRunning = MutableLiveData(true)
 
-    val loading = MediatorLiveData<Boolean>().apply {
-
-        var _backgroundLoading = true
-        var _animationLoading = true
-        var finalLoading: Boolean
-
-        addSource(animationRunning){
-            _animationLoading = it
-            finalLoading = _animationLoading && _backgroundLoading
-
-            if (!finalLoading){
-                removeSource(animationRunning)
-                removeSource(backgroundLoading)
-            }
-
-            value = finalLoading
-        }
-
-        addSource(backgroundLoading){
-            _backgroundLoading = true
-            finalLoading = _animationLoading && _backgroundLoading
-
-            if (!finalLoading){
-                removeSource(animationRunning)
-                removeSource(backgroundLoading)
-            }
-
-            value = finalLoading
-        }
-    }
-
-
+    val loading = animationRunning.asFlow().combine(backgroundLoading.asFlow()) { a, b -> a && b }
+        .asLiveData()
 
     private val repository: ReadingBackgroundRepositoryImpl
 
