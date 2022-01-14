@@ -13,6 +13,7 @@ typealias OnTextPageChange = (textPage: TextPage) -> Unit
 typealias OnPercentageChange = (percentage: Float) -> Unit
 
 object RecognizerListener {
+    // TODO: think how the app will collect and try to flip the words
 
 
     var onTextPageChange: OnTextPageChange? = null
@@ -24,6 +25,7 @@ object RecognizerListener {
     fun addTextPage(textPage: TextPage) {
         if (currentTextPage == null || currentTextPage?.originalText != textPage.originalText) {
             queue.add(textPage)
+            currentTextPage = null
         }
     }
 
