@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.common
 
+import android.util.Log
 import com.ihfazh.ksatriamuslim.domain.TextPage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,13 +13,19 @@ typealias OnTextPageChange = (textPage: TextPage) -> Unit
 typealias OnPercentageChange = (percentage: Float) -> Unit
 
 object RecognizerListener {
-    val queue = ConcurrentLinkedQueue<TextPage>()
 
 
     var onTextPageChange: OnTextPageChange? = null
     var onPercetangeChange: OnPercentageChange? = null
 
+    private val queue = ConcurrentLinkedQueue<TextPage>()
     private var currentTextPage: TextPage? = null
+
+    fun addTextPage(textPage: TextPage) {
+        if (currentTextPage == null || currentTextPage?.originalText != textPage.originalText) {
+            queue.add(textPage)
+        }
+    }
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -68,7 +75,11 @@ object RecognizerListener {
     private fun calculatePercentage(): Float {
         return currentTextPage?.run {
             val readWords = words.filter { it.isRead }
-            return readWords.size.toFloat() / words.size.toFloat()
+            val percentage = readWords.size.toFloat() / words.size.toFloat()
+            Log.d(TAG, "GET PERCENTAGE: $percentage")
+            percentage
         } ?: 0f
     }
+
+    const val TAG = "LISTENER"
 }
