@@ -107,5 +107,8 @@ dependencies {
     // fuzzywuzzy
     implementation "me.xdrop:fuzzywuzzy:$fuzzy_wuzzy_version"
 
+    // sentry
+    implementation "io.sentry:sentry-android:$sentry_version"
+
 
 }

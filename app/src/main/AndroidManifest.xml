@@ -27,6 +27,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ksatriamuslim">
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://aee240b39440493c852477042fc34377@o1116609.ingest.sentry.io/6150138" />
+        <!-- Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+           We recommend adjusting this value in production. -->
+        <meta-data
+            android:name="io.sentry.traces.sample-rate"
+            android:value="1.0" />
+
         <service
             android:name=".services.FCMService"
             android:enabled="true"
