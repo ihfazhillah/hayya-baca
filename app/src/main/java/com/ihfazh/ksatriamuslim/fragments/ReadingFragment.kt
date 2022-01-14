@@ -4,8 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -110,9 +108,18 @@ class ReadingFragment : BaseFragment() {
                 }
             }
         }
+
+        // need more look,
+        // currently, why we use the intermediate variable here?
+        // because we need to fire the incrementation change only
+        // when flipping the page
+        var percentage: Float? = null
         RecognizerListener.onPercetangeChange = {
-            Handler(Looper.getMainLooper()).post {
-                animatePercentChange(it)
+            percentage = it
+        }
+        viewModel.page.observe(viewLifecycleOwner) {
+            percentage?.let {
+                animatePercentChange(it * 100)
             }
         }
 
@@ -184,9 +191,7 @@ class ReadingFragment : BaseFragment() {
         }
 
         viewModel.textPage.observe(viewLifecycleOwner) {
-            if (RecognizerListener.queue.find { textPage -> textPage.originalText == it.originalText } == null) {
-                RecognizerListener.queue.add(it)
-            }
+            RecognizerListener.addTextPage(it)
         }
 
 //        viewModel.percentage.observe(viewLifecycleOwner) { percent ->

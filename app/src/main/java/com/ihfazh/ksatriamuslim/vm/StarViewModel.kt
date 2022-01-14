@@ -21,7 +21,7 @@ class StarViewModel(application: Application) : AndroidViewModel(application) {
     fun increaseMyCoin(incrementor: Int) {
         viewModelScope.launch {
             repository.increaseMine(incrementor)
-            star.value = repository.getMine()
+            star.postValue(repository.getMine())
         }
     }
 }
