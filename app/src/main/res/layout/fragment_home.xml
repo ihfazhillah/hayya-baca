@@ -36,7 +36,9 @@
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/book_list_background"
-            android:padding="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
             tools:spanCount="3" />
 
         <include
