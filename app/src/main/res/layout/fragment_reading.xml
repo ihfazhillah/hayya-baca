@@ -78,6 +78,8 @@
             android:onClick="@{() -> vm.nextPage()}"
             android:scaleType="centerInside"
             android:src="@drawable/ic_baseline_navigate_next_24"
+            android:clickable="@{vm.canNext}"
+            android:enabled="@{vm.canNext}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -88,9 +90,9 @@
             android:layout_marginStart="30dp"
             android:layout_marginBottom="25dp"
             android:background="@drawable/circle_button_background"
-            android:clickable="@{vm.hasPrev}"
+            android:clickable="@{vm.canBack}"
             android:contentDescription="@string/prev_page"
-            android:enabled="@{vm.hasPrev}"
+            android:enabled="@{vm.canBack}"
             android:onClick="@{() -> vm.prevPage()}"
             android:scaleType="centerInside"
             android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
@@ -120,6 +122,8 @@
             android:contentDescription="@string/back_to_home"
             android:onClick="@{() -> nav.goHome()}"
             android:src="@drawable/ic_baseline_home_24"
+            android:clickable="@{vm.canMove}"
+            android:enabled="@{vm.canMove}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

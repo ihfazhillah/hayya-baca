@@ -5,7 +5,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,7 @@ import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -98,74 +98,45 @@ class ReadingFragment : BaseFragment() {
 
         viewModel.bookId.value = args.bookId
 
-
-        Recognizer.onRecognized = { text -> RecognizerListener.onRecognized(text) }
-        Recognizer.onRecognizing = { text -> RecognizerListener.onRecognizing(text) }
-        RecognizerListener.onTextPageChange = { textPage ->
-            viewModel.textPage.value?.run {
-                if (textPage.originalText == originalText) {
-                    viewModel.textPage.postValue(textPage)
-                }
-            }
-        }
-
-        // need more look,
-        // currently, why we use the intermediate variable here?
-        // because we need to fire the incrementation change only
-        // when flipping the page
-        var percentage: Float? = null
-        RecognizerListener.onPercetangeChange = {
-            percentage = it
-        }
-        viewModel.page.observe(viewLifecycleOwner) {
-            percentage?.let {
-                animatePercentChange(it * 100)
-            }
-        }
+        initiateSpeechRecognizerAndListener()
 
         initializeStarAndCoin()
 
         return binding.root
     }
 
-    private fun flipIsRead(text: String) {
-        val page = viewModel.textPage.value
-        if (page != null) {
-            Log.d(TAG, "Text from recognized: $text")
-//            val extracted = FuzzySearch.extractAll(text, page.words) { it.text }
-//            val words = (page.words zip extracted).map {
-//                val word = it.first
-//                val result = it.second
-//                Log.d(TAG, "Result: $result")
-//
-//                val wordSize = word.text.length
-//                val resultSize = text.length
-//
-//                val isSizeAlmostSame = resultSize >= wordSize - 2
-//
-//                if (result.score >= 85 && isSizeAlmostSame) {
-//                    word.copy(isRead = true)
-//                } else {
-//                    word
-//                }
-//            }
-
-            val splitResult = text.split(" ").joinToString("|")
-            val pattern = Regex(splitResult, RegexOption.IGNORE_CASE)
-
-            val words = page.words.map {
-                if (pattern.matches(it.text)) {
-                    it.copy(isRead = true)
-                } else {
-                    it
-                }
+    private fun initiateSpeechRecognizerAndListener() {
+        Recognizer.onRecognized = { text ->
+            viewModel.textPage.value?.let {
+                val result = RecognizerListener.flipIsRead(it, text)
+                viewModel.textPage.postValue(result)
+                viewModel.canMove.value = true
             }
+        }
 
-            Log.d(TAG, "flipIsRead: Result flip $words")
+        Recognizer.onRecognizing = { text ->
+            viewModel.canMove.value = false
+            viewModel.textPage.value?.let {
+                val result = RecognizerListener.flipIsRead(it, text)
+                viewModel.textPage.postValue(result)
+            }
+        }
 
-            viewModel.textPage.postValue(page.copy(words = words))
+        Recognizer.onCanceled = {
+            lifecycleScope.launch(Dispatchers.IO) {
+                Recognizer.startRecognizing()
+            }
+        }
+
+        viewModel.page.observe(viewLifecycleOwner) {
+            viewModel.textPage.value?.let { currentTextPage ->
+                val percentage = RecognizerListener.calculatePercentage(currentTextPage)
+                animatePercentChange(percentage * 100)
+
+            }
         }
     }
+
 
     private fun initializeStarAndCoin() {
         binding.coinLayout.coin = koinViewModel
@@ -190,14 +161,6 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
-        viewModel.textPage.observe(viewLifecycleOwner) {
-            RecognizerListener.addTextPage(it)
-        }
-
-//        viewModel.percentage.observe(viewLifecycleOwner) { percent ->
-//            animatePercentChange(percent)
-//        }
-//
 
     }
 

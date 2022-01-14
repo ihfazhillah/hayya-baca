@@ -28,6 +28,8 @@ import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 
@@ -256,4 +258,8 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     companion object {
         const val TAG = "Reading View Model"
     }
+
+    val canMove = MutableStateFlow(false)
+    val canNext = canMove.combine(hasNext.asFlow()) { a, b -> a && b }.asLiveData()
+    val canBack = canMove.combine(hasPrev.asFlow()) { a, b -> a && b }.asLiveData()
 }
