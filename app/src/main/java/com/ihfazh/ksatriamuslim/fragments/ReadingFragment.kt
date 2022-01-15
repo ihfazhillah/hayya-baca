@@ -163,6 +163,8 @@ class ReadingFragment : BaseFragment() {
 
         if (!Constants.isTvVersion(requireContext())) {
             initiateSpeechRecognizerAndListener()
+        } else {
+            binding.toggleMicBtn.visibility = View.GONE
         }
 
     }
