@@ -78,8 +78,8 @@
             android:onClick="@{() -> vm.nextPage()}"
             android:scaleType="centerInside"
             android:src="@drawable/ic_baseline_navigate_next_24"
-            android:clickable="@{vm.canNext}"
-            android:enabled="@{vm.canNext}"
+            android:clickable="@{vm.canMove}"
+            android:enabled="@{vm.canMove}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -122,8 +122,6 @@
             android:contentDescription="@string/back_to_home"
             android:onClick="@{() -> nav.goHome()}"
             android:src="@drawable/ic_baseline_home_24"
-            android:clickable="@{vm.canMove}"
-            android:enabled="@{vm.canMove}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
