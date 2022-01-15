@@ -2,6 +2,7 @@ package com.ihfazh.ksatriamuslim.common
 
 import android.util.Log
 import com.ihfazh.ksatriamuslim.MicrophoneAudioInput
+import com.microsoft.cognitiveservices.speech.PhraseListGrammar
 import com.microsoft.cognitiveservices.speech.SourceLanguageConfig
 import com.microsoft.cognitiveservices.speech.SpeechConfig
 import com.microsoft.cognitiveservices.speech.SpeechRecognizer
@@ -31,6 +32,7 @@ object Recognizer {
 
     private const val TAG = "Recognizer"
     private var speechRecognizer: SpeechRecognizer? = null
+    private var phraseList: PhraseListGrammar? = null
 
     var onRecognizing: OnRecognizing? = null
     var onRecognized: OnRecognized? = null
@@ -57,6 +59,9 @@ object Recognizer {
             speechRecognizer?.close()
             speechRecognizer = null
         }
+        phraseList?.clear()
+        phraseList?.close()
+        phraseList = null
     }
 
     fun initialize() {
@@ -105,9 +110,15 @@ object Recognizer {
             }
         }
 
+        phraseList = PhraseListGrammar.fromRecognizer(speechRecognizer)
 
         if (speechRecognizer != null) {
             Log.d(TAG, "speech recognizer initialized....")
         }
+    }
+
+    fun addPhrase(text: String) {
+        phraseList?.clear()
+        phraseList?.addPhrase(text)
     }
 }
