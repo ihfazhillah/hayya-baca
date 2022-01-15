@@ -229,7 +229,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
         const val TAG = "Reading View Model"
     }
 
-    val canMove = MutableStateFlow(false)
+    val canMove = MutableStateFlow(true)
     val canNext = canMove.combine(hasNext.asFlow()) { a, b -> a && b }.asLiveData()
     val canBack = canMove.combine(hasPrev.asFlow()) { a, b -> a && b }.asLiveData()
 }

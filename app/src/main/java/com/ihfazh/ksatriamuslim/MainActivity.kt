@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 
@@ -37,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 
         handleUpdateDataNotification()
 
-        askPermissionContract.launch(permission)
+        if (!Constants.isTvVersion(applicationContext)) {
+            askPermissionContract.launch(permission)
+        }
     }
 
     private fun handleUpdateDataNotification() {
