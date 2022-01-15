@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.Navigator
 import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.common.RecognizerListener
@@ -98,7 +99,6 @@ class ReadingFragment : BaseFragment() {
 
         viewModel.bookId.value = args.bookId
 
-        initiateSpeechRecognizerAndListener()
 
         initializeStarAndCoin()
 
@@ -161,6 +161,9 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
+        if (!Constants.isTvVersion(requireContext())) {
+            initiateSpeechRecognizerAndListener()
+        }
 
     }
 

@@ -1,5 +1,8 @@
 package com.ihfazh.ksatriamuslim.common
 
+import android.app.UiModeManager
+import android.content.Context
+import android.content.res.Configuration
 import java.text.Normalizer
 import java.util.*
 
@@ -38,5 +41,10 @@ object Constants {
         val slug = slugify(text)
         val path = "ksatriamuslim_audios/by_words/$slug.mp3"
         return getKsatriaMuslimAbsoluteUrl(path)
+    }
+
+    fun isTvVersion(context: Context): Boolean {
+        val uiManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+        return uiManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
     }
 }
