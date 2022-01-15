@@ -99,6 +99,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageButton
+            android:id="@+id/toggle_mic_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@{!vm.micState ? @drawable/circle_button_background: @drawable/ic_danger_btn_background}"
+            android:contentDescription="@string/prev_page"
+            android:onClick="@{() -> vm.toggleMicState()}"
+            android:scaleType="centerInside"
+            android:src="@{vm.micState ? @drawable/ic_baseline_mic_off_24 : @drawable/ic_baseline_mic_24 }"
+            app:layout_constraintBottom_toTopOf="@id/prev_icon"
+            app:layout_constraintEnd_toEndOf="@id/prev_icon"
+            app:layout_constraintStart_toStartOf="@id/prev_icon" />
+
         <TextView
             android:id="@+id/page_number"
             android:layout_width="wrap_content"
