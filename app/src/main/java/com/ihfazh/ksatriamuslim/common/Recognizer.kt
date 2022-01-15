@@ -62,6 +62,7 @@ object Recognizer {
         phraseList?.clear()
         phraseList?.close()
         phraseList = null
+        microphoneStream?.close()
     }
 
     fun initialize() {
