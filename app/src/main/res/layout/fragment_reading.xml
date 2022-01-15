@@ -67,6 +67,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="@{!vm.canMove ? View.VISIBLE: View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/next_icon"
+            app:layout_constraintEnd_toEndOf="@id/next_icon"
+            app:layout_constraintStart_toStartOf="@id/next_icon"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/listen_state" />
+
         <ImageButton
             android:id="@+id/next_icon"
             android:layout_width="50dp"
