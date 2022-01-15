@@ -20,6 +20,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
+import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.domain.TextPage
@@ -28,6 +29,7 @@ import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -232,4 +234,20 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val canMove = MutableStateFlow(true)
     val canNext = canMove.combine(hasNext.asFlow()) { a, b -> a && b }.asLiveData()
     val canBack = canMove.combine(hasPrev.asFlow()) { a, b -> a && b }.asLiveData()
+
+    val micState = MutableLiveData(true)
+    fun toggleMicState() {
+        val currentValue = micState.value!!
+        val nextValue = !currentValue
+
+        viewModelScope.launch(Dispatchers.IO) {
+            if (currentValue) {
+                Recognizer.stopRecognizing()
+            } else {
+                Recognizer.startRecognizing()
+            }
+        }
+
+        micState.value = nextValue
+    }
 }
