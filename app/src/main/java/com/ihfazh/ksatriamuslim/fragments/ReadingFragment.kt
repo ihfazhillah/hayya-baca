@@ -135,6 +135,10 @@ class ReadingFragment : BaseFragment() {
 
             }
         }
+
+        viewModel.textPage.observe(viewLifecycleOwner) {
+            Recognizer.addPhrase(it.originalText)
+        }
     }
 
 
