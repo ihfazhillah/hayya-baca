@@ -59,9 +59,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
-        val isLoggedIn = authRepository.isLoggedIn()
-        updateUI(isLoggedIn)
-
         binding.googleSignInBtn.setOnClickListener {
             val intent = authRepository.googleClient.signInIntent
             googleLoginContract.launch(intent)
