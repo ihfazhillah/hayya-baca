@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
+import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,9 +31,8 @@ class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var google_signin_options: GoogleSignInOptions
-    private lateinit var googleClient : GoogleSignInClient
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var authRepository: GoogleAuthenticationRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,29 +53,24 @@ class LoginFragment : Fragment() {
 
     val googleLoginContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-        updateUI(task.result)
+        updateUI(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        google_signin_options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestProfile()
-            .build()
-        googleClient = GoogleSignIn.getClient(requireContext(), google_signin_options)
-        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-        updateUI(account)
+        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+        val isLoggedIn = authRepository.isLoggedIn()
+        updateUI(isLoggedIn)
 
         binding.googleSignInBtn.setOnClickListener {
-            val intent = googleClient.signInIntent
+            val intent = authRepository.googleClient.signInIntent
             googleLoginContract.launch(intent)
         }
 
     }
 
-    private fun updateUI(account: GoogleSignInAccount?) {
-        Log.d("LOGIN FRAGMENT", "updateUI: $account")
-        if (account != null){
+    private fun updateUI(loggedIn: Boolean) {
+        if (loggedIn){
             val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
             findNavController().navigate(action)
         }
