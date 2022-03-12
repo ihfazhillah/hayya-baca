@@ -110,5 +110,7 @@ dependencies {
     // sentry
     implementation "io.sentry:sentry-android:$sentry_version"
 
+    implementation "com.google.android.gms:play-services-auth:$google_auth_version"
+
 
 }
