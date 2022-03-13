@@ -75,6 +75,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageButton
+            android:id="@+id/parentButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/circle_button_background"
+            android:src="@drawable/ic_baseline_lock_24"
+            app:layout_constraintStart_toStartOf="@id/updateDataBtn"
+            app:layout_constraintEnd_toEndOf="@id/updateDataBtn"
+            app:layout_constraintBottom_toTopOf="@id/updateDataBtn"
+            android:layout_marginBottom="5dp"
+            />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

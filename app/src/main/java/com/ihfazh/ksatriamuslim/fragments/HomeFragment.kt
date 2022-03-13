@@ -109,6 +109,11 @@ class HomeFragment : Fragment() {
 
         initializeStar()
 
+        binding.parentButton.setOnClickListener {
+            val direction = HomeFragmentDirections.actionHomeFragmentToParentGateFragment()
+            findNavController().navigate(direction)
+        }
+
 
         return binding.root
     }
