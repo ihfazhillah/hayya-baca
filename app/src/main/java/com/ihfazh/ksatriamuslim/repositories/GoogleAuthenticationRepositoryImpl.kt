@@ -13,7 +13,13 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRepository {
-    val auth = Firebase.auth
+    val auth = Firebase.auth.apply {
+        addAuthStateListener{
+            println("get user: ${it.currentUser}")
+        }
+    }
+
+
 
 
     private  var googleSigninOptions: GoogleSignInOptions = GoogleSignInOptions
@@ -44,5 +50,10 @@ class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRe
                     }
                 }
         }
+    }
+
+    override fun signOut(){
+        auth.signOut()
+        GoogleSignIn.getClient(context.applicationContext, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut()
     }
 }
