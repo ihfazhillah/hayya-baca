@@ -4,13 +4,45 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.ihfazh.ksatriamuslim.R
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRepository {
-    private  var googleSigninOptions: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    val auth = Firebase.auth
+
+
+    private  var googleSigninOptions: GoogleSignInOptions = GoogleSignInOptions
+        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(context.getString(R.string.default_web_client_id))
+        .requestEmail()
         .build()
     val googleClient: GoogleSignInClient = GoogleSignIn.getClient(context, googleSigninOptions)
 
-    override fun isLoggedIn(): Boolean {
-        return GoogleSignIn.getLastSignedInAccount(context) != null
+    override suspend fun isLoggedIn(): Boolean {
+        val googleSigninAccount = GoogleSignIn.getLastSignedInAccount(context)
+        if (googleSigninAccount != null){
+            val firebaseUser = firebaseLogin(googleSigninAccount.idToken!!)
+            return firebaseUser != null
+        }
+        return false
+    }
+
+    suspend fun firebaseLogin(idToken: String): FirebaseUser?{
+        return suspendCoroutine { con ->
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener {
+                    if (it.isSuccessful){
+                        con.resume(it.result.user)
+                    } else {
+                        con.resume(null)
+                    }
+                }
+        }
     }
 }
