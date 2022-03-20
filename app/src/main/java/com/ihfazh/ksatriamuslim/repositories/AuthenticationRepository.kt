@@ -1,5 +1,5 @@
 package com.ihfazh.ksatriamuslim.repositories
 
 interface AuthenticationRepository {
-    fun isLoggedIn(): Boolean
+    suspend fun isLoggedIn(): Boolean
 }

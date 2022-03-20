@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.GoogleAuthProvider
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,7 +56,16 @@ class LoginFragment : Fragment() {
 
     val googleLoginContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-        updateUI(true)
+        if (task.isSuccessful) {
+            lifecycleScope.launch{
+                val user = authRepository.firebaseLogin(task.result.idToken!!)
+                if (user != null){
+                    updateUI(true)
+                } else {
+                    updateUI(false)
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

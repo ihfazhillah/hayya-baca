@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.remote
 
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
@@ -7,6 +8,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class FirestoreService {
     private val db = Firebase.firestore
+    private val auth = Firebase.auth
 
     suspend fun getChildCoinIdByChild(name: String): String? {
         return suspendCoroutine { cont ->
@@ -70,7 +72,7 @@ class FirestoreService {
     suspend fun updateFireStoreById(id: String, value: Int): Boolean {
         return suspendCoroutine { cont ->
             val documentRef = db.collection("child_coins").document(id)
-            documentRef.update("coin", value)
+            documentRef.update("coin", value, "parentUID", auth.currentUser?.uid)
                 .addOnSuccessListener {
                     cont.resume(true)
                 }
