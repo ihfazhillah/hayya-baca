@@ -99,7 +99,9 @@ class AboutFragment : BaseFragment() {
     @Composable
     fun page(){
         val data = listOf(
-            MenuItemEntity("Anak anak", R.drawable.ic_baseline_person_24){},
+            MenuItemEntity("Kids", R.drawable.ic_baseline_person_24){
+                findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToChildrenListParentFragment())
+            },
             MenuItemEntity("Keluar", R.drawable.ic_baseline_logout_24){
                 authRepository.signOut()
                 findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToLoginFragment())

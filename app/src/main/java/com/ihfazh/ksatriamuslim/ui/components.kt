@@ -2,6 +2,7 @@ package com.ihfazh.ksatriamuslim.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -63,4 +64,39 @@ fun PreviewMenuItem(){
         image = R.drawable.ic_baseline_person_24,
         onClick = {}
     )
+}
+
+
+@Composable
+fun ChildItemParent(name: String?, onClick: () -> Unit){
+    val resourceId = if (name == null){
+        R.drawable.ic_baseline_add_circle_24
+    } else {
+        R.drawable.ic_baseline_person_24
+    }
+
+    Row(
+       modifier = Modifier
+        .clickable(onClick = onClick)
+       .fillMaxWidth()
+        .padding(5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ){
+        Image(painter = painterResource(id = resourceId), contentDescription = name)
+        Spacer(modifier = Modifier.size(2.5.dp))
+        Text(
+            text=name ?: "Tambah baru",
+            style = MaterialTheme.typography.h5
+        )
+    }
+}
+
+
+@Preview
+@Composable
+fun ChildItemParentPreview(){
+    Column{
+        ChildItemParent(name = "Lulu"){}
+        ChildItemParent(null){}
+    }
 }

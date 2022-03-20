@@ -35,6 +35,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_aboutFragment_to_childrenListParentFragment"
+            app:destination="@id/childrenListParentFragment" />
     </fragment>
 
     <fragment
@@ -97,5 +100,10 @@
         android:id="@+id/parentGateFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ParentGateFragment"
         android:label="ParentGateFragment" />
+    <fragment
+        android:id="@+id/childrenListParentFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ChildrenListParentFragment"
+        android:label="fragment_children_list_parent"
+        tools:layout="@layout/fragment_children_list_parent" />
 
 </navigation>
