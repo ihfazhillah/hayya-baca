@@ -24,13 +24,15 @@ import com.ihfazh.ksatriamuslim.R
 fun MenuItem(title: String, image: Int, onClick: () -> Unit){
     Card(
         onClick = onClick,
-        onClickLabel = title
+        onClickLabel = title,
+        backgroundColor = Color(233, 30, 99, 255)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .padding(5.dp),
+                .padding(5.dp)
+            ,
         ) {
             Image(
                 painter = painterResource(id = image),
@@ -38,13 +40,14 @@ fun MenuItem(title: String, image: Int, onClick: () -> Unit){
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-                    .border(2.dp, Color.Gray, CircleShape)
+                    .border(2.dp, Color.White, CircleShape)
                     .padding(5.dp)
 
             )
             Text(
                 text = title,
                 style = MaterialTheme.typography.subtitle2,
+                color = Color.White
             )
         }
     }

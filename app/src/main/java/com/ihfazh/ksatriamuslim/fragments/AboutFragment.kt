@@ -3,17 +3,38 @@ package com.ihfazh.ksatriamuslim.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
+import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
+import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import com.ihfazh.ksatriamuslim.ui.MenuItem
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 
@@ -21,6 +42,12 @@ import java.lang.RuntimeException
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+data class MenuItemEntity (
+    val title: String,
+    val image: Int,
+    val action: () -> Unit
+)
 
 /**
  * A simple [Fragment] subclass.
@@ -50,22 +77,45 @@ class AboutFragment : BaseFragment() {
 
     override fun getShowStatusBarStatus(): Boolean = true
 
+    private lateinit var authRepository: AuthenticationRepository
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
         super.onViewCreated(view, savedInstanceState)
-
-        val btnUpload = view.findViewById<Button>(R.id.updateDataBtn)
-
-        val local = AppDatabase.getDB(requireContext())
-        val remote = Client.getService()
-
-        val bookRepository = BookRepositoryImpl(local, remote)
-        val backgroundRepository = ReadingBackgroundRepositoryImpl(local, remote)
-        btnUpload.setOnClickListener {
-            lifecycleScope.launch {
-                bookRepository.getBooksSummary(forceFetch = true)
-                backgroundRepository.getBackgrounds(forceFetch = true)
-                findNavController().navigateUp()
+        val composeView = view.findViewById<ComposeView>(R.id.composeView)
+        composeView.setContent {
+            Column(
+                modifier = Modifier
+                    .padding(20.dp, 30.dp)
+            ){
+                page()
             }
+        }
+
+    }
+    
+    @OptIn(ExperimentalFoundationApi::class)
+    @Preview
+    @Composable
+    fun page(){
+        val data = listOf(
+            MenuItemEntity("Anak anak", R.drawable.ic_baseline_person_24){},
+            MenuItemEntity("Keluar", R.drawable.ic_baseline_logout_24){
+                authRepository.signOut()
+                findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToLoginFragment())
+            }
+        )
+
+        LazyVerticalGrid(
+            cells = GridCells.Fixed(4),
+            contentPadding = PaddingValues(5.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
+        ){
+            items(data){ item ->
+                MenuItem(title = item.title, image = item.image, onClick = item.action)
+            }
+
         }
     }
 
