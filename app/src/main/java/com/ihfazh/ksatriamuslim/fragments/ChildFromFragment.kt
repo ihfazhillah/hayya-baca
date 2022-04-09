@@ -1,0 +1,168 @@
+package com.ihfazh.ksatriamuslim.fragments
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [ChildFromFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class ChildFromFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+    private val viewModel: ChildFormViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_child_from, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<ComposeView>(R.id.composeView).setContent {
+            Page()
+        }
+    }
+
+    @Composable
+    fun Page() {
+        Column(
+            modifier = Modifier
+                .padding(15.dp)
+        ) {
+            AppTextField(
+                text = viewModel.name,
+                placeholder = "Nama Anak",
+                onChange = {
+                    viewModel.name = it
+                    viewModel.validateName()
+                },
+                isEnabled = !viewModel.loading,
+                imeAction = ImeAction.Done,
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        if (viewModel.canSend()) {
+                            viewModel.loading = true
+                        }
+                    }
+                )
+            )
+
+            AnimatedVisibility(
+                visible = viewModel.error != null,
+                modifier = Modifier
+                    .padding(0.dp, 5.dp, 0.dp, 10.dp)
+            ) {
+                Text(
+                    text = if (viewModel.error != null) {
+                        viewModel.error!!
+                    } else {
+                        ""
+                    },
+                    color = Color.Red
+                )
+            }
+
+            Button(
+                onClick = {
+                    viewModel.loading = true
+                },
+                enabled = viewModel.error == null && !viewModel.loading
+            ) {
+                Text(text = "Simpan")
+            }
+        }
+
+    }
+
+    @Composable
+    fun AppTextField(
+        modifier: Modifier = Modifier,
+        text: String,
+        placeholder: String,
+        onChange: (String) -> Unit = {},
+        imeAction: ImeAction = ImeAction.Next,
+        keyboardType: KeyboardType = KeyboardType.Text,
+        keyboardActions: KeyboardActions = KeyboardActions(),
+        isEnabled: Boolean = true
+    ) {
+
+        OutlinedTextField(
+            value = text,
+            onValueChange = onChange,
+            modifier = modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = keyboardType),
+            keyboardActions = keyboardActions,
+            enabled = isEnabled,
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    style = TextStyle(fontSize = 18.sp, color = Color.LightGray)
+                )
+            }
+        )
+
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment ChildFromFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            ChildFromFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}

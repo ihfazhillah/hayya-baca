@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/splashScreenFragment"
+    app:startDestination="@id/childFromFragment"
     android:id="@+id/main_navigation">
 
     <fragment
@@ -105,5 +105,10 @@
         android:name="com.ihfazh.ksatriamuslim.fragments.ChildrenListParentFragment"
         android:label="fragment_children_list_parent"
         tools:layout="@layout/fragment_children_list_parent" />
+    <fragment
+        android:id="@+id/childFromFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ChildFromFragment"
+        android:label="fragment_child_from"
+        tools:layout="@layout/fragment_child_from" />
 
 </navigation>
