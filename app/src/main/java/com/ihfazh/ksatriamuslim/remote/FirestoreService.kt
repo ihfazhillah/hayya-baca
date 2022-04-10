@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.remote
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -86,6 +87,26 @@ class FirestoreService {
         return suspendCoroutine { cont ->
             val documentRef = db.collection("child_stars").document(id)
             documentRef.update("star", value)
+                .addOnSuccessListener {
+                    cont.resume(true)
+                }
+                .addOnFailureListener {
+                    cont.resume(false)
+                }
+        }
+    }
+
+    suspend fun createChild(name: String): Boolean {
+        return suspendCoroutine { cont ->
+            val document = hashMapOf(
+                "name" to name,
+                "coins" to 0,
+                "stars" to 0,
+                "parentUID" to auth.currentUser?.uid,
+                "time" to Date().time
+            )
+            db.collection("children")
+                .add(document)
                 .addOnSuccessListener {
                     cont.resume(true)
                 }
