@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/compose-model-1649522171479.xml" value="0.8064814814814815" />
+        <entry key="../../../../../layout/compose-model-1649585064749.xml" value="0.575925925925926" />
+        <entry key="../../../../../layout/compose-model-1649586035732.xml" value="0.31165540540540543" />
+        <entry key="../../../../../layout/compose-model-1649590989251.xml" value="0.575925925925926" />
+        <entry key="../../../../../layout/compose-model-1649591467092.xml" value="0.575925925925926" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.3296875" />
         <entry key="../../../../layout/compose-model-1647180531359.xml" value="0.45" />
         <entry key="../../../../layout/compose-model-1647783886872.xml" value="0.387037037037037" />
@@ -37,6 +41,7 @@
         <entry key="app/src/main/res/layout/coin_layout.xml" value="0.5849056603773585" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/fragment_child_from.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_children_list_child.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_children_list_parent.xml" value="0.17760416666666667" />
         <entry key="app/src/main/res/layout/fragment_coin_congratulate.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.41562064156206413" />

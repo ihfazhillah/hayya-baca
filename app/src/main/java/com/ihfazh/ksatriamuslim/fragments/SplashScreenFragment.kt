@@ -1,14 +1,16 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,7 @@ class SplashScreenFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var authRepository: AuthenticationRepository
+    lateinit var childrenRepository: ChildrenRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +50,20 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+        childrenRepository = ChildrenRepositoryImpl(requireContext())
+
         lifecycleScope.launch {
-            if (authRepository.isLoggedIn()){
-                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+            val action = if (authRepository.isLoggedIn()) {
+                if (childrenRepository.getSelectedChild() == null) {
+                    SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
+                } else {
+                    SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
+                }
             } else {
-                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
+                SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment()
             }
+
+            findNavController().navigate(action)
 
         }
     }

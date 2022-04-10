@@ -1,10 +1,16 @@
 package com.ihfazh.ksatriamuslim.repositories
 
+import android.content.Context
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.remote.FirestoreService
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-class ChildrenRepositoryImpl : ChildrenRepository {
+class ChildrenRepositoryImpl(
+    private val context: Context
+) : ChildrenRepository {
     private val firestoreService = FirestoreService()
+    private val selectedChildKey = "SELECTED_CHILD"
 
     override suspend fun addChild(name: String): Boolean {
         // todo: implement caching
@@ -22,5 +28,25 @@ class ChildrenRepositoryImpl : ChildrenRepository {
     override suspend fun delete(childId: String): Boolean {
         return firestoreService.deleteChild(childId)
     }
+
+    override suspend fun setSelectedChild(childId: String?): Boolean {
+        return suspendCoroutine { cont ->
+            val sharedPreference =
+                context.getSharedPreferences("ksatriamuslim", Context.MODE_WORLD_WRITEABLE)
+            with(sharedPreference.edit()) {
+                putString(selectedChildKey, childId)
+                cont.resume(true)
+            }
+        }
+    }
+
+    override suspend fun getSelectedChild(): String? {
+        return suspendCoroutine { cont ->
+            val sharedPreference =
+                context.getSharedPreferences("ksatriamuslim", Context.MODE_PRIVATE)
+            cont.resume(sharedPreference.getString(selectedChildKey, null))
+        }
+    }
+
 
 }

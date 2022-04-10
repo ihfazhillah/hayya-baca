@@ -119,7 +119,7 @@ class ChildFromFragment : Fragment() {
 
             DeleteConfirmationDialog(
                 text = "Apakah kamu yakin akan menghapus ${viewModel.name}",
-                title = "Verifikasi Hapus",
+                title = "Konfirmasi Hapus",
                 isOpen = viewModel.deleteDialogOpen,
                 onDismiss = { viewModel.deleteDialogOpen = false },
                 onSubmit = {
