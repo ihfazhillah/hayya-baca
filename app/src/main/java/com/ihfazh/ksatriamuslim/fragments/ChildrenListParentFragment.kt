@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.ui.ChildItemParent
+import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
 import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +38,7 @@ class ChildrenListParentFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: ChildrenListViewModel by viewModels()
+    private val childFormViewModel: ChildFormViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,15 +64,8 @@ class ChildrenListParentFragment : Fragment() {
 
     @Composable
     fun Page(){
-        data class ChildItemEntity(
-            val name: String?
-        )
 
         val children = viewModel.children.collectAsState()
-        val childs = listOf(
-            ChildItemEntity("LULU"),
-            ChildItemEntity(null),
-        )
 
         LazyColumn(
             modifier = Modifier
@@ -86,10 +82,8 @@ class ChildrenListParentFragment : Fragment() {
 
             items(children.value) { item ->
                 ChildItemParent(name = item.name) {
-//                    if (item.name == null) {
-//                        findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
-//                    }
-//
+                    childFormViewModel.setChild(item.id, item.name)
+                    findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
                 }
             }
 

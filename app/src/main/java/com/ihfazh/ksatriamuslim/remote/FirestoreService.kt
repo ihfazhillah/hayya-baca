@@ -135,4 +135,30 @@ class FirestoreService {
         }
     }
 
+    suspend fun updateChild(childId: String, name: String): Boolean {
+        return suspendCoroutine { cont ->
+            db.collection("children").document(childId)
+                .update("name", name)
+                .addOnSuccessListener {
+                    cont.resume(true)
+                }
+                .addOnFailureListener {
+                    cont.resume(false)
+                }
+        }
+    }
+
+    suspend fun deleteChild(childId: String): Boolean {
+        return suspendCoroutine { cont ->
+            db.collection("children").document(childId)
+                .delete()
+                .addOnSuccessListener {
+                    cont.resume(true)
+                }
+                .addOnFailureListener {
+                    cont.resume(false)
+                }
+        }
+    }
+
 }

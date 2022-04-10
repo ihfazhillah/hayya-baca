@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
@@ -44,7 +43,7 @@ class ChildFromFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: ChildFormViewModel by viewModels()
+    private val viewModel: ChildFormViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,13 +117,43 @@ class ChildFromFragment : Fragment() {
                 )
             }
 
-            Button(
-                onClick = {
-                    sendData()
-                },
-                enabled = viewModel.error == null && !viewModel.loading
-            ) {
-                Text(text = "Simpan")
+            DeleteConfirmationDialog(
+                text = "Apakah kamu yakin akan menghapus ${viewModel.name}",
+                title = "Verifikasi Hapus",
+                isOpen = viewModel.deleteDialogOpen,
+                onDismiss = { viewModel.deleteDialogOpen = false },
+                onSubmit = {
+                    lifecycleScope.launch {
+                        viewModel.delete()
+                        findNavController().navigate(ChildFromFragmentDirections.actionChildFromFragmentToChildrenListParentFragment())
+                    }
+                }
+            )
+
+            Row {
+                Button(
+                    onClick = {
+                        sendData()
+                    },
+                    enabled = viewModel.error == null && !viewModel.loading,
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 5.dp, 0.dp)
+                ) {
+                    Text(text = "Simpan")
+                }
+
+                if (viewModel.childId != null) {
+                    Button(
+                        onClick = {
+                            viewModel.deleteDialogOpen = true
+                        },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                    ) {
+                        Text(text = "Hapus")
+                    }
+                }
             }
         }
 
@@ -157,6 +186,38 @@ class ChildFromFragment : Fragment() {
             }
         )
 
+    }
+
+    @Composable
+    fun DeleteConfirmationDialog(
+        text: String,
+        title: String,
+        onSubmit: () -> Unit = {},
+        onDismiss: () -> Unit = {},
+        isOpen: Boolean = false
+    ) {
+        AnimatedVisibility(visible = isOpen) {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                title = { Text(text = title) },
+                text = { Text(text = text) },
+                confirmButton = {
+                    Button(
+                        onClick = onSubmit
+                    ) {
+                        Text("Ok")
+                    }
+                },
+                dismissButton = {
+                    Button(
+                        onClick = onDismiss
+                    ) {
+                        Text("Batal")
+                    }
+                }
+            )
+
+        }
     }
 
     companion object {
