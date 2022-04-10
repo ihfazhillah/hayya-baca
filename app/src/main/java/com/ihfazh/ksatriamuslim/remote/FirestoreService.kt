@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.remote
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ihfazh.ksatriamuslim.domain.Children
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -112,6 +113,24 @@ class FirestoreService {
                 }
                 .addOnFailureListener {
                     cont.resume(false)
+                }
+        }
+    }
+
+    suspend fun getChildren(): List<Children> {
+        return suspendCoroutine { cont ->
+            val documentRef = db.collection("children")
+            documentRef.whereEqualTo("parentUID", auth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener {
+                    cont.resume(
+                        it.documents.map { doc ->
+                            Children(
+                                doc.id,
+                                name = doc.get("name") as String
+                            )
+                        }
+                    )
                 }
         }
     }

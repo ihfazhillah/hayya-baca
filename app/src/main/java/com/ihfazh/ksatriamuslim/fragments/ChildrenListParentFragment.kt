@@ -10,13 +10,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.ui.ChildItemParent
+import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,7 @@ class ChildrenListParentFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val viewModel: ChildrenListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,8 @@ class ChildrenListParentFragment : Fragment() {
         data class ChildItemEntity(
             val name: String?
         )
+
+        val children = viewModel.children.collectAsState()
         val childs = listOf(
             ChildItemEntity("LULU"),
             ChildItemEntity(null),
@@ -78,13 +84,20 @@ class ChildrenListParentFragment : Fragment() {
                 )
             }
 
-            items(childs){ item ->
+            items(children.value) { item ->
                 ChildItemParent(name = item.name) {
-                    if (item.name == null) {
-                        findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
-                    }
-
+//                    if (item.name == null) {
+//                        findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
+//                    }
+//
                 }
+            }
+
+            item {
+                ChildItemParent(name = null) {
+                    findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
+                }
+
             }
         }
 
