@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.repositories
 
+import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.remote.FirestoreService
 
 class ChildrenRepositoryImpl : ChildrenRepository {
@@ -9,4 +10,9 @@ class ChildrenRepositoryImpl : ChildrenRepository {
         // todo: implement caching
         return firestoreService.createChild(name)
     }
+
+    override suspend fun getChildren(): List<Children> {
+        return firestoreService.getChildren()
+    }
+
 }

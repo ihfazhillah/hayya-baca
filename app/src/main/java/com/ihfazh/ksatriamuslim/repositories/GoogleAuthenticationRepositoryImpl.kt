@@ -1,6 +1,7 @@
 package com.ihfazh.ksatriamuslim.repositories
 
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,15 +15,17 @@ import kotlin.coroutines.suspendCoroutine
 
 class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRepository {
     val auth = Firebase.auth.apply {
-        addAuthStateListener{
+        addAuthStateListener {
             println("get user: ${it.currentUser}")
         }
     }
 
+    companion object {
+        const val TAG = "Google authentication Repository Impl"
+    }
 
 
-
-    private  var googleSigninOptions: GoogleSignInOptions = GoogleSignInOptions
+    private var googleSigninOptions: GoogleSignInOptions = GoogleSignInOptions
         .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(context.getString(R.string.default_web_client_id))
         .requestEmail()
@@ -31,6 +34,7 @@ class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRe
 
     override suspend fun isLoggedIn(): Boolean {
         val googleSigninAccount = GoogleSignIn.getLastSignedInAccount(context)
+        Log.d(TAG, "id token ${googleSigninAccount?.idToken}")
         if (googleSigninAccount != null){
             val firebaseUser = firebaseLogin(googleSigninAccount.idToken!!)
             return firebaseUser != null
@@ -43,12 +47,18 @@ class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRe
             val credential = GoogleAuthProvider.getCredential(idToken, null)
             auth.signInWithCredential(credential)
                 .addOnCompleteListener {
-                    if (it.isSuccessful){
+                    if (it.isSuccessful) {
                         con.resume(it.result.user)
                     } else {
-                        println("Something error with the authentication -- ${it.result}")
+//                        println("Something error with the authentication -- ${it.result}")
+                        signOut()
                         con.resume(null)
                     }
+                }
+                .addOnFailureListener {
+                    println("Something error with the authentication -- $it")
+                    signOut()
+                    con.resume(null)
                 }
         }
     }
