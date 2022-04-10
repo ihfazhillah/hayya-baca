@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,7 @@ class LoginFragment : Fragment() {
     private var param2: String? = null
     private lateinit var binding: FragmentLoginBinding
     private lateinit var authRepository: GoogleAuthenticationRepositoryImpl
+    private lateinit var childrenRepository: ChildrenRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+        childrenRepository = ChildrenRepositoryImpl(requireContext())
         binding.googleSignInBtn.setOnClickListener {
             val intent = authRepository.googleClient.signInIntent
             googleLoginContract.launch(intent)
@@ -76,9 +80,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUI(loggedIn: Boolean) {
-        if (loggedIn){
-            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-            findNavController().navigate(action)
+        if (loggedIn) {
+            lifecycleScope.launch {
+                val selectedChild = childrenRepository.getSelectedChild()
+                Log.d(TAG, "updateUI: $selectedChild")
+                val action = if (selectedChild == null) {
+                    LoginFragmentDirections.actionLoginFragmentToChildrenListChildFragment()
+                } else {
+                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                }
+
+                findNavController().navigate(action)
+            }
         }
     }
 
