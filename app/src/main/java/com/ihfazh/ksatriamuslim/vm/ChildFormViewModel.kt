@@ -10,11 +10,19 @@ import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 class ChildFormViewModel : ViewModel() {
     var loading by mutableStateOf(false)
     var name by mutableStateOf("")
+    var childId by mutableStateOf<String?>(null)
+    var deleteDialogOpen by mutableStateOf(false)
 
     private val ERROR_TEXT = "Nama anak minimal 3 huruf."
     var error: String? by mutableStateOf(ERROR_TEXT)
 
     private val childrenRepository: ChildrenRepository = ChildrenRepositoryImpl()
+
+    fun setChild(id: String, name: String) {
+        this.name = name
+        childId = id
+        error = null
+    }
 
     fun validateName() {
         error = if (name.length < 3) {
@@ -30,12 +38,23 @@ class ChildFormViewModel : ViewModel() {
 
     suspend fun send(): Boolean {
         loading = true
-        return childrenRepository.addChild(name)
+        return if (childId == null) {
+            childrenRepository.addChild(name)
+        } else {
+            childrenRepository.updateChild(childId!!, name)
+        }
     }
 
     fun reset() {
         loading = false
-        error = null
+        error = ERROR_TEXT
         name = ""
+        childId = null
+        deleteDialogOpen = false
+    }
+
+    suspend fun delete() {
+        childrenRepository.delete(childId!!)
+        reset()
     }
 }

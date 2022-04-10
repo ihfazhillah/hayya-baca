@@ -15,4 +15,12 @@ class ChildrenRepositoryImpl : ChildrenRepository {
         return firestoreService.getChildren()
     }
 
+    override suspend fun updateChild(childId: String, name: String): Boolean {
+        return firestoreService.updateChild(childId, name)
+    }
+
+    override suspend fun delete(childId: String): Boolean {
+        return firestoreService.deleteChild(childId)
+    }
+
 }
