@@ -24,8 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +69,16 @@ class ChildFromFragment : Fragment() {
         }
     }
 
+    fun sendData() {
+        lifecycleScope.launch {
+            val success = viewModel.send()
+            if (success) {
+                viewModel.reset()
+                findNavController().navigate(ChildFromFragmentDirections.actionChildFromFragmentToChildrenListParentFragment())
+            }
+        }
+    }
+
     @Composable
     fun Page() {
         Column(
@@ -84,7 +97,7 @@ class ChildFromFragment : Fragment() {
                 keyboardActions = KeyboardActions(
                     onDone = {
                         if (viewModel.canSend()) {
-                            viewModel.loading = true
+                            sendData()
                         }
                     }
                 )
@@ -107,7 +120,7 @@ class ChildFromFragment : Fragment() {
 
             Button(
                 onClick = {
-                    viewModel.loading = true
+                    sendData()
                 },
                 enabled = viewModel.error == null && !viewModel.loading
             ) {

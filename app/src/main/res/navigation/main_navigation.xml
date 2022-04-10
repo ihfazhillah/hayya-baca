@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/childFromFragment"
+    app:startDestination="@id/splashScreenFragment"
     android:id="@+id/main_navigation">
 
     <fragment
@@ -104,11 +104,21 @@
         android:id="@+id/childrenListParentFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ChildrenListParentFragment"
         android:label="fragment_children_list_parent"
-        tools:layout="@layout/fragment_children_list_parent" />
+        tools:layout="@layout/fragment_children_list_parent">
+        <action
+            android:id="@+id/action_childrenListParentFragment_to_childFromFragment"
+            app:destination="@id/childFromFragment" />
+    </fragment>
     <fragment
         android:id="@+id/childFromFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ChildFromFragment"
         android:label="fragment_child_from"
-        tools:layout="@layout/fragment_child_from" />
+        tools:layout="@layout/fragment_child_from">
+        <action
+            android:id="@+id/action_childFromFragment_to_childrenListParentFragment"
+            app:destination="@id/childrenListParentFragment"
+            app:popUpTo="@id/childrenListParentFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

@@ -46,6 +46,7 @@ class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRe
                     if (it.isSuccessful){
                         con.resume(it.result.user)
                     } else {
+                        println("Something error with the authentication -- ${it.result}")
                         con.resume(null)
                     }
                 }

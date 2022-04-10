@@ -1,25 +1,20 @@
 package com.ihfazh.ksatriamuslim.fragments
 
-import android.graphics.drawable.shapes.PathShape
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Space
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
-import com.google.android.material.shape.ShapePath
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.ui.ChildItemParent
 
@@ -85,7 +80,10 @@ class ChildrenListParentFragment : Fragment() {
 
             items(childs){ item ->
                 ChildItemParent(name = item.name) {
-                    
+                    if (item.name == null) {
+                        findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
+                    }
+
                 }
             }
         }
