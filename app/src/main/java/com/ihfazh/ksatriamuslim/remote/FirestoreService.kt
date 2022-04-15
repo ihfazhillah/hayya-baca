@@ -127,7 +127,9 @@ class FirestoreService {
                         it.documents.map { doc ->
                             Children(
                                 doc.id,
-                                name = doc.get("name") as String
+                                name = doc.get("name") as String,
+                                coin = doc.getLong("coins"),
+                                star = doc.getLong("stars")
                             )
                         }
                     )
@@ -157,6 +159,24 @@ class FirestoreService {
                 }
                 .addOnFailureListener {
                     cont.resume(false)
+                }
+        }
+    }
+
+    suspend fun getChild(childId: String): Children {
+        return suspendCoroutine { cont ->
+            db.collection("children").document(childId)
+                .get()
+                .addOnSuccessListener { doc ->
+                    cont.resume(
+                        Children(
+                            childId,
+                            name = doc.get("name") as String,
+                            coin = doc.getLong("coins"),
+                            star = doc.getLong("stars")
+                        )
+                    )
+
                 }
         }
     }

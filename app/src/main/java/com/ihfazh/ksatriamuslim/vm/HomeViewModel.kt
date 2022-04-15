@@ -11,6 +11,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.domain.BookSummary
+import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.domain.Koin
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.Client
@@ -29,6 +30,8 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     private val koinRepository = KoinRepositoryImpl(application.applicationContext)
 
     val updateClicked = MutableLiveData(false)
+
+    val children = MutableLiveData<Children>()
 
     init {
         // should this the best way to do ??

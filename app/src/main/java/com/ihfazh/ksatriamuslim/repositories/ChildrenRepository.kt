@@ -9,4 +9,5 @@ interface ChildrenRepository {
     suspend fun delete(childId: String): Boolean
     suspend fun setSelectedChild(childId: String?): Boolean
     suspend fun getSelectedChild(): String?
+    suspend fun getChild(childId: String): Children
 }
