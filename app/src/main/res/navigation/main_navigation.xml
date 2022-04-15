@@ -58,6 +58,11 @@
         <action
             android:id="@+id/action_homeFragment_to_parentGateFragment"
             app:destination="@id/parentGateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_childrenListChildFragment"
+            app:destination="@id/childrenListChildFragment"
+            app:popUpTo="@id/childrenListChildFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/coinCongratulateFragment"

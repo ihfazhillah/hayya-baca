@@ -1,6 +1,7 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,18 +25,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
 import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
+import com.ihfazh.ksatriamuslim.vm.HomeViewModel
+import com.ihfazh.ksatriamuslim.vm.ViewState
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ChildrenListChildFragment : Fragment() {
     private val viewModel: ChildrenListViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var childRepository: ChildrenRepository
 
     override fun onCreateView(
@@ -46,25 +56,42 @@ class ChildrenListChildFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_children_list_child, container, false)
     }
 
+    @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         childRepository = ChildrenRepositoryImpl(requireContext())
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
         }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collect {
+                    when (it) {
+                        is ViewState.StateSuccess -> moveToHome(it.children)
+                    }
+                }
+            }
+        }
     }
 
-    private fun moveToHome(id: String?) {
-        lifecycleScope.launch {
-            childRepository.setSelectedChild(id)
-            findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
-        }
+    private fun moveToHome(children: Children) {
+        homeViewModel.children.value = children
+        findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
+        Log.d(TAG, "moveToHome: children is ${children.name}")
+//        viewModel.getChild(id!!)
+
+//        lifecycleScope.launch {
+//            childRepository.setSelectedChild(id)
+//            findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
+//        }
     }
 
     @Preview
     @Composable
     fun Page() {
         val children = viewModel.children.collectAsState().value
+        val viewState = viewModel.viewState.collectAsState().value
+
         LazyColumn(
             modifier = Modifier
                 .padding(10.dp),
@@ -85,7 +112,9 @@ class ChildrenListChildFragment : Fragment() {
                 ) {
                     items(children) {
                         MenuItem(title = it.name, image = R.drawable.ic_baseline_person_24) {
-                            moveToHome(it.id)
+                            if (viewState != ViewState.StateLoading) {
+                                viewModel.getChild(it.id)
+                            }
                         }
                     }
                 }
@@ -95,9 +124,11 @@ class ChildrenListChildFragment : Fragment() {
                 ClickableText(
                     text = AnnotatedString("Masuk sebagai Orang tua", SpanStyle(color = Color.Red)),
                     onClick = {
-                        findNavController().navigate(
-                            ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToParentGateFragment()
-                        )
+                        if (viewState != ViewState.StateLoading) {
+                            findNavController().navigate(
+                                ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToParentGateFragment()
+                            )
+                        }
                     }
                 )
             }

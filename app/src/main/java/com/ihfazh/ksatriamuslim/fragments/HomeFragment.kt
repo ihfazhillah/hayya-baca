@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +9,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import com.ihfazh.ksatriamuslim.vm.KoinViewModel
 import com.ihfazh.ksatriamuslim.vm.StarViewModel
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +41,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val koinViewModel: KoinViewModel by activityViewModels()
     private val starViewModel: StarViewModel by activityViewModels()
+    private lateinit var childrenRepository: ChildrenRepository
 
     lateinit var binding: FragmentHomeBinding
 
@@ -114,6 +122,23 @@ class HomeFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
+        // avatar
+        val avatar = AvatarGenerator.AvatarBuilder(requireContext())
+            .setLabel("S")
+            .setAvatarSize(40)
+            .setTextSize(15)
+            .toCircle()
+            .setBackgroundColor(Color.RED)
+            .build()
+
+        binding.avatar.load(avatar)
+        binding.avatar.setOnClickListener {
+            lifecycleScope.launch {
+                childrenRepository.setSelectedChild(null)
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
+            }
+        }
+
 
         return binding.root
     }
@@ -121,6 +146,11 @@ class HomeFragment : Fragment() {
     private fun initializeStar() {
         binding.starLayout.star = starViewModel
         binding.coinLayout.coin = koinViewModel
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        childrenRepository = ChildrenRepositoryImpl(requireContext())
     }
 
     companion object {

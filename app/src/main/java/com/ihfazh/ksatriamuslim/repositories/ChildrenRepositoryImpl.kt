@@ -35,6 +35,7 @@ class ChildrenRepositoryImpl(
                 context.getSharedPreferences("ksatriamuslim", Context.MODE_WORLD_WRITEABLE)
             with(sharedPreference.edit()) {
                 putString(selectedChildKey, childId)
+                apply()
                 cont.resume(true)
             }
         }
@@ -46,6 +47,10 @@ class ChildrenRepositoryImpl(
                 context.getSharedPreferences("ksatriamuslim", Context.MODE_PRIVATE)
             cont.resume(sharedPreference.getString(selectedChildKey, null))
         }
+    }
+
+    override suspend fun getChild(childId: String): Children {
+        return firestoreService.getChild(childId)
     }
 
 

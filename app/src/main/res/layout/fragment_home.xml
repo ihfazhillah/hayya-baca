@@ -19,6 +19,17 @@
         android:background="@drawable/ic_artboard8"
         tools:context=".fragments.HomeFragment">
 
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:src="@drawable/ic_baseline_mic_24" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/book_rv"
             android:layout_width="0dp"

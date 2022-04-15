@@ -8,6 +8,12 @@ plugins {
 
 }
 
+
+//allprojects {
+//    repositories {
+//        maven { url "https://jitpack.io" }
+//    }
+//}
 android {
     compileSdk 31
 
@@ -137,6 +143,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
+
+    implementation "com.github.AmosKorir:AvatarImageGenerator:$avatar_image_generator_version"
 
 
 }
