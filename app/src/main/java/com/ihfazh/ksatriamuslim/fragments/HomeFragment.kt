@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,8 +19,6 @@ import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
-import com.ihfazh.ksatriamuslim.vm.KoinViewModel
-import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,9 +35,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: HomeViewModel by viewModels()
-    private val koinViewModel: KoinViewModel by activityViewModels()
-    private val starViewModel: StarViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var childrenRepository: ChildrenRepository
 
     lateinit var binding: FragmentHomeBinding
@@ -115,16 +110,19 @@ class HomeFragment : Fragment() {
             rvAdapter.setBooks(it)
         }
 
-        initializeStar()
+//        initializeStar()
 
         binding.parentButton.setOnClickListener {
             val direction = HomeFragmentDirections.actionHomeFragmentToParentGateFragment()
             findNavController().navigate(direction)
         }
 
-        // avatar
+        return binding.root
+    }
+
+    private fun setAvatar(label: String) {
         val avatar = AvatarGenerator.AvatarBuilder(requireContext())
-            .setLabel("S")
+            .setLabel(label)
             .setAvatarSize(40)
             .setTextSize(15)
             .toCircle()
@@ -138,19 +136,21 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
             }
         }
-
-
-        return binding.root
     }
 
-    private fun initializeStar() {
-        binding.starLayout.star = starViewModel
-        binding.coinLayout.coin = koinViewModel
-    }
+//    private fun initializeStar() {
+//        binding.starLayout.children = viewModel.children.value
+//        binding.coinLayout.children = viewModel.children.value
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         childrenRepository = ChildrenRepositoryImpl(requireContext())
+        viewModel.children.observe(viewLifecycleOwner) {
+            binding.starLayout.children = it
+            binding.coinLayout.children = it
+            setAvatar(it.name.take(1))
+        }
     }
 
     companion object {

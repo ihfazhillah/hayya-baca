@@ -9,8 +9,8 @@
             name="vm"
             type="com.ihfazh.ksatriamuslim.vm.HomeViewModel" />
         <variable
-            name="koinViewModel"
-            type="com.ihfazh.ksatriamuslim.vm.KoinViewModel" />
+            name="children"
+            type="com.ihfazh.ksatriamuslim.domain.Children" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
