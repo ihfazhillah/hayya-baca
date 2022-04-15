@@ -143,8 +143,8 @@ class ReadingFragment : BaseFragment() {
 
 
     private fun initializeStarAndCoin() {
-        binding.coinLayout.coin = koinViewModel
-        binding.starLayout.star = starViewModel
+//        binding.coinLayout.coin = koinViewModel
+//        binding.starLayout.star = starViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

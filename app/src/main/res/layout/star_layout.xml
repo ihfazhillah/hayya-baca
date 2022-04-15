@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="star"
-            type="com.ihfazh.ksatriamuslim.vm.StarViewModel" />
+            name="children"
+            type="com.ihfazh.ksatriamuslim.domain.Children" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:background="@drawable/coin_text_background"
             android:clickable="true"
             android:fontFamily="@font/playtime"
-            android:text='@{star.star.count + ""}'
+            android:text='@{children.star + ""}'
             android:textColor="#b55e28"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/starIcon"

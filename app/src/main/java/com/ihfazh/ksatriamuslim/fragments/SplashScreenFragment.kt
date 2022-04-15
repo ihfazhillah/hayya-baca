@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
@@ -12,6 +13,7 @@ import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +32,7 @@ class SplashScreenFragment : Fragment() {
     private var param2: String? = null
     lateinit var authRepository: AuthenticationRepository
     lateinit var childrenRepository: ChildrenRepository
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +57,12 @@ class SplashScreenFragment : Fragment() {
 
         lifecycleScope.launch {
             val action = if (authRepository.isLoggedIn()) {
-                if (childrenRepository.getSelectedChild() == null) {
+                val childId = childrenRepository.getSelectedChild()
+                if (childId == null) {
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
                 } else {
+                    val child = childrenRepository.getChild(childId)
+                    homeViewModel.children.value = child
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
                 }
             } else {
