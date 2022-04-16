@@ -13,7 +13,7 @@ import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
-import com.ihfazh.ksatriamuslim.vm.HomeViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +32,7 @@ class SplashScreenFragment : Fragment() {
     private var param2: String? = null
     lateinit var authRepository: AuthenticationRepository
     lateinit var childrenRepository: ChildrenRepository
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,7 @@ class SplashScreenFragment : Fragment() {
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
                 } else {
                     val child = childrenRepository.getChild(childId)
-                    homeViewModel.children.value = child
+                    childViewModel.children.value = child
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
                 }
             } else {

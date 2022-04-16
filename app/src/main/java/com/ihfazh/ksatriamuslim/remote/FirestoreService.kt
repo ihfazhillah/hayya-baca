@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.remote
 
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -137,18 +138,18 @@ class FirestoreService {
         }
     }
 
-    suspend fun updateChild(childId: String, name: String): Boolean {
-        return suspendCoroutine { cont ->
-            db.collection("children").document(childId)
-                .update("name", name)
-                .addOnSuccessListener {
-                    cont.resume(true)
-                }
-                .addOnFailureListener {
-                    cont.resume(false)
-                }
-        }
-    }
+//    suspend fun updateChild(childId: String, name: String): Boolean {
+//        return suspendCoroutine { cont ->
+//            db.collection("children").document(childId)
+//                .update("name", name)
+//                .addOnSuccessListener {
+//                    cont.resume(true)
+//                }
+//                .addOnFailureListener {
+//                    cont.resume(false)
+//                }
+//        }
+//    }
 
     suspend fun deleteChild(childId: String): Boolean {
         return suspendCoroutine { cont ->
@@ -179,6 +180,24 @@ class FirestoreService {
 
                 }
         }
+    }
+
+    suspend fun updateChild(child: Children): Boolean {
+        return suspendCoroutine { cont ->
+            db.collection("children").document(child.id)
+                .update("name", child.name, "coins", child.coin, "stars", child.star)
+                .addOnSuccessListener {
+                    Log.d(TAG, "updateChild: children updated")
+                    cont.resume(true)
+                }
+                .addOnFailureListener {
+                    Log.e(TAG, "updateChild: update child error", it)
+                }
+        }
+    }
+
+    companion object {
+        const val TAG = "FirestoreService"
     }
 
 }

@@ -18,6 +18,7 @@ import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: HomeViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by activityViewModels()
     private lateinit var childrenRepository: ChildrenRepository
 
     lateinit var binding: FragmentHomeBinding
@@ -117,6 +119,12 @@ class HomeFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
+        childViewModel.children.observe(viewLifecycleOwner) {
+            binding.starLayout.children = it
+            binding.coinLayout.children = it
+            setAvatar(it.name.take(1))
+        }
+
         return binding.root
     }
 
@@ -136,6 +144,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
             }
         }
+
     }
 
 //    private fun initializeStar() {
@@ -146,11 +155,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         childrenRepository = ChildrenRepositoryImpl(requireContext())
-        viewModel.children.observe(viewLifecycleOwner) {
-            binding.starLayout.children = it
-            binding.coinLayout.children = it
-            setAvatar(it.name.take(1))
-        }
     }
 
     companion object {
