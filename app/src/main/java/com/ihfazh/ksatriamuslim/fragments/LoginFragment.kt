@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -14,6 +15,7 @@ import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var authRepository: GoogleAuthenticationRepositoryImpl
     private lateinit var childrenRepository: ChildrenRepository
+    private val childViewModel: ChildViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +86,11 @@ class LoginFragment : Fragment() {
         if (loggedIn) {
             lifecycleScope.launch {
                 val selectedChild = childrenRepository.getSelectedChild()
-                Log.d(TAG, "updateUI: $selectedChild")
                 val action = if (selectedChild == null) {
                     LoginFragmentDirections.actionLoginFragmentToChildrenListChildFragment()
                 } else {
+                    val child = childrenRepository.getChild(selectedChild)
+                    childViewModel.children.value = child
                     LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                 }
 
