@@ -62,7 +62,7 @@ class SplashScreenFragment : Fragment() {
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
                 } else {
                     val child = childrenRepository.getChild(childId)
-                    childViewModel.children.value = child
+                    childViewModel.children.postValue(child)
                     SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
                 }
             } else {

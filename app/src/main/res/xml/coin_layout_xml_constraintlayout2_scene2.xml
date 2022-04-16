@@ -32,6 +32,16 @@
                 android:translationZ="6dp"
                 motion:framePosition="70"
                 motion:motionTarget="@+id/coinIcon" />
+            <KeyAttribute
+                android:rotation="20"
+                android:translationZ="6dp"
+                motion:framePosition="35"
+                motion:motionTarget="@+id/loveIcon" />
+            <KeyAttribute
+                android:rotation="-20"
+                android:translationZ="6dp"
+                motion:framePosition="70"
+                motion:motionTarget="@+id/loveIcon" />
         </KeyFrameSet>
         <OnClick
             motion:clickAction="toggle"
@@ -58,5 +68,13 @@
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/loveIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            motion:layout_constraintBottom_toBottomOf="@id/coinIcon"
+            motion:layout_constraintEnd_toEndOf="@id/coinIcon"
+            motion:layout_constraintStart_toStartOf="@id/coinIcon"
+            motion:layout_constraintTop_toTopOf="@id/coinIcon" />
     </ConstraintSet>
 </MotionScene>

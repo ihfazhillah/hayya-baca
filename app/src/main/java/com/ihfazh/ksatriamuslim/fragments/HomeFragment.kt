@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: HomeViewModel by activityViewModels()
-    private val childViewModel: ChildViewModel by activityViewModels()
+    private val childVM: ChildViewModel by activityViewModels()
     private lateinit var childrenRepository: ChildrenRepository
 
     lateinit var binding: FragmentHomeBinding
@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            childViewModel = childVM
         }
 
         val rvAdapter = BookRecyclerViewAdapter { view, book ->
@@ -119,9 +120,8 @@ class HomeFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-        childViewModel.children.observe(viewLifecycleOwner) {
+        childVM.children.observe(viewLifecycleOwner) {
             binding.starLayout.children = it
-            binding.coinLayout.children = it
             setAvatar(it.name.take(1))
         }
 
@@ -167,6 +167,7 @@ class HomeFragment : Fragment() {
          * @return A new instance of fragment HomeFragment.
          */
         // TODO: Rename and change types and number of parameters
+        const val TAG = "HomeFragment"
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {
