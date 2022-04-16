@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 
@@ -43,7 +44,8 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         return if (childId == null) {
             childrenRepository.addChild(name)
         } else {
-            childrenRepository.updateChild(childId!!, name)
+            val child = Children(childId!!, name, 0, 0)
+            childrenRepository.updateChild(child)
         }
     }
 

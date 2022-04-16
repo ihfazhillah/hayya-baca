@@ -21,9 +21,8 @@ import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.common.RecognizerListener
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
-import com.ihfazh.ksatriamuslim.vm.KoinViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
-import com.ihfazh.ksatriamuslim.vm.StarViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -47,8 +46,7 @@ class ReadingFragment : BaseFragment() {
     private val args: ReadingFragmentArgs by navArgs()
 
     private val viewModel: ReadingViewModel by viewModels()
-    private val koinViewModel: KoinViewModel by activityViewModels()
-    private val starViewModel: StarViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by activityViewModels()
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
@@ -151,11 +149,15 @@ class ReadingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
+        childViewModel.children.observe(viewLifecycleOwner) {
+            binding.coinLayout.children = it
+            binding.starLayout.children = it
+        }
 
         viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
             if (finished) {
                 viewModel.calculatePercentage()
-                koinViewModel.increaseMyCoin()
+                childViewModel.increaseMyCoin()
                 val action =
                     ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
                 findNavController().navigate(action)
@@ -175,13 +177,13 @@ class ReadingFragment : BaseFragment() {
 
     private fun animatePercentChange(percent: Float) {
         val incrementor = when {
-            percent >= 75 -> 4
-            percent >= 50 -> 3
-            percent >= 25 -> 2
-            percent >= 1 -> 1
-            else -> 0
+            percent >= 75 -> 4L
+            percent >= 50 -> 3L
+            percent >= 25 -> 2L
+            percent >= 1 -> 1L
+            else -> 0L
         }
-        starViewModel.increaseMyCoin(incrementor)
+        childViewModel.increaseMyStar(incrementor)
 
 
         if (incrementor > 0) {

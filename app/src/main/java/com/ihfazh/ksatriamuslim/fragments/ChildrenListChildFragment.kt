@@ -36,8 +36,8 @@ import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
-import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import com.ihfazh.ksatriamuslim.vm.ViewState
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 
 class ChildrenListChildFragment : Fragment() {
     private val viewModel: ChildrenListViewModel by viewModels()
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by activityViewModels()
     private lateinit var childRepository: ChildrenRepository
 
     override fun onCreateView(
@@ -75,7 +75,7 @@ class ChildrenListChildFragment : Fragment() {
     }
 
     private fun moveToHome(children: Children) {
-        homeViewModel.children.value = children
+        childViewModel.children.value = children
         findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
         Log.d(TAG, "moveToHome: children is ${children.name}")
 //        viewModel.getChild(id!!)
