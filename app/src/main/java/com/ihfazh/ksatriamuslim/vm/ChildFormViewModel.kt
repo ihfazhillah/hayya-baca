@@ -14,6 +14,7 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
     var name by mutableStateOf("")
     var childId by mutableStateOf<String?>(null)
     var deleteDialogOpen by mutableStateOf(false)
+    var enableReadToMe by mutableStateOf(false)
 
     private val ERROR_TEXT = "Nama anak minimal 3 huruf."
     var error: String? by mutableStateOf(ERROR_TEXT)
@@ -21,9 +22,10 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val childrenRepository: ChildrenRepository =
         ChildrenRepositoryImpl(application.applicationContext)
 
-    fun setChild(id: String, name: String) {
-        this.name = name
-        childId = id
+    fun setChild(child: Children) {
+        this.name = child.name
+        childId = child.id
+        enableReadToMe = child.enableReadToMe
         error = null
     }
 
@@ -42,9 +44,9 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
     suspend fun send(): Boolean {
         loading = true
         return if (childId == null) {
-            childrenRepository.addChild(name)
+            childrenRepository.addChild(name, mapOf("enableReadToMe" to enableReadToMe))
         } else {
-            val child = Children(childId!!, name, 0, 0)
+            val child = Children(childId!!, name, 0, 0, enableReadToMe)
             childrenRepository.updateChild(child)
         }
     }
@@ -55,6 +57,7 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         name = ""
         childId = null
         deleteDialogOpen = false
+        enableReadToMe = false
     }
 
     suspend fun delete() {
