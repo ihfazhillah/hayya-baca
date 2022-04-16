@@ -55,11 +55,6 @@ class GoogleAuthenticationRepositoryImpl(val context: Context): AuthenticationRe
                         con.resume(null)
                     }
                 }
-                .addOnFailureListener {
-                    println("Something error with the authentication -- $it")
-                    signOut()
-                    con.resume(null)
-                }
         }
     }
 
