@@ -165,7 +165,8 @@ class FirestoreService {
                             childId,
                             name = doc.get("name") as String,
                             coin = doc.getLong("coins"),
-                            star = doc.getLong("stars")
+                            star = doc.getLong("stars"),
+                            enableReadToMe = doc.getBoolean("enableReadToMe") ?: false
                         )
                     )
 
