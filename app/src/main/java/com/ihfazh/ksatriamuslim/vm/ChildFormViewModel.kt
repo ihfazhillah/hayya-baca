@@ -1,6 +1,7 @@
 package com.ihfazh.ksatriamuslim.vm
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,6 +17,8 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
     var deleteDialogOpen by mutableStateOf(false)
     var enableReadToMe by mutableStateOf(false)
 
+    private var _child by mutableStateOf<Children?>(null)
+
     private val ERROR_TEXT = "Nama anak minimal 3 huruf."
     var error: String? by mutableStateOf(ERROR_TEXT)
 
@@ -27,6 +30,7 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         childId = child.id
         enableReadToMe = child.enableReadToMe
         error = null
+        _child = child
     }
 
     fun validateName() {
@@ -46,8 +50,13 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         return if (childId == null) {
             childrenRepository.addChild(name, mapOf("enableReadToMe" to enableReadToMe))
         } else {
-            val child = Children(childId!!, name, 0, 0, enableReadToMe)
-            childrenRepository.updateChild(child)
+            Log.d(TAG, "send: $_child")
+            childrenRepository.updateChild(
+                _child!!.copy(
+                    name = name,
+                    enableReadToMe = enableReadToMe
+                )
+            )
         }
     }
 
@@ -58,10 +67,15 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         childId = null
         deleteDialogOpen = false
         enableReadToMe = false
+        _child = null
     }
 
     suspend fun delete() {
         childrenRepository.delete(childId!!)
         reset()
+    }
+
+    companion object {
+        const val TAG = "ChildFormViewModel"
     }
 }
