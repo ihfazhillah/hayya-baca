@@ -11,6 +11,7 @@
         <variable
             name="children"
             type="com.ihfazh.ksatriamuslim.domain.Children" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
