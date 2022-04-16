@@ -12,9 +12,9 @@ class ChildrenRepositoryImpl(
     private val firestoreService = FirestoreService()
     private val selectedChildKey = "SELECTED_CHILD"
 
-    override suspend fun addChild(name: String): Boolean {
+    override suspend fun addChild(name: String, attrs: Map<String, Any>): Boolean {
         // todo: implement caching
-        return firestoreService.createChild(name)
+        return firestoreService.createChild(name, attrs)
     }
 
     override suspend fun getChildren(): List<Children> {

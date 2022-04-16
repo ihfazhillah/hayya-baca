@@ -82,7 +82,7 @@ class ChildrenListParentFragment : Fragment() {
 
             items(children.value) { item ->
                 ChildItemParent(name = item.name) {
-                    childFormViewModel.setChild(item.id, item.name)
+                    childFormViewModel.setChild(item)
                     findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
                 }
             }

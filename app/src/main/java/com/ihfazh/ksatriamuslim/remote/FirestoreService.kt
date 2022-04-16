@@ -98,13 +98,14 @@ class FirestoreService {
         }
     }
 
-    suspend fun createChild(name: String): Boolean {
+    suspend fun createChild(name: String, attrs: Map<String, Any> = mapOf()): Boolean {
         return suspendCoroutine { cont ->
             val document = hashMapOf(
                 "name" to name,
                 "coins" to 0,
                 "stars" to 0,
                 "parentUID" to auth.currentUser?.uid,
+                "enableReadToMe" to attrs.getOrDefault("enableReadToMe", false),
                 "time" to Date().time
             )
             db.collection("children")
@@ -130,26 +131,14 @@ class FirestoreService {
                                 doc.id,
                                 name = doc.get("name") as String,
                                 coin = doc.getLong("coins"),
-                                star = doc.getLong("stars")
+                                star = doc.getLong("stars"),
+                                enableReadToMe = doc.getBoolean("enableReadToMe") ?: false
                             )
                         }
                     )
                 }
         }
     }
-
-//    suspend fun updateChild(childId: String, name: String): Boolean {
-//        return suspendCoroutine { cont ->
-//            db.collection("children").document(childId)
-//                .update("name", name)
-//                .addOnSuccessListener {
-//                    cont.resume(true)
-//                }
-//                .addOnFailureListener {
-//                    cont.resume(false)
-//                }
-//        }
-//    }
 
     suspend fun deleteChild(childId: String): Boolean {
         return suspendCoroutine { cont ->
@@ -165,8 +154,10 @@ class FirestoreService {
     }
 
     suspend fun getChild(childId: String): Children {
+        // todo: tambahkan check uid orang tua
         return suspendCoroutine { cont ->
-            db.collection("children").document(childId)
+            db.collection("children")
+                .document(childId)
                 .get()
                 .addOnSuccessListener { doc ->
                     cont.resume(
@@ -185,7 +176,16 @@ class FirestoreService {
     suspend fun updateChild(child: Children): Boolean {
         return suspendCoroutine { cont ->
             db.collection("children").document(child.id)
-                .update("name", child.name, "coins", child.coin, "stars", child.star)
+                .update(
+                    "name",
+                    child.name,
+                    "coins",
+                    child.coin,
+                    "stars",
+                    child.star,
+                    "enableReadToMe",
+                    child.enableReadToMe
+                )
                 .addOnSuccessListener {
                     Log.d(TAG, "updateChild: children updated")
                     cont.resume(true)
