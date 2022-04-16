@@ -8,6 +8,8 @@
         <variable
             name="children"
             type="com.ihfazh.ksatriamuslim.domain.Children" />
+
+
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -44,7 +46,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
+            app:isVisible="@{!children.enableReadToMe}"
+            app:isVisibleMotion="@{!children.enableReadToMe}"
             app:lottie_rawRes="@raw/km_coin_detak_jantung" />
+
+        <ImageView
+            android:id="@+id/loveIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_heart"
+            app:isVisible="@{children.enableReadToMe}"
+            app:isVisibleMotion="@{children.enableReadToMe}"
+            app:layout_constraintBottom_toBottomOf="@id/coinIcon"
+            app:layout_constraintEnd_toEndOf="@id/coinIcon"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/coinIcon"
+            app:layout_constraintTop_toTopOf="@id/coinIcon" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

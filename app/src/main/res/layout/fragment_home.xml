@@ -5,12 +5,19 @@
     >
 
     <data>
+
         <variable
             name="vm"
             type="com.ihfazh.ksatriamuslim.vm.HomeViewModel" />
+
         <variable
             name="children"
             type="com.ihfazh.ksatriamuslim.domain.Children" />
+
+        <variable
+            name="childViewModel"
+            type="com.ihfazh.ksatriamuslim.vm.ChildViewModel" />
+
         <import type="android.view.View" />
     </data>
 
@@ -71,6 +78,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:children="@{childViewModel.children}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
