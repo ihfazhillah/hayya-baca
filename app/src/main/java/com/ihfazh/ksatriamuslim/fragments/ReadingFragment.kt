@@ -179,24 +179,26 @@ class ReadingFragment : BaseFragment() {
 //            }
         }
 
-        if (childViewModel.children.value!!.enableReadToMe) {
             viewModel.textPage.observe(viewLifecycleOwner) {
-                wordSpeak.speakPage(
-                    viewModel.bookId.value!!,
-                    viewModel.page.value!!,
-                    it.originalText
-                )
+                if (childViewModel.children.value!!.enableReadToMe) {
+                    wordSpeak.speakPage(
+                        viewModel.bookId.value!!,
+                        viewModel.page.value!!,
+                        it.originalText
+                    )
+                }
             }
 
             binding.root.setOnClickListener {
-                wordSpeak.speakPage(
-                    viewModel.bookId.value!!,
-                    viewModel.page.value!!,
-                    viewModel.textPage.value!!.originalText
-                )
+                if (childViewModel.children.value!!.enableReadToMe) {
+                    wordSpeak.speakPage(
+                        viewModel.bookId.value!!,
+                        viewModel.page.value!!,
+                        viewModel.textPage.value!!.originalText
+                    )
+                }
             }
 
-        }
 
     }
 
