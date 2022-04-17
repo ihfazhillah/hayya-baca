@@ -15,17 +15,23 @@
             type="com.ihfazh.ksatriamuslim.vm.ReadingViewModel" />
         <variable
             name="nav"
-            type="com.ihfazh.ksatriamuslim.common.Navigator"
-            />
+            type="com.ihfazh.ksatriamuslim.common.Navigator" />
+
         <variable
             name="backgroundDrawable"
             type="android.graphics.drawable.Drawable" />
+
         <variable
             name="textColor"
             type="Integer" />
+
         <variable
             name="koinViewModel"
             type="com.ihfazh.ksatriamuslim.vm.KoinViewModel" />
+
+        <variable
+            name="childViewModel"
+            type="com.ihfazh.ksatriamuslim.vm.ChildViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,6 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="@id/coinLayout"
+            app:children="@{childViewModel.children}"
             app:layout_constraintEnd_toStartOf="@id/coinLayout"
             app:layout_constraintTop_toTopOf="@id/coinLayout" />
 
@@ -182,6 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            app:children="@{childViewModel.children}"
             android:layout_marginEnd="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

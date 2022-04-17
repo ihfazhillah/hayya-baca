@@ -74,9 +74,11 @@ class ReadingFragment : BaseFragment() {
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
+            childViewModel = this@ReadingFragment.childViewModel
+
             mainText.movementMethod = LinkMovementMethod.getInstance()
 
-            loading.addAnimatorListener(object: Animator.AnimatorListener{
+            loading.addAnimatorListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(p0: Animator?) {
                     viewModel.animationRunning.value = true
                 }
@@ -149,10 +151,11 @@ class ReadingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
-        childViewModel.children.observe(viewLifecycleOwner) {
-            binding.coinLayout.children = it
-            binding.starLayout.children = it
-        }
+
+//        childViewModel.children.observe(viewLifecycleOwner) {
+//            binding.coinLayout.children = it
+//            binding.starLayout.children = it
+//        }
 
         viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
             if (finished) {
@@ -167,12 +170,18 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
-        if (!Constants.isTvVersion(requireContext())) {
+        hideShowToggleMic()
+
+    }
+
+    private fun hideShowToggleMic() {
+        if (!Constants.isTvVersion(requireContext()) && childViewModel.children.value!!.enableReadToMe) {
+            binding.toggleMicBtn.visibility = View.GONE
+        } else if (!Constants.isTvVersion(requireContext())) {
             initiateSpeechRecognizerAndListener()
         } else {
             binding.toggleMicBtn.visibility = View.GONE
         }
-
     }
 
     private fun animatePercentChange(percent: Float) {
