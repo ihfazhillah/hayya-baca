@@ -15,10 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.ihfazh.ksatriamuslim.common.Constants
-import com.ihfazh.ksatriamuslim.common.Navigator
-import com.ihfazh.ksatriamuslim.common.Recognizer
-import com.ihfazh.ksatriamuslim.common.RecognizerListener
+import com.ihfazh.ksatriamuslim.common.*
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
@@ -50,6 +47,7 @@ class ReadingFragment : BaseFragment() {
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
+    private lateinit var wordSpeak: WordSpeak
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,13 +128,6 @@ class ReadingFragment : BaseFragment() {
             }
         }
 
-        viewModel.page.observe(viewLifecycleOwner) {
-            viewModel.textPage.value?.let { currentTextPage ->
-                val percentage = RecognizerListener.calculatePercentage(currentTextPage)
-                animatePercentChange(percentage * 100)
-
-            }
-        }
 
         viewModel.textPage.observe(viewLifecycleOwner) {
             Recognizer.addPhrase(it.originalText)
@@ -173,6 +164,39 @@ class ReadingFragment : BaseFragment() {
         }
 
         hideShowToggleMic()
+
+        wordSpeak = WordSpeak(requireContext())
+
+        viewModel.page.observe(viewLifecycleOwner) {
+            viewModel.textPage.value?.let { currentTextPage ->
+                val percentage = RecognizerListener.calculatePercentage(currentTextPage)
+                animatePercentChange(percentage * 100)
+
+            }
+
+//            if (childViewModel.children.value!!.enableReadToMe){
+//                wordSpeak.speakPage(viewModel.bookId.value!!, it, viewModel.textPage.value!!.originalText)
+//            }
+        }
+
+        if (childViewModel.children.value!!.enableReadToMe) {
+            viewModel.textPage.observe(viewLifecycleOwner) {
+                wordSpeak.speakPage(
+                    viewModel.bookId.value!!,
+                    viewModel.page.value!!,
+                    it.originalText
+                )
+            }
+
+            binding.root.setOnClickListener {
+                wordSpeak.speakPage(
+                    viewModel.bookId.value!!,
+                    viewModel.page.value!!,
+                    viewModel.textPage.value!!.originalText
+                )
+            }
+
+        }
 
     }
 
@@ -239,6 +263,7 @@ class ReadingFragment : BaseFragment() {
 
     override fun onDestroy() {
         viewModel.releaseWordSpeak()
+        wordSpeak.release()
         super.onDestroy()
     }
 
