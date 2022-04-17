@@ -61,8 +61,10 @@ class ReadingFragment : BaseFragment() {
             isEnabled = false
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            Recognizer.startRecognizing()
+        if (!childViewModel.children.value!!.enableReadToMe) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                Recognizer.startRecognizing()
+            }
         }
     }
 
