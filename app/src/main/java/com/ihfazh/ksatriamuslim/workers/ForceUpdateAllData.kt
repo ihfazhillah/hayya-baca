@@ -9,7 +9,8 @@ import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.SpeakWordRepository
 import com.ihfazh.ksatriamuslim.repositories.SpeakWordRepositoryImpl
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ForceUpdateAllData(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
@@ -24,7 +25,7 @@ class ForceUpdateAllData(appContext: Context, workerParams: WorkerParameters) :
             val bookRepository = BookRepositoryImpl(local, remote)
             val backgroundRepository = ReadingBackgroundRepositoryImpl(local, remote)
             val audioRepository: SpeakWordRepository =
-                SpeakWordRepositoryImpl(applicationContext, remote)
+                SpeakWordRepositoryImpl(applicationContext, remote, bookRepository)
 
             when (type) {
                 "all" -> {
