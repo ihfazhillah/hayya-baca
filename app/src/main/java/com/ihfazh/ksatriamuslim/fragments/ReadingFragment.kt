@@ -59,7 +59,7 @@ class ReadingFragment : BaseFragment() {
             isEnabled = false
         }
 
-        if (!childViewModel.children.value!!.enableReadToMe) {
+        if (!childViewModel.child.value!!.enableReadToMe) {
             lifecycleScope.launch(Dispatchers.IO) {
                 Recognizer.startRecognizing()
             }
@@ -180,7 +180,7 @@ class ReadingFragment : BaseFragment() {
         }
 
             viewModel.textPage.observe(viewLifecycleOwner) {
-                if (childViewModel.children.value!!.enableReadToMe) {
+                if (childViewModel.child.value!!.enableReadToMe) {
                     wordSpeak.speakPage(
                         viewModel.bookId.value!!,
                         viewModel.page.value!!,
@@ -190,7 +190,7 @@ class ReadingFragment : BaseFragment() {
             }
 
             binding.root.setOnClickListener {
-                if (childViewModel.children.value!!.enableReadToMe) {
+                if (childViewModel.child.value!!.enableReadToMe) {
                     wordSpeak.speakPage(
                         viewModel.bookId.value!!,
                         viewModel.page.value!!,
@@ -203,7 +203,7 @@ class ReadingFragment : BaseFragment() {
     }
 
     private fun hideShowToggleMic() {
-        if (!Constants.isTvVersion(requireContext()) && childViewModel.children.value!!.enableReadToMe) {
+        if (!Constants.isTvVersion(requireContext()) && childViewModel.child.value!!.enableReadToMe) {
             binding.toggleMicBtn.visibility = View.GONE
         } else if (!Constants.isTvVersion(requireContext())) {
             initiateSpeechRecognizerAndListener()

@@ -179,7 +179,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="@id/coinLayout"
-            app:children="@{childViewModel.children}"
             app:layout_constraintEnd_toStartOf="@id/coinLayout"
             app:layout_constraintTop_toTopOf="@id/coinLayout" />
 
@@ -189,7 +188,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            app:children="@{childViewModel.children}"
             android:layout_marginEnd="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

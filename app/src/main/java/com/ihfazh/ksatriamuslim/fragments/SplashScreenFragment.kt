@@ -6,13 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
-import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
-import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +23,9 @@ class SplashScreenFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var authRepository: AuthenticationRepository
-    lateinit var childrenRepository: ChildrenRepository
-    private val childViewModel: ChildViewModel by activityViewModels()
+//    lateinit var authRepository: AuthenticationRepository
+//    lateinit var childrenRepository: ChildrenRepository
+//    private val childViewModel: ChildViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +46,7 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
-        childrenRepository = ChildrenRepositoryImpl(requireContext())
+//        childrenRepository = ChildrenRepositoryImpl(requireContext())
 
 //        lifecycleScope.launch {
 //            val action = if (authRepository.isLoggedIn()) {

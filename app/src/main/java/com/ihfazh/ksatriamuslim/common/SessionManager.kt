@@ -16,7 +16,7 @@ class SessionManager(context: Context) {
     fun getToken(): String? =
         prefs.getString(USER_TOKEN, null)
 
-    fun setToken(token: String) {
+    fun setToken(token: String?) {
         prefs.edit {
             putString(USER_TOKEN, token)
             apply()
@@ -24,7 +24,7 @@ class SessionManager(context: Context) {
     }
 
     fun getSelectedChild(): String? = prefs.getString(SELECTED_CHILD, null)
-    fun setSelectedChild(id: String) = prefs.edit {
+    fun setSelectedChild(id: String?) = prefs.edit {
         putString(SELECTED_CHILD, id)
         apply()
     }

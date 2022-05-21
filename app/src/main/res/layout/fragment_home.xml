@@ -68,7 +68,6 @@
             android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="@id/coinLayout"
             app:layout_constraintEnd_toStartOf="@id/coinLayout"
-            app:children="@{childViewModel.children}"
             app:layout_constraintTop_toTopOf="@id/coinLayout" />
 
         <include
@@ -79,7 +78,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:children="@{childViewModel.children}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
