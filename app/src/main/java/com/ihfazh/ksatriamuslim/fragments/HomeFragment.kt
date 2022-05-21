@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,15 +20,14 @@ import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
+import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
-import com.ihfazh.ksatriamuslim.vm.AuthViewModel
-import com.ihfazh.ksatriamuslim.vm.AuthViewModelFactory
-import com.ihfazh.ksatriamuslim.vm.ChildViewModel
-import com.ihfazh.ksatriamuslim.vm.HomeViewModel
+import com.ihfazh.ksatriamuslim.vm.*
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,7 +45,6 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: HomeViewModel by activityViewModels()
-    private val childVM: ChildViewModel by activityViewModels()
     private lateinit var childrenRepository: ChildrenRepository
 
     private lateinit var authRepository: AuthenticationRepository
@@ -52,6 +52,9 @@ class HomeFragment : Fragment() {
         AuthViewModelFactory(
             authRepository
         )
+    }
+    private val childVM: ChildViewModel by activityViewModels {
+        ChildViewModelFactory(childrenRepository)
     }
 
 
@@ -72,7 +75,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            childViewModel = childVM
+//            childViewModel = childVM
         }
 
         val rvAdapter = BookRecyclerViewAdapter { view, book ->
@@ -135,10 +138,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-        childVM.children.observe(viewLifecycleOwner) {
-            binding.starLayout.children = it
-            setAvatar(it.name.take(1))
-        }
+//        childVM.child.observe(viewLifecycleOwner) {
+//            binding.starLayout.children = it
+//            setAvatar(it?.name?.take(1) ?: "U")
+//        }
 
         return binding.root
     }
@@ -169,16 +172,36 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        childrenRepository = ChildrenRepositoryImpl(requireContext())
 
         val remote = BackendClient.getService(requireContext())
         val sessionManager = SessionManager(requireContext())
-        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+        val db = AppDatabase.getDB(requireContext())
 
-        authViewModel.user.observe(viewLifecycleOwner) {
-            if (it.token == null) {
-                findNavController().navigate(R.id.loginFragment)
+        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+        childrenRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
+
+//        authViewModel.user.observe(viewLifecycleOwner) {
+//            if (it.token == null) {
+//                findNavController().navigate(R.id.loginFragment)
+//            }
+//        }
+
+        authViewModel.user.asFlow().combine(
+            childVM.child.asFlow()
+        ) { user, children ->
+            when {
+                user.token == null -> {
+                    R.id.loginFragment
+                }
+                children == null -> {
+                    R.id.childrenListChildFragment
+                }
+                else -> {
+                    null
+                }
             }
+        }.asLiveData().observe(viewLifecycleOwner) {
+            it?.let { id -> findNavController().navigate(id) }
         }
     }
 

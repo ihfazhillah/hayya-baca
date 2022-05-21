@@ -1,7 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,11 +27,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Children
+import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
@@ -47,6 +50,7 @@ class ChildrenListChildFragment : Fragment() {
     private val viewModel: ChildrenListViewModel by viewModels()
     private val childViewModel: ChildViewModel by activityViewModels()
     private lateinit var childRepository: ChildrenRepository
+    private lateinit var savedStateHandle: SavedStateHandle
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +63,20 @@ class ChildrenListChildFragment : Fragment() {
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        childRepository = ChildrenRepositoryImpl(requireContext())
+        val remote = BackendClient.getService(requireContext())
+        val db = AppDatabase.getDB(requireContext())
+        val sessionManager = SessionManager(requireContext())
+        childRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
+        }
+        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+        childViewModel.refreshChildren()
+        childViewModel.child.observe(viewLifecycleOwner) {
+            if (it != null) {
+                savedStateHandle.set(SELECTED_CHILD, it.id)
+                findNavController().popBackStack()
+            }
         }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -75,9 +90,9 @@ class ChildrenListChildFragment : Fragment() {
     }
 
     private fun moveToHome(children: Children) {
-        childViewModel.children.value = children
-        findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
-        Log.d(TAG, "moveToHome: children is ${children.name}")
+//        childViewModel.child.value = children
+//        findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
+//        Log.d(TAG, "moveToHome: children is ${children.name}")
 //        viewModel.getChild(id!!)
 
 //        lifecycleScope.launch {
@@ -89,7 +104,7 @@ class ChildrenListChildFragment : Fragment() {
     @Preview
     @Composable
     fun Page() {
-        val children = viewModel.children.collectAsState().value
+        val children = childViewModel.children.collectAsState().value
         val viewState = viewModel.viewState.collectAsState().value
 
         LazyColumn(
@@ -112,9 +127,8 @@ class ChildrenListChildFragment : Fragment() {
                 ) {
                     items(children) {
                         MenuItem(title = it.name, image = R.drawable.ic_baseline_person_24) {
-                            if (viewState != ViewState.StateLoading) {
-                                viewModel.getChild(it.id)
-                            }
+                            childViewModel.setSelectedChild(it.id)
+//                            if (viewState != ViewState.StateLoading) { viewModel.getChild(it.id) }
                         }
                     }
                 }
@@ -140,5 +154,6 @@ class ChildrenListChildFragment : Fragment() {
 
     companion object {
         const val TAG = "ChildrenListChildFragment"
+        const val SELECTED_CHILD = "SELECTED_CHILD"
     }
 }
