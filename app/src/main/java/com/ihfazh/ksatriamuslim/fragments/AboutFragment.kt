@@ -1,12 +1,9 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,27 +13,16 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
-import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,7 +66,7 @@ class AboutFragment : BaseFragment() {
     private lateinit var authRepository: AuthenticationRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+//        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
         super.onViewCreated(view, savedInstanceState)
         val composeView = view.findViewById<ComposeView>(R.id.composeView)
         composeView.setContent {
@@ -103,7 +89,7 @@ class AboutFragment : BaseFragment() {
                 findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToChildrenListParentFragment())
             },
             MenuItemEntity("Keluar", R.drawable.ic_baseline_logout_24){
-                authRepository.signOut()
+//                authRepository.signOut()
                 findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToLoginFragment())
             }
         )

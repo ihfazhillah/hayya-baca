@@ -1,24 +1,25 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
+import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.AuthViewModel
+import com.ihfazh.ksatriamuslim.vm.AuthViewModelFactory
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,10 +35,17 @@ class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var binding: FragmentLoginBinding
-    private lateinit var authRepository: GoogleAuthenticationRepositoryImpl
+    private var binding: FragmentLoginBinding? = null
+    private lateinit var authRepository: BackendAuthenticationRepository
     private lateinit var childrenRepository: ChildrenRepository
     private val childViewModel: ChildViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels {
+        AuthViewModelFactory(
+            authRepository
+        )
+    }
+    private lateinit var savedStateHandle: SavedStateHandle
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,31 +62,72 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false).apply {
             logo.load(R.drawable.logo_ksatria_muslim_watermark)
+
+            password.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    doLogin()
+                }
+                false
+            }
+
+            submit.setOnClickListener {
+                doLogin()
+            }
         }
-        return binding.root
+        return binding?.root
     }
 
-    val googleLoginContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-        if (task.isSuccessful) {
-            Log.d(TAG, "google login success")
-            lifecycleScope.launch {
-                val user = authRepository.firebaseLogin(task.result.idToken!!)
-                if (user != null) {
-                    updateUI(true)
-                } else {
-                    updateUI(false)
-                }
-            }
-        } else {
-            Log.e(TAG, "Google login error", task.exception)
-        }
-    }
+//    val googleLoginContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+//        if (task.isSuccessful) {
+//            Log.d(TAG, "google login success")
+//            lifecycleScope.launch {
+//                val user = authRepository.firebaseLogin(task.result.idToken!!)
+//                if (user != null) {
+//                    updateUI(true)
+//                } else {
+//                    updateUI(false)
+//                }
+//            }
+//        } else {
+//            Log.e(TAG, "Google login error", task.exception)
+//        }
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
-        childrenRepository = ChildrenRepositoryImpl(requireContext())
+        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+        savedStateHandle.set(LOGIN_SUCCESSFUL, false)
+
+        val remote = BackendClient.getService(requireContext())
+        val sessionManager = SessionManager(requireContext())
+        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+
+        binding?.apply {
+            authViewModel.loginFormState.observe(viewLifecycleOwner) { state ->
+                state.emailError?.also {
+                    username.error = it
+                }
+
+                state.passwordError?.also {
+                    username.error = it
+                }
+
+                state.nonFieldErrors?.also {
+                    showErrorDialog(it.toTypedArray())
+                }
+            }
+        }
+
+        authViewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user.token != null) {
+                savedStateHandle.set(LOGIN_SUCCESSFUL, true)
+                findNavController().popBackStack()
+            }
+        }
+
+//        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+//        childrenRepository = ChildrenRepositoryImpl(requireContext())
 //        binding.googleSignInBtn.setOnClickListener {
 //            val intent = authRepository.googleClient.signInIntent
 //            googleLoginContract.launch(intent)
@@ -86,24 +135,30 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun updateUI(loggedIn: Boolean) {
-        if (loggedIn) {
-            lifecycleScope.launch {
-                val selectedChild = childrenRepository.getSelectedChild()
-                val action = if (selectedChild == null) {
-                    LoginFragmentDirections.actionLoginFragmentToChildrenListChildFragment()
-                } else {
-                    val child = childrenRepository.getChild(selectedChild)
-                    childViewModel.children.value = child
-                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                }
-
-                findNavController().navigate(action)
+    private fun showErrorDialog(errors: Array<String>) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.login_error_title))
+            .setItems(errors) { dialog, which ->
             }
+            .setCancelable(true)
+            .show()
+    }
+
+    private fun doLogin() {
+        binding?.apply {
+            authViewModel.login(username.text.toString(), password.text.toString())
         }
+
+    }
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     companion object {
+        const val LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

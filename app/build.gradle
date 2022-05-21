@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
@@ -158,6 +159,10 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
 
     implementation "com.github.AmosKorir:AvatarImageGenerator:$avatar_image_generator_version"
+    implementation "io.arrow-kt:arrow-core:$arrow_version"
+
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+
 
 
 }
