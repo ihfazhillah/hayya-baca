@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.FragmentLoginBinding
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
@@ -50,7 +52,9 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false).apply {
+            logo.load(R.drawable.logo_ksatria_muslim_watermark)
+        }
         return binding.root
     }
 
@@ -75,10 +79,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
         childrenRepository = ChildrenRepositoryImpl(requireContext())
-        binding.googleSignInBtn.setOnClickListener {
-            val intent = authRepository.googleClient.signInIntent
-            googleLoginContract.launch(intent)
-        }
+//        binding.googleSignInBtn.setOnClickListener {
+//            val intent = authRepository.googleClient.signInIntent
+//            googleLoginContract.launch(intent)
+//        }
 
     }
 
