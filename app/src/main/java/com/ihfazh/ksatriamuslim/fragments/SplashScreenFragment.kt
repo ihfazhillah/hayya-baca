@@ -1,20 +1,18 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+//import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.GoogleAuthenticationRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,26 +50,26 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
+//        authRepository = GoogleAuthenticationRepositoryImpl(requireContext())
         childrenRepository = ChildrenRepositoryImpl(requireContext())
 
-        lifecycleScope.launch {
-            val action = if (authRepository.isLoggedIn()) {
-                val childId = childrenRepository.getSelectedChild()
-                if (childId == null) {
-                    SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
-                } else {
-                    val child = childrenRepository.getChild(childId)
-                    childViewModel.children.postValue(child)
-                    SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
-                }
-            } else {
-                SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment()
-            }
+//        lifecycleScope.launch {
+//            val action = if (authRepository.isLoggedIn()) {
+//                val childId = childrenRepository.getSelectedChild()
+//                if (childId == null) {
+//                    SplashScreenFragmentDirections.actionSplashScreenFragmentToChildrenListChildFragment()
+//                } else {
+//                    val child = childrenRepository.getChild(childId)
+//                    childViewModel.children.postValue(child)
+//                    SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
+//                }
+//            } else {
+//                SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment()
+//            }
 
-            findNavController().navigate(action)
+        findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
 
-        }
+//        }
     }
 
     companion object {

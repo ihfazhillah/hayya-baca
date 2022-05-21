@@ -14,10 +14,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.avatarfirst.avatargenlib.AvatarGenerator
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
+import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
+import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
+import com.ihfazh.ksatriamuslim.vm.AuthViewModel
+import com.ihfazh.ksatriamuslim.vm.AuthViewModelFactory
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import com.ihfazh.ksatriamuslim.vm.HomeViewModel
 import kotlinx.coroutines.launch
@@ -39,6 +46,14 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by activityViewModels()
     private val childVM: ChildViewModel by activityViewModels()
     private lateinit var childrenRepository: ChildrenRepository
+
+    private lateinit var authRepository: AuthenticationRepository
+    private val authViewModel by activityViewModels<AuthViewModel> {
+        AuthViewModelFactory(
+            authRepository
+        )
+    }
+
 
     lateinit var binding: FragmentHomeBinding
 
@@ -155,6 +170,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         childrenRepository = ChildrenRepositoryImpl(requireContext())
+
+        val remote = BackendClient.getService(requireContext())
+        val sessionManager = SessionManager(requireContext())
+        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+
+        authViewModel.user.observe(viewLifecycleOwner) {
+            if (it.token == null) {
+                findNavController().navigate(R.id.loginFragment)
+            }
+        }
     }
 
     companion object {
