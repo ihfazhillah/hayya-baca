@@ -15,6 +15,14 @@ plugins {
 //    }
 //}
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/ihfazh/Downloads/documents/data penting/ihfazh1.jks')
+            storePassword 'b7bkmoot'
+            keyAlias 'ihfazh'
+            keyPassword 'b7bkmoot'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -35,6 +43,7 @@ android {
                 ]
             }
         }
+        signingConfig signingConfigs.debug
     }
 
     buildFeatures {
@@ -53,8 +62,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
