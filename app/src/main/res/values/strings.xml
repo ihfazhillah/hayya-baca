@@ -16,6 +16,7 @@
     <string name="hi_orang_tua">Hi orang tua</string>
     <string name="masuk">Login dahulu yuk</string>
     <string name="login_error_title">Login Error</string>
+    <string name="email">Email</string>
     <!--    <string name="ksatriamuslim_web_id">440202219688-qgtqdmh8f2c23aih4vo4g390egsag1iv.apps.googleusercontent.com</string>-->
     <!--<string name="default_web_client_id">440202219688-qgtqdmh8f2c23aih4vo4g390egsag1iv.apps.googleusercontent.com</string>-->
 </resources>

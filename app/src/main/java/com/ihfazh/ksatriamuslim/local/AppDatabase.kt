@@ -6,14 +6,21 @@ import com.ihfazh.ksatriamuslim.local.converters.Converters
 import com.ihfazh.ksatriamuslim.local.data.BackgroundEntity
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 import com.ihfazh.ksatriamuslim.local.data.ChildEntity
+import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
 
 @Database(
-    entities = [BackgroundEntity::class, BookEntity::class, ChildEntity::class],
-    version = 4,
+    entities = [
+        BackgroundEntity::class,
+        BookEntity::class,
+        ChildEntity::class,
+        RewardHistoryEntity::class
+    ],
+    version = 5,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 3, to = 4),
+        AutoMigration(from = 4, to = 5),
     ],
 )
 @TypeConverters(Converters::class)
@@ -21,6 +28,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun backgroundDao(): BackgroundDao
     abstract fun bookDao(): BookDao
     abstract fun childDao(): ChildDao
+    abstract fun rewardHistoryDao(): RewardHistoryDao
 
     companion object {
         private var db: AppDatabase? = null

@@ -30,8 +30,8 @@ android {
         applicationId "com.ihfazh.ksatriamuslim"
         minSdk 28
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -161,7 +161,7 @@ dependencies {
     implementation "com.github.AmosKorir:AvatarImageGenerator:$avatar_image_generator_version"
     implementation "io.arrow-kt:arrow-core:$arrow_version"
 
-    debugImplementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
 
 
