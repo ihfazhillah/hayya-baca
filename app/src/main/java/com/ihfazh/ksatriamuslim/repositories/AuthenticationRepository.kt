@@ -9,5 +9,5 @@ interface AuthenticationRepository {
 //    fun signOut()
     suspend fun login(email: String, password: String): Either<DJError, LoginResponse>
     fun getToken(): String?
-    fun setToken(key: String)
+    fun setToken(key: String?)
 }

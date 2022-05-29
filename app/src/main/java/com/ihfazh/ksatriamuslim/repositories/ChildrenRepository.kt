@@ -17,6 +17,8 @@ interface ChildrenRepository {
 //    suspend fun getChild(id: String): Either<>
     suspend fun getChildren(): Either<ClientError, List<Children>>
     suspend fun getChild(id: String): Either<ClientError, Children>
+    suspend fun updateChild(children: Children): Either<ClientError, Children>
+
     suspend fun setSelectedChild(string: String?)
     suspend fun getSelectedChild(): Either<ClientError, String?>
     suspend fun createRewardHistory(rewardHistory: RewardHistory)

@@ -28,7 +28,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.SessionManager
+import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildFormViewModelFactory
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,7 +51,10 @@ class ChildFromFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: ChildFormViewModel by activityViewModels()
+    private lateinit var childRepository: ChildrenRepository
+    private val viewModel: ChildFormViewModel by activityViewModels {
+        ChildFormViewModelFactory(childRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,19 +74,26 @@ class ChildFromFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val remote = BackendClient.getService(requireContext())
+        val db = AppDatabase.getDB(requireContext())
+        val sessionManager = SessionManager(requireContext())
+        childRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
         }
     }
 
     fun sendData() {
-        lifecycleScope.launch {
-            val success = viewModel.send()
-            if (success) {
-                viewModel.reset()
-                findNavController().navigate(ChildFromFragmentDirections.actionChildFromFragmentToChildrenListParentFragment())
-            }
-        }
+        viewModel.send()
+        findNavController().navigate(ChildFromFragmentDirections.actionChildFromFragmentToChildrenListParentFragment())
+
+//        lifecycleScope.launch {
+//            val success = viewModel.send()
+//            if (success) {
+//                viewModel.reset()
+//                findNavController().navigate(ChildFromFragmentDirections.actionChildFromFragmentToChildrenListParentFragment())
+//            }
+//        }
     }
 
     @Composable

@@ -1,18 +1,23 @@
 package com.ihfazh.ksatriamuslim.vm
 
-import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ihfazh.ksatriamuslim.domain.Children
+import com.ihfazh.ksatriamuslim.domain.ClientError
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ChildFormViewModel(application: Application) : AndroidViewModel(application) {
+class ChildFormViewModel(val repo: ChildrenRepository) : ViewModel() {
     var loading by mutableStateOf(false)
     var name by mutableStateOf("")
     var childId by mutableStateOf<String?>(null)
     var deleteDialogOpen by mutableStateOf(false)
     var enableReadToMe by mutableStateOf(false)
+    var anotherError by mutableStateOf("")
 
     private var _child by mutableStateOf<Children?>(null)
 
@@ -42,7 +47,19 @@ class ChildFormViewModel(application: Application) : AndroidViewModel(applicatio
         return error == null && !loading
     }
 
-    suspend fun send(): Boolean {
+    fun send(): Boolean {
+        // we not use create for now
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.updateChild(_child!!.copy(name = name, enableReadToMe = enableReadToMe)).fold(
+                ifLeft = {
+                    anotherError = (it as ClientError.NetworkError).message
+                },
+                ifRight = {
+                    _child = it
+                    reset()
+                }
+            )
+        }
         return true
 //        loading = true
 //        return if (childId == null) {

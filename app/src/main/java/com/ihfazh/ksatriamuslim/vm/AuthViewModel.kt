@@ -51,4 +51,9 @@ class AuthViewModel(
             )
         }
     }
+
+    fun logout() {
+        _user.value = User()
+        repo.setToken(null)
+    }
 }

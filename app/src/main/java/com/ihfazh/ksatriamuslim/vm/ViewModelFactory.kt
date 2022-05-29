@@ -18,3 +18,10 @@ class ChildViewModelFactory(private val repo: ChildrenRepository) : ViewModelPro
         return ChildViewModel(repo) as T
     }
 }
+
+@Suppress("UNCHECKED_CAST")
+class ChildFormViewModelFactory(private val repo: ChildrenRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ChildFormViewModel(repo) as T
+    }
+}
