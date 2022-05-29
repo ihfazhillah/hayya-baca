@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.vm
 import android.util.Log
 import androidx.lifecycle.*
 import com.ihfazh.ksatriamuslim.domain.Children
+import com.ihfazh.ksatriamuslim.domain.ClientError
 import com.ihfazh.ksatriamuslim.domain.RewardHistory
 import com.ihfazh.ksatriamuslim.domain.RewardType
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
@@ -27,6 +28,9 @@ class ChildViewModel(
         selectedChildId.asFlow().combine(children) { childId, children ->
             children.find { child -> child.id == childId }
         }.asLiveData()
+
+    // handle error, should log out
+    val clientError = MutableLiveData<Boolean>(false)
 
     init {
         viewModelScope.launch {
@@ -81,6 +85,10 @@ class ChildViewModel(
 //                        ClientError.NetworkError ->
 //                    }
                     Log.e("CLient Error", "refreshChildren: ${it}")
+                    if (it is ClientError.NetworkError) {
+                        _children.value = listOf()
+                        clientError.postValue(true)
+                    }
                 }
             )
 

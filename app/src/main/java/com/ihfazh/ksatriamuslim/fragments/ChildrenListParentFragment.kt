@@ -16,12 +16,18 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.SessionManager
+import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.ChildItemParent
 import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
-import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildFormViewModelFactory
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,8 +43,15 @@ class ChildrenListParentFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: ChildrenListViewModel by viewModels()
-    private val childFormViewModel: ChildFormViewModel by activityViewModels()
+
+    //    private val viewModel: ChildrenListViewModel by viewModels()
+    private lateinit var childRepository: ChildrenRepository
+    private val childViewModel: ChildViewModel by activityViewModels {
+        ChildViewModelFactory(childRepository)
+    }
+    private val childFormViewModel: ChildFormViewModel by activityViewModels {
+        ChildFormViewModelFactory(childRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +71,12 @@ class ChildrenListParentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val remote = BackendClient.getService(requireContext())
+        val db = AppDatabase.getDB(requireContext())
+        val sessionManager = SessionManager(requireContext())
+
+        childRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
+
         val composeView = view.findViewById<ComposeView>(R.id.composeView)
         composeView.setContent { Page() }
     }
@@ -65,7 +84,7 @@ class ChildrenListParentFragment : Fragment() {
     @Composable
     fun Page(){
 
-        val children = viewModel.children.collectAsState()
+        val children = childViewModel.children.collectAsState()
 
         LazyColumn(
             modifier = Modifier
@@ -87,12 +106,14 @@ class ChildrenListParentFragment : Fragment() {
                 }
             }
 
-            item {
-                ChildItemParent(name = null) {
-                    findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
-                }
-
-            }
+            // DISABLE add child fragment, we will add children manually from
+            // the server
+//            item {
+//                ChildItemParent(name = null) {
+//                    findNavController().navigate(ChildrenListParentFragmentDirections.actionChildrenListParentFragmentToChildFromFragment())
+//                }
+//
+//            }
         }
 
 

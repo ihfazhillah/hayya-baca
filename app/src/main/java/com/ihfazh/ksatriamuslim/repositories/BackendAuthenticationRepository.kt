@@ -25,7 +25,7 @@ class BackendAuthenticationRepository(
         return sessionManager.getToken()
     }
 
-    override fun setToken(key: String) {
+    override fun setToken(key: String?) {
         sessionManager.setToken(key)
     }
 

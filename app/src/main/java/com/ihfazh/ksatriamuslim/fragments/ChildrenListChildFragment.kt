@@ -31,17 +31,18 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
+import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
-import com.ihfazh.ksatriamuslim.vm.ChildViewModel
-import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
-import com.ihfazh.ksatriamuslim.vm.ViewState
+import com.ihfazh.ksatriamuslim.vm.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -51,6 +52,13 @@ class ChildrenListChildFragment : Fragment() {
     private val childViewModel: ChildViewModel by activityViewModels()
     private lateinit var childRepository: ChildrenRepository
     private lateinit var savedStateHandle: SavedStateHandle
+
+    private lateinit var authRepository: AuthenticationRepository
+    private val authViewModel by activityViewModels<AuthViewModel> {
+        AuthViewModelFactory(
+            authRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +75,8 @@ class ChildrenListChildFragment : Fragment() {
         val db = AppDatabase.getDB(requireContext())
         val sessionManager = SessionManager(requireContext())
         childRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
+        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
         }
@@ -85,6 +95,15 @@ class ChildrenListChildFragment : Fragment() {
                         is ViewState.StateSuccess -> moveToHome(it.children)
                     }
                 }
+            }
+        }
+
+        childViewModel.clientError.observe(viewLifecycleOwner) {
+            if (it) {
+//                sessionManager.setToken(null)
+                Snackbar.make(requireView(), "Token invalid", Snackbar.LENGTH_LONG).show()
+                authViewModel.logout()
+//                findNavController().navigate(R.id.loginFragment)
             }
         }
     }

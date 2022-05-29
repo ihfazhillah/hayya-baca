@@ -10,6 +10,7 @@ import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.ChildEntity
 import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
+import com.ihfazh.ksatriamuslim.remote.data.ChildBody
 import com.ihfazh.ksatriamuslim.remote.data.ChildResponse
 import com.ihfazh.ksatriamuslim.remote.data.DJError
 import com.ihfazh.ksatriamuslim.remote.data.RewardHistoryBody
@@ -52,6 +53,21 @@ class ChildrenRepositoryImpl(
         return Either.Right(db.childDao().getChild(id))
     }
 
+    override suspend fun updateChild(children: Children): Either<ClientError, Children> {
+        val response = remote.updateChild(children.id, children.toAPIBody()).toEither()
+        return response.fold(
+            ifLeft = {
+                val error = (it as DJError.HttpError)
+                Either.Left(ClientError.NetworkError(error.code, error.body))
+            },
+            ifRight = {
+                // update data first
+                db.childDao().insert(it.toDbEntity())
+                Either.Right(it.toDbEntity().toDomain())
+            }
+        )
+    }
+
     override suspend fun setSelectedChild(string: String?) {
         sessionManager.setSelectedChild(string)
     }
@@ -80,6 +96,14 @@ class ChildrenRepositoryImpl(
     }
 
 
+}
+
+private fun Children.toAPIBody(): ChildBody {
+    return ChildBody(
+        id = id,
+        enableReadToMe = enableReadToMe,
+        name = name
+    )
 }
 
 private fun RewardHistory.toNetworkBody(): RewardHistoryBody {
