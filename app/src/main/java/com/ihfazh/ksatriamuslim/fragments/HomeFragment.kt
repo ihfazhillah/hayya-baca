@@ -138,10 +138,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-//        childVM.child.observe(viewLifecycleOwner) {
-//            binding.starLayout.children = it
-//            setAvatar(it?.name?.take(1) ?: "U")
-//        }
 
         return binding.root
     }
@@ -158,17 +154,22 @@ class HomeFragment : Fragment() {
         binding.avatar.load(avatar)
         binding.avatar.setOnClickListener {
             lifecycleScope.launch {
-                childrenRepository.setSelectedChild(null)
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
+                childVM.setSelectedChild(null)
+//                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
             }
         }
 
     }
 
-//    private fun initializeStar() {
-//        binding.starLayout.children = viewModel.children.value
-//        binding.coinLayout.children = viewModel.children.value
-//    }
+    private fun initializeStar() {
+        childVM.child.observe(viewLifecycleOwner) {
+            it?.let { myChild ->
+                binding.starLayout.children = myChild
+                binding.coinLayout.children = myChild
+            }
+
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -203,6 +204,12 @@ class HomeFragment : Fragment() {
         }.asLiveData().observe(viewLifecycleOwner) {
             it?.let { id -> findNavController().navigate(id) }
         }
+
+        childVM.child.observe(viewLifecycleOwner) {
+            binding.starLayout.children = it
+            setAvatar(it?.name?.take(1) ?: "U")
+        }
+        initializeStar()
     }
 
     companion object {

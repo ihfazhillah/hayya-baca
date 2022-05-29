@@ -136,6 +136,13 @@ class ReadingFragment : BaseFragment() {
 
 
     private fun initializeStarAndCoin() {
+        childViewModel.child.observe(viewLifecycleOwner) {
+            it?.let { myChild ->
+                binding.coinLayout.children = myChild
+                binding.starLayout.children = myChild
+            }
+        }
+//        binding.coinLayout.children = childViewModel.child.value
 //        binding.coinLayout.coin = koinViewModel
 //        binding.starLayout.star = starViewModel
     }
@@ -145,15 +152,11 @@ class ReadingFragment : BaseFragment() {
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
 
-//        childViewModel.children.observe(viewLifecycleOwner) {
-//            binding.coinLayout.children = it
-//            binding.starLayout.children = it
-//        }
 
         viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
             if (finished) {
                 viewModel.calculatePercentage()
-                childViewModel.increaseMyCoin()
+                childViewModel.increaseMyCoin(viewModel.bookId.value)
                 val action =
                     ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
                 findNavController().navigate(action)
@@ -220,7 +223,7 @@ class ReadingFragment : BaseFragment() {
             percent >= 1 -> 1L
             else -> 0L
         }
-        childViewModel.increaseMyStar(incrementor)
+        childViewModel.increaseMyStar(viewModel.bookId.value, viewModel.page.value, incrementor)
 
 
         if (incrementor > 0) {
