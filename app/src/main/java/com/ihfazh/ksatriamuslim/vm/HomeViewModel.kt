@@ -66,11 +66,11 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun openGift(id: String) {
-//        viewModelScope.launch {
-//            repository.openGift(id)
-//            _books.value = repository.getBooksSummary()
-//        }
+    fun openGift(id: Int) {
+        viewModelScope.launch {
+            repository.openGift(id)
+            _books.value = repository.getBooksSummary()
+        }
     }
 
     fun updateAllData() {
@@ -87,7 +87,11 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     fun updateBooks() {
         viewModelScope.launch(Dispatchers.IO) {
+            // get books first without ui - using ui with cache from local
             _books.postValue(repository.getBooksSummary())
+
+            // next get books with ui from server
+            _books.postValue(repository.refreshBooksUI())
         }
     }
 

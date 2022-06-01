@@ -6,6 +6,7 @@ import com.ihfazh.ksatriamuslim.domain.BookUI
 
 interface BookRepository {
     suspend fun getBooksSummary(): List<BookUI> // remote -> local
+    suspend fun refreshBooksUI(): List<BookUI>
     suspend fun getBook(bookId: Int): Book? // local
     suspend fun getPage(bookId: Int, page: Int): BookPage?
     suspend fun hasNext(bookId: Int, page: Int): Boolean

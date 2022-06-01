@@ -13,7 +13,9 @@ import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.BookItem
+import com.ihfazh.ksatriamuslim.remote.data.BookStateResponse
 import com.ihfazh.ksatriamuslim.remote.data.PageBookResponse
+import com.ihfazh.ksatriamuslim.remote.data.UpdateBookStateBody
 import com.ihfazh.ksatriamuslim.toBook
 
 class BookRepositoryImpl(
@@ -27,6 +29,7 @@ class BookRepositoryImpl(
 
     override suspend fun getBooksSummary(): List<BookUI> {
         val localBooks = local.bookDao().getAll()
+        // update books ui from server
 
         val booksFromRemote = remote.getBooks().body()
         if (booksFromRemote !== null) {
@@ -43,6 +46,20 @@ class BookRepositoryImpl(
         }
 
         return localBooks.map { bookEntity: BookEntity ->
+            val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
+            bookEntity.toBookSummaries(ui)
+        }
+    }
+
+    override suspend fun refreshBooksUI(): List<BookUI> {
+        val booksId = local.bookDao().getAll().map { it.id }
+        val remoteBooksUI = remote.getBooksState(booksId).body()
+        if (remoteBooksUI != null) {
+            local.bookDao().insertAllBookUI(
+                remoteBooksUI.map { it.toBookUIEntity() }
+            )
+        }
+        return local.bookDao().getAll().map { bookEntity: BookEntity ->
             val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
             bookEntity.toBookSummaries(ui)
         }
@@ -79,8 +96,24 @@ class BookRepositoryImpl(
     }
 
     override suspend fun openGift(id: Int) {
-//        local.bookDao().openGift(id)
+        getChildId()?.let { childId ->
+            remote.updateBookState(
+                id,
+                UpdateBookStateBody(childId.toInt(), true)
+            )
+            local.bookDao().insertBookUI(
+                BookUIEntity(id, childId.toInt(), true)
+            )
+        }
     }
+}
+
+private fun BookStateResponse.toBookUIEntity(): BookUIEntity {
+    return BookUIEntity(
+        bookId = book,
+        childId = child,
+        gift_opened = isGiftOpened
+    )
 }
 
 private fun PageBookResponse.toEntity(bookId: Int): BookPageEntity {
@@ -106,8 +139,7 @@ private fun BookEntity.toBookSummaries(ui: BookUIEntity?): BookUI {
     )
     return BookUI(
         book = book,
-//        gift_opened = ui?.gift_opened ?: false
-        gift_opened = true
+        gift_opened = ui?.gift_opened ?: false
     )
 }
 

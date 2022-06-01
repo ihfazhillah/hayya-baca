@@ -26,5 +26,5 @@ import androidx.room.Index
 data class BookUIEntity(
     val bookId: Int,
     val childId: Int,
-    val gift_opened: Boolean
+    val gift_opened: Boolean,
 )

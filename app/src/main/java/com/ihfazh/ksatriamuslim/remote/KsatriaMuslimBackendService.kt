@@ -28,4 +28,14 @@ interface KsatriaMuslimBackendService {
 
     @GET("books/{id}/")
     suspend fun getBook(@Path("id") id: Int): Response<BookItem>
+
+    @POST("books/{id}/update_state/")
+    suspend fun updateBookState(
+        @Path("id") bookId: Int,
+        @Body body: UpdateBookStateBody
+    ): Response<UpdateBookStateResponse>
+
+    // books state
+    @GET("books-state/")
+    suspend fun getBooksState(@Query("books_id") booksId: List<Int>): Response<List<BookStateResponse>>
 }
