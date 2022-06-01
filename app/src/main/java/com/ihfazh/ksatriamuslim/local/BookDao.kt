@@ -13,8 +13,6 @@ interface BookDao {
     @Query("select * FROM book")
     suspend fun getAll(): List<BookEntity>
 
-    @Query("select * from book_ui where bookId = :bookId and childId = :childId")
-    suspend fun getBooKUI(bookId: Int, childId: Int): BookUIEntity?
 
     @Query("select * from book_page where book_id = :bookId and `order` = :page")
     suspend fun getPage(bookId: Int, page: Int): BookPageEntity?
@@ -31,6 +29,15 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllPages(bookPage: List<BookPageEntity>)
 
+    // BOOK UIS
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertBookUI(bookUI: BookUIEntity)
+
+    @Query("select * from book_ui where bookId = :bookId and childId = :childId")
+    suspend fun getBooKUI(bookId: Int, childId: Int): BookUIEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllBookUI(booksUI: List<BookUIEntity>)
 //    @Query("update book set gift_opened = 1 where id = :id")
 //    suspend fun openGift(id: String)
 }
