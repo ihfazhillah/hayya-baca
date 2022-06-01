@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.ihfazh.ksatriamuslim.remote.FirestoreService
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class UpdateFirestoreCoin(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {

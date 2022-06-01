@@ -1,8 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.FragmentParentGateBinding
@@ -108,7 +106,7 @@ class ParentGateFragment : Fragment() {
                         orientation = orientation,
                     )
                     .offset {
-                        if (selectedDirection === "KANAN"){
+                        if (selectedDirection === "KANAN") {
                             IntOffset(swipeableState.offset.value.roundToInt(), 0)
                         } else {
                             IntOffset(0, swipeableState.offset.value.roundToInt())
