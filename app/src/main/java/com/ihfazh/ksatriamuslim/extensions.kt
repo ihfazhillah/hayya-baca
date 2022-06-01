@@ -2,12 +2,9 @@ package com.ihfazh.ksatriamuslim
 
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.domain.Book
-import com.ihfazh.ksatriamuslim.domain.BookSummary
 import com.ihfazh.ksatriamuslim.local.data.BackgroundEntity
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
-import com.ihfazh.ksatriamuslim.local.data.BookSummaryEntity
 import com.ihfazh.ksatriamuslim.remote.data.BackgroundResponse
-import com.ihfazh.ksatriamuslim.remote.data.BookDetailResponse
 
 
 fun getIdFromPath(path: String): String{
@@ -19,37 +16,37 @@ fun getIdFromPath(path: String): String{
 
 
 fun BookEntity.toBook(): Book {
-    return Book(id, pages.split("+=+=+"), locallyCreated, gift_opened)
+    return Book(id = id, title = title, thumbnailSrc, created)
 }
 
-fun BookDetailResponse.toBookSummary(path: String): BookSummary {
-    val id = getIdFromPath(path)
+//fun BookDetailResponse.toBookSummary(path: String): BookUI {
+//    val id = getIdFromPath(path)
+//
+//    return BookUI(
+//        id, title, thumbnail
+//    )
+//
+//}
 
-    return BookSummary(
-        id, title, thumbnail
-    )
+//fun BookDetailResponse.toBookEntity(path: String): BookEntity {
+//    val pages = content.map{
+//        it.pageText
+//    }
+//        .joinToString("+=+=+")
+//
+//    val id = getIdFromPath(path)
+//
+//    return BookEntity(
+//        id, title, thumbnail, pages
+//    )
+//}
 
-}
-
-fun BookDetailResponse.toBookEntity(path: String): BookEntity {
-    val pages = content.map{
-        it.pageText
-    }
-        .joinToString("+=+=+")
-
-    val id = getIdFromPath(path)
-
-    return BookEntity(
-        id, title, thumbnail, pages
-    )
-}
-
-fun List<BookSummaryEntity>.toBookSummaries(): List<BookSummary> =
-    map {
-        BookSummary(it.id, it.title, it.thumbnailSrc, it.locallyCreated, it.gift_opened)
-    }
-
- fun BackgroundResponse.toBackgroundEntity(): BackgroundEntity {
+//fun List<BookUIEntity>.toBookSummaries(): List<BookUI> =
+//    map {
+//        BookUI(it.id, it.title, it.thumbnailSrc, it.locallyCreated, it.gift_opened)
+//    }
+//
+fun BackgroundResponse.toBackgroundEntity(): BackgroundEntity {
     val id = title.split(" ").joinToString("-")
     return BackgroundEntity(id, title, backgroundImage, textColor)
 }

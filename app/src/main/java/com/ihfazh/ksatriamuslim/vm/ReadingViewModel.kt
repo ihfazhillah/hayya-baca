@@ -21,11 +21,13 @@ import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.Recognizer
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.domain.Background
 import com.ihfazh.ksatriamuslim.domain.TextPage
 import com.ihfazh.ksatriamuslim.domain.WordPage
 import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
@@ -38,8 +40,9 @@ import kotlinx.coroutines.launch
 class ReadingViewModel(application: Application) : AndroidViewModel(application) {
 
     private val local = AppDatabase.getDB(application.applicationContext)
-    private val remote = Client.getService()
-    private val bookRepository = BookRepositoryImpl(local, remote)
+    private val remote = BackendClient.getService(application.applicationContext)
+    private val sessionManager = SessionManager(application.applicationContext)
+    private val bookRepository = BookRepositoryImpl(local, remote, sessionManager)
 
     private val wordSpeak = WordSpeak(application.applicationContext)
 
@@ -109,11 +112,11 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val textPage = MediatorLiveData<TextPage>().apply {
         addSource(_page) { page ->
             viewModelScope.launch {
-                val string = bookRepository.getPage(bookId.value!!, page)
-                if (string == null) {
+                val bookPage = bookRepository.getPage(bookId.value!!.toInt(), page)
+                if (bookPage == null) {
                     isFinish.value = true
                 } else {
-                    val words = Constants.getWordsPatterns().findAll(string).map {
+                    val words = Constants.getWordsPatterns().findAll(bookPage.text).map {
                         WordPage(
                             it.value,
                             it.range.first,
@@ -123,7 +126,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
                     }.toList()
 
 
-                    value = TextPage(string, words)
+                    value = TextPage(bookPage.text, words)
                 }
             }
         }
@@ -189,7 +192,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val hasNext = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = bookRepository.hasNext(bookId.value!!, page)
+                value = bookRepository.hasNext(bookId.value!!.toInt(), page)
             }
         }
     }
@@ -197,7 +200,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val hasPrev = MediatorLiveData<Boolean>().apply {
         addSource(_page){ page ->
             viewModelScope.launch {
-                value = bookRepository.hasPrev(bookId.value!!, page)
+                value = bookRepository.hasPrev(bookId.value!!.toInt(), page)
             }
         }
     }

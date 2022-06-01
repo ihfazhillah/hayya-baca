@@ -1,13 +1,14 @@
 package com.ihfazh.ksatriamuslim.repositories
 
 import com.ihfazh.ksatriamuslim.domain.Book
-import com.ihfazh.ksatriamuslim.domain.BookSummary
+import com.ihfazh.ksatriamuslim.domain.BookPage
+import com.ihfazh.ksatriamuslim.domain.BookUI
 
 interface BookRepository {
-    suspend fun getBooksSummary(forceFetch: Boolean = false): List<BookSummary>
-    suspend fun getBook(id: String): Book?
-    suspend fun getPage(id: String, page: Int): String?
-    suspend fun hasNext(id: String, page: Int): Boolean
-    suspend fun hasPrev(id: String, page: Int): Boolean
-    suspend fun openGift(id: String)
+    suspend fun getBooksSummary(): List<BookUI> // remote -> local
+    suspend fun getBook(bookId: Int): Book? // local
+    suspend fun getPage(bookId: Int, page: Int): BookPage?
+    suspend fun hasNext(bookId: Int, page: Int): Boolean
+    suspend fun hasPrev(bookId: Int, page: Int): Boolean
+    suspend fun openGift(bookId: Int)
 }

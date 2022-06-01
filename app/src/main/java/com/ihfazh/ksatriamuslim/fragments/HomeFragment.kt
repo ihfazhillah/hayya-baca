@@ -80,10 +80,10 @@ class HomeFragment : Fragment() {
 
         val rvAdapter = BookRecyclerViewAdapter { view, book ->
             if (!book.gift_opened) {
-                viewModel.openGift(book.id)
+//                viewModel.openGift(book.id)
             } else {
-                val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
-                findNavController().navigate(action)
+//                val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
+//                findNavController().navigate(action)
             }
         }
 

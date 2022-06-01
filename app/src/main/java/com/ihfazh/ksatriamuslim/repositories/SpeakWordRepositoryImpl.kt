@@ -5,7 +5,6 @@ import android.util.Log
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
 import okhttp3.ResponseBody
-import retrofit2.HttpException
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -34,20 +33,20 @@ class SpeakWordRepositoryImpl(
         val books: List<Book?> = bookRepository.getBooksSummary().map {
             bookRepository.getBook(it.id)
         }
-        books.forEach {
-            val book = it!!
-            val basePath = "ksatriamuslim_audios/by-books-page/${book.id}"
-            for (page in 1..book.pages.size) {
-                val path = "$basePath/$page.mp3"
-                try {
-                    Log.d(TAG, "saveAudios: path $path")
-                    val response = remote.getAudio(path)
-                    saveFile(path, response, book.id)
-                } catch (e: HttpException) {
-                    Log.w(TAG, "saveAudios: path $path not found")
-                }
-            }
-        }
+//        books.forEach {
+//            val book = it!!
+//            val basePath = "ksatriamuslim_audios/by-books-page/${book.id}"
+//            for (page in 1..book.pages.size) {
+//                val path = "$basePath/$page.mp3"
+//                try {
+//                    Log.d(TAG, "saveAudios: path $path")
+//                    val response = remote.getAudio(path)
+//                    saveFile(path, response, book.id)
+//                } catch (e: HttpException) {
+//                    Log.w(TAG, "saveAudios: path $path not found")
+//                }
+//            }
+//        }
 
     }
 
