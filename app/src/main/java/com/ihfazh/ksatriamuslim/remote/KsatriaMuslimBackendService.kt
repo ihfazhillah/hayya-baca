@@ -21,4 +21,8 @@ interface KsatriaMuslimBackendService {
     // Rewards
     @POST("reward-history/")
     suspend fun createRewardHistory(@Body body: RewardHistoryBody): Response<RewardHistoryResponse>
+
+    // Books
+    @GET("books/")
+    suspend fun getBooks(@Query("page") page: Int = 1): Response<BookListResponse>
 }

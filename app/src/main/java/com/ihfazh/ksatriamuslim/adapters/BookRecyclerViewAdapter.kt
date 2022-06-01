@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ihfazh.ksatriamuslim.databinding.BookItemBinding
-import com.ihfazh.ksatriamuslim.domain.BookSummary
+import com.ihfazh.ksatriamuslim.domain.BookUI
 
-typealias listener = (view: View, book: BookSummary) -> Unit
+typealias listener = (view: View, book: BookUI) -> Unit
 
 
 class BookViewHolder(private val binding: BookItemBinding, private val listener: listener) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(book: BookSummary) {
+    fun bind(book: BookUI) {
         binding.giftOpen = book.gift_opened
         binding.title.text = if (book.gift_opened) {
             book.title
@@ -27,13 +27,12 @@ class BookViewHolder(private val binding: BookItemBinding, private val listener:
             listener(it, book)
         }
 
-        val url = "https://ksatriamuslim.com/${book.thumbnailSrc}"
-        binding.imageThumbnail.load(url)
+        binding.imageThumbnail.load(book.book.thumbnailSrc)
     }
 }
 
 class BookRecyclerViewAdapter(val listener: listener) : RecyclerView.Adapter<BookViewHolder>() {
-    private val arrayList = arrayListOf<BookSummary>()
+    private val arrayList = arrayListOf<BookUI>()
     lateinit var binding: BookItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -49,7 +48,7 @@ class BookRecyclerViewAdapter(val listener: listener) : RecyclerView.Adapter<Boo
 
     override fun getItemCount(): Int = arrayList.size
 
-    fun setBooks(books: List<BookSummary>){
+    fun setBooks(books: List<BookUI>) {
         arrayList.clear()
         arrayList.addAll(books)
         notifyDataSetChanged()

@@ -2,25 +2,31 @@ package com.ihfazh.ksatriamuslim.local
 
 import android.content.Context
 import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 import com.ihfazh.ksatriamuslim.local.converters.Converters
-import com.ihfazh.ksatriamuslim.local.data.BackgroundEntity
-import com.ihfazh.ksatriamuslim.local.data.BookEntity
-import com.ihfazh.ksatriamuslim.local.data.ChildEntity
-import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
+import com.ihfazh.ksatriamuslim.local.data.*
+
+
+interface Migrate5To6 : AutoMigrationSpec
+
 
 @Database(
     entities = [
         BackgroundEntity::class,
         BookEntity::class,
         ChildEntity::class,
+        BookPageEntity::class,
+        BookUIEntity::class,
         RewardHistoryEntity::class
     ],
-    version = 5,
+    version = 7,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
+        AutoMigration(from = 5, to = 6, spec = AppDatabase.Migrate5To6::class),
+        AutoMigration(from = 6, to = 7),
     ],
 )
 @TypeConverters(Converters::class)
@@ -33,7 +39,7 @@ abstract class AppDatabase: RoomDatabase() {
     companion object {
         private var db: AppDatabase? = null
         fun getDB(context: Context): AppDatabase {
-            return db ?: synchronized(this){
+            return db ?: synchronized(this) {
                 db ?: Room.databaseBuilder(
                     context,
                     AppDatabase::class.java,
@@ -41,5 +47,16 @@ abstract class AppDatabase: RoomDatabase() {
                 ).build()
             }
         }
+
     }
+
+    @DeleteColumn(
+        tableName = "book",
+        columnName = "pages"
+    )
+    @DeleteColumn(
+        tableName = "book",
+        columnName = "gift_opened"
+    )
+    class Migrate5To6 : AutoMigrationSpec
 }
