@@ -50,7 +50,7 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val page: LiveData<Int>
         get() = _page
 
-    val bookId = MutableLiveData<String>()
+    val bookId = MutableLiveData<Int>()
 
     val background = MutableLiveData<Background?>()
 
@@ -66,9 +66,16 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
     private val repository: ReadingBackgroundRepositoryImpl
 
+    fun setBook(id: Int) {
+        bookId.value = id
+
+        viewModelScope.launch(Dispatchers.IO) {
+            bookRepository.getBook(id)
+            _page.postValue(1)
+        }
+    }
 
     init {
-        _page.value = 1
 
         // add background repository
         val remote = Client.getService()
@@ -253,4 +260,5 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
         micState.value = nextValue
     }
+
 }

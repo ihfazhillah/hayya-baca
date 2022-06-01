@@ -28,6 +28,9 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(books: List<BookEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllPages(bookPage: List<BookPageEntity>)
+
 //    @Query("update book set gift_opened = 1 where id = :id")
 //    suspend fun openGift(id: String)
 }

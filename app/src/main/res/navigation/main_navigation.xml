@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_reading">
         <argument
             android:name="bookId"
-            app:argType="string" />
+            app:argType="integer" />
         <action
             android:id="@+id/action_readerFragment_to_coinCongratulateFragment"
             app:destination="@id/coinCongratulateFragment" />

@@ -79,6 +79,8 @@ class HomeFragment : Fragment() {
         }
 
         val rvAdapter = BookRecyclerViewAdapter { view, book ->
+            val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
+            findNavController().navigate(action)
             if (!book.gift_opened) {
 //                viewModel.openGift(book.id)
             } else {
@@ -207,6 +209,9 @@ class HomeFragment : Fragment() {
 
         childVM.child.observe(viewLifecycleOwner) {
             binding.starLayout.children = it
+            if (it != null) {
+                viewModel.updateBooks()
+            }
             setAvatar(it?.name?.take(1) ?: "U")
         }
         initializeStar()

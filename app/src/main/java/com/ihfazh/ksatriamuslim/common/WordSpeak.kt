@@ -32,7 +32,7 @@ class WordSpeak(
         tts.shutdown()
     }
 
-    fun speakPage(bookId: String, page: Int, text: String) {
+    fun speakPage(bookId: Int, page: Int, text: String) {
         val audioUrl = context.getExternalFilesDir("ksatriamuslim_audio")?.path?.plus(
             "/${bookId}__${page}.mp3"
         )
