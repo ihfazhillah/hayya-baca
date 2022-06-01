@@ -13,6 +13,7 @@ import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.BookItem
+import com.ihfazh.ksatriamuslim.remote.data.PageBookResponse
 import com.ihfazh.ksatriamuslim.toBook
 
 class BookRepositoryImpl(
@@ -36,18 +37,30 @@ class BookRepositoryImpl(
             )
 
             return local.bookDao().getAll().map { bookEntity: BookEntity ->
-                val ui = local.bookDao().getBooKUI(bookEntity.id.toInt(), getChildId()!!.toInt())
+                val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
                 bookEntity.toBookSummaries(ui)
             }
         }
 
         return localBooks.map { bookEntity: BookEntity ->
-            val ui = local.bookDao().getBooKUI(bookEntity.id.toInt(), getChildId()!!.toInt())
+            val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
             bookEntity.toBookSummaries(ui)
         }
     }
 
     override suspend fun getBook(id: Int): Book? {
+
+        val remoteBook = remote.getBook(id).body()
+        if (remoteBook != null) {
+            local.bookDao().insert(remoteBook.toBookEntity())
+            local.bookDao().insertAllPages(
+                remoteBook.page_set.map {
+                    it.toEntity(remoteBook.id)
+                }
+            )
+//            local.bookDao().insertPages(remoteBook.page_set)
+        }
+
         return local.bookDao().getById(id)?.toBook()
     }
 
@@ -68,6 +81,16 @@ class BookRepositoryImpl(
     override suspend fun openGift(id: Int) {
 //        local.bookDao().openGift(id)
     }
+}
+
+private fun PageBookResponse.toEntity(bookId: Int): BookPageEntity {
+    return BookPageEntity(
+        id = id.toString(),
+        order = page,
+        bookId = bookId.toString(),
+        audio = audio,
+        text = text
+    )
 }
 
 private fun BookPageEntity.toDomain(): BookPage {

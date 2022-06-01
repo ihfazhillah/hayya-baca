@@ -19,6 +19,7 @@ import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.KoinRepositoryImpl
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {
@@ -51,7 +52,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
 
 
         viewModelScope.launch {
-            _books.value = repository.getBooksSummary()
+//            _books.value = repository.getBooksSummary()
             koin.value = koinRepository.getMine()
         }
 
@@ -82,6 +83,12 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
             .build()
         WorkManager.getInstance(getApplication()).enqueue(workerRequest)
         updateClicked.value = true
+    }
+
+    fun updateBooks() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _books.postValue(repository.getBooksSummary())
+        }
     }
 
 }

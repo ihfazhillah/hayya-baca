@@ -95,7 +95,7 @@ class ChildViewModel(
         }
     }
 
-    fun increaseMyCoin(bookId: String?) {
+    fun increaseMyCoin(bookId: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.createRewardHistory(
                 RewardHistory(null, "Finished book $bookId", RewardType.Point, 1, child.value!!.id)
@@ -113,7 +113,7 @@ class ChildViewModel(
 //        }
     }
 
-    fun increaseMyStar(bookId: String?, pageId: Int?, n: Long) {
+    fun increaseMyStar(bookId: Int?, pageId: Int?, n: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             if (n > 0) {
                 repo.createRewardHistory(

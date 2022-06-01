@@ -70,6 +70,7 @@ class ReadingFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.setBook(args.bookId)
         // Inflate the layout for this fragment
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
             vm = viewModel
@@ -97,7 +98,6 @@ class ReadingFragment : BaseFragment() {
             })
         }
 
-        viewModel.bookId.value = args.bookId
 
 
         initializeStarAndCoin()

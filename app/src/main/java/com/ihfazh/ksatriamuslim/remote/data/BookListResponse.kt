@@ -38,7 +38,10 @@ data class BookItem(
     val title: String,
 
     @field:SerializedName("reference_text_id")
-    val referenceTextId: String? = null
+    val referenceTextId: String? = null,
+
+    @field:SerializedName("page_set")
+    val page_set: List<PageBookResponse>
 )
 
 data class Reference(
@@ -48,4 +51,18 @@ data class Reference(
 
     @field:SerializedName("title")
     val title: String? = null
+)
+
+data class PageBookResponse(
+    @field:SerializedName("id")
+    val id: Int,
+
+    @field:SerializedName("text")
+    val text: String,
+
+    @field:SerializedName("audio")
+    val audio: String?,
+
+    @field:SerializedName("page")
+    val page: Int,
 )
