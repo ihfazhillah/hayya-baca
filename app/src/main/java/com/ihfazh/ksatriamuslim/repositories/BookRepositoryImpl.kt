@@ -54,10 +54,8 @@ class BookRepositoryImpl(
     override suspend fun refreshBooksUI(): List<BookUI> {
         val booksId = local.bookDao().getAll().map { it.id }
         val remoteBooksUI = remote.getBooksState(booksId).body()
-        if (remoteBooksUI != null) {
-            local.bookDao().insertAllBookUI(
-                remoteBooksUI.map { it.toBookUIEntity() }
-            )
+        remoteBooksUI?.map { it.toBookUIEntity() }?.forEach {
+            local.bookDao().insertOrUpdateBookUI(it)
         }
         return local.bookDao().getAll().map { bookEntity: BookEntity ->
             val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
@@ -101,7 +99,7 @@ class BookRepositoryImpl(
                 id,
                 UpdateBookStateBody(childId.toInt(), true)
             )
-            local.bookDao().insertBookUI(
+            local.bookDao().insertOrUpdateBookUI(
                 BookUIEntity(id, childId.toInt(), true)
             )
         }
