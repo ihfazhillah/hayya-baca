@@ -1,15 +1,29 @@
 package com.ihfazh.ksatriamuslim.local
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
+import com.ihfazh.ksatriamuslim.local.data.BookWithBookUI
 
 @Dao
 abstract class BookDao {
     @Query("select * FROM book")
     abstract suspend fun getAll(): List<BookEntity>
 
+    @Query("select * from book")
+    abstract fun getAllPaginatedBook(): PagingSource<Int, BookEntity>
+
+    @Query("delete from book")
+    abstract suspend fun clearAllBook()
+
+    @Query(
+        "select b.id, b.title, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book b " +
+                "join book_ui ui on ui.bookId = b.id " +
+                "where ui.childId = :childId"
+    )
+    abstract fun getAllBookUI(childId: Int): PagingSource<Int, BookWithBookUI>
 
     @Query("select * from book_page where book_id = :bookId and `order` = :page")
     abstract suspend fun getPage(bookId: Int, page: Int): BookPageEntity?

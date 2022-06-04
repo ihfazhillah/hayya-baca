@@ -12,6 +12,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -20,6 +21,7 @@ import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
+import com.ihfazh.ksatriamuslim.domain.BookUI
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
@@ -27,6 +29,7 @@ import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -40,6 +43,16 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+object BookUIComparator : DiffUtil.ItemCallback<BookUI>() {
+    override fun areItemsTheSame(oldItem: BookUI, newItem: BookUI): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: BookUI, newItem: BookUI): Boolean {
+        return oldItem == newItem
+    }
+}
+
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -78,7 +91,8 @@ class HomeFragment : Fragment() {
 //            childViewModel = childVM
         }
 
-        val rvAdapter = BookRecyclerViewAdapter { view, book ->
+
+        val rvAdapter = BookRecyclerViewAdapter(BookUIComparator) { view, book ->
             if (!book.gift_opened) {
                 viewModel.openGift(book.id)
             } else {
@@ -127,8 +141,13 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.books.observe(viewLifecycleOwner) {
-            rvAdapter.setBooks(it)
+//        viewModel.books.observe(viewLifecycleOwner) {
+//            rvAdapter.setBooks(it)
+//        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.books.collectLatest {
+                rvAdapter.submitData(it)
+            }
         }
 
 //        initializeStar()
@@ -208,7 +227,7 @@ class HomeFragment : Fragment() {
         childVM.child.observe(viewLifecycleOwner) {
             binding.starLayout.children = it
             if (it != null) {
-                viewModel.updateBooks()
+                viewModel.children.value = it
             }
             setAvatar(it?.name?.take(1) ?: "U")
         }

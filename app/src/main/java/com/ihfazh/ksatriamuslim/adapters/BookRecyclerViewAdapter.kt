@@ -3,6 +3,8 @@ package com.ihfazh.ksatriamuslim.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ihfazh.ksatriamuslim.databinding.BookItemBinding
@@ -31,8 +33,10 @@ class BookViewHolder(private val binding: BookItemBinding, private val listener:
     }
 }
 
-class BookRecyclerViewAdapter(val listener: listener) : RecyclerView.Adapter<BookViewHolder>() {
-    private val arrayList = arrayListOf<BookUI>()
+class BookRecyclerViewAdapter(diffCallback: DiffUtil.ItemCallback<BookUI>, val listener: listener) :
+    PagingDataAdapter<BookUI, BookViewHolder>(diffCallback) {
+
+    //    private val arrayList = arrayListOf<BookUI>()
     lateinit var binding: BookItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -42,15 +46,18 @@ class BookRecyclerViewAdapter(val listener: listener) : RecyclerView.Adapter<Boo
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val book = arrayList[position]
-        holder.bind(book)
+        getItem(position)?.let { bookUI ->
+            holder.bind(bookUI)
+        }
+//        val book = arrayList[position]
+//        holder.bind(book)
     }
-
-    override fun getItemCount(): Int = arrayList.size
-
-    fun setBooks(books: List<BookUI>) {
-        arrayList.clear()
-        arrayList.addAll(books)
-        notifyDataSetChanged()
-    }
+//
+//    override fun getItemCount(): Int = arrayList.size
+//
+//    fun setBooks(books: List<BookUI>) {
+//        arrayList.clear()
+//        arrayList.addAll(books)
+//        notifyDataSetChanged()
+//    }
 }

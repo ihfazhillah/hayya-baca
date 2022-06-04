@@ -4,9 +4,10 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
@@ -19,14 +20,16 @@ import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
 import com.ihfazh.ksatriamuslim.repositories.KoinRepositoryImpl
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {
     private val _books = MutableLiveData<List<BookUI>>()
 
-    val books: LiveData<List<BookUI>>
-        get() = _books
+//    val books: LiveData<List<BookUI>>
+//        get() = _books
 
     val koin = MutableLiveData<Koin>()
     private val koinRepository = KoinRepositoryImpl(application.applicationContext)
@@ -35,21 +38,23 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     val children = MutableLiveData<Children>()
 
-    init {
-        // should this the best way to do ??
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed(
-            { updateClicked.value = false }, 1000 * 10 * 60
-        )
-    }
 
     private val local = AppDatabase.getDB(application.applicationContext)
     private val remote = BackendClient.getService(application.applicationContext)
     private val sessionManager = SessionManager(application.applicationContext)
     private val repository = BookRepositoryImpl(local, remote, sessionManager)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val books: Flow<PagingData<BookUI>> = children.asFlow().flatMapLatest {
+        repository.getPagedBooksSummary(it.id.toInt())
+    }
+
     init {
 
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed(
+            { updateClicked.value = false }, 1000 * 10 * 60
+        )
 
         viewModelScope.launch {
 //            _books.value = repository.getBooksSummary()
@@ -69,7 +74,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     fun openGift(id: Int) {
         viewModelScope.launch {
             repository.openGift(id)
-            _books.postValue(repository.getBooksSummary())
+//            _books.postValue(repository.getBooksSummary())
         }
     }
 
@@ -85,14 +90,14 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
         updateClicked.value = true
     }
 
-    fun updateBooks() {
-        viewModelScope.launch(Dispatchers.IO) {
-            // get books first without ui - using ui with cache from local
-            _books.postValue(repository.getBooksSummary())
-
-            // next get books with ui from server
-            _books.postValue(repository.refreshBooksUI())
-        }
-    }
+//    fun updateBooks() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            // get books first without ui - using ui with cache from local
+//            _books.postValue(repository.getBooksSummary())
+//
+//            // next get books with ui from server
+//            _books.postValue(repository.refreshBooksUI())
+//        }
+//    }
 
 }

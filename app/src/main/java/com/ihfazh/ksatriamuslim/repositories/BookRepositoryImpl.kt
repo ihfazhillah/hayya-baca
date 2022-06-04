@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.repositories
 //import com.ihfazh.ksatriamuslim.toBookEntity
 //import com.ihfazh.ksatriamuslim.toBookSummaries
 //import com.ihfazh.ksatriamuslim.toBookSummary
+import androidx.paging.*
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.domain.BookPage
@@ -11,12 +12,15 @@ import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
+import com.ihfazh.ksatriamuslim.remote.BookRemoteMediator
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.BookItem
 import com.ihfazh.ksatriamuslim.remote.data.BookStateResponse
 import com.ihfazh.ksatriamuslim.remote.data.PageBookResponse
 import com.ihfazh.ksatriamuslim.remote.data.UpdateBookStateBody
 import com.ihfazh.ksatriamuslim.toBook
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class BookRepositoryImpl(
     private val local: AppDatabase,
@@ -48,6 +52,31 @@ class BookRepositoryImpl(
         return localBooks.map { bookEntity: BookEntity ->
             val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
             bookEntity.toBookSummaries(ui)
+        }
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getPagedBooksSummary(childId: Int): Flow<PagingData<BookUI>> {
+        val config = PagingConfig(pageSize = 15)
+        val pagingMediator = BookRemoteMediator(
+            db = local,
+            remote = remote,
+            childId
+        )
+        return Pager(
+            config = config,
+            remoteMediator = pagingMediator,
+            pagingSourceFactory = {
+                local.bookDao().getAllBookUI(childId)
+            }
+        ).flow.map { pagingData ->
+            pagingData.map {
+                BookUI(
+                    Book(it.id, it.title, it.thumbnailSrc, it.locallyCreated),
+                    it.gift_opened
+                )
+            }
+
         }
     }
 

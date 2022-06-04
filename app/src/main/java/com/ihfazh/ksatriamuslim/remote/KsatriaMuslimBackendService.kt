@@ -24,7 +24,10 @@ interface KsatriaMuslimBackendService {
 
     // Books
     @GET("books/")
-    suspend fun getBooks(@Query("page") page: Int = 1): Response<BookListResponse>
+    suspend fun getBooks(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = 10
+    ): Response<BookListResponse>
 
     @GET("books/{id}/")
     suspend fun getBook(@Path("id") id: Int): Response<BookItem>
