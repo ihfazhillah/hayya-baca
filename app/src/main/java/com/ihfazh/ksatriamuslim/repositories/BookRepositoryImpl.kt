@@ -53,7 +53,7 @@ class BookRepositoryImpl(
 
     override suspend fun refreshBooksUI(): List<BookUI> {
         val booksId = local.bookDao().getAll().map { it.id }
-        val remoteBooksUI = remote.getBooksState(booksId).body()
+        val remoteBooksUI = remote.getBooksState(booksId, getChildId()?.toInt()).body()
         remoteBooksUI?.map { it.toBookUIEntity() }?.forEach {
             local.bookDao().insertOrUpdateBookUI(it)
         }
@@ -95,12 +95,12 @@ class BookRepositoryImpl(
 
     override suspend fun openGift(id: Int) {
         getChildId()?.let { childId ->
+            local.bookDao().insertOrUpdateBookUI(
+                BookUIEntity(id, childId.toInt(), true)
+            )
             remote.updateBookState(
                 id,
                 UpdateBookStateBody(childId.toInt(), true)
-            )
-            local.bookDao().insertOrUpdateBookUI(
-                BookUIEntity(id, childId.toInt(), true)
             )
         }
     }

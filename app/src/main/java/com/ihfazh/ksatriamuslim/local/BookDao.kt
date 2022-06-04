@@ -1,6 +1,5 @@
 package com.ihfazh.ksatriamuslim.local
 
-import android.database.sqlite.SQLiteConstraintException
 import androidx.room.*
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
@@ -28,7 +27,7 @@ abstract class BookDao {
     abstract suspend fun insertAllPages(bookPage: List<BookPageEntity>)
 
     // BOOK UIS
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertBookUI(bookUI: BookUIEntity): Long
 
     @Update
@@ -36,11 +35,10 @@ abstract class BookDao {
 
     @Transaction
     open suspend fun insertOrUpdateBookUI(bookUI: BookUIEntity) {
-        try {
-            insertBookUI(bookUI)
-        } catch (ex: SQLiteConstraintException) {
-            updateBookUI(bookUI)
-        }
+        insertBookUI(bookUI)
+//        getBooKUI(bookUI.bookId, bookUI.childId)?.let{
+//            updateBookUI(it)
+//        } ?: insertBookUI(bookUI)
 //        val insertId = insertBookUI(bookUI)
 //        if (insertId == -1L){
 //            updateBookUI(bookUI = bookUI)
