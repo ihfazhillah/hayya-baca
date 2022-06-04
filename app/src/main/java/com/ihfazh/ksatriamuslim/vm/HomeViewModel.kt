@@ -69,7 +69,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     fun openGift(id: Int) {
         viewModelScope.launch {
             repository.openGift(id)
-            _books.value = repository.getBooksSummary()
+            _books.postValue(repository.getBooksSummary())
         }
     }
 

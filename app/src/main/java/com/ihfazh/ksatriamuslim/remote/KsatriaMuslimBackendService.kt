@@ -37,5 +37,9 @@ interface KsatriaMuslimBackendService {
 
     // books state
     @GET("books-state/")
-    suspend fun getBooksState(@Query("books_id") booksId: List<Int>): Response<List<BookStateResponse>>
+    suspend fun getBooksState(
+        @Query("books_id") booksId: List<Int>,
+        @Query("child_id") childId: Int?
+    ):
+            Response<List<BookStateResponse>>
 }
