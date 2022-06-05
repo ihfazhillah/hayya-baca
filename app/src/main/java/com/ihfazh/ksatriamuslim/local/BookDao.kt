@@ -21,7 +21,8 @@ abstract class BookDao {
     @Query(
         "select b.id, b.title, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book b " +
                 "join book_ui ui on ui.bookId = b.id " +
-                "where ui.childId = :childId"
+                "where ui.childId = :childId " +
+                "order by id desc"
     )
     abstract fun getAllBookUI(childId: Int): PagingSource<Int, BookWithBookUI>
 
