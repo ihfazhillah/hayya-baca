@@ -78,7 +78,9 @@ class BookRemoteMediator(
             val apiResponse = remote.getBooks(page, state.config.pageSize)
 
             val books = apiResponse.body()?.results?.convertToBook()
-            val endOfPaginationReached = apiResponse.body()?.next != null
+            val endOfPaginationReached = apiResponse.body()?.next == null
+
+            Log.d(TAG, "loadAndSaveApiData: $books")
 
             db.withTransaction {
                 if (isRefresh) {
