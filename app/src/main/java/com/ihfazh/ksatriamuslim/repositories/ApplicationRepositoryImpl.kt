@@ -2,14 +2,20 @@ package com.ihfazh.ksatriamuslim.repositories
 
 import android.content.Context
 import android.content.Intent
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.AppInfo
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
+import com.ihfazh.ksatriamuslim.domain.RequestAccess
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.SelectedApplicationEntity
+import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
+import com.ihfazh.ksatriamuslim.remote.data.RequestAccessBody
 
 class ApplicationRepositoryImpl(
     private val context: Context,
-    local: AppDatabase
+    local: AppDatabase,
+    private val remote: KsatriaMuslimBackendService,
+    private val sessionManager: SessionManager
 ) : ApplicationRepository {
     private val appDao = local.applicationDao()
 
@@ -31,6 +37,20 @@ class ApplicationRepositoryImpl(
         appDao.insertAll(apps.toEntities())
     }
 
+    override suspend fun requestAccess(): RequestAccess {
+        val accessResponse = remote.requestAccess(
+            RequestAccessBody(-10, "buka aplikasi xxx", sessionManager.getSelectedChild()!!.toInt())
+        )
+        if (accessResponse.isSuccessful) {
+            val body = accessResponse.body()!!
+            return RequestAccess(
+                body.permissible,
+                body.message
+            )
+        }
+        return RequestAccess(false, "UNKNOWN")
+    }
+
     private fun getApps(): List<AppInfo> =
         Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
@@ -48,6 +68,8 @@ class ApplicationRepositoryImpl(
         .getApps().map {
             it.id
         }
+
+
 }
 
 private fun List<AppInfoSelect>.toEntities(): List<SelectedApplicationEntity> {
