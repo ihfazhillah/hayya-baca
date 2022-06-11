@@ -18,9 +18,10 @@ interface Migrate5To6 : AutoMigrationSpec
         BookPageEntity::class,
         BookUIEntity::class,
         RewardHistoryEntity::class,
-        BookKeysEntity::class
+        BookKeysEntity::class,
+        SelectedApplicationEntity::class
     ],
-    version = 8,
+    version = 9,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -29,6 +30,7 @@ interface Migrate5To6 : AutoMigrationSpec
         AutoMigration(from = 5, to = 6, spec = AppDatabase.Migrate5To6::class),
         AutoMigration(from = 6, to = 7),
         AutoMigration(from = 7, to = 8),
+        AutoMigration(from = 8, to = 9),
     ],
 )
 @TypeConverters(Converters::class)
@@ -38,6 +40,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun bookKeysDao(): BookKeysDao
     abstract fun childDao(): ChildDao
     abstract fun rewardHistoryDao(): RewardHistoryDao
+    abstract fun applicationDao(): ApplicationDao
 
     companion object {
         private var db: AppDatabase? = null

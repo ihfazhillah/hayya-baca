@@ -5,6 +5,10 @@
     app:startDestination="@id/splashScreenFragment"
     android:id="@+id/main_navigation">
 
+    <action
+        android:id="@+id/goToApplicationAdd"
+        app:destination="@id/addApplicationFragment" />
+
     <fragment
         android:id="@+id/tryMotionFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
@@ -149,5 +153,11 @@
             android:id="@+id/action_childrenListChildFragment_to_parentGateFragment"
             app:destination="@id/parentGateFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addApplicationFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationAddFragment"
+        android:label="Add Application"
+        tools:layout="@layout/fragment_application_add" />
 
 </navigation>
