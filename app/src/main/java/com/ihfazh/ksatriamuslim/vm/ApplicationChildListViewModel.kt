@@ -1,0 +1,45 @@
+package com.ihfazh.ksatriamuslim.vm
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ihfazh.ksatriamuslim.domain.AppInfo
+import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+
+class ApplicationChildListViewModel(
+    private val repository: ApplicationRepository,
+) : ViewModel() {
+    private val _applications = MutableStateFlow<List<AppInfo>>(listOf())
+    val applications: StateFlow<List<AppInfo>> = _applications
+
+    private val _selectedApplication: MutableStateFlow<AppInfo?> = MutableStateFlow(null)
+    val selectedApplication: StateFlow<AppInfo?> = _selectedApplication
+
+    private val _message: MutableStateFlow<String?> = MutableStateFlow(null)
+    val message: StateFlow<String?> = _message
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            _applications.value = repository.getAppsInfo()
+        }
+    }
+
+    fun selectApplication(appInfo: AppInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val canAccess = repository.requestAccess()
+            if (canAccess.permissible) {
+                _selectedApplication.value = appInfo
+            } else {
+                _message.value = canAccess.getFullMessage()
+            }
+        }
+    }
+
+    fun resetApplication() {
+        _selectedApplication.value = null
+        _message.value = null
+    }
+}

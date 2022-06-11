@@ -33,3 +33,11 @@ class AppInfoViewModelFactory(private val repo: ApplicationRepository) : ViewMod
         return ApplicationAddViewModel(repo) as T
     }
 }
+
+@Suppress("UNCHECKED_CAST")
+class AppInfoChildListViewModelFactory(private val repo: ApplicationRepository) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ApplicationChildListViewModel(repo) as T
+    }
+}

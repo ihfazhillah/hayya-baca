@@ -12,9 +12,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationAdapter
+import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentApplicationAddBinding
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
 import com.ihfazh.ksatriamuslim.local.AppDatabase
+import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.AppInfoViewModelFactory
@@ -64,7 +66,14 @@ class ApplicationAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appDatabase = AppDatabase.getDB(requireContext())
-        appInfoRepo = ApplicationRepositoryImpl(requireContext(), appDatabase)
+        val remote = BackendClient.getService(requireContext())
+        val sessionManager = SessionManager(requireContext())
+        appInfoRepo = ApplicationRepositoryImpl(
+            requireContext(),
+            appDatabase,
+            remote,
+            sessionManager
+        )
         adapter = ApplicationAdapter(applicationItemListener = object :
             ApplicationAdapter.ApplicationItemListener {
             override fun itemSelected(appInfo: AppInfoSelect) {

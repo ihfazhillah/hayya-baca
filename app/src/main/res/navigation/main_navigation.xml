@@ -9,6 +9,10 @@
         android:id="@+id/goToApplicationAdd"
         app:destination="@id/addApplicationFragment" />
 
+    <action
+        android:id="@+id/goToApplicationListChild"
+        app:destination="@id/childApplicationFragment" />
+
     <fragment
         android:id="@+id/tryMotionFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
@@ -159,5 +163,11 @@
         android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationAddFragment"
         android:label="Add Application"
         tools:layout="@layout/fragment_application_add" />
+
+    <fragment
+        android:id="@+id/childApplicationFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationListChildFragment"
+        android:label="Application List"
+        tools:layout="@layout/fragment_application_list_child" />
 
 </navigation>
