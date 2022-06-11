@@ -41,7 +41,10 @@
         <entry key="app/src/main/res/layout/book_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/book_lists.xml" value="0.3104166666666667" />
         <entry key="app/src/main/res/layout/coin_layout.xml" value="0.5849056603773585" />
+        <entry key="app/src/main/res/layout/default_application_item.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.3567708333333333" />
+        <entry key="app/src/main/res/layout/fragment_application_add.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_application_list_child.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_child_from.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_children_list_child.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_children_list_parent.xml" value="0.17760416666666667" />

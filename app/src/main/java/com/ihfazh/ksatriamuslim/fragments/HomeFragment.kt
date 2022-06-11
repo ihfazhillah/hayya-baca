@@ -1,8 +1,11 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +92,38 @@ class HomeFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
 //            childViewModel = childVM
+            gameBtn.setOnClickListener {
+
+                val context = requireContext()
+                val mainIntent = Intent(Intent.ACTION_MAIN)
+                mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+                context.packageManager.queryIntentActivities(mainIntent, 0)
+                    .forEach { info: ResolveInfo ->
+
+                        Log.d(
+                            TAG,
+                            "onCreateView: package name: ${info.loadLabel(context.packageManager)}"
+                        )
+                        Log.d(
+                            TAG,
+                            "onCreateView: package name: ${info.activityInfo.applicationInfo.packageName}"
+                        )
+                        Log.d(TAG, "onCreateView: package name: ${info.iconResource}")
+//                    Log.d(TAG, "onCreateView: activities: ${info.activities}")
+//                    Log.d(TAG, "onCreateView: providers: ${info.providers}")
+//                    Log.d(TAG, "onCreateView: package name: ${info.services}")
+                    }
+                findNavController().navigate(
+                    R.id.goToApplicationAdd
+                )
+//                val intent = context.packageManager.getLaunchIntentForPackage("com.greentech.hadith")
+//                if (intent != null){
+//                    context.startActivity(intent)
+//                } else {
+//                    Log.d(TAG, "onCreateView: No intent for simpledorar new")
+//                }
+
+            }
         }
 
 

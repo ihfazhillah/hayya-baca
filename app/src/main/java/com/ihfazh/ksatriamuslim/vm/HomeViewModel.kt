@@ -14,11 +14,9 @@ import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.BookUI
 import com.ihfazh.ksatriamuslim.domain.Children
-import com.ihfazh.ksatriamuslim.domain.Koin
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.KoinRepositoryImpl
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -26,13 +24,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {
-    private val _books = MutableLiveData<List<BookUI>>()
 
-//    val books: LiveData<List<BookUI>>
-//        get() = _books
-
-    val koin = MutableLiveData<Koin>()
-    private val koinRepository = KoinRepositoryImpl(application.applicationContext)
 
     val updateClicked = MutableLiveData(false)
 
@@ -56,20 +48,9 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
             { updateClicked.value = false }, 1000 * 10 * 60
         )
 
-        viewModelScope.launch {
-//            _books.value = repository.getBooksSummary()
-            koin.value = koinRepository.getMine()
-        }
 
     }
 
-    fun getCoin() {
-        viewModelScope.launch {
-            val value = koinRepository.getMine()
-            println("inside get coin $value")
-            koin.value = value
-        }
-    }
 
     fun openGift(id: Int) {
         viewModelScope.launch {
