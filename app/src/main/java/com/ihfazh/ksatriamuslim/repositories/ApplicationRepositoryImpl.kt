@@ -27,6 +27,14 @@ class ApplicationRepositoryImpl(
         }
     }
 
+    override suspend fun getAppsInfoForDeletion(): List<AppInfoSelect> {
+        return getApps().filter {
+            it.id in getSelectedAppsId()
+        }.map {
+            AppInfoSelect(it, false)
+        }
+    }
+
     override suspend fun getAppsInfo(): List<AppInfo> {
         return getApps().filter {
             it.id in getSelectedAppsId()
@@ -35,6 +43,10 @@ class ApplicationRepositoryImpl(
 
     override suspend fun insertAll(apps: List<AppInfoSelect>) {
         appDao.insertAll(apps.toEntities())
+    }
+
+    override suspend fun deleteAll(apps: List<AppInfoSelect>) {
+        appDao.deleteAll(apps.toEntities())
     }
 
     override suspend fun requestAccess(appInfo: AppInfo): RequestAccess {

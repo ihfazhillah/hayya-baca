@@ -15,13 +15,8 @@ class ApplicationChildListViewModel(
     private val _applications = MutableStateFlow<List<AppInfo>>(listOf())
     val applications: StateFlow<List<AppInfo>> = _applications
 
-    private val _selectedApplication: MutableStateFlow<AppInfo?> = MutableStateFlow(null)
-    val selectedApplication: StateFlow<AppInfo?> = _selectedApplication
 
-    private val _message: MutableStateFlow<String?> = MutableStateFlow(null)
-    val message: StateFlow<String?> = _message
-
-    init {
+    fun queryApplciations() {
         viewModelScope.launch(Dispatchers.IO) {
             _applications.value = repository.getAppsInfo()
         }
@@ -42,8 +37,4 @@ class ApplicationChildListViewModel(
         }
     }
 
-    fun resetApplication() {
-        _selectedApplication.value = null
-        _message.value = null
-    }
 }

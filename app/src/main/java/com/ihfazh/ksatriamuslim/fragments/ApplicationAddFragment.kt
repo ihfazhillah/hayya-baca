@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
@@ -42,10 +43,12 @@ class ApplicationAddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val args by navArgs<ApplicationAddFragmentArgs>()
+
     private var binding: FragmentApplicationAddBinding? = null
     private lateinit var appInfoRepo: ApplicationRepository
     private val viewModel by activityViewModels<ApplicationAddViewModel> {
-        AppInfoViewModelFactory(appInfoRepo)
+        AppInfoViewModelFactory(appInfoRepo, args.isDelete)
     }
     private lateinit var adapter: ApplicationAdapter
 
@@ -62,6 +65,8 @@ class ApplicationAddFragment : Fragment() {
                 isPermissible = it
             }
         }
+
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -88,6 +93,7 @@ class ApplicationAddFragment : Fragment() {
             remote,
             sessionManager
         )
+        viewModel.queryApps(args.isDelete)
         adapter = ApplicationAdapter(applicationItemListener = object :
             ApplicationAdapter.ApplicationItemListener {
             override fun itemSelected(appInfo: AppInfoSelect) {
@@ -149,8 +155,16 @@ class ApplicationAddFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             selectAll.setOnClickListener { viewModel.toggleSelectAll() }
             selectAllLabel.setOnClickListener { viewModel.toggleSelectAll() }
+
+            if (args.isDelete) {
+                btnTambah.text = "Hapus"
+            } else {
+                btnTambah.text = "Tambah"
+            }
+
             btnTambah.setOnClickListener {
-                viewModel.insertAll()
+                viewModel.insertOrDeleteAll(args.isDelete)
+                findNavController().popBackStack()
             }
         }
     }
