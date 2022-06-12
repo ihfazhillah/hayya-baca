@@ -12,6 +12,15 @@
     <action
         android:id="@+id/goToApplicationListChild"
         app:destination="@id/childApplicationFragment" />
+    <action
+        android:id="@+id/goToGate"
+        app:destination="@id/parentGateFragment">
+        <argument
+            android:name="shouldPopBackstack"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </action>
 
     <fragment
         android:id="@+id/tryMotionFragment"
@@ -122,7 +131,12 @@
     <fragment
         android:id="@+id/parentGateFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ParentGateFragment"
-        android:label="ParentGateFragment" />
+        android:label="ParentGateFragment">
+        <argument
+            android:name="shouldPopBackstack"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/childrenListParentFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ChildrenListParentFragment"
