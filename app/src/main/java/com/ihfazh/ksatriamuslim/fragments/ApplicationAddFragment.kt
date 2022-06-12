@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationAdapter
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentApplicationAddBinding
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
+import com.ihfazh.ksatriamuslim.fragments.ParentGateFragment.Companion.IS_PERMISSIBLE
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
@@ -41,13 +44,24 @@ class ApplicationAddFragment : Fragment() {
 
     private var binding: FragmentApplicationAddBinding? = null
     private lateinit var appInfoRepo: ApplicationRepository
-    private val viewModel by viewModels<ApplicationAddViewModel> {
+    private val viewModel by activityViewModels<ApplicationAddViewModel> {
         AppInfoViewModelFactory(appInfoRepo)
     }
     private lateinit var adapter: ApplicationAdapter
 
+    private var isPermissible = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+            IS_PERMISSIBLE
+        )?.observe(
+            findNavController().currentBackStackEntry!!
+        ) {
+            if (it) {
+                isPermissible = it
+            }
+        }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -105,6 +119,13 @@ class ApplicationAddFragment : Fragment() {
                     }
                 }
             }
+        }
+
+
+        if (!isPermissible) {
+            val action = MainNavigationDirections.goToGate(true)
+            findNavController().navigate(action)
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
