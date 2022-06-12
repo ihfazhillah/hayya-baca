@@ -96,6 +96,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
         savedStateHandle.set(LOGIN_SUCCESSFUL, false)
 

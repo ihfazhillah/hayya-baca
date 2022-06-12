@@ -1,11 +1,13 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asFlow
@@ -88,7 +90,11 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-//            childViewModel = childVM
+            gameBtn.setOnClickListener {
+                findNavController().navigate(
+                    R.id.goToApplicationListChild
+                )
+            }
         }
 
 
@@ -232,6 +238,26 @@ class HomeFragment : Fragment() {
             setAvatar(it?.name?.take(1) ?: "U")
         }
         initializeStar()
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val builder = AlertDialog.Builder(requireContext())
+                    .setMessage("Yakin mau keluar ??")
+                    .setTitle("Konfirmasi Keluar")
+                    .setPositiveButton("Ya") { dialog, id ->
+                        childVM.setSelectedChild(null)
+                        requireActivity().finish()
+                    }
+                    .setNegativeButton("Tidak") { dialog, id ->
+                        dialog.dismiss()
+                    }
+                builder.create().show()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 
     companion object {

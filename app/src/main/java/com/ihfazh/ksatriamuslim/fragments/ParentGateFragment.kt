@@ -1,6 +1,7 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.FragmentParentGateBinding
 import kotlin.math.roundToInt
@@ -40,6 +42,7 @@ class ParentGateFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentParentGateBinding
+    private val args by navArgs<ParentGateFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +63,18 @@ class ParentGateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+        savedStateHandle.set(IS_PERMISSIBLE, false)
         binding.composeView.setContent {
             Greeting {
-                findNavController().navigate(it)
+                if (args.shouldPopBackstack) {
+                    Log.d("PARENT", "onViewCreated: shouldpopbackstack $args")
+                    savedStateHandle.set(IS_PERMISSIBLE, true)
+                    findNavController().popBackStack()
+                } else {
+                    Log.d("PARENT", "onViewCreated: shouldpopbackstack $args")
+                    findNavController().navigate(it)
+                }
             }
         }
     }
@@ -148,6 +160,7 @@ class ParentGateFragment : Fragment() {
     }
 
     companion object {
+        const val IS_PERMISSIBLE = "isPermissible"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

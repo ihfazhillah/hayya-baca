@@ -103,9 +103,18 @@
             app:layout_constraintStart_toStartOf="@id/updateDataBtn"
             app:layout_constraintEnd_toEndOf="@id/updateDataBtn"
             app:layout_constraintBottom_toTopOf="@id/updateDataBtn"
-            android:layout_marginBottom="5dp"
-            />
+            android:layout_marginBottom="5dp" />
 
+        <ImageButton
+            android:id="@+id/gameBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_button_background"
+            android:src="@drawable/ic_baseline_videogame_asset_24"
+            app:layout_constraintBottom_toTopOf="@id/parentButton"
+            app:layout_constraintEnd_toEndOf="@id/updateDataBtn"
+            app:layout_constraintStart_toStartOf="@id/updateDataBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

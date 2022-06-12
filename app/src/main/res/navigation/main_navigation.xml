@@ -5,6 +5,31 @@
     app:startDestination="@id/splashScreenFragment"
     android:id="@+id/main_navigation">
 
+    <action
+        android:id="@+id/goToApplicationAdd"
+        app:destination="@id/addApplicationFragment">
+
+        <argument
+            android:name="isDelete"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </action>
+
+    <action
+        android:id="@+id/goToApplicationListChild"
+        app:destination="@id/childApplicationFragment" />
+
+    <action
+        android:id="@+id/goToGate"
+        app:destination="@id/parentGateFragment">
+        <argument
+            android:name="shouldPopBackstack"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </action>
+
     <fragment
         android:id="@+id/tryMotionFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
@@ -114,7 +139,12 @@
     <fragment
         android:id="@+id/parentGateFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ParentGateFragment"
-        android:label="ParentGateFragment" />
+        android:label="ParentGateFragment">
+        <argument
+            android:name="shouldPopBackstack"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/childrenListParentFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ChildrenListParentFragment"
@@ -149,5 +179,22 @@
             android:id="@+id/action_childrenListChildFragment_to_parentGateFragment"
             app:destination="@id/parentGateFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addApplicationFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationAddFragment"
+        android:label="Add Application"
+        tools:layout="@layout/fragment_application_add">
+        <argument
+            android:name="isDelete"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/childApplicationFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationListChildFragment"
+        android:label="Application List"
+        tools:layout="@layout/fragment_application_list_child" />
 
 </navigation>
