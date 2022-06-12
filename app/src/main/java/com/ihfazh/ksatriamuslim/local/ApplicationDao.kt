@@ -12,6 +12,9 @@ interface ApplicationDao {
     @Delete
     suspend fun delete(app: SelectedApplicationEntity)
 
+    @Delete
+    suspend fun deleteAll(apps: List<SelectedApplicationEntity>)
+
     @Query("select * from selected_application")
     fun getPaginatedApps(): PagingSource<Int, SelectedApplicationEntity>
 

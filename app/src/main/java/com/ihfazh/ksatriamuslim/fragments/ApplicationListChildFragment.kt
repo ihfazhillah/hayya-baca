@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationChildAdapter
 import com.ihfazh.ksatriamuslim.common.SessionManager
@@ -54,6 +55,7 @@ class ApplicationListChildFragment : Fragment() {
             remote,
             SessionManager(requireContext())
         )
+        viewModel.queryApplciations()
 
         val adapter =
             ApplicationChildAdapter(object : ApplicationChildAdapter.ApplicationItemListener {
@@ -65,7 +67,6 @@ class ApplicationListChildFragment : Fragment() {
                                 ?.let { intent ->
                                     intent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
                                     startActivity(intent)
-                                    viewModel.resetApplication()
                                 }
                         },
                         onError = { message ->
@@ -92,6 +93,11 @@ class ApplicationListChildFragment : Fragment() {
                 popup.setOnMenuItemClickListener {
                     if (it.itemId == R.id.edit) {
                         findNavController().navigate(R.id.goToApplicationAdd)
+                    } else if (
+                        it.itemId == R.id.delete
+                    ) {
+                        val action = MainNavigationDirections.goToApplicationAdd(true)
+                        findNavController().navigate(action)
                     }
                     true
                 }

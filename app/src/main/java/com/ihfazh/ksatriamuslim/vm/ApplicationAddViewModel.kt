@@ -10,14 +10,20 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class ApplicationAddViewModel(
-    private val repository: ApplicationRepository
+    private val repository: ApplicationRepository,
+    isDelete: Boolean = false
 ) : ViewModel() {
+
     private val _applications = MutableStateFlow<List<AppInfoSelect>>(listOf())
     val applications: StateFlow<List<AppInfoSelect>> = _applications
 
-    init {
+    fun queryApps(isDelete: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _applications.value = repository.getAppsInfoForSelection()
+            _applications.value = if (isDelete) {
+                repository.getAppsInfoForDeletion()
+            } else {
+                repository.getAppsInfoForSelection()
+            }
         }
     }
 
@@ -64,11 +70,17 @@ class ApplicationAddViewModel(
         }
     }
 
-    fun insertAll() {
+    fun insertOrDeleteAll(isDelete: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertAll(applications.value.filter {
+            applications.value.filter {
                 it.selected
-            })
+            }.let { apps ->
+                if (isDelete) {
+                    repository.deleteAll(apps)
+                } else {
+                    repository.insertAll(apps)
+                }
+            }
         }
     }
 }

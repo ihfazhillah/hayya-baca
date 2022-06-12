@@ -7,11 +7,19 @@
 
     <action
         android:id="@+id/goToApplicationAdd"
-        app:destination="@id/addApplicationFragment" />
+        app:destination="@id/addApplicationFragment">
+
+        <argument
+            android:name="isDelete"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </action>
 
     <action
         android:id="@+id/goToApplicationListChild"
         app:destination="@id/childApplicationFragment" />
+
     <action
         android:id="@+id/goToGate"
         app:destination="@id/parentGateFragment">
@@ -176,7 +184,12 @@
         android:id="@+id/addApplicationFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationAddFragment"
         android:label="Add Application"
-        tools:layout="@layout/fragment_application_add" />
+        tools:layout="@layout/fragment_application_add">
+        <argument
+            android:name="isDelete"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
 
     <fragment
         android:id="@+id/childApplicationFragment"

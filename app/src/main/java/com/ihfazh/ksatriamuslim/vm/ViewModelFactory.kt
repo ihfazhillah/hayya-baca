@@ -28,9 +28,13 @@ class ChildFormViewModelFactory(private val repo: ChildrenRepository) : ViewMode
 }
 
 @Suppress("UNCHECKED_CAST")
-class AppInfoViewModelFactory(private val repo: ApplicationRepository) : ViewModelProvider.Factory {
+class AppInfoViewModelFactory(
+    private val repo: ApplicationRepository,
+    private val isDelete: Boolean
+) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ApplicationAddViewModel(repo) as T
+        return ApplicationAddViewModel(repo, isDelete) as T
     }
 }
 
