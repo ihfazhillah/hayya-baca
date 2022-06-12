@@ -25,9 +25,6 @@
             name="textColor"
             type="Integer" />
 
-        <variable
-            name="koinViewModel"
-            type="com.ihfazh.ksatriamuslim.vm.KoinViewModel" />
 
         <variable
             name="childViewModel"

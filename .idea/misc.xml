@@ -40,8 +40,11 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/book_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/book_lists.xml" value="0.3104166666666667" />
-        <entry key="app/src/main/res/layout/coin_layout.xml" value="0.5849056603773585" />
+        <entry key="app/src/main/res/layout/coin_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/default_application_item.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.3567708333333333" />
+        <entry key="app/src/main/res/layout/fragment_application_add.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_application_list_child.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_child_from.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_children_list_child.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_children_list_parent.xml" value="0.17760416666666667" />
@@ -52,9 +55,11 @@
         <entry key="app/src/main/res/layout/fragment_parent_gate.xml" value="0.12715298885511653" />
         <entry key="app/src/main/res/layout/fragment_reading.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.15677083333333333" />
+        <entry key="app/src/main/res/layout/grid_application_item.xml" value="0.3541666666666667" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.3104166666666667" />
         <entry key="app/src/main/res/layout/star_added_layout.xml" value="0.3104166666666667" />
         <entry key="app/src/main/res/layout/star_layout.xml" value="1.2" />
+        <entry key="app/src/main/res/menu/app_list_menu.xml" value="0.14814814814814814" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3515625" />
       </map>
