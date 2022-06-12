@@ -42,6 +42,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+        navController = navHostFragment.navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
     private fun handleUpdateDataNotification() {
         val action = intent.getStringExtra("click_action")
         val actionType = intent.getStringExtra("type_action")
