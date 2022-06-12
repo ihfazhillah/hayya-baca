@@ -8,5 +8,5 @@ interface ApplicationRepository {
     suspend fun getAppsInfoForSelection(): List<AppInfoSelect>
     suspend fun getAppsInfo(): List<AppInfo>
     suspend fun insertAll(apps: List<AppInfoSelect>)
-    suspend fun requestAccess(): RequestAccess
+    suspend fun requestAccess(appInfo: AppInfo): RequestAccess
 }

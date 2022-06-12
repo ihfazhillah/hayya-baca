@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationChildAdapter
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentApplicationListChildBinding
@@ -55,7 +58,20 @@ class ApplicationListChildFragment : Fragment() {
         val adapter =
             ApplicationChildAdapter(object : ApplicationChildAdapter.ApplicationItemListener {
                 override fun itemClicked(appInfo: AppInfo) {
-                    viewModel.selectApplication(appInfo)
+                    viewModel.selectApplication(
+                        appInfo,
+                        onSuccess = {
+                            requireContext().packageManager.getLaunchIntentForPackage(appInfo.id)
+                                ?.let { intent ->
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
+                                    startActivity(intent)
+                                    viewModel.resetApplication()
+                                }
+                        },
+                        onError = { message ->
+                            Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
+                        }
+                    )
                 }
             })
 
@@ -67,34 +83,20 @@ class ApplicationListChildFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.selectedApplication.collectLatest { app ->
-                    app?.let {
-                        requireContext().packageManager.getLaunchIntentForPackage(it.id)
-                            ?.let { intent ->
-                                intent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-                                startActivity(intent)
-                                viewModel.resetApplication()
-                            }
-                    }
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.message.collectLatest { message ->
-                    message?.let {
-                        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
-                        viewModel.resetApplication()
-                    }
-                }
-            }
-        }
         binding?.apply {
             rv.adapter = adapter
             rv.layoutManager = GridLayoutManager(requireContext(), 4)
+            menu.setOnClickListener {
+                val popup = PopupMenu(requireContext(), menu)
+                popup.menuInflater.inflate(R.menu.app_list_menu, popup.menu)
+                popup.setOnMenuItemClickListener {
+                    if (it.itemId == R.id.edit) {
+                        findNavController().navigate(R.id.goToApplicationAdd)
+                    }
+                    true
+                }
+                popup.show()
+            }
         }
 
 

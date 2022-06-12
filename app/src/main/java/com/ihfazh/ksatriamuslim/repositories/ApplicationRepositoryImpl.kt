@@ -37,9 +37,13 @@ class ApplicationRepositoryImpl(
         appDao.insertAll(apps.toEntities())
     }
 
-    override suspend fun requestAccess(): RequestAccess {
+    override suspend fun requestAccess(appInfo: AppInfo): RequestAccess {
         val accessResponse = remote.requestAccess(
-            RequestAccessBody(-10, "buka aplikasi xxx", sessionManager.getSelectedChild()!!.toInt())
+            RequestAccessBody(
+                -10,
+                "Ijin untuk buka aplikasi ${appInfo.id} - ${appInfo.label}",
+                sessionManager.getSelectedChild()!!.toInt()
+            )
         )
         if (accessResponse.isSuccessful) {
             val body = accessResponse.body()!!
