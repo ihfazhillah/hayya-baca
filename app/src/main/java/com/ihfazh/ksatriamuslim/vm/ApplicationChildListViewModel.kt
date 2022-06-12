@@ -27,13 +27,17 @@ class ApplicationChildListViewModel(
         }
     }
 
-    fun selectApplication(appInfo: AppInfo) {
+    fun selectApplication(
+        appInfo: AppInfo,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val canAccess = repository.requestAccess()
+            val canAccess = repository.requestAccess(appInfo)
             if (canAccess.permissible) {
-                _selectedApplication.value = appInfo
+                onSuccess.invoke()
             } else {
-                _message.value = canAccess.getFullMessage()
+                onError.invoke(canAccess.getFullMessage())
             }
         }
     }
