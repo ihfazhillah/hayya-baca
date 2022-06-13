@@ -19,10 +19,21 @@ abstract class BookDao {
     abstract suspend fun clearAllBook()
 
     @Query(
-        "select b.id, b.title, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book b " +
-                "left join book_ui ui on ui.bookId = b.id " +
-                "where ui.childId = :childId or ui.childId is null " +
-                "order by id desc"
+//        "select b.id, b.title, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book b " +
+//                "left join book_ui ui on ui.bookId = b.id " +
+//                "where ui.childId = :childId or ui.childId is null " +
+//                "order by id desc"
+        """
+        with book_child as (
+select b.title, b.id, b.thumbnailSrc, b.locallyCreated, child.id childId from book b
+cross join child
+)
+
+select b.title, b.id, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book_child b
+left join book_ui ui on ui.bookId = b.id and ui.childId = b.childId
+where b.childId = :childId
+order by b.id desc
+"""
     )
     abstract fun getAllBookUI(childId: Int): PagingSource<Int, BookWithBookUI>
 
