@@ -8,9 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class ApplicationChildListViewModel(
-    private val repository: ApplicationRepository,
+    val repository: ApplicationRepository,
 ) : ViewModel() {
     private val _applications = MutableStateFlow<List<AppInfo>>(listOf())
     val applications: StateFlow<List<AppInfo>> = _applications

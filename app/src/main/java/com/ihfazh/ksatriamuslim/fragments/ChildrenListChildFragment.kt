@@ -45,10 +45,11 @@ import com.ihfazh.ksatriamuslim.ui.MenuItem
 import com.ihfazh.ksatriamuslim.vm.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ChildrenListChildFragment : Fragment() {
     private val viewModel: ChildrenListViewModel by viewModels()
-    private val childViewModel: ChildViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by sharedViewModel()
     private lateinit var childRepository: ChildrenRepository
     private lateinit var savedStateHandle: SavedStateHandle
 
@@ -88,7 +89,7 @@ class ChildrenListChildFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect {
                     when (it) {
                         is ViewState.StateSuccess -> moveToHome(it.children)

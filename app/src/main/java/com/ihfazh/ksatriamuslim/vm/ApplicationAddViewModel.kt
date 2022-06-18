@@ -8,10 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class ApplicationAddViewModel(
-    private val repository: ApplicationRepository,
-    isDelete: Boolean = false
+    val repository: ApplicationRepository,
 ) : ViewModel() {
 
     private val _applications = MutableStateFlow<List<AppInfoSelect>>(listOf())

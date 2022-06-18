@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,18 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationAdapter
-import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentApplicationAddBinding
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
 import com.ihfazh.ksatriamuslim.fragments.ParentGateFragment.Companion.IS_PERMISSIBLE
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.BackendClient
-import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
-import com.ihfazh.ksatriamuslim.repositories.ApplicationRepositoryImpl
-import com.ihfazh.ksatriamuslim.vm.AppInfoViewModelFactory
 import com.ihfazh.ksatriamuslim.vm.ApplicationAddViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,10 +40,7 @@ class ApplicationAddFragment : Fragment() {
     private val args by navArgs<ApplicationAddFragmentArgs>()
 
     private var binding: FragmentApplicationAddBinding? = null
-    private lateinit var appInfoRepo: ApplicationRepository
-    private val viewModel by activityViewModels<ApplicationAddViewModel> {
-        AppInfoViewModelFactory(appInfoRepo, args.isDelete)
-    }
+    val viewModel: ApplicationAddViewModel by sharedViewModel()
     private lateinit var adapter: ApplicationAdapter
 
     private var isPermissible = false
@@ -84,15 +75,6 @@ class ApplicationAddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val appDatabase = AppDatabase.getDB(requireContext())
-        val remote = BackendClient.getService(requireContext())
-        val sessionManager = SessionManager(requireContext())
-        appInfoRepo = ApplicationRepositoryImpl(
-            requireContext(),
-            appDatabase,
-            remote,
-            sessionManager
-        )
         viewModel.queryApps(args.isDelete)
         adapter = ApplicationAdapter(applicationItemListener = object :
             ApplicationAdapter.ApplicationItemListener {
@@ -102,7 +84,7 @@ class ApplicationAddFragment : Fragment() {
         })
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.applications.collectLatest { apps ->
                     binding?.appList?.post {
                         adapter.submitData(apps)
@@ -112,7 +94,7 @@ class ApplicationAddFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.selectedCount.collectLatest { selectedCount: Int ->
                     binding?.let {
                         if (selectedCount > 0) {
@@ -135,7 +117,7 @@ class ApplicationAddFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allSelected.collectLatest { allSelected: Boolean ->
                     binding?.let {
                         it.selectAll.isChecked = allSelected

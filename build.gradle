@@ -21,6 +21,10 @@ buildscript {
         avatar_image_generator_version = "v1.5.0"
         arrow_version = "1.0.1"
         paging_version = "3.1.1"
+        koin_version = "3.2.0"
+        koin_ksp_version = "1.0.1"
+        // KSP
+        ksp_version = "1.6.21-1.0.5"
 
     }
     repositories {
@@ -45,6 +49,7 @@ buildscript {
 plugins{
     id "org.jetbrains.kotlin.android" version '1.6.10' apply false
     id "io.sentry.android.gradle" version "2.1.5" apply false
+    id "com.google.devtools.ksp" version "$ksp_version" apply false
 }
 
 task clean(type: Delete) {

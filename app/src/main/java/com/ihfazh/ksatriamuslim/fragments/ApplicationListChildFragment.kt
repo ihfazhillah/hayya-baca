@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,24 +16,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.ApplicationChildAdapter
-import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentApplicationListChildBinding
 import com.ihfazh.ksatriamuslim.domain.AppInfo
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.BackendClient
-import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
-import com.ihfazh.ksatriamuslim.repositories.ApplicationRepositoryImpl
-import com.ihfazh.ksatriamuslim.vm.AppInfoChildListViewModelFactory
 import com.ihfazh.ksatriamuslim.vm.ApplicationChildListViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplicationListChildFragment : Fragment() {
 
-    private lateinit var appInfoRepo: ApplicationRepository
-    private val viewModel by viewModels<ApplicationChildListViewModel> {
-        AppInfoChildListViewModelFactory(appInfoRepo)
-    }
+    val appVM: ApplicationChildListViewModel by viewModel()
     private var binding: FragmentApplicationListChildBinding? = null
 
     override fun onCreateView(
@@ -47,20 +38,12 @@ class ApplicationListChildFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val appDatabase = AppDatabase.getDB(requireContext())
-        val remote = BackendClient.getService(requireContext())
-        appInfoRepo = ApplicationRepositoryImpl(
-            requireContext(),
-            appDatabase,
-            remote,
-            SessionManager(requireContext())
-        )
-        viewModel.queryApplciations()
+        appVM.queryApplciations()
 
         val adapter =
             ApplicationChildAdapter(object : ApplicationChildAdapter.ApplicationItemListener {
                 override fun itemClicked(appInfo: AppInfo) {
-                    viewModel.selectApplication(
+                    appVM.selectApplication(
                         appInfo,
                         onSuccess = {
                             requireContext().packageManager.getLaunchIntentForPackage(appInfo.id)
@@ -77,8 +60,8 @@ class ApplicationListChildFragment : Fragment() {
             })
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.applications.collectLatest { apps ->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                appVM.applications.collectLatest { apps ->
                     adapter.submitData(apps)
                 }
             }

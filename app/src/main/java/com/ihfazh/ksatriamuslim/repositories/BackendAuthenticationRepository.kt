@@ -6,8 +6,10 @@ import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.DJError
 import com.ihfazh.ksatriamuslim.remote.data.LoginBody
 import com.ihfazh.ksatriamuslim.remote.data.LoginResponse
+import org.koin.core.annotation.Factory
 import retrofit2.Response
 
+@Factory
 class BackendAuthenticationRepository(
     private val remote: KsatriaMuslimBackendService,
     private val sessionManager: SessionManager

@@ -21,7 +21,9 @@ import com.ihfazh.ksatriamuslim.remote.data.UpdateBookStateBody
 import com.ihfazh.ksatriamuslim.toBook
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
 
+@Factory
 class BookRepositoryImpl(
     private val local: AppDatabase,
     private val remote: KsatriaMuslimBackendService,
