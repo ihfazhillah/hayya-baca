@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -21,19 +20,13 @@ import coil.load
 import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
-import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.domain.BookUI
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.BackendClient
-import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.vm.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,18 +52,10 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: HomeViewModel by activityViewModels()
-    private lateinit var childrenRepository: ChildrenRepository
+    private val homeVM: HomeViewModel by sharedViewModel()
 
-    private lateinit var authRepository: AuthenticationRepository
-    private val authViewModel by activityViewModels<AuthViewModel> {
-        AuthViewModelFactory(
-            authRepository
-        )
-    }
-    private val childVM: ChildViewModel by activityViewModels {
-        ChildViewModelFactory(childrenRepository)
-    }
+    val authViewModel: AuthViewModel by sharedViewModel()
+    val childVM: ChildViewModel by sharedViewModel()
 
 
     lateinit var binding: FragmentHomeBinding
@@ -89,7 +74,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
+            vm = homeVM
             gameBtn.setOnClickListener {
                 findNavController().navigate(
                     R.id.goToApplicationListChild
@@ -100,7 +85,7 @@ class HomeFragment : Fragment() {
 
         val rvAdapter = BookRecyclerViewAdapter(BookUIComparator) { view, book ->
             if (!book.gift_opened) {
-                viewModel.openGift(book.id)
+                homeVM.openGift(book.id)
             } else {
                 val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
                 findNavController().navigate(action)
@@ -151,7 +136,7 @@ class HomeFragment : Fragment() {
 //            rvAdapter.setBooks(it)
 //        }
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.books.collectLatest {
+            homeVM.books.collectLatest {
                 rvAdapter.submitData(it)
             }
         }
@@ -199,19 +184,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val remote = BackendClient.getService(requireContext())
-        val sessionManager = SessionManager(requireContext())
-        val db = AppDatabase.getDB(requireContext())
-
-        authRepository = BackendAuthenticationRepository(remote, sessionManager)
-        childrenRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
-
-//        authViewModel.user.observe(viewLifecycleOwner) {
-//            if (it.token == null) {
-//                findNavController().navigate(R.id.loginFragment)
-//            }
-//        }
-
         authViewModel.user.asFlow().combine(
             childVM.child.asFlow()
         ) { user, children ->
@@ -233,7 +205,7 @@ class HomeFragment : Fragment() {
         childVM.child.observe(viewLifecycleOwner) {
             binding.starLayout.children = it
             if (it != null) {
-                viewModel.children.value = it
+                homeVM.children.value = it
             }
             setAvatar(it?.name?.take(1) ?: "U")
         }

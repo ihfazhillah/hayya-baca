@@ -11,9 +11,11 @@ import com.ihfazh.ksatriamuslim.remote.data.LoginErrorResponse
 import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class AuthViewModel(
-    private val repo: AuthenticationRepository
+    val repo: AuthenticationRepository
 ) : ViewModel() {
     private val _user: MutableLiveData<User>
     val user: LiveData<User>

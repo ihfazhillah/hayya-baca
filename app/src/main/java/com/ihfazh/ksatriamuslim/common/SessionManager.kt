@@ -3,7 +3,9 @@ package com.ihfazh.ksatriamuslim.common
 import android.content.Context
 import androidx.core.content.edit
 import com.ihfazh.ksatriamuslim.R
+import org.koin.core.annotation.Single
 
+@Single
 class SessionManager(context: Context) {
     companion object {
         private const val USER_TOKEN = "USER_TOKEN"

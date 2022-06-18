@@ -14,7 +14,9 @@ import com.ihfazh.ksatriamuslim.remote.data.ChildBody
 import com.ihfazh.ksatriamuslim.remote.data.ChildResponse
 import com.ihfazh.ksatriamuslim.remote.data.DJError
 import com.ihfazh.ksatriamuslim.remote.data.RewardHistoryBody
+import org.koin.core.annotation.Factory
 
+@Factory
 class ChildrenRepositoryImpl(
     private val remote: KsatriaMuslimBackendService,
     private val db: AppDatabase,

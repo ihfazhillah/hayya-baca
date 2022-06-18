@@ -34,7 +34,7 @@ class AppInfoViewModelFactory(
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ApplicationAddViewModel(repo, isDelete) as T
+        return ApplicationAddViewModel(repo) as T
     }
 }
 

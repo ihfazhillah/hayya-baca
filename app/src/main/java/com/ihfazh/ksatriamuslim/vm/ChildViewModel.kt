@@ -12,9 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class ChildViewModel(
-    private val repo: ChildrenRepository
+    val repo: ChildrenRepository
 ) : ViewModel() {
 
     private val selectedChildId = MutableLiveData<String?>(null)

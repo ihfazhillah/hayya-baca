@@ -10,7 +10,9 @@ import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.SelectedApplicationEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.RequestAccessBody
+import org.koin.core.annotation.Factory
 
+@Factory
 class ApplicationRepositoryImpl(
     private val context: Context,
     local: AppDatabase,
