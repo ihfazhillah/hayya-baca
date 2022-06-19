@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ihfazh.ksatriamuslim.domain.AppInfo
@@ -26,17 +27,22 @@ class ApplicationChildListViewModel(
 
     fun selectApplication(
         appInfo: AppInfo,
-        onSuccess: () -> Unit,
+        onSuccess: (time: Float) -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val canAccess = repository.requestAccess(appInfo)
+            Log.d(TAG, "selectApplication: $canAccess")
             if (canAccess.permissible) {
-                onSuccess.invoke()
+                onSuccess.invoke(canAccess.durationRemaining ?: 0F)
             } else {
                 onError.invoke(canAccess.getFullMessage())
             }
         }
+    }
+
+    companion object {
+        private val TAG = ApplicationChildListViewModel::class.java.simpleName
     }
 
 }

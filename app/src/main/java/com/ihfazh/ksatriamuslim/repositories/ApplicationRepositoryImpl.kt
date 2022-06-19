@@ -9,8 +9,11 @@ import com.ihfazh.ksatriamuslim.domain.RequestAccess
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.SelectedApplicationEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
-import com.ihfazh.ksatriamuslim.remote.data.RequestAccessBody
+import com.ihfazh.ksatriamuslim.remote.data.BuyPackageBody
+import com.ihfazh.ksatriamuslim.remote.data.UsagePackageLogBody
 import org.koin.core.annotation.Factory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Factory
 class ApplicationRepositoryImpl(
@@ -20,6 +23,8 @@ class ApplicationRepositoryImpl(
     private val sessionManager: SessionManager
 ) : ApplicationRepository {
     private val appDao = local.applicationDao()
+    private val packageName = "30Menit"
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
 
     override suspend fun getAppsInfoForSelection(): List<AppInfoSelect> {
         return getApps().filterNot {
@@ -52,10 +57,9 @@ class ApplicationRepositoryImpl(
     }
 
     override suspend fun requestAccess(appInfo: AppInfo): RequestAccess {
-        val accessResponse = remote.requestAccess(
-            RequestAccessBody(
-                -10,
-                "Ijin untuk buka aplikasi ${appInfo.id} - ${appInfo.label}",
+        val accessResponse = remote.buyPackage(
+            BuyPackageBody(
+                packageName,
                 sessionManager.getSelectedChild()!!.toInt()
             )
         )
@@ -63,10 +67,32 @@ class ApplicationRepositoryImpl(
             val body = accessResponse.body()!!
             return RequestAccess(
                 body.permissible,
-                body.message
+                body.message,
+                durationRemaining = body.durationRemaining,
+                coinRemaining = body.coinRemaining
             )
         }
         return RequestAccess(false, "UNKNOWN")
+    }
+
+    override suspend fun logStartUsagePackage() {
+        remote.logUsagePackage(
+            UsagePackageLogBody(
+                child = sessionManager.getSelectedChild()!!.toInt(),
+                pkg = packageName,
+                startedAt = LocalDateTime.now().format(dateFormatter)
+            )
+        )
+    }
+
+    override suspend fun logEndUsagePackage() {
+        remote.logUsagePackage(
+            UsagePackageLogBody(
+                child = sessionManager.getSelectedChild()!!.toInt(),
+                pkg = packageName,
+                finishedAt = LocalDateTime.now().format(dateFormatter)
+            )
+        )
     }
 
     private fun getApps(): List<AppInfo> =

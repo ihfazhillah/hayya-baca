@@ -48,4 +48,11 @@ interface KsatriaMuslimBackendService {
         @Query("child_id") childId: Int?
     ):
             Response<List<BookStateResponse>>
+
+    // paket waktu untuk bermain
+    @POST("reward-history/buy_package/")
+    suspend fun buyPackage(@Body body: BuyPackageBody): Response<RequestAccessResponse>
+
+    @POST("package-usage/log/")
+    suspend fun logUsagePackage(@Body body: UsagePackageLogBody): Response<DefaultOK>
 }

@@ -37,6 +37,8 @@
         <entry key="app/src/main/res/drawable/left_solid_button.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/next_button.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/drawable/prev_button.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/activity_application_overlay2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_foreground_service.xml" value="0.184375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/book_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/book_lists.xml" value="0.3104166666666667" />
