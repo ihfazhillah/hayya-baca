@@ -16,6 +16,7 @@ import com.ihfazh.ksatriamuslim.ApplicationOverlayActivity
 import com.ihfazh.ksatriamuslim.ForegroundServiceActivity
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
+import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -26,7 +27,10 @@ class AppTimerService : Service() {
     private var appTime: Float? = null
     private var targetPackage: String? = null
     private var timer: CountDownTimer? = null
-    val appRepository: ApplicationRepository by inject()
+    private val appRepository: ApplicationRepository by inject()
+
+    // force change child to null
+    private val childRepository: ChildrenRepository by inject()
 
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
@@ -42,6 +46,7 @@ class AppTimerService : Service() {
     private var foregroundAppSpan = 0
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         if (intent == null) {
             stopSelf()
             return super.onStartCommand(intent, flags, startId)
@@ -86,6 +91,7 @@ class AppTimerService : Service() {
         scope.launch {
             appRepository.logEndUsagePackage()
             callback.invoke()
+            childRepository.setSelectedChild(null)
 
             val intent =
                 Intent(this@AppTimerService, ApplicationOverlayActivity::class.java).apply {
