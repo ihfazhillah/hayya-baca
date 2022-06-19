@@ -76,6 +76,12 @@ class ChildViewModel(
         }
     }
 
+    fun setChildNull() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.setSelectedChild(null)
+        }
+    }
+
     fun refreshChildren() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.getChildren().fold(

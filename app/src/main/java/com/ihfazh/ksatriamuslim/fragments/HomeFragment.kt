@@ -217,7 +217,8 @@ class HomeFragment : Fragment() {
                     .setMessage("Yakin mau keluar ??")
                     .setTitle("Konfirmasi Keluar")
                     .setPositiveButton("Ya") { dialog, id ->
-                        childVM.setSelectedChild(null)
+                        childVM.setChildNull()
+                        dialog.dismiss()
                         requireActivity().finish()
                     }
                     .setNegativeButton("Tidak") { dialog, id ->
