@@ -50,7 +50,7 @@ class AppTimerService : Service() {
         val filter = IntentFilter(Intent.ACTION_SCREEN_ON)
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         screenOffReceiver = ScreenOffReceiver {
-            logEndPackageUsage {
+            logEndPackageUsage(ApplicationOverlayActivity.SCREEN_OFF) {
                 timer?.cancel()
                 stopForeground(true)
                 stopSelf()
@@ -60,7 +60,7 @@ class AppTimerService : Service() {
 
         Log.d(TAG, "onStartCommand: ${intent.action}")
         if (intent.action != null && intent.action == ACTION_STOP_SERVICE) {
-            logEndPackageUsage {
+            logEndPackageUsage(ApplicationOverlayActivity.APPLICATION_CLOSED) {
                 timer?.cancel()
                 stopForeground(true)
                 stopSelf()
@@ -82,7 +82,7 @@ class AppTimerService : Service() {
         }
     }
 
-    private fun logEndPackageUsage(callback: () -> Unit) {
+    private fun logEndPackageUsage(endReason: String, callback: () -> Unit) {
         scope.launch {
             appRepository.logEndUsagePackage()
             callback.invoke()
@@ -91,6 +91,7 @@ class AppTimerService : Service() {
                 Intent(this@AppTimerService, ApplicationOverlayActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK xor Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     putExtra(ApplicationOverlayActivity.TARGET_PACKAGE, targetPackage)
+                    putExtra(ApplicationOverlayActivity.END_REASON_KEY, endReason)
                 }
             startActivity(intent)
         }
@@ -167,7 +168,7 @@ class AppTimerService : Service() {
                     foregroundAppSpan += 1
 
                     if (foregroundAppSpan > 5) {
-                        logEndPackageUsage {
+                        logEndPackageUsage(ApplicationOverlayActivity.APPLICATION_CLOSED) {
                             timer?.cancel()
                             stopForeground(true)
                             stopSelf()
@@ -179,7 +180,7 @@ class AppTimerService : Service() {
 
             override fun onFinish() {
                 Log.d(TAG, "onFinish: Finished. Starting activity")
-                logEndPackageUsage {
+                logEndPackageUsage(ApplicationOverlayActivity.TIME_UP) {
                     stopForeground(true)
                     stopSelf()
                 }
