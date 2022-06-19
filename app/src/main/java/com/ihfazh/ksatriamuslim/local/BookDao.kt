@@ -52,6 +52,9 @@ order by b.id desc
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAllPages(bookPage: List<BookPageEntity>)
 
+    @Query("delete from book_page where book_id = :bookId")
+    abstract suspend fun deleteAllPages(bookId: Int)
+
     // BOOK UIS
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertBookUI(bookUI: BookUIEntity): Long

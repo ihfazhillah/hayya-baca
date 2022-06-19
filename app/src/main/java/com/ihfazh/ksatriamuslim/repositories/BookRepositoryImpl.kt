@@ -99,6 +99,8 @@ class BookRepositoryImpl(
         val remoteBook = remote.getBook(id).body()
         if (remoteBook != null) {
             local.bookDao().insert(remoteBook.toBookEntity())
+            // make sure delete first all
+            local.bookDao().deleteAllPages(remoteBook.id)
             local.bookDao().insertAllPages(
                 remoteBook.page_set.map {
                     it.toEntity(remoteBook.id)
