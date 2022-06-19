@@ -11,5 +11,9 @@ data class RequestAccessResponse(
     @field:SerializedName("permissible")
     val permissible: Boolean,
     @field:SerializedName("message")
-    val message: String
+    val message: String,
+    @field:SerializedName("coin_remaining")
+    val coinRemaining: Int?,
+    @field:SerializedName("duration_remaining")
+    val durationRemaining: Float?,
 ) : Parcelable
