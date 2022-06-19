@@ -17,15 +17,6 @@ class ApplicationOverlayActivity : Activity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        targetPackage = intent.getStringExtra(TARGET_PACKAGE)
-//        setContentView(R.layout.activity_application_overlay2)
-
-//        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-//        activityManager.killBackgroundProcesses(targetPackage)
-//
-//        findViewById<Button>(R.id.back).setOnClickListener{
-//            finish()
-//        }
         displayStopDialog()
     }
 
@@ -48,8 +39,20 @@ class ApplicationOverlayActivity : Activity() {
     }
 
     private fun displayStopDialog() {
+        val titleMap = mapOf(
+            TIME_UP to "DingDong...",
+            SCREEN_OFF to "Layar Mati...",
+            APPLICATION_CLOSED to "Aplikasi mati..."
+        )
+
+        val bodyMap = mapOf(
+            TIME_UP to "Waktumu sudah habis. Pastikan koinmu cukup untuk main lagi ya",
+            SCREEN_OFF to "Maaf, aplikasi kami matikan ya. Mau buka aplikasi lagi gak perlu bayar kok.",
+            APPLICATION_CLOSED to "Maaf, aplikasi kami matikan ya. Mau buka aplikasi lagi gak perlu bayar kok."
+        )
+
         val alertDialog = AlertDialog.Builder(this)
-            .setTitle("DingDong...")
+            .setTitle(titleMap[intent.getStringExtra(END_REASON_KEY)])
             .setCancelable(false)
             .setPositiveButton("Stop") { dialog, i ->
                 dialog.dismiss()
@@ -57,18 +60,16 @@ class ApplicationOverlayActivity : Activity() {
                 intent.addCategory(Intent.CATEGORY_HOME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-//
-//                packageManager.getLaunchIntentForPackage("com.ihfazh.ksatriamuslim")?.let{
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
-//                    finish()
-//                }
             }
-            .setMessage("Waktu pakai aplikasi sudah habis")
+            .setMessage(bodyMap[intent.getStringExtra(END_REASON_KEY)])
         alertDialog.show()
     }
 
     companion object {
         const val TARGET_PACKAGE = "targetPackage"
+        const val END_REASON_KEY = "end_reason"
+        const val TIME_UP = "time_up"
+        const val SCREEN_OFF = "screen_off"
+        const val APPLICATION_CLOSED = "application_closed"
     }
 }
