@@ -12,9 +12,9 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.ihfazh.ksatriamuslim.ApplicationOverlayActivity
-import com.ihfazh.ksatriamuslim.ForegroundServiceActivity
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.activities.ApplicationOverlayActivity
+import com.ihfazh.ksatriamuslim.activities.ForegroundServiceActivity
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import kotlinx.coroutines.CoroutineScope

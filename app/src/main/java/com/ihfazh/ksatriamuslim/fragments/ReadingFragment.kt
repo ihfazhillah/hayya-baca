@@ -1,20 +1,24 @@
 package com.ihfazh.ksatriamuslim.fragments
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ihfazh.ksatriamuslim.activities.MainActivity
 import com.ihfazh.ksatriamuslim.common.*
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
@@ -149,6 +153,10 @@ class ReadingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!Constants.isTvVersion(requireContext())) {
+            askPermissionContract.launch(permission)
+            hideShowToggleMic()
+        }
         navigator = Navigator(view, lifecycleScope)
         binding.nav = navigator
 
@@ -165,8 +173,6 @@ class ReadingFragment : BaseFragment() {
                 }
             }
         }
-
-        hideShowToggleMic()
 
         wordSpeak = WordSpeak(requireContext())
 
@@ -271,5 +277,16 @@ class ReadingFragment : BaseFragment() {
         wordSpeak.release()
         super.onDestroy()
     }
+
+    // PERMISSIONS
+    private val permission = Manifest.permission.RECORD_AUDIO
+    private val askPermissionContract =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                Recognizer.initialize()
+            } else {
+                Log.w(MainActivity.TAG, "Permission not granted. Recording not started.")
+            }
+        }
 
 }

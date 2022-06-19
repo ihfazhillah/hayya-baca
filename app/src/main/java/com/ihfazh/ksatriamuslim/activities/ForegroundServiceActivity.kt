@@ -1,7 +1,8 @@
-package com.ihfazh.ksatriamuslim
+package com.ihfazh.ksatriamuslim.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ihfazh.ksatriamuslim.R
 
 class ForegroundServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

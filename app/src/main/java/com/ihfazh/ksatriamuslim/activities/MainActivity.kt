@@ -1,18 +1,15 @@
-package com.ihfazh.ksatriamuslim
+package com.ihfazh.ksatriamuslim.activities
 
-import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.ihfazh.ksatriamuslim.common.Constants
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 
@@ -36,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         handleUpdateDataNotification()
-
-        if (!Constants.isTvVersion(applicationContext)) {
-            askPermissionContract.launch(permission)
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -94,16 +87,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    // PERMISSIONS
-    private val permission = Manifest.permission.RECORD_AUDIO
-    private val askPermissionContract =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            if (it) {
-                Recognizer.initialize()
-            } else {
-                Log.w(TAG, "Permission not granted. Recording not started.")
-            }
-        }
 
     companion object {
         const val TAG = "MainActivity"

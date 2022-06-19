@@ -39,14 +39,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ksatriamuslim">
         <activity
-            android:name=".ApplicationOverlayActivity"
+            android:name=".activities.ApplicationOverlayActivity"
             android:autoRemoveFromRecents="true"
             android:exported="false"
             android:label="@string/title_activity_application_overlay"
             android:noHistory="true"
             android:theme="@style/AnimatedDialog" />
         <activity
-            android:name=".ForegroundServiceActivity"
+            android:name=".activities.ForegroundServiceActivity"
             android:exported="false" />
 
         <meta-data
@@ -74,7 +74,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:banner="@mipmap/ic_banner"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
