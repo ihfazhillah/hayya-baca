@@ -30,6 +30,11 @@
 
     </action>
 
+    <action
+        android:id="@+id/goToChildList"
+        app:destination="@id/childrenListChildFragment"
+        app:popUpTo="@id/childrenListChildFragment" />
+
     <fragment
         android:id="@+id/tryMotionFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
