@@ -8,6 +8,8 @@ import com.ihfazh.ksatriamuslim.domain.ClientError
 import com.ihfazh.ksatriamuslim.domain.RewardHistory
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.ChildEntity
+import com.ihfazh.ksatriamuslim.local.data.ChildWithPicture
+import com.ihfazh.ksatriamuslim.local.data.ProfilePictureEntity
 import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.ChildBody
@@ -33,13 +35,27 @@ class ChildrenRepositoryImpl(
                 },
                 ifRight = {
                     it.let { childList ->
+                        // insert the images First
+                        childList.filterNot { response ->
+                            response.picture == null
+                        }.map { childWithPicture ->
+                            ProfilePictureEntity(
+                                childWithPicture.picture!!.id,
+                                childWithPicture.picture.photo
+                            )
+                        }.also { ppEntity ->
+                            db.childDao().insertProfilePictures(ppEntity)
+                        }
                         childList.map { response ->
                             response.toDbEntity()
                         }.also { childListEntity ->
                             db.childDao().insertAll(childListEntity)
                         }
                     }
-                    Either.Right(db.childDao().getAll().map { it.toDomain() })
+                    Either.Right(db.childDao().getAll().map {
+                        Log.d("REPO", "getChildren: $it")
+                        it.toDomain()
+                    })
                 }
             )
         } catch (e: Exception) {
@@ -65,7 +81,7 @@ class ChildrenRepositoryImpl(
             ifRight = {
                 // update data first
                 db.childDao().insert(it.toDbEntity())
-                Either.Right(it.toDbEntity().toDomain())
+                Either.Right(it.toDomain())
             }
         )
     }
@@ -100,6 +116,11 @@ class ChildrenRepositoryImpl(
 
 }
 
+private fun ChildResponse.toDomain(): Children {
+    return Children(id, name, points.toLong(), stars.toLong(), enableReadToMe, picture?.photo)
+
+}
+
 private fun Children.toAPIBody(): ChildBody {
     return ChildBody(
         id = id,
@@ -125,10 +146,18 @@ private fun RewardHistory.toDbEntity(isComplete: Boolean = false): RewardHistory
 }
 
 private fun ChildResponse.toDbEntity(): ChildEntity {
-    return ChildEntity(id, name, stars.toLong(), points.toLong(), enableReadToMe, parentId)
+    return ChildEntity(
+        id,
+        name,
+        stars.toLong(),
+        points.toLong(),
+        enableReadToMe,
+        parentId,
+        picture?.id
+    )
 }
 
-private fun ChildEntity.toDomain(): Children {
-    return Children(id, name, coin, star, enableReadToMe)
+private fun ChildWithPicture.toDomain(): Children {
+    return Children(id, name, coin, star, enableReadToMe, picture)
 }
 

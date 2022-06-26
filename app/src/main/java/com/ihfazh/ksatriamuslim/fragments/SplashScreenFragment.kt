@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -62,7 +63,8 @@ class SplashScreenFragment : Fragment() {
 //                SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment()
 //            }
 
-        findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+        val action = MainNavigationDirections.goToChildList()
+        findNavController().navigate(action)
 
 //        }
     }

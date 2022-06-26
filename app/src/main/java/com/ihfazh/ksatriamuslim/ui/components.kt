@@ -17,12 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.ihfazh.ksatriamuslim.R
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MenuItem(title: String, image: Int, onClick: () -> Unit){
+fun MenuItem(title: String, image: String?, onClick: () -> Unit) {
     Card(
         onClick = onClick,
         onClickLabel = title,
@@ -32,18 +33,16 @@ fun MenuItem(title: String, image: Int, onClick: () -> Unit){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .padding(5.dp)
-            ,
+                .padding(5.dp),
         ) {
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = title,
+            AsyncImage(
+                model = image ?: R.drawable.ic_baseline_person_24,
+                contentDescription = null,
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(100.dp)
                     .clip(CircleShape)
                     .border(2.dp, Color.White, CircleShape)
                     .padding(5.dp)
-
             )
             Text(
                 text = title,
@@ -61,7 +60,7 @@ fun MenuItem(title: String, image: Int, onClick: () -> Unit){
 fun PreviewMenuItem(){
     MenuItem(
         title = "Anak anak",
-        image = R.drawable.ic_baseline_person_24,
+        image = null,
         onClick = {}
     )
 }
@@ -76,10 +75,10 @@ fun ChildItemParent(name: String?, onClick: () -> Unit){
     }
 
     Row(
-       modifier = Modifier
-        .clickable(onClick = onClick)
-       .fillMaxWidth()
-        .padding(5.dp),
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .fillMaxWidth()
+            .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically,
     ){
         Image(painter = painterResource(id = resourceId), contentDescription = name)

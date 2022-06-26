@@ -24,41 +24,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.R
-import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Children
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.BackendClient
-import com.ihfazh.ksatriamuslim.repositories.AuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.BackendAuthenticationRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
-import com.ihfazh.ksatriamuslim.repositories.ChildrenRepositoryImpl
 import com.ihfazh.ksatriamuslim.ui.MenuItem
-import com.ihfazh.ksatriamuslim.vm.*
+import com.ihfazh.ksatriamuslim.vm.AuthViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildViewModel
+import com.ihfazh.ksatriamuslim.vm.ChildrenListViewModel
+import com.ihfazh.ksatriamuslim.vm.ViewState
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ChildrenListChildFragment : Fragment() {
     private val viewModel: ChildrenListViewModel by viewModels()
     private val childViewModel: ChildViewModel by sharedViewModel()
-    private lateinit var childRepository: ChildrenRepository
     private lateinit var savedStateHandle: SavedStateHandle
 
-    private lateinit var authRepository: AuthenticationRepository
-    private val authViewModel by activityViewModels<AuthViewModel> {
-        AuthViewModelFactory(
-            authRepository
-        )
-    }
+    private val authViewModel: AuthViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,53 +56,41 @@ class ChildrenListChildFragment : Fragment() {
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val remote = BackendClient.getService(requireContext())
-        val db = AppDatabase.getDB(requireContext())
-        val sessionManager = SessionManager(requireContext())
-        childRepository = ChildrenRepositoryImpl(remote, db, sessionManager)
-        authRepository = BackendAuthenticationRepository(remote, sessionManager)
+        //  make sure pop back stack
+        childViewModel.refreshChildren()
+//        findNavController().popBackStack()
 
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
         }
-        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
-        childViewModel.refreshChildren()
-        childViewModel.child.observe(viewLifecycleOwner) {
-            if (it != null) {
-                savedStateHandle.set(SELECTED_CHILD, it.id)
-                findNavController().popBackStack()
-            }
-        }
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.viewState.collect {
-                    when (it) {
-                        is ViewState.StateSuccess -> moveToHome(it.children)
-                    }
-                }
-            }
-        }
+
+//        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+//        childViewModel.child.observe(viewLifecycleOwner) {
+//            if (it != null) {
+//                savedStateHandle.set(SELECTED_CHILD, it.id)
+//                findNavController().popBackStack()
+//            }
+//        }
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.viewState.collect {
+//                    when (it) {
+//                        is ViewState.StateSuccess -> moveToHome(it.children)
+//                    }
+//                }
+//            }
+//        }
+
 
         childViewModel.clientError.observe(viewLifecycleOwner) {
             if (it) {
-//                sessionManager.setToken(null)
                 Snackbar.make(requireView(), "Token invalid", Snackbar.LENGTH_LONG).show()
                 authViewModel.logout()
-//                findNavController().navigate(R.id.loginFragment)
             }
         }
     }
 
     private fun moveToHome(children: Children) {
-//        childViewModel.child.value = children
-//        findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
-//        Log.d(TAG, "moveToHome: children is ${children.name}")
-//        viewModel.getChild(id!!)
-
-//        lifecycleScope.launch {
-//            childRepository.setSelectedChild(id)
-//            findNavController().navigate(ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment())
-//        }
     }
 
     @Preview
@@ -145,8 +118,12 @@ class ChildrenListChildFragment : Fragment() {
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(children) {
-                        MenuItem(title = it.name, image = R.drawable.ic_baseline_person_24) {
+                        MenuItem(title = it.name, image = it.picture) {
                             childViewModel.setSelectedChild(it.id)
+                            val actionToHome =
+                                ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment()
+                            findNavController().navigate(actionToHome)
+                            // navigate to home
 //                            if (viewState != ViewState.StateLoading) { viewModel.getChild(it.id) }
                         }
                     }

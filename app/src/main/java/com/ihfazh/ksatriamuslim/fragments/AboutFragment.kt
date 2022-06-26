@@ -101,7 +101,7 @@ class AboutFragment : BaseFragment() {
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ){
             items(data){ item ->
-                MenuItem(title = item.title, image = item.image, onClick = item.action)
+                MenuItem(title = item.title, image = null, onClick = item.action)
             }
 
         }

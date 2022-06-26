@@ -19,9 +19,10 @@ interface Migrate5To6 : AutoMigrationSpec
         BookUIEntity::class,
         RewardHistoryEntity::class,
         BookKeysEntity::class,
-        SelectedApplicationEntity::class
+        SelectedApplicationEntity::class,
+        ProfilePictureEntity::class,
     ],
-    version = 9,
+    version = 10,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -31,6 +32,7 @@ interface Migrate5To6 : AutoMigrationSpec
         AutoMigration(from = 6, to = 7),
         AutoMigration(from = 7, to = 8),
         AutoMigration(from = 8, to = 9),
+        AutoMigration(from = 9, to = 10),
     ],
 )
 @TypeConverters(Converters::class)

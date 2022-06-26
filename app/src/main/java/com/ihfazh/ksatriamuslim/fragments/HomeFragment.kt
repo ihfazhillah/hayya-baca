@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
 import com.ihfazh.ksatriamuslim.domain.BookUI
+import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.vm.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
@@ -56,7 +58,6 @@ class HomeFragment : Fragment() {
 
     val authViewModel: AuthViewModel by sharedViewModel()
     val childVM: ChildViewModel by sharedViewModel()
-
 
     lateinit var binding: FragmentHomeBinding
 
@@ -152,20 +153,27 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setAvatar(label: String) {
-        val avatar = AvatarGenerator.AvatarBuilder(requireContext())
-            .setLabel(label)
-            .setAvatarSize(40)
-            .setTextSize(15)
-            .toCircle()
-            .setBackgroundColor(Color.RED)
-            .build()
+    private fun setAvatar(children: Children) {
+        if (children.picture == null) {
+            val avatar = AvatarGenerator.AvatarBuilder(requireContext())
+                .setLabel(children.name.take(1))
+                .setAvatarSize(40)
+                .setTextSize(15)
+                .toCircle()
+                .setBackgroundColor(Color.RED)
+                .build()
 
-        binding.avatar.load(avatar)
+            binding.avatar.load(avatar)
+        } else {
+            binding.avatar.load(children.picture) {
+                crossfade(true)
+                transformations(CircleCropTransformation())
+            }
+        }
         binding.avatar.setOnClickListener {
             lifecycleScope.launch {
-                childVM.setSelectedChild(null)
-//                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
+//                childVM.setSelectedChild(null)
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChildrenListChildFragment())
             }
         }
 
@@ -191,9 +199,9 @@ class HomeFragment : Fragment() {
                 user.token == null -> {
                     R.id.loginFragment
                 }
-                children == null -> {
-                    R.id.childrenListChildFragment
-                }
+//                children == null -> {
+//                    R.id.childrenListChildFragment
+//                }
                 else -> {
                     null
                 }
@@ -206,8 +214,8 @@ class HomeFragment : Fragment() {
             binding.starLayout.children = it
             if (it != null) {
                 homeVM.children.value = it
+                setAvatar(it)
             }
-            setAvatar(it?.name?.take(1) ?: "U")
         }
         initializeStar()
 
@@ -217,7 +225,7 @@ class HomeFragment : Fragment() {
                     .setMessage("Yakin mau keluar ??")
                     .setTitle("Konfirmasi Keluar")
                     .setPositiveButton("Ya") { dialog, id ->
-                        childVM.setChildNull()
+//                        childVM.setChildNull()
                         dialog.dismiss()
                         requireActivity().finish()
                     }

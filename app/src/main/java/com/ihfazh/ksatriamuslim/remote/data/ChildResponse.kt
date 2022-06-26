@@ -2,6 +2,15 @@ package com.ihfazh.ksatriamuslim.remote.data
 
 import com.google.gson.annotations.SerializedName
 
+
+data class ProfilePicture(
+    @field:SerializedName("id")
+    val id: Int,
+
+    @field:SerializedName("photo")
+    val photo: String
+)
+
 data class ChildResponse(
 
     @field:SerializedName("id")
@@ -20,5 +29,8 @@ data class ChildResponse(
     val points: Int,
 
     @field:SerializedName("parent_id")
-    val parentId: String
+    val parentId: String,
+
+    @field:SerializedName("picture")
+    val picture: ProfilePicture? = null
 )
