@@ -11,5 +11,6 @@ data class Children(
     val coin: Long?,
     val star: Long?,
     val enableReadToMe: Boolean = false,
-    val picture: String? = null
+    val picture: String? = null,
+    val pictureId: Int? = null
 )

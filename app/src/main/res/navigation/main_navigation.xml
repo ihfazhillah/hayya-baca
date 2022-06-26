@@ -35,6 +35,16 @@
         app:destination="@id/childrenListChildFragment"
         app:popUpTo="@id/childrenListChildFragment" />
 
+    <action
+        android:id="@+id/goToProfilePicker"
+        app:destination="@id/profilePicturePickerFragment">
+
+        <argument
+            android:name="childId"
+            app:argType="integer" />
+
+    </action>
+
     <fragment
         android:id="@+id/tryMotionFragment"
         android:name="com.ihfazh.ksatriamuslim.fragments.MotionLayoutTryFragment"
@@ -201,5 +211,16 @@
         android:name="com.ihfazh.ksatriamuslim.fragments.ApplicationListChildFragment"
         android:label="Application List"
         tools:layout="@layout/fragment_application_list_child" />
+
+    <fragment
+        android:id="@+id/profilePicturePickerFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.PhotoProfilePickerFragment"
+        android:label="Profile Picker fragment"
+        tools:layout="@layout/fragment_photo_profile_picker">
+        <argument
+            android:name="childId"
+            app:argType="integer" />
+
+    </fragment>
 
 </navigation>

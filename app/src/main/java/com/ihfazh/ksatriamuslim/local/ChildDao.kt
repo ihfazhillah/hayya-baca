@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,7 +14,7 @@ import com.ihfazh.ksatriamuslim.local.data.ProfilePictureEntity
 interface ChildDao {
     @Query(
         """
-        select c.id, c.coin, c.star, c.name, c.enableReadToMe, c.parentId, pp.photo as picture from child c
+        select c.id, c.coin, c.star, c.name, c.enableReadToMe, c.parentId, pp.photo as picture, pp.id as pictureId from child c
         left join profile_picture pp on pp.id = c.pictureId
     """
     )
@@ -25,7 +26,14 @@ interface ChildDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(backgrounds: List<ChildEntity>)
 
-    @Query("select * from child where id = :id")
+    //    @Query("select * from child where id = :id")
+    @Query(
+        """
+        select c.id, c.coin, c.star, c.name, c.enableReadToMe, c.parentId, pp.photo as picture, pp.id as pictureId from child c
+        left join profile_picture pp on pp.id = c.pictureId
+        where c.id = :id
+    """
+    )
     suspend fun getChild(id: String): Children
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,4 +42,6 @@ interface ChildDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProfilePictures(profilePicture: List<ProfilePictureEntity>)
 
+    @Query("select * from profile_picture")
+    fun getPaginatedProfilePictures(): PagingSource<Int, ProfilePictureEntity>
 }

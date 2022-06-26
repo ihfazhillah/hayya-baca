@@ -7,5 +7,6 @@ data class ChildWithPicture(
     val coin: Long,
     val enableReadToMe: Boolean = false,
     val parentId: String? = null,
-    val picture: String? = null
+    val picture: String? = null,
+    val pictureId: Int? = null
 )

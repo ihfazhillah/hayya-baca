@@ -1,10 +1,12 @@
 package com.ihfazh.ksatriamuslim.repositories
 
 import android.util.Log
+import androidx.paging.*
 import arrow.core.Either
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.domain.ClientError
+import com.ihfazh.ksatriamuslim.domain.Picture
 import com.ihfazh.ksatriamuslim.domain.RewardHistory
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.ChildEntity
@@ -12,10 +14,13 @@ import com.ihfazh.ksatriamuslim.local.data.ChildWithPicture
 import com.ihfazh.ksatriamuslim.local.data.ProfilePictureEntity
 import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
+import com.ihfazh.ksatriamuslim.remote.ProfilePictureRemoteMediator
 import com.ihfazh.ksatriamuslim.remote.data.ChildBody
 import com.ihfazh.ksatriamuslim.remote.data.ChildResponse
 import com.ihfazh.ksatriamuslim.remote.data.DJError
 import com.ihfazh.ksatriamuslim.remote.data.RewardHistoryBody
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
 
 @Factory
@@ -113,6 +118,26 @@ class ChildrenRepositoryImpl(
         }
     }
 
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getPaginatedPhotos(): Flow<PagingData<Picture>> {
+        val config = PagingConfig(pageSize = 15)
+        val pagingMediator = ProfilePictureRemoteMediator(
+            db = db,
+            remote = remote
+        )
+        return Pager(
+            config = config,
+            remoteMediator = pagingMediator,
+            pagingSourceFactory = {
+                db.childDao().getPaginatedProfilePictures()
+            }
+        ).flow.map { pagingData ->
+            pagingData.map { ppEntity ->
+                Picture(ppEntity.id, ppEntity.photo)
+            }
+        }
+    }
+
 
 }
 
@@ -158,6 +183,6 @@ private fun ChildResponse.toDbEntity(): ChildEntity {
 }
 
 private fun ChildWithPicture.toDomain(): Children {
-    return Children(id, name, coin, star, enableReadToMe, picture)
+    return Children(id, name, coin, star, enableReadToMe, picture, pictureId)
 }
 

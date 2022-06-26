@@ -21,8 +21,9 @@ interface Migrate5To6 : AutoMigrationSpec
         BookKeysEntity::class,
         SelectedApplicationEntity::class,
         ProfilePictureEntity::class,
+        ProfilePictureKeyEntity::class,
     ],
-    version = 10,
+    version = 11,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -33,6 +34,7 @@ interface Migrate5To6 : AutoMigrationSpec
         AutoMigration(from = 7, to = 8),
         AutoMigration(from = 8, to = 9),
         AutoMigration(from = 9, to = 10),
+        AutoMigration(from = 10, to = 11),
     ],
 )
 @TypeConverters(Converters::class)
@@ -41,6 +43,7 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun bookDao(): BookDao
     abstract fun bookKeysDao(): BookKeysDao
     abstract fun childDao(): ChildDao
+    abstract fun profilePictureKeysDao(): ProfilePictureKeyDao
     abstract fun rewardHistoryDao(): RewardHistoryDao
     abstract fun applicationDao(): ApplicationDao
 

@@ -18,6 +18,13 @@ interface KsatriaMuslimBackendService {
     @PUT("child/{id}/")
     suspend fun updateChild(@Path("id") id: String, @Body child: ChildBody): Response<ChildResponse>
 
+    // ProfilePictures
+    @GET("photo-profile/")
+    suspend fun getPhotoProfiles(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = 10
+    ): Response<ProfilePictureListResponse>
+
     // Rewards
     @POST("reward-history/")
     suspend fun createRewardHistory(@Body body: RewardHistoryBody): Response<RewardHistoryResponse>

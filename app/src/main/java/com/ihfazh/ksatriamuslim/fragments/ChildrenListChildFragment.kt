@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,6 +30,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.ui.MenuItem
@@ -118,13 +121,25 @@ class ChildrenListChildFragment : Fragment() {
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(children) {
-                        MenuItem(title = it.name, image = it.picture) {
-                            childViewModel.setSelectedChild(it.id)
-                            val actionToHome =
-                                ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment()
-                            findNavController().navigate(actionToHome)
-                            // navigate to home
+                        Column {
+                            MenuItem(title = it.name, image = it.picture) {
+                                childViewModel.setSelectedChild(it.id)
+                                val actionToHome =
+                                    ChildrenListChildFragmentDirections.actionChildrenListChildFragmentToHomeFragment()
+                                findNavController().navigate(actionToHome)
+                                // navigate to home
 //                            if (viewState != ViewState.StateLoading) { viewModel.getChild(it.id) }
+                            }
+
+                            if (it.id == childViewModel.child.value?.id) {
+                                Button(onClick = {
+                                    val action =
+                                        MainNavigationDirections.goToProfilePicker(it.id.toInt())
+                                    findNavController().navigate(action)
+                                }) {
+                                    Text(text = "Ubah")
+                                }
+                            }
                         }
                     }
                 }

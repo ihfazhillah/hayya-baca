@@ -1,9 +1,12 @@
 package com.ihfazh.ksatriamuslim.repositories
 
+import androidx.paging.PagingData
 import arrow.core.Either
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.domain.ClientError
+import com.ihfazh.ksatriamuslim.domain.Picture
 import com.ihfazh.ksatriamuslim.domain.RewardHistory
+import kotlinx.coroutines.flow.Flow
 
 interface ChildrenRepository {
     //    suspend fun addChild(name: String, attrs: Map<String, Any> = mapOf()): Boolean
@@ -22,4 +25,7 @@ interface ChildrenRepository {
     suspend fun setSelectedChild(string: String?)
     suspend fun getSelectedChild(): Either<ClientError, String?>
     suspend fun createRewardHistory(rewardHistory: RewardHistory)
+
+    // todo: we need separate the photo if we have more functionality on it
+    suspend fun getPaginatedPhotos(): Flow<PagingData<Picture>>
 }
