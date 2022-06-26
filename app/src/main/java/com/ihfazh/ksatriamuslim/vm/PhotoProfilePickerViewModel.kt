@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.ihfazh.ksatriamuslim.domain.PhotoProfilePickerScreen
 import com.ihfazh.ksatriamuslim.domain.Picture
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
@@ -20,7 +21,7 @@ class PhotoProfilePickerViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getPaginatedPhotos().collect {
+            repo.getPaginatedPhotos().cachedIn(viewModelScope).collect {
                 _currentState.postValue(
                     currentState.value!!.copy(photos = it)
                 )
@@ -52,6 +53,20 @@ class PhotoProfilePickerViewModel(
     }
 
     fun updatePic(picture: Picture) {
-        // do update photo profile
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.setPicture(picture).fold(
+                ifRight = {
+                    _currentState.postValue(
+                        currentState.value!!.copy(
+                            child = it,
+                            selectedPhoto = picture
+                        )
+                    )
+                },
+                ifLeft = {
+
+                }
+            )
+        }
     }
 }

@@ -15,10 +15,7 @@ import com.ihfazh.ksatriamuslim.local.data.ProfilePictureEntity
 import com.ihfazh.ksatriamuslim.local.data.RewardHistoryEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.ProfilePictureRemoteMediator
-import com.ihfazh.ksatriamuslim.remote.data.ChildBody
-import com.ihfazh.ksatriamuslim.remote.data.ChildResponse
-import com.ihfazh.ksatriamuslim.remote.data.DJError
-import com.ihfazh.ksatriamuslim.remote.data.RewardHistoryBody
+import com.ihfazh.ksatriamuslim.remote.data.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -138,11 +135,37 @@ class ChildrenRepositoryImpl(
         }
     }
 
+    override suspend fun setPicture(picture: Picture): Either<ClientError, Children> {
+        return sessionManager.getSelectedChild()?.let { selectedChild ->
+            val response = remote.setPicture(selectedChild, SetPictureBody(picture.id)).toEither()
+            return response.fold(
+                ifLeft = {
+                    val error = (it as DJError.HttpError)
+                    Either.Left(ClientError.NetworkError(error.code, error.body))
+                },
+                ifRight = {
+                    // update db
+                    db.childDao().insert(it.toDbEntity())
+                    // return result
+                    Either.Right(it.toDomain())
+                }
+            )
+        } ?: Either.Left(ClientError.UnknownError)
+    }
+
 
 }
 
 private fun ChildResponse.toDomain(): Children {
-    return Children(id, name, points.toLong(), stars.toLong(), enableReadToMe, picture?.photo)
+    return Children(
+        id,
+        name,
+        points.toLong(),
+        stars.toLong(),
+        enableReadToMe,
+        picture?.photo,
+        picture?.id
+    )
 
 }
 

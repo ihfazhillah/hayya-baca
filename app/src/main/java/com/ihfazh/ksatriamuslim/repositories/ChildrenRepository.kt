@@ -28,4 +28,5 @@ interface ChildrenRepository {
 
     // todo: we need separate the photo if we have more functionality on it
     suspend fun getPaginatedPhotos(): Flow<PagingData<Picture>>
+    suspend fun setPicture(picture: Picture): Either<ClientError, Children>
 }
