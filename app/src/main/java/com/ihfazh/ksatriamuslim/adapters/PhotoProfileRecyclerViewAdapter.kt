@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.ihfazh.ksatriamuslim.databinding.ItemPhotoProfileBinding
 import com.ihfazh.ksatriamuslim.domain.Picture
 
@@ -22,7 +23,10 @@ class PhotoProfileViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(picture: Picture) {
-        binding.img.load(picture.photo)
+        binding.img.load(picture.photo) {
+            transformations(CircleCropTransformation())
+                .crossfade(true)
+        }
 
         binding.root.setOnClickListener {
             listener.onClick(picture)

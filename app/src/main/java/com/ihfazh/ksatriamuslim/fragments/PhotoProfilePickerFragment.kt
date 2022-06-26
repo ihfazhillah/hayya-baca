@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.PhotoListener
 import com.ihfazh.ksatriamuslim.adapters.PhotoProfileRecyclerViewAdapter
@@ -46,9 +47,9 @@ class MarginPhotoDecoration : RecyclerView.ItemDecoration() {
             if (parent.getChildAdapterPosition(view) == 0) {
                 left = 16
             }
-            top = 8
-            bottom = 8
-            right = 8
+            top = 16
+            bottom = 16
+            right = 16
         }
     }
 }
@@ -102,9 +103,13 @@ class PhotoProfilePickerFragment : Fragment() {
         binding?.let { b ->
             photoPickerVM.currentState.observe(viewLifecycleOwner) {
                 if (it.selectedPhoto != null) {
-                    b.profile.load(it.selectedPhoto.photo)
+                    b.profile.load(it.selectedPhoto.photo) {
+                        transformations(CircleCropTransformation())
+                    }
                 } else {
-                    b.profile.load(R.drawable.ic_baseline_person_24)
+                    b.profile.load(R.drawable.ic_baseline_person_24) {
+                        transformations(CircleCropTransformation())
+                    }
                 }
 
                 if (it.photos != null) {

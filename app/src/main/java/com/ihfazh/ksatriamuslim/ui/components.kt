@@ -42,7 +42,7 @@ fun MenuItem(title: String, image: String?, onClick: () -> Unit) {
                     .size(100.dp)
                     .clip(CircleShape)
                     .border(2.dp, Color.White, CircleShape)
-                    .padding(5.dp)
+                    .padding(0.dp),
             )
             Text(
                 text = title,

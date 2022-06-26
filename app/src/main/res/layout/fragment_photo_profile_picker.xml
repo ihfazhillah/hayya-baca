@@ -8,8 +8,8 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/circle_button_background"
@@ -24,8 +24,8 @@
 
     <ImageButton
         android:id="@+id/settings"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/circle_button_background"
@@ -44,7 +44,7 @@
         android:fontFamily="@font/playtime"
         android:text="Pilih gambar favoritmu !"
         android:textColor="@color/black"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toStartOf="@id/settings"
@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/profile"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toTopOf="@id/photos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/photos"
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="66dp"
         android:background="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
