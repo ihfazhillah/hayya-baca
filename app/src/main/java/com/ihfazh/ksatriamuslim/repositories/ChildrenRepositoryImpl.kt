@@ -55,7 +55,6 @@ class ChildrenRepositoryImpl(
                         }
                     }
                     Either.Right(db.childDao().getAll().map {
-                        Log.d("REPO", "getChildren: $it")
                         it.toDomain()
                     })
                 }

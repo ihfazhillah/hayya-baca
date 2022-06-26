@@ -34,7 +34,7 @@ class ChildViewModel(
     // handle error, should log out
     val clientError = MutableLiveData<Boolean>(false)
 
-    init {
+    fun getSelectedChild() {
         viewModelScope.launch {
             repo.getSelectedChild().fold(
                 ifLeft = {
@@ -45,9 +45,8 @@ class ChildViewModel(
                 }
             )
         }
-//        ()
-//        refreshChildren()
     }
+
 
 //    private fun getSelectedChild(){
 //        viewModelScope.launch(Dispatchers.IO) {

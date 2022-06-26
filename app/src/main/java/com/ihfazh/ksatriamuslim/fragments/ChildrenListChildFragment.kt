@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asFlow
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.MainNavigationDirections
@@ -60,29 +61,21 @@ class ChildrenListChildFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //  make sure pop back stack
-        childViewModel.refreshChildren()
+//        childViewModel.refreshChildren()
 //        findNavController().popBackStack()
 
         view.findViewById<ComposeView>(R.id.composeView).setContent {
             Page()
         }
 
-//        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
-//        childViewModel.child.observe(viewLifecycleOwner) {
-//            if (it != null) {
-//                savedStateHandle.set(SELECTED_CHILD, it.id)
-//                findNavController().popBackStack()
-//            }
-//        }
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.viewState.collect {
-//                    when (it) {
-//                        is ViewState.StateSuccess -> moveToHome(it.children)
-//                    }
-//                }
-//            }
-//        }
+        authViewModel.user.observe(viewLifecycleOwner) {
+            if (it.token == null) {
+                findNavController().navigate(R.id.loginFragment)
+            } else {
+                childViewModel.refreshChildren()
+                childViewModel.getSelectedChild()
+            }
+        }
 
 
         childViewModel.clientError.observe(viewLifecycleOwner) {
@@ -101,6 +94,7 @@ class ChildrenListChildFragment : Fragment() {
     fun Page() {
         val children = childViewModel.children.collectAsState().value
         val viewState = viewModel.viewState.collectAsState().value
+        val child = childViewModel.child.asFlow().collectAsState(initial = null).value
 
         LazyColumn(
             modifier = Modifier
@@ -131,7 +125,7 @@ class ChildrenListChildFragment : Fragment() {
 //                            if (viewState != ViewState.StateLoading) { viewModel.getChild(it.id) }
                             }
 
-                            if (it.id == childViewModel.child.value?.id) {
+                            if (it.id == child?.id) {
                                 Button(onClick = {
                                     val action =
                                         MainNavigationDirections.goToProfilePicker(it.id.toInt())

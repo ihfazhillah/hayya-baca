@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -26,7 +24,6 @@ import com.ihfazh.ksatriamuslim.domain.BookUI
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.vm.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -56,7 +53,6 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
     private val homeVM: HomeViewModel by sharedViewModel()
 
-    val authViewModel: AuthViewModel by sharedViewModel()
     val childVM: ChildViewModel by sharedViewModel()
 
     lateinit var binding: FragmentHomeBinding
@@ -133,9 +129,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-//        viewModel.books.observe(viewLifecycleOwner) {
-//            rvAdapter.setBooks(it)
-//        }
         viewLifecycleOwner.lifecycleScope.launch {
             homeVM.books.collectLatest {
                 rvAdapter.submitData(it)
@@ -191,24 +184,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        authViewModel.user.asFlow().combine(
-            childVM.child.asFlow()
-        ) { user, children ->
-            when {
-                user.token == null -> {
-                    R.id.loginFragment
-                }
-//                children == null -> {
-//                    R.id.childrenListChildFragment
-//                }
-                else -> {
-                    null
-                }
-            }
-        }.asLiveData().observe(viewLifecycleOwner) {
-            it?.let { id -> findNavController().navigate(id) }
-        }
 
         childVM.child.observe(viewLifecycleOwner) {
             binding.starLayout.children = it
