@@ -6,6 +6,7 @@ import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.domain.ClientError
 import com.ihfazh.ksatriamuslim.domain.RewardHistory
 import com.ihfazh.ksatriamuslim.domain.RewardType
+import com.ihfazh.ksatriamuslim.repositories.BookRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,10 +14,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import kotlin.math.ceil
 
 @KoinViewModel
 class ChildViewModel(
-    val repo: ChildrenRepository
+    val repo: ChildrenRepository,
+    private val bookRepo: BookRepository
 ) : ViewModel() {
 
     private val selectedChildId = MutableLiveData<String?>(null)
@@ -104,8 +107,19 @@ class ChildViewModel(
 
     fun increaseMyCoin(bookId: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
+            // get jumlah halaman book
+            val pageCount = bookRepo.getPageCount(bookId!!)
+            // lakukan floor div
+            val pointCount = pageCount.toDouble() / 30
+            // update count
             repo.createRewardHistory(
-                RewardHistory(null, "Finished book $bookId", RewardType.Point, 1, child.value!!.id)
+                RewardHistory(
+                    null,
+                    "Finished book $bookId",
+                    RewardType.Point,
+                    ceil(pointCount).toInt(),
+                    child.value!!.id
+                )
             )
             refreshChildren()
 //            getSelectedChild()

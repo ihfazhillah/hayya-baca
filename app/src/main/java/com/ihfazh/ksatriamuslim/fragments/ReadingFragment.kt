@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -28,6 +27,7 @@ import com.microsoft.cognitiveservices.speech.audio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,7 +47,7 @@ class ReadingFragment : BaseFragment() {
     private val args: ReadingFragmentArgs by navArgs()
 
     private val viewModel: ReadingViewModel by viewModels()
-    private val childViewModel: ChildViewModel by activityViewModels()
+    private val childViewModel: ChildViewModel by sharedViewModel()
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding

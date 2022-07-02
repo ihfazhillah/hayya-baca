@@ -27,7 +27,7 @@ import com.ihfazh.ksatriamuslim.ui.ChildItemParent
 import com.ihfazh.ksatriamuslim.vm.ChildFormViewModel
 import com.ihfazh.ksatriamuslim.vm.ChildFormViewModelFactory
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
-import com.ihfazh.ksatriamuslim.vm.ChildViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,9 +46,7 @@ class ChildrenListParentFragment : Fragment() {
 
     //    private val viewModel: ChildrenListViewModel by viewModels()
     private lateinit var childRepository: ChildrenRepository
-    private val childViewModel: ChildViewModel by activityViewModels {
-        ChildViewModelFactory(childRepository)
-    }
+    private val childViewModel: ChildViewModel by sharedViewModel()
     private val childFormViewModel: ChildFormViewModel by activityViewModels {
         ChildFormViewModelFactory(childRepository)
     }

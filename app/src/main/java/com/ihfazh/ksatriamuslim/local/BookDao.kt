@@ -55,6 +55,9 @@ order by b.id desc
     @Query("delete from book_page where book_id = :bookId")
     abstract suspend fun deleteAllPages(bookId: Int)
 
+    @Query("select count(*) from book_page where book_id =:bookId")
+    abstract suspend fun getPageCount(bookId: Int): Int
+
     // BOOK UIS
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertBookUI(bookUI: BookUIEntity): Long

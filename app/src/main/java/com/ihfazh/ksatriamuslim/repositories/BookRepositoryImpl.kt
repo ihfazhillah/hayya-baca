@@ -116,6 +116,10 @@ class BookRepositoryImpl(
         return local.bookDao().getPage(id, page)?.toDomain()
     }
 
+    override suspend fun getPageCount(bookId: Int): Int {
+        return local.bookDao().getPageCount(bookId)
+    }
+
     override suspend fun hasNext(id: Int, page: Int): Boolean {
         val nextPage = getPage(id, page + 1)
         return nextPage !== null

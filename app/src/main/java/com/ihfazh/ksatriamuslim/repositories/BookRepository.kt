@@ -12,6 +12,7 @@ interface BookRepository {
     suspend fun refreshBooksUI(): List<BookUI>
     suspend fun getBook(bookId: Int): Book? // local
     suspend fun getPage(bookId: Int, page: Int): BookPage?
+    suspend fun getPageCount(bookId: Int): Int
     suspend fun hasNext(bookId: Int, page: Int): Boolean
     suspend fun hasPrev(bookId: Int, page: Int): Boolean
     suspend fun openGift(bookId: Int)
