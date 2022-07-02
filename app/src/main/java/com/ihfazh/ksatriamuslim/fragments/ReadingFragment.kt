@@ -140,12 +140,12 @@ class ReadingFragment : BaseFragment() {
 
 
     private fun initializeStarAndCoin() {
-        childViewModel.child.observe(viewLifecycleOwner) {
-            it?.let { myChild ->
-                binding.coinLayout.children = myChild
-                binding.starLayout.children = myChild
-            }
-        }
+//        childViewModel.child.observe(viewLifecycleOwner) {
+//            it?.let { myChild ->
+//                binding.coinLayout.children = myChild
+//                binding.starLayout.children = myChild
+//            }
+//        }
 //        binding.coinLayout.children = childViewModel.child.value
 //        binding.coinLayout.coin = koinViewModel
 //        binding.starLayout.star = starViewModel
@@ -212,13 +212,13 @@ class ReadingFragment : BaseFragment() {
     }
 
     private fun hideShowToggleMic() {
-        if (!Constants.isTvVersion(requireContext()) && childViewModel.child.value!!.enableReadToMe) {
-            binding.toggleMicBtn.visibility = View.GONE
-        } else if (!Constants.isTvVersion(requireContext())) {
-            initiateSpeechRecognizerAndListener()
-        } else {
-            binding.toggleMicBtn.visibility = View.GONE
-        }
+//        if (!Constants.isTvVersion(requireContext()) && childViewModel.child.value!!.enableReadToMe) {
+//            binding.toggleMicBtn.visibility = View.GONE
+//        } else if (!Constants.isTvVersion(requireContext())) {
+//            initiateSpeechRecognizerAndListener()
+//        } else {
+//            binding.toggleMicBtn.visibility = View.GONE
+//        }
     }
 
     private fun animatePercentChange(percent: Float) {

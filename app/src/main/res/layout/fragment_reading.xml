@@ -64,89 +64,72 @@
             android:textAlignment="center"
             android:textColor="@{vm.textColor}"
             android:textColorHighlight="@color/white"
-            android:textSize="35sp"
+            android:textSize="@dimen/main_text_size"
+            app:layout_constraintTop_toBottomOf="@id/page_number_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="5dp"
-            android:visibility="@{!vm.canMove ? View.VISIBLE: View.INVISIBLE}"
-            app:layout_constraintBottom_toTopOf="@id/next_icon"
-            app:layout_constraintEnd_toEndOf="@id/next_icon"
-            app:layout_constraintStart_toStartOf="@id/next_icon"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/listen_state" />
+            tools:text="Abu Dujanah. Siapakah abu dujanah itu? Apakah kamu penasaran?" />
 
         <ImageButton
             android:id="@+id/next_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/circle_button_background"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:layout_margin="@dimen/reading_margin"
+            android:background="@drawable/ic_caret_right"
             android:contentDescription="@string/next_page"
             android:onClick="@{() -> vm.nextPage()}"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_navigate_next_24"
             android:clickable="@{vm.canMove}"
             android:enabled="@{vm.canMove}"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
             android:id="@+id/prev_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/circle_button_background"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:layout_margin="@dimen/reading_margin"
+            android:background="@drawable/ic_caret_left"
             android:clickable="@{vm.canBack}"
             android:contentDescription="@string/prev_page"
             android:enabled="@{vm.canBack}"
             android:onClick="@{() -> vm.prevPage()}"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/toggle_mic_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@{!vm.micState ? @drawable/circle_button_background: @drawable/ic_danger_btn_background}"
-            android:contentDescription="@string/prev_page"
-            android:onClick="@{() -> vm.toggleMicState()}"
-            android:scaleType="centerInside"
-            android:src="@{vm.micState ? @drawable/ic_baseline_mic_off_24 : @drawable/ic_baseline_mic_24 }"
-            app:layout_constraintBottom_toTopOf="@id/prev_icon"
-            app:layout_constraintEnd_toEndOf="@id/prev_icon"
-            app:layout_constraintStart_toStartOf="@id/prev_icon" />
+        <ImageView
+            android:id="@+id/page_number_icon"
+            android:layout_width="@dimen/page_icon_wh"
+            android:layout_height="@dimen/page_icon_wh"
+            android:layout_margin="@dimen/reading_margin"
+            android:src="@drawable/ic_read_book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/page_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
             android:fontFamily="@font/playtime"
             android:text='@{String.valueOf(vm.page)}'
             android:textColor="@{vm.textColor}"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/page_num_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/page_number_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:text="100"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_home"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_width="@dimen/reading_icon_wh"
+            android:layout_height="@dimen/reading_icon_wh"
+            android:layout_margin="@dimen/reading_margin"
             android:background="@drawable/circle_button_background"
             android:contentDescription="@string/back_to_home"
             android:onClick="@{() -> nav.goHome()}"
@@ -167,27 +150,6 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/book_loader" />
-
-
-        <include
-            android:id="@+id/starLayout"
-            layout="@layout/star_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/coinLayout"
-            app:layout_constraintEnd_toStartOf="@id/coinLayout"
-            app:layout_constraintTop_toTopOf="@id/coinLayout" />
-
-        <include
-            layout="@layout/coin_layout"
-            android:id="@+id/coinLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
