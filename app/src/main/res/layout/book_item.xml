@@ -13,27 +13,29 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="#00C19EFF"
         app:cardElevation="0dp"
+        android:layout_margin="8dp"
         app:cardPreventCornerOverlap="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_book_item"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/image_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="fitCenter"
+                android:layout_width="@dimen/book_item_width"
+                android:layout_height="@dimen/book_item_height"
                 android:src="@color/cardview_dark_background"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:visibility="@{ !gift_open ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +43,8 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/gift_image"
-                android:layout_width="80dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/book_item_width"
+                android:layout_height="@dimen/book_item_height"
                 android:scaleType="fitCenter"
                 android:src="@color/cardview_dark_background"
                 android:visibility="@{ gift_open ? View.INVISIBLE : View.VISIBLE}"
@@ -57,16 +59,18 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/book_item_title"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_thumbnail"
+                app:layout_constraintHorizontal_bias="0"
                 tools:text="Title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

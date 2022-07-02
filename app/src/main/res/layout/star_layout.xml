@@ -23,13 +23,14 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-20dp"
+            android:layout_marginStart="@dimen/badge_margin_start"
+            android:paddingStart="@dimen/badge_padding_start"
             android:background="@drawable/coin_text_background"
             android:clickable="true"
             android:fontFamily="@font/playtime"
             android:text='@{children.star + ""}'
             android:textColor="#b55e28"
-            android:textSize="16sp"
+            android:textSize="@dimen/badge_font_size"
             app:layout_constraintBottom_toBottomOf="@id/starIcon"
             app:layout_constraintStart_toEndOf="@+id/starIcon"
             app:layout_constraintTop_toTopOf="@id/starIcon"
@@ -37,8 +38,8 @@
 
         <ImageView
             android:id="@+id/starIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/badge_icon_size"
+            android:layout_height="@dimen/badge_icon_size"
             android:src="@drawable/ic_star_1957919"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

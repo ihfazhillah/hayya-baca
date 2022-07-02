@@ -2,7 +2,6 @@ package com.ihfazh.ksatriamuslim.fragments
 
 import android.app.AlertDialog
 import android.graphics.Color
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.avatarfirst.avatargenlib.AvatarGenerator
@@ -92,42 +90,42 @@ class HomeFragment : Fragment() {
         val spanCount = 3
         binding.bookRv.adapter = rvAdapter
         binding.bookRv.layoutManager = GridLayoutManager(context, spanCount)
-        binding.bookRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            // https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-//                super.getItemOffsets(outRect, view, parent, state)
-                val position = parent.getChildAdapterPosition(view)
-                val column = position % spanCount
-
-                val spacing = 5 // in px
-                val includeEdge = true
-
-                if (includeEdge) {
-                    outRect.left =
-                        spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
-                    outRect.right =
-                        (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
-
-                    if (position < spanCount) { // top edge
-                        outRect.top = spacing
-                    }
-                    outRect.bottom = spacing // item bottom
-                } else {
-                    outRect.left =
-                        column * spacing / spanCount // column * ((1f / spanCount) * spacing)
-                    outRect.right =
-                        spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-                    if (position >= spanCount) {
-                        outRect.top = spacing // item top
-                    }
-                }
-            }
-        })
+//        binding.bookRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
+//            // https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
+//            override fun getItemOffsets(
+//                outRect: Rect,
+//                view: View,
+//                parent: RecyclerView,
+//                state: RecyclerView.State
+//            ) {
+////                super.getItemOffsets(outRect, view, parent, state)
+//                val position = parent.getChildAdapterPosition(view)
+//                val column = position % spanCount
+//
+//                val spacing = 5 // in px
+//                val includeEdge = true
+//
+//                if (includeEdge) {
+//                    outRect.left =
+//                        spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
+//                    outRect.right =
+//                        (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+//
+//                    if (position < spanCount) { // top edge
+//                        outRect.top = spacing
+//                    }
+//                    outRect.bottom = spacing // item bottom
+//                } else {
+//                    outRect.left =
+//                        column * spacing / spanCount // column * ((1f / spanCount) * spacing)
+//                    outRect.right =
+//                        spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+//                    if (position >= spanCount) {
+//                        outRect.top = spacing // item top
+//                    }
+//                }
+//            }
+//        })
 
         viewLifecycleOwner.lifecycleScope.launch {
             homeVM.books.collectLatest {

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_small">10</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="avatar_wh">50dp</dimen>
+    <dimen name="badge_font_size">16sp</dimen>
+    <dimen name="badge_icon_size">40dp</dimen>
+    <dimen name="badge_margin_start">-14dp</dimen>
+    <dimen name="badge_padding_start">12dp</dimen>
+
+    <dimen name="book_item_width">216dp</dimen>
+    <dimen name="book_item_height">120dp</dimen>
+    <dimen name="book_item_title">12sp</dimen>
 </resources>
