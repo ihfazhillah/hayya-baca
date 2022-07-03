@@ -9,6 +9,8 @@
     <dimen name="book_item_width">216dp</dimen>
     <dimen name="book_item_height">120dp</dimen>
     <dimen name="book_item_title">12sp</dimen>
+    <dimen name="book_item_margin">4dp</dimen>
+    <dimen name="book_list_width">672dp</dimen>
 
     <dimen name="reading_icon_wh">40dp</dimen>
     <dimen name="page_num_size">15sp</dimen>

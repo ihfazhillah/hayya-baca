@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.local.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -27,4 +28,6 @@ data class BookUIEntity(
     val bookId: Int,
     val childId: Int,
     val gift_opened: Boolean,
+    @ColumnInfo(defaultValue = "0")
+    val locked: Boolean = false
 )

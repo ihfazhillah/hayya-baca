@@ -79,6 +79,11 @@ class HomeFragment : Fragment() {
 
 
         val rvAdapter = BookRecyclerViewAdapter(BookUIComparator) { view, book ->
+            if (book.locked) {
+                alertCannotOpenBook()
+                return@BookRecyclerViewAdapter
+            }
+
             if (!book.gift_opened) {
                 homeVM.openGift(book.id)
             } else {
@@ -212,6 +217,13 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner,
             onBackPressedCallback
         )
+    }
+
+    private fun alertCannotOpenBook() {
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle("Terkunci")
+            .setMessage("Buku terkunci sementara")
+        builder.show()
     }
 
     companion object {

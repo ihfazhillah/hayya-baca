@@ -6,7 +6,8 @@ data class BookUI(
 //    val title: String,
 //    val thumbnailSrc: String,
 //    val locallyCreated: Date? = null,
-    val gift_opened: Boolean = true
+    val gift_opened: Boolean = true,
+    val locked: Boolean = false
 ) {
     val id = book.id
     val title = book.title

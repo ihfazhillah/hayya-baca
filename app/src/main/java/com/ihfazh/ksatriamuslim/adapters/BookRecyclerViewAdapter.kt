@@ -7,6 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.databinding.BookItemBinding
 import com.ihfazh.ksatriamuslim.domain.BookUI
 
@@ -30,6 +31,12 @@ class BookViewHolder(private val binding: BookItemBinding, private val listener:
         }
 
         binding.imageThumbnail.load(book.book.thumbnailSrc)
+        if (book.locked) {
+            binding.forbidden.visibility = View.VISIBLE
+            binding.forbidden.load(R.drawable.ic_prohibited_image)
+        } else {
+            binding.forbidden.visibility = View.INVISIBLE
+        }
     }
 }
 

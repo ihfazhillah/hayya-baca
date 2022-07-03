@@ -5,5 +5,6 @@ data class BookWithBookUI(
     val title: String,
     val thumbnailSrc: String,
     val locallyCreated: Int,
-    val gift_opened: Boolean
+    val gift_opened: Boolean,
+    val locked: Boolean
 )

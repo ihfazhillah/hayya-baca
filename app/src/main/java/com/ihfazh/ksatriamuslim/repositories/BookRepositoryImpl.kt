@@ -75,7 +75,7 @@ class BookRepositoryImpl(
             pagingData.map {
                 BookUI(
                     Book(it.id, it.title, it.thumbnailSrc, it.locallyCreated),
-                    it.gift_opened
+                    it.gift_opened, it.locked
                 )
             }
 
@@ -174,7 +174,8 @@ private fun BookEntity.toBookSummaries(ui: BookUIEntity?): BookUI {
     )
     return BookUI(
         book = book,
-        gift_opened = ui?.gift_opened ?: false
+        gift_opened = ui?.gift_opened ?: false,
+        locked = ui?.locked ?: false
     )
 }
 

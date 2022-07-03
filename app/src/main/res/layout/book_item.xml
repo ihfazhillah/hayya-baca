@@ -12,21 +12,13 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#00C19EFF"
-        app:cardElevation="0dp"
-        android:layout_margin="8dp"
-        app:cardPreventCornerOverlap="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_book_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:layout_margin="@dimen/book_item_margin"
             android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
@@ -37,6 +29,18 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:visibility="@{ !gift_open ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/forbidden"
+                android:layout_width="@dimen/book_item_width"
+                android:layout_height="@dimen/book_item_height"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@color/cardview_dark_background"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +78,5 @@
                 tools:text="Title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
 </layout>

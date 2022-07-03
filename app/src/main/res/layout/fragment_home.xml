@@ -40,14 +40,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/book_rv"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/book_list_width"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp"
-            tools:itemCount="2"
+            app:layout_constraintHorizontal_bias="0"
             tools:layoutManager="GridLayoutManager"
             tools:listitem="@layout/book_item"
             android:layout_marginStart="16dp"
@@ -58,6 +58,7 @@
             android:paddingStart="10dp"
             android:paddingTop="15dp"
             android:paddingEnd="10dp"
+            tools:itemCount="3"
             tools:spanCount="3" />
 
         <include

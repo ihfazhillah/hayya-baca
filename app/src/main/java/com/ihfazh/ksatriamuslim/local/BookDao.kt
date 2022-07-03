@@ -29,7 +29,7 @@ select b.title, b.id, b.thumbnailSrc, b.locallyCreated, child.id childId from bo
 cross join child
 )
 
-select b.title, b.id, b.thumbnailSrc, b.locallyCreated, ui.gift_opened from book_child b
+select b.title, b.id, b.thumbnailSrc, b.locallyCreated, ui.gift_opened, ui.locked from book_child b
 left join book_ui ui on ui.bookId = b.id and ui.childId = b.childId
 where b.childId = :childId
 order by b.id desc
