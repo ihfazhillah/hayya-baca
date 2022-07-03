@@ -80,6 +80,7 @@ class BookRemoteMediator(
             val books = apiResponse.body()?.results?.convertToBook()
             val endOfPaginationReached = apiResponse.body()?.next == null
 
+            Log.d(TAG, "loadAndSaveApiData: page $page")
             Log.d(TAG, "loadAndSaveApiData: $books")
 
             db.withTransaction {
@@ -104,10 +105,12 @@ class BookRemoteMediator(
                     val booksId = books.map { it.id }
                     val uiResponse = remote.getBooksState(booksId, childId)
                     if (uiResponse.isSuccessful) {
-                        val uis = uiResponse.body()!!.map {
-                            BookUIEntity(it.book, it.child, it.isGiftOpened)
+                        uiResponse.body()!!.map {
+                            BookUIEntity(it.book, it.child, it.isGiftOpened, it.locked)
+                        }.also {
+                            db.bookDao().insertAllBookUI(it)
                         }
-                        db.bookDao().insertAllBookUI(uis)
+
                     }
                 }
             }

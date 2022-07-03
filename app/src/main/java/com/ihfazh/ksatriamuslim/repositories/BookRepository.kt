@@ -16,4 +16,5 @@ interface BookRepository {
     suspend fun hasNext(bookId: Int, page: Int): Boolean
     suspend fun hasPrev(bookId: Int, page: Int): Boolean
     suspend fun openGift(bookId: Int)
+    suspend fun logBook(bookId: Int)
 }

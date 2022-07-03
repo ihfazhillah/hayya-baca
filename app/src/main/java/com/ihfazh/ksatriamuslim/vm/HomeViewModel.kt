@@ -10,6 +10,7 @@ import androidx.paging.PagingData
 import com.ihfazh.ksatriamuslim.domain.BookUI
 import com.ihfazh.ksatriamuslim.domain.Children
 import com.ihfazh.ksatriamuslim.repositories.BookRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -45,6 +46,12 @@ class HomeViewModel(val repository: BookRepository) : ViewModel() {
         viewModelScope.launch {
             repository.openGift(id)
 //            _books.postValue(repository.getBooksSummary())
+        }
+    }
+
+    fun logBook(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.logBook(id)
         }
     }
 

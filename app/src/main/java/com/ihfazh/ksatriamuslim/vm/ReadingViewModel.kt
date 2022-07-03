@@ -57,6 +57,7 @@ class ReadingViewModel(
         bookId.value = id
 
         viewModelScope.launch(Dispatchers.IO) {
+            bookRepository.logBook(id)
             bookRepository.getBook(id)
             getPageData(1)
         }

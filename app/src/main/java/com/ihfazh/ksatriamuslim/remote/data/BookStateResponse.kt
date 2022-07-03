@@ -16,4 +16,8 @@ data class BookStateResponse(
     val child: Int,
     @field:SerializedName("is_gift_opened")
     val isGiftOpened: Boolean,
-) : Parcelable
+
+    @field:SerializedName("locked")
+    val locked: Boolean,
+
+    ) : Parcelable

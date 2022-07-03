@@ -28,6 +28,7 @@ data class BookUIEntity(
     val bookId: Int,
     val childId: Int,
     val gift_opened: Boolean,
+
     @ColumnInfo(defaultValue = "0")
     val locked: Boolean = false
 )

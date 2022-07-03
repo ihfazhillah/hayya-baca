@@ -14,10 +14,7 @@ import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
 import com.ihfazh.ksatriamuslim.remote.BookRemoteMediator
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
-import com.ihfazh.ksatriamuslim.remote.data.BookItem
-import com.ihfazh.ksatriamuslim.remote.data.BookStateResponse
-import com.ihfazh.ksatriamuslim.remote.data.PageBookResponse
-import com.ihfazh.ksatriamuslim.remote.data.UpdateBookStateBody
+import com.ihfazh.ksatriamuslim.remote.data.*
 import com.ihfazh.ksatriamuslim.toBook
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -141,13 +138,26 @@ class BookRepositoryImpl(
             )
         }
     }
+
+    override suspend fun logBook(bookId: Int) {
+        getChildId()?.let { childId ->
+            local.bookDao().insertOrUpdateBookUI(
+                BookUIEntity(bookId, childId.toInt(), true)
+            )
+            remote.logBook(
+                bookId,
+                LogBookBody(childId.toInt())
+            )
+        }
+    }
 }
 
 private fun BookStateResponse.toBookUIEntity(): BookUIEntity {
     return BookUIEntity(
         bookId = book,
         childId = child,
-        gift_opened = isGiftOpened
+        gift_opened = isGiftOpened,
+        locked = locked
     )
 }
 

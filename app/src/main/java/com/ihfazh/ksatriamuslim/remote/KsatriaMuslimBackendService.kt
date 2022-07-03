@@ -54,6 +54,12 @@ interface KsatriaMuslimBackendService {
         @Body body: UpdateBookStateBody
     ): Response<UpdateBookStateResponse>
 
+    @POST("books/{id}/log/")
+    suspend fun logBook(
+        @Path("id") bookId: Int,
+        @Body body: LogBookBody
+    ): Response<UpdateBookStateResponse>
+
     // books state
     @GET("books-state/")
     suspend fun getBooksState(

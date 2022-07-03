@@ -1,5 +1,6 @@
 package com.ihfazh.ksatriamuslim.local
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
@@ -32,7 +33,7 @@ cross join child
 select b.title, b.id, b.thumbnailSrc, b.locallyCreated, ui.gift_opened, ui.locked from book_child b
 left join book_ui ui on ui.bookId = b.id and ui.childId = b.childId
 where b.childId = :childId
-order by b.id desc
+-- order by b.id desc
 """
     )
     abstract fun getAllBookUI(childId: Int): PagingSource<Int, BookWithBookUI>
@@ -65,17 +66,17 @@ order by b.id desc
     @Update
     abstract suspend fun updateBookUI(bookUI: BookUIEntity): Int
 
-    @Transaction
-    open suspend fun insertOrUpdateBookUI(bookUI: BookUIEntity) {
-        insertBookUI(bookUI)
-//        getBooKUI(bookUI.bookId, bookUI.childId)?.let{
-//            updateBookUI(it)
-//        } ?: insertBookUI(bookUI)
-//        val insertId = insertBookUI(bookUI)
-//        if (insertId == -1L){
-//            updateBookUI(bookUI = bookUI)
-//        }
-    }
+//    @Transaction
+//    open suspend fun insertOrUpdateBookUI(bookUI: BookUIEntity) {
+//        insertBookUI(bookUI)
+////        getBooKUI(bookUI.bookId, bookUI.childId)?.let{
+////            updateBookUI(it)
+////        } ?: insertBookUI(bookUI)
+////        val insertId = insertBookUI(bookUI)
+////        if (insertId == -1L){
+////            updateBookUI(bookUI = bookUI)
+////        }
+//    }
 
     @Query("select * from book_ui where bookId = :bookId and childId = :childId")
     abstract suspend fun getBooKUI(bookId: Int, childId: Int): BookUIEntity?
@@ -85,6 +86,18 @@ order by b.id desc
 
     @Update
     abstract suspend fun updateAllBookUI(booksUI: List<BookUIEntity>)
+
+    @Transaction
+    open suspend fun insertOrUpdateBookUI(bookUI: BookUIEntity) {
+        Log.d("InsertOrUpdateBookUI", "insertOrUpdateBookUI: $bookUI")
+
+        val result = getBooKUI(bookUI.bookId, bookUI.childId)?.let { ui ->
+            Log.d("InsertOrUpdateBookUI", "got book ui, should update")
+            updateBookUI(bookUI)
+        } ?: insertBookUI(bookUI)
+
+        Log.d("InsertOrUpdateBookUI", "insertOrUpdateBookUI: result: $result")
+    }
 
 
 //    @Query
