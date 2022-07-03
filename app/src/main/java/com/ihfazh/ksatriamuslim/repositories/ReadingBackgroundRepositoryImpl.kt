@@ -7,7 +7,9 @@ import com.ihfazh.ksatriamuslim.remote.data.BackgroundResponse
 import com.ihfazh.ksatriamuslim.toBackground
 import com.ihfazh.ksatriamuslim.toBackgroundEntity
 import com.ihfazh.ksatriamuslim.toBackgrounds
+import org.koin.core.annotation.Factory
 
+@Factory
 class ReadingBackgroundRepositoryImpl(
     private val local: AppDatabase,
     private val remote: KsatriaMuslimService

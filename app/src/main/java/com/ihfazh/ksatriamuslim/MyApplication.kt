@@ -1,14 +1,20 @@
 package com.ihfazh.ksatriamuslim
 
 import android.app.Application
+import android.content.Context
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
+import coil.imageLoader
 import coil.memory.MemoryCache
+import coil.request.ImageRequest
+import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
+import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
+import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -28,6 +34,23 @@ class MyApplication : Application(), ImageLoaderFactory {
         single<KsatriaMuslimBackendService> {
             BackendClient.getService(get())
         }
+
+        factory<WordSpeak> {
+            WordSpeak(get())
+        }
+
+        single<KsatriaMuslimService> {
+            Client.getService()
+        }
+
+        factory {
+            imageLoader
+        }
+
+        factory<ImageRequest.Builder> {
+            ImageRequest.Builder(get<Context>())
+        }
+
     }
 
     override fun onCreate() {

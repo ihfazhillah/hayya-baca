@@ -13,21 +13,24 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.ihfazh.ksatriamuslim.activities.MainActivity
 import com.ihfazh.ksatriamuslim.common.*
 import com.ihfazh.ksatriamuslim.common.fragment.BaseFragment
 import com.ihfazh.ksatriamuslim.databinding.FragmentReadingBinding
+import com.ihfazh.ksatriamuslim.domain.ReadingScreenState
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import com.ihfazh.ksatriamuslim.vm.ReadingViewModel
 import com.microsoft.cognitiveservices.speech.audio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,12 +49,12 @@ class ReadingFragment : BaseFragment() {
     private var param2: String? = null
     private val args: ReadingFragmentArgs by navArgs()
 
-    private val viewModel: ReadingViewModel by viewModels()
+    private val viewModel: ReadingViewModel by viewModel()
     private val childViewModel: ChildViewModel by sharedViewModel()
+    private val wordSpeak: WordSpeak by inject()
 
     private lateinit var navigator: Navigator
     private lateinit var binding: FragmentReadingBinding
-    private lateinit var wordSpeak: WordSpeak
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,36 +78,48 @@ class ReadingFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel.setBook(args.bookId)
+        viewModel.getBackground()
         // Inflate the layout for this fragment
         binding = FragmentReadingBinding.inflate(layoutInflater, container, false).apply {
-            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
-            childViewModel = this@ReadingFragment.childViewModel
 
             mainText.movementMethod = LinkMovementMethod.getInstance()
 
             loading.addAnimatorListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(p0: Animator?) {
-                    viewModel.animationRunning.value = true
+                    viewModel.setAnimationRunning(true)
                 }
 
                 override fun onAnimationEnd(p0: Animator?) {
-                    viewModel.animationRunning.value = false
+                    viewModel.setAnimationRunning(false)
                 }
 
                 override fun onAnimationCancel(p0: Animator?) {
-                    viewModel.animationRunning.value = false
+                    viewModel.setAnimationRunning(false)
                 }
 
                 override fun onAnimationRepeat(p0: Animator?) {
-                    viewModel.animationRunning.value = false
+                    viewModel.setAnimationRunning(false)
                 }
             })
+
+            nextIcon.setOnClickListener {
+                viewModel.nextPage()
+                if (childViewModel.child.value!!.enableReadToMe) {
+                    viewModel.readPage()
+                }
+            }
+
+            prevIcon.setOnClickListener {
+                viewModel.prevPage()
+                if (childViewModel.child.value!!.enableReadToMe) {
+                    viewModel.readPage()
+                }
+            }
+            btnHome.setOnClickListener {
+                navigator.goHome()
+            }
         }
-
-
-
-        initializeStarAndCoin()
 
         return binding.root
     }
@@ -139,87 +154,63 @@ class ReadingFragment : BaseFragment() {
     }
 
 
-    private fun initializeStarAndCoin() {
-//        childViewModel.child.observe(viewLifecycleOwner) {
-//            it?.let { myChild ->
-//                binding.coinLayout.children = myChild
-//                binding.starLayout.children = myChild
-//            }
-//        }
-//        binding.coinLayout.children = childViewModel.child.value
-//        binding.coinLayout.coin = koinViewModel
-//        binding.starLayout.star = starViewModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!Constants.isTvVersion(requireContext())) {
             askPermissionContract.launch(permission)
-            hideShowToggleMic()
         }
         navigator = Navigator(view, lifecycleScope)
-        binding.nav = navigator
 
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            if (state != null) {
+                updateScreen(state, binding)
+            }
+        }
+    }
 
-        viewModel.isFinish.observe(viewLifecycleOwner) { finished ->
-            if (finished) {
-                viewModel.calculatePercentage()
-                childViewModel.increaseMyCoin(viewModel.bookId.value)
-                val action =
-                    ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
-                findNavController().navigate(action)
-                lifecycleScope.launch {
-                    Recognizer.stopRecognizing()
-                }
+    // handle background set flag
+    private var backgroundSet = false
+    private fun updateScreen(state: ReadingScreenState, binding: FragmentReadingBinding) {
+
+        if (state.isReady()) {
+            binding.loading.visibility = View.INVISIBLE
+        } else {
+            viewModel.readiness()
+            return
+        }
+
+        binding.pageNumber.setTextColor(state.textColor!!)
+        binding.pageNumber.text = state.currentPage!!.toString()
+
+        binding.mainText.text = state.currentText!!
+        binding.mainText.setTextColor(state.textColor)
+        if (!backgroundSet) {
+            binding.backgroundImage.load(state.backgroundImage!!)
+            backgroundSet = true
+        }
+
+        binding.root.setOnClickListener {
+            if (childViewModel.child.value!!.enableReadToMe) {
+                wordSpeak.speakPage(
+                    viewModel.bookId.value!!,
+                    state.currentPage,
+                    state.currentText
+                )
             }
         }
 
-        wordSpeak = WordSpeak(requireContext())
 
-        viewModel.page.observe(viewLifecycleOwner) {
-            viewModel.textPage.value?.let { currentTextPage ->
-                val percentage = RecognizerListener.calculatePercentage(currentTextPage)
-                animatePercentChange(percentage * 100)
-
-            }
-
-//            if (childViewModel.children.value!!.enableReadToMe){
-//                wordSpeak.speakPage(viewModel.bookId.value!!, it, viewModel.textPage.value!!.originalText)
-//            }
+        if (state.isFinish) {
+            viewModel.calculatePercentage()
+            childViewModel.increaseMyCoin(viewModel.bookId.value)
+            val action =
+                ReadingFragmentDirections.actionReaderFragmentToCoinCongratulateFragment()
+            findNavController().navigate(action)
+            lifecycleScope.launch { Recognizer.stopRecognizing() }
         }
 
-            viewModel.textPage.observe(viewLifecycleOwner) {
-                if (childViewModel.child.value!!.enableReadToMe) {
-                    wordSpeak.speakPage(
-                        viewModel.bookId.value!!,
-                        viewModel.page.value!!,
-                        it.originalText
-                    )
-                }
-            }
-
-            binding.root.setOnClickListener {
-                if (childViewModel.child.value!!.enableReadToMe) {
-                    wordSpeak.speakPage(
-                        viewModel.bookId.value!!,
-                        viewModel.page.value!!,
-                        viewModel.textPage.value!!.originalText
-                    )
-                }
-            }
-
-
     }
 
-    private fun hideShowToggleMic() {
-//        if (!Constants.isTvVersion(requireContext()) && childViewModel.child.value!!.enableReadToMe) {
-//            binding.toggleMicBtn.visibility = View.GONE
-//        } else if (!Constants.isTvVersion(requireContext())) {
-//            initiateSpeechRecognizerAndListener()
-//        } else {
-//            binding.toggleMicBtn.visibility = View.GONE
-//        }
-    }
 
     private fun animatePercentChange(percent: Float) {
         val incrementor = when {

@@ -1,8 +1,6 @@
 package com.ihfazh.ksatriamuslim.vm
 
-import android.app.Application
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
@@ -14,37 +12,40 @@ import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.*
-import coil.imageLoader
+import coil.ImageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.Recognizer
-import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.common.WordSpeak
-import com.ihfazh.ksatriamuslim.domain.Background
+import com.ihfazh.ksatriamuslim.domain.ReadingScreenState
 import com.ihfazh.ksatriamuslim.domain.TextPage
 import com.ihfazh.ksatriamuslim.domain.WordPage
-import com.ihfazh.ksatriamuslim.local.AppDatabase
-import com.ihfazh.ksatriamuslim.remote.BackendClient
-import com.ihfazh.ksatriamuslim.remote.Client
-import com.ihfazh.ksatriamuslim.repositories.BookRepositoryImpl
-import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepositoryImpl
+import com.ihfazh.ksatriamuslim.domain.buildReadingScreenState
+import com.ihfazh.ksatriamuslim.repositories.BookRepository
+import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
 
-class ReadingViewModel(application: Application) : AndroidViewModel(application) {
+@KoinViewModel
+class ReadingViewModel(
+    private val wordSpeak: WordSpeak,
+    private val bookRepository: BookRepository,
+    private val repository: ReadingBackgroundRepository,
+    private val imageLoader: ImageLoader,
+    private val imageBuilder: ImageRequest.Builder
+) : ViewModel() {
 
-    private val local = AppDatabase.getDB(application.applicationContext)
-    private val remote = BackendClient.getService(application.applicationContext)
-    private val sessionManager = SessionManager(application.applicationContext)
-    private val bookRepository = BookRepositoryImpl(local, remote, sessionManager)
+    private val _state: MutableLiveData<ReadingScreenState> = MutableLiveData(
+        buildReadingScreenState(wordSpeak)
+    ) // make sure that initial data provided
 
-    private val wordSpeak = WordSpeak(application.applicationContext)
+    val state: LiveData<ReadingScreenState> = _state
 
     private val _page = MutableLiveData<Int>()
     val page: LiveData<Int>
@@ -52,66 +53,76 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
 
     val bookId = MutableLiveData<Int>()
 
-    val background = MutableLiveData<Background?>()
-
-    val textColor = MutableLiveData(Color.BLACK)
-    val backgroundImage = MutableLiveData<Drawable>()
-
-
-    private val backgroundLoading = MutableLiveData(true)
-    val animationRunning = MutableLiveData(true)
-
-    val loading = animationRunning.asFlow().combine(backgroundLoading.asFlow()) { a, b -> a && b }
-        .asLiveData()
-
-    private val repository: ReadingBackgroundRepositoryImpl
-
     fun setBook(id: Int) {
         bookId.value = id
 
         viewModelScope.launch(Dispatchers.IO) {
             bookRepository.getBook(id)
-            _page.postValue(1)
+            getPageData(1)
         }
     }
 
-    init {
-
-        // add background repository
-        val remote = Client.getService()
-        val local = AppDatabase.getDB(application.applicationContext)
-        repository = ReadingBackgroundRepositoryImpl(local, remote)
-        backgroundLoading.value = true
-
-        viewModelScope.launch {
-            val bg = repository.getBackground()
-            background.value = bg
-
-            if (bg != null){
-
-                // load image
-                val imageUrl = Constants.getKsatriaMuslimAbsoluteUrl(bg.src)
-                val request = ImageRequest.Builder(application.applicationContext).data(imageUrl)
-                    .fallback(R.drawable.ic_artboard8)
-                    .build()
-
-                val drawable = application.applicationContext.imageLoader.execute(request).drawable
-
-                if (drawable != null){
-                    drawable.also {
-                        backgroundImage.value = it
-                        textColor.value = Color.parseColor(bg.text_color)
-                        backgroundLoading.value = false
-                    }
-                } else {
-                    backgroundImage.value = AppCompatResources.getDrawable(application, R.drawable.ic_artboard8)
-                    textColor.value = Color.parseColor("#ffffff")
-                    backgroundLoading.value = false
-                }
-
+    private fun getPageData(page: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val bookPage = bookRepository.getPage(bookId.value!!.toInt(), page)
+            if (bookPage == null) {
+                val updatedState = state.value!!.copy(
+                    isFinish = true
+                )
+                _state.postValue(updatedState)
+            } else {
+                val updatedState = state.value!!.copy(
+                    currentPage = page,
+                    currentText = bookPage.text,
+                    hasNext = bookRepository.hasNext(bookId.value!!.toInt(), page),
+                    hasPrev = bookRepository.hasPrev(bookId.value!!.toInt(), page),
+                )
+                _state.postValue(updatedState)
             }
         }
     }
+
+    fun getBackground() {
+
+        viewModelScope.launch {
+            val bg = repository.getBackground()
+
+            if (bg != null) {
+
+                // load image
+                val imageUrl = Constants.getKsatriaMuslimAbsoluteUrl(bg.src)
+                val request = imageBuilder.data(imageUrl)
+                    .fallback(R.drawable.ic_artboard8)
+                    .build()
+
+                val drawable = imageLoader.execute(request).drawable
+
+                val currentState = state.value!!
+
+                if (drawable != null && bg.text_color != null) {
+                    val updatedState = currentState.copy(
+                        backgroundImage = drawable,
+                        textColor = Color.parseColor(bg.text_color)
+                    )
+                    _state.postValue(updatedState)
+                    Log.d(TAG, "Updated state $updatedState")
+
+                } else {
+                    val fallbackRequest = imageBuilder.data(R.drawable.ic_artboard8).build()
+                    val updatedState = currentState.copy(
+                        backgroundImage = imageLoader.execute(fallbackRequest).drawable,
+                        textColor = Color.parseColor("#ffffff")
+                    )
+                    _state.postValue(updatedState)
+                    Log.d(TAG, "Background gak dapat")
+                }
+
+            } else {
+                Log.d(TAG, "Background gak dapat")
+            }
+        }
+    }
+
 
 
     val isFinish = MutableLiveData(false)
@@ -215,26 +226,28 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
     val percentage = MutableLiveData<Float>()
 
     fun nextPage() {
-        _page.value = (_page.value)?.inc() ?: 0
+        val page = state.value!!.currentPage?.inc() ?: 0
+        getPageData(page)
     }
 
     fun calculatePercentage() {
-        val words = textPage.value!!.words
-        Log.d(TAG, "words size: ${words.size}")
-        val readWords = words.filter { it.isRead }
-        Log.d(TAG, "readWords size: ${readWords.size}")
-
-        val percentage = readWords.size.toFloat() / words.size.toFloat()
-        Log.d(TAG, "Percentage: $percentage")
-        this.percentage.value = percentage * 100f
+//        val words = textPage.value!!.words
+//        Log.d(TAG, "words size: ${words.size}")
+//        val readWords = words.filter { it.isRead }
+//        Log.d(TAG, "readWords size: ${readWords.size}")
+//
+//        val percentage = readWords.size.toFloat() / words.size.toFloat()
+//        Log.d(TAG, "Percentage: $percentage")
+//        this.percentage.value = percentage * 100f
     }
 
     fun prevPage() {
-        _page.value = (_page.value)?.dec() ?: 0
+        val page = state.value!!.currentPage?.dec() ?: 0
+        getPageData(page)
     }
 
     fun releaseWordSpeak() {
-        wordSpeak.release()
+//        wordSpeak.release()
     }
 
     companion object {
@@ -259,6 +272,22 @@ class ReadingViewModel(application: Application) : AndroidViewModel(application)
         }
 
         micState.value = nextValue
+    }
+
+    fun readPage() {
+        wordSpeak.speak(state.value!!.currentText!!)
+    }
+
+    fun setAnimationRunning(animState: Boolean) {
+        _state.postValue(
+            state.value!!.copy(animationRunning = animState)
+        )
+    }
+
+    fun readiness() {
+        if (state.value!!.backgroundImage == null) {
+            getBackground()
+        }
     }
 
 }

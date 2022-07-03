@@ -62,7 +62,7 @@
         <entry key="app/src/main/res/layout/fragment_motion_layout_try.xml" value="0.3104166666666667" />
         <entry key="app/src/main/res/layout/fragment_parent_gate.xml" value="0.12715298885511653" />
         <entry key="app/src/main/res/layout/fragment_photo_profile_picker.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/fragment_reading.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_reading.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout/grid_application_item.xml" value="0.3541666666666667" />
         <entry key="app/src/main/res/layout/item_photo_profile.xml" value="0.1" />
