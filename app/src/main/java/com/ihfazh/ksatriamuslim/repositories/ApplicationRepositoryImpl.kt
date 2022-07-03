@@ -57,9 +57,16 @@ class ApplicationRepositoryImpl(
     }
 
     override suspend fun requestAccess(appInfo: AppInfo): RequestAccess {
+        val child = remote.getChild(sessionManager.getSelectedChild()!!)
+        var selectedPackage: String? = null
+
+        if (child.isSuccessful) {
+            selectedPackage = child.body()!!.defaultPackageName
+        }
+
         val accessResponse = remote.buyPackage(
             BuyPackageBody(
-                packageName,
+                selectedPackage ?: packageName,
                 sessionManager.getSelectedChild()!!.toInt()
             )
         )

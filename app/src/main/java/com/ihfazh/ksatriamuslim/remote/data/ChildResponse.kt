@@ -32,5 +32,8 @@ data class ChildResponse(
     val parentId: String,
 
     @field:SerializedName("picture")
-    val picture: ProfilePicture? = null
+    val picture: ProfilePicture? = null,
+
+    @field:SerializedName("default_package_name")
+    val defaultPackageName: String?
 )

@@ -12,5 +12,6 @@ data class ChildEntity(
     val coin: Long,
     val enableReadToMe: Boolean = false,
     val parentId: String? = null,
-    val pictureId: Int? = null
+    val pictureId: Int? = null,
+    val defaultPackageName: String? = null
 )

@@ -12,5 +12,6 @@ data class Children(
     val star: Long?,
     val enableReadToMe: Boolean = false,
     val picture: String? = null,
-    val pictureId: Int? = null
+    val pictureId: Int? = null,
+    val defaultPackageName: String? = null
 )
