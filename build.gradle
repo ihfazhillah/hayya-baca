@@ -25,6 +25,7 @@ buildscript {
         koin_ksp_version = "1.0.1"
         // KSP
         ksp_version = "1.6.21-1.0.5"
+        work_version = "2.7.1"
 
     }
     repositories {

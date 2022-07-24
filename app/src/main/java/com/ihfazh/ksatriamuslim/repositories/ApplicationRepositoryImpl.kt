@@ -11,6 +11,7 @@ import com.ihfazh.ksatriamuslim.local.data.SelectedApplicationEntity
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.data.BuyPackageBody
 import com.ihfazh.ksatriamuslim.remote.data.UsagePackageLogBody
+import com.ihfazh.ksatriamuslim.remote.safeApiRequest
 import org.koin.core.annotation.Factory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -57,21 +58,27 @@ class ApplicationRepositoryImpl(
     }
 
     override suspend fun requestAccess(appInfo: AppInfo): RequestAccess {
-        val child = remote.getChild(sessionManager.getSelectedChild()!!)
-        var selectedPackage: String? = null
-
-        if (child.isSuccessful) {
-            selectedPackage = child.body()!!.defaultPackageName
+        val child = safeApiRequest {
+            remote.getChild(sessionManager.getSelectedChild()!!)
+        }
+        if (!child.success) {
+            return RequestAccess(false, "Network Error")
         }
 
-        val accessResponse = remote.buyPackage(
-            BuyPackageBody(
-                selectedPackage ?: packageName,
-                sessionManager.getSelectedChild()!!.toInt()
+        val selectedPackage = child.result!!.body()!!.defaultPackageName
+
+        val accessResponse = safeApiRequest {
+
+            remote.buyPackage(
+                BuyPackageBody(
+                    selectedPackage ?: packageName,
+                    sessionManager.getSelectedChild()!!.toInt()
+                )
             )
-        )
-        if (accessResponse.isSuccessful) {
-            val body = accessResponse.body()!!
+        }
+
+        if (accessResponse.success) {
+            val body = accessResponse.result!!.body()!!
             return RequestAccess(
                 body.permissible,
                 body.message,
@@ -79,6 +86,7 @@ class ApplicationRepositoryImpl(
                 coinRemaining = body.coinRemaining
             )
         }
+
         return RequestAccess(false, "UNKNOWN")
     }
 

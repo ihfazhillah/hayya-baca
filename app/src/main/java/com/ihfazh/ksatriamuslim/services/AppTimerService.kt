@@ -91,7 +91,7 @@ class AppTimerService : Service() {
         scope.launch {
             appRepository.logEndUsagePackage()
             callback.invoke()
-            childRepository.setSelectedChild(null)
+//            childRepository.setSelectedChild(null)
 
             val intent =
                 Intent(this@AppTimerService, ApplicationOverlayActivity::class.java).apply {
