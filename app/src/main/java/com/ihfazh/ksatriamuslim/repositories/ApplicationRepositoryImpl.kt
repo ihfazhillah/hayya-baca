@@ -120,6 +120,14 @@ class ApplicationRepositoryImpl(
         }.success
     }
 
+    override suspend fun getAppWatcherState(): Boolean {
+        return sessionManager.getAppWatcherState()
+    }
+
+    override suspend fun setAppWatcherState(value: Boolean) {
+        return sessionManager.setAppWatcherState(value)
+    }
+
     private fun getApps(): List<AppInfo> =
         Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)

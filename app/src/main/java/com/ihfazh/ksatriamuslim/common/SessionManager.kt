@@ -10,6 +10,7 @@ class SessionManager(context: Context) {
     companion object {
         private const val USER_TOKEN = "USER_TOKEN"
         private const val SELECTED_CHILD = "SELECTED_CHILD"
+        private const val APP_WATCHER_STATE = "APP_WATCHER_STATE"
     }
 
     private val prefs =
@@ -28,6 +29,13 @@ class SessionManager(context: Context) {
     fun getSelectedChild(): String? = prefs.getString(SELECTED_CHILD, null)
     fun setSelectedChild(id: String?) = prefs.edit {
         putString(SELECTED_CHILD, id)
+        apply()
+    }
+
+    // handle app watcher state
+    fun getAppWatcherState(): Boolean = prefs.getBoolean(APP_WATCHER_STATE, false)
+    fun setAppWatcherState(value: Boolean) = prefs.edit {
+        putBoolean(APP_WATCHER_STATE, value)
         apply()
     }
 

@@ -56,7 +56,8 @@ class ApplicationListChildFragment : Fragment() {
                     appVM.selectApplication(
                         appInfo,
                         onSuccess = { minutes ->
-                            val time = minutes * 60 * 1000
+
+                        val time = minutes * 60 * 1000
                             val service =
                                 Intent(requireContext(), AppTimerService::class.java).apply {
                                     putExtra(AppTimerService.PACKAGE_KEY, appInfo.id)

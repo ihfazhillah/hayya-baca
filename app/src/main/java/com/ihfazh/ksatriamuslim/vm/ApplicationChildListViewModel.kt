@@ -34,6 +34,7 @@ class ApplicationChildListViewModel(
             val canAccess = repository.requestAccess(appInfo)
             Log.d(TAG, "selectApplication: $canAccess")
             if (canAccess.permissible) {
+                repository.setAppWatcherState(false)
                 onSuccess.invoke(canAccess.durationRemaining ?: 0F)
             } else {
                 onError.invoke(canAccess.getFullMessage())

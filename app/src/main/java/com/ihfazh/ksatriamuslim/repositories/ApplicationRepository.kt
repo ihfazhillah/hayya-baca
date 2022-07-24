@@ -14,4 +14,7 @@ interface ApplicationRepository {
     suspend fun requestAccess(appInfo: AppInfo): RequestAccess
     suspend fun logStartUsagePackage(): Boolean
     suspend fun logEndUsagePackage(time: LocalDateTime? = null): Boolean
+
+    suspend fun getAppWatcherState(): Boolean
+    suspend fun setAppWatcherState(value: Boolean)
 }
