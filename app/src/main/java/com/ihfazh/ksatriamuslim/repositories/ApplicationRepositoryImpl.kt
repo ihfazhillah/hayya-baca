@@ -2,6 +2,7 @@ package com.ihfazh.ksatriamuslim.repositories
 
 import android.content.Context
 import android.content.Intent
+//import androidx.work.WorkManagerInitializer
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.AppInfo
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
@@ -16,6 +17,7 @@ import org.koin.core.annotation.Factory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+
 @Factory
 class ApplicationRepositoryImpl(
     private val context: Context,
@@ -24,6 +26,8 @@ class ApplicationRepositoryImpl(
     private val sessionManager: SessionManager
 ) : ApplicationRepository {
     private val appDao = local.applicationDao()
+
+    //    val test = WorkManagerInitializer
     private val packageName = "30Menit"
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
 
@@ -90,24 +94,30 @@ class ApplicationRepositoryImpl(
         return RequestAccess(false, "UNKNOWN")
     }
 
-    override suspend fun logStartUsagePackage() {
-        remote.logUsagePackage(
-            UsagePackageLogBody(
-                child = sessionManager.getSelectedChild()!!.toInt(),
-                pkg = packageName,
-                startedAt = LocalDateTime.now().format(dateFormatter)
+    override suspend fun logStartUsagePackage(): Boolean {
+        return safeApiRequest {
+            remote.logUsagePackage(
+                UsagePackageLogBody(
+                    child = sessionManager.getSelectedChild()!!.toInt(),
+                    pkg = packageName,
+                    startedAt = LocalDateTime.now().format(dateFormatter)
+                )
             )
-        )
+        }.success
     }
 
-    override suspend fun logEndUsagePackage() {
-        remote.logUsagePackage(
-            UsagePackageLogBody(
-                child = sessionManager.getSelectedChild()!!.toInt(),
-                pkg = packageName,
-                finishedAt = LocalDateTime.now().format(dateFormatter)
+    override suspend fun logEndUsagePackage(time: LocalDateTime?): Boolean {
+        val finalTime = time ?: LocalDateTime.now()
+
+        return safeApiRequest {
+            remote.logUsagePackage(
+                UsagePackageLogBody(
+                    child = sessionManager.getSelectedChild()!!.toInt(),
+                    pkg = packageName,
+                    finishedAt = finalTime.format(dateFormatter)
+                )
             )
-        )
+        }.success
     }
 
     private fun getApps(): List<AppInfo> =

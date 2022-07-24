@@ -12,22 +12,30 @@ import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.activities.ApplicationOverlayActivity
 import com.ihfazh.ksatriamuslim.activities.ForegroundServiceActivity
 import com.ihfazh.ksatriamuslim.repositories.ApplicationRepository
 import com.ihfazh.ksatriamuslim.repositories.ChildrenRepository
+import com.ihfazh.ksatriamuslim.workers.LogEndUsagePackageWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AppTimerService : Service() {
     private var appTime: Float? = null
     private var targetPackage: String? = null
     private var timer: CountDownTimer? = null
     private val appRepository: ApplicationRepository by inject()
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
 
     // force change child to null
     private val childRepository: ChildrenRepository by inject()
@@ -83,13 +91,36 @@ class AppTimerService : Service() {
 
     private fun logStartPackageUsage() {
         scope.launch {
-            appRepository.logStartUsagePackage()
+            val success = appRepository.logStartUsagePackage()
+            if (!success) {
+                val intent =
+                    Intent(this@AppTimerService, ApplicationOverlayActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK xor Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        putExtra(ApplicationOverlayActivity.TARGET_PACKAGE, targetPackage)
+                        putExtra(
+                            ApplicationOverlayActivity.END_REASON_KEY,
+                            ApplicationOverlayActivity.CONNECTION_ERROR
+                        )
+                    }
+                startActivity(intent)
+            }
         }
     }
 
     private fun logEndPackageUsage(endReason: String, callback: () -> Unit) {
         scope.launch {
-            appRepository.logEndUsagePackage()
+            val success = appRepository.logEndUsagePackage()
+            if (!success) {
+                val workerRequest = OneTimeWorkRequestBuilder<LogEndUsagePackageWorker>()
+                    .setInputData(
+                        workDataOf(
+                            "time" to LocalDateTime.now().format(dateFormatter)
+                        )
+                    ).build()
+                WorkManager.getInstance(applicationContext)
+                    .enqueue(workerRequest)
+            }
+            // try to open the application
             callback.invoke()
 //            childRepository.setSelectedChild(null)
 

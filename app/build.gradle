@@ -238,6 +238,7 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-annotations:$koin_ksp_version"
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
     ksp "io.insert-koin:koin-ksp-compiler:$koin_ksp_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 

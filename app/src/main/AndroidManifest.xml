@@ -38,6 +38,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ksatriamuslim">
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove"></provider>
+
         <activity
             android:name=".activities.ApplicationOverlayActivity"
             android:autoRemoveFromRecents="true"

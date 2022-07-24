@@ -17,6 +17,7 @@ import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
@@ -58,6 +59,7 @@ class MyApplication : Application(), ImageLoaderFactory {
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
+            workManagerFactory()
             modules(
                 KsatriaMuslimModule().module,
                 appDatabaseModule,

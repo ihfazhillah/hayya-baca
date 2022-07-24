@@ -42,13 +42,15 @@ class ApplicationOverlayActivity : Activity() {
         val titleMap = mapOf(
             TIME_UP to "DingDong...",
             SCREEN_OFF to "Layar Mati...",
-            APPLICATION_CLOSED to "Aplikasi mati..."
+            APPLICATION_CLOSED to "Aplikasi mati...",
+            CONNECTION_ERROR to "Koneksi Error"
         )
 
         val bodyMap = mapOf(
             TIME_UP to "Waktumu sudah habis. Pastikan koinmu cukup untuk main lagi ya",
             SCREEN_OFF to "Maaf, aplikasi kami matikan ya. Mau buka aplikasi lagi gak perlu bayar kok.",
-            APPLICATION_CLOSED to "Maaf, aplikasi kami matikan ya. Mau buka aplikasi lagi gak perlu bayar kok."
+            APPLICATION_CLOSED to "Maaf, aplikasi kami matikan ya. Mau buka aplikasi lagi gak perlu bayar kok.",
+            CONNECTION_ERROR to "Aduh, koneksi error. Tunggu koneksi kembali bagus yah... maaf banget"
         )
 
         val alertDialog = AlertDialog.Builder(this)
@@ -71,5 +73,6 @@ class ApplicationOverlayActivity : Activity() {
         const val TIME_UP = "time_up"
         const val SCREEN_OFF = "screen_off"
         const val APPLICATION_CLOSED = "application_closed"
+        const val CONNECTION_ERROR = "connection_error"
     }
 }

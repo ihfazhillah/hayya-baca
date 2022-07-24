@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.repositories
 import com.ihfazh.ksatriamuslim.domain.AppInfo
 import com.ihfazh.ksatriamuslim.domain.AppInfoSelect
 import com.ihfazh.ksatriamuslim.domain.RequestAccess
+import java.time.LocalDateTime
 
 interface ApplicationRepository {
     suspend fun getAppsInfoForSelection(): List<AppInfoSelect>
@@ -11,6 +12,6 @@ interface ApplicationRepository {
     suspend fun insertAll(apps: List<AppInfoSelect>)
     suspend fun deleteAll(apps: List<AppInfoSelect>)
     suspend fun requestAccess(appInfo: AppInfo): RequestAccess
-    suspend fun logStartUsagePackage()
-    suspend fun logEndUsagePackage()
+    suspend fun logStartUsagePackage(): Boolean
+    suspend fun logEndUsagePackage(time: LocalDateTime? = null): Boolean
 }
