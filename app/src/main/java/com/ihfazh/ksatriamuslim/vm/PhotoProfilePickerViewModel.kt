@@ -69,4 +69,13 @@ class PhotoProfilePickerViewModel(
             )
         }
     }
+
+    private val _isZoom = MutableLiveData(false)
+    val isZoom: LiveData<Boolean> = _isZoom
+
+    fun toggleZoom() {
+        val currentState = isZoom.value!!
+        val nextState = !currentState
+        _isZoom.value = nextState
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.size.Precision
 import coil.transform.CircleCropTransformation
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.PhotoListener
@@ -115,6 +117,56 @@ class PhotoProfilePickerFragment : Fragment() {
                 if (it.photos != null) {
                     photoAdapter.submitData(viewLifecycleOwner.lifecycle, it.photos)
                 }
+            }
+
+
+            photoPickerVM.isZoom.observe(viewLifecycleOwner) {
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(b.parent)
+
+//                val photo = if (photoPickerVM.currentState.value != null){
+//                    photoPickerVM.currentState.value!!.selectedPhoto!!.photo
+//                } else {
+//                    R.drawable.ic_baseline_person_24
+//                }
+                val photo = photoPickerVM.currentState.value?.selectedPhoto?.photo
+                    ?: R.drawable.ic_baseline_person_24
+
+                if (it) {
+                    constraintSet.clear(b.profile.id, ConstraintSet.BOTTOM)
+                    constraintSet.connect(
+                        b.profile.id,
+                        ConstraintSet.BOTTOM,
+                        b.parent.id,
+                        ConstraintSet.BOTTOM
+                    )
+                    constraintSet.constrainHeight(b.profile.id, 0)
+                    constraintSet.constrainWidth(b.profile.id, 0)
+                    b.profile.load(photo) {
+                        precision(Precision.EXACT)
+                    }
+
+
+                } else {
+                    constraintSet.clear(b.profile.id, ConstraintSet.BOTTOM)
+                    constraintSet.connect(
+                        b.profile.id,
+                        ConstraintSet.BOTTOM,
+                        b.photos.id,
+                        ConstraintSet.TOP
+                    )
+                    constraintSet.constrainHeight(b.profile.id, 120)
+                    constraintSet.constrainWidth(b.profile.id, 120)
+                    b.profile.load(photo) {
+                        transformations(CircleCropTransformation())
+                    }
+                }
+
+                constraintSet.applyTo(b.parent)
+            }
+
+            b.profile.setOnClickListener {
+                photoPickerVM.toggleZoom()
             }
 
             b.back.setOnClickListener {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parent"
     tools:context=".fragments.PhotoProfilePickerFragment">
 
     <ImageButton
@@ -46,6 +47,7 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:id="@+id/title"
         app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/back"
@@ -69,6 +71,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1" />
+
+
+    <ImageButton
+        android:id="@+id/close_full_screen"
+        android:layout_width="@dimen/reading_icon_wh"
+        android:layout_height="@dimen/reading_icon_wh"
+        android:layout_margin="@dimen/reading_margin"
+        android:background="@color/black_transparent_95"
+        android:src="@drawable/ic_baseline_close_white_24"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
