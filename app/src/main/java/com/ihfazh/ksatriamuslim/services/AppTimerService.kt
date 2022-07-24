@@ -209,7 +209,9 @@ class AppTimerService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
-        unregisterReceiver(screenOffReceiver)
+        if (::screenOffReceiver.isInitialized) {
+            unregisterReceiver(screenOffReceiver)
+        }
     }
 
     private fun getForegroundApp(): String? {
