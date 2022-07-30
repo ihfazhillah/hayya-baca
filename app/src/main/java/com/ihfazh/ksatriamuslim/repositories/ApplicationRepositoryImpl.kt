@@ -95,11 +95,21 @@ class ApplicationRepositoryImpl(
     }
 
     override suspend fun logStartUsagePackage(): Boolean {
+        val child = safeApiRequest {
+            remote.getChild(sessionManager.getSelectedChild()!!)
+        }
+
+        if (!child.success) {
+            return false
+        }
+
+        val selectedPackage = child.result!!.body()!!.defaultPackageName
+
         return safeApiRequest {
             remote.logUsagePackage(
                 UsagePackageLogBody(
                     child = sessionManager.getSelectedChild()!!.toInt(),
-                    pkg = packageName,
+                    pkg = selectedPackage ?: packageName,
                     startedAt = LocalDateTime.now().format(dateFormatter)
                 )
             )
@@ -108,12 +118,21 @@ class ApplicationRepositoryImpl(
 
     override suspend fun logEndUsagePackage(time: LocalDateTime?): Boolean {
         val finalTime = time ?: LocalDateTime.now()
+        val child = safeApiRequest {
+            remote.getChild(sessionManager.getSelectedChild()!!)
+        }
+
+        if (!child.success) {
+            return false
+        }
+
+        val selectedPackage = child.result!!.body()!!.defaultPackageName
 
         return safeApiRequest {
             remote.logUsagePackage(
                 UsagePackageLogBody(
                     child = sessionManager.getSelectedChild()!!.toInt(),
-                    pkg = packageName,
+                    pkg = selectedPackage ?: packageName,
                     finishedAt = finalTime.format(dateFormatter)
                 )
             )
