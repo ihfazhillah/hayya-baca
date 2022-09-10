@@ -9,6 +9,7 @@ import coil.disk.DiskCache
 import coil.imageLoader
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
+import com.ihfazh.ksatriamuslim.common.PageSizeCalculator
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
@@ -20,8 +21,8 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-
 import org.koin.ksp.generated.module
+import timber.log.Timber
 
 
 class MyApplication : Application(), ImageLoaderFactory {
@@ -44,6 +45,10 @@ class MyApplication : Application(), ImageLoaderFactory {
             Client.getService()
         }
 
+        single {
+            PageSizeCalculator(resources.displayMetrics)
+        }
+
         factory {
             imageLoader
         }
@@ -56,6 +61,7 @@ class MyApplication : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
+        Timber.plant(Timber.DebugTree())
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
