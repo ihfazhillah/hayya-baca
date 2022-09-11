@@ -2,7 +2,6 @@ package com.ihfazh.ksatriamuslim
 
 import android.app.Application
 import android.content.Context
-import android.os.Environment
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.decode.SvgDecoder
@@ -13,18 +12,13 @@ import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.common.BookFileUtils
 import com.ihfazh.ksatriamuslim.common.PageSizeCalculator
 import com.ihfazh.ksatriamuslim.common.WordSpeak
-import com.ihfazh.ksatriamuslim.domain.BookReadingResponse
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.remote.BackendClient
 import com.ihfazh.ksatriamuslim.remote.Client
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimBackendService
 import com.ihfazh.ksatriamuslim.remote.KsatriaMuslimService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
@@ -54,6 +48,10 @@ class MyApplication : Application(), ImageLoaderFactory {
                     }
                 )
                 .build()
+        }
+
+        factory {
+            BookFileUtils()
         }
 
         factory<WordSpeak> {
@@ -92,24 +90,24 @@ class MyApplication : Application(), ImageLoaderFactory {
             )
         }
 
-        val x = Environment.getExternalStorageState()
-        Timber.d("state external storage: $x")
-        Timber.d("files path: ${applicationContext.filesDir.absolutePath}")
-
-//        val okHttpClient: OkHttpClient = get()
-        val pageSizeCalculator by inject<PageSizeCalculator>()
-        val okHttpClient by inject<OkHttpClient>()
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = BookFileUtils().getImageFromLocal(
-                applicationContext, 1, 2, pageSizeCalculator.guessScreenSizeQualifier()
-            )
-            when (response) {
-                is BookReadingResponse.Success ->
-                    Timber.d("success: $response")
-                else ->
-                    Timber.d("error: $response")
-            }
-        }
+//        val x = Environment.getExternalStorageState()
+//        Timber.d("state external storage: $x")
+//        Timber.d("files path: ${applicationContext.filesDir.absolutePath}")
+//
+////        val okHttpClient: OkHttpClient = get()
+//        val pageSizeCalculator by inject<PageSizeCalculator>()
+//        val okHttpClient by inject<OkHttpClient>()
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val response = BookFileUtils().getImageFromLocal(
+//                applicationContext, 1, 2, pageSizeCalculator.guessScreenSizeQualifier()
+//            )
+//            when (response) {
+//                is BookReadingResponse.Success ->
+//                    Timber.d("success: $response")
+//                else ->
+//                    Timber.d("error: $response")
+//            }
+//        }
 
 
     }

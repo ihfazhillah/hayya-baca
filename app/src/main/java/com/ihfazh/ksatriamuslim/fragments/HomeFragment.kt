@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.avatarfirst.avatargenlib.AvatarGenerator
+import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookRecyclerViewAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentHomeBinding
@@ -87,7 +88,7 @@ class HomeFragment : Fragment() {
             if (!book.gift_opened) {
                 homeVM.openGift(book.id)
             } else {
-                val action = HomeFragmentDirections.actionHomeFragmentToReaderFragment(book.id)
+                val action = MainNavigationDirections.goToBookReading(book.id)
                 findNavController().navigate(action)
             }
         }

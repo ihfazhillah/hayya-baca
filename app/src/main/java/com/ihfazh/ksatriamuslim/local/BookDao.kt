@@ -41,12 +41,26 @@ where b.childId = :childId
     @Query("select * from book_page where book_id = :bookId and `order` = :page")
     abstract suspend fun getPage(bookId: Int, page: Int): BookPageEntity?
 
+//    @Query("select * from book_page where book_id = :bookId order by `order`")
+//    abstract suspend fun getPages(bookId: Int): List<BookPageEntity>
+
     @Query("select * FROM book where id = :id")
     abstract suspend fun getById(id: Int): BookEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(book: BookEntity)
 
+    @Update
+    abstract suspend fun updateBook(book: BookEntity)
+
+    @Transaction
+    open suspend fun updateOrCreate(book: BookEntity) {
+        getById(book.id)?.let {
+            updateBook(book)
+        } ?: insert(book)
+    }
+
+    // ini bakal hapus dulu child yang ada
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(books: List<BookEntity>)
 

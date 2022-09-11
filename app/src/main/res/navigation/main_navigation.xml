@@ -222,5 +222,19 @@
             app:argType="integer" />
 
     </fragment>
+    <fragment
+        android:id="@+id/bookReadingFragment"
+        android:name="com.ihfazh.ksatriamuslim.fragments.BookReadingFragment"
+        android:label="fragment_book_reading"
+        tools:layout="@layout/fragment_book_reading">
+        <argument
+            android:name="bookId"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/goToBookReading"
+        app:destination="@id/bookReadingFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

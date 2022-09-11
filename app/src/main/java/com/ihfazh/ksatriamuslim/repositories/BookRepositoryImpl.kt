@@ -36,11 +36,14 @@ class BookRepositoryImpl(
 
         val booksFromRemote = remote.getBooks().body()
         if (booksFromRemote !== null) {
-            local.bookDao().insertAll(
-                booksFromRemote.results.map {
-                    it.toBookEntity()
-                }
-            )
+            booksFromRemote.results.forEach {
+                local.bookDao().updateOrCreate(it.toBookEntity())
+            }
+//            local.bookDao().insertAll(
+//                booksFromRemote.results.map {
+//                    it.toBookEntity()
+//                }
+//            )
 
             return local.bookDao().getAll().map { bookEntity: BookEntity ->
                 val ui = local.bookDao().getBooKUI(bookEntity.id, getChildId()!!.toInt())
