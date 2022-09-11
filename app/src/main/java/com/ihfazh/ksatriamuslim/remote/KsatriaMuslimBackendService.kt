@@ -74,4 +74,5 @@ interface KsatriaMuslimBackendService {
 
     @POST("package-usage/log/")
     suspend fun logUsagePackage(@Body body: UsagePackageLogBody): Response<DefaultOK>
+
 }
