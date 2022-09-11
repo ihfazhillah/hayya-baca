@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ihfazh.ksatriamuslim.adapters.BookReadingViewPagerAdapter
 import com.ihfazh.ksatriamuslim.databinding.FragmentBookReadingBinding
@@ -30,6 +31,7 @@ class BookReadingFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentBookReadingBinding.inflate(inflater, container, false)
         vm.getPageCount(args.bookId)
+        vm.getBackground()
         return binding?.root
     }
 
@@ -43,6 +45,14 @@ class BookReadingFragment : Fragment() {
             vm.pageCount.observe(viewLifecycleOwner) {
                 Timber.d("Got pages : $it")
                 adapter.setCount(it)
+            }
+
+            vm.background.observe(viewLifecycleOwner) {
+                b.root.background = it
+            }
+
+            b.home.setOnClickListener {
+                findNavController().popBackStack()
             }
 
         }
