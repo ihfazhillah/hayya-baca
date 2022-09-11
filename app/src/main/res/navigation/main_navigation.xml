@@ -236,5 +236,8 @@
         app:destination="@id/bookReadingFragment"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/goToCoinCongratulateFragment"
+        app:destination="@id/coinCongratulateFragment" />
 
 </navigation>

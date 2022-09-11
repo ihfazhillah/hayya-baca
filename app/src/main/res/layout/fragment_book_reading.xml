@@ -42,5 +42,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <ImageButton
+        android:id="@+id/btnDone"
+        android:layout_width="@dimen/reading_icon_wh"
+        android:layout_height="@dimen/reading_icon_wh"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/reading_margin"
+        android:background="@drawable/circle_button_background"
+        android:src="@drawable/ic_baseline_check_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
