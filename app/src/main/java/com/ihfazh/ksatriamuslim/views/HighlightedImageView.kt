@@ -42,19 +42,34 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         color = Color.parseColor("#FEB7B3")
     }
 
+    private val textBackgroundPaint = Paint().apply {
+        color = Color.argb(150, 252, 241, 221)
+    }
+
 
     override fun onDraw(canvas: Canvas?) {
 
         val widthRatio = width.toFloat() / originalWidth
         val heightRatio = height.toFloat() / originalHeight
 
+        // add some padding
+        val padding = 5 * resources.displayMetrics.density
+        val round = 25 * resources.displayMetrics.density
+
+        // text background overlay
+        canvas?.drawRoundRect(
+            0f,
+            0f,
+            width.toFloat(),
+            height.toFloat(),
+            round,
+            round,
+            textBackgroundPaint
+        )
+
         textDataList.forEach { textData ->
             if (textData.isActive) {
                 textData.bBoxes.forEach { bBox ->
-
-                    // add some padding
-                    val padding = 5 * resources.displayMetrics.density
-                    val round = 25 * resources.displayMetrics.density
 
                     val textBBox = bBox.toDeviceRect(widthRatio, heightRatio).apply {
                         left -= padding
@@ -69,6 +84,7 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         }
 
         super.onDraw(canvas)
+
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
