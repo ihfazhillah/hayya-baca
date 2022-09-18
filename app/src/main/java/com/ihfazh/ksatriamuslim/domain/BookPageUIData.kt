@@ -9,6 +9,6 @@ sealed class BookPageUIData {
         const val UNKNOWN_ERROR = "unknown_error"
     }
 
-    data class Success(val bitmap: Bitmap) : BookPageUIData()
+    data class Success(val bitmap: Bitmap, val metadata: BookMetadata) : BookPageUIData()
     data class Error(val errorCode: String) : BookPageUIData()
 }

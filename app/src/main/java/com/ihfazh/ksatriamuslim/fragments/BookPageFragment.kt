@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.load
 import com.google.android.material.snackbar.Snackbar
+import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.databinding.FragmentBookPageBinding
 import com.ihfazh.ksatriamuslim.domain.BookPageUIData
+import com.ihfazh.ksatriamuslim.domain.WordUI
 import com.ihfazh.ksatriamuslim.vm.BookPageViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -23,6 +26,7 @@ class BookPageFragment : Fragment() {
 
     private var binding: FragmentBookPageBinding? = null
     private val vm by viewModel<BookPageViewModel>()
+    private val wordSpeak: WordSpeak by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +61,17 @@ class BookPageFragment : Fragment() {
     }
 
     private fun handleSuccess(binding: FragmentBookPageBinding, uiData: BookPageUIData.Success) {
-        binding.pageImage.load(uiData.bitmap)
+        binding.pageImage.apply {
+            load(uiData.bitmap)
+            setTextDataList(uiData.metadata.page_data.map {
+                WordUI(it, false)
+            })
+            setOnWordListener {
+                wordSpeak.speak(it.text)
+            }
+            originalHeight = vm.originalImageHeight
+            originalWidth = vm.originalImageWidth
+        }
     }
 
     private fun handleError(binding: FragmentBookPageBinding, uiData: BookPageUIData.Error) {
