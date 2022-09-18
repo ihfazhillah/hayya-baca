@@ -3,7 +3,11 @@ package com.ihfazh.ksatriamuslim.common
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Environment
+import com.google.gson.Gson
+import com.ihfazh.ksatriamuslim.domain.BookMetadata
+import com.ihfazh.ksatriamuslim.domain.BookMetadataResponse
 import com.ihfazh.ksatriamuslim.domain.BookReadingResponse
 import okhttp3.*
 import okhttp3.internal.closeQuietly
@@ -12,6 +16,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -111,6 +116,96 @@ class BookFileUtils {
         }
     }
 
+    suspend fun getBookMetadataFromLocal(
+        context: Context,
+        book: Int,
+        page: Int,
+        screenQualifier: String
+    ): BookMetadataResponse {
+        return suspendCoroutine { cont ->
+            val location = getBookImageDirectory(context, book)
+                ?: return@suspendCoroutine cont.resume(
+                    BookMetadataResponse.Error(BookMetadataResponse.ERROR_SD_CARD_NOT_FOUND)
+                )
+
+            val absPath = "$location${File.separator}$page-$screenQualifier-metadata.json"
+
+            try {
+                val jsonString: String = File(absPath).bufferedReader().readText()
+                val listBookMetadata: BookMetadata =
+                    Gson().fromJson(jsonString, BookMetadata::class.java)
+                cont.resume(
+                    BookMetadataResponse.Success(listBookMetadata)
+                )
+            } catch (e: IOException) {
+                cont.resume(
+                    BookMetadataResponse.Error(BookMetadataResponse.ERROR_FILE_NOT_FOUND)
+                )
+            } catch (e: Exception) {
+                Timber.e(e, "Error not handled")
+                cont.resume(
+                    BookMetadataResponse.Error(BookMetadataResponse.ERROR_UNKNOWN)
+                )
+            }
+        }
+    }
+
+    suspend fun getBookMetadataFromWeb(
+        context: Context,
+        book: Int,
+        page: Int,
+        screenQualifier: String
+    ): BookMetadataResponse {
+        return suspendCoroutine { cont ->
+            val urlString =
+                ("$BASE_URL/book_image_metadata/books/$book/$page-$screenQualifier.json")
+            Timber.d("want to download: $urlString")
+
+            val uri = Uri.parse(urlString)
+
+            val url = URL(uri.scheme, uri.host, uri.path)
+            try {
+                val responseText = url.readText()
+                Timber.d("Response Text: $responseText")
+
+                val location = getBookImageDirectory(context, book)
+                    ?: return@suspendCoroutine cont.resume(
+                        BookMetadataResponse.Error(BookMetadataResponse.ERROR_SD_CARD_NOT_FOUND)
+                    )
+
+                val absPath = "$location${File.separator}$page-$screenQualifier-metadata.json"
+                if (makeBookImageDirectory(context, book)) {
+                    val saveSuccess = tryToSafeRaw(responseText, absPath)
+                    if (saveSuccess) {
+                        val listBookMetadata: BookMetadata =
+                            Gson().fromJson(responseText, BookMetadata::class.java)
+                        cont.resume(
+                            BookMetadataResponse.Success(listBookMetadata)
+                        )
+                    } else {
+                        Timber.e("Failed on saving file into local")
+                    }
+
+                } else {
+                    Timber.e("failed to create book directory on $absPath")
+
+                }
+            } catch (ioe: IOException) {
+                cont.resume(
+                    BookMetadataResponse.Error(BookMetadataResponse.ERROR_NO_INTERNET)
+                )
+            }
+
+
+        }
+    }
+
+    private fun tryToSafeRaw(responseText: String, path: String): Boolean {
+        val file = File(path)
+        file.writeText(responseText)
+        return true
+    }
+
     private fun tryToSaveBitmap(bitmap: Bitmap, path: String): Boolean {
         var output: FileOutputStream? = null
         try {
@@ -173,18 +268,4 @@ class BookFileUtils {
 
     }
 
-}
-
-suspend fun Call.executeSuspend(): Unit {
-    suspendCoroutine<Unit> { cont ->
-        enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
 }

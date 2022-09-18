@@ -96,13 +96,12 @@ class MyApplication : Application(), ImageLoaderFactory {
 //
 ////        val okHttpClient: OkHttpClient = get()
 //        val pageSizeCalculator by inject<PageSizeCalculator>()
-//        val okHttpClient by inject<OkHttpClient>()
 //        CoroutineScope(Dispatchers.IO).launch {
-//            val response = BookFileUtils().getImageFromLocal(
-//                applicationContext, 1, 2, pageSizeCalculator.guessScreenSizeQualifier()
+//            val response = BookFileUtils().getBookMetadataFromWeb(
+//                applicationContext, 1, 3, pageSizeCalculator.guessScreenSizeQualifier()
 //            )
 //            when (response) {
-//                is BookReadingResponse.Success ->
+//                is BookMetadataResponse.Success ->
 //                    Timber.d("success: $response")
 //                else ->
 //                    Timber.d("error: $response")
