@@ -54,7 +54,7 @@ class MyApplication : Application(), ImageLoaderFactory {
             BookFileUtils()
         }
 
-        factory<WordSpeak> {
+        single<WordSpeak> {
             WordSpeak(get())
         }
 
