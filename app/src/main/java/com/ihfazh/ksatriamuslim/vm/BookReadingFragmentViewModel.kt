@@ -61,7 +61,10 @@ class BookReadingFragmentViewModel(
                     _background.postValue(drawable)
                 } else {
                     val fallbackRequest = imageBuilder.data(R.drawable.ic_artboard8).build()
-                    _background.postValue(imageLoader.execute(fallbackRequest).drawable)
+                    val defaultDrawable = imageLoader.execute(fallbackRequest).drawable
+                    if (defaultDrawable != null) {
+                        _background.postValue(imageLoader.execute(fallbackRequest).drawable!!)
+                    }
                     Timber.w("Background image gak dapat, pakai default")
                 }
 
