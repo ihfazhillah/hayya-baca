@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
-import androidx.core.graphics.toRectF
 import com.ihfazh.ksatriamuslim.domain.Word
 import com.ihfazh.ksatriamuslim.domain.WordUI
 import timber.log.Timber
@@ -119,15 +118,13 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
                 var isActive = false
 
                 wordUI.bBoxes.forEach { rect ->
-                    val rectF = rect.toRectF()
-                    isActive = rectF.contains(originX, originY)
+                    isActive = rect.contains(originX, originY)
                     if (isActive) {
                         return@forEach
                     }
                 }
 
-                val anyActive =
-                    wordUI.bBoxes.any { rect -> rect.toRectF().contains(originX, originY) }
+                val anyActive = wordUI.bBoxes.any { rect -> rect.contains(originX, originY) }
 
                 Timber.d("origin x: $originX origin y: $originY")
                 Timber.d("current word: $wordUI")
@@ -148,6 +145,15 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
 }
 
 private fun Rect.toDeviceRect(xRatio: Float, yRatio: Float): RectF {
+    return RectF(
+        left * xRatio,
+        top * yRatio,
+        right * xRatio,
+        bottom * yRatio
+    )
+}
+
+private fun RectF.toDeviceRect(xRatio: Float, yRatio: Float): RectF {
     return RectF(
         left * xRatio,
         top * yRatio,

@@ -20,12 +20,26 @@ class DefaultBookPageLoader(
 
     private val sizeQualifier = pageSizeCalculator.guessScreenSizeQualifier()
 
-    private suspend fun loadPageImage(book: Int, pageNum: Int): BookReadingResponse {
+    private suspend fun loadPageImage(
+        book: Int,
+        pageNum: Int,
+        forceDownload: Boolean
+    ): BookReadingResponse {
+        if (forceDownload) return bookFileUtils.getImageFromWeb(
+            context,
+            okHttpClient,
+            book,
+            pageNum,
+            sizeQualifier
+        )
+
         val localImageResponse = bookFileUtils.getImageFromLocal(
             context, book, pageNum, sizeQualifier
         )
         return when (localImageResponse) {
-            is BookReadingResponse.Success -> localImageResponse
+            is BookReadingResponse.Success -> {
+                localImageResponse
+            }
             else -> {
                 bookFileUtils.getImageFromWeb(
                     context, okHttpClient, book, pageNum, sizeQualifier
@@ -34,20 +48,36 @@ class DefaultBookPageLoader(
         }
     }
 
-    private suspend fun loadPageMetadata(book: Int, pageNum: Int): BookMetadataResponse {
+    private suspend fun loadPageMetadata(
+        book: Int,
+        pageNum: Int,
+        forceDownload: Boolean
+    ): BookMetadataResponse {
+        if (forceDownload) return bookFileUtils.getBookMetadataFromWeb(
+            context,
+            book,
+            pageNum,
+            sizeQualifier
+        )
+
         val localMetadata =
             bookFileUtils.getBookMetadataFromLocal(context, book, pageNum, sizeQualifier)
-        return if (localMetadata is BookMetadataResponse.Success) localMetadata
-        else bookFileUtils.getBookMetadataFromWeb(context, book, pageNum, sizeQualifier)
+
+        return if (localMetadata is BookMetadataResponse.Success) {
+            localMetadata
+        } else bookFileUtils.getBookMetadataFromWeb(context, book, pageNum, sizeQualifier)
     }
 
     override suspend fun loadPage(book: Int, pageNum: Int): BookPageUIData {
         return withContext(Dispatchers.IO) {
+
+            val forceDownload = bookFileUtils.shouldReDownload(context, book, pageNum)
+
             val deferredImage = async {
-                loadPageImage(book, pageNum)
+                loadPageImage(book, pageNum, forceDownload)
             }
             val deferredMetadata = async {
-                loadPageMetadata(book, pageNum)
+                loadPageMetadata(book, pageNum, forceDownload)
             }
 
             val image = deferredImage.await()

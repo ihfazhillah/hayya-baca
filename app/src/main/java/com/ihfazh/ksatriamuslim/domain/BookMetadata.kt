@@ -1,12 +1,12 @@
 package com.ihfazh.ksatriamuslim.domain
 
-import android.graphics.Rect
+import android.graphics.RectF
 import androidx.annotation.Keep
 
 @Keep
 data class Word(
     val text: String,
-    val bboxes: List<Rect>
+    val bboxes: List<RectF>
 )
 
 @Keep

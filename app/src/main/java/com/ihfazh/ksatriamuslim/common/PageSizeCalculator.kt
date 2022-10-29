@@ -1,6 +1,8 @@
 package com.ihfazh.ksatriamuslim.common
 
 import android.util.DisplayMetrics
+import timber.log.Timber
+import kotlin.math.sqrt
 
 
 data class ImageSize(
@@ -10,6 +12,19 @@ data class ImageSize(
 
 class PageSizeCalculator(private val displayMetrics: DisplayMetrics) {
     fun guessScreenSizeQualifier(): String {
+        Timber.d("display metric: ${displayMetrics.scaledDensity}")
+        Timber.d("display metric: ${displayMetrics.density}")
+        Timber.d("display metric: ${displayMetrics.densityDpi}")
+        Timber.d("display metric xdpi: ${displayMetrics.xdpi}")
+        Timber.d("display metric ydpi: ${displayMetrics.ydpi}")
+        Timber.d("display metric width x height: ${displayMetrics.widthPixels} x ${displayMetrics.heightPixels}")
+        val xInches = displayMetrics.widthPixels / displayMetrics.xdpi
+        val yInches = displayMetrics.heightPixels / displayMetrics.ydpi
+        val diagonal = sqrt((xInches * xInches).toDouble() + yInches * yInches)
+
+        Timber.d("display metric Diagonal: $diagonal")
+        if (diagonal >= 6.5) return "xhdpi"
+
         return when {
             displayMetrics.scaledDensity >= 1 && displayMetrics.scaledDensity < 1.5 -> {
                 "mdpi"

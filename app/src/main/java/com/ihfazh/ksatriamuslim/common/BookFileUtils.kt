@@ -42,6 +42,57 @@ class BookFileUtils {
 
     }
 
+    suspend fun shouldReDownload(
+        context: Context,
+        book: Int,
+        pageNum: Int
+    ): Boolean {
+        return suspendCoroutine { cont ->
+            /*
+            Guard!! when no stamp for the particular book return true
+            get value from local for the particular book
+            get value from remote for the particular book
+            return local != remote
+             */
+
+            val localLocation = getBookImageDirectory(context, book)
+            val stampFile = File(localLocation + File.separator + "$pageNum-stamp")
+
+            val remoteLocation = BASE_URL + "/books_image/books/$book/$pageNum/stamp"
+            val remoteUri = Uri.parse(remoteLocation)
+            val remoteUrl = URL(remoteUri.scheme, remoteUri.host, remoteUri.path)
+
+            try {
+                val responseText = remoteUrl.readText()
+                Timber.d("Stamp for book $book: $responseText")
+
+                if (!stampFile.exists()) {
+                    Timber.d("Stamp file not exist in local storage")
+                    tryToSafeRaw(responseText, stampFile.absolutePath)
+                    Timber.d("saving remote to local")
+                    cont.resume(true)
+                } else {
+                    Timber.d("stamp file found in local storage")
+                    val localStamp = stampFile.readText()
+                    Timber.d("saving remote stamp file")
+                    tryToSafeRaw(responseText, stampFile.absolutePath)
+                    Timber.d("compare local vs remote ${localStamp == responseText}")
+                    cont.resume(localStamp != responseText)
+                }
+
+            } catch (ioe: IOException) {
+                Timber.d("No Internet, use data from local")
+                Timber.e(ioe)
+                cont.resume(false)
+            } catch (e: Exception) {
+                Timber.e(e)
+                tryToSafeRaw("", stampFile.absolutePath)
+                cont.resume(true)
+            }
+
+        }
+    }
+
     suspend fun getImageFromLocal(
         context: Context,
         book: Int,
