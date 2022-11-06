@@ -23,16 +23,7 @@ class DefaultBookPageLoader(
     private suspend fun loadPageImage(
         book: Int,
         pageNum: Int,
-        forceDownload: Boolean
     ): BookReadingResponse {
-        if (forceDownload) return bookFileUtils.getImageFromWeb(
-            context,
-            okHttpClient,
-            book,
-            pageNum,
-            sizeQualifier
-        )
-
         val localImageResponse = bookFileUtils.getImageFromLocal(
             context, book, pageNum, sizeQualifier
         )
@@ -51,14 +42,7 @@ class DefaultBookPageLoader(
     private suspend fun loadPageMetadata(
         book: Int,
         pageNum: Int,
-        forceDownload: Boolean
     ): BookMetadataResponse {
-        if (forceDownload) return bookFileUtils.getBookMetadataFromWeb(
-            context,
-            book,
-            pageNum,
-            sizeQualifier
-        )
 
         val localMetadata =
             bookFileUtils.getBookMetadataFromLocal(context, book, pageNum, sizeQualifier)
@@ -71,13 +55,11 @@ class DefaultBookPageLoader(
     override suspend fun loadPage(book: Int, pageNum: Int): BookPageUIData {
         return withContext(Dispatchers.IO) {
 
-            val forceDownload = bookFileUtils.shouldReDownload(context, book, pageNum)
-
             val deferredImage = async {
-                loadPageImage(book, pageNum, forceDownload)
+                loadPageImage(book, pageNum)
             }
             val deferredMetadata = async {
-                loadPageMetadata(book, pageNum, forceDownload)
+                loadPageMetadata(book, pageNum)
             }
 
             val image = deferredImage.await()
