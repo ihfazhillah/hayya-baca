@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.local
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.ihfazh.ksatriamuslim.domain.BookPageCount
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
 import com.ihfazh.ksatriamuslim.local.data.BookPageEntity
 import com.ihfazh.ksatriamuslim.local.data.BookUIEntity
@@ -112,6 +113,25 @@ where b.childId = :childId
 
         Log.d("InsertOrUpdateBookUI", "insertOrUpdateBookUI: result: $result")
     }
+
+    @Query(
+        """
+        select book.id, count(book_page.id) as pageCount
+        from book
+        join book_page on book_page.book_id = book.id
+    """
+    )
+    abstract suspend fun getBooksAndPageCount(): List<BookPageCount>
+
+    @Query(
+        """
+        select book.id, count(book_page.id) as pageCount 
+        from book
+        join book_page on book_page.book_id = book.id
+        where book.id = :bookId
+    """
+    )
+    abstract suspend fun getBookAndPageCount(bookId: Int): BookPageCount
 
 
 //    @Query

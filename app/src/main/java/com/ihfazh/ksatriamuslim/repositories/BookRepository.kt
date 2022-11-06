@@ -3,6 +3,7 @@ package com.ihfazh.ksatriamuslim.repositories
 import androidx.paging.PagingData
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.domain.BookPage
+import com.ihfazh.ksatriamuslim.domain.BookPageCount
 import com.ihfazh.ksatriamuslim.domain.BookUI
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +18,6 @@ interface BookRepository {
     suspend fun hasPrev(bookId: Int, page: Int): Boolean
     suspend fun openGift(bookId: Int)
     suspend fun logBook(bookId: Int)
+    suspend fun getBooksAndPageCount(): List<BookPageCount>
+    suspend fun getBookAndPageCount(bookId: Int): BookPageCount
 }

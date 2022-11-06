@@ -11,7 +11,9 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Recognizer
+import com.ihfazh.ksatriamuslim.workers.CheckBookPageChangesWorker
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
+import com.ihfazh.ksatriamuslim.workers.ReDownloadBookImagesWorker
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -33,6 +35,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         handleUpdateDataNotification()
+
+        setupBookPageChangesWatcher()
+    }
+
+    private fun setupBookPageChangesWatcher() {
+        val pageChangesWorkRequest: OneTimeWorkRequest =
+            OneTimeWorkRequest.from(CheckBookPageChangesWorker::class.java)
+        val redownloadWorkRequest: OneTimeWorkRequest =
+            OneTimeWorkRequest.from(ReDownloadBookImagesWorker::class.java)
+        WorkManager.getInstance(applicationContext)
+            .beginWith(pageChangesWorkRequest)
+            .then(redownloadWorkRequest)
+            .enqueue()
     }
 
     override fun onSupportNavigateUp(): Boolean {

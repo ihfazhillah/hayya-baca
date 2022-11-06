@@ -7,6 +7,7 @@ import androidx.paging.*
 import com.ihfazh.ksatriamuslim.common.SessionManager
 import com.ihfazh.ksatriamuslim.domain.Book
 import com.ihfazh.ksatriamuslim.domain.BookPage
+import com.ihfazh.ksatriamuslim.domain.BookPageCount
 import com.ihfazh.ksatriamuslim.domain.BookUI
 import com.ihfazh.ksatriamuslim.local.AppDatabase
 import com.ihfazh.ksatriamuslim.local.data.BookEntity
@@ -152,6 +153,14 @@ class BookRepositoryImpl(
                 LogBookBody(childId.toInt())
             )
         }
+    }
+
+    override suspend fun getBooksAndPageCount(): List<BookPageCount> {
+        return local.bookDao().getBooksAndPageCount()
+    }
+
+    override suspend fun getBookAndPageCount(bookId: Int): BookPageCount {
+        return local.bookDao().getBookAndPageCount(bookId)
     }
 }
 
