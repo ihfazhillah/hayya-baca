@@ -18,7 +18,6 @@ class BookReadingViewPagerAdapter(fragment: Fragment, private val bookId: Int) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        // todo: book jgn di hardcode
         return BookPageFragment.newInstance(position + 1, bookId)
     }
 }

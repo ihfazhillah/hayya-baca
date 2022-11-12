@@ -1,3 +1,7 @@
+/*
+Individual Book Page, displays image
+ */
+
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle

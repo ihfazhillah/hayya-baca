@@ -1,3 +1,6 @@
+/*
+Book Reading page, this when child open the book and reading it.
+ */
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.os.Bundle
@@ -23,11 +26,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookReadingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookReadingFragment : Fragment() {
     private var binding: FragmentBookReadingBinding? = null
     private val vm by viewModel<BookReadingFragmentViewModel>()
@@ -42,6 +40,7 @@ class BookReadingFragment : Fragment() {
         binding = FragmentBookReadingBinding.inflate(inflater, container, false)
         vm.getPageCount(args.bookId)
         vm.getBackground()
+        childViewModel.getSelectedChild()
         return binding?.root
     }
 
@@ -53,6 +52,7 @@ class BookReadingFragment : Fragment() {
             b.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    vm.setPage(position + 1)
                     if (position + 1 == adapter.itemCount) {
                         b.btnDone.visibility = View.VISIBLE
                         val anim =
@@ -84,6 +84,21 @@ class BookReadingFragment : Fragment() {
 
             b.home.setOnClickListener {
                 findNavController().popBackStack()
+            }
+
+            childViewModel.child.observe(viewLifecycleOwner) {
+                Timber.d("Child $it")
+                it?.let { children ->
+                    if (children.enableReadToMe) {
+                        b.btnPlay.visibility = View.VISIBLE
+                    } else {
+                        b.btnPlay.visibility = View.GONE
+                    }
+                }
+            }
+
+            b.btnPlay.setOnClickListener {
+                vm.speakPage(args.bookId)
             }
 
         }

@@ -9,6 +9,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
+import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.repositories.BookRepository
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepository
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,8 @@ class BookReadingFragmentViewModel(
     private val bookRepository: BookRepository,
     private val readingBackgroundRepository: ReadingBackgroundRepository,
     private val imageLoader: ImageLoader,
-    private val imageBuilder: ImageRequest.Builder
+    private val imageBuilder: ImageRequest.Builder,
+    private val wordSpeak: WordSpeak
 ) : ViewModel() {
     private val _pageCount = MutableLiveData<Int>()
     val pageCount: LiveData<Int> = _pageCount
@@ -72,5 +74,21 @@ class BookReadingFragmentViewModel(
                 Timber.w("Background image gak dapat")
             }
         }
+    }
+
+    fun speakPage(bookId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            bookRepository.getPage(bookId, _page.value!!)?.let {
+                wordSpeak.speak(it.text)
+            }
+        }
+    }
+
+    /*
+    Keep track current page from the viewpager
+     */
+    private val _page = MutableLiveData(1)
+    fun setPage(i: Int) {
+        _page.value = i
     }
 }
