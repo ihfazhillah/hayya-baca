@@ -155,6 +155,18 @@ class BookRepositoryImpl(
         }
     }
 
+    override suspend fun logBookFinish(bookId: Int) {
+        getChildId()?.let { childId ->
+//            local.bookDao().insertOrUpdateBookUI(
+//                BookUIEntity(bookId, childId.toInt(), true)
+//            )
+            remote.logBookFinished(
+                bookId,
+                LogBookBody(childId.toInt())
+            )
+        }
+    }
+
     override suspend fun getBooksAndPageCount(): List<BookPageCount> {
         return local.bookDao().getBooksAndPageCount()
     }

@@ -107,8 +107,9 @@ class ChildViewModel(
 
     fun increaseMyCoin(bookId: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
+            bookRepo.logBookFinish(bookId!!)
             // get jumlah halaman book
-            val pageCount = bookRepo.getPageCount(bookId!!)
+            val pageCount = bookRepo.getPageCount(bookId)
             // lakukan floor div
             val pointCount = pageCount.toDouble() / 30
             // update count
