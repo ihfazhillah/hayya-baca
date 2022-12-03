@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.R
+import com.ihfazh.ksatriamuslim.common.AudioFileUtil
 import com.ihfazh.ksatriamuslim.common.Recognizer
 import com.ihfazh.ksatriamuslim.workers.CheckBookPageChangesWorker
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 import com.ihfazh.ksatriamuslim.workers.ReDownloadBookImagesWorker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -37,6 +41,13 @@ class MainActivity : AppCompatActivity() {
         handleUpdateDataNotification()
 
         setupBookPageChangesWatcher()
+        setupAudioChangesWatcher()
+    }
+
+    private fun setupAudioChangesWatcher() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            AudioFileUtil().getAudioFromWeb(applicationContext, 16)
+        }
     }
 
     private fun setupBookPageChangesWatcher() {
