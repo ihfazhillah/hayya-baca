@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.exoplayer2.ExoPlayer
 import com.ihfazh.ksatriamuslim.MainNavigationDirections
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.adapters.BookReadingViewPagerAdapter
@@ -21,6 +22,7 @@ import com.ihfazh.ksatriamuslim.databinding.FragmentBookReadingBinding
 import com.ihfazh.ksatriamuslim.vm.BookReadingFragmentViewModel
 import com.ihfazh.ksatriamuslim.vm.ChildViewModel
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -31,6 +33,7 @@ class BookReadingFragment : Fragment() {
     private val vm by viewModel<BookReadingFragmentViewModel>()
     private val childViewModel by sharedViewModel<ChildViewModel>()
     private val args by navArgs<BookReadingFragmentArgs>()
+    private val player: ExoPlayer by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,7 @@ class BookReadingFragment : Fragment() {
         vm.getPageCount(args.bookId)
         vm.getBackground()
         childViewModel.getSelectedChild()
+//        player.prepare()
         return binding?.root
     }
 
@@ -66,10 +70,10 @@ class BookReadingFragment : Fragment() {
 
             b.btnDone.setOnClickListener {
                 childViewModel.increaseMyCoin(args.bookId)
+//                player.release()
                 val action = MainNavigationDirections.goToCoinCongratulateFragment()
                 findNavController().navigate(action)
                 lifecycleScope.launch { Recognizer.stopRecognizing() }
-
             }
 
 

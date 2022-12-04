@@ -72,4 +72,12 @@ class AudioFileUtil : AbstractFileUtil() {
 
         }
     }
+
+    fun getAudioFile(context: Context, book: Int, page: Int, index: Int): File {
+        // currently file in wav. Change me if the audio already in mp3 format
+        val base = getBookDirectory(context, book)
+        val path = "$base${File.separator}audio${File.separator}${book}_${page}_$index.wav"
+        return File(path)
+    }
+
 }

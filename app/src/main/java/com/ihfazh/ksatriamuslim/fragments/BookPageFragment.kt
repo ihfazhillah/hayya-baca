@@ -14,6 +14,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.databinding.FragmentBookPageBinding
 import com.ihfazh.ksatriamuslim.domain.BookPageUIData
+import com.ihfazh.ksatriamuslim.domain.SpeakInput
+import com.ihfazh.ksatriamuslim.domain.Word
 import com.ihfazh.ksatriamuslim.domain.WordUI
 import com.ihfazh.ksatriamuslim.vm.BookPageViewModel
 import org.koin.android.ext.android.inject
@@ -70,8 +72,15 @@ class BookPageFragment : Fragment() {
             setTextDataList(uiData.metadata.page_data.map {
                 WordUI(it, false)
             })
-            setOnWordListener {
-                wordSpeak.speak(it.text)
+            setOnWordListener { index, word: Word ->
+                wordSpeak.speak(
+                    SpeakInput(
+                        book!!,
+                        pageNum!!,
+                        index,
+                        word.text
+                    )
+                )
             }
             originalHeight = vm.originalImageHeight
             originalWidth = vm.originalImageWidth

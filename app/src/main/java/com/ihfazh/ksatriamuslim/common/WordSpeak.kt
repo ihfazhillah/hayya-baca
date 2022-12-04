@@ -5,12 +5,19 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import androidx.core.net.toUri
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.ihfazh.ksatriamuslim.domain.SpeakInput
+import com.ihfazh.ksatriamuslim.domain.SpeakInputPage
+import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
 class WordSpeak(
-    val context: Context
+    val context: Context,
+    private val player: ExoPlayer
 ) : TextToSpeech.OnInitListener {
     private val tts = TextToSpeech(context, this)
 
@@ -71,6 +78,26 @@ class WordSpeak(
         } catch (e: FileNotFoundException) {
             speakTTS(text)
         }
+
+    }
+
+    fun speak(input: SpeakInput) {
+        // check if file found in local
+        // if not found, load tts
+        if (!input.audioFile(context).exists()) {
+            speakTTS(input.text)
+            return
+        }
+
+        Timber.d("Loading file from ${input.audioFile(context).toUri()}")
+
+        val media = MediaItem.fromUri(input.audioFile(context).toUri())
+        player.setMediaItem(media)
+        player.prepare()
+        player.play()
+    }
+
+    fun speakPage(input: SpeakInputPage) {
 
     }
 

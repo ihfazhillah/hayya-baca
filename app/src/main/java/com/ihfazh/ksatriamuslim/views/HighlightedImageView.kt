@@ -22,7 +22,7 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
     )
 
     private val textDataList: MutableList<WordUI> = mutableListOf()
-    private var onWordListener: (Word) -> Unit = {}
+    private var onWordListener: (Int, Word) -> Unit = { a, b -> }
 
     var originalWidth: Int = ORIGINAL_WIDTH
     var originalHeight: Int = ORIGINAL_HEIGHT
@@ -33,7 +33,7 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         invalidate()
     }
 
-    fun setOnWordListener(listener: (Word) -> Unit) {
+    fun setOnWordListener(listener: (Int, Word) -> Unit) {
         this.onWordListener = listener
     }
 
@@ -114,7 +114,7 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         val originY = y / heightRatio
 
         setTextDataList(
-            textDataList.map { wordUI ->
+            textDataList.mapIndexed { index, wordUI ->
                 var isActive = false
 
                 wordUI.bBoxes.forEach { rect ->
@@ -132,7 +132,7 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
                 Timber.d("any active: $anyActive")
 
                 if (anyActive) {
-                    onWordListener.invoke(wordUI.word)
+                    onWordListener.invoke(index, wordUI.word)
                 }
 
                 wordUI.copy(isActive = anyActive)

@@ -1,7 +1,6 @@
 package com.ihfazh.ksatriamuslim.fragments
 
 import android.Manifest
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -85,23 +84,23 @@ class ReadingFragment : BaseFragment() {
 
             mainText.movementMethod = LinkMovementMethod.getInstance()
 
-            loading.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator?) {
-                    viewModel.setAnimationRunning(true)
-                }
-
-                override fun onAnimationEnd(p0: Animator?) {
-                    viewModel.setAnimationRunning(false)
-                }
-
-                override fun onAnimationCancel(p0: Animator?) {
-                    viewModel.setAnimationRunning(false)
-                }
-
-                override fun onAnimationRepeat(p0: Animator?) {
-                    viewModel.setAnimationRunning(false)
-                }
-            })
+//            loading.addAnimatorListener(object : Animator.AnimatorListener {
+//                override fun onAnimationStart(p0: Animator?) {
+//                    viewModel.setAnimationRunning(true)
+//                }
+//
+//                override fun onAnimationEnd(p0: Animator?) {
+//                    viewModel.setAnimationRunning(false)
+//                }
+//
+//                override fun onAnimationCancel(p0: Animator?) {
+//                    viewModel.setAnimationRunning(false)
+//                }
+//
+//                override fun onAnimationRepeat(p0: Animator?) {
+//                    viewModel.setAnimationRunning(false)
+//                }
+//            })
 
             nextIcon.setOnClickListener {
                 viewModel.nextPage()
