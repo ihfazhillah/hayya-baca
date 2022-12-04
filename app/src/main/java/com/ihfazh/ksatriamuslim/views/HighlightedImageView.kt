@@ -38,24 +38,19 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
     }
 
     fun setActiveByIndex(index: Int) {
-        val updated = this.textDataList.mapIndexed { idx, text ->
-            if (index == idx) {
-                text.copy(isActive = true)
-            } else {
-                text.copy(isActive = false)
+        this.textDataList[index] = this.textDataList[index].copy(isActive = true)
+        this.textDataList.forEachIndexed { idx, wordUI ->
+            if (idx != index) {
+                this.textDataList[idx] = wordUI.copy(isActive = false)
             }
         }
-        this.textDataList.clear()
-        this.textDataList.addAll(updated)
         invalidate()
     }
 
     fun setAllInactive() {
-        val updated = this.textDataList.map {
+        textDataList.replaceAll {
             it.copy(isActive = false)
         }
-        this.textDataList.clear()
-        this.textDataList.addAll(updated)
         invalidate()
     }
 
@@ -110,22 +105,17 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            activateText(event.x, event.y)
-            Timber.d("x: ${event.x}, y: ${event.y}")
-        }
-
-        if (event?.action == MotionEvent.ACTION_UP) {
-            decativateAll()
-        }
-        return true
-    }
-
-    private fun decativateAll() {
-        setTextDataList(
-            textDataList.map {
-                it.copy(isActive = false)
+            try {
+                activateText(event.x, event.y)
+                Timber.d("x: ${event.x}, y: ${event.y}")
+            } catch (concurrentModificationError: java.util.ConcurrentModificationException) {
+                // hello world !!
+                // ini problem adalah di: ketika playlist jalan, kemudian klik
+                Timber.d("The player still playing")
             }
-        )
+        }
+
+        return true
     }
 
     private fun activateText(x: Float, y: Float) {
@@ -135,32 +125,32 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         val originX = x / widthRatio
         val originY = y / heightRatio
 
-        setTextDataList(
-            textDataList.mapIndexed { index, wordUI ->
-                var isActive = false
+        textDataList.forEachIndexed { index, wordUI ->
+            var isActive = false
 
-                wordUI.bBoxes.forEach { rect ->
-                    isActive = rect.contains(originX, originY)
-                    if (isActive) {
-                        return@forEach
-                    }
+            wordUI.bBoxes.forEach { rect ->
+                isActive = rect.contains(originX, originY)
+                if (isActive) {
+                    return@forEach
                 }
-
-                val anyActive = wordUI.bBoxes.any { rect -> rect.contains(originX, originY) }
-
-                Timber.d("origin x: $originX origin y: $originY")
-                Timber.d("current word: $wordUI")
-                Timber.d("Is Active: $isActive")
-                Timber.d("any active: $anyActive")
-
-                if (anyActive) {
-                    onWordListener.invoke(index, wordUI.word)
-                }
-
-                wordUI.copy(isActive = anyActive)
             }
 
-        )
+            val anyActive = wordUI.bBoxes.any { rect -> rect.contains(originX, originY) }
+
+            if (anyActive) {
+                onWordListener.invoke(index, wordUI.word)
+            }
+
+            textDataList[index] = wordUI.copy(isActive = anyActive)
+        }
+
+        invalidate()
+
+//        setTextDataList(
+//            textDataList.mapIndexed { index, wordUI ->
+//            }
+//
+//        )
     }
 
 

@@ -72,9 +72,19 @@ class BookPageFragment : Fragment() {
     }
 
     private val playerListener: Player.Listener = object : Player.Listener {
+
+        // used to differ setAllInactive between speak page and speak word
+        private var inPlaylist = false
+
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
             mediaItem?.let { item ->
+                if (item.mediaId.isEmpty()) {
+                    inPlaylist = false
+                    return
+                }
+
                 binding!!.pageImage.setActiveByIndex(item.mediaId.toInt())
+                inPlaylist = true
             }
         }
 
