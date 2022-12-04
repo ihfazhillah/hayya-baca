@@ -10,10 +10,12 @@ import coil.request.ImageRequest
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.Constants
 import com.ihfazh.ksatriamuslim.common.WordSpeak
+import com.ihfazh.ksatriamuslim.domain.SpeakInputPage
 import com.ihfazh.ksatriamuslim.repositories.BookRepository
 import com.ihfazh.ksatriamuslim.repositories.ReadingBackgroundRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 
@@ -79,7 +81,15 @@ class BookReadingFragmentViewModel(
     fun speakPage(bookId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             bookRepository.getPage(bookId, _page.value!!)?.let {
-                wordSpeak.speak(it.text)
+                withContext(Dispatchers.Main) {
+                    wordSpeak.speakPage(
+                        SpeakInputPage(
+                            bookId,
+                            _page.value!!,
+                            it.text
+                        )
+                    )
+                }
             }
         }
     }

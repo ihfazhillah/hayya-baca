@@ -98,7 +98,17 @@ class WordSpeak(
     }
 
     fun speakPage(input: SpeakInputPage) {
+        if (input.audioFiles(context).isEmpty()) {
+            speakTTS(input.text)
+            return
+        }
 
+        val mediaItems = input.audioFiles(context).map {
+            MediaItem.fromUri(it.toUri())
+        }
+        player.setMediaItems(mediaItems)
+        player.prepare()
+        player.play()
     }
 
     fun speak(text: String) {

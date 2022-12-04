@@ -80,4 +80,12 @@ class AudioFileUtil : AbstractFileUtil() {
         return File(path)
     }
 
+    fun getAudioFiles(context: Context, book: Int, page: Int): List<File> {
+        val base = getBookDirectory(context, book) ?: return listOf()
+        val directory = File("$base${File.separator}audio${File.separator}")
+        return directory.listFiles { _, fileName ->
+            fileName.startsWith("${book}_${page}_")
+        }?.sorted()?.toList() ?: listOf()
+    }
+
 }
