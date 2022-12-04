@@ -37,6 +37,28 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
         this.onWordListener = listener
     }
 
+    fun setActiveByIndex(index: Int) {
+        val updated = this.textDataList.mapIndexed { idx, text ->
+            if (index == idx) {
+                text.copy(isActive = true)
+            } else {
+                text.copy(isActive = false)
+            }
+        }
+        this.textDataList.clear()
+        this.textDataList.addAll(updated)
+        invalidate()
+    }
+
+    fun setAllInactive() {
+        val updated = this.textDataList.map {
+            it.copy(isActive = false)
+        }
+        this.textDataList.clear()
+        this.textDataList.addAll(updated)
+        invalidate()
+    }
+
     private val paint = Paint().apply {
         color = Color.parseColor("#FEB7B3")
     }

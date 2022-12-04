@@ -10,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.load
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.material.snackbar.Snackbar
 import com.ihfazh.ksatriamuslim.common.WordSpeak
 import com.ihfazh.ksatriamuslim.databinding.FragmentBookPageBinding
@@ -33,6 +36,7 @@ class BookPageFragment : Fragment() {
     private var binding: FragmentBookPageBinding? = null
     private val vm by viewModel<BookPageViewModel>()
     private val wordSpeak: WordSpeak by inject()
+    private val player: ExoPlayer by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +66,25 @@ class BookPageFragment : Fragment() {
                 }
 
             }
+        }
 
+        player.addListener(playerListener)
+    }
+
+    private val playerListener: Player.Listener = object : Player.Listener {
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            mediaItem?.let { item ->
+                binding!!.pageImage.setActiveByIndex(item.mediaId.toInt())
+            }
+        }
+
+        override fun onIsPlayingChanged(isPlaying: Boolean) {
+            if (!isPlaying) {
+                binding!!.pageImage.setAllInactive()
+            }
         }
     }
+
 
     private fun handleSuccess(binding: FragmentBookPageBinding, uiData: BookPageUIData.Success) {
         binding.pageImage.apply {
@@ -106,6 +126,7 @@ class BookPageFragment : Fragment() {
     }
 
     override fun onDestroy() {
+        player.removeListener(playerListener)
         super.onDestroy()
         binding = null
     }

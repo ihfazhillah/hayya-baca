@@ -103,8 +103,11 @@ class WordSpeak(
             return
         }
 
-        val mediaItems = input.audioFiles(context).map {
-            MediaItem.fromUri(it.toUri())
+        val mediaItems = input.audioFiles(context).mapIndexed { index, it ->
+            MediaItem.Builder()
+                .setUri(it.toUri())
+                .setMediaId(index.toString())
+                .build()
         }
         player.setMediaItems(mediaItems)
         player.prepare()
