@@ -18,9 +18,11 @@ import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 import com.ihfazh.ksatriamuslim.workers.ReDownloadBookImagesWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
+    private val audioFileUtil: AudioFileUtil by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAudioChangesWatcher() {
         lifecycleScope.launch(Dispatchers.IO) {
-            AudioFileUtil().getAudioFromWeb(applicationContext, 16)
+            audioFileUtil.getAudioFromWeb(16)
         }
     }
 

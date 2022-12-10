@@ -83,6 +83,7 @@ class BookPageFragment : Fragment() {
                     return
                 }
 
+
                 binding!!.pageImage.setActiveByIndex(item.mediaId.toInt())
                 inPlaylist = true
             }

@@ -38,10 +38,12 @@ class HighLightedImageView : androidx.appcompat.widget.AppCompatImageView {
     }
 
     fun setActiveByIndex(index: Int) {
-        this.textDataList[index] = this.textDataList[index].copy(isActive = true)
         this.textDataList.forEachIndexed { idx, wordUI ->
             if (idx != index) {
                 this.textDataList[idx] = wordUI.copy(isActive = false)
+            } else {
+                this.textDataList[idx] = this.textDataList[idx].copy(isActive = true)
+
             }
         }
         invalidate()

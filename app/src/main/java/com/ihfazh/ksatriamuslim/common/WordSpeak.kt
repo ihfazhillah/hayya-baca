@@ -17,7 +17,8 @@ import java.util.*
 
 class WordSpeak(
     val context: Context,
-    private val player: ExoPlayer
+    private val player: ExoPlayer,
+    private val audioFileUtil: AudioFileUtil
 ) : TextToSpeech.OnInitListener {
     private val tts = TextToSpeech(context, this)
 
@@ -84,26 +85,28 @@ class WordSpeak(
     fun speak(input: SpeakInput) {
         // check if file found in local
         // if not found, load tts
-        if (!input.audioFile(context).exists()) {
+        val audioFile = audioFileUtil.getAudioFile(input.book, input.page, input.index)
+        if (!audioFile.exists()) {
             speakTTS(input.text)
             return
         }
 
-        Timber.d("Loading file from ${input.audioFile(context).toUri()}")
+        Timber.d("Loading file from ${audioFile.toUri()}")
 
-        val media = MediaItem.fromUri(input.audioFile(context).toUri())
+        val media = MediaItem.fromUri(audioFile.toUri())
         player.setMediaItem(media)
         player.prepare()
         player.play()
     }
 
     fun speakPage(input: SpeakInputPage) {
-        if (input.audioFiles(context).isEmpty()) {
+        val audioFiles = audioFileUtil.getAudioFiles(input.book, input.page)
+        if (audioFiles.isEmpty()) {
             speakTTS(input.text)
             return
         }
 
-        val mediaItems = input.audioFiles(context).mapIndexed { index, it ->
+        val mediaItems = audioFiles.mapIndexed { index, it ->
             MediaItem.Builder()
                 .setUri(it.toUri())
                 .setMediaId(index.toString())

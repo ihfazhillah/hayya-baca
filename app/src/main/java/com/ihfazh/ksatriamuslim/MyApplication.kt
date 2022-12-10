@@ -10,6 +10,7 @@ import coil.imageLoader
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import com.google.android.exoplayer2.ExoPlayer
+import com.ihfazh.ksatriamuslim.common.AudioFileUtil
 import com.ihfazh.ksatriamuslim.common.BookFileUtils
 import com.ihfazh.ksatriamuslim.common.PageSizeCalculator
 import com.ihfazh.ksatriamuslim.common.WordSpeak
@@ -56,7 +57,7 @@ class MyApplication : Application(), ImageLoaderFactory {
         }
 
         single<WordSpeak> {
-            WordSpeak(get(), get())
+            WordSpeak(get(), get(), get())
         }
 
         single<KsatriaMuslimService> {
@@ -78,6 +79,10 @@ class MyApplication : Application(), ImageLoaderFactory {
         single<ExoPlayer> {
             val player = ExoPlayer.Builder(get<Context>()).build()
             player
+        }
+
+        factory {
+            AudioFileUtil(get(), get())
         }
 
     }
