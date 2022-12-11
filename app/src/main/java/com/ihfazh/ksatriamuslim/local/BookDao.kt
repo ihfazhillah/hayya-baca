@@ -116,9 +116,9 @@ where b.childId = :childId
 
     @Query(
         """
-        select book.id, count(book_page.id) as pageCount
+        select book.id, (select count(*) from book_page where book_page.book_id = book.id) as pageCount
         from book
-        join book_page on book_page.book_id = book.id
+      group by book.id
     """
     )
     abstract suspend fun getBooksAndPageCount(): List<BookPageCount>
