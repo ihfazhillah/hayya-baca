@@ -95,8 +95,8 @@ android {
         applicationId "com.ihfazh.ksatriamuslim"
         minSdk 28
         targetSdk 31
-        versionCode 19
-        versionName "1.28"
+        versionCode 20
+        versionName "1.29"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
