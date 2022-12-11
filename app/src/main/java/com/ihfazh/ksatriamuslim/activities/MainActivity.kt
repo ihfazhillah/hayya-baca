@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.work.OneTimeWorkRequest
@@ -13,11 +12,10 @@ import androidx.work.workDataOf
 import com.ihfazh.ksatriamuslim.R
 import com.ihfazh.ksatriamuslim.common.AudioFileUtil
 import com.ihfazh.ksatriamuslim.common.Recognizer
+import com.ihfazh.ksatriamuslim.workers.CheckBookAudioChangesWorker
 import com.ihfazh.ksatriamuslim.workers.CheckBookPageChangesWorker
 import com.ihfazh.ksatriamuslim.workers.ForceUpdateAllData
 import com.ihfazh.ksatriamuslim.workers.ReDownloadBookImagesWorker
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -47,9 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAudioChangesWatcher() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            audioFileUtil.getAudioFromWeb(16)
-        }
+        val audioWorkRequest: OneTimeWorkRequest =
+            OneTimeWorkRequest.from(CheckBookAudioChangesWorker::class.java)
+        WorkManager.getInstance(applicationContext).enqueue(audioWorkRequest)
     }
 
     private fun setupBookPageChangesWatcher() {
