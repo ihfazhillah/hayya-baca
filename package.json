@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@mhpdev/react-native-speech": "^1.4.0",
     "@tanstack/react-query": "^5.90.21",
     "expo": "~55.0.5",
     "expo-av": "^16.0.8",
@@ -18,7 +19,6 @@
     "expo-intent-launcher": "^55.0.8",
     "expo-linking": "^55.0.7",
     "expo-router": "^55.0.4",
-    "expo-speech": "^55.0.8",
     "expo-speech-recognition": "^3.1.1",
     "expo-sqlite": "^55.0.10",
     "expo-status-bar": "~55.0.4",
