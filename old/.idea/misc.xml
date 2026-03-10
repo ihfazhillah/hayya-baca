@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../layout/compose-model-1649522171479.xml" value="0.8064814814814815" />
+        <entry key="../../../../../layout/compose-model-1649585064749.xml" value="0.575925925925926" />
+        <entry key="../../../../../layout/compose-model-1649586035732.xml" value="0.31165540540540543" />
+        <entry key="../../../../../layout/compose-model-1649590989251.xml" value="0.575925925925926" />
+        <entry key="../../../../../layout/compose-model-1649591467092.xml" value="0.575925925925926" />
+        <entry key="../../../../../layout/compose-model-1650040624267.xml" value="0.8064814814814815" />
+        <entry key="../../../../../layout/compose-model-1653128313994.xml" value="0.30869932432432434" />
+        <entry key="../../../../../layout/custom_preview.xml" value="0.3296875" />
+        <entry key="../../../../layout/compose-model-1647180531359.xml" value="0.45" />
+        <entry key="../../../../layout/compose-model-1647783886872.xml" value="0.387037037037037" />
+        <entry key="app/src/main/res/drawable/book_list_background.xml" value="0.3111111111111111" />
+        <entry key="app/src/main/res/drawable/circle_button_background.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/drawable/coin_text_background.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_left_solid.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_left_solid_off.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_right_solid.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_arrow_circle_right_solid_off.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_bitcoin_36420421.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_btcoin.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_buku.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_caret_left.xml" value="0.3565" />
+        <entry key="app/src/main/res/drawable/ic_caret_right.xml" value="0.3565" />
+        <entry key="app/src/main/res/drawable/ic_danger_btn_background.xml" value="0.3734375" />
+        <entry key="app/src/main/res/drawable/ic_disabled_btn_background.xml" value="0.3734375" />
+        <entry key="app/src/main/res/drawable/ic_flayer_1.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_flayer_2.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_flayer_3.xml" value="0.18125" />
+        <entry key="app/src/main/res/drawable/ic_on_btn_background.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/drawable/ic_read_book.xml" value="0.3565" />
+        <entry key="app/src/main/res/drawable/left_solid_button.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/next_button.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/drawable/padlock_with_key.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/prev_button.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/activity_application_overlay.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/layout/activity_application_overlay2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_foreground_service.xml" value="0.184375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3567708333333333" />
+        <entry key="app/src/main/res/layout/book_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/book_lists.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/layout/coin_layout.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/content_application_overlay.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/layout/default_application_item.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.3567708333333333" />
+        <entry key="app/src/main/res/layout/fragment_application_add.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_application_list_child.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_book_page.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_book_reading.xml" value="0.2949978623343309" />
+        <entry key="app/src/main/res/layout/fragment_child_from.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_children_list_child.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_children_list_parent.xml" value="0.17760416666666667" />
+        <entry key="app/src/main/res/layout/fragment_coin_congratulate.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.11770833333333333" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_motion_layout_try.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/layout/fragment_parent_gate.xml" value="0.12715298885511653" />
+        <entry key="app/src/main/res/layout/fragment_photo_profile_picker.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_reading.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.15677083333333333" />
+        <entry key="app/src/main/res/layout/grid_application_item.xml" value="0.3541666666666667" />
+        <entry key="app/src/main/res/layout/item_photo_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/layout/star_added_layout.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/layout/star_layout.xml" value="1.2" />
+        <entry key="app/src/main/res/menu/app_list_menu.xml" value="0.14814814814814814" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.3567708333333333" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3515625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="1.2" />
+      </ProjectState>
+    </option>
+  </component>
+</project>
