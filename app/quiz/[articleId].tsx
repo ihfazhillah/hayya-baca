@@ -10,7 +10,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { getArticle, calculateQuizStars } from "../../src/lib/articles";
 import { getSelectedChild } from "../../src/lib/session";
-import { addReward } from "../../src/lib/rewards";
+import { addReward, saveReadingProgress } from "../../src/lib/rewards";
 import { colors } from "../../src/theme";
 import type { ArticleQuizQuestion } from "../../src/types";
 
@@ -154,6 +154,7 @@ export default function QuizScreen() {
         if (stars > 0) {
           await addReward(child.id, "star", stars, `Kuis: ${article.title}`);
         }
+        await saveReadingProgress(child.id, `article-${articleId}`, 0, true);
       }
 
       router.replace({

@@ -98,3 +98,27 @@ export async function getReadingProgress(
     completedCount: row.completed_count,
   };
 }
+
+export async function getAllReadingProgress(
+  childId: number
+): Promise<Record<string, { lastPage: number; completed: boolean; completedCount: number }>> {
+  const db = await getDatabase();
+  const rows = await db.getAllAsync<{
+    book_id: string;
+    last_page: number;
+    completed: number;
+    completed_count: number;
+  }>(
+    "SELECT book_id, last_page, completed, completed_count FROM reading_progress WHERE child_id = ?",
+    childId
+  );
+  const result: Record<string, { lastPage: number; completed: boolean; completedCount: number }> = {};
+  for (const r of rows) {
+    result[r.book_id] = {
+      lastPage: r.last_page,
+      completed: r.completed === 1,
+      completedCount: r.completed_count,
+    };
+  }
+  return result;
+}

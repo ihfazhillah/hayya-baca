@@ -3,7 +3,7 @@
 ## Evolution
 - **Original**: Ksatria Muslim Android (Kotlin, ~2022). Code moved to `old/`.
 - **New**: Hayya Baca - React Native port (2026)
-- **Current version**: 0.1.0-alpha.3
+- **Current version**: 0.1.0-alpha.5
 
 ## App Identity
 - **Nama**: Hayya Baca ("Ayo Baca")
@@ -149,7 +149,7 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 
 ## Current Implementation Status
 
-### Done (v0.1.0-alpha.3)
+### Done (v0.1.0-alpha.5)
 - [x] Project setup (Expo 55, TypeScript, expo-router)
 - [x] Pilih profil anak (YouTube Kids style, SQLite)
 - [x] Tambah anak baru (nama + umur)
@@ -171,11 +171,15 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Font auto-adjust berdasarkan umur
 - [x] Kid-friendly purple theme (src/theme.ts)
 - [x] Build script (build-release.sh) → APK naming hayya-baca-vX.Y.Z.apk
+- [x] Artikel mode: scroll continuous, TTS per paragraf, kuis di akhir (10 sampel)
+- [x] Quiz screen: pilihan ganda + benar/salah, feedback + explanation, reward calculation
+- [x] Home tabs: Buku / Artikel
+- [x] Book/article progress badges + progress bar di home screen
+- [x] Leaderboard antar anak (coin/bintang sort)
+- [x] Article reading progress tracking (via quiz completion)
 
 ### TODO (Post-Alpha)
 - [ ] Mini games (crossword, tebak kata, susun kata, dll)
-- [ ] Leaderboard antar anak
-- [ ] Book tracking - progress per anak di home screen
 - [ ] Custom font untuk anak belajar baca
 - [ ] Ideas/insight tracking (orang tua)
 - [ ] Backend sync (REST API polling)
@@ -195,10 +199,15 @@ ksatriamuslim-android/
 ├── app/                    # expo-router screens
 │   ├── _layout.tsx         # Root (TanStack Query + UpdateProvider)
 │   ├── index.tsx           # Pilih profil anak
-│   ├── home.tsx            # Grid perpustakaan buku
-│   ├── celebrate.tsx       # Selebrasi selesai buku
-│   └── read/
-│       └── [bookId].tsx    # Baca buku (guided reading, TTS, highlight)
+│   ├── home.tsx            # Grid perpustakaan buku + artikel (tabs)
+│   ├── celebrate.tsx       # Selebrasi selesai buku/artikel
+│   ├── leaderboard.tsx     # Peringkat antar anak (coin/bintang)
+│   ├── read/
+│   │   └── [bookId].tsx    # Baca buku (guided reading, TTS, highlight)
+│   ├── article/
+│   │   └── [articleId].tsx # Baca artikel (scroll, TTS per paragraf)
+│   └── quiz/
+│       └── [articleId].tsx # Kuis artikel (MC + true/false)
 ├── src/
 │   ├── components/
 │   │   └── UpdateBar.tsx   # Auto-update UI
@@ -209,6 +218,7 @@ ksatriamuslim-android/
 │   │   ├── useSpeechRecognition.ts  # Guided sequential speech recognition
 │   │   └── useUpdateCheck.ts        # GitHub releases auto-update
 │   ├── lib/
+│   │   ├── articles.ts     # Load artikel + quiz dari static JSON
 │   │   ├── books.ts        # Load buku dari static JSON, group paragraf
 │   │   ├── children.ts     # SQLite children operations
 │   │   ├── database.ts     # SQLite schema (children, reading_progress, reward_history)
@@ -219,6 +229,7 @@ ksatriamuslim-android/
 │   └── types/
 │       ├── index.ts        # Core types
 │       └── update.ts       # Update types
+├── content/articles/       # 10 artikel + quiz (JSON)
 ├── content/books/          # 20 buku (raw.json + cover + audio)
 ├── backend/                # Django backend (CMS + API)
 │   ├── config/             # Django settings

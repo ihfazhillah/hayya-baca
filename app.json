@@ -2,7 +2,7 @@
   "expo": {
     "name": "Hayya Baca",
     "slug": "hayya-baca",
-    "version": "0.1.0-alpha.5",
+    "version": "0.1.0-alpha.6",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,10 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "package": "com.ihfazh.hayyabaca"
+      "package": "com.ihfazh.hayyabaca",
+      "permissions": [
+        "android.permission.REQUEST_INSTALL_PACKAGES"
+      ]
     },
     "plugins": [
       "expo-router",

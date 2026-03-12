@@ -188,16 +188,15 @@ export function useUpdateCheck() {
 
     try {
       const contentUri = await FileSystem.getContentUriAsync(apkPath.current);
+      // FLAG_GRANT_READ_URI_PERMISSION (1) | FLAG_ACTIVITY_NEW_TASK (0x10000000)
       await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
         data: contentUri,
         type: 'application/vnd.android.package-archive',
-        flags: 1,
+        flags: 0x10000001,
       });
-
-      try {
-        await FileSystem.deleteAsync(apkPath.current, { idempotent: true });
-      } catch {}
-    } catch {
+      // Don't delete APK here — installer needs it. It's in cache, system cleans it.
+    } catch (err) {
+      console.warn('[Update] Install failed:', err);
       try {
         await IntentLauncher.startActivityAsync('android.settings.MANAGE_UNKNOWN_APP_SOURCES', {
           data: 'package:com.ihfazh.hayyabaca',

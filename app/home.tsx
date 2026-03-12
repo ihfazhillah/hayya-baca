@@ -8,14 +8,16 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import { getAllBooks } from "../src/lib/books";
 import { getAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
+import { getAllReadingProgress } from "../src/lib/rewards";
 import { colors } from "../src/theme";
 import type { Book, Article } from "../src/types";
 
 type Tab = "buku" | "artikel";
+type ProgressMap = Record<string, { lastPage: number; completed: boolean; completedCount: number }>;
 
 // Cover images mapped by book ID
 const coverImages: Record<string, any> = {
@@ -41,31 +43,73 @@ const coverImages: Record<string, any> = {
   "24": require("../content/books/24-sahabat-yang-memiliki-2-sayap/cover.png"),
 };
 
-function BookCard({ book, onPress, cardWidth }: { book: Book; onPress: () => void; cardWidth: number }) {
+function ProgressBadge({ completed, completedCount }: { completed: boolean; completedCount: number }) {
+  if (!completed) return null;
+  return (
+    <View style={styles.badge}>
+      <Text style={styles.badgeText}>
+        {completedCount > 1 ? `${completedCount}x` : "\u2713"}
+      </Text>
+    </View>
+  );
+}
+
+function BookCard({
+  book,
+  onPress,
+  cardWidth,
+  progress,
+}: {
+  book: Book;
+  onPress: () => void;
+  cardWidth: number;
+  progress?: { lastPage: number; completed: boolean; completedCount: number };
+}) {
   const cover = coverImages[book.id];
+  const pct = progress ? Math.round((progress.lastPage / Math.max(book.pageCount - 1, 1)) * 100) : 0;
 
   return (
     <Pressable style={[styles.card, { width: cardWidth }]} onPress={onPress}>
-      {cover ? (
-        <Image
-          source={cover}
-          style={[styles.bookCover, { width: cardWidth, height: cardWidth * 1.3 }]}
-          resizeMode="cover"
-        />
-      ) : (
-        <View style={[styles.coverPlaceholder, { width: cardWidth, height: cardWidth * 1.3 }]}>
-          <Text style={styles.placeholderText}>{book.title.charAt(0)}</Text>
-        </View>
-      )}
+      <View>
+        {cover ? (
+          <Image
+            source={cover}
+            style={[styles.bookCover, { width: cardWidth, height: cardWidth * 1.3 }]}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.coverPlaceholder, { width: cardWidth, height: cardWidth * 1.3 }]}>
+            <Text style={styles.placeholderText}>{book.title.charAt(0)}</Text>
+          </View>
+        )}
+        {progress && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
+      </View>
       <Text style={styles.cardTitle} numberOfLines={2}>
         {book.title}
       </Text>
-      <Text style={styles.cardMeta}>{book.pageCount} halaman</Text>
+      <View style={styles.cardBottom}>
+        <Text style={styles.cardMeta}>{book.pageCount} halaman</Text>
+        {progress && !progress.completed && pct > 0 && (
+          <View style={styles.progressBarOuter}>
+            <View style={[styles.progressBarInner, { width: `${pct}%` }]} />
+          </View>
+        )}
+      </View>
     </Pressable>
   );
 }
 
-function ArticleCard({ article, onPress, cardWidth }: { article: Article; onPress: () => void; cardWidth: number }) {
+function ArticleCard({
+  article,
+  onPress,
+  cardWidth,
+  progress,
+}: {
+  article: Article;
+  onPress: () => void;
+  cardWidth: number;
+  progress?: { completed: boolean; completedCount: number };
+}) {
   const initials = article.title
     .split(" ")
     .slice(0, 2)
@@ -74,8 +118,11 @@ function ArticleCard({ article, onPress, cardWidth }: { article: Article; onPres
 
   return (
     <Pressable style={[styles.card, { width: cardWidth }]} onPress={onPress}>
-      <View style={[styles.articleCover, { width: cardWidth, height: cardWidth * 1.3 }]}>
-        <Text style={styles.articleInitials}>{initials}</Text>
+      <View>
+        <View style={[styles.articleCover, { width: cardWidth, height: cardWidth * 1.3 }]}>
+          <Text style={styles.articleInitials}>{initials}</Text>
+        </View>
+        {progress && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
       </View>
       <Text style={styles.cardTitle} numberOfLines={2}>
         {article.title}
@@ -92,9 +139,20 @@ export default function HomeScreen() {
   const { width } = useWindowDimensions();
   const child = getSelectedChild();
   const [tab, setTab] = useState<Tab>("buku");
+  const [progress, setProgress] = useState<ProgressMap>({});
 
   const books = useMemo(() => getAllBooks(), []);
   const articles = useMemo(() => getAllArticles(), []);
+
+  const loadProgress = useCallback(async () => {
+    if (!child) return;
+    const p = await getAllReadingProgress(child.id);
+    setProgress(p);
+  }, [child?.id]);
+
+  useEffect(() => {
+    loadProgress();
+  }, [loadProgress]);
 
   const isTablet = width >= 600;
   const numColumns = isTablet ? 3 : 2;
@@ -114,6 +172,9 @@ export default function HomeScreen() {
           <Text style={styles.backText}>Ganti</Text>
         </Pressable>
         <Text style={styles.greeting} numberOfLines={1}>Halo, {child.name}!</Text>
+        <Pressable onPress={() => router.push("/leaderboard")} style={styles.lbBtn}>
+          <Text style={styles.lbText}>Peringkat</Text>
+        </Pressable>
       </View>
 
       {/* Tabs */}
@@ -148,6 +209,7 @@ export default function HomeScreen() {
             <BookCard
               book={item}
               cardWidth={cardWidth}
+              progress={progress[item.id]}
               onPress={() => router.push(`/read/${item.id}`)}
             />
           )}
@@ -165,6 +227,7 @@ export default function HomeScreen() {
             <ArticleCard
               article={item}
               cardWidth={cardWidth}
+              progress={progress[`article-${item.id}`]}
               onPress={() => router.push(`/article/${item.id}`)}
             />
           )}
@@ -189,7 +252,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   backBtn: {
-    marginRight: 16,
+    marginRight: 12,
     paddingHorizontal: 12,
     paddingVertical: 8,
     backgroundColor: 'rgba(255,255,255,0.2)',
@@ -205,6 +268,18 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#FFF",
+  },
+  lbBtn: {
+    marginLeft: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 10,
+  },
+  lbText: {
+    color: "#FFF",
+    fontSize: 14,
+    fontWeight: "600",
   },
   tabRow: {
     flexDirection: "row",
@@ -273,6 +348,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     opacity: 0.9,
   },
+  badge: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    backgroundColor: colors.secondary,
+    borderRadius: 14,
+    minWidth: 28,
+    height: 28,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  badgeText: {
+    color: "#FFF",
+    fontSize: 13,
+    fontWeight: "bold",
+  },
   cardTitle: {
     fontSize: 14,
     fontWeight: "600",
@@ -280,11 +377,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingTop: 12,
   },
+  cardBottom: {
+    paddingHorizontal: 12,
+    paddingBottom: 12,
+    paddingTop: 4,
+  },
   cardMeta: {
     fontSize: 12,
     color: colors.textSecondary,
     paddingHorizontal: 12,
     paddingBottom: 12,
     paddingTop: 4,
+  },
+  progressBarOuter: {
+    height: 4,
+    backgroundColor: colors.border,
+    borderRadius: 2,
+    marginTop: 6,
+    overflow: "hidden",
+  },
+  progressBarInner: {
+    height: 4,
+    backgroundColor: colors.accent,
+    borderRadius: 2,
   },
 });
