@@ -15,7 +15,13 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(content_type=content_type)
         category = self.request.query_params.get("category")
         if category:
-            qs = qs.filter(categories__contains=[category])
+            from django.db import connection
+            if connection.vendor == "sqlite":
+                # SQLite doesn't support __contains on JSON; filter in Python
+                pks = [b.pk for b in qs if category in (b.categories or [])]
+                qs = qs.filter(pk__in=pks)
+            else:
+                qs = qs.filter(categories__contains=[category])
         min_age = self.request.query_params.get("min_age")
         if min_age is not None:
             qs = qs.filter(min_age__lte=int(min_age))

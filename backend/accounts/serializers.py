@@ -2,6 +2,7 @@ import secrets
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -87,9 +88,14 @@ class RedeemInviteSerializer(serializers.Serializer):
         if ChildAccess.objects.filter(user=user, child=invite.child).exists():
             raise serializers.ValidationError("Anda sudah punya akses ke anak ini")
 
-        access = ChildAccess.objects.create(
-            user=user, child=invite.child, role=invite.role
-        )
+        try:
+            access = ChildAccess.objects.create(
+                user=user, child=invite.child, role=invite.role
+            )
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(
+                e.message_dict if hasattr(e, "message_dict") else e.messages
+            )
         invite.used = True
         invite.save(update_fields=["used"])
         return access

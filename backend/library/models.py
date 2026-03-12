@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class Book(models.Model):
@@ -26,6 +27,14 @@ class Book(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title) or str(self.pk or "")
+        super().save(*args, **kwargs)
+        if self.slug == "" and self.pk:
+            self.slug = str(self.pk)
+            super().save(update_fields=["slug"])
 
     def __str__(self):
         return f"[{self.content_type}] {self.title}"

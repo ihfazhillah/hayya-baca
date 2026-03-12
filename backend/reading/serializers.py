@@ -14,6 +14,7 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
             "completed_count", "updated_at",
         ]
         read_only_fields = ["id", "updated_at"]
+        validators = []  # disable unique_together validator; create() does upsert
 
     def create(self, validated_data):
         obj, _ = ReadingProgress.objects.update_or_create(
