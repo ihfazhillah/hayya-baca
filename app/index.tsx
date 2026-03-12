@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useChildren, useAddChild } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
+import { colors } from "../src/theme";
 
 function Avatar({
   name,
@@ -104,14 +105,17 @@ export default function ChildSelectScreen() {
                 style={[
                   styles.avatar,
                   {
-                    backgroundColor: "#DDD",
+                    backgroundColor: colors.primaryLight,
                     width: avatarSize,
                     height: avatarSize,
                     borderRadius: avatarSize / 2,
+                    borderWidth: 3,
+                    borderColor: colors.primary,
+                    borderStyle: "dashed",
                   },
                 ]}
               >
-                <Text style={[styles.avatarText, { fontSize: avatarSize * 0.4, color: "#888" }]}>
+                <Text style={[styles.avatarText, { fontSize: avatarSize * 0.4 }]}>
                   +
                 </Text>
               </View>
@@ -128,6 +132,7 @@ export default function ChildSelectScreen() {
             <TextInput
               style={styles.input}
               placeholder="Nama"
+              placeholderTextColor={colors.textLight}
               value={newName}
               onChangeText={setNewName}
               autoFocus
@@ -135,6 +140,7 @@ export default function ChildSelectScreen() {
             <TextInput
               style={styles.input}
               placeholder="Umur (opsional)"
+              placeholderTextColor={colors.textLight}
               value={newAge}
               onChangeText={setNewAge}
               keyboardType="number-pad"
@@ -144,7 +150,7 @@ export default function ChildSelectScreen() {
                 style={styles.cancelBtn}
                 onPress={() => setShowForm(false)}
               >
-                <Text>Batal</Text>
+                <Text style={{ color: colors.textSecondary }}>Batal</Text>
               </Pressable>
               <Pressable style={styles.submitBtn} onPress={handleAddChild}>
                 <Text style={styles.submitText}>Tambah</Text>
@@ -160,24 +166,24 @@ export default function ChildSelectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E6F4FE",
+    backgroundColor: colors.bgPrimary,
     paddingTop: 60,
     alignItems: "center",
   },
   title: {
     fontSize: 42,
     fontWeight: "bold",
-    color: "#1A73E8",
+    color: colors.primary,
     marginBottom: 4,
   },
   titleTablet: { fontSize: 56 },
   subtitle: {
     fontSize: 20,
-    color: "#555",
+    color: colors.textSecondary,
     marginBottom: 40,
   },
   subtitleTablet: { fontSize: 26 },
-  loading: { fontSize: 18, color: "#888", marginTop: 40 },
+  loading: { fontSize: 18, color: colors.textLight, marginTop: 40 },
   list: {
     paddingHorizontal: 20,
     paddingBottom: 40,
@@ -195,6 +201,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 8,
+    elevation: 4,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
   },
   avatarText: {
     color: "#FFF",
@@ -203,11 +214,12 @@ const styles = StyleSheet.create({
   childName: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#333",
+    color: colors.textPrimary,
   },
   childCoins: {
     fontSize: 13,
-    color: "#888",
+    color: colors.accent,
+    fontWeight: "600",
     marginTop: 2,
   },
   addButton: {
@@ -218,29 +230,35 @@ const styles = StyleSheet.create({
   },
   formOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.4)",
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     alignItems: "center",
   },
   form: {
-    backgroundColor: "#FFF",
-    borderRadius: 16,
+    backgroundColor: colors.bgCard,
+    borderRadius: 20,
     padding: 24,
     width: 300,
+    elevation: 8,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
   },
   formTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
-    color: "#333",
+    color: colors.primary,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#DDD",
-    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: colors.border,
+    borderRadius: 12,
     padding: 12,
     fontSize: 16,
     marginBottom: 12,
+    color: colors.textPrimary,
   },
   formButtons: {
     flexDirection: "row",
@@ -252,9 +270,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   submitBtn: {
-    backgroundColor: "#1A73E8",
+    backgroundColor: colors.primary,
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 12,
     paddingHorizontal: 24,
   },
   submitText: {

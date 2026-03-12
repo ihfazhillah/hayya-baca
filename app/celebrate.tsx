@@ -12,15 +12,16 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   withDelay,
-  withSequence,
   withTiming,
 } from "react-native-reanimated";
+import { colors } from "../src/theme";
 
 export default function CelebrateScreen() {
-  const { coins, stars, bookTitle } = useLocalSearchParams<{
+  const { coins, stars, bookTitle, quizScore } = useLocalSearchParams<{
     coins: string;
     stars: string;
     bookTitle: string;
+    quizScore?: string;
   }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
@@ -70,7 +71,7 @@ export default function CelebrateScreen() {
 
       <View style={styles.rewards}>
         <Animated.View style={[styles.rewardCard, coinsStyle]}>
-          <Text style={styles.rewardIcon}>coin</Text>
+          <Text style={styles.rewardEmoji}>coin</Text>
           <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
             +{coins}
           </Text>
@@ -79,7 +80,7 @@ export default function CelebrateScreen() {
 
         {Number(stars) > 0 && (
           <Animated.View style={[styles.rewardCard, starsStyle]}>
-            <Text style={styles.rewardIcon}>star</Text>
+            <Text style={styles.rewardEmoji}>star</Text>
             <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
               +{stars}
             </Text>
@@ -88,12 +89,20 @@ export default function CelebrateScreen() {
         )}
       </View>
 
+      {quizScore && (
+        <Text style={styles.quizScore}>
+          Skor kuis: {quizScore} benar
+        </Text>
+      )}
+
       <Animated.View style={buttonStyle}>
         <Pressable
           style={styles.button}
           onPress={() => router.replace("/home")}
         >
-          <Text style={styles.buttonText}>Baca buku lain</Text>
+          <Text style={styles.buttonText}>
+            {quizScore ? "Baca artikel lain" : "Baca buku lain"}
+          </Text>
         </Pressable>
       </Animated.View>
     </View>
@@ -103,7 +112,7 @@ export default function CelebrateScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1A73E8",
+    backgroundColor: colors.primary,
     justifyContent: "center",
     alignItems: "center",
     padding: 32,
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
   congratsTablet: { fontSize: 56 },
   bookDone: {
     fontSize: 18,
-    color: "#BBD5F8",
+    color: colors.primaryLight,
     textAlign: "center",
     marginTop: 8,
   },
@@ -138,36 +147,49 @@ const styles = StyleSheet.create({
   },
   rewardCard: {
     backgroundColor: "rgba(255,255,255,0.15)",
-    borderRadius: 20,
+    borderRadius: 24,
     padding: 24,
     alignItems: "center",
     minWidth: 120,
+    borderWidth: 2,
+    borderColor: "rgba(255,255,255,0.2)",
   },
-  rewardIcon: {
+  rewardEmoji: {
     fontSize: 14,
-    color: "#FFD54F",
+    color: colors.coin,
     marginBottom: 4,
   },
   rewardCount: {
     fontSize: 36,
     fontWeight: "bold",
-    color: "#FFD54F",
+    color: colors.coin,
   },
   rewardCountTablet: { fontSize: 48 },
   rewardLabel: {
     fontSize: 16,
-    color: "#BBD5F8",
+    color: colors.primaryLight,
     marginTop: 4,
   },
+  quizScore: {
+    fontSize: 18,
+    color: colors.primaryLight,
+    textAlign: "center",
+    marginBottom: 16,
+  },
   button: {
-    backgroundColor: "#FFF",
+    backgroundColor: colors.accent,
     paddingVertical: 16,
     paddingHorizontal: 40,
     borderRadius: 30,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#1A73E8",
+    color: colors.textOnAccent,
   },
 });

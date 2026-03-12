@@ -14,37 +14,39 @@ import {
   speakWord,
   speakPage,
   stopSpeaking,
-  matchWords,
   calculateStars,
   calculateCoins,
 } from "../../src/lib/speech";
 import { addReward, saveReadingProgress } from "../../src/lib/rewards";
 import { useSpeechRecognition } from "../../src/hooks/useSpeechRecognition";
+import { colors } from "../../src/theme";
+
+type WordStatus = 'idle' | 'target' | 'success' | 'skipped' | 'readToMe';
 
 function WordView({
   word,
-  isHighlighted,
-  isReadToMe,
+  status,
   onPress,
   fontSize,
 }: {
   word: string;
-  isHighlighted: boolean;
-  isReadToMe: boolean;
+  status: WordStatus;
   onPress: () => void;
   fontSize: number;
 }) {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} style={styles.wordPressable}>
       <Text
         style={[
           styles.word,
-          { fontSize, lineHeight: fontSize * 1.8 },
-          isHighlighted && styles.wordHighlighted,
-          isReadToMe && styles.wordReadToMe,
+          { fontSize, lineHeight: fontSize * 2.2 },
+          status === 'target' && styles.wordTarget,
+          status === 'success' && styles.wordSuccess,
+          status === 'skipped' && styles.wordSkipped,
+          status === 'readToMe' && styles.wordReadToMe,
         ]}
       >
-        {word}{" "}
+        {word}
       </Text>
     </Pressable>
   );
@@ -58,26 +60,30 @@ export default function ReadScreen() {
 
   const book = useMemo(() => getBookContent(bookId), [bookId]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [highlightedWords, setHighlightedWords] = useState<Set<number>>(new Set());
   const [readToMeWord, setReadToMeWord] = useState<number | null>(null);
   const [isReadingToMe, setIsReadingToMe] = useState(false);
   const [pageStars, setPageStars] = useState<Record<number, number>>({});
+  const [pageComplete, setPageComplete] = useState(false);
   const totalStarsRef = useRef(0);
 
   const page = book ? book.pages[currentPage] : null;
   const words = page ? page.text.split(/\s+/).filter(Boolean) : [];
 
-  const { isListening, start: startListening, stop: stopListening, reset: resetSpeech } =
-    useSpeechRecognition({
-      expectedWords: words,
-      onMatch: (matched) => {
-        setHighlightedWords((prev) => {
-          const next = new Set(prev);
-          matched.forEach((i) => next.add(i));
-          return next;
-        });
-      },
-    });
+  const {
+    isListening,
+    currentWordIndex,
+    attempts,
+    readWords,
+    start: startListening,
+    stop: stopListening,
+    reset: resetSpeech,
+  } = useSpeechRecognition({
+    words,
+    onWordRead: (_index, _success) => {},
+    onAllDone: () => {
+      setPageComplete(true);
+    },
+  });
 
   const isTablet = width >= 600;
   const age = child?.age;
@@ -92,7 +98,7 @@ export default function ReadScreen() {
   if (!book) {
     return (
       <View style={styles.container}>
-        <Text>Buku tidak ditemukan</Text>
+        <Text style={{ color: colors.textPrimary }}>Buku tidak ditemukan</Text>
       </View>
     );
   }
@@ -101,15 +107,18 @@ export default function ReadScreen() {
   const isFirstPage = currentPage === 0;
   const currentStars = pageStars[currentPage] ?? 0;
 
+  // Determine word status for rendering
+  const getWordStatus = (index: number): WordStatus => {
+    if (isReadingToMe && readToMeWord === index) return 'readToMe';
+    if (readWords.has(index)) return readWords.get(index) ? 'success' : 'skipped';
+    if (isListening && index === currentWordIndex) return 'target';
+    return 'idle';
+  };
+
   const handleWordPress = useCallback(
     (index: number) => {
       if (isReadingToMe) return;
       speakWord(words[index]);
-      setHighlightedWords((prev) => {
-        const next = new Set(prev);
-        next.add(index);
-        return next;
-      });
     },
     [words, isReadingToMe]
   );
@@ -122,6 +131,9 @@ export default function ReadScreen() {
       return;
     }
 
+    // Stop mic if listening
+    if (isListening) stopListening();
+
     setIsReadingToMe(true);
     setReadToMeWord(null);
 
@@ -132,18 +144,23 @@ export default function ReadScreen() {
       () => {
         setIsReadingToMe(false);
         setReadToMeWord(null);
-        setHighlightedWords(new Set(words.map((_, i) => i)));
+        setPageComplete(true);
       }
     );
-  }, [isReadingToMe, page?.text, words]);
+  }, [isReadingToMe, isListening, page?.text, words, stopListening]);
 
   const finishPage = useCallback(() => {
-    const stars = calculateStars(highlightedWords.size, words.length);
+    // Count successful reads for star calculation
+    let successCount = 0;
+    readWords.forEach((success) => { if (success) successCount++; });
+    // Also count if page was completed via read-to-me (all words)
+    const totalRead = pageComplete ? Math.max(successCount, words.length) : successCount;
+    const stars = calculateStars(totalRead, words.length);
     if (stars > 0) {
       setPageStars((prev) => ({ ...prev, [currentPage]: stars }));
       totalStarsRef.current += stars;
     }
-  }, [highlightedWords.size, words.length, currentPage]);
+  }, [readWords, words.length, currentPage, pageComplete]);
 
   const handleMicToggle = useCallback(() => {
     if (isListening) {
@@ -165,7 +182,8 @@ export default function ReadScreen() {
 
     if (!isLastPage) {
       setCurrentPage((p) => p + 1);
-      setHighlightedWords(new Set());
+      resetSpeech();
+      setPageComplete(false);
     } else {
       // Book finished!
       if (child) {
@@ -194,11 +212,16 @@ export default function ReadScreen() {
     setReadToMeWord(null);
     finishPage();
     setCurrentPage((p) => p - 1);
-    setHighlightedWords(new Set());
+    resetSpeech();
+    setPageComplete(false);
   };
+
+  // Can only go next if page has been read (mic or read-to-me)
+  const canGoNext = pageComplete;
 
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <Pressable
           onPress={() => {
@@ -218,16 +241,23 @@ export default function ReadScreen() {
         </Text>
       </View>
 
-      {currentStars > 0 && (
-        <View style={styles.starsRow}>
-          {Array.from({ length: currentStars }).map((_, i) => (
-            <Text key={i} style={styles.star}>
-              *
-            </Text>
-          ))}
-        </View>
-      )}
+      {/* Stars + attempts indicator */}
+      <View style={styles.statusRow}>
+        {currentStars > 0 && (
+          <View style={styles.starsRow}>
+            {Array.from({ length: currentStars }).map((_, i) => (
+              <Text key={i} style={styles.star}>*</Text>
+            ))}
+          </View>
+        )}
+        {isListening && attempts > 0 && (
+          <Text style={styles.attemptsText}>
+            Coba lagi ({attempts}/4)
+          </Text>
+        )}
+      </View>
 
+      {/* Content */}
       <ScrollView
         style={styles.content}
         contentContainerStyle={[
@@ -240,8 +270,7 @@ export default function ReadScreen() {
             <WordView
               key={`${currentPage}-${i}`}
               word={word}
-              isHighlighted={highlightedWords.has(i)}
-              isReadToMe={readToMeWord === i}
+              status={getWordStatus(i)}
               onPress={() => handleWordPress(i)}
               fontSize={fontSize}
             />
@@ -249,40 +278,53 @@ export default function ReadScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.navigation}>
-        <Pressable
-          style={[styles.navBtn, isFirstPage && styles.navBtnDisabled]}
-          onPress={goPrev}
-          disabled={isFirstPage}
-        >
-          <Text style={[styles.navBtnText, isFirstPage && styles.navBtnTextDisabled]}>
-            Sebelumnya
-          </Text>
-        </Pressable>
+      {/* Bottom controls */}
+      <View style={styles.navContainer}>
+        {/* Action buttons — primary actions */}
+        <View style={styles.actionRow}>
+          <Pressable
+            style={[styles.micBtn, isListening && styles.micBtnActive]}
+            onPress={handleMicToggle}
+          >
+            <Text style={styles.actionIcon}>{isListening ? "\u23F9" : "\uD83C\uDF99"}</Text>
+            <Text style={styles.micBtnText}>
+              {isListening ? "Berhenti" : "Saya Baca"}
+            </Text>
+          </Pressable>
 
-        <Pressable
-          style={[styles.micBtn, isListening && styles.micBtnActive]}
-          onPress={handleMicToggle}
-        >
-          <Text style={styles.micBtnText}>
-            {isListening ? "Berhenti" : "Baca"}
-          </Text>
-        </Pressable>
+          <Pressable
+            style={[styles.readToMeBtn, isReadingToMe && styles.readToMeBtnActive]}
+            onPress={handleReadToMe}
+          >
+            <Text style={styles.actionIcon}>{isReadingToMe ? "\u23F9" : "\uD83D\uDD0A"}</Text>
+            <Text style={styles.readToMeBtnText}>
+              {isReadingToMe ? "Berhenti" : "Dengarkan"}
+            </Text>
+          </Pressable>
+        </View>
 
-        <Pressable
-          style={[styles.readToMeBtn, isReadingToMe && styles.readToMeBtnActive]}
-          onPress={handleReadToMe}
-        >
-          <Text style={styles.readToMeBtnText}>
-            {isReadingToMe ? "Stop" : "Bacakan"}
-          </Text>
-        </Pressable>
+        {/* Page navigation */}
+        <View style={styles.pageNavRow}>
+          <Pressable
+            style={[styles.navBtn, isFirstPage && styles.navBtnDisabled]}
+            onPress={goPrev}
+            disabled={isFirstPage}
+          >
+            <Text style={[styles.navBtnText, isFirstPage && styles.navBtnTextDisabled]}>
+              {"\u25C0"} Sebelumnya
+            </Text>
+          </Pressable>
 
-        <Pressable style={styles.navBtnPrimary} onPress={goNext}>
-          <Text style={styles.navBtnPrimaryText}>
-            {isLastPage ? "Selesai" : "Lanjut"}
-          </Text>
-        </Pressable>
+          <Pressable
+            style={[styles.navBtnPrimary, !canGoNext && styles.navBtnDisabled]}
+            onPress={goNext}
+            disabled={!canGoNext}
+          >
+            <Text style={[styles.navBtnPrimaryText, !canGoNext && { opacity: 0.5 }]}>
+              {isLastPage ? "Selesai \u2713" : "Lanjut \u25B6"}
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -291,7 +333,7 @@ export default function ReadScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFDF7",
+    backgroundColor: colors.bgPrimary,
   },
   header: {
     flexDirection: "row",
@@ -299,15 +341,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 50,
     paddingBottom: 12,
-    backgroundColor: "#1A73E8",
+    backgroundColor: colors.primary,
   },
   headerBtn: {
     padding: 8,
     marginRight: 12,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 8,
   },
   headerBtnText: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: "600",
   },
   headerTitle: {
     flex: 1,
@@ -320,109 +365,160 @@ const styles = StyleSheet.create({
     fontSize: 14,
     opacity: 0.8,
     marginLeft: 8,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  statusRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 6,
+    gap: 12,
   },
   starsRow: {
     flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 8,
     gap: 4,
   },
   star: {
     fontSize: 24,
-    color: "#FFB300",
+    color: colors.star,
+  },
+  attemptsText: {
+    fontSize: 13,
+    color: colors.accentOrange,
+    fontWeight: "600",
   },
   content: {
     flex: 1,
   },
   contentInner: {
-    padding: 24,
-    paddingTop: 32,
+    padding: 28,
+    paddingTop: 36,
+    paddingBottom: 40,
   },
   contentInnerTablet: {
-    paddingHorizontal: 60,
-    paddingTop: 48,
+    paddingHorizontal: 64,
+    paddingTop: 52,
   },
   textContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    gap: 6,
+  },
+  wordPressable: {
+    marginVertical: 2,
   },
   word: {
-    color: "#333",
+    color: colors.textPrimary,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
   },
-  wordHighlighted: {
-    backgroundColor: "#C8E6C9",
-    borderRadius: 4,
-    color: "#2E7D32",
+  wordTarget: {
+    backgroundColor: colors.accent,
+    borderRadius: 6,
+    color: colors.textOnAccent,
+    overflow: 'hidden',
+  },
+  wordSuccess: {
+    backgroundColor: colors.wordRead,
+    borderRadius: 6,
+    color: colors.wordReadText,
+    overflow: 'hidden',
+  },
+  wordSkipped: {
+    backgroundColor: '#FFEAA7',
+    borderRadius: 6,
+    color: '#B7950B',
+    overflow: 'hidden',
   },
   wordReadToMe: {
-    backgroundColor: "#BBDEFB",
-    borderRadius: 4,
-    color: "#1565C0",
+    backgroundColor: colors.wordActive,
+    borderRadius: 6,
+    color: colors.wordActiveText,
+    overflow: 'hidden',
   },
-  navigation: {
+  navContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 28,
+    gap: 12,
+    backgroundColor: colors.bgPrimary,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  actionRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
-    paddingBottom: 32,
-    gap: 10,
+    gap: 12,
+  },
+  actionIcon: {
+    fontSize: 20,
+    marginBottom: 2,
+  },
+  micBtn: {
+    flex: 1,
+    paddingVertical: 16,
+    borderRadius: 16,
+    backgroundColor: colors.btnMic,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  micBtnActive: {
+    backgroundColor: colors.btnMicActive,
+  },
+  micBtnText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#FFF",
+  },
+  readToMeBtn: {
+    flex: 1,
+    paddingVertical: 16,
+    borderRadius: 16,
+    backgroundColor: colors.btnReadToMe,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  readToMeBtnActive: {
+    backgroundColor: colors.btnReadToMeActive,
+  },
+  readToMeBtnText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: colors.textOnAccent,
+  },
+  pageNavRow: {
+    flexDirection: "row",
+    gap: 12,
   },
   navBtn: {
     flex: 1,
-    padding: 14,
+    paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: colors.btnNav,
     alignItems: "center",
   },
   navBtnDisabled: {
     opacity: 0.4,
   },
   navBtnText: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "600",
-    color: "#555",
+    color: colors.btnNavText,
   },
   navBtnTextDisabled: {
-    color: "#999",
-  },
-  micBtn: {
-    flex: 1,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: "#4CAF50",
-    alignItems: "center",
-  },
-  micBtnActive: {
-    backgroundColor: "#F44336",
-  },
-  micBtnText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#FFF",
-  },
-  readToMeBtn: {
-    flex: 1,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: "#FF9800",
-    alignItems: "center",
-  },
-  readToMeBtnActive: {
-    backgroundColor: "#F44336",
-  },
-  readToMeBtnText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#FFF",
+    color: colors.disabled,
   },
   navBtnPrimary: {
     flex: 1,
-    padding: 14,
+    paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: "#1A73E8",
+    backgroundColor: colors.primary,
     alignItems: "center",
   },
   navBtnPrimaryText: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#FFF",
   },

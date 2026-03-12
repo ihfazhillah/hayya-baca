@@ -1,0 +1,58 @@
+{
+  "id": "1675",
+  "title": "Sejarah Rasulullah Shallallahu 'Alaihi wa Sallam (Bagian 1)",
+  "source": "kisahmuslim.com",
+  "url": "https://kisahmuslim.com/1675-sejarah-nabi-muhamad.html",
+  "category": ["Kisah Nabi dan Rasul", "Kisah Nabi Muhammad", "Kisah Nyata"],
+  "content": "Sejarah Rasululllah Shallallahu 'Alaihi wa Sallam\n\nKehidupan Bangsa Arab sebelum Kelahiran Rasulullah shallallahu 'alaihi wa sallam.\n\n1. Kehidupan Agama\n\nPada awalnya, mayoritas Bangsa Arab mengikuti Nabi Ibrahim 'alaihissalam, yaitu ajaran tauhid untuk beribadah hanya kepada Allah Ta'ala. Setelah berlalunya waktu yang panjang, mereka melalaikan hal tersebut, walaupun ada sisa-sisa peninggalan ajaran tauhid Nabi Ibrahin 'alaihissalam. Hingga suatu saat di Mekah tersebutlah seorang yang bernama Amr bin Luhay dari suku Khuza'ah yang sangat dihormati dan dimuliakan kaumnya karena kedermawanan dan prilakunya yang baik. Suatu ketika, ia pergi ke Syam dan di sana melihat masyarakatnya menyembah berhala sebagai bentuk ibadah. Ia menyimpulkan bahwa itu adalah perbuatan baik. Sekembalinya dari Syam, Amr pun membawa berhala yang bernama Hubal dan meletakkannya di ka'bah. Lalu dia mengajak kaumnya untuk melakukan apa yang dilakukan penduduk Syam. Karena pengaruh kedudukannya, tak lama penduduk Mekah pun menjadi penyembahan berhala dan menjadi agama baru bagi mereka. Ajaran tersebut dengan cepat menyebar ke wilayah Hijaz (Mekah dan sekitarnya) hingga menyebar luas meliputi Jazirah Arabi. Bahkan, di sekitar Ka'bah ada ratusan berhala yang disembah. Dari sanalah mulai lagi bermunculan berbagai bentuk kesyirikan, bid'ah, dan khurafat di masyarakat Arab.\n\n2. Kehidupan Sosial\n\nStruktur kehidupan sosial masyarakat Arab berkelas dan bersuku-suku. Adanya pemandangan yang sangat kontras antara kaum bangsawan dengan segala kemewahan dan kehormatannya dengan rakyat jelata dengan segala kekurangan dan kehinaan yang tak terperi. Kehidupan antar suku pun penuh dengan persaingan yang sering mengakibatkan pertikaian dengan bumbu fanatisme kesukuan yang kental. Setiap anggota suku pasti membela orang yang satu suku dengannnya, tak peduli perbuatannya benar atau salah, sehingga terkenal ucapan di antara mereka,\n\nأنصر أخاك ظالما أومظلوما\n\n\"Bantulah saudaramu, baik dia berbuat zalim atau dizalimi.\"\n\nPerlakuan terhadap wanita juga tak kalah zalimnya. Laki-laki dapat melakukan poligami tanpa batas, bahkan dapat menikahi dua bersaudara sekaligus. Kelahiran anak perempuan menjadi aib yang berat mereka tanggung, bahkan dikenal di sebagian mereka istilah wa'dul banat (mengubur anak wanita hidup-hidup). Perjudian dan minuman keras juga merupakan hal yang sangat lumrah dilakukan di tengah masyarakat, bahkan menjadi sumber prestise tersendiri.\n\n3. Kondisi Ekonomi\n\nMasyarakat Arab adalah masyarakat pedagang. Sebagian kecil penduduk pinggiran negeri, hidup secara bertani dan memelihara hewan ternak. Mereka belum mengenal dunia perindustrian. Hasil-hasil produksi biasanya mereka dapatkan dari Yaman atau Syam. Kemiskinan cukup mewarnai kehidupan masyarakat, meskipun ada sejumlah pedagang besar dan bangsawan.\n\n4. Akhlak terpuji\n\nBetapapun demikian, bangsa Arab masih memiliki beberapa akhlak yang sangat terpuji, walau kadang ditampilkan dengan cara yang salah. Diantaranya adalah kedermawanan, memenuhi janji, menjaga kemuliaan jiwa dan pantang dihina, pemberani, lemah lembut suka menolong dan sederhana.",
+  "quiz": [
+    {
+      "type": "multiple_choice",
+      "question": "Siapa yang membawa penyembahan berhala ke Mekah?",
+      "options": [
+        "Nabi Ibrahim",
+        "Amr bin Luhay",
+        "Abu Sufyan",
+        "Abdul Muthalib"
+      ],
+      "answer": 1,
+      "explanation": "Amr bin Luhay dari suku Khuza'ah membawa berhala bernama Hubal dari Syam dan meletakkannya di Ka'bah."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Apa agama awal bangsa Arab sebelum menyembah berhala?",
+      "options": [
+        "Agama Nasrani",
+        "Agama Yahudi",
+        "Ajaran tauhid Nabi Ibrahim",
+        "Tidak beragama"
+      ],
+      "answer": 2,
+      "explanation": "Pada awalnya mayoritas bangsa Arab mengikuti Nabi Ibrahim, yaitu ajaran tauhid untuk beribadah hanya kepada Allah."
+    },
+    {
+      "type": "true_false",
+      "question": "Bangsa Arab Jahiliyah mengenal praktik mengubur anak perempuan hidup-hidup (wa'dul banat).",
+      "answer": true,
+      "explanation": "Kelahiran anak perempuan menjadi aib berat bagi sebagian mereka, bahkan dikenal istilah wa'dul banat (mengubur anak wanita hidup-hidup)."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Apa nama berhala yang dibawa Amr bin Luhay dari Syam?",
+      "options": [
+        "Latta",
+        "Uzza",
+        "Hubal",
+        "Manat"
+      ],
+      "answer": 2,
+      "explanation": "Amr bin Luhay membawa berhala bernama Hubal dari Syam dan meletakkannya di Ka'bah."
+    },
+    {
+      "type": "true_false",
+      "question": "Bangsa Arab Jahiliyah tidak memiliki akhlak terpuji sama sekali.",
+      "answer": false,
+      "explanation": "Bangsa Arab masih memiliki akhlak terpuji seperti kedermawanan, memenuhi janji, pemberani, dan suka menolong."
+    }
+  ]
+}

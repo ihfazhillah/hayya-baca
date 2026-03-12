@@ -4,10 +4,21 @@ import * as fuzzball from "fuzzball";
 export { speakWord, speakPage, stopSpeaking } from "./tts";
 
 /**
+ * Check if a word is non-Indonesian (Arabic script, brackets, punctuation-only).
+ * These words should be auto-skipped during speech recognition.
+ */
+export function isNonIndonesian(word: string): boolean {
+  const clean = word.replace(/[.,!?؟"'()\[\]]/g, "").trim();
+  if (!clean) return true; // punctuation-only
+  // Arabic Unicode block: \u0600-\u06FF, \u0750-\u077F, \uFB50-\uFDFF, \uFE70-\uFEFF
+  return /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(clean);
+}
+
+/**
  * Check if a single recognized token matches an expected word (fuzzy, 70% threshold)
  */
 export function isWordMatch(token: string, expected: string): boolean {
-  const clean = expected.toLowerCase().replace(/[.,!?؟"'()]/g, "");
+  const clean = expected.toLowerCase().replace(/[.,!?؟"'()\[\]]/g, "");
   if (!clean) return false;
   if (token === clean) return true;
   return fuzzball.ratio(token, clean) >= 70;
