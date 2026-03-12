@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'library',
     'reading',
     'rewards',
+    'games',
 ]
 
 MIDDLEWARE = [

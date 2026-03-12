@@ -1,9 +1,12 @@
 from rest_framework import serializers
 
+from library.models import Book
 from .models import QuizAttempt, ReadingProgress
 
 
 class ReadingProgressSerializer(serializers.ModelSerializer):
+    book = serializers.SlugRelatedField(slug_field='slug', queryset=Book.objects.all())
+
     class Meta:
         model = ReadingProgress
         fields = [
@@ -26,6 +29,8 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
 
 
 class QuizAttemptSerializer(serializers.ModelSerializer):
+    book = serializers.SlugRelatedField(slug_field='slug', queryset=Book.objects.all())
+
     class Meta:
         model = QuizAttempt
         fields = ["id", "child", "book", "score", "total", "stars_earned", "created_at"]

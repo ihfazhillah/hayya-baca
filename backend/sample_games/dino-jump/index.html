@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Dino Jump</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f7f6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+canvas {
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(108,92,231,0.15);
+  max-width: 100%;
+}
+#score-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #6C5CE7;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+#overlay.show { display: flex; }
+#overlay-box {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  max-width: 300px;
+}
+#overlay-box h2 { color: #6C5CE7; margin-bottom: 8px; }
+#overlay-box p { color: #666; margin-bottom: 16px; }
+#overlay-box button {
+  background: #6C5CE7;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="score-bar">
+  <span>🦖 Dino Jump</span>
+  <span id="score-display">Skor: 0</span>
+</div>
+<canvas id="game"></canvas>
+
+<div id="overlay">
+  <div id="overlay-box">
+    <h2 id="overlay-title">Game Over!</h2>
+    <p id="overlay-text">Skor: 0</p>
+    <button id="overlay-btn" onclick="startGame()">Main Lagi</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = 600, H = 300;
+canvas.width = W;
+canvas.height = H;
+
+// Game state
+let dino, obstacles, score, speed, gameOver, frameCount, groundY;
+
+// Colors (matching app theme)
+const PURPLE = '#6C5CE7';
+const GREEN = '#00B894';
+const YELLOW = '#FDCB6E';
+const BG = '#F8F7FF';
+const GROUND = '#DDD6FE';
+
+function init() {
+  groundY = H - 40;
+  dino = { x: 60, y: groundY, w: 30, h: 40, vy: 0, jumping: false };
+  obstacles = [];
+  score = 0;
+  speed = 4;
+  gameOver = false;
+  frameCount = 0;
+}
+
+function jump() {
+  if (!dino.jumping && !gameOver) {
+    dino.vy = -12;
+    dino.jumping = true;
+  }
+}
+
+function spawnObstacle() {
+  const h = 20 + Math.random() * 30;
+  const w = 15 + Math.random() * 15;
+  obstacles.push({ x: W + 10, y: groundY - h, w, h, passed: false });
+}
+
+function update() {
+  if (gameOver) return;
+  frameCount++;
+
+  // Dino physics
+  dino.vy += 0.6; // gravity
+  dino.y += dino.vy;
+  if (dino.y >= groundY) {
+    dino.y = groundY;
+    dino.vy = 0;
+    dino.jumping = false;
+  }
+
+  // Spawn obstacles
+  if (frameCount % Math.max(40, 80 - Math.floor(score / 5)) === 0) {
+    spawnObstacle();
+  }
+
+  // Move obstacles
+  for (const obs of obstacles) {
+    obs.x -= speed;
+    if (!obs.passed && obs.x + obs.w < dino.x) {
+      obs.passed = true;
+      score++;
+      document.getElementById('score-display').textContent = 'Skor: ' + score;
+    }
+  }
+
+  // Remove off-screen
+  obstacles = obstacles.filter(o => o.x + o.w > -10);
+
+  // Collision
+  for (const obs of obstacles) {
+    if (
+      dino.x + dino.w - 5 > obs.x &&
+      dino.x + 5 < obs.x + obs.w &&
+      dino.y + dino.h > obs.y
+    ) {
+      gameOver = true;
+      showGameOver();
+      reportScore(score);
+      return;
+    }
+  }
+
+  // Speed up
+  speed = 4 + score * 0.15;
+}
+
+function draw() {
+  // Background
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  // Ground
+  ctx.fillStyle = GROUND;
+  ctx.fillRect(0, groundY + dino.h, W, H - groundY);
+
+  // Ground line
+  ctx.strokeStyle = PURPLE;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, groundY + dino.h);
+  ctx.lineTo(W, groundY + dino.h);
+  ctx.stroke();
+
+  // Dino (simple rectangle dino)
+  ctx.fillStyle = PURPLE;
+  ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+  // Eye
+  ctx.fillStyle = 'white';
+  ctx.fillRect(dino.x + dino.w - 10, dino.y + 6, 6, 6);
+  ctx.fillStyle = '#333';
+  ctx.fillRect(dino.x + dino.w - 8, dino.y + 8, 3, 3);
+  // Legs
+  ctx.fillStyle = PURPLE;
+  if (dino.jumping) {
+    ctx.fillRect(dino.x + 4, dino.y + dino.h, 6, 6);
+    ctx.fillRect(dino.x + dino.w - 10, dino.y + dino.h, 6, 6);
+  } else {
+    const legOffset = Math.sin(frameCount * 0.3) * 3;
+    ctx.fillRect(dino.x + 4, dino.y + dino.h, 6, 8 + legOffset);
+    ctx.fillRect(dino.x + dino.w - 10, dino.y + dino.h, 6, 8 - legOffset);
+  }
+
+  // Obstacles (cacti)
+  for (const obs of obstacles) {
+    ctx.fillStyle = GREEN;
+    ctx.fillRect(obs.x, obs.y, obs.w, obs.h + (groundY + dino.h - obs.y));
+    // Thorns
+    ctx.fillStyle = '#00A884';
+    ctx.fillRect(obs.x - 4, obs.y + 5, 4, 3);
+    ctx.fillRect(obs.x + obs.w, obs.y + 8, 4, 3);
+  }
+
+  // Clouds
+  ctx.fillStyle = '#E8E6FF';
+  ctx.beginPath();
+  ctx.arc(100, 50, 20, 0, Math.PI * 2);
+  ctx.arc(125, 45, 25, 0, Math.PI * 2);
+  ctx.arc(150, 50, 20, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(400, 70, 15, 0, Math.PI * 2);
+  ctx.arc(420, 65, 20, 0, Math.PI * 2);
+  ctx.arc(440, 70, 15, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function gameLoop() {
+  update();
+  draw();
+  if (!gameOver) requestAnimationFrame(gameLoop);
+}
+
+function showGameOver() {
+  document.getElementById('overlay-title').textContent = 'Game Over! 🦖';
+  document.getElementById('overlay-text').textContent = 'Skor kamu: ' + score;
+  document.getElementById('overlay').classList.add('show');
+}
+
+function startGame() {
+  document.getElementById('overlay').classList.remove('show');
+  init();
+  gameLoop();
+}
+
+function reportScore(s) {
+  // Communicate with React Native
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'GAME_OVER', score: s }));
+  }
+}
+
+// Listen for messages from native
+window.addEventListener('message', function(e) {
+  try {
+    const msg = JSON.parse(e.data);
+    if (msg.type === 'TIME_UP') {
+      gameOver = true;
+      document.getElementById('overlay-title').textContent = 'Waktu Habis! ⏰';
+      document.getElementById('overlay-text').textContent = 'Skor kamu: ' + score;
+      document.getElementById('overlay-btn').textContent = 'OK';
+      document.getElementById('overlay-btn').onclick = function() {
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'GAME_OVER', score: score }));
+        }
+      };
+      document.getElementById('overlay').classList.add('show');
+    } else if (msg.type === 'TIME_WARNING') {
+      // Could show a warning
+    }
+  } catch(e) {}
+});
+
+// Controls
+document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); jump(); } });
+document.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
+canvas.addEventListener('click', jump);
+
+// Start
+init();
+
+// Show start overlay
+document.getElementById('overlay-title').textContent = '🦖 Dino Jump';
+document.getElementById('overlay-text').textContent = 'Tap atau tekan spasi untuk lompat!';
+document.getElementById('overlay-btn').textContent = 'Mulai!';
+document.getElementById('overlay').classList.add('show');
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ class Book(models.Model):
         ARTICLE = "article", "Artikel"
 
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
     content_type = models.CharField(max_length=10, choices=ContentType.choices)
     cover = models.ImageField(upload_to="covers/", null=True, blank=True)
     source = models.CharField(max_length=255, blank=True)
