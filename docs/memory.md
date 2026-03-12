@@ -282,11 +282,9 @@ ksatriamuslim-android/
 - SQLite (dev) → PostgreSQL (prod)
 - Pillow (cover generation)
 - uv (package manager)
-- Server: REDACTED
 
 ### Repo & Structure
 - Satu repo: `ksatriamuslim-android/backend/`
-- Backend lama (`REDACTED`) akan ditinggalkan
 - Detail: [backend/README.md](../backend/README.md)
 
 ### Apps
