@@ -1,0 +1,1322 @@
+openapi: 3.0.3
+info:
+  title: Hayya Baca API
+  version: 1.0.0
+  description: Backend API for Hayya Baca reading app
+paths:
+  /api/auth/login/:
+    post:
+      operationId: auth_login_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+          description: ''
+  /api/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      tags:
+      - auth
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/auth/redeem/:
+    post:
+      operationId: auth_redeem_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedeemInvite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RedeemInvite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RedeemInvite'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedeemInvite'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: auth_register_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/books/:
+    get:
+      operationId: books_list
+      tags:
+      - books
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookList'
+          description: ''
+  /api/books/{id}/:
+    get:
+      operationId: books_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this book.
+        required: true
+      tags:
+      - books
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+  /api/children/:
+    get:
+      operationId: children_list
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Child'
+          description: ''
+    post:
+      operationId: children_create
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Child'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Child'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Child'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: ''
+  /api/children/{child_pk}/access/:
+    get:
+      operationId: children_access_list
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChildAccess'
+          description: ''
+    delete:
+      operationId: children_access_destroy
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/children/{child_pk}/progress/:
+    get:
+      operationId: children_progress_list
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReadingProgress'
+          description: ''
+    post:
+      operationId: children_progress_create
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingProgress'
+          description: ''
+  /api/children/{child_pk}/progress/{id}/:
+    get:
+      operationId: children_progress_retrieve
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingProgress'
+          description: ''
+    put:
+      operationId: children_progress_update
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReadingProgress'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingProgress'
+          description: ''
+    patch:
+      operationId: children_progress_partial_update
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReadingProgress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReadingProgress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReadingProgress'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingProgress'
+          description: ''
+    delete:
+      operationId: children_progress_destroy
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/children/{child_pk}/quiz-attempts/:
+    get:
+      operationId: children_quiz_attempts_list
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuizAttempt'
+          description: ''
+    post:
+      operationId: children_quiz_attempts_create
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizAttempt'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuizAttempt'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuizAttempt'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizAttempt'
+          description: ''
+  /api/children/{child_pk}/rewards/:
+    get:
+      operationId: children_rewards_list
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RewardHistory'
+          description: ''
+  /api/children/{child_pk}/rewards/sync/:
+    post:
+      operationId: children_rewards_sync_create
+      parameters:
+      - in: path
+        name: child_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkRewardSync'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkRewardSync'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkRewardSync'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          description: No response body
+  /api/children/{id}/:
+    get:
+      operationId: children_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: ''
+    put:
+      operationId: children_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Child'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Child'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Child'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: ''
+    patch:
+      operationId: children_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedChild'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedChild'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedChild'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: ''
+    delete:
+      operationId: children_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - children
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - ht
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/share/invites/:
+    get:
+      operationId: share_invites_list
+      tags:
+      - share
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShareInviteCreate'
+          description: ''
+    post:
+      operationId: share_invites_create
+      tags:
+      - share
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareInviteCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ShareInviteCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ShareInviteCreate'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShareInviteCreate'
+          description: ''
+  /api/share/invites/{id}/:
+    get:
+      operationId: share_invites_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - share
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShareInviteCreate'
+          description: ''
+    delete:
+      operationId: share_invites_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - share
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    ArticleSection:
+      type: object
+      properties:
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        type:
+          $ref: '#/components/schemas/ArticleSectionTypeEnum'
+        text:
+          type: string
+        items: {}
+      required:
+      - order
+      - type
+    ArticleSectionTypeEnum:
+      enum:
+      - paragraph
+      - heading
+      - arabic
+      - list
+      type: string
+      description: |-
+        * `paragraph` - Paragraph
+        * `heading` - Heading
+        * `arabic` - Arabic
+        * `list` - List
+    BookDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        content_type:
+          $ref: '#/components/schemas/ContentTypeEnum'
+        cover:
+          type: string
+          format: uri
+          nullable: true
+        source:
+          type: string
+          maxLength: 255
+        source_url:
+          type: string
+          format: uri
+          maxLength: 200
+        categories: {}
+        reference_ar:
+          type: string
+        reference_id:
+          type: string
+        min_age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        reward_coins:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        has_audio:
+          type: boolean
+        published_version:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookPage'
+          readOnly: true
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleSection'
+          readOnly: true
+        quizzes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Quiz'
+          readOnly: true
+      required:
+      - content_type
+      - id
+      - pages
+      - quizzes
+      - sections
+      - title
+    BookList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        content_type:
+          $ref: '#/components/schemas/ContentTypeEnum'
+        cover:
+          type: string
+          format: uri
+          nullable: true
+        categories: {}
+        min_age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        reward_coins:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        has_audio:
+          type: boolean
+        published_version:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+      required:
+      - content_type
+      - id
+      - title
+    BookPage:
+      type: object
+      properties:
+        page:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        text:
+          type: string
+        audio:
+          type: string
+          maxLength: 255
+      required:
+      - page
+      - text
+    BulkRewardSync:
+      type: object
+      properties:
+        rewards:
+          type: array
+          items:
+            $ref: '#/components/schemas/RewardHistory'
+      required:
+      - rewards
+    Child:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+        avatar_color:
+          type: string
+          maxLength: 7
+        coins:
+          type: integer
+          readOnly: true
+        stars:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - coins
+      - created_at
+      - id
+      - name
+      - stars
+    ChildAccess:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - role
+      - username
+    ContentTypeEnum:
+      enum:
+      - book
+      - article
+      type: string
+      description: |-
+        * `book` - Buku Bacaan
+        * `article` - Artikel
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - username
+    PatchedChild:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        age:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+        avatar_color:
+          type: string
+          maxLength: 7
+        coins:
+          type: integer
+          readOnly: true
+        stars:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedReadingProgress:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        book:
+          type: integer
+        last_page:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        completed:
+          type: boolean
+        completed_count:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    Quiz:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        type:
+          $ref: '#/components/schemas/QuizTypeEnum'
+        question:
+          type: string
+        options: {}
+        answer: {}
+        explanation:
+          type: string
+      required:
+      - answer
+      - id
+      - order
+      - question
+      - type
+    QuizAttempt:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        book:
+          type: integer
+        score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        stars_earned:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - book
+      - child
+      - created_at
+      - id
+      - score
+      - stars_earned
+      - total
+    QuizTypeEnum:
+      enum:
+      - multiple_choice
+      - true_false
+      type: string
+      description: |-
+        * `multiple_choice` - Multiple Choice
+        * `true_false` - True False
+    ReadingProgress:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        book:
+          type: integer
+        last_page:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        completed:
+          type: boolean
+        completed_count:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - book
+      - child
+      - id
+      - updated_at
+    RedeemInvite:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+        password2:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - password2
+      - username
+    RewardHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        type:
+          $ref: '#/components/schemas/RewardHistoryTypeEnum'
+        count:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        synced:
+          type: boolean
+      required:
+      - child
+      - count
+      - created_at
+      - id
+      - type
+    RewardHistoryTypeEnum:
+      enum:
+      - coin
+      - star
+      type: string
+      description: |-
+        * `coin` - Coin
+        * `star` - Star
+    RoleEnum:
+      enum:
+      - parent
+      - teacher
+      type: string
+      description: |-
+        * `parent` - Parent
+        * `teacher` - Teacher
+    ShareInviteCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        child:
+          type: integer
+        code:
+          type: string
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        expires_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - child
+      - code
+      - expires_at
+      - id
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

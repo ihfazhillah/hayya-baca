@@ -1,0 +1,57 @@
+from rest_framework import serializers
+
+from .models import QuizAttempt, ReadingProgress
+
+
+class ReadingProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReadingProgress
+        fields = [
+            "id", "child", "book", "last_page", "completed",
+            "completed_count", "updated_at",
+        ]
+        read_only_fields = ["id", "updated_at"]
+
+    def create(self, validated_data):
+        obj, _ = ReadingProgress.objects.update_or_create(
+            child=validated_data["child"],
+            book=validated_data["book"],
+            defaults={
+                "last_page": validated_data["last_page"],
+                "completed": validated_data.get("completed", False),
+                "completed_count": validated_data.get("completed_count", 0),
+            },
+        )
+        return obj
+
+
+class QuizAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizAttempt
+        fields = ["id", "child", "book", "score", "total", "stars_earned", "created_at"]
+        read_only_fields = ["id", "stars_earned", "created_at"]
+
+    def create(self, validated_data):
+        score = validated_data["score"]
+        total = validated_data["total"]
+        pct = score / total if total > 0 else 0
+        if pct >= 1.0:
+            stars = 4
+        elif pct >= 0.75:
+            stars = 3
+        elif pct >= 0.5:
+            stars = 2
+        elif pct >= 0.25:
+            stars = 1
+        else:
+            stars = 0
+
+        validated_data["stars_earned"] = stars
+        attempt = super().create(validated_data)
+
+        # Update child stars
+        child = attempt.child
+        child.stars += stars
+        child.save(update_fields=["stars"])
+
+        return attempt
