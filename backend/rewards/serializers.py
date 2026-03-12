@@ -10,8 +10,15 @@ class RewardHistorySerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at"]
 
 
+class RewardSyncItemSerializer(serializers.Serializer):
+    type = serializers.ChoiceField(choices=RewardHistory.Type.choices)
+    count = serializers.IntegerField()
+    description = serializers.CharField(required=False, default="")
+    created_at = serializers.DateTimeField(required=False)
+
+
 class BulkRewardSyncSerializer(serializers.Serializer):
-    rewards = RewardHistorySerializer(many=True)
+    rewards = RewardSyncItemSerializer(many=True)
 
     def create(self, validated_data):
         child = self.context["child"]

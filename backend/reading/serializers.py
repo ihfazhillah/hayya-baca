@@ -13,12 +13,12 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
             "id", "child", "book", "last_page", "completed",
             "completed_count", "updated_at",
         ]
-        read_only_fields = ["id", "updated_at"]
+        read_only_fields = ["id", "child", "updated_at"]
         validators = []  # disable unique_together validator; create() does upsert
 
     def create(self, validated_data):
         obj, _ = ReadingProgress.objects.update_or_create(
-            child=validated_data["child"],
+            child_id=validated_data["child_id"],
             book=validated_data["book"],
             defaults={
                 "last_page": validated_data["last_page"],
@@ -35,7 +35,7 @@ class QuizAttemptSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuizAttempt
         fields = ["id", "child", "book", "score", "total", "stars_earned", "created_at"]
-        read_only_fields = ["id", "stars_earned", "created_at"]
+        read_only_fields = ["id", "child", "stars_earned", "created_at"]
 
     def create(self, validated_data):
         score = validated_data["score"]
