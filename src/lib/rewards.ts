@@ -31,6 +31,26 @@ export async function addReward(
   }
 }
 
+export async function getUnsyncedRewards(
+  childId: number
+): Promise<{ id: number; type: string; count: number; description: string; created_at: string }[]> {
+  const db = await getDatabase();
+  return db.getAllAsync(
+    "SELECT id, type, count, description, created_at FROM reward_history WHERE child_id = ? AND synced = 0",
+    childId
+  );
+}
+
+export async function markRewardsSynced(ids: number[]): Promise<void> {
+  if (ids.length === 0) return;
+  const db = await getDatabase();
+  const placeholders = ids.map(() => "?").join(",");
+  await db.runAsync(
+    `UPDATE reward_history SET synced = 1 WHERE id IN (${placeholders})`,
+    ...ids
+  );
+}
+
 export async function getRewardHistory(
   childId: number
 ): Promise<RewardHistory[]> {

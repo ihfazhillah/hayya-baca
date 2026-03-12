@@ -61,3 +61,34 @@ export async function updateChildCoins(
     childId
   );
 }
+
+export async function upsertChildFromServer(child: {
+  id: number;
+  name: string;
+  age: number | null;
+  avatar_color: string;
+  coins: number;
+  stars: number;
+}): Promise<void> {
+  const db = await getDatabase();
+  await db.runAsync(
+    `INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    child.id,
+    child.name,
+    child.avatar_color,
+    child.coins,
+    child.stars,
+    child.age
+  );
+}
+
+export async function deleteChildrenNotIn(ids: number[]): Promise<void> {
+  if (ids.length === 0) return;
+  const db = await getDatabase();
+  const placeholders = ids.map(() => "?").join(",");
+  await db.runAsync(
+    `DELETE FROM children WHERE id NOT IN (${placeholders})`,
+    ...ids
+  );
+}

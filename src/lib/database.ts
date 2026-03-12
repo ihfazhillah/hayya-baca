@@ -44,5 +44,32 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       synced INTEGER NOT NULL DEFAULT 0,
       FOREIGN KEY (child_id) REFERENCES children(id)
     );
+
+    CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT
+    );
   `);
+}
+
+export async function getSetting(key: string): Promise<string | null> {
+  const db = await getDatabase();
+  const row = await db.getFirstAsync<{ value: string }>(
+    "SELECT value FROM settings WHERE key = ?",
+    key
+  );
+  return row?.value ?? null;
+}
+
+export async function setSetting(key: string, value: string | null): Promise<void> {
+  const db = await getDatabase();
+  if (value !== null) {
+    await db.runAsync(
+      "INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)",
+      key,
+      value
+    );
+  } else {
+    await db.runAsync("DELETE FROM settings WHERE key = ?", key);
+  }
 }

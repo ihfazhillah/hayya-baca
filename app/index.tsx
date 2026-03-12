@@ -159,6 +159,12 @@ export default function ChildSelectScreen() {
           </View>
         </View>
       )}
+      <Pressable
+        style={styles.parentButton}
+        onPress={() => router.push("/parent")}
+      >
+        <Text style={styles.parentButtonText}>Orang Tua</Text>
+      </Pressable>
     </View>
   );
 }
@@ -278,5 +284,24 @@ const styles = StyleSheet.create({
   submitText: {
     color: "#FFF",
     fontWeight: "bold",
+  },
+  parentButton: {
+    position: "absolute",
+    bottom: 32,
+    right: 24,
+    backgroundColor: colors.bgCard,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 20,
+    elevation: 3,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  parentButtonText: {
+    color: colors.textSecondary,
+    fontSize: 14,
+    fontWeight: "600",
   },
 });
