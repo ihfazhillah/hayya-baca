@@ -27,6 +27,13 @@ echo "Building $APP_NAME $TAG (arch: $ARCH)"
 # ─── Accept SDK licenses (non-interactive) ───────────────────────────
 yes 2>/dev/null | sdkmanager --licenses > /dev/null 2>&1 || true
 
+# ─── Run tests ─────────────────────────────────────────────────────
+echo "Running tests..."
+cd "$APP_DIR"
+npm test
+echo "All tests passed."
+echo ""
+
 # ─── Regenerate native project ───────────────────────────────────────
 echo "Regenerating android/ with expo prebuild..."
 cd "$APP_DIR"
