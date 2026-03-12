@@ -8,10 +8,14 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { getAllBooks } from "../src/lib/books";
+import { getAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
-import type { Book } from "../src/types";
+import { colors } from "../src/theme";
+import type { Book, Article } from "../src/types";
+
+type Tab = "buku" | "artikel";
 
 // Cover images mapped by book ID
 const coverImages: Record<string, any> = {
@@ -41,7 +45,7 @@ function BookCard({ book, onPress, cardWidth }: { book: Book; onPress: () => voi
   const cover = coverImages[book.id];
 
   return (
-    <Pressable style={[styles.bookCard, { width: cardWidth }]} onPress={onPress}>
+    <Pressable style={[styles.card, { width: cardWidth }]} onPress={onPress}>
       {cover ? (
         <Image
           source={cover}
@@ -49,14 +53,36 @@ function BookCard({ book, onPress, cardWidth }: { book: Book; onPress: () => voi
           resizeMode="cover"
         />
       ) : (
-        <View style={[styles.bookCoverPlaceholder, { width: cardWidth, height: cardWidth * 1.3 }]}>
+        <View style={[styles.coverPlaceholder, { width: cardWidth, height: cardWidth * 1.3 }]}>
           <Text style={styles.placeholderText}>{book.title.charAt(0)}</Text>
         </View>
       )}
-      <Text style={styles.bookTitle} numberOfLines={2}>
+      <Text style={styles.cardTitle} numberOfLines={2}>
         {book.title}
       </Text>
-      <Text style={styles.bookPages}>{book.pageCount} halaman</Text>
+      <Text style={styles.cardMeta}>{book.pageCount} halaman</Text>
+    </Pressable>
+  );
+}
+
+function ArticleCard({ article, onPress, cardWidth }: { article: Article; onPress: () => void; cardWidth: number }) {
+  const initials = article.title
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w.charAt(0))
+    .join("");
+
+  return (
+    <Pressable style={[styles.card, { width: cardWidth }]} onPress={onPress}>
+      <View style={[styles.articleCover, { width: cardWidth, height: cardWidth * 1.3 }]}>
+        <Text style={styles.articleInitials}>{initials}</Text>
+      </View>
+      <Text style={styles.cardTitle} numberOfLines={2}>
+        {article.title}
+      </Text>
+      <Text style={styles.cardMeta}>
+        {article.quiz.length} soal kuis
+      </Text>
     </Pressable>
   );
 }
@@ -65,12 +91,15 @@ export default function HomeScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const child = getSelectedChild();
+  const [tab, setTab] = useState<Tab>("buku");
+
   const books = useMemo(() => getAllBooks(), []);
+  const articles = useMemo(() => getAllArticles(), []);
 
   const isTablet = width >= 600;
-  const numColumns = isTablet ? 4 : 2;
-  const gap = 16;
-  const padding = 16;
+  const numColumns = isTablet ? 3 : 2;
+  const gap = 20;
+  const padding = 20;
   const cardWidth = (width - padding * 2 - gap * (numColumns - 1)) / numColumns;
 
   if (!child) {
@@ -84,25 +113,64 @@ export default function HomeScreen() {
         <Pressable onPress={() => router.replace("/")} style={styles.backBtn}>
           <Text style={styles.backText}>Ganti</Text>
         </Pressable>
-        <Text style={styles.greeting}>Halo, {child.name}!</Text>
+        <Text style={styles.greeting} numberOfLines={1}>Halo, {child.name}!</Text>
       </View>
 
-      <FlatList
-        data={books}
-        numColumns={numColumns}
-        key={numColumns}
-        contentContainerStyle={[styles.list, { paddingHorizontal: padding }]}
-        columnWrapperStyle={{ gap }}
-        ItemSeparatorComponent={() => <View style={{ height: gap }} />}
-        renderItem={({ item }) => (
-          <BookCard
-            book={item}
-            cardWidth={cardWidth}
-            onPress={() => router.push(`/read/${item.id}`)}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+      {/* Tabs */}
+      <View style={styles.tabRow}>
+        <Pressable
+          style={[styles.tab, tab === "buku" && styles.tabActive]}
+          onPress={() => setTab("buku")}
+        >
+          <Text style={[styles.tabText, tab === "buku" && styles.tabTextActive]}>
+            Buku
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.tab, tab === "artikel" && styles.tabActive]}
+          onPress={() => setTab("artikel")}
+        >
+          <Text style={[styles.tabText, tab === "artikel" && styles.tabTextActive]}>
+            Artikel
+          </Text>
+        </Pressable>
+      </View>
+
+      {tab === "buku" ? (
+        <FlatList
+          data={books}
+          numColumns={numColumns}
+          key={`buku-${numColumns}`}
+          contentContainerStyle={[styles.list, { paddingHorizontal: padding }]}
+          columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
+          ItemSeparatorComponent={() => <View style={{ height: gap }} />}
+          renderItem={({ item }) => (
+            <BookCard
+              book={item}
+              cardWidth={cardWidth}
+              onPress={() => router.push(`/read/${item.id}`)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <FlatList
+          data={articles}
+          numColumns={numColumns}
+          key={`artikel-${numColumns}`}
+          contentContainerStyle={[styles.list, { paddingHorizontal: padding }]}
+          columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
+          ItemSeparatorComponent={() => <View style={{ height: gap }} />}
+          renderItem={({ item }) => (
+            <ArticleCard
+              article={item}
+              cardWidth={cardWidth}
+              onPress={() => router.push(`/article/${item.id}`)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 }
@@ -110,69 +178,113 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: colors.bgPrimary,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 50,
-    paddingBottom: 16,
-    backgroundColor: "#1A73E8",
+    paddingHorizontal: 20,
+    paddingTop: 54,
+    paddingBottom: 12,
+    backgroundColor: colors.primary,
   },
   backBtn: {
     marginRight: 16,
-    padding: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 10,
   },
   backText: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: "600",
   },
   greeting: {
+    flex: 1,
     fontSize: 22,
     fontWeight: "bold",
     color: "#FFF",
   },
-  list: {
-    paddingTop: 16,
-    paddingBottom: 32,
+  tabRow: {
+    flexDirection: "row",
+    backgroundColor: colors.primary,
+    paddingHorizontal: 20,
+    paddingBottom: 14,
+    gap: 8,
   },
-  bookCard: {
-    backgroundColor: "#FFF",
+  tab: {
+    flex: 1,
+    paddingVertical: 10,
     borderRadius: 12,
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.15)",
+  },
+  tabActive: {
+    backgroundColor: "#FFF",
+  },
+  tabText: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "rgba(255,255,255,0.7)",
+  },
+  tabTextActive: {
+    color: colors.primary,
+  },
+  list: {
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
+  card: {
+    backgroundColor: colors.bgCard,
+    borderRadius: 16,
     overflow: "hidden",
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    elevation: 3,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    paddingBottom: 4,
   },
   bookCover: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
-  bookCoverPlaceholder: {
-    backgroundColor: "#E0E0E0",
+  coverPlaceholder: {
+    backgroundColor: colors.primaryLight,
     justifyContent: "center",
     alignItems: "center",
   },
   placeholderText: {
     fontSize: 40,
-    color: "#999",
+    color: "#FFF",
     fontWeight: "bold",
   },
-  bookTitle: {
+  articleCover: {
+    backgroundColor: colors.secondary,
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  articleInitials: {
+    fontSize: 36,
+    color: "#FFF",
+    fontWeight: "bold",
+    opacity: 0.9,
+  },
+  cardTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#333",
-    paddingHorizontal: 8,
-    paddingTop: 8,
+    color: colors.textPrimary,
+    paddingHorizontal: 12,
+    paddingTop: 12,
   },
-  bookPages: {
+  cardMeta: {
     fontSize: 12,
-    color: "#888",
-    paddingHorizontal: 8,
-    paddingBottom: 8,
-    paddingTop: 2,
+    color: colors.textSecondary,
+    paddingHorizontal: 12,
+    paddingBottom: 12,
+    paddingTop: 4,
   },
 });

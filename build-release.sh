@@ -76,6 +76,7 @@ if command -v gh >/dev/null 2>&1; then
   echo "Creating GitHub release..."
   gh release create "$TAG" "$APK_PATH" \
     --title "$APP_NAME $TAG" \
+    --draft=false \
     --notes "Release $VERSION
 
 Built with:
