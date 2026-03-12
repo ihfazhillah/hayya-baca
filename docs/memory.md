@@ -178,13 +178,30 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Leaderboard antar anak (coin/bintang sort)
 - [x] Article reading progress tracking (via quiz completion)
 
-### TODO (Post-Alpha)
+### Backend (Done)
+- [x] Django 6.0 + DRF project (`backend/`)
+- [x] Models: Book, Article, Quiz, Child, ChildAccess, ShareInvite, ReadingProgress, QuizAttempt, RewardHistory
+- [x] Import commands: `import_books` (20 buku), `import_articles` (10 artikel)
+- [x] Cover generation dari title (Pillow, 1080x720)
+- [x] Static JSON publisher + manifest.json versioning
+- [x] REST API endpoints: auth, children CRUD, share invite, progress, quiz, rewards
+- [x] Permission matrix: parent (full), teacher (read-only), public (books only)
+- [x] OpenAPI schema + Swagger UI (`/api/docs/`)
+- [x] API contract documentation (`backend/API.md`)
+
+### TODO — High Priority
+- [ ] Backend sync — API client di app (auth token, progress/reward sync)
+- [ ] Auth flow — login/register screen di app
+- [ ] Content download dari server — fetch manifest, download buku/artikel baru
+
+### TODO — Medium Priority
+- [ ] Audio playback dari file rekaman (book 6 & 10)
+- [ ] Reading time estimate di header artikel
+
+### TODO — Low Priority (Post-MVP)
 - [ ] Mini games (crossword, tebak kata, susun kata, dll)
 - [ ] Custom font untuk anak belajar baca
 - [ ] Ideas/insight tracking (orang tua)
-- [ ] Backend sync (REST API polling)
-- [ ] Audio playback dari file rekaman (book 6 & 10)
-- [ ] Download buku baru dari server
 - [ ] Onboarding flow
 
 ### Dihilangkan dari Original
