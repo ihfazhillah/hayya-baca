@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { getArticle, fetchArticle } from "../../src/lib/articles";
 import { speakPage, stopSpeaking } from "../../src/lib/speech";
 import { colors } from "../../src/theme";
@@ -33,27 +33,13 @@ export default function ArticleScreen() {
     });
   }, [articleId]);
 
-  if (loading) {
-    return (
-      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
-        <Text style={{ color: colors.textPrimary }}>Memuat artikel...</Text>
-      </View>
-    );
-  }
-
-  if (!article) {
-    return (
-      <View style={styles.container}>
-        <Text style={{ color: colors.textPrimary }}>Artikel tidak ditemukan</Text>
-      </View>
-    );
-  }
-
-  // Split content into paragraphs
-  const paragraphs = article.content
-    .split("\n\n")
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const paragraphs = useMemo(() => {
+    if (!article) return [];
+    return article.content
+      .split("\n\n")
+      .map((p) => p.trim())
+      .filter(Boolean);
+  }, [article]);
 
   const handleScroll = useCallback(
     (e: any) => {
@@ -97,10 +83,26 @@ export default function ArticleScreen() {
     readNext();
   }, [isSpeaking, paragraphs]);
 
-  const handleStartQuiz = () => {
+  const handleStartQuiz = useCallback(() => {
     stopSpeaking();
     router.push(`/quiz/${articleId}`);
-  };
+  }, [articleId]);
+
+  if (loading && !article) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <Text style={{ color: colors.textPrimary }}>Memuat artikel...</Text>
+      </View>
+    );
+  }
+
+  if (!article) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ color: colors.textPrimary }}>Artikel tidak ditemukan</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
