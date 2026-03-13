@@ -69,6 +69,7 @@ function QuestionCard({
           return (
             <Pressable
               key={i}
+              testID={`option-${i}`}
               style={[styles.optionBase, optStyle]}
               onPress={() => {
                 if (state === "unanswered") setSelected(i);
