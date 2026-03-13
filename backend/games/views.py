@@ -33,6 +33,15 @@ class GameViewSet(viewsets.ReadOnlyModelViewSet):
         except Child.DoesNotExist:
             return Response({"detail": "Anak tidak ditemukan"}, status=status.HTTP_404_NOT_FOUND)
 
+        # Check for active session first (idempotent — no double-charge)
+        active = GameSession.objects.filter(
+            child=child, game=game,
+            ended_at__isnull=True,
+            expires_at__gt=timezone.now(),
+        ).first()
+        if active:
+            return Response(GameSessionSerializer(active).data, status=status.HTTP_200_OK)
+
         if child.coins < game.coin_cost:
             return Response(
                 {"detail": "Koin tidak cukup", "required": game.coin_cost, "current": child.coins},

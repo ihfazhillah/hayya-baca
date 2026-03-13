@@ -82,6 +82,17 @@ class TestPlayGame:
         resp = auth_api.post("/api/games/test-game/play/", {"child_id": 9999})
         assert resp.status_code == 404
 
+    def test_play_returns_active_session(self, auth_api, child, game):
+        # First play → 201
+        r1 = auth_api.post("/api/games/test-game/play/", {"child_id": child.id})
+        assert r1.status_code == 201
+        # Second play → 200 (same session, no double deduction)
+        r2 = auth_api.post("/api/games/test-game/play/", {"child_id": child.id})
+        assert r2.status_code == 200
+        assert r2.data["id"] == r1.data["id"]
+        child.refresh_from_db()
+        assert child.coins == 18  # deducted only once
+
 
 class TestExtendGame:
     def test_extend_session(self, auth_api, child, game):

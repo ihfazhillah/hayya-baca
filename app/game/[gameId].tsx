@@ -12,6 +12,7 @@ import { fetchGames } from "../../src/lib/api";
 import { getSelectedChild } from "../../src/lib/session";
 import { getChildren } from "../../src/lib/children";
 import { addReward } from "../../src/lib/rewards";
+import { getActiveSession, createSession, endSession } from "../../src/lib/game-session";
 import { colors } from "../../src/theme";
 import type { Game } from "../../src/types";
 
@@ -31,6 +32,7 @@ export default function GamePlayScreen() {
   const [error, setError] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const gameStarted = useRef(false);
 
   const loadGame = useCallback(async () => {
     setLoading(true);
@@ -48,8 +50,24 @@ export default function GamePlayScreen() {
         setLoading(false);
         return;
       }
-      // Check coin balance and deduct
+
+      // Check for active session (resume without charging)
       if (selectedChild) {
+        const active = await getActiveSession(selectedChild.id, gameId);
+        if (active) {
+          const remaining = Math.max(
+            0,
+            Math.floor((active.expiresAt - Date.now()) / 1000)
+          );
+          if (remaining > 0) {
+            setGame(found);
+            setSecondsLeft(remaining);
+            gameStarted.current = true;
+            return;
+          }
+        }
+
+        // No active session — check coin balance and deduct
         const children = await getChildren();
         const child = children.find((c) => c.id === selectedChild.id);
         if (!child || child.coins < found.coin_cost) {
@@ -57,12 +75,13 @@ export default function GamePlayScreen() {
           setLoading(false);
           return;
         }
-        // Deduct coins locally
         await addReward(selectedChild.id, "coin", -found.coin_cost, `Bermain: ${found.title}`);
+        await createSession(selectedChild.id, found.slug, found.session_minutes);
       }
 
       setGame(found);
       setSecondsLeft(found.session_minutes * 60);
+      gameStarted.current = true;
     } catch (e: any) {
       setError(e.message || "Gagal memuat permainan");
     } finally {
@@ -93,6 +112,14 @@ export default function GamePlayScreen() {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [game]);
+
+  // End session when timer reaches 0
+  useEffect(() => {
+    if (gameStarted.current && secondsLeft === 0 && game && selectedChild) {
+      endSession(selectedChild.id, game.slug).catch(() => {});
+      gameStarted.current = false;
+    }
+  }, [secondsLeft]);
 
   const handleBack = () => {
     if (timerRef.current) clearInterval(timerRef.current);
