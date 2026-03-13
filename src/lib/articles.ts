@@ -5,8 +5,9 @@ import {
   ServerArticleDetail,
   ServerArticleListItem,
 } from "./api";
+import { getDatabase } from "./database";
 
-// Bundled articles (fallback when offline)
+// Bundled articles (fallback when offline and no cache)
 import a112 from "../../content/articles/112-lelaki-anshar-tiga-anak-panah.json";
 import a209 from "../../content/articles/209-saad-bin-abi-waqqash.json";
 import a1176 from "../../content/articles/1176-cerita-nabi-musa-dengan-batu.json";
@@ -23,12 +24,10 @@ const bundledArticles: Article[] = [
   a1379, a1675, a1777, a7416, a8457,
 ] as Article[];
 
-// Cache for server articles
-let cachedList: Article[] | null = null;
-const detailCache = new Map<string, Article>();
+// In-memory cache (populated from SQLite on first load)
+let memoryList: Article[] | null = null;
 
 function serverDetailToArticle(detail: ServerArticleDetail): Article {
-  // Convert sections to flat content string (for existing article screen)
   const content = detail.sections
     .map((s) => {
       if (s.type === "heading") return s.text;
@@ -55,53 +54,87 @@ function serverDetailToArticle(detail: ServerArticleDetail): Article {
   };
 }
 
-function serverListToArticleSummary(item: ServerArticleListItem): Article {
-  return {
-    id: String(item.id),
-    title: item.title,
-    source: "",
-    category: item.categories || [],
-    content: "",
-    quiz: [],
-  };
+// --- SQLite cache ---
+
+async function getCachedArticle(id: string): Promise<Article | null> {
+  const db = await getDatabase();
+  const row = await db.getFirstAsync<{ data: string }>(
+    "SELECT data FROM cached_articles WHERE id = ?",
+    id
+  );
+  if (!row) return null;
+  return JSON.parse(row.data);
 }
 
+async function cacheArticle(article: Article): Promise<void> {
+  const db = await getDatabase();
+  await db.runAsync(
+    "INSERT OR REPLACE INTO cached_articles (id, data, updated_at) VALUES (?, ?, datetime('now'))",
+    article.id,
+    JSON.stringify(article)
+  );
+}
+
+async function getCachedList(): Promise<Article[] | null> {
+  const db = await getDatabase();
+  const rows = await db.getAllAsync<{ id: string; data: string }>(
+    "SELECT id, data FROM cached_articles ORDER BY id"
+  );
+  if (rows.length === 0) return null;
+  return rows.map((r) => JSON.parse(r.data));
+}
+
+// --- Public API ---
+
 export async function fetchAllArticles(): Promise<Article[]> {
-  if (cachedList) return cachedList;
+  // Try server
   try {
     const list = await fetchArticleList();
-    cachedList = list.map(serverListToArticleSummary);
-    return cachedList;
+    const summaries: Article[] = list.map((item) => ({
+      id: String(item.id),
+      title: item.title,
+      source: "",
+      category: item.categories || [],
+      content: "",
+      quiz: [],
+    }));
+    memoryList = summaries;
+    return summaries;
   } catch {
+    // Fallback: cached list or bundled
+    const cached = await getCachedList();
+    if (cached) {
+      memoryList = cached;
+      return cached;
+    }
     return bundledArticles;
   }
 }
 
 export async function fetchArticle(id: string): Promise<Article | null> {
-  // Check detail cache
-  const cached = detailCache.get(id);
-  if (cached) return cached;
-
-  // Check bundled
-  const bundled = bundledArticles.find((a) => a.id === id);
-
+  // Try server first
   try {
     const detail = await fetchArticleDetail(Number(id));
     const article = serverDetailToArticle(detail);
-    detailCache.set(id, article);
+    // Cache to SQLite
+    await cacheArticle(article);
     return article;
   } catch {
-    return bundled ?? null;
+    // Fallback: SQLite cache
+    const cached = await getCachedArticle(id);
+    if (cached) return cached;
+    // Fallback: bundled
+    return bundledArticles.find((a) => a.id === id) ?? null;
   }
 }
 
-// Sync versions (for backward compat with existing code that doesn't use async)
+// Sync versions (for initial render before async completes)
 export function getAllArticles(): Article[] {
-  return cachedList ?? bundledArticles;
+  return memoryList ?? bundledArticles;
 }
 
 export function getArticle(id: string): Article | null {
-  return detailCache.get(id) ?? bundledArticles.find((a) => a.id === id) ?? null;
+  return bundledArticles.find((a) => a.id === id) ?? null;
 }
 
 export function calculateQuizStars(correct: number, total: number): number {
