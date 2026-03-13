@@ -19,8 +19,12 @@ if [ -z "${JAVA_HOME:-}" ]; then
   exit 1
 fi
 
-# ─── Version from app.json ───────────────────────────────────────────
-VERSION=$(node -e "console.log(require('$APP_DIR/app.json').expo.version)")
+# ─── Version from app.config.ts ──────────────────────────────────────
+VERSION=$(node -e "
+  const m = require('fs').readFileSync('$APP_DIR/app.config.ts','utf8').match(/version:\\s*['\"]([^'\"]+)['\"]/);
+  if (!m) { process.exit(1); }
+  console.log(m[1]);
+")
 TAG="v${VERSION}"
 echo "Building $APP_NAME $TAG (arch: $ARCH)"
 
