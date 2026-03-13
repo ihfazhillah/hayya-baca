@@ -3,9 +3,9 @@ name: Backend CI/CD
 on:
   push:
     branches: [master]
-    paths: ["backend/**"]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
   pull_request:
-    paths: ["backend/**"]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
 
 defaults:
   run:
