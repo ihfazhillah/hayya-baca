@@ -1,4 +1,5 @@
 import { getDatabase } from "./database";
+import { emitDataChange } from "./db-events";
 import type { RewardHistory } from "../types";
 
 export async function addReward(
@@ -29,6 +30,7 @@ export async function addReward(
       childId
     );
   }
+  emitDataChange("children");
 }
 
 export async function getUnsyncedRewards(
@@ -95,6 +97,7 @@ export async function saveReadingProgress(
     childId, bookId, lastPage, completed ? 1 : 0, completed ? 1 : 0,
     lastPage, completed ? 1 : 0, completed ? 1 : 0
   );
+  emitDataChange("children");
 }
 
 export async function getReadingProgress(

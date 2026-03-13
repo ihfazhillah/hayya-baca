@@ -25,7 +25,7 @@ if [ -z "${JAVA_HOME:-}" ]; then
 fi
 
 # ─── Version from app.json ───────────────────────────────────────────
-VERSION=$(node -e "console.log(require('$APP_DIR/app.json').expo.version)")
+VERSION=$(cd "$APP_DIR" && npx expo config --json 2>/dev/null | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).version))")
 echo "Building $APP_NAME v${VERSION} for emulator (arch: $ARCH)"
 
 # ─── Regenerate native project ───────────────────────────────────────

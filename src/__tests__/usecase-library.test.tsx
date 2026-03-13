@@ -10,8 +10,13 @@
  */
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import HomeScreen from "../../app/home";
+
+function renderWithProviders(ui: React.ReactElement) {
+  return render(<NavigationContainer>{ui}</NavigationContainer>);
+}
 import * as session from "../lib/session";
 
 const mockRouter = (global as any).__mockRouter;
@@ -49,18 +54,18 @@ beforeEach(() => {
 
 describe("Anak melihat perpustakaan", () => {
   it("menampilkan nama anak di header", () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
     expect(screen.getByText("Halo, Ahmad!")).toBeTruthy();
   });
 
   it("menampilkan tab Buku dan Artikel", () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
     expect(screen.getByText("Buku")).toBeTruthy();
     expect(screen.getByText("Artikel")).toBeTruthy();
   });
 
   it("menampilkan daftar buku dengan judul dan halaman", async () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     await waitFor(() => {
       expect(screen.getByText("Sahabat yang disebut namanya di langit")).toBeTruthy();
@@ -72,7 +77,7 @@ describe("Anak melihat perpustakaan", () => {
   });
 
   it("pindah ke tab Artikel → menampilkan daftar artikel", async () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     fireEvent.press(screen.getByText("Artikel"));
 
@@ -86,7 +91,7 @@ describe("Anak melihat perpustakaan", () => {
   });
 
   it("menekan buku → navigasi ke /read/{id}", async () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     await waitFor(() => screen.getByText("Sahabat yang disebut namanya di langit"));
     fireEvent.press(screen.getByText("Sahabat yang disebut namanya di langit"));
@@ -95,7 +100,7 @@ describe("Anak melihat perpustakaan", () => {
   });
 
   it("menekan artikel → navigasi ke /article/{id}", async () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     fireEvent.press(screen.getByText("Artikel"));
     await waitFor(() => screen.getByText("Lelaki Anshar dengan Tiga Anak Panah"));
@@ -105,14 +110,14 @@ describe("Anak melihat perpustakaan", () => {
   });
 
   it("tombol Ganti → kembali ke pilih profil", () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     fireEvent.press(screen.getByText("Ganti"));
     expect(mockRouter.replace).toHaveBeenCalledWith("/");
   });
 
   it("tombol Peringkat → navigasi ke leaderboard", () => {
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     fireEvent.press(screen.getByText("Peringkat"));
     expect(mockRouter.push).toHaveBeenCalledWith("/leaderboard");
@@ -125,7 +130,7 @@ describe("Progress badge di perpustakaan", () => {
       { book_id: "1", last_page: 11, completed: 1, completed_count: 1 },
     ]);
 
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     await waitFor(() => {
       // Badge shows checkmark for completed book
@@ -138,7 +143,7 @@ describe("Progress badge di perpustakaan", () => {
       { book_id: "1", last_page: 11, completed: 1, completed_count: 3 },
     ]);
 
-    render(<HomeScreen />);
+    renderWithProviders(<HomeScreen />);
 
     await waitFor(() => {
       expect(screen.getByText("3x")).toBeTruthy();

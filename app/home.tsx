@@ -10,6 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/core";
 import { getAllBooks } from "../src/lib/books";
 import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
@@ -156,9 +157,11 @@ export default function HomeScreen() {
     setProgress(p);
   }, [child?.id]);
 
-  useEffect(() => {
-    loadProgress();
-  }, [loadProgress]);
+  useFocusEffect(
+    useCallback(() => {
+      loadProgress();
+    }, [loadProgress])
+  );
 
   const isTablet = width >= 600;
   const numColumns = isTablet ? 3 : 2;

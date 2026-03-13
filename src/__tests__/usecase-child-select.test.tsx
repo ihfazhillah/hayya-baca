@@ -8,7 +8,6 @@
  */
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import ChildSelectScreen from "../../app/index";
 
@@ -21,11 +20,6 @@ const mockChildren = [
 const mockDb = (global as any).__mockDb;
 const mockRouter = (global as any).__mockRouter;
 
-function renderWithProviders(ui: React.ReactElement) {
-  const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-  return render(<QueryClientProvider client={qc}>{ui}</QueryClientProvider>);
-}
-
 beforeEach(() => {
   jest.clearAllMocks();
   mockDb.getAllAsync.mockResolvedValue(mockChildren);
@@ -33,14 +27,14 @@ beforeEach(() => {
 
 describe("Anak membuka app", () => {
   it("menampilkan judul dan pertanyaan siapa yang mau baca", async () => {
-    renderWithProviders(<ChildSelectScreen />);
+    render(<ChildSelectScreen />);
 
     expect(screen.getByText("Hayya Baca!")).toBeTruthy();
     expect(screen.getByText("Siapa yang mau baca?")).toBeTruthy();
   });
 
   it("menampilkan daftar anak yang ada", async () => {
-    renderWithProviders(<ChildSelectScreen />);
+    render(<ChildSelectScreen />);
 
     await waitFor(() => {
       expect(screen.getByText("Ahmad")).toBeTruthy();
@@ -49,7 +43,7 @@ describe("Anak membuka app", () => {
   });
 
   it("menampilkan koin masing-masing anak", async () => {
-    renderWithProviders(<ChildSelectScreen />);
+    render(<ChildSelectScreen />);
 
     await waitFor(() => {
       expect(screen.getByText("15 koin")).toBeTruthy();
@@ -58,7 +52,7 @@ describe("Anak membuka app", () => {
   });
 
   it("memilih profil anak → navigasi ke /home", async () => {
-    renderWithProviders(<ChildSelectScreen />);
+    render(<ChildSelectScreen />);
 
     await waitFor(() => screen.getByText("Ahmad"));
     fireEvent.press(screen.getByText("Ahmad"));
@@ -67,7 +61,7 @@ describe("Anak membuka app", () => {
   });
 
   it("ada tombol Orang Tua → navigasi ke /parent", async () => {
-    renderWithProviders(<ChildSelectScreen />);
+    render(<ChildSelectScreen />);
 
     const btn = screen.getByText("Orang Tua");
     expect(btn).toBeTruthy();

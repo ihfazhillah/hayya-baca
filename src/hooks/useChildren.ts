@@ -1,21 +1,41 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect, useCallback } from "react";
 import { getChildren, addChild } from "../lib/children";
+import { onDataChange } from "../lib/db-events";
+import type { Child } from "../types";
 
 export function useChildren() {
-  return useQuery({
-    queryKey: ["children"],
-    queryFn: getChildren,
-  });
+  const [data, setData] = useState<Child[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const load = useCallback(async () => {
+    const children = await getChildren();
+    setData(children);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    load();
+    return onDataChange("children", load);
+  }, [load]);
+
+  return { data, isLoading };
 }
 
 export function useAddChild() {
-  const queryClient = useQueryClient();
+  const [isPending, setIsPending] = useState(false);
 
-  return useMutation({
-    mutationFn: ({ name, age }: { name: string; age?: number }) =>
-      addChild(name, age),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["children"] });
+  const mutateAsync = useCallback(
+    async ({ name, age }: { name: string; age?: number }) => {
+      setIsPending(true);
+      try {
+        return await addChild(name, age);
+      } finally {
+        setIsPending(false);
+      }
+      // No invalidation needed — addChild() emits "children"
     },
-  });
+    []
+  );
+
+  return { mutateAsync, isPending };
 }

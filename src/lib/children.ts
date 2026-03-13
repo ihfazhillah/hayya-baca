@@ -1,5 +1,6 @@
 import { getDatabase } from "./database";
 import { isLoggedIn, createChildOnServer } from "./api";
+import { emitDataChange } from "./db-events";
 import type { Child } from "../types";
 
 const AVATAR_COLORS = [
@@ -78,6 +79,7 @@ export async function addChild(
       serverChild.age,
       serverChild.id
     );
+    emitDataChange("children");
     return {
       id: serverChild.id,
       name: serverChild.name,
@@ -96,6 +98,7 @@ export async function addChild(
     age ?? null
   );
 
+  emitDataChange("children");
   return {
     id: result.lastInsertRowId,
     name,
@@ -116,6 +119,7 @@ export async function updateChildCoins(
     delta,
     childId
   );
+  emitDataChange("children");
 }
 
 export async function upsertChildFromServer(child: {
@@ -138,6 +142,7 @@ export async function upsertChildFromServer(child: {
     child.age,
     child.id
   );
+  emitDataChange("children");
 }
 
 export async function deleteChildrenNotIn(ids: number[]): Promise<void> {
@@ -148,4 +153,5 @@ export async function deleteChildrenNotIn(ids: number[]): Promise<void> {
     `DELETE FROM children WHERE server_id IS NOT NULL AND id NOT IN (${placeholders})`,
     ...ids
   );
+  emitDataChange("children");
 }
