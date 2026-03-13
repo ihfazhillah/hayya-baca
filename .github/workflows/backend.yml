@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend CI/CD
 
 on:
   push:
@@ -26,3 +26,32 @@ jobs:
 
       - name: Run tests
         run: uv run pytest -v
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    steps:
+      - name: Deploy to server
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          ssh -i ~/.ssh/id_deploy "$USER@$HOST" bash -s << 'SCRIPT'
+            set -e
+            cd ~/hayyabaca
+            git pull origin master
+            cd backend
+            source ~/.local/bin/env
+            uv sync --group production
+            set -a && source .env && set +a
+            uv run python manage.py migrate --settings=config.settings.production --noinput
+            uv run python manage.py collectstatic --settings=config.settings.production --noinput
+            sudo systemctl restart hayyabaca
+          SCRIPT
