@@ -4,6 +4,9 @@ import {
   StyleSheet,
   Pressable,
   ActivityIndicator,
+  useWindowDimensions,
+  StatusBar,
+  Platform,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -26,6 +29,10 @@ export default function GamePlayScreen() {
   const router = useRouter();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const selectedChild = getSelectedChild();
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
+  const statusBarH = Platform.OS === "android" ? (StatusBar.currentHeight ?? 24) : 44;
+  const topPad = isLandscape ? 4 : statusBarH;
 
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
@@ -145,7 +152,7 @@ export default function GamePlayScreen() {
   if (loading) {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: topPad + 8 }]}>
           <Pressable onPress={() => router.back()} style={styles.headerBtn}>
             <Text style={styles.headerBtnText}>Kembali</Text>
           </Pressable>
@@ -162,7 +169,7 @@ export default function GamePlayScreen() {
   if (error || !game) {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: topPad + 8 }]}>
           <Pressable onPress={() => router.back()} style={styles.headerBtn}>
             <Text style={styles.headerBtnText}>Kembali</Text>
           </Pressable>
@@ -181,7 +188,7 @@ export default function GamePlayScreen() {
   return (
     <View style={styles.container}>
       {/* Top bar with timer */}
-      <View style={styles.topBar}>
+      <View style={[styles.topBar, { paddingTop: topPad + 4 }]}>
         <Pressable onPress={handleBack} style={styles.headerBtn}>
           <Text style={styles.headerBtnText}>Kembali</Text>
         </Pressable>
@@ -238,7 +245,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -263,7 +269,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 12,
-    paddingTop: 50,
     paddingBottom: 8,
     backgroundColor: colors.primary,
     gap: 10,

@@ -92,6 +92,25 @@ export async function fetchChildren(): Promise<ServerChild[]> {
   return res.json();
 }
 
+export async function createChildOnServer(
+  name: string,
+  age?: number,
+  avatarColor?: string
+): Promise<ServerChild> {
+  const body: Record<string, unknown> = { name };
+  if (age != null) body.age = age;
+  if (avatarColor) body.avatar_color = avatarColor;
+  const res = await apiFetch("/children/", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail || "Gagal menambah anak di server");
+  }
+  return res.json();
+}
+
 export async function pushReadingProgress(
   childId: number,
   data: {

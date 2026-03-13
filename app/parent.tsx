@@ -8,6 +8,8 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { colors } from "../src/theme";
@@ -229,11 +231,15 @@ function Dashboard({ onBack }: { onBack: () => void }) {
 
   const handleAddChild = async () => {
     if (!newChildName.trim()) return;
-    await addChild(newChildName.trim(), newChildAge ? parseInt(newChildAge) : undefined);
-    setNewChildName("");
-    setNewChildAge("");
-    setShowAddChild(false);
-    await loadData();
+    try {
+      await addChild(newChildName.trim(), newChildAge ? parseInt(newChildAge) : undefined);
+      setNewChildName("");
+      setNewChildAge("");
+      setShowAddChild(false);
+      await loadData();
+    } catch (e: any) {
+      Alert.alert("Gagal", e.message || "Tidak bisa menambah anak");
+    }
   };
 
   const viewChildDetail = async (child: Child) => {
@@ -249,7 +255,15 @@ function Dashboard({ onBack }: { onBack: () => void }) {
   const version = Constants.expoConfig?.version ?? "?";
 
   return (
-    <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
+    <KeyboardAvoidingView
+      style={styles.scrollContainer}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+    <ScrollView
+      style={styles.scrollContainer}
+      contentContainerStyle={styles.scrollContent}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.header}>
         <Pressable onPress={onBack}>
           <Text style={styles.backText}>Kembali</Text>
@@ -423,6 +437,7 @@ function Dashboard({ onBack }: { onBack: () => void }) {
         <Text style={styles.label}>Versi: {version}</Text>
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

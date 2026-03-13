@@ -1,4 +1,5 @@
 import { getDatabase } from "./database";
+import { isLoggedIn, createChildOnServer } from "./api";
 import type { Child } from "../types";
 
 const AVATAR_COLORS = [
@@ -33,6 +34,31 @@ export async function addChild(
 ): Promise<Child> {
   const db = await getDatabase();
   const color = AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)];
+
+  // If logged in, create on server first so other devices can sync
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
+    const serverChild = await createChildOnServer(name, age, color);
+    await db.runAsync(
+      "INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age) VALUES (?, ?, ?, ?, ?, ?)",
+      serverChild.id,
+      serverChild.name,
+      serverChild.avatar_color,
+      serverChild.coins,
+      serverChild.stars,
+      serverChild.age
+    );
+    return {
+      id: serverChild.id,
+      name: serverChild.name,
+      avatarColor: serverChild.avatar_color,
+      coins: serverChild.coins,
+      stars: serverChild.stars,
+      age: serverChild.age ?? undefined,
+    };
+  }
+
+  // Offline — create locally only
   const result = await db.runAsync(
     "INSERT INTO children (name, avatar_color, age) VALUES (?, ?, ?)",
     name,
