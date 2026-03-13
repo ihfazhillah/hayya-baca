@@ -49,6 +49,7 @@ jobs:
           ssh -i ~/.ssh/id_deploy "$USER@$HOST" bash -s << 'SCRIPT'
             set -e
             cd ~/hayyabaca
+            git checkout -- .
             git pull origin master
             cd backend
             source ~/.local/bin/env

@@ -7,10 +7,11 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo, useState, useCallback, useRef } from "react";
-import { getArticle } from "../../src/lib/articles";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { getArticle, fetchArticle } from "../../src/lib/articles";
 import { speakPage, stopSpeaking } from "../../src/lib/speech";
 import { colors } from "../../src/theme";
+import type { Article } from "../../src/types";
 
 export default function ArticleScreen() {
   const { articleId } = useLocalSearchParams<{ articleId: string }>();
@@ -18,11 +19,27 @@ export default function ArticleScreen() {
   const { width } = useWindowDimensions();
   const isTablet = width >= 600;
 
-  const article = useMemo(() => getArticle(articleId), [articleId]);
+  const [article, setArticle] = useState<Article | null>(() => getArticle(articleId));
+  const [loading, setLoading] = useState(!article);
   const [reachedEnd, setReachedEnd] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [activeParagraph, setActiveParagraph] = useState<number | null>(null);
   const scrollRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    fetchArticle(articleId).then((a) => {
+      if (a) setArticle(a);
+      setLoading(false);
+    });
+  }, [articleId]);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <Text style={{ color: colors.textPrimary }}>Memuat artikel...</Text>
+      </View>
+    );
+  }
 
   if (!article) {
     return (

@@ -10,7 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { getAllBooks } from "../src/lib/books";
-import { getAllArticles } from "../src/lib/articles";
+import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
 import { getAllReadingProgress } from "../src/lib/rewards";
 import { colors } from "../src/theme";
@@ -142,7 +142,11 @@ export default function HomeScreen() {
   const [progress, setProgress] = useState<ProgressMap>({});
 
   const books = useMemo(() => getAllBooks(), []);
-  const articles = useMemo(() => getAllArticles(), []);
+  const [articles, setArticles] = useState<Article[]>(() => getAllArticles());
+
+  useEffect(() => {
+    fetchAllArticles().then(setArticles).catch(() => {});
+  }, []);
 
   const loadProgress = useCallback(async () => {
     if (!child) return;

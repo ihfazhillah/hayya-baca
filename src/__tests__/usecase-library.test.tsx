@@ -32,11 +32,13 @@ jest.mock("../lib/books", () => ({
   ],
 }));
 
+const mockArticles = [
+  { id: "112", title: "Lelaki Anshar dengan Tiga Anak Panah", source: "", category: [], content: "", quiz: [{ question: "q1" }, { question: "q2" }] },
+  { id: "209", title: "Saad bin Abi Waqqash", source: "", category: [], content: "", quiz: [{ question: "q1" }] },
+];
 jest.mock("../lib/articles", () => ({
-  getAllArticles: () => [
-    { id: "112", title: "Lelaki Anshar dengan Tiga Anak Panah", source: "", category: [], content: "", quiz: [{ question: "q1" }, { question: "q2" }] },
-    { id: "209", title: "Saad bin Abi Waqqash", source: "", category: [], content: "", quiz: [{ question: "q1" }] },
-  ],
+  getAllArticles: () => mockArticles,
+  fetchAllArticles: () => Promise.resolve(mockArticles),
 }));
 
 beforeEach(() => {

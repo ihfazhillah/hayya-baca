@@ -138,3 +138,47 @@ export async function pushQuizAttempt(
     console.warn("pushQuizAttempt failed:", res.status, err);
   }
 }
+
+// --- Content API (public, no auth) ---
+
+export interface ServerArticleListItem {
+  id: number;
+  title: string;
+  content_type: string;
+  categories: string[];
+  min_age: number;
+  reward_coins: number;
+  has_audio: boolean;
+  published_version: number;
+}
+
+export interface ServerArticleDetail {
+  id: number;
+  title: string;
+  content_type: string;
+  source: string;
+  source_url: string;
+  categories: string[];
+  sections: { order: number; type: string; text: string; items: string[] }[];
+  quizzes: {
+    type: string;
+    question: string;
+    options: string[];
+    answer: number | boolean;
+    explanation: string;
+  }[];
+}
+
+export async function fetchArticleList(): Promise<ServerArticleListItem[]> {
+  const res = await fetch(`${getApiBase()}/books/?type=article`);
+  if (!res.ok) throw new Error("Failed to fetch articles");
+  return res.json();
+}
+
+export async function fetchArticleDetail(
+  id: number
+): Promise<ServerArticleDetail> {
+  const res = await fetch(`${getApiBase()}/books/${id}/`);
+  if (!res.ok) throw new Error("Failed to fetch article detail");
+  return res.json();
+}

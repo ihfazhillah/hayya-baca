@@ -7,8 +7,8 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo, useState } from "react";
-import { getArticle, calculateQuizStars } from "../../src/lib/articles";
+import { useMemo, useState, useEffect } from "react";
+import { getArticle, fetchArticle, calculateQuizStars } from "../../src/lib/articles";
 import { getSelectedChild } from "../../src/lib/session";
 import { addReward, saveReadingProgress } from "../../src/lib/rewards";
 import { colors } from "../../src/theme";
@@ -116,7 +116,11 @@ export default function QuizScreen() {
   const { width } = useWindowDimensions();
   const isTablet = width >= 600;
 
-  const article = useMemo(() => getArticle(articleId), [articleId]);
+  const [article, setArticle] = useState(() => getArticle(articleId));
+
+  useEffect(() => {
+    fetchArticle(articleId).then((a) => { if (a) setArticle(a); });
+  }, [articleId]);
   const child = getSelectedChild();
 
   const [currentQ, setCurrentQ] = useState(0);
