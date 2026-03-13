@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Hayya Baca",
   slug: "hayya-baca",
-  version: "0.1.0-alpha.6",
+  version: "0.1.0-alpha.7",
   orientation: "default",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
