@@ -24,8 +24,9 @@ const bundledArticles: Article[] = [
   a1379, a1675, a1777, a7416, a8457,
 ] as Article[];
 
-// In-memory cache (populated from SQLite on first load)
+// In-memory caches
 let memoryList: Article[] | null = null;
+const memoryArticles = new Map<string, Article>();
 
 function serverDetailToArticle(detail: ServerArticleDetail): Article {
   const content = detail.sections
@@ -122,8 +123,9 @@ export async function fetchArticle(id: string): Promise<Article | null> {
   try {
     const detail = await fetchArticleDetail(Number(id));
     const article = serverDetailToArticle(detail);
-    // Cache to SQLite
+    // Cache to SQLite + memory
     await cacheArticle(article);
+    memoryArticles.set(article.id, article);
     return article;
   } catch {
     // Fallback: SQLite cache
@@ -140,7 +142,7 @@ export function getAllArticles(): Article[] {
 }
 
 export function getArticle(id: string): Article | null {
-  return bundledArticles.find((a) => a.id === id) ?? null;
+  return bundledArticles.find((a) => a.id === id) ?? memoryArticles.get(id) ?? null;
 }
 
 export function calculateQuizStars(correct: number, total: number): number {
