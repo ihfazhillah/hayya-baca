@@ -1,9 +1,12 @@
+import Constants from "expo-constants";
 import { getDatabase } from "./database";
 
 const API_BASE_DEV = "http://10.0.2.2:8123/api";
 const API_BASE_PROD = "https://hayyabaca.ihfazh.com/api";
 
 function getApiBase(): string {
+  const override = Constants.expoConfig?.extra?.apiBaseUrl;
+  if (override) return override;
   return __DEV__ ? API_BASE_DEV : API_BASE_PROD;
 }
 
