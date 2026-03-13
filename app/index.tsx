@@ -4,12 +4,10 @@ import {
   StyleSheet,
   Pressable,
   FlatList,
-  TextInput,
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { useChildren, useAddChild } from "../src/hooks/useChildren";
+import { useChildren } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
 import { colors } from "../src/theme";
 
@@ -39,10 +37,6 @@ export default function ChildSelectScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const { data: children, isLoading } = useChildren();
-  const addChild = useAddChild();
-  const [showForm, setShowForm] = useState(false);
-  const [newName, setNewName] = useState("");
-  const [newAge, setNewAge] = useState("");
 
   const isTablet = width >= 600;
   const avatarSize = isTablet ? 120 : 80;
@@ -51,20 +45,6 @@ export default function ChildSelectScreen() {
   const handleSelectChild = (child: { id: number; name: string; age?: number }) => {
     selectChild(child);
     router.push("/home");
-  };
-
-  const handleAddChild = () => {
-    if (!newName.trim()) return;
-    addChild.mutate(
-      { name: newName.trim(), age: newAge ? parseInt(newAge) : undefined },
-      {
-        onSuccess: () => {
-          setNewName("");
-          setNewAge("");
-          setShowForm(false);
-        },
-      }
-    );
   };
 
   return (
@@ -96,69 +76,9 @@ export default function ChildSelectScreen() {
             </Pressable>
           )}
           keyExtractor={(item) => String(item.id)}
-          ListFooterComponent={
-            <Pressable
-              style={styles.addButton}
-              onPress={() => setShowForm(true)}
-            >
-              <View
-                style={[
-                  styles.avatar,
-                  {
-                    backgroundColor: colors.primaryLight,
-                    width: avatarSize,
-                    height: avatarSize,
-                    borderRadius: avatarSize / 2,
-                    borderWidth: 3,
-                    borderColor: colors.primary,
-                    borderStyle: "dashed",
-                  },
-                ]}
-              >
-                <Text style={[styles.avatarText, { fontSize: avatarSize * 0.4 }]}>
-                  +
-                </Text>
-              </View>
-              <Text style={styles.childName}>Tambah</Text>
-            </Pressable>
-          }
         />
       )}
 
-      {showForm && (
-        <View style={styles.formOverlay}>
-          <View style={styles.form}>
-            <Text style={styles.formTitle}>Anak baru</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Nama"
-              placeholderTextColor={colors.textLight}
-              value={newName}
-              onChangeText={setNewName}
-              autoFocus
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Umur (opsional)"
-              placeholderTextColor={colors.textLight}
-              value={newAge}
-              onChangeText={setNewAge}
-              keyboardType="number-pad"
-            />
-            <View style={styles.formButtons}>
-              <Pressable
-                style={styles.cancelBtn}
-                onPress={() => setShowForm(false)}
-              >
-                <Text style={{ color: colors.textSecondary }}>Batal</Text>
-              </Pressable>
-              <Pressable style={styles.submitBtn} onPress={handleAddChild}>
-                <Text style={styles.submitText}>Tambah</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      )}
       <Pressable
         style={styles.parentButton}
         onPress={() => router.push("/parent")}
@@ -227,63 +147,6 @@ const styles = StyleSheet.create({
     color: colors.accent,
     fontWeight: "600",
     marginTop: 2,
-  },
-  addButton: {
-    alignItems: "center",
-    width: 140,
-    alignSelf: "center",
-    marginTop: 8,
-  },
-  formOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  form: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 20,
-    padding: 24,
-    width: 300,
-    elevation: 8,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-  },
-  formTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 16,
-    color: colors.primary,
-  },
-  input: {
-    borderWidth: 2,
-    borderColor: colors.border,
-    borderRadius: 12,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 12,
-    color: colors.textPrimary,
-  },
-  formButtons: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    gap: 12,
-    marginTop: 8,
-  },
-  cancelBtn: {
-    padding: 12,
-  },
-  submitBtn: {
-    backgroundColor: colors.primary,
-    padding: 12,
-    borderRadius: 12,
-    paddingHorizontal: 24,
-  },
-  submitText: {
-    color: "#FFF",
-    fontWeight: "bold",
   },
   parentButton: {
     position: "absolute",

@@ -3,8 +3,8 @@
  *
  * 1. App menampilkan judul "Hayya Baca!" dan daftar anak
  * 2. Anak menekan profilnya → masuk ke perpustakaan
- * 3. Anak bisa menambah profil baru
- * 4. Ada tombol "Orang Tua" untuk akses parent page
+ * 3. Ada tombol "Orang Tua" untuk akses parent page
+ * (Tambah anak dilakukan di halaman Orang Tua)
  */
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
@@ -64,25 +64,6 @@ describe("Anak membuka app", () => {
     fireEvent.press(screen.getByText("Ahmad"));
 
     expect(mockRouter.push).toHaveBeenCalledWith("/home");
-  });
-
-  it("ada tombol Tambah untuk menambah anak", async () => {
-    renderWithProviders(<ChildSelectScreen />);
-
-    await waitFor(() => {
-      expect(screen.getByText("Tambah")).toBeTruthy();
-    });
-  });
-
-  it("menekan Tambah → menampilkan form anak baru", async () => {
-    renderWithProviders(<ChildSelectScreen />);
-
-    await waitFor(() => screen.getByText("Tambah"));
-    fireEvent.press(screen.getByText("Tambah"));
-
-    expect(screen.getByText("Anak baru")).toBeTruthy();
-    expect(screen.getByPlaceholderText("Nama")).toBeTruthy();
-    expect(screen.getByPlaceholderText("Umur (opsional)")).toBeTruthy();
   });
 
   it("ada tombol Orang Tua → navigasi ke /parent", async () => {

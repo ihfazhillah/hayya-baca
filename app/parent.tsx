@@ -14,7 +14,7 @@ import { colors } from "../src/theme";
 import { getSetting, setSetting } from "../src/lib/database";
 import { login, logout, isLoggedIn } from "../src/lib/api";
 import { syncAll } from "../src/lib/sync";
-import { getChildren } from "../src/lib/children";
+import { getChildren, addChild } from "../src/lib/children";
 import { getRewardHistory } from "../src/lib/rewards";
 import { getAllReadingProgress } from "../src/lib/rewards";
 import type { Child, RewardHistory } from "../src/types";
@@ -171,6 +171,9 @@ function Dashboard({ onBack }: { onBack: () => void }) {
   const [loginLoading, setLoginLoading] = useState(false);
   const [selectedChild, setSelectedChild] = useState<Child | null>(null);
   const [rewards, setRewards] = useState<RewardHistory[]>([]);
+  const [showAddChild, setShowAddChild] = useState(false);
+  const [newChildName, setNewChildName] = useState("");
+  const [newChildAge, setNewChildAge] = useState("");
   const [progress, setProgress] = useState<
     Record<string, { lastPage: number; completed: boolean; completedCount: number }>
   >({});
@@ -222,6 +225,15 @@ function Dashboard({ onBack }: { onBack: () => void }) {
     } finally {
       setSyncing(false);
     }
+  };
+
+  const handleAddChild = async () => {
+    if (!newChildName.trim()) return;
+    await addChild(newChildName.trim(), newChildAge ? parseInt(newChildAge) : undefined);
+    setNewChildName("");
+    setNewChildAge("");
+    setShowAddChild(false);
+    await loadData();
   };
 
   const viewChildDetail = async (child: Child) => {
@@ -308,8 +320,43 @@ function Dashboard({ onBack }: { onBack: () => void }) {
 
       {/* Children summary */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Anak-anak</Text>
-        {children.length === 0 ? (
+        <View style={styles.row}>
+          <Text style={styles.sectionTitle}>Anak-anak</Text>
+          <Pressable
+            style={styles.addChildBtn}
+            onPress={() => setShowAddChild(!showAddChild)}
+          >
+            <Text style={styles.addChildBtnText}>
+              {showAddChild ? "Batal" : "+ Tambah"}
+            </Text>
+          </Pressable>
+        </View>
+
+        {showAddChild && (
+          <View style={styles.addChildForm}>
+            <TextInput
+              style={styles.input}
+              placeholder="Nama anak"
+              placeholderTextColor={colors.textLight}
+              value={newChildName}
+              onChangeText={setNewChildName}
+              autoFocus
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Umur (opsional)"
+              placeholderTextColor={colors.textLight}
+              value={newChildAge}
+              onChangeText={setNewChildAge}
+              keyboardType="number-pad"
+            />
+            <Pressable style={styles.primaryBtn} onPress={handleAddChild}>
+              <Text style={styles.primaryBtnText}>Tambah Anak</Text>
+            </Pressable>
+          </View>
+        )}
+
+        {children.length === 0 && !showAddChild ? (
           <Text style={styles.label}>Belum ada anak</Text>
         ) : (
           children.map((child) => (
@@ -531,6 +578,21 @@ const styles = StyleSheet.create({
   childStats: {
     fontSize: 13,
     color: colors.textSecondary,
+  },
+  addChildBtn: {
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    backgroundColor: colors.primaryLight,
+  },
+  addChildBtnText: {
+    color: "#FFF",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+  addChildForm: {
+    marginBottom: 12,
+    paddingTop: 4,
   },
   rewardRow: {
     paddingVertical: 6,
