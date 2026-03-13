@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useEffect } from "react";
 import Animated, {
   useSharedValue,
@@ -25,6 +26,7 @@ export default function CelebrateScreen() {
   }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const isTablet = width >= 600;
 
   const titleScale = useSharedValue(0);
@@ -56,7 +58,7 @@ export default function CelebrateScreen() {
   }));
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <Animated.View style={titleStyle}>
         <Text style={[styles.congrats, isTablet && styles.congratsTablet]}>
           Alhamdulillah!

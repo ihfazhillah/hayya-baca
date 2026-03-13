@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect, useCallback } from "react";
 import { fetchGames } from "../src/lib/api";
 import { getSelectedChild } from "../src/lib/session";
@@ -18,6 +19,7 @@ import type { Game, Child } from "../src/types";
 export default function GamesScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const selectedChild = getSelectedChild();
 
   const [games, setGames] = useState<Game[]>([]);
@@ -85,7 +87,7 @@ export default function GamesScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <Pressable onPress={() => router.back()} style={styles.headerBtn}>
           <Text style={styles.headerBtnText}>Kembali</Text>
         </Pressable>
@@ -114,6 +116,7 @@ export default function GamesScreen() {
           data={games}
           contentContainerStyle={[
             styles.list,
+            { paddingBottom: insets.bottom + 16 },
             isTablet && { paddingHorizontal: 64 },
           ]}
           keyExtractor={(item) => item.slug}
@@ -136,7 +139,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -199,7 +201,6 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: 20,
     paddingTop: 16,
-    paddingBottom: 40,
   },
   card: {
     flexDirection: "row",

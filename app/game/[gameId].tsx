@@ -4,11 +4,9 @@ import {
   StyleSheet,
   Pressable,
   ActivityIndicator,
-  useWindowDimensions,
-  StatusBar,
-  Platform,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WebView } from "react-native-webview";
 import { fetchGames } from "../../src/lib/api";
@@ -29,10 +27,7 @@ export default function GamePlayScreen() {
   const router = useRouter();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const selectedChild = getSelectedChild();
-  const { width, height } = useWindowDimensions();
-  const isLandscape = width > height;
-  const statusBarH = Platform.OS === "android" ? (StatusBar.currentHeight ?? 24) : 44;
-  const topPad = isLandscape ? 4 : statusBarH;
+  const insets = useSafeAreaInsets();
 
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
@@ -152,7 +147,7 @@ export default function GamePlayScreen() {
   if (loading) {
     return (
       <View style={styles.container}>
-        <View style={[styles.header, { paddingTop: topPad + 8 }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
           <Pressable onPress={() => router.back()} style={styles.headerBtn}>
             <Text style={styles.headerBtnText}>Kembali</Text>
           </Pressable>
@@ -169,7 +164,7 @@ export default function GamePlayScreen() {
   if (error || !game) {
     return (
       <View style={styles.container}>
-        <View style={[styles.header, { paddingTop: topPad + 8 }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
           <Pressable onPress={() => router.back()} style={styles.headerBtn}>
             <Text style={styles.headerBtnText}>Kembali</Text>
           </Pressable>
@@ -188,7 +183,7 @@ export default function GamePlayScreen() {
   return (
     <View style={styles.container}>
       {/* Top bar with timer */}
-      <View style={[styles.topBar, { paddingTop: topPad + 4 }]}>
+      <View style={[styles.topBar, { paddingTop: insets.top + 4 }]}>
         <Pressable onPress={handleBack} style={styles.headerBtn}>
           <Text style={styles.headerBtnText}>Kembali</Text>
         </Pressable>
@@ -211,7 +206,7 @@ export default function GamePlayScreen() {
       {secondsLeft > 0 ? (
         <WebView
           source={{ uri: game.bundle_url! }}
-          style={styles.webview}
+          style={[styles.webview, { marginBottom: insets.bottom }]}
           onMessage={handleWebViewMessage}
           javaScriptEnabled
           domStorageEnabled

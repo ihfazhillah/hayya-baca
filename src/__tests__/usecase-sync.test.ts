@@ -7,6 +7,7 @@
  * 4. Push unsynced rewards ke server → mark synced
  * 5. Sync gagal → tidak block app, cuma console.warn
  * 6. Concurrent sync dicegah (lock)
+ * 7. Push local children ke server sebelum pull
  */
 import { syncAll } from "../lib/sync";
 import * as api from "../lib/api";
@@ -32,6 +33,9 @@ beforeEach(() => {
 
   mockChildren.upsertChildFromServer.mockResolvedValue(undefined);
   mockChildren.deleteChildrenNotIn.mockResolvedValue(undefined);
+  mockChildren.getUnsyncedChildren.mockResolvedValue([]);
+  mockChildren.linkChildToServer.mockResolvedValue(undefined);
+  mockApi.createChildOnServer.mockResolvedValue({ id: 100, name: "", age: null, avatar_color: "", coins: 0, stars: 0 });
 
   mockRewards.getAllReadingProgress.mockResolvedValue({});
   mockRewards.getUnsyncedRewards.mockResolvedValue([]);
@@ -195,5 +199,75 @@ describe("Sync: concurrent lock", () => {
 
     // fetchChildren should only be called once (second sync skipped)
     expect(mockApi.fetchChildren).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Sync: push local children to server", () => {
+  beforeEach(() => {
+    mockApi.isLoggedIn.mockResolvedValue(true);
+  });
+
+  it("unsynced children → push ke server → linkChildToServer dipanggil", async () => {
+    mockChildren.getUnsyncedChildren.mockResolvedValue([
+      { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63" },
+      { id: 2, name: "Fatimah", age: 7, avatar_color: "#9C27B0" },
+    ]);
+    mockApi.fetchChildren.mockResolvedValue([]); // no server children yet
+    mockApi.createChildOnServer
+      .mockResolvedValueOnce({ id: 101, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 0, stars: 0 })
+      .mockResolvedValueOnce({ id: 102, name: "Fatimah", age: 7, avatar_color: "#9C27B0", coins: 0, stars: 0 });
+
+    await syncAll();
+
+    expect(mockApi.createChildOnServer).toHaveBeenCalledTimes(2);
+    expect(mockChildren.linkChildToServer).toHaveBeenCalledWith(1, 101);
+    expect(mockChildren.linkChildToServer).toHaveBeenCalledWith(2, 102);
+  });
+
+  it("no unsynced children → skip push, tetap pull", async () => {
+    mockChildren.getUnsyncedChildren.mockResolvedValue([]);
+    const serverKids = [
+      { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 15, stars: 8 },
+    ];
+    mockApi.fetchChildren.mockResolvedValue(serverKids);
+
+    await syncAll();
+
+    expect(mockApi.createChildOnServer).not.toHaveBeenCalled();
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(serverKids[0]);
+  });
+
+  it("push gagal 1 anak → lanjut anak lain + pull tetap jalan", async () => {
+    mockChildren.getUnsyncedChildren.mockResolvedValue([
+      { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63" },
+      { id: 2, name: "Fatimah", age: 7, avatar_color: "#9C27B0" },
+    ]);
+    mockApi.fetchChildren.mockResolvedValue([]);
+    mockApi.createChildOnServer
+      .mockRejectedValueOnce(new Error("Network error"))
+      .mockResolvedValueOnce({ id: 102, name: "Fatimah", age: 7, avatar_color: "#9C27B0", coins: 0, stars: 0 });
+
+    await syncAll();
+
+    // First child failed, second succeeded
+    expect(mockChildren.linkChildToServer).toHaveBeenCalledTimes(1);
+    expect(mockChildren.linkChildToServer).toHaveBeenCalledWith(2, 102);
+    // Pull still happened (fetchChildren called for initial + re-fetch)
+    expect(mockApi.fetchChildren).toHaveBeenCalled();
+  });
+
+  it("anak online (id cocok server) → set server_id tanpa push ulang", async () => {
+    mockChildren.getUnsyncedChildren.mockResolvedValue([
+      { id: 101, name: "Ahmad", age: 5, avatar_color: "#E91E63" },
+    ]);
+    mockApi.fetchChildren.mockResolvedValue([
+      { id: 101, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 15, stars: 8 },
+    ]);
+
+    await syncAll();
+
+    // Should link without creating on server
+    expect(mockApi.createChildOnServer).not.toHaveBeenCalled();
+    expect(mockChildren.linkChildToServer).toHaveBeenCalledWith(101, 101);
   });
 });

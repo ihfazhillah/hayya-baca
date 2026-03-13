@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { getArticle, fetchArticle, calculateQuizStars } from "../../src/lib/articles";
 import { getSelectedChild } from "../../src/lib/session";
@@ -115,6 +116,7 @@ export default function QuizScreen() {
   const { articleId } = useLocalSearchParams<{ articleId: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const isTablet = width >= 600;
 
   const [article, setArticle] = useState(() => getArticle(articleId));
@@ -205,7 +207,7 @@ export default function QuizScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <Pressable
           onPress={() => router.back()}
           style={styles.headerBtn}
@@ -225,6 +227,7 @@ export default function QuizScreen() {
         style={styles.scrollArea}
         contentContainerStyle={[
           styles.scrollContent,
+          { paddingBottom: insets.bottom + 16 },
           isTablet && { paddingHorizontal: 64 },
         ]}
       >
@@ -257,7 +260,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -302,7 +304,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 20,
-    paddingBottom: 40,
   },
   questionCard: {
     backgroundColor: colors.bgCard,

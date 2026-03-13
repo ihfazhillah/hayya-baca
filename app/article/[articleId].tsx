@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { getArticle, fetchArticle } from "../../src/lib/articles";
 import { speakPage, stopSpeaking } from "../../src/lib/speech";
@@ -17,6 +18,7 @@ export default function ArticleScreen() {
   const { articleId } = useLocalSearchParams<{ articleId: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const isTablet = width >= 600;
 
   const [article, setArticle] = useState<Article | null>(() => getArticle(articleId));
@@ -109,7 +111,7 @@ export default function ArticleScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <Pressable
           onPress={() => {
             stopSpeaking();
@@ -162,7 +164,7 @@ export default function ArticleScreen() {
       </ScrollView>
 
       {/* Bottom controls */}
-      <View style={styles.bottomBar}>
+      <View style={[styles.bottomBar, { paddingBottom: insets.bottom + 8 }]}>
         <Pressable
           style={[styles.readToMeBtn, isSpeaking && styles.readToMeBtnActive]}
           onPress={handleReadToMe}
@@ -197,7 +199,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -268,7 +269,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 20,
     paddingTop: 12,
-    paddingBottom: 28,
     gap: 12,
     backgroundColor: colors.bgPrimary,
     borderTopWidth: 1,

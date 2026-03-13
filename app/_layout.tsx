@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { UpdateProvider } from "../src/context/UpdateContext";
 import { UpdateBar } from "../src/components/UpdateBar";
 import { View, StyleSheet, AppState } from "react-native";
@@ -27,19 +28,21 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <UpdateProvider>
-        <StatusBar style="light" />
-        <View style={styles.container}>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          />
-          <UpdateBar />
-        </View>
-      </UpdateProvider>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <UpdateProvider>
+          <StatusBar style="light" />
+          <View style={styles.container}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            />
+            <UpdateBar />
+          </View>
+        </UpdateProvider>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
 

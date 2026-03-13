@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { getChildren } from "../src/lib/children";
 import { getSelectedChild } from "../src/lib/session";
@@ -25,6 +26,7 @@ function Medal({ rank }: { rank: number }) {
 export default function LeaderboardScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const isTablet = width >= 600;
   const currentChild = getSelectedChild();
 
@@ -41,7 +43,7 @@ export default function LeaderboardScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <Pressable onPress={() => router.back()} style={styles.headerBtn}>
           <Text style={styles.headerBtnText}>Kembali</Text>
         </Pressable>
@@ -70,7 +72,7 @@ export default function LeaderboardScreen() {
 
       <FlatList
         data={sorted}
-        contentContainerStyle={[styles.list, isTablet && { paddingHorizontal: 64 }]}
+        contentContainerStyle={[styles.list, { paddingBottom: insets.bottom + 16 }, isTablet && { paddingHorizontal: 64 }]}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item, index }) => {
           const isMe = currentChild?.id === item.id;
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 20,
-    paddingBottom: 40,
   },
   row: {
     flexDirection: "row",

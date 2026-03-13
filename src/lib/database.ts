@@ -19,7 +19,8 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       avatar_color TEXT NOT NULL DEFAULT '#1A73E8',
       coins INTEGER NOT NULL DEFAULT 0,
       stars INTEGER NOT NULL DEFAULT 0,
-      age INTEGER
+      age INTEGER,
+      server_id INTEGER DEFAULT NULL
     );
 
     CREATE TABLE IF NOT EXISTS reading_progress (
@@ -67,6 +68,13 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       FOREIGN KEY (child_id) REFERENCES children(id)
     );
   `);
+
+  // Migration: add server_id column if missing (idempotent)
+  try {
+    await db.runAsync("ALTER TABLE children ADD COLUMN server_id INTEGER DEFAULT NULL");
+  } catch {
+    // column already exists — ignore
+  }
 }
 
 export async function getSetting(key: string): Promise<string | null> {

@@ -57,6 +57,12 @@ jest.mock("react-native-reanimated", () => {
   };
 });
 
+// react-native-safe-area-context
+jest.mock("react-native-safe-area-context", () => ({
+  SafeAreaProvider: ({ children }: any) => children,
+  useSafeAreaInsets: () => ({ top: 48, bottom: 48, left: 0, right: 0 }),
+}));
+
 // Expose mock objects for tests to use
 (global as any).__mockDb = mockDb;
 (global as any).__mockRouter = mockRouter;

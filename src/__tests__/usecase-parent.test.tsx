@@ -280,4 +280,82 @@ describe("Flow 3: Dashboard", () => {
       expect(screen.getByText("Aplikasi")).toBeTruthy();
     });
   });
+
+  describe("Tambah anak — validasi", () => {
+    it("nama kosong → alert, addChild tidak dipanggil", async () => {
+      const spy = jest.spyOn(children, "addChild").mockResolvedValue({
+        id: 1, name: "Test", avatarColor: "#E91E63", coins: 0, stars: 0,
+      });
+
+      await goToDashboard();
+
+      await waitFor(() => screen.getByText("+ Tambah"));
+      fireEvent.press(screen.getByText("+ Tambah"));
+      await waitFor(() => screen.getByText("Tambah Anak"));
+
+      // Don't type anything in nama
+      fireEvent.press(screen.getByText("Tambah Anak"));
+
+      expect(Alert.alert).toHaveBeenCalledWith("Nama anak harus diisi");
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("umur bukan angka → alert", async () => {
+      const spy = jest.spyOn(children, "addChild").mockResolvedValue({
+        id: 1, name: "Test", avatarColor: "#E91E63", coins: 0, stars: 0,
+      });
+
+      await goToDashboard();
+
+      await waitFor(() => screen.getByText("+ Tambah"));
+      fireEvent.press(screen.getByText("+ Tambah"));
+      await waitFor(() => screen.getByText("Tambah Anak"));
+
+      fireEvent.changeText(screen.getByPlaceholderText("Nama anak"), "Zaid");
+      fireEvent.changeText(screen.getByPlaceholderText("Umur (opsional)"), "abc");
+      fireEvent.press(screen.getByText("Tambah Anak"));
+
+      expect(Alert.alert).toHaveBeenCalledWith("Umur harus antara 1-17 tahun");
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("nama valid + umur kosong → addChild dipanggil (umur opsional)", async () => {
+      jest.spyOn(children, "addChild").mockResolvedValue({
+        id: 1, name: "Zaid", avatarColor: "#E91E63", coins: 0, stars: 0,
+      });
+
+      await goToDashboard();
+
+      await waitFor(() => screen.getByText("+ Tambah"));
+      fireEvent.press(screen.getByText("+ Tambah"));
+      await waitFor(() => screen.getByText("Tambah Anak"));
+
+      fireEvent.changeText(screen.getByPlaceholderText("Nama anak"), "Zaid");
+      fireEvent.press(screen.getByText("Tambah Anak"));
+
+      await waitFor(() => {
+        expect(children.addChild).toHaveBeenCalledWith("Zaid", undefined);
+      });
+    });
+
+    it("nama valid + umur valid → addChild dipanggil dengan age number", async () => {
+      jest.spyOn(children, "addChild").mockResolvedValue({
+        id: 1, name: "Zaid", avatarColor: "#E91E63", coins: 0, stars: 0, age: 5,
+      });
+
+      await goToDashboard();
+
+      await waitFor(() => screen.getByText("+ Tambah"));
+      fireEvent.press(screen.getByText("+ Tambah"));
+      await waitFor(() => screen.getByText("Tambah Anak"));
+
+      fireEvent.changeText(screen.getByPlaceholderText("Nama anak"), "Zaid");
+      fireEvent.changeText(screen.getByPlaceholderText("Umur (opsional)"), "5");
+      fireEvent.press(screen.getByText("Tambah Anak"));
+
+      await waitFor(() => {
+        expect(children.addChild).toHaveBeenCalledWith("Zaid", 5);
+      });
+    });
+  });
 });

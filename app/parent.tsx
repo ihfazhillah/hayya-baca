@@ -8,10 +8,9 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../src/theme";
 import { getSetting, setSetting } from "../src/lib/database";
 import { login, logout, isLoggedIn } from "../src/lib/api";
@@ -164,6 +163,7 @@ function PinGateScreen({
 }
 
 function Dashboard({ onBack }: { onBack: () => void }) {
+  const insets = useSafeAreaInsets();
   const [loggedIn, setLoggedIn] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState("");
@@ -230,9 +230,21 @@ function Dashboard({ onBack }: { onBack: () => void }) {
   };
 
   const handleAddChild = async () => {
-    if (!newChildName.trim()) return;
+    const name = newChildName.trim();
+    if (!name) {
+      Alert.alert("Nama anak harus diisi");
+      return;
+    }
+    let age: number | undefined;
+    if (newChildAge.trim()) {
+      age = parseInt(newChildAge.trim());
+      if (isNaN(age) || age < 1 || age > 17) {
+        Alert.alert("Umur harus antara 1-17 tahun");
+        return;
+      }
+    }
     try {
-      await addChild(newChildName.trim(), newChildAge ? parseInt(newChildAge) : undefined);
+      await addChild(name, age);
       setNewChildName("");
       setNewChildAge("");
       setShowAddChild(false);
@@ -255,14 +267,11 @@ function Dashboard({ onBack }: { onBack: () => void }) {
   const version = Constants.expoConfig?.version ?? "?";
 
   return (
-    <KeyboardAvoidingView
-      style={styles.scrollContainer}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-    >
     <ScrollView
       style={styles.scrollContainer}
-      contentContainerStyle={styles.scrollContent}
+      contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 16 }]}
       keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets
     >
       <View style={styles.header}>
         <Pressable onPress={onBack}>
@@ -437,7 +446,6 @@ function Dashboard({ onBack }: { onBack: () => void }) {
         <Text style={styles.label}>Versi: {version}</Text>
       </View>
     </ScrollView>
-    </KeyboardAvoidingView>
   );
 }
 
@@ -455,8 +463,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 20,
-    paddingTop: 50,
-    paddingBottom: 40,
   },
   header: {
     flexDirection: "row",

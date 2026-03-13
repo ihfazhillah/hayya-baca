@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useCallback, useRef } from "react";
 import { getBookContent } from "../../src/lib/books";
 import { getSelectedChild } from "../../src/lib/session";
@@ -56,6 +57,7 @@ export default function ReadScreen() {
   const { bookId } = useLocalSearchParams<{ bookId: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const child = getSelectedChild();
 
   const book = useMemo(() => getBookContent(bookId), [bookId]);
@@ -226,7 +228,7 @@ export default function ReadScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <Pressable
           onPress={() => {
             stopSpeaking();
@@ -283,7 +285,7 @@ export default function ReadScreen() {
       </ScrollView>
 
       {/* Bottom controls */}
-      <View style={styles.navContainer}>
+      <View style={[styles.navContainer, { paddingBottom: insets.bottom + 8 }]}>
         {/* Action buttons — primary actions */}
         <View style={styles.actionRow}>
           <Pressable
@@ -343,7 +345,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 50,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -446,7 +447,6 @@ const styles = StyleSheet.create({
   navContainer: {
     paddingHorizontal: 20,
     paddingTop: 12,
-    paddingBottom: 28,
     gap: 12,
     backgroundColor: colors.bgPrimary,
     borderTopWidth: 1,

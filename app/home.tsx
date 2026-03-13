@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { getAllBooks } from "../src/lib/books";
 import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
@@ -137,6 +138,7 @@ function ArticleCard({
 export default function HomeScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const child = getSelectedChild();
   const [tab, setTab] = useState<Tab>("buku");
   const [progress, setProgress] = useState<ProgressMap>({});
@@ -171,7 +173,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <Pressable onPress={() => router.replace("/")} style={styles.backBtn}>
           <Text style={styles.backText}>Ganti</Text>
         </Pressable>
@@ -214,7 +216,7 @@ export default function HomeScreen() {
           data={books}
           numColumns={numColumns}
           key={`buku-${numColumns}`}
-          contentContainerStyle={[styles.list, { paddingHorizontal: padding }]}
+          contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
@@ -232,7 +234,7 @@ export default function HomeScreen() {
           data={articles}
           numColumns={numColumns}
           key={`artikel-${numColumns}`}
-          contentContainerStyle={[styles.list, { paddingHorizontal: padding }]}
+          contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
@@ -259,7 +261,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 54,
     paddingBottom: 12,
     backgroundColor: colors.primary,
   },
@@ -320,7 +321,6 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingTop: 20,
-    paddingBottom: 40,
   },
   card: {
     backgroundColor: colors.bgCard,

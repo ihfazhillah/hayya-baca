@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useChildren } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
 import { colors } from "../src/theme";
@@ -36,6 +37,7 @@ function Avatar({
 export default function ChildSelectScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const { data: children, isLoading } = useChildren();
 
   const isTablet = width >= 600;
@@ -48,7 +50,7 @@ export default function ChildSelectScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
       <Text style={[styles.title, isTablet && styles.titleTablet]}>
         Hayya Baca!
       </Text>
@@ -80,7 +82,7 @@ export default function ChildSelectScreen() {
       )}
 
       <Pressable
-        style={styles.parentButton}
+        style={[styles.parentButton, { bottom: insets.bottom + 8 }]}
         onPress={() => router.push("/parent")}
       >
         <Text style={styles.parentButtonText}>Orang Tua</Text>
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.bgPrimary,
-    paddingTop: 60,
     alignItems: "center",
   },
   title: {
@@ -150,7 +151,6 @@ const styles = StyleSheet.create({
   },
   parentButton: {
     position: "absolute",
-    bottom: 32,
     right: 24,
     backgroundColor: colors.bgCard,
     paddingVertical: 10,

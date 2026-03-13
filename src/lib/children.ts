@@ -16,6 +16,7 @@ export async function getChildren(): Promise<Child[]> {
     coins: number;
     stars: number;
     age: number | null;
+    server_id: number | null;
   }>("SELECT * FROM children ORDER BY id");
 
   return rows.map((r) => ({
@@ -26,6 +27,34 @@ export async function getChildren(): Promise<Child[]> {
     stars: r.stars,
     age: r.age ?? undefined,
   }));
+}
+
+export async function getUnsyncedChildren(): Promise<{ id: number; name: string; age: number | null; avatar_color: string }[]> {
+  const db = await getDatabase();
+  return db.getAllAsync(
+    "SELECT id, name, age, avatar_color FROM children WHERE server_id IS NULL"
+  );
+}
+
+export async function linkChildToServer(localId: number, serverId: number): Promise<void> {
+  if (localId === serverId) {
+    // IDs match — just mark as synced
+    const db = await getDatabase();
+    await db.runAsync("UPDATE children SET server_id = ? WHERE id = ?", serverId, localId);
+    return;
+  }
+
+  // Remap local ID to server ID across all tables
+  const db = await getDatabase();
+  await db.execAsync(`
+    BEGIN;
+    UPDATE reading_progress SET child_id = ${serverId} WHERE child_id = ${localId};
+    UPDATE reward_history SET child_id = ${serverId} WHERE child_id = ${localId};
+    UPDATE game_sessions SET child_id = ${serverId} WHERE child_id = ${localId};
+    DELETE FROM children WHERE id = ${serverId};
+    UPDATE children SET id = ${serverId}, server_id = ${serverId} WHERE id = ${localId};
+    COMMIT;
+  `);
 }
 
 export async function addChild(
@@ -40,13 +69,14 @@ export async function addChild(
   if (loggedIn) {
     const serverChild = await createChildOnServer(name, age, color);
     await db.runAsync(
-      "INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age, server_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
       serverChild.id,
       serverChild.name,
       serverChild.avatar_color,
       serverChild.coins,
       serverChild.stars,
-      serverChild.age
+      serverChild.age,
+      serverChild.id
     );
     return {
       id: serverChild.id,
@@ -98,14 +128,15 @@ export async function upsertChildFromServer(child: {
 }): Promise<void> {
   const db = await getDatabase();
   await db.runAsync(
-    `INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age)
-     VALUES (?, ?, ?, ?, ?, ?)`,
+    `INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age, server_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,
     child.id,
     child.name,
     child.avatar_color,
     child.coins,
     child.stars,
-    child.age
+    child.age,
+    child.id
   );
 }
 
@@ -114,7 +145,7 @@ export async function deleteChildrenNotIn(ids: number[]): Promise<void> {
   const db = await getDatabase();
   const placeholders = ids.map(() => "?").join(",");
   await db.runAsync(
-    `DELETE FROM children WHERE id NOT IN (${placeholders})`,
+    `DELETE FROM children WHERE server_id IS NOT NULL AND id NOT IN (${placeholders})`,
     ...ids
   );
 }
