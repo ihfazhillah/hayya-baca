@@ -27,10 +27,12 @@ export default function ArticleScreen() {
   const scrollRef = useRef<ScrollView>(null);
 
   useEffect(() => {
-    fetchArticle(articleId).then((a) => {
-      if (a) setArticle(a);
-      setLoading(false);
-    });
+    fetchArticle(articleId)
+      .then((a) => {
+        if (a) setArticle(a);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [articleId]);
 
   const paragraphs = useMemo(() => {

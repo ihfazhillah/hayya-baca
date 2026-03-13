@@ -186,14 +186,18 @@ export default function ReadScreen() {
       setPageComplete(false);
     } else {
       // Book finished!
-      if (child) {
-        const coins = calculateCoins(book.pages.length);
-        await addReward(child.id, "coin", coins, `Selesai baca: ${book.title}`);
-        if (totalStarsRef.current > 0) {
-          await addReward(child.id, "star", totalStarsRef.current, `Bintang dari: ${book.title}`);
+      const coins = child ? calculateCoins(book.pages.length) : 0;
+      try {
+        if (child) {
+          await addReward(child.id, "coin", coins, `Selesai baca: ${book.title}`);
+          if (totalStarsRef.current > 0) {
+            await addReward(child.id, "star", totalStarsRef.current, `Bintang dari: ${book.title}`);
+          }
+          await saveReadingProgress(child.id, book.id, book.pages.length - 1, true);
         }
-        await saveReadingProgress(child.id, book.id, book.pages.length - 1, true);
+      } catch {}
 
+      if (child) {
         router.replace({
           pathname: "/celebrate",
           params: { coins: String(coins), stars: String(totalStarsRef.current), bookTitle: book.title },

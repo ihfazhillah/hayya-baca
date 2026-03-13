@@ -150,6 +150,7 @@ export interface ServerArticleListItem {
   reward_coins: number;
   has_audio: boolean;
   published_version: number;
+  quiz_count: number;
 }
 
 export interface ServerArticleDetail {

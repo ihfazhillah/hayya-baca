@@ -96,7 +96,13 @@ export async function fetchAllArticles(): Promise<Article[]> {
       source: "",
       category: item.categories || [],
       content: "",
-      quiz: [],
+      // Placeholder quiz array with correct length for display count
+      quiz: Array.from({ length: item.quiz_count || 0 }, () => ({
+        type: "true_false" as const,
+        question: "",
+        answer: true,
+        explanation: "",
+      })),
     }));
     memoryList = summaries;
     return summaries;

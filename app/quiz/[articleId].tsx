@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { getArticle, fetchArticle, calculateQuizStars } from "../../src/lib/articles";
 import { getSelectedChild } from "../../src/lib/session";
 import { addReward, saveReadingProgress } from "../../src/lib/rewards";
@@ -120,15 +120,18 @@ export default function QuizScreen() {
   const [loading, setLoading] = useState(!article);
 
   useEffect(() => {
-    fetchArticle(articleId).then((a) => {
-      if (a) setArticle(a);
-      setLoading(false);
-    });
+    fetchArticle(articleId)
+      .then((a) => {
+        if (a) setArticle(a);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [articleId]);
   const child = getSelectedChild();
 
   const [currentQ, setCurrentQ] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
+  const correctRef = useRef(0);
   const [answered, setAnswered] = useState(false);
   const [finished, setFinished] = useState(false);
 
@@ -152,7 +155,10 @@ export default function QuizScreen() {
   const totalQ = quiz.length;
 
   const handleAnswer = (correct: boolean) => {
-    if (correct) setCorrectCount((c) => c + 1);
+    if (correct) {
+      correctRef.current += 1;
+      setCorrectCount(correctRef.current);
+    }
     setAnswered(true);
   };
 
@@ -162,16 +168,18 @@ export default function QuizScreen() {
       setAnswered(false);
     } else {
       // Quiz finished
-      const finalCorrect = correctCount;
+      const finalCorrect = correctRef.current;
       const stars = calculateQuizStars(finalCorrect, totalQ);
 
-      if (child) {
-        await addReward(child.id, "coin", 1, `Selesai baca: ${article.title}`);
-        if (stars > 0) {
-          await addReward(child.id, "star", stars, `Kuis: ${article.title}`);
+      try {
+        if (child) {
+          await addReward(child.id, "coin", 1, `Selesai baca: ${article.title}`);
+          if (stars > 0) {
+            await addReward(child.id, "star", stars, `Kuis: ${article.title}`);
+          }
+          await saveReadingProgress(child.id, `article-${articleId}`, 0, true);
         }
-        await saveReadingProgress(child.id, `article-${articleId}`, 0, true);
-      }
+      } catch {}
 
       router.replace({
         pathname: "/celebrate",

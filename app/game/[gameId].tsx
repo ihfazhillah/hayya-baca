@@ -10,6 +10,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { WebView } from "react-native-webview";
 import { fetchGames } from "../../src/lib/api";
 import { getSelectedChild } from "../../src/lib/session";
+import { getChildren } from "../../src/lib/children";
+import { addReward } from "../../src/lib/rewards";
 import { colors } from "../../src/theme";
 import type { Game } from "../../src/types";
 
@@ -46,8 +48,20 @@ export default function GamePlayScreen() {
         setLoading(false);
         return;
       }
+      // Check coin balance and deduct
+      if (selectedChild) {
+        const children = await getChildren();
+        const child = children.find((c) => c.id === selectedChild.id);
+        if (!child || child.coins < found.coin_cost) {
+          setError(`Koin tidak cukup (perlu ${found.coin_cost}, punya ${child?.coins ?? 0})`);
+          setLoading(false);
+          return;
+        }
+        // Deduct coins locally
+        await addReward(selectedChild.id, "coin", -found.coin_cost, `Bermain: ${found.title}`);
+      }
+
       setGame(found);
-      // Start timer
       setSecondsLeft(found.session_minutes * 60);
     } catch (e: any) {
       setError(e.message || "Gagal memuat permainan");

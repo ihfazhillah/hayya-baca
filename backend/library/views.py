@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
@@ -9,7 +10,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        qs = Book.objects.filter(is_published=True)
+        qs = Book.objects.filter(is_published=True).annotate(quiz_count=Count("quizzes"))
         content_type = self.request.query_params.get("type")
         if content_type:
             qs = qs.filter(content_type=content_type)

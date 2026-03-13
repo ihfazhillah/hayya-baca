@@ -22,11 +22,14 @@ class QuizSerializer(serializers.ModelSerializer):
 
 
 class BookListSerializer(serializers.ModelSerializer):
+    quiz_count = serializers.IntegerField(read_only=True, default=0)
+
     class Meta:
         model = Book
         fields = [
             "id", "title", "content_type", "cover", "categories",
             "min_age", "reward_coins", "has_audio", "published_version",
+            "quiz_count",
         ]
 
 

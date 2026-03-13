@@ -92,7 +92,7 @@ export async function saveReadingProgress(
        completed = ?,
        completed_count = CASE WHEN ? = 1 THEN completed_count + 1 ELSE completed_count END,
        updated_at = datetime('now')`,
-    childId, bookId, lastPage, completed ? 1 : 0,
+    childId, bookId, lastPage, completed ? 1 : 0, completed ? 1 : 0,
     lastPage, completed ? 1 : 0, completed ? 1 : 0
   );
 }
