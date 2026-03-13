@@ -9,4 +9,5 @@ router.register(r"rewards", views.RewardHistoryViewSet, basename="reward")
 # Nested under children/<child_pk>/ in config/urls.py
 urlpatterns = router.urls + [
     path("rewards/sync/", views.BulkRewardSyncView.as_view(), name="reward-sync"),
+    path("balance/", views.BalanceView.as_view(), name="balance"),
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from accounts.models import Child
 from library.models import Book
@@ -10,6 +11,8 @@ class ReadingProgress(models.Model):
     last_page = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
     completed_count = models.PositiveIntegerField(default=0)
+    first_read_at = models.DateTimeField(default=timezone.now)
+    completed_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

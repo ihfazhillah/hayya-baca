@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from library.models import Book
@@ -11,21 +12,26 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
         model = ReadingProgress
         fields = [
             "id", "child", "book", "last_page", "completed",
-            "completed_count", "updated_at",
+            "completed_count", "first_read_at", "completed_at", "updated_at",
         ]
-        read_only_fields = ["id", "child", "updated_at"]
+        read_only_fields = ["id", "child", "first_read_at", "completed_at", "updated_at"]
         validators = []  # disable unique_together validator; create() does upsert
 
     def create(self, validated_data):
-        obj, _ = ReadingProgress.objects.update_or_create(
+        completed = validated_data.get("completed", False)
+        defaults = {
+            "last_page": validated_data["last_page"],
+            "completed": completed,
+            "completed_count": validated_data.get("completed_count", 0),
+        }
+        if completed:
+            defaults["completed_at"] = timezone.now()
+        obj, created = ReadingProgress.objects.update_or_create(
             child_id=validated_data["child_id"],
             book=validated_data["book"],
-            defaults={
-                "last_page": validated_data["last_page"],
-                "completed": validated_data.get("completed", False),
-                "completed_count": validated_data.get("completed_count", 0),
-            },
+            defaults=defaults,
         )
+        # Don't overwrite first_read_at on update — it's set by default on create
         return obj
 
 

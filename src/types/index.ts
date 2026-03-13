@@ -56,3 +56,21 @@ export interface RewardHistory {
   description: string;
   createdAt: string;
 }
+
+export interface Game {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail_url: string | null;
+  cost_per_play: number;
+  cost_per_extend: number;
+  session_minutes: number;
+  extend_minutes: number;
+}
+
+export interface GameSession {
+  session_id: string;
+  game_url: string;
+  expires_at: string;
+  coins_remaining: number;
+}

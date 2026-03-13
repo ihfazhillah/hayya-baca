@@ -10,4 +10,6 @@ quiz_router = DefaultRouter()
 quiz_router.register(r"quiz-attempts", views.QuizAttemptViewSet, basename="quiz-attempt")
 
 # These are nested under children/<child_pk>/ in config/urls.py
-urlpatterns = progress_router.urls + quiz_router.urls
+urlpatterns = progress_router.urls + quiz_router.urls + [
+    path("timeline/", views.ActivityTimelineView.as_view(), name="activity-timeline"),
+]

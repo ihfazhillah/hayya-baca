@@ -182,3 +182,51 @@ export async function fetchArticleDetail(
   if (!res.ok) throw new Error("Failed to fetch article detail");
   return res.json();
 }
+
+// --- Game API (public, no auth) ---
+
+import type { Game, GameSession } from "../types";
+
+export async function fetchGames(): Promise<Game[]> {
+  const res = await apiFetch("/games/");
+  if (!res.ok) throw new Error("Failed to fetch games");
+  return res.json();
+}
+
+export async function playGame(
+  gameId: number,
+  childId: number
+): Promise<GameSession> {
+  const res = await apiFetch(`/games/${gameId}/play/`, {
+    method: "POST",
+    body: JSON.stringify({ child_id: childId }),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail || "Gagal memulai permainan");
+  }
+  return res.json();
+}
+
+export async function extendGameSession(
+  sessionId: string
+): Promise<GameSession> {
+  const res = await apiFetch(`/games/sessions/${sessionId}/extend/`, {
+    method: "POST",
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail || "Gagal memperpanjang sesi");
+  }
+  return res.json();
+}
+
+export async function endGameSession(sessionId: string): Promise<void> {
+  const res = await apiFetch(`/games/sessions/${sessionId}/end/`, {
+    method: "POST",
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    console.warn("endGameSession failed:", res.status, err);
+  }
+}

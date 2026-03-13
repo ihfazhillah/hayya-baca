@@ -16,7 +16,7 @@ import { getAllReadingProgress } from "../src/lib/rewards";
 import { colors } from "../src/theme";
 import type { Book, Article } from "../src/types";
 
-type Tab = "buku" | "artikel";
+type Tab = "buku" | "artikel" | "permainan";
 type ProgressMap = Record<string, { lastPage: number; completed: boolean; completedCount: number }>;
 
 // Cover images mapped by book ID
@@ -197,6 +197,14 @@ export default function HomeScreen() {
         >
           <Text style={[styles.tabText, tab === "artikel" && styles.tabTextActive]}>
             Artikel
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.tab, tab === "permainan" && styles.tabActive]}
+          onPress={() => router.push("/games")}
+        >
+          <Text style={[styles.tabText, tab === "permainan" && styles.tabTextActive]}>
+            Permainan
           </Text>
         </Pressable>
       </View>
