@@ -20,7 +20,7 @@ export default function ArticleScreen() {
   const isTablet = width >= 600;
 
   const [article, setArticle] = useState<Article | null>(() => getArticle(articleId));
-  const [loading, setLoading] = useState(!article);
+  const [loading, setLoading] = useState(true);
   const [reachedEnd, setReachedEnd] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [activeParagraph, setActiveParagraph] = useState<number | null>(null);

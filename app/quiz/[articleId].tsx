@@ -117,9 +117,13 @@ export default function QuizScreen() {
   const isTablet = width >= 600;
 
   const [article, setArticle] = useState(() => getArticle(articleId));
+  const [loading, setLoading] = useState(!article);
 
   useEffect(() => {
-    fetchArticle(articleId).then((a) => { if (a) setArticle(a); });
+    fetchArticle(articleId).then((a) => {
+      if (a) setArticle(a);
+      setLoading(false);
+    });
   }, [articleId]);
   const child = getSelectedChild();
 
@@ -127,6 +131,14 @@ export default function QuizScreen() {
   const [correctCount, setCorrectCount] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [finished, setFinished] = useState(false);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <Text style={{ color: colors.textPrimary }}>Memuat kuis...</Text>
+      </View>
+    );
+  }
 
   if (!article) {
     return (

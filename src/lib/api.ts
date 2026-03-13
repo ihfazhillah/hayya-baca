@@ -188,16 +188,16 @@ export async function fetchArticleDetail(
 import type { Game, GameSession } from "../types";
 
 export async function fetchGames(): Promise<Game[]> {
-  const res = await apiFetch("/games/");
+  const res = await fetch(`${getApiBase()}/games/`);
   if (!res.ok) throw new Error("Failed to fetch games");
   return res.json();
 }
 
 export async function playGame(
-  gameId: number,
+  gameSlug: string,
   childId: number
 ): Promise<GameSession> {
-  const res = await apiFetch(`/games/${gameId}/play/`, {
+  const res = await apiFetch(`/games/${gameSlug}/play/`, {
     method: "POST",
     body: JSON.stringify({ child_id: childId }),
   });
@@ -209,10 +209,12 @@ export async function playGame(
 }
 
 export async function extendGameSession(
-  sessionId: string
+  gameSlug: string,
+  childId: number
 ): Promise<GameSession> {
-  const res = await apiFetch(`/games/sessions/${sessionId}/extend/`, {
+  const res = await apiFetch(`/games/${gameSlug}/extend/`, {
     method: "POST",
+    body: JSON.stringify({ child_id: childId }),
   });
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
@@ -221,7 +223,7 @@ export async function extendGameSession(
   return res.json();
 }
 
-export async function endGameSession(sessionId: string): Promise<void> {
+export async function endGameSession(sessionId: number): Promise<void> {
   const res = await apiFetch(`/games/sessions/${sessionId}/end/`, {
     method: "POST",
   });

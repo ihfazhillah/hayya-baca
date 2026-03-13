@@ -58,19 +58,26 @@ export interface RewardHistory {
 }
 
 export interface Game {
-  id: number;
+  slug: string;
   title: string;
   description: string;
-  thumbnail_url: string | null;
-  cost_per_play: number;
-  cost_per_extend: number;
+  icon: string;
+  category: string;
+  difficulty: string;
+  coin_cost: number;
   session_minutes: number;
-  extend_minutes: number;
+  min_age: number;
+  bundle_version: number;
+  bundle_url: string | null;
 }
 
 export interface GameSession {
-  session_id: string;
-  game_url: string;
+  id: number;
+  child: number;
+  game: number;
+  coins_spent: number;
+  started_at: string;
   expires_at: string;
-  coins_remaining: number;
+  score: number | null;
+  ended_at: string | null;
 }

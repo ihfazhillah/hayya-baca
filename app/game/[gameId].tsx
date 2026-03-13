@@ -4,16 +4,14 @@ import {
   StyleSheet,
   Pressable,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WebView } from "react-native-webview";
-import { playGame, extendGameSession, endGameSession } from "../../src/lib/api";
+import { fetchGames } from "../../src/lib/api";
 import { getSelectedChild } from "../../src/lib/session";
-import { getChildren } from "../../src/lib/children";
 import { colors } from "../../src/theme";
-import type { GameSession, Child } from "../../src/types";
+import type { Game } from "../../src/types";
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -26,104 +24,70 @@ export default function GamePlayScreen() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const selectedChild = getSelectedChild();
 
-  const [session, setSession] = useState<GameSession | null>(null);
+  const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const [showExtend, setShowExtend] = useState(false);
-  const [extending, setExtending] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const sessionRef = useRef<string | null>(null);
 
-  const startTimer = useCallback((expiresAt: string) => {
-    if (timerRef.current) clearInterval(timerRef.current);
-
-    const update = () => {
-      const now = Date.now();
-      const end = new Date(expiresAt).getTime();
-      const remaining = Math.max(0, Math.floor((end - now) / 1000));
-      setSecondsLeft(remaining);
-      setShowExtend(remaining <= 60 && remaining > 0);
-
-      if (remaining <= 0) {
-        if (timerRef.current) clearInterval(timerRef.current);
-        handleSessionEnd();
-      }
-    };
-
-    update();
-    timerRef.current = setInterval(update, 1000);
-  }, []);
-
-  const startGame = useCallback(async () => {
-    if (!selectedChild || !gameId) return;
-
+  const loadGame = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      // Check coin balance first
-      const children = await getChildren();
-      const child = children.find((c) => c.id === selectedChild.id);
-      if (!child) {
-        setError("Data anak tidak ditemukan");
+      const games = await fetchGames();
+      const found = games.find((g) => g.slug === gameId);
+      if (!found) {
+        setError("Permainan tidak ditemukan");
         setLoading(false);
         return;
       }
-
-      const gameSession = await playGame(Number(gameId), selectedChild.id);
-      setSession(gameSession);
-      sessionRef.current = gameSession.session_id;
-      startTimer(gameSession.expires_at);
+      if (!found.bundle_url) {
+        setError("Permainan belum tersedia");
+        setLoading(false);
+        return;
+      }
+      setGame(found);
+      // Start timer
+      setSecondsLeft(found.session_minutes * 60);
     } catch (e: any) {
-      setError(e.message || "Gagal memulai permainan");
+      setError(e.message || "Gagal memuat permainan");
     } finally {
       setLoading(false);
     }
-  }, [selectedChild?.id, gameId, startTimer]);
+  }, [gameId]);
 
   useEffect(() => {
-    startGame();
+    loadGame();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [startGame]);
+  }, [loadGame]);
 
-  const handleExtend = async () => {
-    if (!session) return;
-    setExtending(true);
-    try {
-      const updated = await extendGameSession(session.session_id);
-      setSession(updated);
-      startTimer(updated.expires_at);
-      setShowExtend(false);
-    } catch (e: any) {
-      Alert.alert("Gagal", e.message || "Gagal memperpanjang sesi");
-    } finally {
-      setExtending(false);
-    }
-  };
+  // Start countdown when game is loaded
+  useEffect(() => {
+    if (!game) return;
+    timerRef.current = setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [game]);
 
-  const handleSessionEnd = useCallback(async () => {
-    if (sessionRef.current) {
-      try {
-        await endGameSession(sessionRef.current);
-      } catch {
-        // ignore
-      }
-      sessionRef.current = null;
-    }
-  }, []);
-
-  const handleBack = async () => {
+  const handleBack = () => {
     if (timerRef.current) clearInterval(timerRef.current);
-    await handleSessionEnd();
     router.back();
   };
 
   const handleWebViewMessage = (event: { nativeEvent: { data: string } }) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
-      // Handle game events from WebView
       if (data.type === "game_complete") {
         handleBack();
       }
@@ -148,13 +112,13 @@ export default function GamePlayScreen() {
         </View>
         <View style={styles.center}>
           <ActivityIndicator size="large" color={colors.primary} />
-          <Text style={styles.loadingText}>Memulai permainan...</Text>
+          <Text style={styles.loadingText}>Memuat permainan...</Text>
         </View>
       </View>
     );
   }
 
-  if (error) {
+  if (error || !game) {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -164,8 +128,8 @@ export default function GamePlayScreen() {
           <Text style={styles.headerTitle}>Permainan</Text>
         </View>
         <View style={styles.center}>
-          <Text style={styles.errorText}>{error}</Text>
-          <Pressable style={styles.retryBtn} onPress={startGame}>
+          <Text style={styles.errorText}>{error || "Permainan tidak ditemukan"}</Text>
+          <Pressable style={styles.retryBtn} onPress={loadGame}>
             <Text style={styles.retryText}>Coba Lagi</Text>
           </Pressable>
         </View>
@@ -175,11 +139,13 @@ export default function GamePlayScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Top bar with timer and controls */}
+      {/* Top bar with timer */}
       <View style={styles.topBar}>
         <Pressable onPress={handleBack} style={styles.headerBtn}>
           <Text style={styles.headerBtnText}>Kembali</Text>
         </Pressable>
+
+        <Text style={styles.topTitle} numberOfLines={1}>{game.title}</Text>
 
         <View style={styles.timerContainer}>
           <Text
@@ -191,30 +157,12 @@ export default function GamePlayScreen() {
             {formatTime(secondsLeft)}
           </Text>
         </View>
-
-        {showExtend && (
-          <Pressable
-            onPress={handleExtend}
-            style={styles.extendBtn}
-            disabled={extending}
-          >
-            <Text style={styles.extendText}>
-              {extending ? "..." : "Perpanjang"}
-            </Text>
-          </Pressable>
-        )}
-
-        {session && (
-          <View style={styles.coinBadge}>
-            <Text style={styles.coinText}>{session.coins_remaining} koin</Text>
-          </View>
-        )}
       </View>
 
       {/* WebView */}
-      {session && (
+      {secondsLeft > 0 ? (
         <WebView
-          source={{ uri: session.game_url }}
+          source={{ uri: game.bundle_url! }}
           style={styles.webview}
           onMessage={handleWebViewMessage}
           javaScriptEnabled
@@ -228,6 +176,13 @@ export default function GamePlayScreen() {
             </View>
           )}
         />
+      ) : (
+        <View style={styles.center}>
+          <Text style={styles.timeUpText}>Waktu habis!</Text>
+          <Pressable style={styles.retryBtn} onPress={handleBack}>
+            <Text style={styles.retryText}>Kembali</Text>
+          </Pressable>
+        </View>
       )}
     </View>
   );
@@ -272,39 +227,25 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     gap: 10,
   },
-  timerContainer: {
+  topTitle: {
     flex: 1,
-    alignItems: "center",
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#FFF",
+  },
+  timerContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderRadius: 10,
   },
   timerText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     color: "#FFF",
   },
   timerWarning: {
-    color: colors.accentRed,
-  },
-  extendBtn: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    backgroundColor: colors.secondary,
-    borderRadius: 10,
-  },
-  extendText: {
-    color: "#FFF",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  coinBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    backgroundColor: colors.accent,
-    borderRadius: 14,
-  },
-  coinText: {
-    fontSize: 13,
-    fontWeight: "bold",
-    color: colors.textOnAccent,
+    color: "#FFD700",
   },
   center: {
     flex: 1,
@@ -322,6 +263,12 @@ const styles = StyleSheet.create({
     color: colors.accentRed,
     textAlign: "center",
     marginBottom: 16,
+  },
+  timeUpText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginBottom: 20,
   },
   retryBtn: {
     paddingHorizontal: 24,

@@ -58,19 +58,13 @@ export default function GamesScreen() {
   }
 
   function GameCard({ game }: { game: Game }) {
-    const initials = game.title
-      .split(" ")
-      .slice(0, 2)
-      .map((w) => w.charAt(0))
-      .join("");
-
     return (
       <Pressable
         style={styles.card}
-        onPress={() => router.push(`/game/${game.id}`)}
+        onPress={() => router.push(`/game/${game.slug}`)}
       >
         <View style={styles.cardIcon}>
-          <Text style={styles.cardIconText}>{initials}</Text>
+          <Text style={styles.cardIconText}>{game.icon || game.title.charAt(0)}</Text>
         </View>
         <View style={styles.cardContent}>
           <Text style={styles.cardTitle} numberOfLines={1}>
@@ -80,7 +74,7 @@ export default function GamesScreen() {
             {game.description}
           </Text>
           <View style={styles.cardMeta}>
-            <Text style={styles.metaText}>{game.cost_per_play} koin</Text>
+            <Text style={styles.metaText}>{game.coin_cost} koin</Text>
             <Text style={styles.metaDot}> / </Text>
             <Text style={styles.metaText}>{game.session_minutes} menit</Text>
           </View>
@@ -122,7 +116,7 @@ export default function GamesScreen() {
             styles.list,
             isTablet && { paddingHorizontal: 64 },
           ]}
-          keyExtractor={(item) => String(item.id)}
+          keyExtractor={(item) => item.slug}
           renderItem={({ item }) => <GameCard game={item} />}
           ListEmptyComponent={
             <Text style={styles.empty}>Belum ada permainan tersedia</Text>
