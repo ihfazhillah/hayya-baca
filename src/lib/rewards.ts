@@ -87,13 +87,14 @@ export async function saveReadingProgress(
 ): Promise<void> {
   const db = await getDatabase();
   await db.runAsync(
-    `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at)
-     VALUES (?, ?, ?, ?, ?, datetime('now'))
+    `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at, synced)
+     VALUES (?, ?, ?, ?, ?, datetime('now'), 0)
      ON CONFLICT(child_id, book_id) DO UPDATE SET
        last_page = ?,
        completed = ?,
        completed_count = CASE WHEN ? = 1 THEN completed_count + 1 ELSE completed_count END,
-       updated_at = datetime('now')`,
+       updated_at = datetime('now'),
+       synced = 0`,
     childId, bookId, lastPage, completed ? 1 : 0, completed ? 1 : 0,
     lastPage, completed ? 1 : 0, completed ? 1 : 0
   );
@@ -120,6 +121,44 @@ export async function getReadingProgress(
     completed: row.completed === 1,
     completedCount: row.completed_count,
   };
+}
+
+export async function getUnsyncedReadingProgress(
+  childId: number
+): Promise<Record<string, { lastPage: number; completed: boolean; completedCount: number }>> {
+  const db = await getDatabase();
+  const rows = await db.getAllAsync<{
+    book_id: string;
+    last_page: number;
+    completed: number;
+    completed_count: number;
+  }>(
+    "SELECT book_id, last_page, completed, completed_count FROM reading_progress WHERE child_id = ? AND synced = 0",
+    childId
+  );
+  const result: Record<string, { lastPage: number; completed: boolean; completedCount: number }> = {};
+  for (const r of rows) {
+    result[r.book_id] = {
+      lastPage: r.last_page,
+      completed: r.completed === 1,
+      completedCount: r.completed_count,
+    };
+  }
+  return result;
+}
+
+export async function markReadingProgressSynced(
+  childId: number,
+  bookIds: string[]
+): Promise<void> {
+  if (bookIds.length === 0) return;
+  const db = await getDatabase();
+  const placeholders = bookIds.map(() => "?").join(",");
+  await db.runAsync(
+    `UPDATE reading_progress SET synced = 1 WHERE child_id = ? AND book_id IN (${placeholders})`,
+    childId,
+    ...bookIds
+  );
 }
 
 export async function getAllReadingProgress(

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'reading',
     'rewards',
     'games',
+    'sync',
 ]
 
 MIDDLEWARE = [

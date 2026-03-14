@@ -1,5 +1,6 @@
 import Constants from "expo-constants";
 import { getDatabase } from "./database";
+import { getDeviceId, getDeviceName } from "./device";
 
 const API_BASE_DEV = "http://10.0.2.2:8123/api";
 const API_BASE_PROD = "https://hayyabaca.ihfazh.com/api";
@@ -41,8 +42,12 @@ export async function apiFetch(
   options: RequestInit = {}
 ): Promise<Response> {
   const token = await getToken();
+  const deviceId = await getDeviceId();
+  const deviceName = getDeviceName();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "X-Device-Id": deviceId,
+    "X-Device-Name": deviceName,
     ...(options.headers as Record<string, string>),
   };
   if (token) {
@@ -132,7 +137,7 @@ export async function pushReadingProgress(
 
 export async function pushRewardsBulk(
   childId: number,
-  rewards: { type: string; count: number; description: string; created_at: string }[]
+  rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[]
 ): Promise<void> {
   const res = await apiFetch(`/children/${childId}/rewards/sync/`, {
     method: "POST",

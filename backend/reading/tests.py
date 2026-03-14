@@ -79,6 +79,55 @@ class TestReadingProgress:
         assert resp.status_code == 401
 
 
+class TestProgressMaxMerge:
+    """Reading progress should use max() — never go backward."""
+
+    def test_last_page_uses_max(self, auth_api, child, book):
+        # First push: page 10
+        auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 10
+        })
+        # Second push: page 5 (older data from another device)
+        resp = auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 5
+        })
+        assert resp.status_code == 201
+        assert resp.data["last_page"] == 10  # should keep 10, not regress to 5
+
+    def test_completed_count_uses_max(self, auth_api, child, book):
+        auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 10,
+            "completed": True, "completed_count": 3
+        })
+        resp = auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 5,
+            "completed": False, "completed_count": 1
+        })
+        assert resp.data["last_page"] == 10
+        assert resp.data["completed_count"] == 3
+        assert resp.data["completed"] is True  # once completed, stays completed
+
+    def test_forward_progress_accepted(self, auth_api, child, book):
+        auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 5
+        })
+        resp = auth_api.post(f"/api/children/{child.id}/progress/", {
+            "child": child.id, "book": book.slug, "last_page": 10
+        })
+        assert resp.data["last_page"] == 10  # forward progress accepted
+
+    def test_source_device_stored(self, auth_api, child, book):
+        from reading.models import ReadingProgress
+
+        auth_api.post(
+            f"/api/children/{child.id}/progress/",
+            {"child": child.id, "book": book.slug, "last_page": 5},
+            HTTP_X_DEVICE_ID="tablet-123",
+        )
+        progress = ReadingProgress.objects.get(child=child, book=book)
+        assert progress.source_device == "tablet-123"
+
+
 class TestQuizAttempt:
     def test_submit_perfect_score(self, auth_api, child, article):
         resp = auth_api.post(f"/api/children/{child.id}/quiz-attempts/", {

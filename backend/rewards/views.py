@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 
 from accounts.models import Child
 from accounts.permissions import IsParentOrReadOnlyTeacher
+from sync.models import SyncLog
 from .models import RewardHistory
 from .serializers import BulkRewardSyncSerializer, RewardHistorySerializer
 
@@ -28,7 +29,23 @@ class BulkRewardSyncView(APIView):
             data=request.data, context={"child": child, "request": request}
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        created = serializer.save()
+
+        # Log sync event
+        device_id = request.META.get("HTTP_X_DEVICE_ID", "")
+        device_name = request.META.get("HTTP_X_DEVICE_NAME", "")
+        skipped = getattr(serializer, "_skipped", 0)
+        details = f"created={len(created)}, skipped={skipped}" if skipped else ""
+        SyncLog.objects.create(
+            user=request.user,
+            device_id=device_id,
+            device_name=device_name,
+            child=child,
+            action=SyncLog.Action.PUSH_REWARDS,
+            item_count=len(created),
+            details=details,
+        )
+
         return Response({"detail": "Synced"}, status=status.HTTP_201_CREATED)
 
 

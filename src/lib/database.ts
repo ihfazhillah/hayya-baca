@@ -75,6 +75,13 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
   } catch {
     // column already exists — ignore
   }
+
+  // Migration: add synced column to reading_progress (default 1 = existing rows already synced)
+  try {
+    await db.runAsync("ALTER TABLE reading_progress ADD COLUMN synced INTEGER NOT NULL DEFAULT 1");
+  } catch {
+    // column already exists — ignore
+  }
 }
 
 export async function getSetting(key: string): Promise<string | null> {

@@ -3,24 +3,30 @@
  *
  * 1. Tidak ada token → sync di-skip, app tetap jalan offline
  * 2. Ada token → sync children dari server → upsert lokal
- * 3. Push reading progress ke server
- * 4. Push unsynced rewards ke server → mark synced
+ * 3. Push reading progress ke server (hanya unsynced, hanya active child)
+ * 4. Push unsynced rewards ke server → mark synced (hanya active child)
  * 5. Sync gagal → tidak block app, cuma console.warn
  * 6. Concurrent sync dicegah (lock)
  * 7. Push local children ke server sebelum pull
+ * 8. Push-first: rewards/progress dipush SEBELUM pull children (fix overwrite)
+ * 9. Active child only: hanya sync data anak yang sedang aktif
+ * 10. Idempotency key: setiap reward punya key unik untuk cegah duplikasi
  */
 import { syncAll } from "../lib/sync";
 import * as api from "../lib/api";
 import * as children from "../lib/children";
 import * as rewards from "../lib/rewards";
+import * as device from "../lib/device";
 
 jest.mock("../lib/api");
 jest.mock("../lib/children");
 jest.mock("../lib/rewards");
+jest.mock("../lib/device");
 
 const mockApi = api as jest.Mocked<typeof api>;
 const mockChildren = children as jest.Mocked<typeof children>;
 const mockRewards = rewards as jest.Mocked<typeof rewards>;
+const mockDevice = device as jest.Mocked<typeof device>;
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -37,9 +43,12 @@ beforeEach(() => {
   mockChildren.linkChildToServer.mockResolvedValue(undefined);
   mockApi.createChildOnServer.mockResolvedValue({ id: 100, name: "", age: null, avatar_color: "", coins: 0, stars: 0 });
 
-  mockRewards.getAllReadingProgress.mockResolvedValue({});
+  mockRewards.getUnsyncedReadingProgress.mockResolvedValue({});
   mockRewards.getUnsyncedRewards.mockResolvedValue([]);
   mockRewards.markRewardsSynced.mockResolvedValue(undefined);
+  mockRewards.markReadingProgressSynced.mockResolvedValue(undefined);
+
+  mockDevice.getDeviceId.mockResolvedValue("device-uuid-123");
 });
 
 describe("Sync: offline mode (tidak ada token)", () => {
@@ -84,7 +93,50 @@ describe("Sync: children dari server", () => {
   });
 });
 
-describe("Sync: push reading progress", () => {
+describe("Sync: active child only", () => {
+  beforeEach(() => {
+    mockApi.isLoggedIn.mockResolvedValue(true);
+    mockApi.fetchChildren.mockResolvedValue([
+      { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 0, stars: 0 },
+      { id: 2, name: "Fatimah", age: 7, avatar_color: "#9C27B0", coins: 0, stars: 0 },
+    ]);
+  });
+
+  it("syncAll(1) → hanya push data child 1, bukan child 2", async () => {
+    mockRewards.getUnsyncedReadingProgress.mockResolvedValue({
+      "1": { lastPage: 5, completed: true, completedCount: 1 },
+    });
+    mockRewards.getUnsyncedRewards.mockResolvedValue([
+      { id: 10, type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00" },
+    ]);
+
+    await syncAll(1);
+
+    // Push hanya untuk child 1
+    expect(mockRewards.getUnsyncedReadingProgress).toHaveBeenCalledWith(1);
+    expect(mockRewards.getUnsyncedRewards).toHaveBeenCalledWith(1);
+
+    // TIDAK push untuk child 2
+    expect(mockRewards.getUnsyncedReadingProgress).not.toHaveBeenCalledWith(2);
+    expect(mockRewards.getUnsyncedRewards).not.toHaveBeenCalledWith(2);
+  });
+
+  it("syncAll() tanpa activeChildId → skip push data, tetap pull children", async () => {
+    await syncAll();
+
+    // Tetap pull children list
+    expect(mockApi.fetchChildren).toHaveBeenCalled();
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledTimes(2);
+
+    // Tidak push data siapapun
+    expect(mockRewards.getUnsyncedReadingProgress).not.toHaveBeenCalled();
+    expect(mockRewards.getUnsyncedRewards).not.toHaveBeenCalled();
+    expect(mockApi.pushReadingProgress).not.toHaveBeenCalled();
+    expect(mockApi.pushRewardsBulk).not.toHaveBeenCalled();
+  });
+});
+
+describe("Sync: push reading progress (unsynced only)", () => {
   beforeEach(() => {
     mockApi.isLoggedIn.mockResolvedValue(true);
     mockApi.fetchChildren.mockResolvedValue([
@@ -92,13 +144,13 @@ describe("Sync: push reading progress", () => {
     ]);
   });
 
-  it("push setiap buku yang ada progressnya", async () => {
-    mockRewards.getAllReadingProgress.mockResolvedValue({
+  it("push hanya unsynced progress → mark synced", async () => {
+    mockRewards.getUnsyncedReadingProgress.mockResolvedValue({
       "1": { lastPage: 5, completed: true, completedCount: 1 },
       "3": { lastPage: 2, completed: false, completedCount: 0 },
     });
 
-    await syncAll();
+    await syncAll(1);
 
     expect(mockApi.pushReadingProgress).toHaveBeenCalledTimes(2);
     expect(mockApi.pushReadingProgress).toHaveBeenCalledWith(1, {
@@ -113,18 +165,20 @@ describe("Sync: push reading progress", () => {
       completed: false,
       completed_count: 0,
     });
+    expect(mockRewards.markReadingProgressSynced).toHaveBeenCalledWith(1, ["1", "3"]);
   });
 
-  it("tidak ada progress → tidak push", async () => {
-    mockRewards.getAllReadingProgress.mockResolvedValue({});
+  it("tidak ada unsynced progress → tidak push, tidak mark", async () => {
+    mockRewards.getUnsyncedReadingProgress.mockResolvedValue({});
 
-    await syncAll();
+    await syncAll(1);
 
     expect(mockApi.pushReadingProgress).not.toHaveBeenCalled();
+    expect(mockRewards.markReadingProgressSynced).not.toHaveBeenCalled();
   });
 });
 
-describe("Sync: push rewards", () => {
+describe("Sync: push rewards dengan idempotency key", () => {
   beforeEach(() => {
     mockApi.isLoggedIn.mockResolvedValue(true);
     mockApi.fetchChildren.mockResolvedValue([
@@ -132,18 +186,18 @@ describe("Sync: push rewards", () => {
     ]);
   });
 
-  it("push unsynced rewards → mark synced", async () => {
+  it("push unsynced rewards dengan idempotency_key → mark synced", async () => {
     const unsynced = [
       { id: 10, type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00" },
       { id: 11, type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00" },
     ];
     mockRewards.getUnsyncedRewards.mockResolvedValue(unsynced);
 
-    await syncAll();
+    await syncAll(1);
 
     expect(mockApi.pushRewardsBulk).toHaveBeenCalledWith(1, [
-      { type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00" },
-      { type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00" },
+      { type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00", idempotency_key: "device-uuid-123:10" },
+      { type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00", idempotency_key: "device-uuid-123:11" },
     ]);
     expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([10, 11]);
   });
@@ -151,10 +205,29 @@ describe("Sync: push rewards", () => {
   it("tidak ada unsynced rewards → skip push", async () => {
     mockRewards.getUnsyncedRewards.mockResolvedValue([]);
 
-    await syncAll();
+    await syncAll(1);
 
     expect(mockApi.pushRewardsBulk).not.toHaveBeenCalled();
     expect(mockRewards.markRewardsSynced).not.toHaveBeenCalled();
+  });
+});
+
+describe("Sync: push-first order (rewards sebelum pull children)", () => {
+  it("pushRewardsBulk dipanggil SEBELUM upsertChildFromServer", async () => {
+    mockApi.isLoggedIn.mockResolvedValue(true);
+    mockApi.fetchChildren.mockResolvedValue([
+      { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 0, stars: 0 },
+    ]);
+    mockRewards.getUnsyncedRewards.mockResolvedValue([
+      { id: 10, type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00" },
+    ]);
+
+    await syncAll(1);
+
+    // Verify call order: push rewards before upsert children
+    const pushOrder = mockApi.pushRewardsBulk.mock.invocationCallOrder[0];
+    const upsertOrder = mockChildren.upsertChildFromServer.mock.invocationCallOrder[0];
+    expect(pushOrder).toBeLessThan(upsertOrder);
   });
 });
 
@@ -167,20 +240,17 @@ describe("Sync: error handling", () => {
     await expect(syncAll()).resolves.toBeUndefined();
   });
 
-  it("push error per child → tetap lanjut anak berikutnya", async () => {
+  it("push error active child → tidak crash, pull tetap jalan", async () => {
     mockApi.isLoggedIn.mockResolvedValue(true);
     mockApi.fetchChildren.mockResolvedValue([
       { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 0, stars: 0 },
-      { id: 2, name: "Fatimah", age: 7, avatar_color: "#9C27B0", coins: 0, stars: 0 },
     ]);
-    mockRewards.getAllReadingProgress
-      .mockRejectedValueOnce(new Error("DB error")) // child 1 fails
-      .mockResolvedValueOnce({}); // child 2 succeeds
+    mockRewards.getUnsyncedRewards.mockRejectedValue(new Error("DB error"));
 
-    await syncAll();
+    await syncAll(1);
 
-    // Should still attempt child 2
-    expect(mockRewards.getAllReadingProgress).toHaveBeenCalledTimes(2);
+    // Pull children tetap jalan meskipun push gagal
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalled();
   });
 });
 
@@ -252,7 +322,7 @@ describe("Sync: push local children to server", () => {
     // First child failed, second succeeded
     expect(mockChildren.linkChildToServer).toHaveBeenCalledTimes(1);
     expect(mockChildren.linkChildToServer).toHaveBeenCalledWith(2, 102);
-    // Pull still happened (fetchChildren called for initial + re-fetch)
+    // Pull still happened
     expect(mockApi.fetchChildren).toHaveBeenCalled();
   });
 

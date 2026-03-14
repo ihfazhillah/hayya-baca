@@ -14,6 +14,7 @@ class ReadingProgress(models.Model):
     first_read_at = models.DateTimeField(default=timezone.now)
     completed_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
+    source_device = models.CharField(max_length=255, blank=True, default="")
 
     class Meta:
         unique_together = ["child", "book"]

@@ -23,8 +23,10 @@ jest.mock("../../src/lib/api", () => ({
 
 // Mock children
 const mockGetChildren = jest.fn();
+const mockUpdateChildCoins = jest.fn().mockResolvedValue(undefined);
 jest.mock("../../src/lib/children", () => ({
   getChildren: (...args: any[]) => mockGetChildren(...args),
+  updateChildCoins: (...args: any[]) => mockUpdateChildCoins(...args),
 }));
 
 // Mock rewards — spy target
@@ -113,10 +115,8 @@ describe("Game dimuat, koin dikurangi, WebView tampil", () => {
       expect(screen.getByText("Dino Jump")).toBeTruthy();
     });
 
-    // SPY: addReward called with negative coins
-    expect(mockAddReward).toHaveBeenCalledWith(
-      1, "coin", -2, "Bermain: Dino Jump"
-    );
+    // SPY: updateChildCoins called to deduct coins locally (no reward_history entry)
+    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
 
     // WebView should be rendered
     expect(screen.getByTestId("webview")).toBeTruthy();
@@ -139,7 +139,7 @@ describe("Koin tidak cukup → error ditampilkan", () => {
       expect(screen.getByText("Koin tidak cukup (perlu 2, punya 0)")).toBeTruthy();
     });
 
-    expect(mockAddReward).not.toHaveBeenCalled();
+    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
   });
 
   it("coins=1 (kurang dari cost=2) → error", async () => {
@@ -154,7 +154,7 @@ describe("Koin tidak cukup → error ditampilkan", () => {
       expect(screen.getByText("Koin tidak cukup (perlu 2, punya 1)")).toBeTruthy();
     });
 
-    expect(mockAddReward).not.toHaveBeenCalled();
+    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
   });
 });
 
@@ -203,8 +203,8 @@ describe("Sesi game: tidak double-charge", () => {
     // SPY: should check for active session first
     expect(mockGetActiveSession).toHaveBeenCalledWith(1, "dino-jump");
 
-    // SPY: should deduct coins (no active session)
-    expect(mockAddReward).toHaveBeenCalledWith(1, "coin", -2, "Bermain: Dino Jump");
+    // SPY: should deduct coins locally (no active session)
+    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
 
     // SPY: should create a new session
     expect(mockCreateSession).toHaveBeenCalledWith(1, "dino-jump", 5);
@@ -228,7 +228,7 @@ describe("Sesi game: tidak double-charge", () => {
     });
 
     // SPY: should NOT deduct coins
-    expect(mockAddReward).not.toHaveBeenCalled();
+    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
 
     // SPY: should NOT create new session
     expect(mockCreateSession).not.toHaveBeenCalled();
@@ -258,7 +258,7 @@ describe("Sesi game: tidak double-charge", () => {
     });
 
     // Should charge again
-    expect(mockAddReward).toHaveBeenCalledWith(1, "coin", -2, "Bermain: Dino Jump");
+    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
     expect(mockCreateSession).toHaveBeenCalledWith(1, "dino-jump", 5);
   });
 });

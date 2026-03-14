@@ -30,6 +30,16 @@ jest.mock("expo-constants", () => ({
   expoConfig: { version: "0.1.0-test" },
 }));
 
+// expo-device
+jest.mock("expo-device", () => ({
+  modelName: "Test Device",
+}));
+
+// expo-crypto
+jest.mock("expo-crypto", () => ({
+  randomUUID: () => "test-uuid-1234",
+}));
+
 // expo-speech-recognition
 jest.mock("expo-speech-recognition", () => ({
   ExpoSpeechRecognitionModule: {

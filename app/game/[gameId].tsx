@@ -11,8 +11,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { WebView } from "react-native-webview";
 import { fetchGames } from "../../src/lib/api";
 import { getSelectedChild } from "../../src/lib/session";
-import { getChildren } from "../../src/lib/children";
-import { addReward } from "../../src/lib/rewards";
+import { getChildren, updateChildCoins } from "../../src/lib/children";
 import { getActiveSession, createSession, endSession } from "../../src/lib/game-session";
 import { colors } from "../../src/theme";
 import type { Game } from "../../src/types";
@@ -77,7 +76,7 @@ export default function GamePlayScreen() {
           setLoading(false);
           return;
         }
-        await addReward(selectedChild.id, "coin", -found.coin_cost, `Bermain: ${found.title}`);
+        await updateChildCoins(selectedChild.id, -found.coin_cost);
         await createSession(selectedChild.id, found.slug, found.session_minutes);
       }
 
