@@ -19,10 +19,15 @@ import a1777 from "../../content/articles/1777-rasulullah-bersama-istri-istrinya
 import a7416 from "../../content/articles/7416-beberapa-kisah-tidak-sahih-tentang-wafatnya-rasulullah.json";
 import a8457 from "../../content/articles/8457-siapakah-nabi-danial.json";
 
-const bundledArticles: Article[] = [
+const bundledArticlesRaw = [
   a112, a209, a1176, a1218, a1255,
   a1379, a1675, a1777, a7416, a8457,
 ] as Article[];
+
+const bundledArticles: Article[] = bundledArticlesRaw.map((a) => ({
+  ...a,
+  slug: a.slug || `article-${a.id}`,
+}));
 
 // In-memory caches
 let memoryList: Article[] | null = null;
@@ -48,6 +53,7 @@ function serverDetailToArticle(detail: ServerArticleDetail): Article {
   return {
     id: String(detail.id),
     title: detail.title,
+    slug: detail.slug,
     source: detail.source || "",
     category: detail.categories || [],
     content,
@@ -94,6 +100,7 @@ export async function fetchAllArticles(): Promise<Article[]> {
     const summaries: Article[] = list.map((item) => ({
       id: String(item.id),
       title: item.title,
+      slug: item.slug,
       source: "",
       category: item.categories || [],
       content: "",

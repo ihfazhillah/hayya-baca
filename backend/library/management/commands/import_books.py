@@ -42,6 +42,7 @@ class Command(BaseCommand):
                     "source": "",
                     "reference_ar": data.get("reference_text_ar", ""),
                     "reference_id": data.get("reference_text_id", ""),
+                    "slug": str(data["id"]),
                     "has_audio": any(p.get("audio") for p in data["pages"]),
                     "min_age": 0,
                     "reward_coins": ceil(len(data["pages"]) / 5),

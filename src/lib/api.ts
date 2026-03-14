@@ -167,6 +167,7 @@ export async function pushQuizAttempt(
 
 export interface ServerArticleListItem {
   id: number;
+  slug: string;
   title: string;
   content_type: string;
   categories: string[];
@@ -179,6 +180,7 @@ export interface ServerArticleListItem {
 
 export interface ServerArticleDetail {
   id: number;
+  slug: string;
   title: string;
   content_type: string;
   source: string;

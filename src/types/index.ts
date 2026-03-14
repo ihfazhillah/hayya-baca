@@ -44,6 +44,7 @@ export interface Article {
   title: string;
   source: string;
   category: string[];
+  slug: string;
   content: string;
   quiz: ArticleQuizQuestion[];
 }

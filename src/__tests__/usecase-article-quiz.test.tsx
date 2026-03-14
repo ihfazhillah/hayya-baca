@@ -53,6 +53,7 @@ jest.mock("../../src/lib/tts", () => ({
 const testArticle = {
   id: "112",
   title: "Lelaki Anshar dan Tiga Anak Panah",
+  slug: "article-112",
   source: "test",
   category: ["Sahabat"],
   content: "Paragraf pertama artikel.\n\nParagraf kedua artikel.\n\nParagraf ketiga artikel.",

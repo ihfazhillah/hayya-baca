@@ -180,7 +180,7 @@ export default function QuizScreen() {
           if (stars > 0) {
             await addReward(child.id, "star", stars, `Kuis: ${article.title}`);
           }
-          await saveReadingProgress(child.id, `article-${articleId}`, 0, true);
+          await saveReadingProgress(child.id, article.slug, 0, true);
         }
       } catch {}
 
