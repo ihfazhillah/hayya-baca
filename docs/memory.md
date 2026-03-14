@@ -3,7 +3,7 @@
 ## Evolution
 - **Original**: Ksatria Muslim Android (Kotlin, ~2022). Code moved to `old/`.
 - **New**: Hayya Baca - React Native port (2026)
-- **Current version**: 1.0.6
+- **Current version**: 1.0.7
 
 ## App Identity
 - **Nama**: Hayya Baca ("Ayo Baca")
@@ -28,6 +28,15 @@
 - Sync ke server kalau ada koneksi, kalau tidak pakai lokal
 - Konten buku: static JSON files + audio, plain text (bukan gambar)
 - Bundled + downloadable content
+
+### Multi-Device Sync (v1.0.7)
+- **Push-first**: push rewards & progress SEBELUM pull children state (menghindari overwrite)
+- **Active child only**: hanya sync data anak yang sedang aktif di device, bukan semua anak
+- **Idempotency**: setiap reward punya `idempotency_key` (`device_id:local_reward_id`), server skip duplikat
+- **Device tracking**: UUID per device + nama device (expo-device), dikirim via `X-Device-Id` / `X-Device-Name` headers
+- **Reading progress max() merge**: server tidak pernah regress (last_page, completed_count ambil max, completed OR merge)
+- **Synced flag**: reading_progress punya kolom `synced`, hanya push yang belum synced
+- **Backward compatible**: app lama + server baru aman, app baru + server lama aman (semua field baru nullable/default)
 
 ### Konten Buku
 - Format: JSON (raw.json per buku), plain text
@@ -77,6 +86,9 @@ Word status colors:
 - Orang tua bisa deduct coin saat kasih hadiah fisik
 - Ada minimum coin sebelum bisa redeem
 - Histori transaksi tersimpan di SQLite, flag `synced` untuk offline-first
+- Orang tua bisa void reward via Django admin (koreksi kesalahan sync)
+- Adjustment type: `coin_adjustment`, `star_adjustment` untuk manual correction
+- Recalculate action di admin: hitung ulang coins/stars dari non-voided rewards - game spending
 
 ### UI/Theme
 - Tema warna: ungu-biru cerah, kid-friendly (ala Riri/Educa Studio)
@@ -149,7 +161,7 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 
 ## Current Implementation Status
 
-### Done (v1.0.6)
+### Done (v1.0.7)
 
 **Core Reading (v0.1.0-alpha.5)**
 - [x] Project setup (Expo 55, TypeScript, expo-router)
@@ -202,10 +214,22 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Reading timeline + coin audit trail
 - [x] Sample games: Dino Jump, Memory Card, Pecah Balon, Tangkap Bintang
 
-**Quality (v1.0.1 → v1.0.6)**
+**Quality (v1.0.1 → v1.0.7)**
 - [x] E2e tests (real component + user action tests)
 - [x] Replace React Query with event emitter for children data
 - [x] Bug fixes: reading, quiz, game, article screens, keyboard overlap, safe area
+
+**Sync Overhaul (v1.0.7)**
+- [x] Push-first sync order (push before pull, menghindari overwrite multi-device)
+- [x] Active child only sync (hanya push data anak yang aktif)
+- [x] Idempotency key per reward (device_id:local_reward_id, skip duplikat)
+- [x] Device ID tracking (UUID + device name via expo-device)
+- [x] Reading progress synced flag (hanya push yang belum synced)
+- [x] Reading progress max() merge di server (never regress)
+- [x] SyncLog traceability di backend (30-day retention + cleanup command)
+- [x] Void/adjustment mechanism di Django admin (koreksi orang tua)
+- [x] Recalculate totals admin action (sum non-voided rewards - game spending)
+- [x] Fix game double-deduction bug (updateChildCoins instead of addReward)
 
 ### TODO — Medium Priority
 - [ ] Audio playback dari file rekaman (book 6 & 10)
@@ -256,6 +280,7 @@ ksatriamuslim-android/
 │   │   ├── books.ts        # Load buku dari static JSON, group paragraf
 │   │   ├── children.ts     # SQLite children operations
 │   │   ├── database.ts     # SQLite schema (children, reading_progress, reward_history)
+│   │   ├── device.ts       # Device ID (UUID) + device name
 │   │   ├── rewards.ts      # Coin/star rewards + reading progress
 │   │   ├── session.ts      # In-memory selected child
 │   │   └── speech.ts       # TTS, word matching, scoring
@@ -270,7 +295,8 @@ ksatriamuslim-android/
 │   ├── accounts/           # Child, ChildAccess, ShareInvite
 │   ├── library/            # Book, BookPage, ArticleSection, Quiz
 │   ├── reading/            # ReadingProgress, QuizAttempt
-│   ├── rewards/            # RewardHistory
+│   ├── rewards/            # RewardHistory (idempotency, void, adjustments)
+│   ├── sync/               # SyncLog (device tracking, traceability)
 │   └── media/published/    # Static JSON output
 ├── docs/
 │   ├── memory.md           # This file
@@ -288,6 +314,8 @@ ksatriamuslim-android/
 - expo-sqlite (offline-first local DB)
 - expo-speech (TTS)
 - expo-speech-recognition (native speech recognition)
+- expo-device (device identification)
+- expo-crypto (UUID generation)
 - expo-av (audio playback - planned)
 - expo-file-system + expo-intent-launcher (auto-update)
 - fuzzball (fuzzy string matching)
@@ -312,7 +340,9 @@ ksatriamuslim-android/
 | `library` | Buku, artikel, sections, quiz, cover generation, publish static JSON |
 | `accounts` | Child profiles, parent/teacher access (max 2 parent), share invite |
 | `reading` | Reading progress, quiz attempts |
-| `rewards` | Coin/star reward history |
+| `rewards` | Coin/star reward history, idempotency, void/adjustment |
+| `sync` | SyncLog (device tracking, traceability, 30-day retention) |
+| `games` | Game model, sessions, coin spending |
 
 ### Architecture: Static Content Publisher
 - Django DB = CMS untuk edit konten
