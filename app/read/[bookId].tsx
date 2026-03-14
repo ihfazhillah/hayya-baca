@@ -10,6 +10,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useCallback, useRef } from "react";
 import { getBookContent } from "../../src/lib/books";
+import { appendReadingLog } from "../../src/lib/recommendation";
 import { getSelectedChild } from "../../src/lib/session";
 import {
   speakWord,
@@ -196,13 +197,14 @@ export default function ReadScreen() {
             await addReward(child.id, "star", totalStarsRef.current, `Bintang dari: ${book.title}`);
           }
           await saveReadingProgress(child.id, book.id, book.pages.length - 1, true);
+          await appendReadingLog(child.id, book.id);
         }
       } catch {}
 
       if (child) {
         router.replace({
           pathname: "/celebrate",
-          params: { coins: String(coins), stars: String(totalStarsRef.current), bookTitle: book.title },
+          params: { coins: String(coins), stars: String(totalStarsRef.current), bookTitle: book.title, bookId: book.id },
         });
       } else {
         router.back();

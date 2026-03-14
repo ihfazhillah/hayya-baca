@@ -10,11 +10,13 @@ import {
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useEffect, useCallback } from "react";
+import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/core";
 import { getAllBooks } from "../src/lib/books";
 import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
 import { getAllReadingProgress } from "../src/lib/rewards";
+import { getLockedBooks, sortForDisplay, getNewContentIds, markContentSeen, getUnlockProgress } from "../src/lib/recommendation";
 import { colors } from "../src/theme";
 import type { Book, Article } from "../src/types";
 
@@ -56,16 +58,39 @@ function ProgressBadge({ completed, completedCount }: { completed: boolean; comp
   );
 }
 
+function NewBadge() {
+  return (
+    <View style={styles.newBadge}>
+      <Text style={styles.newBadgeText}>BARU</Text>
+    </View>
+  );
+}
+
+function LockOverlay({ unlockRemaining }: { unlockRemaining?: number }) {
+  return (
+    <View style={styles.lockOverlay}>
+      <Text style={styles.lockIcon}>🔒</Text>
+      {unlockRemaining != null && unlockRemaining > 0 && (
+        <Text style={styles.lockText}>Baca {unlockRemaining} lagi</Text>
+      )}
+    </View>
+  );
+}
+
 function BookCard({
   book,
   onPress,
   cardWidth,
   progress,
+  locked,
+  isNew,
 }: {
   book: Book;
   onPress: () => void;
   cardWidth: number;
   progress?: { lastPage: number; completed: boolean; completedCount: number };
+  locked?: { isLocked: boolean; remaining: number };
+  isNew?: boolean;
 }) {
   const cover = coverImages[book.id];
   const pct = progress ? Math.round((progress.lastPage / Math.max(book.pageCount - 1, 1)) * 100) : 0;
@@ -84,7 +109,9 @@ function BookCard({
             <Text style={styles.placeholderText}>{book.title.charAt(0)}</Text>
           </View>
         )}
-        {progress && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
+        {locked?.isLocked && <LockOverlay unlockRemaining={locked.remaining} />}
+        {isNew && <NewBadge />}
+        {progress && !locked?.isLocked && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
       </View>
       <Text style={styles.cardTitle} numberOfLines={2}>
         {book.title}
@@ -106,11 +133,15 @@ function ArticleCard({
   onPress,
   cardWidth,
   progress,
+  locked,
+  isNew,
 }: {
   article: Article;
   onPress: () => void;
   cardWidth: number;
   progress?: { completed: boolean; completedCount: number };
+  locked?: { isLocked: boolean; remaining: number };
+  isNew?: boolean;
 }) {
   const initials = article.title
     .split(" ")
@@ -124,7 +155,9 @@ function ArticleCard({
         <View style={[styles.articleCover, { width: cardWidth, height: cardWidth * 1.3 }]}>
           <Text style={styles.articleInitials}>{initials}</Text>
         </View>
-        {progress && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
+        {locked?.isLocked && <LockOverlay unlockRemaining={locked.remaining} />}
+        {isNew && <NewBadge />}
+        {progress && !locked?.isLocked && <ProgressBadge completed={progress.completed} completedCount={progress.completedCount} />}
       </View>
       <Text style={styles.cardTitle} numberOfLines={2}>
         {article.title}
@@ -143,25 +176,62 @@ export default function HomeScreen() {
   const child = getSelectedChild();
   const [tab, setTab] = useState<Tab>("buku");
   const [progress, setProgress] = useState<ProgressMap>({});
+  const [lockedSet, setLockedSet] = useState<Set<string>>(new Set());
+  const [newContentIds, setNewContentIds] = useState<Set<string>>(new Set());
+  const [unlockRemainingMap, setUnlockRemainingMap] = useState<Record<string, number>>({});
 
-  const books = useMemo(() => getAllBooks(), []);
+  const allBooks = useMemo(() => getAllBooks(), []);
   const [articles, setArticles] = useState<Article[]>(() => getAllArticles());
 
   useEffect(() => {
     fetchAllArticles().then(setArticles).catch(() => {});
   }, []);
 
-  const loadProgress = useCallback(async () => {
+  const loadData = useCallback(async () => {
     if (!child) return;
     const p = await getAllReadingProgress(child.id);
     setProgress(p);
-  }, [child?.id]);
+
+    const totalContent = allBooks.length + articles.length;
+    const locked = await getLockedBooks(child.id, totalContent);
+    setLockedSet(locked);
+
+    // Get unlock progress for each locked item
+    const remaining: Record<string, number> = {};
+    for (const id of locked) {
+      remaining[id] = await getUnlockProgress(child.id, id);
+    }
+    setUnlockRemainingMap(remaining);
+
+    // New content detection
+    const allIds = [...allBooks.map(b => b.id), ...articles.map(a => a.slug)];
+    const newIds = await getNewContentIds(child.id, allIds);
+    setNewContentIds(new Set(newIds));
+  }, [child?.id, allBooks.length, articles.length]);
 
   useFocusEffect(
     useCallback(() => {
-      loadProgress();
-    }, [loadProgress])
+      loadData();
+    }, [loadData])
   );
+
+  // Sort books and articles
+  const books = useMemo(() =>
+    sortForDisplay(allBooks, progress, lockedSet),
+    [allBooks, progress, lockedSet]
+  );
+
+  const sortedArticles = useMemo(() => {
+    const articleProgress: Record<string, { lastPage: number; completed: boolean; completedCount: number }> = {};
+    for (const a of articles) {
+      const p = progress[a.slug];
+      if (p) articleProgress[a.slug] = p;
+    }
+    // Map articles to sortable format, sort, then map back
+    const mapped = articles.map(a => ({ id: a.slug, title: a.title, coverPath: null, pageCount: 0, hasAudio: false, _article: a }));
+    const sorted = sortForDisplay(mapped, articleProgress, lockedSet);
+    return sorted.map((s: any) => s._article as Article);
+  }, [articles, progress, lockedSet]);
 
   const isTablet = width >= 600;
   const numColumns = isTablet ? 3 : 2;
@@ -227,14 +297,24 @@ export default function HomeScreen() {
               book={item}
               cardWidth={cardWidth}
               progress={progress[item.id]}
-              onPress={() => router.push(`/read/${item.id}`)}
+              locked={lockedSet.has(item.id) ? { isLocked: true, remaining: unlockRemainingMap[item.id] ?? 0 } : undefined}
+              isNew={newContentIds.has(item.id)}
+              onPress={() => {
+                if (lockedSet.has(item.id)) {
+                  const r = unlockRemainingMap[item.id] ?? 0;
+                  Alert.alert("Terkunci!", `Baca ${r} buku/artikel lain dulu untuk membuka.`);
+                  return;
+                }
+                markContentSeen(child!.id, item.id).catch(() => {});
+                router.push(`/read/${item.id}`);
+              }}
             />
           )}
           keyExtractor={(item) => item.id}
         />
       ) : (
         <FlatList
-          data={articles}
+          data={sortedArticles}
           numColumns={numColumns}
           key={`artikel-${numColumns}`}
           contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
@@ -244,8 +324,18 @@ export default function HomeScreen() {
             <ArticleCard
               article={item}
               cardWidth={cardWidth}
-              progress={progress[`article-${item.id}`]}
-              onPress={() => router.push(`/article/${item.id}`)}
+              progress={progress[item.slug]}
+              locked={lockedSet.has(item.slug) ? { isLocked: true, remaining: unlockRemainingMap[item.slug] ?? 0 } : undefined}
+              isNew={newContentIds.has(item.slug)}
+              onPress={() => {
+                if (lockedSet.has(item.slug)) {
+                  const r = unlockRemainingMap[item.slug] ?? 0;
+                  Alert.alert("Terkunci!", `Baca ${r} buku/artikel lain dulu untuk membuka.`);
+                  return;
+                }
+                markContentSeen(child!.id, item.slug).catch(() => {});
+                router.push(`/article/${item.id}`);
+              }}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -415,5 +505,41 @@ const styles = StyleSheet.create({
     height: 4,
     backgroundColor: colors.accent,
     borderRadius: 2,
+  },
+  lockOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  lockIcon: {
+    fontSize: 32,
+  },
+  lockText: {
+    color: "#FFF",
+    fontSize: 12,
+    fontWeight: "600",
+    marginTop: 4,
+  },
+  newBadge: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    backgroundColor: colors.accent,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderTopLeftRadius: 16,
+    borderBottomRightRadius: 10,
+  },
+  newBadgeText: {
+    color: "#FFF",
+    fontSize: 11,
+    fontWeight: "bold",
   },
 });

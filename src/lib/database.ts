@@ -57,6 +57,22 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS reading_log (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      child_id INTEGER NOT NULL,
+      book_id TEXT NOT NULL,
+      completed_at TEXT NOT NULL DEFAULT (datetime('now')),
+      synced INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (child_id) REFERENCES children(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS seen_content (
+      child_id INTEGER NOT NULL,
+      content_id TEXT NOT NULL,
+      seen_at TEXT NOT NULL DEFAULT (datetime('now')),
+      PRIMARY KEY (child_id, content_id)
+    );
+
     CREATE TABLE IF NOT EXISTS game_sessions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       child_id INTEGER NOT NULL,

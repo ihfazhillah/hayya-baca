@@ -1,7 +1,8 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced } from "./rewards";
 import { getDeviceId } from "./device";
+import { getDatabase } from "./database";
 
 let syncing = false;
 
@@ -45,6 +46,7 @@ async function syncChildren(activeChildId?: number): Promise<void> {
     try {
       await syncRewards(activeChildId);
       await syncReadingProgress(activeChildId);
+      await syncReadingLog(activeChildId);
       didPush = true;
     } catch (e) {
       console.warn("syncActiveChild error:", e);
@@ -101,5 +103,53 @@ async function syncRewards(childId: number): Promise<void> {
     await markRewardsSynced(unsyncedRewards.map((r) => r.id));
   } catch (e) {
     console.warn("syncRewards error:", e);
+  }
+}
+
+async function syncReadingLog(childId: number): Promise<void> {
+  try {
+    const db = await getDatabase();
+    const deviceId = await getDeviceId();
+
+    // Push unsynced entries
+    const unsynced = await db.getAllAsync<{ id: number; book_id: string; completed_at: string }>(
+      "SELECT id, book_id, completed_at FROM reading_log WHERE child_id = ? AND synced = 0",
+      childId
+    );
+
+    if (unsynced.length > 0) {
+      await pushReadingLog(
+        childId,
+        unsynced.map(r => ({
+          book_id: r.book_id,
+          completed_at: r.completed_at,
+          idempotency_key: `${deviceId}:rl:${r.id}`,
+        }))
+      );
+      const ids = unsynced.map(r => r.id);
+      await db.runAsync(
+        `UPDATE reading_log SET synced = 1 WHERE id IN (${ids.map(() => "?").join(",")})`,
+        ...ids
+      );
+    }
+
+    // Pull from server and merge
+    const serverEntries = await fetchReadingLog(childId);
+    for (const entry of serverEntries) {
+      if (!entry.idempotency_key) continue;
+      // Skip if already exists locally (by idempotency_key check via book_id + completed_at)
+      const existing = await db.getFirstAsync<{ id: number }>(
+        "SELECT id FROM reading_log WHERE child_id = ? AND book_id = ? AND completed_at = ?",
+        childId, entry.book_id, entry.completed_at
+      );
+      if (!existing) {
+        await db.runAsync(
+          "INSERT INTO reading_log (child_id, book_id, completed_at, synced) VALUES (?, ?, ?, 1)",
+          childId, entry.book_id, entry.completed_at
+        );
+      }
+    }
+  } catch (e) {
+    console.warn("syncReadingLog error:", e);
   }
 }

@@ -2,7 +2,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from library.models import Book
-from .models import QuizAttempt, ReadingProgress
+from .models import QuizAttempt, ReadingLog, ReadingProgress
 
 
 class ReadingProgressSerializer(serializers.ModelSerializer):
@@ -84,3 +84,16 @@ class QuizAttemptSerializer(serializers.ModelSerializer):
         child.save(update_fields=["stars"])
 
         return attempt
+
+
+class ReadingLogEntrySerializer(serializers.Serializer):
+    book_id = serializers.CharField()
+    completed_at = serializers.DateTimeField()
+    idempotency_key = serializers.CharField()
+
+
+class ReadingLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReadingLog
+        fields = ["id", "book_id", "completed_at", "idempotency_key"]
+        read_only_fields = ["id"]

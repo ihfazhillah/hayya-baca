@@ -7,7 +7,8 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { Image } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -16,12 +17,16 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { colors } from "../src/theme";
+import { getAllBooks } from "../src/lib/books";
+import { getSimilarBooks } from "../src/lib/recommendation";
+import type { Book } from "../src/types";
 
 export default function CelebrateScreen() {
-  const { coins, stars, bookTitle, quizScore } = useLocalSearchParams<{
+  const { coins, stars, bookTitle, bookId, quizScore } = useLocalSearchParams<{
     coins: string;
     stars: string;
     bookTitle: string;
+    bookId?: string;
     quizScore?: string;
   }>();
   const router = useRouter();
@@ -33,6 +38,17 @@ export default function CelebrateScreen() {
   const coinsScale = useSharedValue(0);
   const starsScale = useSharedValue(0);
   const buttonOpacity = useSharedValue(0);
+
+  // Get a recommendation (similar book, or first unread)
+  const recommendation = useMemo(() => {
+    if (!bookId || quizScore) return null; // only for books, not articles
+    const allBooks = getAllBooks();
+    const similar = getSimilarBooks(bookId, allBooks as any);
+    if (similar.length > 0) return similar[0] as Book;
+    // Fallback: first book that isn't the current one
+    const other = allBooks.find(b => b.id !== bookId);
+    return other ?? null;
+  }, [bookId, quizScore]);
 
   useEffect(() => {
     titleScale.value = withSpring(1, { damping: 8 });
@@ -97,13 +113,30 @@ export default function CelebrateScreen() {
         </Text>
       )}
 
+      {recommendation && (
+        <Animated.View style={buttonStyle}>
+          <Pressable
+            style={styles.recCard}
+            onPress={() => router.replace(`/read/${recommendation.id}`)}
+          >
+            <View style={styles.recCover}>
+              <Text style={styles.recInitial}>{recommendation.title.charAt(0)}</Text>
+            </View>
+            <View style={styles.recInfo}>
+              <Text style={styles.recLabel}>Baca Selanjutnya</Text>
+              <Text style={styles.recTitle} numberOfLines={2}>{recommendation.title}</Text>
+            </View>
+          </Pressable>
+        </Animated.View>
+      )}
+
       <Animated.View style={buttonStyle}>
         <Pressable
           style={styles.button}
           onPress={() => router.replace("/home")}
         >
           <Text style={styles.buttonText}>
-            {quizScore ? "Baca artikel lain" : "Baca buku lain"}
+            {quizScore ? "Baca artikel lain" : "Kembali"}
           </Text>
         </Pressable>
       </Animated.View>
@@ -193,5 +226,43 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: colors.textOnAccent,
+  },
+  recCard: {
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderRadius: 16,
+    padding: 12,
+    alignItems: "center",
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
+    maxWidth: 320,
+  },
+  recCover: {
+    width: 56,
+    height: 72,
+    backgroundColor: colors.primaryLight,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  recInitial: {
+    fontSize: 24,
+    color: "#FFF",
+    fontWeight: "bold",
+  },
+  recInfo: {
+    flex: 1,
+  },
+  recLabel: {
+    fontSize: 12,
+    color: colors.primaryLight,
+    marginBottom: 4,
+  },
+  recTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FFF",
   },
 });

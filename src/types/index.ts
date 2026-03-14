@@ -13,6 +13,7 @@ export interface Book {
   coverPath: string | null;
   pageCount: number;
   hasAudio: boolean;
+  categories?: string[];
 }
 
 export interface BookPage {

@@ -7,8 +7,8 @@ from accounts.models import Child
 from accounts.permissions import IsParentOrReadOnlyTeacher
 from games.models import GameSession
 from rewards.models import RewardHistory
-from .models import QuizAttempt, ReadingProgress
-from .serializers import QuizAttemptSerializer, ReadingProgressSerializer
+from .models import QuizAttempt, ReadingLog, ReadingProgress
+from .serializers import QuizAttemptSerializer, ReadingLogEntrySerializer, ReadingLogSerializer, ReadingProgressSerializer
 
 
 class ReadingProgressViewSet(viewsets.ModelViewSet):
@@ -33,6 +33,38 @@ class QuizAttemptViewSet(
 
     def perform_create(self, serializer):
         serializer.save(child_id=self.kwargs["child_pk"])
+
+
+class ReadingLogView(APIView):
+    """Push/pull reading log entries for lock/recommendation sync."""
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, child_pk):
+        entries = ReadingLog.objects.filter(child_id=child_pk)
+        serializer = ReadingLogSerializer(entries, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, child_pk):
+        entries_data = request.data.get("entries", [])
+        serializer = ReadingLogEntrySerializer(data=entries_data, many=True)
+        serializer.is_valid(raise_exception=True)
+
+        device_id = request.META.get("HTTP_X_DEVICE_ID", "")
+        created = 0
+        for entry in serializer.validated_data:
+            _, was_created = ReadingLog.objects.get_or_create(
+                idempotency_key=entry["idempotency_key"],
+                defaults={
+                    "child_id": child_pk,
+                    "book_id": entry["book_id"],
+                    "completed_at": entry["completed_at"],
+                    "source_device": device_id,
+                },
+            )
+            if was_created:
+                created += 1
+
+        return Response({"created": created})
 
 
 class ActivityTimelineView(APIView):

@@ -235,6 +235,7 @@ describe("Quiz: user jawab semua soal → navigate celebrate", () => {
         coins: "1",
         stars: "4",
         bookTitle: "Lelaki Anshar dan Tiga Anak Panah",
+        bookId: "article-112",
         quizScore: "2/2",
       },
     });

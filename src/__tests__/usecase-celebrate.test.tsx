@@ -56,10 +56,10 @@ describe("Selebrasi selesai buku", () => {
     expect(screen.getByText("Bintang")).toBeTruthy();
   });
 
-  it("tombol Baca buku lain → kembali ke home", () => {
+  it("tombol Kembali → kembali ke home", () => {
     render(<CelebrateScreen />);
 
-    fireEvent.press(screen.getByText("Baca buku lain"));
+    fireEvent.press(screen.getByText("Kembali"));
     expect(mockRouter.replace).toHaveBeenCalledWith("/home");
   });
 });

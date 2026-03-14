@@ -149,6 +149,28 @@ export async function pushRewardsBulk(
   }
 }
 
+export async function pushReadingLog(
+  childId: number,
+  entries: { book_id: string; completed_at: string; idempotency_key: string }[]
+): Promise<void> {
+  const res = await apiFetch(`/children/${childId}/reading-log/`, {
+    method: "POST",
+    body: JSON.stringify({ entries }),
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    console.warn("pushReadingLog failed:", res.status, err);
+  }
+}
+
+export async function fetchReadingLog(
+  childId: number
+): Promise<{ book_id: string; completed_at: string; idempotency_key: string }[]> {
+  const res = await apiFetch(`/children/${childId}/reading-log/`);
+  if (!res.ok) return [];
+  return res.json();
+}
+
 export async function pushQuizAttempt(
   childId: number,
   data: { book: string; score: number; total: number }

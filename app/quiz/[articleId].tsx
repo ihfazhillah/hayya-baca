@@ -12,6 +12,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { getArticle, fetchArticle, calculateQuizStars } from "../../src/lib/articles";
 import { getSelectedChild } from "../../src/lib/session";
 import { addReward, saveReadingProgress } from "../../src/lib/rewards";
+import { appendReadingLog } from "../../src/lib/recommendation";
 import { colors } from "../../src/theme";
 import type { ArticleQuizQuestion } from "../../src/types";
 
@@ -181,6 +182,7 @@ export default function QuizScreen() {
             await addReward(child.id, "star", stars, `Kuis: ${article.title}`);
           }
           await saveReadingProgress(child.id, article.slug, 0, true);
+          await appendReadingLog(child.id, article.slug);
         }
       } catch {}
 
@@ -190,6 +192,7 @@ export default function QuizScreen() {
           coins: "1",
           stars: String(stars),
           bookTitle: article.title,
+          bookId: article.slug,
           quizScore: `${finalCorrect}/${totalQ}`,
         },
       });

@@ -23,6 +23,21 @@ class ReadingProgress(models.Model):
         return f"{self.child} - {self.book} (p.{self.last_page})"
 
 
+class ReadingLog(models.Model):
+    """Append-only log of every book/article completion. Used for lock/recommendation."""
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name="reading_log")
+    book_id = models.CharField(max_length=255)  # slug: "1", "article-112", "__unlock:1"
+    completed_at = models.DateTimeField()
+    source_device = models.CharField(max_length=255, blank=True, default="")
+    idempotency_key = models.CharField(max_length=255, unique=True, null=True, blank=True)
+
+    class Meta:
+        ordering = ["-completed_at"]
+
+    def __str__(self):
+        return f"{self.child} - {self.book_id} @ {self.completed_at}"
+
+
 class QuizAttempt(models.Model):
     child = models.ForeignKey(
         Child, on_delete=models.CASCADE, related_name="quiz_attempts"
