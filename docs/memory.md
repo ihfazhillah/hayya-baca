@@ -3,7 +3,7 @@
 ## Evolution
 - **Original**: Ksatria Muslim Android (Kotlin, ~2022). Code moved to `old/`.
 - **New**: Hayya Baca - React Native port (2026)
-- **Current version**: 0.1.0-alpha.5
+- **Current version**: 1.0.6
 
 ## App Identity
 - **Nama**: Hayya Baca ("Ayo Baca")
@@ -149,7 +149,9 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 
 ## Current Implementation Status
 
-### Done (v0.1.0-alpha.5)
+### Done (v1.0.6)
+
+**Core Reading (v0.1.0-alpha.5)**
 - [x] Project setup (Expo 55, TypeScript, expo-router)
 - [x] Pilih profil anak (YouTube Kids style, SQLite)
 - [x] Tambah anak baru (nama + umur)
@@ -178,31 +180,46 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Leaderboard antar anak (coin/bintang sort)
 - [x] Article reading progress tracking (via quiz completion)
 
-### Backend (Done)
+**Backend & Sync (v0.1.0-alpha.6 → v1.0.0)**
 - [x] Django 6.0 + DRF project (`backend/`)
 - [x] Models: Book, Article, Quiz, Child, ChildAccess, ShareInvite, ReadingProgress, QuizAttempt, RewardHistory
-- [x] Import commands: `import_books` (20 buku), `import_articles` (10 artikel)
+- [x] Import commands: `import_books` (20 buku), `import_articles` (10 artikel), `import_markdown_articles`
 - [x] Cover generation dari title (Pillow, 1080x720)
 - [x] Static JSON publisher + manifest.json versioning
 - [x] REST API endpoints: auth, children CRUD, share invite, progress, quiz, rewards
 - [x] Permission matrix: parent (full), teacher (read-only), public (books only)
 - [x] OpenAPI schema + Swagger UI (`/api/docs/`)
 - [x] API contract documentation (`backend/API.md`)
+- [x] Backend sync — API client di app (auth token, progress/reward sync)
+- [x] Parent dashboard (PIN gate, login/logout, manual sync, children progress)
+- [x] Fetch articles from server with bundled fallback + SQLite cache
+- [x] PostgreSQL production, auto-deploy CI/CD
+- [x] Multi-device sync (push-first, active child only, idempotency)
 
-### TODO — High Priority
-- [ ] Backend sync — API client di app (auth token, progress/reward sync)
-- [ ] Auth flow — login/register screen di app
-- [ ] Content download dari server — fetch manifest, download buku/artikel baru
+**GameZone (v1.0.0+)**
+- [x] Game model, API, admin preview
+- [x] Game screen (HTML5 WebView, coin-per-session)
+- [x] Reading timeline + coin audit trail
+- [x] Sample games: Dino Jump, Memory Card, Pecah Balon, Tangkap Bintang
+
+**Quality (v1.0.1 → v1.0.6)**
+- [x] E2e tests (real component + user action tests)
+- [x] Replace React Query with event emitter for children data
+- [x] Bug fixes: reading, quiz, game, article screens, keyboard overlap, safe area
 
 ### TODO — Medium Priority
 - [ ] Audio playback dari file rekaman (book 6 & 10)
 - [ ] Reading time estimate di header artikel
+- [ ] Content download dari server — fetch manifest, download buku/artikel baru
 
 ### TODO — Low Priority (Post-MVP)
-- [ ] Mini games (crossword, tebak kata, susun kata, dll)
 - [ ] Custom font untuk anak belajar baca
 - [ ] Ideas/insight tracking (orang tua)
 - [ ] Onboarding flow
+
+### Parking (lihat [docs/parking/](../docs/parking/))
+- [ ] Per-child game score history & per-game leaderboard
+- [ ] Voice training — simpan suara anak untuk custom TTS/ASR
 
 ### Dihilangkan dari Original
 - Parental control / app timer / overlay
@@ -255,7 +272,9 @@ ksatriamuslim-android/
 │   ├── reading/            # ReadingProgress, QuizAttempt
 │   ├── rewards/            # RewardHistory
 │   └── media/published/    # Static JSON output
-├── docs/memory.md          # This file
+├── docs/
+│   ├── memory.md           # This file
+│   └── parking/            # Parked feature ideas
 ├── old/                    # Original Android app (Kotlin)
 ├── build-release.sh        # Build + tag + GitHub release
 ├── app.json                # Expo config

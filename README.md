@@ -44,9 +44,11 @@ uv run python manage.py runserver
 ## Docs
 
 - [Project Memory](docs/memory.md) — arsitektur, keputusan, status lengkap
+- [Changelog](CHANGELOG.md) — riwayat perubahan per versi
 - [Backend README](backend/README.md) — setup, commands, content types
 - [API Contract](backend/API.md) — endpoint reference
 - [Game Ideas](backend/GAMES.md) — 55 ide mini games
+- [Parking Ideas](docs/parking/) — ide fitur yang sedang ditimbang
 
 ## Tech Stack
 
