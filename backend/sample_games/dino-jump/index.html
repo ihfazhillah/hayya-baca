@@ -85,6 +85,73 @@ const W = 600, H = 300;
 canvas.width = W;
 canvas.height = H;
 
+// === Sound Effects (Web Audio API, no files needed) ===
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function sfxJump() {
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.type = 'sine';
+  o.frequency.setValueAtTime(300, audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+  g.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+  o.start(); o.stop(audioCtx.currentTime + 0.15);
+}
+
+function sfxScore() {
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.type = 'sine';
+  o.frequency.setValueAtTime(880, audioCtx.currentTime);
+  o.frequency.setValueAtTime(1100, audioCtx.currentTime + 0.06);
+  g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+  o.start(); o.stop(audioCtx.currentTime + 0.12);
+}
+
+function sfxGameOver() {
+  // "tenonenot" — descending tones
+  const notes = [520, 490, 370, 300];
+  const dur = 0.18;
+  notes.forEach((freq, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'square';
+    o.frequency.setValueAtTime(freq, audioCtx.currentTime + i * dur);
+    g.gain.setValueAtTime(0.25, audioCtx.currentTime + i * dur);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * dur + dur * 0.9);
+    o.start(audioCtx.currentTime + i * dur);
+    o.stop(audioCtx.currentTime + i * dur + dur);
+  });
+}
+
+function sfxTimeUp() {
+  // Quick alarm: 3 short beeps
+  for (let i = 0; i < 3; i++) {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(660, audioCtx.currentTime + i * 0.2);
+    g.gain.setValueAtTime(0.25, audioCtx.currentTime + i * 0.2);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.2 + 0.1);
+    o.start(audioCtx.currentTime + i * 0.2);
+    o.stop(audioCtx.currentTime + i * 0.2 + 0.1);
+  }
+}
+
+// Ensure AudioContext is resumed on first user interaction
+function ensureAudio() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+document.addEventListener('touchstart', ensureAudio, { once: true });
+document.addEventListener('click', ensureAudio, { once: true });
+document.addEventListener('keydown', ensureAudio, { once: true });
+
 // Game state
 let dino, obstacles, score, speed, gameOver, frameCount, groundY;
 
@@ -109,6 +176,7 @@ function jump() {
   if (!dino.jumping && !gameOver) {
     dino.vy = -12;
     dino.jumping = true;
+    sfxJump();
   }
 }
 
@@ -142,6 +210,7 @@ function update() {
     if (!obs.passed && obs.x + obs.w < dino.x) {
       obs.passed = true;
       score++;
+      sfxScore();
       document.getElementById('score-display').textContent = 'Skor: ' + score;
     }
   }
@@ -157,6 +226,7 @@ function update() {
       dino.y + dino.h > obs.y
     ) {
       gameOver = true;
+      sfxGameOver();
       showGameOver();
       reportScore(score);
       return;
@@ -259,6 +329,7 @@ window.addEventListener('message', function(e) {
     const msg = JSON.parse(e.data);
     if (msg.type === 'TIME_UP') {
       gameOver = true;
+      sfxTimeUp();
       document.getElementById('overlay-title').textContent = 'Waktu Habis! ⏰';
       document.getElementById('overlay-text').textContent = 'Skor kamu: ' + score;
       document.getElementById('overlay-btn').textContent = 'OK';

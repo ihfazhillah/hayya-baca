@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Pecah Balon</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f7f6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+canvas {
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(108,92,231,0.15);
+  max-width: 100%;
+}
+#score-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #6C5CE7;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+#overlay.show { display: flex; }
+#overlay-box {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  max-width: 300px;
+}
+#overlay-box h2 { color: #6C5CE7; margin-bottom: 8px; }
+#overlay-box p { color: #666; margin-bottom: 16px; }
+#overlay-box button {
+  background: #6C5CE7;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="score-bar">
+  <span>🎈 Pecah Balon</span>
+  <span id="score-display">Skor: 0</span>
+</div>
+<canvas id="game"></canvas>
+
+<div id="overlay">
+  <div id="overlay-box">
+    <h2 id="overlay-title">Pecah Balon!</h2>
+    <p id="overlay-text">Pecahkan balon yang berisi huruf yang diminta!</p>
+    <button id="overlay-btn" onclick="startGame()">Mulai!</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = 600, H = 400;
+canvas.width = W;
+canvas.height = H;
+
+// === Sound Effects ===
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function sfxPop() {
+  // Short noise burst — "duar" pop
+  const bufSize = audioCtx.sampleRate * 0.08;
+  const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 3);
+  }
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(0.4, audioCtx.currentTime);
+  src.connect(g); g.connect(audioCtx.destination);
+  src.start();
+}
+
+function sfxMiss() {
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.type = 'sine';
+  o.frequency.setValueAtTime(300, audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.2);
+  g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+  o.start(); o.stop(audioCtx.currentTime + 0.2);
+}
+
+function sfxWrong() {
+  // Quick buzzer for tapping wrong balloon
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.type = 'square';
+  o.frequency.setValueAtTime(150, audioCtx.currentTime);
+  g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+  o.start(); o.stop(audioCtx.currentTime + 0.15);
+}
+
+function sfxNewTarget() {
+  // Cheerful ascending for new target letter
+  [440, 660].forEach((f, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f, audioCtx.currentTime + i * 0.1);
+    g.gain.setValueAtTime(0.2, audioCtx.currentTime + i * 0.1);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.1 + 0.15);
+    o.start(audioCtx.currentTime + i * 0.1);
+    o.stop(audioCtx.currentTime + i * 0.1 + 0.15);
+  });
+}
+
+function sfxBonus() {
+  // Sparkly double ding
+  [880, 1320].forEach((f, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f, audioCtx.currentTime + i * 0.08);
+    g.gain.setValueAtTime(0.2, audioCtx.currentTime + i * 0.08);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.08 + 0.15);
+    o.start(audioCtx.currentTime + i * 0.08);
+    o.stop(audioCtx.currentTime + i * 0.08 + 0.15);
+  });
+}
+
+function sfxTimeUp() {
+  for (let i = 0; i < 3; i++) {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(660, audioCtx.currentTime + i * 0.2);
+    g.gain.setValueAtTime(0.25, audioCtx.currentTime + i * 0.2);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.2 + 0.1);
+    o.start(audioCtx.currentTime + i * 0.2);
+    o.stop(audioCtx.currentTime + i * 0.2 + 0.1);
+  }
+}
+
+function ensureAudio() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+document.addEventListener('touchstart', ensureAudio, { once: true });
+document.addEventListener('click', ensureAudio, { once: true });
+
+// === Game State ===
+const COLORS = ['#E74C3C','#3498DB','#2ECC71','#F39C12','#9B59B6','#E91E63','#00BCD4','#FF5722'];
+const HURUF = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const TARGET_NEEDED = 3; // correct pops before new target letter
+let balloons, particles, score, mistakes, gameRunning, frameCount, spawnRate;
+let targetLetter, targetCount, wrongFlash;
+
+function pickNewTarget() {
+  targetLetter = HURUF[Math.floor(Math.random() * HURUF.length)];
+  targetCount = 0;
+  sfxNewTarget();
+}
+
+function init() {
+  balloons = [];
+  particles = [];
+  score = 0;
+  mistakes = 0;
+  gameRunning = false;
+  frameCount = 0;
+  spawnRate = 70;
+  wrongFlash = 0;
+  targetLetter = HURUF[Math.floor(Math.random() * HURUF.length)];
+  targetCount = 0;
+}
+
+function spawnBalloon() {
+  const r = 28 + Math.random() * 14;
+  const x = r + Math.random() * (W - r * 2);
+  const speed = 1 + Math.random() * 1.5;
+  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+  // ~30% chance of being the target letter so there's enough to tap
+  let letter;
+  if (Math.random() < 0.3) {
+    letter = targetLetter;
+  } else {
+    do { letter = HURUF[Math.floor(Math.random() * HURUF.length)]; } while (letter === targetLetter);
+  }
+  balloons.push({ x, y: H + r, r, speed, color, letter, popped: false, popFrame: 0 });
+}
+
+function popBalloon(index) {
+  const b = balloons[index];
+
+  if (b.letter !== targetLetter) {
+    // Wrong balloon!
+    sfxWrong();
+    mistakes++;
+    wrongFlash = 15; // frames of red flash on target display
+    return;
+  }
+
+  b.popped = true;
+  b.popFrame = frameCount;
+  score++;
+  targetCount++;
+  sfxPop();
+  document.getElementById('score-display').textContent = 'Skor: ' + score;
+
+  // Spawn particles
+  for (let i = 0; i < 8; i++) {
+    const angle = (Math.PI * 2 / 8) * i;
+    particles.push({
+      x: b.x, y: b.y,
+      vx: Math.cos(angle) * (2 + Math.random() * 3),
+      vy: Math.sin(angle) * (2 + Math.random() * 3),
+      r: 3 + Math.random() * 3,
+      color: b.color,
+      life: 20
+    });
+  }
+
+  // New target after enough correct pops
+  if (targetCount >= TARGET_NEEDED) {
+    setTimeout(pickNewTarget, 300);
+  }
+
+  // Bonus every 10
+  if (score % 10 === 0) sfxBonus();
+}
+
+function update() {
+  if (!gameRunning) return;
+  frameCount++;
+
+  // Spawn
+  const rate = Math.max(30, spawnRate - Math.floor(score / 5) * 5);
+  if (frameCount % rate === 0) spawnBalloon();
+
+  // Move balloons
+  for (let i = balloons.length - 1; i >= 0; i--) {
+    const b = balloons[i];
+    if (b.popped) {
+      if (frameCount - b.popFrame > 8) balloons.splice(i, 1);
+      continue;
+    }
+    b.y -= b.speed;
+    b.x += Math.sin(frameCount * 0.03 + i) * 0.5; // gentle sway
+
+    // Escaped off top
+    if (b.y + b.r < 0) {
+      if (b.letter === targetLetter) {
+        // Target balloon escaped — that's a miss
+        mistakes++;
+        sfxMiss();
+      }
+      balloons.splice(i, 1);
+    }
+  }
+
+  // Update particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.15;
+    p.life--;
+    if (p.life <= 0) particles.splice(i, 1);
+  }
+}
+
+function draw() {
+  // Sky gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#87CEEB');
+  grad.addColorStop(1, '#F8F7FF');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Clouds
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  [[80,60,25],[200,40,20],[420,55,22],[520,35,18]].forEach(([cx,cy,cr]) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+    ctx.arc(cx + cr, cy - 5, cr * 0.8, 0, Math.PI * 2);
+    ctx.arc(cx - cr * 0.6, cy + 2, cr * 0.7, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // Target letter display (top center)
+  if (wrongFlash > 0) wrongFlash--;
+  const targetBg = wrongFlash > 0 ? '#E74C3C' : '#6C5CE7';
+  const targetScale = wrongFlash > 0 ? 1 + Math.sin(wrongFlash) * 0.05 : 1;
+  ctx.save();
+  ctx.translate(W / 2, 45);
+  ctx.scale(targetScale, targetScale);
+  // Background pill
+  ctx.fillStyle = targetBg;
+  ctx.beginPath();
+  ctx.roundRect(-70, -28, 140, 56, 28);
+  ctx.fill();
+  // Label
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = 'bold 14px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText('Cari huruf:', 0, -22);
+  // Big letter
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 32px sans-serif';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(targetLetter, 0, 8);
+  // Progress dots
+  for (let i = 0; i < TARGET_NEEDED; i++) {
+    ctx.fillStyle = i < targetCount ? '#FDCB6E' : 'rgba(255,255,255,0.3)';
+    ctx.beginPath();
+    ctx.arc(-12 + i * 12, 24, 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+
+  // Balloons
+  for (const b of balloons) {
+    if (b.popped) {
+      // Quick shrink animation
+      const t = (frameCount - b.popFrame) / 8;
+      const scale = 1 - t;
+      if (scale <= 0) continue;
+      ctx.globalAlpha = scale;
+      ctx.fillStyle = b.color;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      continue;
+    }
+
+    // Balloon body (target balloons get a subtle glow)
+    if (b.letter === targetLetter) {
+      ctx.shadowColor = '#FDCB6E';
+      ctx.shadowBlur = 12;
+    }
+    ctx.fillStyle = b.color;
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Shine
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.beginPath();
+    ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.25, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Knot
+    ctx.fillStyle = b.color;
+    ctx.beginPath();
+    ctx.moveTo(b.x - 4, b.y + b.r);
+    ctx.lineTo(b.x + 4, b.y + b.r);
+    ctx.lineTo(b.x, b.y + b.r + 8);
+    ctx.fill();
+
+    // String
+    ctx.strokeStyle = '#999';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(b.x, b.y + b.r + 8);
+    ctx.quadraticCurveTo(b.x + Math.sin(frameCount * 0.05) * 5, b.y + b.r + 30, b.x, b.y + b.r + 45);
+    ctx.stroke();
+
+    // Letter
+    ctx.fillStyle = 'white';
+    ctx.font = `bold ${b.r * 0.8}px 'Segoe UI', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(b.letter, b.x, b.y);
+  }
+
+  // Particles
+  for (const p of particles) {
+    ctx.globalAlpha = p.life / 20;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // Mistakes counter (bottom left, subtle)
+  if (mistakes > 0) {
+    ctx.fillStyle = '#E74C3C';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Salah: ' + mistakes, 10, H - 15);
+  }
+}
+
+function gameLoop() {
+  update();
+  draw();
+  if (gameRunning) requestAnimationFrame(gameLoop);
+}
+
+function startGame() {
+  document.getElementById('overlay').classList.remove('show');
+  init();
+  gameRunning = true;
+  gameLoop();
+}
+
+function reportScore(s) {
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'GAME_OVER', score: s }));
+  }
+}
+
+// Handle tap/click on balloons
+function handleTap(px, py) {
+  // Convert page coords to canvas coords
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = W / rect.width;
+  const scaleY = H / rect.height;
+  const cx = (px - rect.left) * scaleX;
+  const cy = (py - rect.top) * scaleY;
+
+  // Check from top (most visible) to bottom
+  for (let i = balloons.length - 1; i >= 0; i--) {
+    const b = balloons[i];
+    if (b.popped) continue;
+    const dx = cx - b.x, dy = cy - b.y;
+    if (dx * dx + dy * dy <= b.r * b.r * 1.3) { // slightly generous hit area
+      popBalloon(i);
+      return;
+    }
+  }
+}
+
+canvas.addEventListener('click', function(e) {
+  if (!gameRunning) return;
+  handleTap(e.pageX, e.pageY);
+});
+
+canvas.addEventListener('touchstart', function(e) {
+  if (!gameRunning) return;
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    handleTap(t.pageX, t.pageY);
+  }
+});
+
+// Listen for messages from native
+window.addEventListener('message', function(e) {
+  try {
+    const msg = JSON.parse(e.data);
+    if (msg.type === 'TIME_UP') {
+      gameRunning = false;
+      sfxTimeUp();
+      document.getElementById('overlay-title').textContent = 'Waktu Habis! ⏰';
+      document.getElementById('overlay-text').textContent = 'Skor kamu: ' + score + ' balon!';
+      document.getElementById('overlay-btn').textContent = 'OK';
+      document.getElementById('overlay-btn').onclick = function() {
+        reportScore(score);
+      };
+      document.getElementById('overlay').classList.add('show');
+    }
+  } catch(e) {}
+});
+
+// Start
+init();
+document.getElementById('overlay').classList.add('show');
+</script>
+</body>
+</html>
