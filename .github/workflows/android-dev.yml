@@ -1,0 +1,55 @@
+name: Android Dev Build
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Set dev version
+        id: version
+        run: |
+          BASE=$(node -e "
+            const m = require('fs').readFileSync('app.config.ts','utf8').match(/version:\\s*['\"]([^'\"]+)['\"]/);
+            if (!m) process.exit(1);
+            console.log(m[1]);
+          ")
+          VERSION="${BASE}-dev.${GITHUB_RUN_NUMBER}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Expo prebuild
+        run: npx expo prebuild --clean --platform android --no-install
+
+      - name: Build release APK
+        working-directory: android
+        run: |
+          ./gradlew assembleRelease \
+            -PreactNativeArchitectures="arm64-v8a" \
+            --no-daemon
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hayya-baca-v${{ steps.version.outputs.version }}
+          path: android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 30

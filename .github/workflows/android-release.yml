@@ -1,0 +1,103 @@
+name: Android Release Build
+
+on:
+  push:
+    branches: [master]
+    paths: ["app.config.ts"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(node -e "
+            const m = require('fs').readFileSync('app.config.ts','utf8').match(/version:\\s*['\"]([^'\"]+)['\"]/);
+            if (!m) process.exit(1);
+            console.log(m[1]);
+          ")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Expo prebuild
+        if: steps.check_tag.outputs.exists == 'false'
+        run: npx expo prebuild --clean --platform android --no-install
+
+      - name: Build release APK
+        if: steps.check_tag.outputs.exists == 'false'
+        working-directory: android
+        run: |
+          ./gradlew assembleRelease \
+            -PreactNativeArchitectures="arm64-v8a" \
+            --no-daemon
+
+      - name: Sign APK
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > /tmp/release.keystore
+
+          # Align the APK
+          ${ANDROID_HOME}/build-tools/35.0.0/zipalign -v -p 4 \
+            android/app/build/outputs/apk/release/app-release-unsigned.apk \
+            android/app/build/outputs/apk/release/app-release-aligned.apk
+
+          # Sign with apksigner
+          ${ANDROID_HOME}/build-tools/35.0.0/apksigner sign \
+            --ks /tmp/release.keystore \
+            --ks-pass "pass:${{ secrets.KEYSTORE_PASSWORD }}" \
+            --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
+            --key-pass "pass:${{ secrets.KEY_PASSWORD }}" \
+            --out android/app/build/outputs/apk/release/hayya-baca-${{ steps.version.outputs.tag }}.apk \
+            android/app/build/outputs/apk/release/app-release-aligned.apk
+
+          rm /tmp/release.keystore
+
+      - name: Create tag and GitHub release
+        if: steps.check_tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          APK="android/app/build/outputs/apk/release/hayya-baca-${TAG}.apk"
+
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+
+          gh release create "$TAG" "$APK" \
+            --title "hayya-baca $TAG" \
+            --notes "Release ${{ steps.version.outputs.version }}
+
+          Built with:
+          - Expo SDK 55 / React Native 0.83
+          - Architecture: arm64-v8a
+          - Signed release build"
