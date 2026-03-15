@@ -51,11 +51,12 @@ pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8p
 .quiz-type { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; letter-spacing: 0.5px; }
 .quiz-field { margin-top: 8px; }
 .quiz-field label { font-size: 12px; color: #666; display: block; margin-bottom: 2px; }
-.quiz-field input, .quiz-field textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-family: inherit; }
+.quiz-field input, .quiz-field textarea { border: 1px solid #ddd; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-family: inherit; }
+.quiz-field > input, .quiz-field > textarea { width: 100%; }
 .quiz-field textarea { height: 50px; resize: vertical; }
-.options-list { list-style: none; margin-top: 4px; }
+.options-list { list-style: none; margin-top: 4px; width: 100%; }
 .options-list li { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.options-list li input[type=text] { flex: 1; }
+.options-list li input[type=text] { width: calc(100% - 40px); }
 .options-list li input[type=radio] { margin: 0; }
 .tf-answer { display: flex; gap: 12px; margin-top: 4px; }
 .tf-answer label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
