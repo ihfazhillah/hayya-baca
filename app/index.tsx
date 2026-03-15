@@ -91,7 +91,7 @@ export default function ChildSelectScreen() {
       )}
 
       {syncError && (
-        <Text style={styles.syncError}>Sync bermasalah - bilang ke Ayah/Bunda</Text>
+        <Text style={styles.syncError}>Sync bermasalah - bilang ke Babah</Text>
       )}
 
       <Pressable
