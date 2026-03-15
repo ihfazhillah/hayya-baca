@@ -39,6 +39,7 @@ beforeEach(() => {
   mockApi.pushReadingLog.mockResolvedValue(null);
   mockApi.fetchRewardHistory.mockResolvedValue([]);
   mockApi.fetchReadingLog.mockResolvedValue([]);
+  (mockApi as any).fetchReadingProgressFromServer = jest.fn().mockResolvedValue([]);
 
   mockChildren.upsertChildFromServer.mockResolvedValue(undefined);
   mockChildren.deleteChildrenNotIn.mockResolvedValue(undefined);
@@ -51,6 +52,7 @@ beforeEach(() => {
   mockRewards.markRewardsSynced.mockResolvedValue(undefined);
   mockRewards.markReadingProgressSynced.mockResolvedValue(undefined);
   mockRewards.mergeServerRewards.mockResolvedValue(undefined);
+  (mockRewards as any).mergeServerReadingProgress = jest.fn().mockResolvedValue(undefined);
   mockRewards.recalculateBalance.mockResolvedValue({ coins: 0, stars: 0 });
 
   mockDevice.getDeviceId.mockResolvedValue("device-uuid-123");
@@ -210,7 +212,7 @@ describe("Sync: push rewards dengan idempotency key", () => {
       { type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00", idempotency_key: "device-uuid-123:10" },
       { type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00", idempotency_key: "device-uuid-123:11" },
     ]);
-    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([10, 11]);
+    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([10, 11], expect.any(Object));
   });
 
   it("tidak ada unsynced rewards → skip push", async () => {

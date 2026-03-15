@@ -1,6 +1,6 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
-import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, recalculateBalance } from "./rewards";
+import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
 import { getDeviceId } from "./device";
 import { getDatabase } from "./database";
 
@@ -123,6 +123,20 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
       }
     }
   }
+
+  // Step 5: Pull reading progress from server and merge
+  if (childIds && childIds.length > 0) {
+    for (const childId of childIds) {
+      try {
+        const serverProgress = await fetchReadingProgressFromServer(childId);
+        if (serverProgress.length > 0) {
+          await mergeServerReadingProgress(childId, serverProgress);
+        }
+      } catch (e) {
+        report.errors.push(`pullReadingProgress(${childId}): ${e instanceof Error ? e.message : String(e)}`);
+      }
+    }
+  }
 }
 
 async function syncReadingProgress(childId: number, report: SyncReport): Promise<void> {
@@ -170,16 +184,15 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
 
     const deviceId = await getDeviceId();
 
-    const err = await pushRewardsBulk(
-      childId,
-      unsyncedRewards.map((r) => ({
-        type: r.type,
-        count: r.count,
-        description: r.description,
-        created_at: r.created_at,
-        idempotency_key: `${deviceId}:${r.id}`,
-      }))
-    );
+    const rewardsWithKeys = unsyncedRewards.map((r) => ({
+      type: r.type,
+      count: r.count,
+      description: r.description,
+      created_at: r.created_at,
+      idempotency_key: `${deviceId}:${r.id}`,
+    }));
+
+    const err = await pushRewardsBulk(childId, rewardsWithKeys);
 
     if (err) {
       // Push failed — DO NOT mark synced
@@ -187,8 +200,14 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
       return;
     }
 
+    // Build mapping of local id → idempotency_key so mergeServerRewards can detect them
+    const keyMap: Record<number, string> = {};
+    unsyncedRewards.forEach((r, i) => {
+      keyMap[r.id] = rewardsWithKeys[i].idempotency_key;
+    });
+
     report.rewardsPushed += unsyncedRewards.length;
-    await markRewardsSynced(unsyncedRewards.map((r) => r.id));
+    await markRewardsSynced(unsyncedRewards.map((r) => r.id), keyMap);
   } catch (e) {
     // Network error or other — DO NOT mark synced
     report.errors.push(`syncRewards(${childId}): ${e instanceof Error ? e.message : String(e)}`);

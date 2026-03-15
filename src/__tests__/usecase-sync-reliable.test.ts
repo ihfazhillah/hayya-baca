@@ -53,6 +53,7 @@ beforeEach(() => {
   mockApi.pushReadingLog.mockResolvedValue(undefined);
   mockApi.fetchRewardHistory.mockResolvedValue([]);
   mockApi.fetchReadingLog.mockResolvedValue([]);
+  (mockApi as any).fetchReadingProgressFromServer = jest.fn().mockResolvedValue([]);
   mockApi.createChildOnServer.mockResolvedValue({ id: 100, name: "", age: null, avatar_color: "", coins: 0, stars: 0 });
 
   mockChildren.upsertChildFromServer.mockResolvedValue(undefined);
@@ -65,6 +66,7 @@ beforeEach(() => {
   mockRewards.markRewardsSynced.mockResolvedValue(undefined);
   mockRewards.markReadingProgressSynced.mockResolvedValue(undefined);
   mockRewards.mergeServerRewards.mockResolvedValue(undefined);
+  (mockRewards as any).mergeServerReadingProgress = jest.fn().mockResolvedValue(undefined);
   mockRewards.recalculateBalance.mockResolvedValue({ coins: 0, stars: 0 });
 
   mockDevice.getDeviceId.mockResolvedValue("device-A");
@@ -85,7 +87,7 @@ describe("Skenario 1: Push rewards berhasil → marked synced, report sukses", (
     expect(mockApi.pushRewardsBulk).toHaveBeenCalledWith(1, expect.arrayContaining([
       expect.objectContaining({ type: "coin", count: 2, idempotency_key: "device-A:1" }),
     ]));
-    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([1, 2, 3]);
+    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([1, 2, 3], expect.any(Object));
   });
 });
 
@@ -219,7 +221,7 @@ describe("Skenario 7 & 8: Override koin manual", () => {
     expect(mockApi.pushRewardsBulk).toHaveBeenCalledWith(1, [
       expect.objectContaining({ type: "coin_adjustment", count: 11, idempotency_key: "device-A:99" }),
     ]);
-    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([99]);
+    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([99], expect.any(Object));
   });
 });
 
@@ -284,6 +286,6 @@ describe("Push child 1 gagal, child 2 berhasil", () => {
     expect(report.errors.length).toBeGreaterThan(0);
     // Child 1 rewards NOT marked synced, child 2 IS marked synced
     expect(mockRewards.markRewardsSynced).toHaveBeenCalledTimes(1);
-    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([2]);
+    expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([2], expect.any(Object));
   });
 });

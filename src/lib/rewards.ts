@@ -43,14 +43,28 @@ export async function getUnsyncedRewards(
   );
 }
 
-export async function markRewardsSynced(ids: number[]): Promise<void> {
+export async function markRewardsSynced(ids: number[], idempotencyKeys?: Record<number, string>): Promise<void> {
   if (ids.length === 0) return;
   const db = await getDatabase();
-  const placeholders = ids.map(() => "?").join(",");
-  await db.runAsync(
-    `UPDATE reward_history SET synced = 1 WHERE id IN (${placeholders})`,
-    ...ids
-  );
+  if (idempotencyKeys) {
+    for (const id of ids) {
+      const key = idempotencyKeys[id];
+      if (key) {
+        await db.runAsync(
+          "UPDATE reward_history SET synced = 1, idempotency_key = ? WHERE id = ?",
+          key, id
+        );
+      } else {
+        await db.runAsync("UPDATE reward_history SET synced = 1 WHERE id = ?", id);
+      }
+    }
+  } else {
+    const placeholders = ids.map(() => "?").join(",");
+    await db.runAsync(
+      `UPDATE reward_history SET synced = 1 WHERE id IN (${placeholders})`,
+      ...ids
+    );
+  }
 }
 
 export async function getRewardHistory(
@@ -236,6 +250,38 @@ export async function markReadingProgressSynced(
     childId,
     ...bookIds
   );
+}
+
+export async function mergeServerReadingProgress(
+  childId: number,
+  serverProgress: { book_id: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]
+): Promise<void> {
+  const db = await getDatabase();
+  for (const sp of serverProgress) {
+    const local = await db.getFirstAsync<{ last_page: number; completed: number; completed_count: number; updated_at: string }>(
+      "SELECT last_page, completed, completed_count, updated_at FROM reading_progress WHERE child_id = ? AND book_id = ?",
+      childId, sp.book_id
+    );
+
+    if (!local) {
+      // New book from server — insert
+      await db.runAsync(
+        `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at, synced)
+         VALUES (?, ?, ?, ?, ?, ?, 1)`,
+        childId, sp.book_id, sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at
+      );
+    } else if (sp.updated_at > local.updated_at) {
+      // Server is newer — update
+      await db.runAsync(
+        `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = 1
+         WHERE child_id = ? AND book_id = ?`,
+        sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at,
+        childId, sp.book_id
+      );
+    }
+    // If local is newer or same, keep local
+  }
+  emitDataChange("children");
 }
 
 export async function getAllReadingProgress(

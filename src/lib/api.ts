@@ -174,6 +174,14 @@ export async function fetchReadingLog(
   return res.json();
 }
 
+export async function fetchReadingProgressFromServer(
+  childId: number
+): Promise<{ book_id: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]> {
+  const res = await apiFetch(`/children/${childId}/progress/`);
+  if (!res.ok) return [];
+  return res.json();
+}
+
 export async function pushQuizAttempt(
   childId: number,
   data: { book: string; score: number; total: number }

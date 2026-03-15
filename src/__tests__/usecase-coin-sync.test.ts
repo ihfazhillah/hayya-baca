@@ -42,6 +42,7 @@ beforeEach(() => {
   mockApi.pushReadingProgress.mockResolvedValue(null);
   mockApi.pushReadingLog.mockResolvedValue(null);
   mockApi.fetchReadingLog.mockResolvedValue([]);
+  (mockApi as any).fetchReadingProgressFromServer = jest.fn().mockResolvedValue([]);
 
   mockChildren.getUnsyncedChildren.mockResolvedValue([]);
   mockChildren.linkChildToServer.mockResolvedValue(undefined);
@@ -53,6 +54,7 @@ beforeEach(() => {
   mockRewards.markRewardsSynced.mockResolvedValue(undefined);
   mockRewards.markReadingProgressSynced.mockResolvedValue(undefined);
   mockRewards.mergeServerRewards.mockResolvedValue(undefined);
+  (mockRewards as any).mergeServerReadingProgress = jest.fn().mockResolvedValue(undefined);
   mockRewards.recalculateBalance.mockResolvedValue({ coins: 0, stars: 0 });
 
   mockDevice.getDeviceId.mockResolvedValue("device-1");
