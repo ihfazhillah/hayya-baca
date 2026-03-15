@@ -47,4 +47,4 @@ class BookAdmin(admin.ModelAdmin):
 
     @admin.display(description="Tools")
     def quiz_manager_link(self, obj):
-        return format_html('<a href="/quiz-manager/">Quiz Manager</a>')
+        return format_html('<a href="{}">Quiz Manager</a>', "/quiz-manager/")

@@ -86,6 +86,13 @@ pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8p
 .toast.success { background: #27ae60; }
 
 .empty-state { text-align: center; padding: 60px; color: #888; }
+
+/* Loading overlay */
+.loading { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 200; }
+.loading-box { background: #fff; padding: 24px 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.spinner { width: 32px; height: 32px; border: 3px solid #eee; border-top-color: #1a5276; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -153,6 +160,7 @@ pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8p
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="loading" id="loading" style="display:none"><div class="loading-box"><div class="spinner"></div><span id="loading-text">Loading...</span></div></div>
 
 <script>
 const CSRF = getCookie('csrftoken');
@@ -165,6 +173,14 @@ let quizStates = [];
 function getCookie(name) {
   const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
   return v ? v.pop() : '';
+}
+
+function showLoading(text) {
+  document.getElementById('loading-text').textContent = text || 'Loading...';
+  document.getElementById('loading').style.display = '';
+}
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
 }
 
 function toast(msg, type) {
@@ -187,6 +203,7 @@ function switchTab(name) {
 async function doExport() {
   const type = document.getElementById('export-type').value;
   const url = '/api/quiz-manage/export/' + (type ? '?type=' + type : '');
+  showLoading('Exporting content...');
   try {
     const res = await fetch(url, { credentials: 'same-origin' });
     exportData = await res.json();
@@ -194,7 +211,7 @@ async function doExport() {
     toast(`Exported ${exportData.length} items`, 'success');
   } catch (e) {
     toast('Export gagal: ' + e.message, 'error');
-  }
+  } finally { hideLoading(); }
 }
 
 function downloadExport() {
@@ -233,9 +250,10 @@ async function doImport() {
   const text = document.getElementById('import-text').value.trim();
   if (!text) { toast('Paste JSON dulu', 'error'); return; }
   try {
-    JSON.parse(text); // validate
+    JSON.parse(text);
   } catch { toast('JSON tidak valid', 'error'); return; }
 
+  showLoading('Importing quizzes...');
   try {
     const res = await fetch('/api/quiz-manage/import/', {
       method: 'POST',
@@ -249,17 +267,18 @@ async function doImport() {
     switchTab('review');
   } catch (e) {
     toast('Import gagal: ' + e.message, 'error');
-  }
+  } finally { hideLoading(); }
 }
 
 // === REVIEW ===
 async function loadPending() {
+  showLoading('Loading pending quizzes...');
   try {
     const res = await fetch('/api/quiz-manage/pending/', { credentials: 'same-origin' });
     pendingData = await res.json();
   } catch {
     pendingData = [];
-  }
+  } finally { hideLoading(); }
 
   quizStates = pendingData.map(item => item.quizzes.map(() => 'accepted'));
   renderReview();
@@ -413,6 +432,7 @@ async function doApply() {
 
   if (!confirm(`Apply ${items.reduce((s, i) => s + i.quizzes.length, 0)} quiz ke ${items.length} buku?\nMode: ${applyMode}`)) return;
 
+  showLoading('Applying quizzes & syncing JSON...');
   try {
     const res = await fetch('/api/quiz-manage/apply/', {
       method: 'POST',
@@ -428,7 +448,7 @@ async function doApply() {
     renderReview();
   } catch (e) {
     toast('Apply gagal: ' + e.message, 'error');
-  }
+  } finally { hideLoading(); }
 }
 
 async function doClear() {
