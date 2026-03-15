@@ -79,6 +79,33 @@ export async function getRewardHistory(
   }));
 }
 
+export async function addAdjustment(
+  childId: number,
+  type: "coin" | "star",
+  targetValue: number
+): Promise<number> {
+  const db = await getDatabase();
+  const adjType = type === "coin" ? "coin_adjustment" : "star_adjustment";
+  const sumType = type === "coin" ? "('coin', 'coin_adjustment')" : "('star', 'star_adjustment')";
+  const row = await db.getFirstAsync<{ total: number }>(
+    `SELECT COALESCE(SUM(count), 0) as total FROM reward_history WHERE child_id = ? AND type IN ${sumType}`,
+    childId
+  );
+  const current = row?.total ?? 0;
+  const delta = targetValue - current;
+  if (delta === 0) return 0;
+  await db.runAsync(
+    `INSERT INTO reward_history (child_id, type, count, description, synced) VALUES (?, ?, ?, ?, 0)`,
+    childId,
+    adjType,
+    delta,
+    "Penyesuaian manual"
+  );
+  // Recalculate balance
+  await recalculateBalance(childId);
+  return delta;
+}
+
 export async function mergeServerRewards(
   childId: number,
   serverRewards: { type: string; count: number; description: string; created_at: string; idempotency_key: string | null }[]

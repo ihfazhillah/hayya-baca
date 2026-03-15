@@ -14,10 +14,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../src/theme";
 import { getSetting, setSetting } from "../src/lib/database";
 import { login, logout, isLoggedIn } from "../src/lib/api";
-import { syncAll } from "../src/lib/sync";
+import { syncAll, type SyncReport } from "../src/lib/sync";
 import { getChildren, addChild } from "../src/lib/children";
-import { getRewardHistory } from "../src/lib/rewards";
-import { getAllReadingProgress } from "../src/lib/rewards";
+import { getRewardHistory, getAllReadingProgress, addAdjustment } from "../src/lib/rewards";
 import type { Child, RewardHistory } from "../src/types";
 import Constants from "expo-constants";
 
@@ -179,6 +178,9 @@ function Dashboard({ onBack }: { onBack: () => void }) {
   const [progress, setProgress] = useState<
     Record<string, { lastPage: number; completed: boolean; completedCount: number }>
   >({});
+  const [editingCoins, setEditingCoins] = useState(false);
+  const [coinInput, setCoinInput] = useState("");
+  const [starInput, setStarInput] = useState("");
 
   const loadData = useCallback(async () => {
     const li = await isLoggedIn();
@@ -191,6 +193,19 @@ function Dashboard({ onBack }: { onBack: () => void }) {
     loadData();
   }, [loadData]);
 
+  const formatReport = (report: SyncReport): string => {
+    if (report.skipped) return "Sync sedang berjalan, coba lagi nanti";
+    if (report.notLoggedIn) return "Belum login";
+    const parts: string[] = [];
+    if (report.rewardsPushed > 0) parts.push(`${report.rewardsPushed} reward dikirim`);
+    if (report.progressPushed > 0) parts.push(`${report.progressPushed} progress dikirim`);
+    if (report.rewardsPulled > 0) parts.push(`${report.rewardsPulled} reward diterima`);
+    if (report.childrenPulled > 0) parts.push(`${report.childrenPulled} anak disinkronkan`);
+    if (report.errors.length > 0) parts.push(`Error: ${report.errors.join("; ")}`);
+    if (parts.length === 0) parts.push("Tidak ada data baru");
+    return parts.join(" · ");
+  };
+
   const handleLogin = async () => {
     setLoginLoading(true);
     try {
@@ -199,9 +214,10 @@ function Dashboard({ onBack }: { onBack: () => void }) {
       setUsername("");
       setPassword("");
       setSyncStatus("Login berhasil, sinkronisasi...");
-      await syncAll();
+      const kids = await getChildren();
+      const report = await syncAll(kids.map(c => c.id));
       await loadData();
-      setSyncStatus("Selesai");
+      setSyncStatus(formatReport(report));
     } catch (e: any) {
       Alert.alert("Login Gagal", e.message);
     } finally {
@@ -219,11 +235,12 @@ function Dashboard({ onBack }: { onBack: () => void }) {
     setSyncing(true);
     setSyncStatus("Sinkronisasi...");
     try {
-      await syncAll();
+      const kids = await getChildren();
+      const report = await syncAll(kids.map(c => c.id));
       await loadData();
-      setSyncStatus("Selesai");
-    } catch {
-      setSyncStatus("Gagal");
+      setSyncStatus(formatReport(report));
+    } catch (e: any) {
+      setSyncStatus(`Gagal: ${e.message}`);
     } finally {
       setSyncing(false);
     }
@@ -256,12 +273,41 @@ function Dashboard({ onBack }: { onBack: () => void }) {
 
   const viewChildDetail = async (child: Child) => {
     setSelectedChild(child);
+    setEditingCoins(false);
+    setCoinInput(String(child.coins));
+    setStarInput(String(child.stars));
     const [r, p] = await Promise.all([
       getRewardHistory(child.id),
       getAllReadingProgress(child.id),
     ]);
     setRewards(r);
     setProgress(p);
+  };
+
+  const handleSaveAdjustment = async () => {
+    if (!selectedChild) return;
+    const targetCoins = parseInt(coinInput);
+    const targetStars = parseInt(starInput);
+    if (isNaN(targetCoins) || isNaN(targetStars)) {
+      Alert.alert("Nilai harus angka");
+      return;
+    }
+    try {
+      await addAdjustment(selectedChild.id, "coin", targetCoins);
+      await addAdjustment(selectedChild.id, "star", targetStars);
+      setEditingCoins(false);
+      await loadData();
+      // Refresh selected child
+      const kids = await getChildren();
+      const updated = kids.find(k => k.id === selectedChild.id);
+      if (updated) {
+        setSelectedChild(updated);
+        setCoinInput(String(updated.coins));
+        setStarInput(String(updated.stars));
+      }
+    } catch (e: any) {
+      Alert.alert("Gagal", e.message);
+    }
   };
 
   const version = Constants.expoConfig?.version ?? "?";
@@ -412,9 +458,48 @@ function Dashboard({ onBack }: { onBack: () => void }) {
       {/* Child detail */}
       {selectedChild && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            Detail: {selectedChild.name}
-          </Text>
+          <View style={styles.row}>
+            <Text style={styles.sectionTitle}>
+              Detail: {selectedChild.name}
+            </Text>
+            <Pressable
+              style={styles.addChildBtn}
+              onPress={() => setEditingCoins(!editingCoins)}
+            >
+              <Text style={styles.addChildBtnText}>
+                {editingCoins ? "Batal" : "Edit Koin"}
+              </Text>
+            </Pressable>
+          </View>
+
+          {editingCoins ? (
+            <View style={{ marginBottom: 12 }}>
+              <Text style={styles.label}>Koin:</Text>
+              <TextInput
+                style={styles.input}
+                value={coinInput}
+                onChangeText={setCoinInput}
+                keyboardType="number-pad"
+              />
+              <Text style={styles.label}>Bintang:</Text>
+              <TextInput
+                style={styles.input}
+                value={starInput}
+                onChangeText={setStarInput}
+                keyboardType="number-pad"
+              />
+              <Pressable style={styles.primaryBtn} onPress={handleSaveAdjustment}>
+                <Text style={styles.primaryBtnText}>Simpan</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <>
+              <Text style={styles.label}>
+                {selectedChild.coins} koin · {selectedChild.stars} bintang
+              </Text>
+            </>
+          )}
+
           <Text style={styles.label}>
             Buku dibaca: {Object.keys(progress).length}
           </Text>
@@ -429,7 +514,8 @@ function Dashboard({ onBack }: { onBack: () => void }) {
           {rewards.slice(0, 20).map((r) => (
             <View key={r.id} style={styles.rewardRow}>
               <Text style={styles.rewardType}>
-                {r.type === "coin" ? "Koin" : "Bintang"} +{r.count}
+                {r.type === "coin" || r.type === "coin_adjustment" ? "Koin" : "Bintang"}{" "}
+                {r.count >= 0 ? "+" : ""}{r.count}
               </Text>
               <Text style={styles.rewardDesc}>{r.description}</Text>
             </View>

@@ -41,7 +41,10 @@ beforeEach(() => {
   jest.spyOn(api, "isLoggedIn").mockResolvedValue(false);
   jest.spyOn(api, "login").mockResolvedValue({ token: "test-token" });
   jest.spyOn(api, "logout").mockResolvedValue(undefined);
-  jest.spyOn(sync, "syncAll").mockResolvedValue(undefined);
+  jest.spyOn(sync, "syncAll").mockResolvedValue({
+    success: true, skipped: false, childrenPushed: 0, childrenPulled: 0,
+    rewardsPushed: 0, progressPushed: 0, readingLogPushed: 0, rewardsPulled: 0, errors: [],
+  });
   jest.spyOn(children, "getChildren").mockResolvedValue([]);
   jest.spyOn(rewards, "getRewardHistory").mockResolvedValue([]);
   jest.spyOn(rewards, "getAllReadingProgress").mockResolvedValue({});
