@@ -7,141 +7,279 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
-.header { background: #1a5276; color: #fff; padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
+.header { background: #1a5276; color: #fff; padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .header h1 { font-size: 18px; font-weight: 600; }
-.tabs { display: flex; gap: 4px; margin-left: auto; }
-.tab { background: rgba(255,255,255,0.15); border: none; color: #fff; padding: 8px 16px; border-radius: 6px 6px 0 0; cursor: pointer; font-size: 14px; }
-.tab.active { background: #fff; color: #1a5276; font-weight: 600; }
-.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.header-actions { margin-left: auto; display: flex; gap: 8px; }
+.header-actions button { background: rgba(255,255,255,0.15); border: none; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.header-actions button:hover { background: rgba(255,255,255,0.25); }
+.container { max-width: 900px; margin: 0 auto; padding: 16px; }
 .panel { display: none; }
 .panel.active { display: block; }
-.export-controls { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
-.export-controls select, .export-controls button { padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
-.export-controls button { background: #1a5276; color: #fff; border: none; cursor: pointer; }
-.export-controls button:hover { background: #154360; }
-pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; max-height: 500px; overflow: auto; font-size: 13px; white-space: pre-wrap; }
-.import-area { background: #fff; border: 2px dashed #ccc; border-radius: 8px; padding: 40px; text-align: center; margin-bottom: 16px; }
-.import-area.dragover { border-color: #1a5276; background: #eaf2f8; }
-.import-area textarea { width: 100%; height: 200px; border: 1px solid #ddd; border-radius: 6px; padding: 12px; font-family: monospace; font-size: 13px; margin-top: 12px; }
-.import-area input[type=file] { margin-top: 12px; }
-.import-btn { background: #1a5276; color: #fff; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; margin-top: 12px; }
-.review-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-.review-toolbar label { font-weight: 600; }
-.mode-toggle { display: flex; gap: 0; }
-.mode-toggle button { border-radius: 0; border: 1px solid #1a5276; background: #fff; color: #1a5276; cursor: pointer; padding: 6px 14px; font-size: 14px; }
+
+/* Filter bar */
+.filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-bar select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+
+/* Book list */
+.book-item { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background 0.15s; }
+.book-item:hover { background: #eaf2f8; }
+.book-item:active { background: #d4e6f1; }
+.book-title { flex: 1; font-size: 14px; font-weight: 500; }
+.badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+.badge-book { background: #d5f5e3; color: #1e8449; }
+.badge-article { background: #d6eaf8; color: #1a5276; }
+.quiz-count { font-size: 13px; color: #888; white-space: nowrap; }
+.chevron { color: #aaa; font-size: 14px; }
+
+/* Detail panel */
+.detail-toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.detail-toolbar .back-btn { background: none; border: 1px solid #ccc; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px; }
+.detail-toolbar .back-btn:hover { background: #eee; }
+.detail-title { flex: 1; font-size: 16px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.detail-actions { display: flex; gap: 6px; }
+.detail-actions button { padding: 8px 14px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 13px; }
+.detail-actions button:hover { background: #eee; }
+.btn-primary { background: #1a5276 !important; color: #fff !important; border-color: #1a5276 !important; }
+.btn-primary:hover { background: #154360 !important; }
+.btn-danger { background: #e74c3c !important; color: #fff !important; border-color: #e74c3c !important; }
+.btn-danger:hover { background: #c0392b !important; }
+.btn-success { background: #27ae60 !important; color: #fff !important; border-color: #27ae60 !important; }
+.btn-success:hover { background: #219a52 !important; }
+
+/* Nav arrows */
+.nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.nav-bar button { padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 14px; }
+.nav-bar button:hover { background: #eee; }
+.nav-bar .nav-info { font-size: 13px; color: #888; }
+
+/* Quiz card (detail view — editable) */
+.quiz-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.quiz-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.quiz-type { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; letter-spacing: 0.5px; flex: 1; }
+.quiz-card-actions { display: flex; gap: 6px; }
+.quiz-card-actions button { padding: 4px 10px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; }
+.quiz-field { margin-bottom: 10px; }
+.quiz-field label { font-size: 12px; color: #666; display: block; margin-bottom: 3px; }
+.quiz-field input, .quiz-field textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 13px; font-family: inherit; }
+.quiz-field textarea { height: 60px; resize: vertical; }
+.options-list { list-style: none; margin-top: 4px; }
+.options-list li { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.options-list li input[type=text] { flex: 1; }
+.options-list li input[type=radio] { margin: 0; }
+.tf-answer { display: flex; gap: 16px; margin-top: 4px; }
+.tf-answer label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+
+/* Import section in detail */
+.import-section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.import-section h3 { font-size: 14px; margin-bottom: 12px; }
+.import-section input[type=file] { margin-bottom: 8px; }
+.import-section .mode-toggle { display: flex; gap: 0; margin-bottom: 8px; }
+.mode-toggle button { border-radius: 0; border: 1px solid #1a5276; background: #fff; color: #1a5276; cursor: pointer; padding: 6px 14px; font-size: 13px; }
 .mode-toggle button:first-child { border-radius: 6px 0 0 6px; }
 .mode-toggle button:last-child { border-radius: 0 6px 6px 0; }
 .mode-toggle button.active { background: #1a5276; color: #fff; }
+
+/* Bulk panel */
+.bulk-tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.bulk-tab { background: #e0e0e0; border: none; padding: 8px 16px; border-radius: 6px 6px 0 0; cursor: pointer; font-size: 14px; }
+.bulk-tab.active { background: #fff; font-weight: 600; border: 1px solid #ddd; border-bottom: none; }
+.bulk-panel { display: none; }
+.bulk-panel.active { display: block; }
+.export-controls { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.export-controls select, .export-controls button { padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+.export-controls button { background: #1a5276; color: #fff; border: none; cursor: pointer; }
+pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; max-height: 400px; overflow: auto; font-size: 12px; white-space: pre-wrap; }
+.import-area { background: #fff; border: 2px dashed #ccc; border-radius: 8px; padding: 40px; text-align: center; margin-bottom: 16px; }
+.import-area.dragover { border-color: #1a5276; background: #eaf2f8; }
+.import-area input[type=file] { margin-top: 12px; }
+.import-btn { background: #1a5276; color: #fff; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; margin-top: 12px; }
+
+/* Review panel (inside bulk) */
+.review-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.review-toolbar label { font-weight: 600; }
+.bulk-actions { display: flex; gap: 8px; margin-left: auto; }
+.bulk-actions button { padding: 4px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; }
 .book-group { background: #fff; border-radius: 8px; margin-bottom: 8px; border: 1px solid #ddd; }
 .book-header { padding: 12px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
 .book-header h3 { font-size: 14px; flex: 1; }
-.book-header .badge { background: #eaf2f8; color: #1a5276; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.book-header .badge { font-size: 12px; }
 .book-header .arrow { transition: transform 0.2s; font-size: 12px; }
 .book-header .arrow.open { transform: rotate(90deg); }
 .book-quizzes { padding: 0 16px 16px; }
-.quiz-card { border: 1px solid #eee; border-radius: 8px; padding: 14px; margin-top: 12px; position: relative; transition: opacity 0.2s; }
-.quiz-card.rejected { opacity: 0.4; background: #fce4e4; }
-.quiz-card.accepted { border-color: #27ae60; background: #f0faf4; }
+.review-quiz-card { border: 1px solid #eee; border-radius: 8px; padding: 14px; margin-top: 12px; position: relative; transition: opacity 0.2s; }
+.review-quiz-card.rejected { opacity: 0.4; background: #fce4e4; }
+.review-quiz-card.accepted { border-color: #27ae60; background: #f0faf4; }
 .quiz-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; }
 .quiz-actions button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
 .btn-accept { background: #d5f5e3; border-color: #27ae60 !important; }
 .btn-accept.active { background: #27ae60; color: #fff; }
 .btn-reject { background: #fadbd8; border-color: #e74c3c !important; }
 .btn-reject.active { background: #e74c3c; color: #fff; }
-.quiz-type { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; letter-spacing: 0.5px; }
-.quiz-field { margin-top: 8px; }
-.quiz-field label { font-size: 12px; color: #666; display: block; margin-bottom: 2px; }
-.quiz-field input, .quiz-field textarea { border: 1px solid #ddd; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-family: inherit; }
-.quiz-field > input, .quiz-field > textarea { width: 100%; }
-.quiz-field textarea { height: 50px; resize: vertical; }
-.options-list { list-style: none; margin-top: 4px; width: 100%; }
-.options-list li { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.options-list li input[type=text] { width: calc(100% - 40px); }
-.options-list li input[type=radio] { margin: 0; }
-.tf-answer { display: flex; gap: 12px; margin-top: 4px; }
-.tf-answer label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-.apply-bar { position: sticky; bottom: 0; background: #fff; border-top: 2px solid #1a5276; padding: 12px 24px; display: flex; align-items: center; gap: 16px; justify-content: flex-end; z-index: 10; }
+.book-stats { font-size: 12px; color: #888; }
+.book-stats .accepted { color: #27ae60; }
+.book-stats .rejected { color: #e74c3c; }
+
+.apply-bar { position: sticky; bottom: 0; background: #fff; border-top: 2px solid #1a5276; padding: 12px 24px; display: flex; align-items: center; gap: 12px; justify-content: flex-end; z-index: 10; flex-wrap: wrap; }
 .apply-bar .stats { flex: 1; font-size: 14px; color: #666; }
-.apply-bar button { padding: 10px 28px; border-radius: 6px; border: none; font-size: 14px; cursor: pointer; }
-.btn-apply { background: #27ae60; color: #fff; font-weight: 600; }
-.btn-apply:hover { background: #219a52; }
-.btn-clear { background: #e74c3c; color: #fff; }
-.bulk-actions { display: flex; gap: 8px; margin-left: auto; }
-.bulk-actions button { padding: 4px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; }
-.toast { position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.apply-bar button { padding: 10px 20px; border-radius: 6px; border: none; font-size: 14px; cursor: pointer; }
+
+/* Shared */
+.empty-state { text-align: center; padding: 60px; color: #888; }
+.toast { position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 90vw; }
 .toast.show { opacity: 1; }
 .toast.error { background: #e74c3c; }
 .toast.success { background: #27ae60; }
-.empty-state { text-align: center; padding: 60px; color: #888; }
 .loading { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 200; }
 .loading-box { background: #fff; padding: 24px 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .spinner { width: 32px; height: 32px; border: 3px solid #eee; border-top-color: #1a5276; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
-.book-stats { font-size: 12px; color: #888; }
-.book-stats .accepted { color: #27ae60; }
-.book-stats .rejected { color: #e74c3c; }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .header { padding: 10px 12px; }
+  .header h1 { font-size: 16px; }
+  .container { padding: 10px; }
+  .book-item { padding: 14px 12px; }
+  .book-title { font-size: 14px; }
+  .detail-toolbar { gap: 6px; }
+  .detail-title { font-size: 14px; }
+  .detail-actions { flex-wrap: wrap; }
+  .detail-actions button { padding: 10px 12px; min-height: 44px; font-size: 13px; }
+  .quiz-card { padding: 12px; }
+  .quiz-field input, .quiz-field textarea { padding: 10px; font-size: 14px; }
+  .options-list li { flex-wrap: nowrap; }
+  .options-list li input[type=text] { min-width: 0; }
+  .nav-bar button { padding: 10px 14px; min-height: 44px; }
+  .nav-bar { position: sticky; bottom: 0; background: #f5f5f5; padding: 8px 0; border-top: 1px solid #ddd; margin: 0 -10px; padding: 8px 10px; }
+  .filter-bar select { min-height: 44px; }
+  .header-actions button { min-height: 44px; }
+  .apply-bar { padding: 10px 12px; }
+  .apply-bar button { padding: 10px 14px; min-height: 44px; }
+  .export-controls { flex-direction: column; align-items: stretch; }
+  .export-controls select, .export-controls button { width: 100%; min-height: 44px; }
+}
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Quiz Manager</h1>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('export')">Export</button>
-    <button class="tab" onclick="switchTab('import')">Import</button>
-    <button class="tab" onclick="switchTab('review')">Review</button>
+  <div class="header-actions">
+    <button onclick="showView('list')">Daftar Buku</button>
+    <button onclick="showView('bulk-export')">Bulk Import</button>
   </div>
 </div>
 
 <div class="container">
-  <div id="panel-export" class="panel active">
-    <div class="export-controls">
-      <select id="export-type">
-        <option value="">Semua (book + article)</option>
-        <option value="book">Book saja</option>
-        <option value="article">Article saja</option>
+  <!-- Panel 1: Book List -->
+  <div id="panel-list" class="panel active">
+    <div class="filter-bar">
+      <select id="book-filter" onchange="loadBookList()">
+        <option value="">Semua</option>
+        <option value="book">Book</option>
+        <option value="article">Article</option>
       </select>
-      <button onclick="doExport()">Export JSON</button>
-      <button onclick="downloadExport()">Download .json</button>
     </div>
-    <pre class="export-preview" id="export-preview">Klik "Export JSON" untuk melihat data...</pre>
-  </div>
-
-  <div id="panel-import" class="panel">
-    <div class="import-area" id="import-area">
-      <p>Upload file .json hasil generator, atau drag &amp; drop</p>
-      <p style="font-size:12px;color:#888;margin-top:4px">Format: [{"book_id": N, "quizzes": [...]}] — atau langsung hasil export</p>
-      <input type="file" accept=".json" id="import-file" onchange="loadFile(event)">
-      <br>
-      <button class="import-btn" onclick="doImport()">Import untuk Review</button>
-      <div id="import-status" style="margin-top:12px;font-size:13px;color:#666"></div>
+    <div id="book-list-content">
+      <div class="empty-state">Loading...</div>
     </div>
   </div>
 
-  <div id="panel-review" class="panel">
-    <div class="review-toolbar">
-      <label>Mode:</label>
+  <!-- Panel 2: Book Detail -->
+  <div id="panel-detail" class="panel">
+    <div class="detail-toolbar">
+      <button class="back-btn" onclick="showView('list')">&larr; Kembali</button>
+      <span class="detail-title" id="detail-title"></span>
+      <span class="badge" id="detail-badge"></span>
+    </div>
+    <div class="detail-actions" style="margin-bottom:16px">
+      <button onclick="exportOneBook()" class="btn-primary">Export untuk AI</button>
+      <button onclick="publishOneBook()" class="btn-success">Publish</button>
+    </div>
+    <div class="nav-bar" id="nav-bar">
+      <button onclick="navigateBook(-1)" id="btn-prev">&larr; Prev</button>
+      <span class="nav-info" id="nav-info"></span>
+      <button onclick="navigateBook(1)" id="btn-next">Next &rarr;</button>
+    </div>
+
+    <!-- Import section for this book -->
+    <div class="import-section">
+      <h3>Import Quiz ke Buku Ini</h3>
       <div class="mode-toggle">
-        <button id="mode-append" class="active" onclick="setMode('append')">Append</button>
-        <button id="mode-clean" onclick="setMode('clean')">Clean (Replace)</button>
+        <button id="detail-mode-append" class="active" onclick="setDetailMode('append')">Append</button>
+        <button id="detail-mode-clean" onclick="setDetailMode('clean')">Clean (Replace)</button>
       </div>
-      <div class="bulk-actions">
-        <button onclick="bulkAll('accept')">Accept All</button>
-        <button onclick="bulkAll('reject')">Reject All</button>
+      <input type="file" accept=".json" id="detail-import-file">
+      <div style="margin-top:8px">
+        <button class="btn-primary" onclick="importOneBook()">Import</button>
       </div>
     </div>
-    <div id="review-content">
-      <div class="empty-state">Belum ada quiz untuk di-review. Import dulu di tab Import.</div>
+
+    <h3 style="margin-bottom:12px;font-size:14px" id="quiz-list-title">Quiz</h3>
+    <div id="quiz-list-content"></div>
+  </div>
+
+  <!-- Panel 3: Bulk Import -->
+  <div id="panel-bulk" class="panel">
+    <div class="detail-toolbar" style="margin-bottom:16px">
+      <button class="back-btn" onclick="showView('list')">&larr; Kembali</button>
+      <span class="detail-title">Bulk Import</span>
+    </div>
+    <div class="bulk-tabs">
+      <button class="bulk-tab active" onclick="switchBulk('export')">Export</button>
+      <button class="bulk-tab" onclick="switchBulk('import')">Import</button>
+      <button class="bulk-tab" onclick="switchBulk('review')">Review</button>
+    </div>
+
+    <div id="bulk-export" class="bulk-panel active">
+      <div class="export-controls">
+        <select id="export-type">
+          <option value="">Semua (book + article)</option>
+          <option value="book">Book saja</option>
+          <option value="article">Article saja</option>
+        </select>
+        <button onclick="doExport()">Export JSON</button>
+        <button onclick="downloadExport()">Download .json</button>
+      </div>
+      <pre class="export-preview" id="export-preview">Klik "Export JSON" untuk melihat data...</pre>
+    </div>
+
+    <div id="bulk-import" class="bulk-panel">
+      <div class="import-area" id="import-area">
+        <p>Upload file .json hasil generator, atau drag &amp; drop</p>
+        <p style="font-size:12px;color:#888;margin-top:4px">Format: [{"book_id": N, "quizzes": [...]}]</p>
+        <input type="file" accept=".json" id="import-file" onchange="loadFile(event)">
+        <br>
+        <button class="import-btn" onclick="doImport()">Import untuk Review</button>
+        <div id="import-status" style="margin-top:12px;font-size:13px;color:#666"></div>
+      </div>
+    </div>
+
+    <div id="bulk-review" class="bulk-panel">
+      <div class="review-toolbar">
+        <label>Mode:</label>
+        <div class="mode-toggle">
+          <button id="mode-append" class="active" onclick="setMode('append')">Append</button>
+          <button id="mode-clean" onclick="setMode('clean')">Clean (Replace)</button>
+        </div>
+        <div class="bulk-actions">
+          <button onclick="bulkAll('accept')">Accept All</button>
+          <button onclick="bulkAll('reject')">Reject All</button>
+        </div>
+      </div>
+      <div id="review-content">
+        <div class="empty-state">Belum ada quiz untuk di-review. Import dulu di tab Import.</div>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="apply-bar" id="apply-bar" style="display:none">
   <div class="stats" id="apply-stats"></div>
-  <button class="btn-clear" onclick="doClear()">Clear All</button>
-  <button class="btn-apply" onclick="doApply()">Apply Accepted</button>
-  <button class="btn-apply" style="background:#1a5276" onclick="doPublish()">Publish to App</button>
+  <button style="background:#e74c3c;color:#fff" onclick="doClear()">Clear All</button>
+  <button class="btn-success" onclick="doApply()">Apply Accepted</button>
+  <button class="btn-primary" onclick="doPublish()">Publish to App</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -159,131 +297,413 @@ function esc(s) { var d = document.createElement('div'); d.textContent = s||''; 
 function escAttr(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // --- State ---
+var currentView = 'list';
+var currentBookId = null;
+var bookList = [];
+var detailMode = 'append';
+var detailQuizzes = [];
+
+// Bulk state
 var exportData = null;
-var pendingData = [];   // [{book_id, title, content_type, quizzes}, ...]
+var pendingData = [];
 var applyMode = 'append';
-var quizStates = [];    // [bookIdx][quizIdx] = 'accepted'|'rejected'|null
-var expandedBooks = {}; // bookIdx -> true if expanded
+var quizStates = [];
+var expandedBooks = {};
 var importedFile = null;
 
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
-  document.querySelector('.tab[onclick*="'+name+'"]').classList.add('active');
-  document.getElementById('panel-'+name).classList.add('active');
-  document.getElementById('apply-bar').style.display = name==='review' ? '' : 'none';
-  if (name==='review') renderBookList();
+// =====================
+// VIEW NAVIGATION
+// =====================
+function showView(view) {
+  currentView = view;
+  document.getElementById('panel-list').className = 'panel' + (view === 'list' ? ' active' : '');
+  document.getElementById('panel-detail').className = 'panel' + (view === 'detail' ? ' active' : '');
+  document.getElementById('panel-bulk').className = 'panel' + (view.startsWith('bulk') ? ' active' : '');
+  document.getElementById('apply-bar').style.display = (view === 'bulk-export' || view === 'bulk-import' || view === 'bulk-review') && pendingData.length ? '' : 'none';
+
+  if (view === 'list') loadBookList();
+  if (view.startsWith('bulk')) {
+    var sub = view.replace('bulk-', '');
+    if (sub === 'export' || sub === 'import' || sub === 'review') switchBulk(sub);
+    else switchBulk('export');
+    document.getElementById('apply-bar').style.display = pendingData.length ? '' : 'none';
+  }
 }
 
-// --- Export ---
-function doExport() {
-  var type = document.getElementById('export-type').value;
-  var url = '/api/quiz-manage/export/' + (type ? '?type='+type : '');
-  showLoading('Exporting...');
-  fetch(url, {credentials:'same-origin'})
-    .then(function(r){return r.json();})
-    .then(function(d){ exportData=d; document.getElementById('export-preview').textContent=JSON.stringify(d,null,2); toast('Exported '+d.length+' items','success'); })
-    .catch(function(e){toast('Export gagal: '+e.message,'error');})
+// =====================
+// BOOK LIST
+// =====================
+function loadBookList() {
+  var type = document.getElementById('book-filter').value;
+  var url = '/api/quiz-manage/books/' + (type ? '?type=' + type : '');
+  fetch(url, {credentials: 'same-origin'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      bookList = data;
+      renderBookList2();
+    })
+    .catch(function(e) { toast('Error: ' + e.message, 'error'); });
+}
+
+function renderBookList2() {
+  var el = document.getElementById('book-list-content');
+  if (!bookList.length) {
+    el.innerHTML = '<div class="empty-state">Tidak ada buku.</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < bookList.length; i++) {
+    var b = bookList[i];
+    var badgeClass = b.content_type === 'article' ? 'badge-article' : 'badge-book';
+    var typeLabel = b.content_type === 'article' ? 'Artikel' : 'Buku';
+    html += '<div class="book-item" onclick="showBookDetail(' + b.id + ')">' +
+      '<span class="book-title">' + esc(b.title) + '</span>' +
+      '<span class="badge ' + badgeClass + '">' + typeLabel + '</span>' +
+      '<span class="quiz-count">' + b.quiz_count + ' quiz</span>' +
+      '<span class="chevron">&#9654;</span>' +
+      '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// =====================
+// BOOK DETAIL
+// =====================
+function showBookDetail(id) {
+  currentBookId = id;
+  showView('detail');
+  loadBookDetail();
+}
+
+function loadBookDetail() {
+  showLoading('Loading quizzes...');
+  fetch('/api/quiz-manage/books/' + currentBookId + '/quizzes/', {credentials: 'same-origin'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById('detail-title').textContent = data.title;
+      var badgeClass = data.content_type === 'article' ? 'badge-article' : 'badge-book';
+      var typeLabel = data.content_type === 'article' ? 'Artikel' : 'Buku';
+      document.getElementById('detail-badge').className = 'badge ' + badgeClass;
+      document.getElementById('detail-badge').textContent = typeLabel;
+      detailQuizzes = data.quizzes;
+      renderDetailQuizzes();
+      updateNavBar();
+    })
+    .catch(function(e) { toast('Error: ' + e.message, 'error'); })
     .finally(hideLoading);
 }
+
+function renderDetailQuizzes() {
+  var el = document.getElementById('quiz-list-content');
+  document.getElementById('quiz-list-title').textContent = 'Quiz (' + detailQuizzes.length + ')';
+  if (!detailQuizzes.length) {
+    el.innerHTML = '<div class="empty-state">Belum ada quiz untuk buku ini.</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < detailQuizzes.length; i++) {
+    html += renderDetailQuizCard(detailQuizzes[i], i);
+  }
+  el.innerHTML = html;
+}
+
+function renderDetailQuizCard(q, idx) {
+  var typeLabel = q.type === 'multiple_choice' ? 'Pilihan Ganda' : 'Benar / Salah';
+  var h = '<div class="quiz-card" id="dq-' + idx + '">' +
+    '<div class="quiz-card-header">' +
+    '<span class="quiz-type">' + typeLabel + ' — #' + (idx + 1) + '</span>' +
+    '<div class="quiz-card-actions">' +
+    '<button class="btn-success" onclick="saveQuiz(' + idx + ')">Save</button>' +
+    '<button class="btn-danger" onclick="deleteQuiz(' + idx + ')">Delete</button>' +
+    '</div></div>';
+
+  h += '<div class="quiz-field"><label>Pertanyaan</label>' +
+    '<textarea id="dq-q-' + idx + '" onchange="detailQuizzes[' + idx + '].question=this.value">' + esc(q.question) + '</textarea></div>';
+
+  if (q.type === 'multiple_choice') {
+    h += '<div class="quiz-field"><label>Opsi (pilih jawaban benar)</label><ul class="options-list">';
+    for (var oi = 0; oi < (q.options || []).length; oi++) {
+      h += '<li>' +
+        '<input type="radio" name="dans-' + idx + '" ' + (q.answer === oi ? 'checked' : '') + ' onchange="detailQuizzes[' + idx + '].answer=' + oi + '">' +
+        '<input type="text" value="' + escAttr(q.options[oi]) + '" onchange="detailQuizzes[' + idx + '].options[' + oi + ']=this.value">' +
+        '</li>';
+    }
+    h += '</ul></div>';
+  } else {
+    var isT = q.answer === true;
+    h += '<div class="quiz-field"><label>Jawaban</label><div class="tf-answer">' +
+      '<label><input type="radio" name="dans-' + idx + '" ' + (isT ? 'checked' : '') + ' onchange="detailQuizzes[' + idx + '].answer=true"> Benar</label>' +
+      '<label><input type="radio" name="dans-' + idx + '" ' + (!isT ? 'checked' : '') + ' onchange="detailQuizzes[' + idx + '].answer=false"> Salah</label>' +
+      '</div></div>';
+  }
+
+  h += '<div class="quiz-field"><label>Penjelasan</label>' +
+    '<textarea onchange="detailQuizzes[' + idx + '].explanation=this.value">' + esc(q.explanation || '') + '</textarea></div>';
+  h += '</div>';
+  return h;
+}
+
+function saveQuiz(idx) {
+  var q = detailQuizzes[idx];
+  if (!q.id) { toast('Quiz belum tersimpan di DB', 'error'); return; }
+  showLoading('Saving...');
+  fetch('/api/quiz-manage/quizzes/' + q.id + '/', {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+    body: JSON.stringify({type: q.type, question: q.question, options: q.options, answer: q.answer, explanation: q.explanation}),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('Quiz saved', 'success');
+  })
+  .catch(function(e) { toast('Error: ' + e.message, 'error'); })
+  .finally(hideLoading);
+}
+
+function deleteQuiz(idx) {
+  var q = detailQuizzes[idx];
+  if (!q.id) return;
+  if (!confirm('Hapus quiz #' + (idx + 1) + '?')) return;
+  showLoading('Deleting...');
+  fetch('/api/quiz-manage/quizzes/' + q.id + '/', {
+    method: 'DELETE',
+    headers: {'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('Quiz deleted', 'success');
+    loadBookDetail();
+  })
+  .catch(function(e) { toast('Error: ' + e.message, 'error'); })
+  .finally(hideLoading);
+}
+
+// --- Navigation ---
+function updateNavBar() {
+  var idx = -1;
+  for (var i = 0; i < bookList.length; i++) {
+    if (bookList[i].id === currentBookId) { idx = i; break; }
+  }
+  document.getElementById('btn-prev').disabled = idx <= 0;
+  document.getElementById('btn-next').disabled = idx < 0 || idx >= bookList.length - 1;
+  document.getElementById('nav-info').textContent = idx >= 0 ? (idx + 1) + ' / ' + bookList.length : '';
+}
+
+function navigateBook(dir) {
+  var idx = -1;
+  for (var i = 0; i < bookList.length; i++) {
+    if (bookList[i].id === currentBookId) { idx = i; break; }
+  }
+  var next = idx + dir;
+  if (next >= 0 && next < bookList.length) {
+    currentBookId = bookList[next].id;
+    loadBookDetail();
+  }
+}
+
+// --- Export/Import one book ---
+function exportOneBook() {
+  showLoading('Exporting...');
+  fetch('/api/quiz-manage/books/' + currentBookId + '/export/', {credentials: 'same-origin'})
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify([d], null, 2)], {type: 'application/json'}));
+      a.download = 'export-book-' + currentBookId + '.json';
+      a.click();
+      toast('Exported', 'success');
+    })
+    .catch(function(e) { toast('Error: ' + e.message, 'error'); })
+    .finally(hideLoading);
+}
+
+function setDetailMode(mode) {
+  detailMode = mode;
+  document.getElementById('detail-mode-append').className = mode === 'append' ? 'active' : '';
+  document.getElementById('detail-mode-clean').className = mode === 'clean' ? 'active' : '';
+}
+
+function importOneBook() {
+  var fileInput = document.getElementById('detail-import-file');
+  if (!fileInput.files[0]) { toast('Pilih file dulu', 'error'); return; }
+  showLoading('Importing...');
+  var reader = new FileReader();
+  reader.onerror = function() { hideLoading(); toast('File read error', 'error'); };
+  reader.onload = function(ev) {
+    var data;
+    try { data = JSON.parse(ev.target.result); } catch (e) { hideLoading(); toast('JSON error: ' + e.message, 'error'); return; }
+    // Accept array (pick matching book or first) or object with quizzes
+    var quizzes;
+    if (Array.isArray(data)) {
+      // Find matching book or use first item
+      var match = null;
+      for (var i = 0; i < data.length; i++) {
+        var bid = data[i].book_id || data[i].id;
+        if (bid === currentBookId) { match = data[i]; break; }
+      }
+      if (!match) match = data[0];
+      quizzes = match.quizzes || match.existing_quizzes || [];
+    } else {
+      quizzes = data.quizzes || data.existing_quizzes || [];
+    }
+    if (!quizzes.length) { hideLoading(); toast('No quizzes found in file', 'error'); return; }
+
+    fetch('/api/quiz-manage/books/' + currentBookId + '/import/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+      credentials: 'same-origin',
+      body: JSON.stringify({mode: detailMode, quizzes: quizzes}),
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.error) { toast(d.error, 'error'); return; }
+      toast('Imported ' + d.created + ' quiz' + (d.deleted ? ', deleted ' + d.deleted : ''), 'success');
+      fileInput.value = '';
+      loadBookDetail();
+    })
+    .catch(function(e) { toast('Error: ' + e.message, 'error'); })
+    .finally(hideLoading);
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+function publishOneBook() {
+  if (!confirm('Publish buku ini ke app?')) return;
+  showLoading('Publishing...');
+  fetch('/api/quiz-manage/publish/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+    body: JSON.stringify({book_ids: [currentBookId]}),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('Published!', 'success');
+  })
+  .catch(function(e) { toast('Error: ' + e.message, 'error'); })
+  .finally(hideLoading);
+}
+
+// =====================
+// BULK FLOW (existing)
+// =====================
+function switchBulk(name) {
+  document.querySelectorAll('.bulk-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.bulk-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('.bulk-tab[onclick*="' + name + '"]').classList.add('active');
+  document.getElementById('bulk-' + name).classList.add('active');
+  document.getElementById('apply-bar').style.display = name === 'review' && pendingData.length ? '' : 'none';
+  if (name === 'review') renderReviewList();
+}
+
+function doExport() {
+  var type = document.getElementById('export-type').value;
+  var url = '/api/quiz-manage/export/' + (type ? '?type=' + type : '');
+  showLoading('Exporting...');
+  fetch(url, {credentials: 'same-origin'})
+    .then(function(r) { return r.json(); })
+    .then(function(d) { exportData = d; document.getElementById('export-preview').textContent = JSON.stringify(d, null, 2); toast('Exported ' + d.length + ' items', 'success'); })
+    .catch(function(e) { toast('Export gagal: ' + e.message, 'error'); })
+    .finally(hideLoading);
+}
+
 function downloadExport() {
-  if (!exportData) { toast('Export dulu','error'); return; }
+  if (!exportData) { toast('Export dulu', 'error'); return; }
   var a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'}));
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json'}));
   a.download = 'hayya-baca-content-export.json'; a.click();
 }
 
-// --- Import ---
+// Import
 var importArea = document.getElementById('import-area');
-importArea.addEventListener('dragover', function(e){e.preventDefault(); importArea.classList.add('dragover');});
-importArea.addEventListener('dragleave', function(){importArea.classList.remove('dragover');});
-importArea.addEventListener('drop', function(e){
+importArea.addEventListener('dragover', function(e) { e.preventDefault(); importArea.classList.add('dragover'); });
+importArea.addEventListener('dragleave', function() { importArea.classList.remove('dragover'); });
+importArea.addEventListener('drop', function(e) {
   e.preventDefault(); importArea.classList.remove('dragover');
   if (e.dataTransfer.files[0]) { importedFile = e.dataTransfer.files[0]; showFileInfo(); }
 });
 function loadFile(e) { if (e.target.files[0]) { importedFile = e.target.files[0]; showFileInfo(); } }
 function showFileInfo() {
-  document.getElementById('import-status').textContent = 'File: ' + importedFile.name + ' (' + (importedFile.size/1024/1024).toFixed(1) + ' MB)';
+  document.getElementById('import-status').textContent = 'File: ' + importedFile.name + ' (' + (importedFile.size / 1024 / 1024).toFixed(1) + ' MB)';
 }
 
 function doImport() {
-  if (!importedFile) { toast('Pilih file dulu','error'); return; }
+  if (!importedFile) { toast('Pilih file dulu', 'error'); return; }
   showLoading('Reading file...');
   var reader = new FileReader();
-  reader.onerror = function() { hideLoading(); toast('File read error','error'); };
+  reader.onerror = function() { hideLoading(); toast('File read error', 'error'); };
   reader.onload = function(ev) {
     showLoading('Parsing JSON...');
     setTimeout(function() {
       var data;
-      try { data = JSON.parse(ev.target.result); } catch(e) { hideLoading(); toast('JSON error: '+e.message,'error'); return; }
-      if (!Array.isArray(data)) { hideLoading(); toast('Expected array','error'); return; }
+      try { data = JSON.parse(ev.target.result); } catch (e) { hideLoading(); toast('JSON error: ' + e.message, 'error'); return; }
+      if (!Array.isArray(data)) { hideLoading(); toast('Expected array', 'error'); return; }
 
       pendingData = [];
-      for (var i=0; i<data.length; i++) {
+      for (var i = 0; i < data.length; i++) {
         var item = data[i];
         var bookId = item.book_id || item.id;
         var quizzes = item.quizzes || item.existing_quizzes || [];
         if (quizzes.length === 0) continue;
-        // Clean quiz objects — keep only needed fields
         var clean = [];
-        for (var j=0; j<quizzes.length; j++) {
+        for (var j = 0; j < quizzes.length; j++) {
           var q = quizzes[j];
-          clean.push({
-            type: q.type,
-            question: q.question || '',
-            options: q.options || [],
-            answer: q.answer,
-            explanation: q.explanation || ''
-          });
+          clean.push({type: q.type, question: q.question || '', options: q.options || [], answer: q.answer, explanation: q.explanation || ''});
         }
-        pendingData.push({ book_id: bookId, title: item.title || ('Book #'+bookId), content_type: item.content_type || '?', quizzes: clean });
+        pendingData.push({book_id: bookId, title: item.title || ('Book #' + bookId), content_type: item.content_type || '?', quizzes: clean});
       }
 
-      quizStates = pendingData.map(function(it){ return it.quizzes.map(function(){return 'accepted';}); });
+      quizStates = pendingData.map(function(it) { return it.quizzes.map(function() { return 'accepted'; }); });
       expandedBooks = {};
 
       hideLoading();
-      var totalQ = pendingData.reduce(function(s,it){return s+it.quizzes.length;},0);
-      toast('Loaded: '+pendingData.length+' books, '+totalQ+' questions','success');
-      switchTab('review');
+      var totalQ = pendingData.reduce(function(s, it) { return s + it.quizzes.length; }, 0);
+      toast('Loaded: ' + pendingData.length + ' books, ' + totalQ + ' questions', 'success');
+      switchBulk('review');
     }, 50);
   };
   reader.readAsText(importedFile);
 }
 
-// --- Review ---
+// Review
 function bookStats(bi) {
-  var a=0, r=0;
-  quizStates[bi].forEach(function(s){ if(s==='accepted')a++; else if(s==='rejected')r++; });
-  return {accepted:a, rejected:r, total:quizStates[bi].length};
+  var a = 0, r = 0;
+  quizStates[bi].forEach(function(s) { if (s === 'accepted') a++; else if (s === 'rejected') r++; });
+  return {accepted: a, rejected: r, total: quizStates[bi].length};
 }
 
-function renderBookList() {
+function renderReviewList() {
   var container = document.getElementById('review-content');
   if (!pendingData.length) {
     container.innerHTML = '<div class="empty-state">Belum ada quiz untuk di-review. Import dulu di tab Import.</div>';
     updateStats(); return;
   }
   var html = '';
-  for (var bi=0; bi<pendingData.length; bi++) {
+  for (var bi = 0; bi < pendingData.length; bi++) {
     var item = pendingData[bi];
-    var typeLabel = item.content_type==='article' ? 'Artikel' : 'Buku';
+    var typeLabel = item.content_type === 'article' ? 'Artikel' : 'Buku';
     var st = bookStats(bi);
     var isOpen = !!expandedBooks[bi];
     html += '<div class="book-group">' +
-      '<div class="book-header" onclick="toggleBook('+bi+')">' +
-      '<span class="arrow '+(isOpen?'open':'')+'">&#9654;</span>' +
-      '<h3>'+typeLabel+': '+esc(item.title)+'</h3>' +
-      '<span class="book-stats"><span class="accepted">'+st.accepted+'</span>/'+st.total+
-      (st.rejected ? ' <span class="rejected">('+st.rejected+' rejected)</span>' : '') + '</span>' +
+      '<div class="book-header" onclick="toggleBook(' + bi + ')">' +
+      '<span class="arrow ' + (isOpen ? 'open' : '') + '">&#9654;</span>' +
+      '<h3>' + typeLabel + ': ' + esc(item.title) + '</h3>' +
+      '<span class="book-stats"><span class="accepted">' + st.accepted + '</span>/' + st.total +
+      (st.rejected ? ' <span class="rejected">(' + st.rejected + ' rejected)</span>' : '') + '</span>' +
       '<div class="bulk-actions">' +
-      '<button onclick="event.stopPropagation();bulkBook('+bi+',\'accept\')">All &#10003;</button>' +
-      '<button onclick="event.stopPropagation();bulkBook('+bi+',\'reject\')">All &#10005;</button>' +
+      '<button onclick="event.stopPropagation();bulkBook(' + bi + ',\'accept\')">All &#10003;</button>' +
+      '<button onclick="event.stopPropagation();bulkBook(' + bi + ',\'reject\')">All &#10005;</button>' +
+      '<button class="btn-success" onclick="event.stopPropagation();doApplyBook(' + bi + ')">Apply</button>' +
       '</div></div>';
     if (isOpen) {
       html += '<div class="book-quizzes">';
-      for (var qi=0; qi<item.quizzes.length; qi++) {
-        html += renderQuizCard(item.quizzes[qi], bi, qi, quizStates[bi][qi]);
+      for (var qi = 0; qi < item.quizzes.length; qi++) {
+        html += renderReviewQuizCard(item.quizzes[qi], bi, qi, quizStates[bi][qi]);
       }
       html += '</div>';
     }
@@ -293,137 +713,162 @@ function renderBookList() {
   updateStats();
 }
 
-function renderQuizCard(q, bi, qi, state) {
-  var sc = state==='accepted'?'accepted': state==='rejected'?'rejected':'';
-  var h = '<div class="quiz-card '+sc+'" id="qcard-'+bi+'-'+qi+'">' +
+function renderReviewQuizCard(q, bi, qi, state) {
+  var sc = state === 'accepted' ? 'accepted' : state === 'rejected' ? 'rejected' : '';
+  var h = '<div class="review-quiz-card ' + sc + '" id="qcard-' + bi + '-' + qi + '">' +
     '<div class="quiz-actions">' +
-    '<button class="btn-accept '+(state==='accepted'?'active':'')+'" onclick="setQuizState('+bi+','+qi+',\'accepted\')" title="Accept">&#10003;</button>' +
-    '<button class="btn-reject '+(state==='rejected'?'active':'')+'" onclick="setQuizState('+bi+','+qi+',\'rejected\')" title="Reject">&#10005;</button>' +
+    '<button class="btn-accept ' + (state === 'accepted' ? 'active' : '') + '" onclick="setQuizState(' + bi + ',' + qi + ',\'accepted\')" title="Accept">&#10003;</button>' +
+    '<button class="btn-reject ' + (state === 'rejected' ? 'active' : '') + '" onclick="setQuizState(' + bi + ',' + qi + ',\'rejected\')" title="Reject">&#10005;</button>' +
     '</div>' +
-    '<div class="quiz-type">'+(q.type==='multiple_choice'?'Pilihan Ganda':'Benar / Salah')+' — #'+(qi+1)+'</div>' +
+    '<div class="quiz-type">' + (q.type === 'multiple_choice' ? 'Pilihan Ganda' : 'Benar / Salah') + ' — #' + (qi + 1) + '</div>' +
     '<div class="quiz-field"><label>Pertanyaan</label>' +
-    '<textarea onchange="updateQ('+bi+','+qi+',\'question\',this.value)">'+esc(q.question)+'</textarea></div>';
+    '<textarea onchange="updateQ(' + bi + ',' + qi + ',\'question\',this.value)">' + esc(q.question) + '</textarea></div>';
 
   if (q.type === 'multiple_choice') {
     h += '<div class="quiz-field"><label>Opsi (pilih jawaban benar)</label><ul class="options-list">';
-    for (var oi=0; oi<(q.options||[]).length; oi++) {
+    for (var oi = 0; oi < (q.options || []).length; oi++) {
       h += '<li>' +
-        '<input type="radio" name="ans-'+bi+'-'+qi+'" '+(q.answer===oi?'checked':'')+' onchange="updateQ('+bi+','+qi+',\'answer\','+oi+')">' +
-        '<input type="text" value="'+escAttr(q.options[oi])+'" onchange="updateOpt('+bi+','+qi+','+oi+',this.value)">' +
+        '<input type="radio" name="ans-' + bi + '-' + qi + '" ' + (q.answer === oi ? 'checked' : '') + ' onchange="updateQ(' + bi + ',' + qi + ',\'answer\',' + oi + ')">' +
+        '<input type="text" value="' + escAttr(q.options[oi]) + '" onchange="updateOpt(' + bi + ',' + qi + ',' + oi + ',this.value)">' +
         '</li>';
     }
     h += '</ul></div>';
   } else {
     var isT = q.answer === true;
     h += '<div class="quiz-field"><label>Jawaban</label><div class="tf-answer">' +
-      '<label><input type="radio" name="ans-'+bi+'-'+qi+'" '+(isT?'checked':'')+' onchange="updateQ('+bi+','+qi+',\'answer\',true)"> Benar</label>' +
-      '<label><input type="radio" name="ans-'+bi+'-'+qi+'" '+(!isT?'checked':'')+' onchange="updateQ('+bi+','+qi+',\'answer\',false)"> Salah</label>' +
+      '<label><input type="radio" name="ans-' + bi + '-' + qi + '" ' + (isT ? 'checked' : '') + ' onchange="updateQ(' + bi + ',' + qi + ',\'answer\',true)"> Benar</label>' +
+      '<label><input type="radio" name="ans-' + bi + '-' + qi + '" ' + (!isT ? 'checked' : '') + ' onchange="updateQ(' + bi + ',' + qi + ',\'answer\',false)"> Salah</label>' +
       '</div></div>';
   }
 
   h += '<div class="quiz-field"><label>Penjelasan</label>' +
-    '<textarea onchange="updateQ('+bi+','+qi+',\'explanation\',this.value)">'+esc(q.explanation||'')+'</textarea></div></div>';
+    '<textarea onchange="updateQ(' + bi + ',' + qi + ',\'explanation\',this.value)">' + esc(q.explanation || '') + '</textarea></div></div>';
   return h;
 }
 
-function toggleBook(bi) {
-  expandedBooks[bi] = !expandedBooks[bi];
-  renderBookList();
-}
+function toggleBook(bi) { expandedBooks[bi] = !expandedBooks[bi]; renderReviewList(); }
 
 function setQuizState(bi, qi, state) {
-  quizStates[bi][qi] = quizStates[bi][qi]===state ? null : state;
-  var card = document.getElementById('qcard-'+bi+'-'+qi);
-  if (card) {
-    card.className = 'quiz-card '+(quizStates[bi][qi]||'');
-    card.querySelector('.btn-accept').className = 'btn-accept '+(quizStates[bi][qi]==='accepted'?'active':'');
-    card.querySelector('.btn-reject').className = 'btn-reject '+(quizStates[bi][qi]==='rejected'?'active':'');
-  }
-  updateStats();
-  // Update book header stats without full re-render
-  renderBookList();
+  quizStates[bi][qi] = quizStates[bi][qi] === state ? null : state;
+  renderReviewList();
 }
 
 function updateQ(bi, qi, field, value) { pendingData[bi].quizzes[qi][field] = value; }
 function updateOpt(bi, qi, oi, value) { pendingData[bi].quizzes[qi].options[oi] = value; }
 
 function bulkBook(bi, action) {
-  var s = action==='accept'?'accepted':'rejected';
-  quizStates[bi] = quizStates[bi].map(function(){return s;});
-  renderBookList();
+  var s = action === 'accept' ? 'accepted' : 'rejected';
+  quizStates[bi] = quizStates[bi].map(function() { return s; });
+  renderReviewList();
 }
 function bulkAll(action) {
-  var s = action==='accept'?'accepted':'rejected';
-  quizStates = quizStates.map(function(a){return a.map(function(){return s;});});
-  renderBookList();
+  var s = action === 'accept' ? 'accepted' : 'rejected';
+  quizStates = quizStates.map(function(a) { return a.map(function() { return s; }); });
+  renderReviewList();
+}
+
+function doApplyBook(bi) {
+  var item = pendingData[bi];
+  var aq = item.quizzes.filter(function(_, qi) { return quizStates[bi][qi] === 'accepted'; });
+  if (!aq.length) { toast('Tidak ada quiz yang di-accept untuk buku ini', 'error'); return; }
+  if (!confirm('Apply ' + aq.length + ' quiz ke "' + item.title + '"?\nMode: ' + applyMode)) return;
+
+  showLoading('Applying...');
+  fetch('/api/quiz-manage/apply/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+    body: JSON.stringify({mode: applyMode, items: [{book_id: item.book_id, quizzes: aq}]}),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('"' + item.title + '": ' + d.created + ' created' + (d.deleted ? ', ' + d.deleted + ' deleted' : ''), 'success');
+    pendingData.splice(bi, 1);
+    quizStates.splice(bi, 1);
+    // Adjust expandedBooks indices
+    var newExpanded = {};
+    Object.keys(expandedBooks).forEach(function(k) {
+      var idx = parseInt(k);
+      if (idx < bi) newExpanded[idx] = expandedBooks[idx];
+      else if (idx > bi) newExpanded[idx - 1] = expandedBooks[idx];
+    });
+    expandedBooks = newExpanded;
+    renderReviewList();
+  })
+  .catch(function(e) { toast('Apply gagal: ' + e.message, 'error'); })
+  .finally(hideLoading);
 }
 
 function setMode(mode) {
   applyMode = mode;
-  document.getElementById('mode-append').className = mode==='append'?'active':'';
-  document.getElementById('mode-clean').className = mode==='clean'?'active':'';
+  document.getElementById('mode-append').className = mode === 'append' ? 'active' : '';
+  document.getElementById('mode-clean').className = mode === 'clean' ? 'active' : '';
   updateStats();
 }
 
 function updateStats() {
-  var accepted=0, rejected=0, total=0;
-  quizStates.forEach(function(a){a.forEach(function(s){ total++; if(s==='accepted')accepted++; if(s==='rejected')rejected++; });});
-  var pending = total-accepted-rejected;
+  var accepted = 0, rejected = 0, total = 0;
+  quizStates.forEach(function(a) { a.forEach(function(s) { total++; if (s === 'accepted') accepted++; if (s === 'rejected') rejected++; }); });
+  var pending = total - accepted - rejected;
   document.getElementById('apply-stats').textContent =
-    accepted+' accepted, '+rejected+' rejected'+(pending?', '+pending+' belum':'') + ' | Mode: '+applyMode;
+    accepted + ' accepted, ' + rejected + ' rejected' + (pending ? ', ' + pending + ' belum' : '') + ' | Mode: ' + applyMode;
 }
 
-// --- Apply ---
+// Apply
 function doApply() {
   var items = [];
-  pendingData.forEach(function(item,bi) {
-    var aq = item.quizzes.filter(function(_,qi){return quizStates[bi][qi]==='accepted';});
-    if (aq.length>0) items.push({book_id:item.book_id, quizzes:aq});
+  pendingData.forEach(function(item, bi) {
+    var aq = item.quizzes.filter(function(_, qi) { return quizStates[bi][qi] === 'accepted'; });
+    if (aq.length > 0) items.push({book_id: item.book_id, quizzes: aq});
   });
-  if (!items.length) { toast('Tidak ada quiz yang di-accept','error'); return; }
-  var totalQ = items.reduce(function(s,i){return s+i.quizzes.length;},0);
-  if (!confirm('Apply '+totalQ+' quiz ke '+items.length+' buku?\nMode: '+applyMode)) return;
+  if (!items.length) { toast('Tidak ada quiz yang di-accept', 'error'); return; }
+  var totalQ = items.reduce(function(s, i) { return s + i.quizzes.length; }, 0);
+  if (!confirm('Apply ' + totalQ + ' quiz ke ' + items.length + ' buku?\nMode: ' + applyMode)) return;
 
   showLoading('Applying...');
   fetch('/api/quiz-manage/apply/', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','X-CSRFToken':getCSRF()},
-    credentials:'same-origin',
-    body:JSON.stringify({mode:applyMode, items:items}),
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+    body: JSON.stringify({mode: applyMode, items: items}),
   })
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.error){toast(d.error,'error');return;}
-    toast('Applied! '+d.created+' created, '+d.deleted+' deleted, '+d.books+' books synced','success');
-    pendingData=[]; quizStates=[]; expandedBooks={}; renderBookList();
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('Applied! ' + d.created + ' created, ' + d.deleted + ' deleted, ' + d.books + ' books synced', 'success');
+    pendingData = []; quizStates = []; expandedBooks = {}; renderReviewList();
   })
-  .catch(function(e){toast('Apply gagal: '+e.message,'error');})
+  .catch(function(e) { toast('Apply gagal: ' + e.message, 'error'); })
   .finally(hideLoading);
 }
 
 function doPublish() {
-  if (!confirm('Publish semua konten ke app? (manifest + content files akan di-regenerate)')) return;
+  if (!confirm('Publish semua konten ke app?')) return;
   showLoading('Publishing...');
   fetch('/api/quiz-manage/publish/', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','X-CSRFToken':getCSRF()},
-    credentials:'same-origin',
-    body:JSON.stringify({force: true}),
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCSRF()},
+    credentials: 'same-origin',
+    body: JSON.stringify({force: true}),
   })
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.error){toast(d.error,'error');return;}
-    toast('Published! ' + d.output.split('\n').filter(Boolean).pop(),'success');
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.error) { toast(d.error, 'error'); return; }
+    toast('Published! ' + d.output.split('\n').filter(Boolean).pop(), 'success');
   })
-  .catch(function(e){toast('Publish gagal: '+e.message,'error');})
+  .catch(function(e) { toast('Publish gagal: ' + e.message, 'error'); })
   .finally(hideLoading);
 }
 
 function doClear() {
   if (!confirm('Clear semua pending quiz?')) return;
-  pendingData=[]; quizStates=[]; expandedBooks={};
-  renderBookList(); toast('Cleared','success');
+  pendingData = []; quizStates = []; expandedBooks = {};
+  renderReviewList(); toast('Cleared', 'success');
 }
+
+// Init
+loadBookList();
 </script>
 </body>
 </html>

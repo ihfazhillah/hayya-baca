@@ -87,6 +87,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 PUBLISHED_ROOT = MEDIA_ROOT / 'published'
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10 MB
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
