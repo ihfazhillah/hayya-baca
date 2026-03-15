@@ -74,62 +74,6 @@ class ExportView(StaffRequiredMixin, View):
         return JsonResponse(result, safe=False)
 
 
-class ImportView(StaffRequiredMixin, View):
-    def post(self, request):
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON"}, status=400)
-
-        if not isinstance(data, list):
-            return JsonResponse({"error": "Expected a list"}, status=400)
-
-        # Normalize: accept export format (id/existing_quizzes) or import format (book_id/quizzes)
-        for item in data:
-            if "book_id" not in item and "id" in item:
-                item["book_id"] = item["id"]
-            if "quizzes" not in item and "existing_quizzes" in item:
-                item["quizzes"] = item["existing_quizzes"]
-
-        book_ids = [item["book_id"] for item in data]
-        existing = set(Book.objects.filter(id__in=book_ids).values_list("id", flat=True))
-        missing = [bid for bid in book_ids if bid not in existing]
-        if missing:
-            return JsonResponse({"error": f"Books not found: {missing}"}, status=400)
-
-        request.session["pending_quizzes"] = data
-        total_q = sum(len(item.get("quizzes", [])) for item in data)
-        return JsonResponse({
-            "status": "ok",
-            "books": len(data),
-            "total_questions": total_q,
-        })
-
-
-class PendingView(StaffRequiredMixin, View):
-    def get(self, request):
-        pending = request.session.get("pending_quizzes", [])
-        book_ids = [item["book_id"] for item in pending]
-        books = {b.id: b for b in Book.objects.filter(id__in=book_ids)}
-        result = []
-        for item in pending:
-            book = books.get(item["book_id"])
-            result.append({
-                "book_id": item["book_id"],
-                "title": book.title if book else "?",
-                "content_type": book.content_type if book else "?",
-                "existing_quiz_count": Quiz.objects.filter(book_id=item["book_id"]).count() if book else 0,
-                "quizzes": item.get("quizzes", []),
-            })
-        return JsonResponse(result, safe=False)
-
-
-class ClearPendingView(StaffRequiredMixin, View):
-    def post(self, request):
-        request.session.pop("pending_quizzes", None)
-        return JsonResponse({"status": "ok"})
-
-
 def _sync_article_json(book):
     articles_dir = Path(settings.BASE_DIR).parent / "content" / "articles"
     if not articles_dir.exists():
@@ -190,6 +134,12 @@ def _sync_book_json(book):
 
 
 class ApplyView(StaffRequiredMixin, View):
+    """POST /api/quiz-manage/apply/ — apply accepted quizzes directly.
+
+    Body: { "mode": "clean"|"append", "items": [{ "book_id": N, "quizzes": [...] }] }
+    No session/temp storage needed — client sends final data directly.
+    """
+
     def post(self, request):
         try:
             data = json.loads(request.body)
@@ -201,7 +151,7 @@ class ApplyView(StaffRequiredMixin, View):
         stats = {"created": 0, "deleted": 0, "books": 0}
 
         for item in items:
-            book_id = item["book_id"]
+            book_id = item.get("book_id") or item.get("id")
             try:
                 book = Book.objects.get(id=book_id)
             except Book.DoesNotExist:
@@ -220,7 +170,8 @@ class ApplyView(StaffRequiredMixin, View):
                 )
                 start_order = (max_order or 0) + 1
 
-            for i, q in enumerate(item.get("quizzes", [])):
+            quizzes = item.get("quizzes") or item.get("existing_quizzes") or []
+            for i, q in enumerate(quizzes):
                 Quiz.objects.create(
                     book=book,
                     order=start_order + i,
@@ -239,7 +190,6 @@ class ApplyView(StaffRequiredMixin, View):
 
             stats["books"] += 1
 
-        request.session.pop("pending_quizzes", None)
         return JsonResponse({"status": "ok", **stats})
 
 
