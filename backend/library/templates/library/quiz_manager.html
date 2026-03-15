@@ -60,11 +60,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .quiz-card-actions button { padding: 4px 10px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; }
 .quiz-field { margin-bottom: 10px; }
 .quiz-field label { font-size: 12px; color: #666; display: block; margin-bottom: 3px; }
-.quiz-field input, .quiz-field textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 13px; font-family: inherit; }
+.quiz-field > input, .quiz-field > textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 13px; font-family: inherit; }
 .quiz-field textarea { height: 60px; resize: vertical; }
 .options-list { list-style: none; margin-top: 4px; }
 .options-list li { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.options-list li input[type=text] { flex: 1; width: 0; min-width: 0; }
+.options-list li input[type=text] { flex: 1; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 13px; }
 .options-list li input[type=radio] { margin: 0; }
 .tf-answer { display: flex; gap: 16px; margin-top: 4px; }
 .tf-answer label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
@@ -147,7 +147,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   .detail-actions { flex-wrap: wrap; }
   .detail-actions button { padding: 10px 12px; min-height: 44px; font-size: 13px; }
   .quiz-card { padding: 12px; }
-  .quiz-field input, .quiz-field textarea { padding: 10px; font-size: 14px; }
+  .quiz-field > input, .quiz-field > textarea { padding: 10px; font-size: 14px; }
   .options-list li { flex-wrap: nowrap; }
   .options-list li input[type=text] { min-width: 0; }
   .nav-bar button { padding: 10px 14px; min-height: 44px; }
