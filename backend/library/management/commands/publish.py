@@ -1,7 +1,7 @@
-"""Publish books/articles as static JSON files."""
+"""Publish books/articles as static JSON files with manifest."""
 
+import hashlib
 import json
-from math import ceil
 from pathlib import Path
 
 from django.conf import settings
@@ -30,9 +30,7 @@ class Command(BaseCommand):
             if options["force"]:
                 books = Book.objects.all()
             else:
-                # Unpublished or updated since last publish
                 from django.db.models import F, Q
-
                 books = Book.objects.filter(
                     Q(is_published=False) | Q(updated_at__gt=F("published_at"))
                 )
@@ -50,9 +48,11 @@ class Command(BaseCommand):
         for book in books:
             data = self._serialize(book)
             subdir = articles_dir if book.content_type == Book.ContentType.ARTICLE else books_dir
-            out_path = subdir / f"{book.id}.json"
+            # Use slug as filename
+            out_path = subdir / f"{book.slug}.json"
+            content = json.dumps(data, ensure_ascii=False, indent=2)
             with open(out_path, "w") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+                f.write(content)
 
             book.is_published = True
             book.published_at = timezone.now()
@@ -66,6 +66,10 @@ class Command(BaseCommand):
         self._rebuild_manifest(published_dir)
         self.stdout.write(self.style.SUCCESS(f"Published {count} items"))
 
+    def _content_hash(self, data):
+        content = json.dumps(data, ensure_ascii=False, sort_keys=True)
+        return "sha256:" + hashlib.sha256(content.encode()).hexdigest()[:16]
+
     def _serialize(self, book):
         if book.content_type == Book.ContentType.BOOK:
             return self._serialize_book(book)
@@ -76,7 +80,7 @@ class Command(BaseCommand):
         for p in pages:
             p["audio"] = p["audio"] or None
         return {
-            "id": book.id,
+            "slug": book.slug,
             "type": "book",
             "title": book.title,
             "cover": book.cover.name if book.cover else None,
@@ -89,15 +93,17 @@ class Command(BaseCommand):
         }
 
     def _serialize_article(self, book):
-        sections = []
-        for s in book.sections.all():
-            sec = {"type": s.type, "text": s.text}
+        # Content as big string (not sections)
+        parts = []
+        for s in book.sections.order_by("order"):
             if s.type == "list":
-                sec = {"type": "list", "items": s.items}
-            sections.append(sec)
+                parts.append("\n".join(s.items))
+            else:
+                parts.append(s.text)
+        content = "\n\n".join(parts)
 
         quizzes = []
-        for q in book.quizzes.all():
+        for q in book.quizzes.order_by("order"):
             quiz = {
                 "type": q.type,
                 "question": q.question,
@@ -109,12 +115,12 @@ class Command(BaseCommand):
             quizzes.append(quiz)
 
         return {
-            "id": book.id,
+            "slug": book.slug,
             "type": "article",
             "title": book.title,
             "source": book.source,
             "category": book.categories,
-            "sections": sections,
+            "content": content,
             "quiz": quizzes,
             "reward": {
                 "coins": book.reward_coins,
@@ -124,27 +130,44 @@ class Command(BaseCommand):
 
     def _rebuild_manifest(self, published_dir):
         published = Book.objects.filter(is_published=True)
-        manifest = {
-            "version": max((b.published_version for b in published), default=0),
-            "updated_at": timezone.now().isoformat(),
-            "books": [],
-            "articles": [],
-        }
+        items = []
 
         for book in published:
+            # Read the published file to compute hash
+            subdir = "articles" if book.content_type == Book.ContentType.ARTICLE else "books"
+            filepath = published_dir / subdir / f"{book.slug}.json"
+            content_hash = ""
+            if filepath.exists():
+                with open(filepath, "r") as f:
+                    data = json.load(f)
+                content_hash = self._content_hash(data)
+
             entry = {
-                "id": book.id,
+                "slug": book.slug,
+                "type": book.content_type,
                 "title": book.title,
                 "version": book.published_version,
                 "min_age": book.min_age,
                 "categories": book.categories,
+                "content_hash": content_hash,
+                "reward_coins": book.reward_coins,
             }
-            if book.content_type == Book.ContentType.BOOK:
-                manifest["books"].append(entry)
-            else:
-                manifest["articles"].append(entry)
+            if book.content_type == Book.ContentType.ARTICLE:
+                entry["quiz_version"] = book.quizzes.count()
+            if book.cover:
+                entry["cover_url"] = f"/media/{book.cover.name}"
+
+            items.append(entry)
+
+        manifest = {
+            "version": max((b.published_version for b in published), default=0),
+            "updated_at": timezone.now().isoformat(),
+            "items": items,
+        }
 
         with open(published_dir / "manifest.json", "w") as f:
             json.dump(manifest, f, ensure_ascii=False, indent=2)
 
-        self.stdout.write(f"  Manifest: {len(manifest['books'])} books, {len(manifest['articles'])} articles")
+        books_count = sum(1 for i in items if i["type"] == "book")
+        articles_count = sum(1 for i in items if i["type"] == "article")
+        self.stdout.write(f"  Manifest: {books_count} books, {articles_count} articles")

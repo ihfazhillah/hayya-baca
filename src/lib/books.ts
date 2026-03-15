@@ -1,8 +1,7 @@
 import type { Book, BookContent, BookPage } from "../types";
+import { getDownloadedContent, getAllDownloadedByType } from "./content-manager";
 
-// Book data loaded from content/books/*/raw.json at build time
-// For now we'll use a static registry. Later this can be dynamic (downloaded bundles).
-
+// Bundled books (fallback when offline and no download)
 import book01 from "../../content/books/01-sahabat-yang-disebut-namanya-di-langit/raw.json";
 import book03 from "../../content/books/03-terbunuhnya-singa-alloh/raw.json";
 import book04 from "../../content/books/04-jarir-bin-abdillah-menghancurkan-ka-bah-yaman/raw.json";
@@ -27,6 +26,7 @@ import book24 from "../../content/books/24-sahabat-yang-memiliki-2-sayap/raw.jso
 type RawBook = {
   id: number;
   title: string;
+  slug?: string;
   cover: string | null;
   reference_text_ar: string | null;
   reference_text_id: string | null;
@@ -42,9 +42,6 @@ const rawBooks: RawBook[] = [
 function groupPagesIntoParagraphs(
   pages: { page: number; text: string; audio: string | null }[]
 ): BookPage[] {
-  // Group original single-line pages into logical paragraphs
-  // Heuristic: start new paragraph when text starts with capital letter
-  // and previous text ends with period, or text is a title-like line
   const result: BookPage[] = [];
   let currentTexts: string[] = [];
   let pageNum = 1;
@@ -61,7 +58,6 @@ function groupPagesIntoParagraphs(
       ? /^[A-Z\u0600-\u06FF"]/.test(nextText)
       : false;
 
-    // Break paragraph when sentence ends and next starts fresh
     const isLastPage = i === pages.length - 1;
     const shouldBreak = isLastPage || (endsWithPeriod && nextStartsUpper);
 
@@ -75,7 +71,6 @@ function groupPagesIntoParagraphs(
     }
   }
 
-  // Flush remaining
   if (currentTexts.length > 0) {
     result.push({
       page: pageNum,
@@ -86,26 +81,102 @@ function groupPagesIntoParagraphs(
   return result;
 }
 
-export function getAllBooks(): Book[] {
-  return rawBooks.map((raw) => ({
-    id: String(raw.id),
+function rawToBook(raw: RawBook): Book {
+  return {
+    id: raw.slug || String(raw.id),
     title: raw.title,
     coverPath: raw.cover,
     pageCount: raw.pages.length,
     hasAudio: raw.pages.some((p) => p.audio != null),
-  }));
+  };
 }
 
-export function getBookContent(bookId: string): BookContent | null {
-  const raw = rawBooks.find((b) => String(b.id) === bookId);
-  if (!raw) return null;
-
+function rawToBookContent(raw: RawBook): BookContent {
   return {
-    id: String(raw.id),
+    id: raw.slug || String(raw.id),
     title: raw.title,
     coverPath: raw.cover,
     referenceAr: raw.reference_text_ar,
     referenceId: raw.reference_text_id,
     pages: groupPagesIntoParagraphs(raw.pages),
   };
+}
+
+// In-memory cache for downloaded books
+let downloadedBooks: Book[] | null = null;
+
+/**
+ * Get all books for library display.
+ * Resolution: downloaded → bundled (merged, no duplicates).
+ */
+export function getAllBooks(): Book[] {
+  const bundled = rawBooks.map(rawToBook);
+
+  if (downloadedBooks && downloadedBooks.length > 0) {
+    const slugs = new Set(downloadedBooks.map(b => b.id));
+    // Add bundled books not in downloaded
+    for (const b of bundled) {
+      if (!slugs.has(b.id)) downloadedBooks.push(b);
+    }
+    return downloadedBooks;
+  }
+
+  return bundled;
+}
+
+/**
+ * Async version that checks downloaded content from SQLite.
+ */
+export async function fetchAllBooks(): Promise<Book[]> {
+  try {
+    const downloaded = await getAllDownloadedByType("book");
+    if (downloaded.length > 0) {
+      downloadedBooks = downloaded.map((d: any) => ({
+        id: d.slug || String(d.id),
+        title: d.title,
+        coverPath: d.cover,
+        pageCount: d.pages?.length || 0,
+        hasAudio: d.pages?.some((p: any) => p.audio != null) || false,
+      }));
+      return getAllBooks();
+    }
+  } catch {
+    // Fall through to bundled
+  }
+  return rawBooks.map(rawToBook);
+}
+
+/**
+ * Get book content by ID/slug.
+ * Resolution: downloaded → bundled → null.
+ */
+export function getBookContent(bookId: string): BookContent | null {
+  const raw = rawBooks.find((b) => String(b.id) === bookId || b.slug === bookId);
+  if (raw) return rawToBookContent(raw);
+  return null;
+}
+
+/**
+ * Async version that checks downloaded content.
+ */
+export async function fetchBookContent(bookId: string): Promise<BookContent | null> {
+  // Try downloaded
+  try {
+    const downloaded = await getDownloadedContent(bookId);
+    if (downloaded) {
+      return {
+        id: downloaded.slug || bookId,
+        title: downloaded.title,
+        coverPath: downloaded.cover,
+        referenceAr: downloaded.reference_text_ar,
+        referenceId: downloaded.reference_text_id,
+        pages: groupPagesIntoParagraphs(downloaded.pages || []),
+      };
+    }
+  } catch {
+    // Fall through
+  }
+
+  // Bundled
+  return getBookContent(bookId);
 }

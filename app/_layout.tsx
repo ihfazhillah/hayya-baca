@@ -7,6 +7,7 @@ import { UpdateBar } from "../src/components/UpdateBar";
 import { View, StyleSheet, AppState } from "react-native";
 import { useEffect, useRef } from "react";
 import { syncAll } from "../src/lib/sync";
+import { syncContent } from "../src/lib/content-manager";
 import { getSelectedChild } from "../src/lib/session";
 
 const queryClient = new QueryClient();
@@ -17,6 +18,8 @@ export default function RootLayout() {
   useEffect(() => {
     // Sync on mount (no active child yet — just pull children list)
     syncAll();
+    // Sync content manifest in background
+    syncContent().catch(() => {});
 
     // Sync when app comes to foreground (with active child if selected)
     const sub = AppState.addEventListener("change", (nextState) => {

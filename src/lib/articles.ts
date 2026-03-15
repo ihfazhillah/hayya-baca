@@ -3,9 +3,9 @@ import {
   fetchArticleList,
   fetchArticleDetail,
   ServerArticleDetail,
-  ServerArticleListItem,
 } from "./api";
 import { getDatabase } from "./database";
+import { getDownloadedContent, getAllDownloadedByType } from "./content-manager";
 
 // Bundled articles (fallback when offline and no cache)
 import a112 from "../../content/articles/112-lelaki-anshar-tiga-anak-panah.json";
@@ -29,9 +29,33 @@ const bundledArticles: Article[] = bundledArticlesRaw.map((a) => ({
   slug: a.slug || `article-${a.id}`,
 }));
 
+// Build slug→bundled lookup
+const bundledBySlug = new Map<string, Article>();
+for (const a of bundledArticles) {
+  bundledBySlug.set(a.slug, a);
+}
+
 // In-memory caches
 let memoryList: Article[] | null = null;
 const memoryArticles = new Map<string, Article>();
+
+function downloadedToArticle(data: any): Article {
+  return {
+    id: data.slug || data.id?.toString() || "",
+    title: data.title || "",
+    slug: data.slug || "",
+    source: data.source || "",
+    category: data.category || data.categories || [],
+    content: data.content || "",
+    quiz: (data.quiz || []).map((q: any) => ({
+      type: q.type as "multiple_choice" | "true_false",
+      question: q.question,
+      options: q.options?.length ? q.options : undefined,
+      answer: q.answer,
+      explanation: q.explanation,
+    })),
+  };
+}
 
 function serverDetailToArticle(detail: ServerArticleDetail): Article {
   const content = detail.sections
@@ -61,7 +85,7 @@ function serverDetailToArticle(detail: ServerArticleDetail): Article {
   };
 }
 
-// --- SQLite cache ---
+// --- SQLite cache (legacy, kept for migration) ---
 
 async function getCachedArticle(id: string): Promise<Article | null> {
   const db = await getDatabase();
@@ -82,19 +106,31 @@ async function cacheArticle(article: Article): Promise<void> {
   );
 }
 
-async function getCachedList(): Promise<Article[] | null> {
-  const db = await getDatabase();
-  const rows = await db.getAllAsync<{ id: string; data: string }>(
-    "SELECT id, data FROM cached_articles ORDER BY id"
-  );
-  if (rows.length === 0) return null;
-  return rows.map((r) => JSON.parse(r.data));
-}
-
 // --- Public API ---
 
+/**
+ * Get all articles for library display.
+ * Resolution: downloaded manifest → server API → cached → bundled.
+ */
 export async function fetchAllArticles(): Promise<Article[]> {
-  // Try server
+  // Try downloaded content first (from manifest sync)
+  try {
+    const downloaded = await getAllDownloadedByType("article");
+    if (downloaded.length > 0) {
+      const articles = downloaded.map(downloadedToArticle);
+      // Merge with bundled (bundled might have articles not yet on server)
+      const slugs = new Set(articles.map(a => a.slug));
+      for (const b of bundledArticles) {
+        if (!slugs.has(b.slug)) articles.push(b);
+      }
+      memoryList = articles;
+      return articles;
+    }
+  } catch {
+    // Fall through
+  }
+
+  // Try server API
   try {
     const list = await fetchArticleList();
     const summaries: Article[] = list.map((item) => ({
@@ -104,7 +140,6 @@ export async function fetchAllArticles(): Promise<Article[]> {
       source: "",
       category: item.categories || [],
       content: "",
-      // Placeholder quiz array with correct length for display count
       quiz: Array.from({ length: item.quiz_count || 0 }, () => ({
         type: "true_false" as const,
         question: "",
@@ -115,41 +150,88 @@ export async function fetchAllArticles(): Promise<Article[]> {
     memoryList = summaries;
     return summaries;
   } catch {
-    // Fallback: cached list or bundled
-    const cached = await getCachedList();
-    if (cached) {
-      memoryList = cached;
-      return cached;
-    }
+    // Fallback: bundled
     return bundledArticles;
   }
 }
 
+/**
+ * Get a single article with full content.
+ * Resolution: memory → downloaded → server fetch → cached → bundled.
+ */
 export async function fetchArticle(id: string): Promise<Article | null> {
-  // Try server first
+  // Check memory cache
+  const inMemory = memoryArticles.get(id);
+  if (inMemory) return inMemory;
+
+  // Check downloaded content by slug
+  // The id might be a slug (e.g. "article-112") or a Django PK (e.g. "47")
+  // Try both the id directly and look up slug from memoryList
+  const slug = findSlugForId(id);
+  if (slug) {
+    try {
+      const downloaded = await getDownloadedContent(slug);
+      if (downloaded) {
+        const article = downloadedToArticle(downloaded);
+        memoryArticles.set(id, article);
+        if (slug !== id) memoryArticles.set(slug, article);
+        return article;
+      }
+    } catch {
+      // Fall through
+    }
+  }
+
+  // Try server
   try {
     const detail = await fetchArticleDetail(Number(id));
     const article = serverDetailToArticle(detail);
-    // Cache to SQLite + memory
     await cacheArticle(article);
     memoryArticles.set(article.id, article);
+    memoryArticles.set(article.slug, article);
     return article;
   } catch {
     // Fallback: SQLite cache
     const cached = await getCachedArticle(id);
     if (cached) return cached;
-    // Fallback: bundled
-    return bundledArticles.find((a) => a.id === id) ?? null;
+    // Fallback: bundled by id
+    const byId = bundledArticles.find((a) => a.id === id);
+    if (byId) return byId;
+    // Fallback: bundled by slug
+    if (slug) return bundledBySlug.get(slug) ?? null;
+    return null;
   }
 }
 
-// Sync versions (for initial render before async completes)
-export function getAllArticles(): Article[] {
-  return memoryList ?? bundledArticles;
+/**
+ * Sync lookup — no network calls.
+ * Resolution: memory → downloaded (sync) → bundled.
+ */
+export function getArticle(id: string): Article | null {
+  // Memory cache
+  const inMemory = memoryArticles.get(id);
+  if (inMemory) return inMemory;
+
+  // Check memoryList (from fetchAllArticles)
+  if (memoryList) {
+    const fromList = memoryList.find(a => a.id === id || a.slug === id);
+    if (fromList && fromList.content) return fromList;
+  }
+
+  // Bundled by id
+  const byId = bundledArticles.find((a) => a.id === id);
+  if (byId) return byId;
+
+  // Bundled by slug
+  const slug = findSlugForId(id);
+  if (slug) return bundledBySlug.get(slug) ?? null;
+
+  return null;
 }
 
-export function getArticle(id: string): Article | null {
-  return bundledArticles.find((a) => a.id === id) ?? memoryArticles.get(id) ?? null;
+// Sync versions (for library listing)
+export function getAllArticles(): Article[] {
+  return memoryList ?? bundledArticles;
 }
 
 export function calculateQuizStars(correct: number, total: number): number {
@@ -160,4 +242,27 @@ export function calculateQuizStars(correct: number, total: number): number {
   if (pct >= 0.5) return 2;
   if (pct >= 0.25) return 1;
   return 0;
+}
+
+// --- Helpers ---
+
+/**
+ * Find the slug for an article ID.
+ * The id could be a Django PK ("47") — look up in memoryList to find slug.
+ */
+function findSlugForId(id: string): string | null {
+  // If id looks like a slug already
+  if (id.startsWith("article-")) return id;
+
+  // Look up in memoryList
+  if (memoryList) {
+    const item = memoryList.find(a => a.id === id);
+    if (item?.slug) return item.slug;
+  }
+
+  // Check bundled
+  const bundled = bundledArticles.find(a => a.id === id);
+  if (bundled) return bundled.slug;
+
+  return null;
 }
