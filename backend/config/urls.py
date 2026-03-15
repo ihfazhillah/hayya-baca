@@ -4,8 +4,11 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+from library.quiz_manage import QuizManagerPageView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("quiz-manager/", QuizManagerPageView.as_view(), name="quiz-manager"),
     path("api/", include("accounts.urls")),
     path("api/", include("library.urls")),
     path("api/", include("games.urls")),

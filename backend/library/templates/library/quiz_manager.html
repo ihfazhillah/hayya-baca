@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Manager — Hayya Baca</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+.header { background: #1a5276; color: #fff; padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
+.header h1 { font-size: 18px; font-weight: 600; }
+.tabs { display: flex; gap: 4px; margin-left: auto; }
+.tab { background: rgba(255,255,255,0.15); border: none; color: #fff; padding: 8px 16px; border-radius: 6px 6px 0 0; cursor: pointer; font-size: 14px; }
+.tab.active { background: #fff; color: #1a5276; font-weight: 600; }
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* Export */
+.export-controls { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+.export-controls select, .export-controls button { padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+.export-controls button { background: #1a5276; color: #fff; border: none; cursor: pointer; }
+.export-controls button:hover { background: #154360; }
+pre.export-preview { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; max-height: 500px; overflow: auto; font-size: 13px; white-space: pre-wrap; }
+
+/* Import */
+.import-area { background: #fff; border: 2px dashed #ccc; border-radius: 8px; padding: 40px; text-align: center; margin-bottom: 16px; }
+.import-area.dragover { border-color: #1a5276; background: #eaf2f8; }
+.import-area textarea { width: 100%; height: 200px; border: 1px solid #ddd; border-radius: 6px; padding: 12px; font-family: monospace; font-size: 13px; margin-top: 12px; }
+.import-area input[type=file] { margin-top: 12px; }
+.import-btn { background: #1a5276; color: #fff; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; margin-top: 12px; }
+
+/* Review */
+.review-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.review-toolbar label { font-weight: 600; }
+.review-toolbar select, .review-toolbar button { padding: 6px 14px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+.mode-toggle { display: flex; gap: 0; }
+.mode-toggle button { border-radius: 0; border: 1px solid #1a5276; background: #fff; color: #1a5276; cursor: pointer; }
+.mode-toggle button:first-child { border-radius: 6px 0 0 6px; }
+.mode-toggle button:last-child { border-radius: 0 6px 6px 0; }
+.mode-toggle button.active { background: #1a5276; color: #fff; }
+.book-group { background: #fff; border-radius: 8px; margin-bottom: 16px; border: 1px solid #ddd; }
+.book-header { padding: 12px 16px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.book-header h3 { font-size: 15px; flex: 1; }
+.book-header .badge { background: #eaf2f8; color: #1a5276; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.book-header .existing-badge { background: #fef9e7; color: #7d6608; }
+.book-quizzes { padding: 0 16px 16px; }
+.quiz-card { border: 1px solid #eee; border-radius: 8px; padding: 14px; margin-top: 12px; position: relative; transition: opacity 0.2s; }
+.quiz-card.rejected { opacity: 0.4; background: #fce4e4; }
+.quiz-card.accepted { border-color: #27ae60; background: #f0faf4; }
+.quiz-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; }
+.quiz-actions button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.btn-accept { background: #d5f5e3; border-color: #27ae60 !important; }
+.btn-accept.active { background: #27ae60; color: #fff; }
+.btn-reject { background: #fadbd8; border-color: #e74c3c !important; }
+.btn-reject.active { background: #e74c3c; color: #fff; }
+.quiz-type { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; letter-spacing: 0.5px; }
+.quiz-field { margin-top: 8px; }
+.quiz-field label { font-size: 12px; color: #666; display: block; margin-bottom: 2px; }
+.quiz-field input, .quiz-field textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-family: inherit; }
+.quiz-field textarea { height: 50px; resize: vertical; }
+.options-list { list-style: none; margin-top: 4px; }
+.options-list li { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.options-list li input[type=text] { flex: 1; }
+.options-list li input[type=radio] { margin: 0; }
+.options-list li label.answer-label { font-size: 12px; color: #888; white-space: nowrap; }
+.tf-answer { display: flex; gap: 12px; margin-top: 4px; }
+.tf-answer label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+
+/* Apply */
+.apply-bar { position: sticky; bottom: 0; background: #fff; border-top: 2px solid #1a5276; padding: 12px 24px; display: flex; align-items: center; gap: 16px; justify-content: flex-end; z-index: 10; }
+.apply-bar .stats { flex: 1; font-size: 14px; color: #666; }
+.apply-bar button { padding: 10px 28px; border-radius: 6px; border: none; font-size: 14px; cursor: pointer; }
+.btn-apply { background: #27ae60; color: #fff; font-weight: 600; }
+.btn-apply:hover { background: #219a52; }
+.btn-clear { background: #e74c3c; color: #fff; }
+
+/* Bulk actions */
+.bulk-actions { display: flex; gap: 8px; margin-left: auto; }
+.bulk-actions button { padding: 4px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; }
+
+/* Toast */
+.toast { position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.toast.error { background: #e74c3c; }
+.toast.success { background: #27ae60; }
+
+.empty-state { text-align: center; padding: 60px; color: #888; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Quiz Manager</h1>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('export')">Export</button>
+    <button class="tab" onclick="switchTab('import')">Import</button>
+    <button class="tab" onclick="switchTab('review')">Review</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- EXPORT PANEL -->
+  <div id="panel-export" class="panel active">
+    <div class="export-controls">
+      <select id="export-type">
+        <option value="">Semua (book + article)</option>
+        <option value="book">Book saja</option>
+        <option value="article">Article saja</option>
+      </select>
+      <button onclick="doExport()">Export JSON</button>
+      <button onclick="downloadExport()">Download .json</button>
+    </div>
+    <pre class="export-preview" id="export-preview">Klik "Export JSON" untuk melihat data...</pre>
+  </div>
+
+  <!-- IMPORT PANEL -->
+  <div id="panel-import" class="panel">
+    <div class="import-area" id="import-area">
+      <p>Paste JSON hasil generator atau drag & drop file .json</p>
+      <textarea id="import-text" placeholder='[{"book_id": 112, "quizzes": [...]}]'></textarea>
+      <br>
+      <input type="file" accept=".json" id="import-file" onchange="loadFile(event)">
+      <br>
+      <button class="import-btn" onclick="doImport()">Import untuk Review</button>
+    </div>
+  </div>
+
+  <!-- REVIEW PANEL -->
+  <div id="panel-review" class="panel">
+    <div class="review-toolbar">
+      <label>Mode:</label>
+      <div class="mode-toggle">
+        <button id="mode-append" class="active" onclick="setMode('append')">Append</button>
+        <button id="mode-clean" onclick="setMode('clean')">Clean (Replace)</button>
+      </div>
+      <div class="bulk-actions">
+        <button onclick="bulkAll('accept')">Accept All</button>
+        <button onclick="bulkAll('reject')">Reject All</button>
+      </div>
+    </div>
+    <div id="review-content">
+      <div class="empty-state">Belum ada quiz untuk di-review. Import dulu di tab Import.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Apply bar (shown only in review) -->
+<div class="apply-bar" id="apply-bar" style="display:none">
+  <div class="stats" id="apply-stats"></div>
+  <button class="btn-clear" onclick="doClear()">Clear All</button>
+  <button class="btn-apply" onclick="doApply()">Apply Accepted</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CSRF = getCookie('csrftoken');
+let exportData = null;
+let pendingData = [];
+let applyMode = 'append';
+// quizStates[bookIdx][quizIdx] = 'accepted' | 'rejected' | null
+let quizStates = [];
+
+function getCookie(name) {
+  const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return v ? v.pop() : '';
+}
+
+function toast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="${name}"]`).classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('apply-bar').style.display = name === 'review' ? '' : 'none';
+  if (name === 'review') loadPending();
+}
+
+// === EXPORT ===
+async function doExport() {
+  const type = document.getElementById('export-type').value;
+  const url = '/api/quiz-manage/export/' + (type ? '?type=' + type : '');
+  try {
+    const res = await fetch(url, { credentials: 'same-origin' });
+    exportData = await res.json();
+    document.getElementById('export-preview').textContent = JSON.stringify(exportData, null, 2);
+    toast(`Exported ${exportData.length} items`, 'success');
+  } catch (e) {
+    toast('Export gagal: ' + e.message, 'error');
+  }
+}
+
+function downloadExport() {
+  if (!exportData) { toast('Export dulu', 'error'); return; }
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hayya-baca-content-export.json';
+  a.click();
+}
+
+// === IMPORT ===
+const importArea = document.getElementById('import-area');
+importArea.addEventListener('dragover', e => { e.preventDefault(); importArea.classList.add('dragover'); });
+importArea.addEventListener('dragleave', () => importArea.classList.remove('dragover'));
+importArea.addEventListener('drop', e => {
+  e.preventDefault();
+  importArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = ev => { document.getElementById('import-text').value = ev.target.result; };
+    reader.readAsText(file);
+  }
+});
+
+function loadFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => { document.getElementById('import-text').value = ev.target.result; };
+  reader.readAsText(file);
+}
+
+async function doImport() {
+  const text = document.getElementById('import-text').value.trim();
+  if (!text) { toast('Paste JSON dulu', 'error'); return; }
+  try {
+    JSON.parse(text); // validate
+  } catch { toast('JSON tidak valid', 'error'); return; }
+
+  try {
+    const res = await fetch('/api/quiz-manage/import/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+      credentials: 'same-origin',
+      body: text,
+    });
+    const data = await res.json();
+    if (!res.ok) { toast(data.error || 'Import gagal', 'error'); return; }
+    toast(`Imported: ${data.books} books, ${data.total_questions} questions`, 'success');
+    switchTab('review');
+  } catch (e) {
+    toast('Import gagal: ' + e.message, 'error');
+  }
+}
+
+// === REVIEW ===
+async function loadPending() {
+  try {
+    const res = await fetch('/api/quiz-manage/pending/', { credentials: 'same-origin' });
+    pendingData = await res.json();
+  } catch {
+    pendingData = [];
+  }
+
+  quizStates = pendingData.map(item => item.quizzes.map(() => 'accepted'));
+  renderReview();
+}
+
+function renderReview() {
+  const container = document.getElementById('review-content');
+  if (!pendingData.length) {
+    container.innerHTML = '<div class="empty-state">Belum ada quiz untuk di-review. Import dulu di tab Import.</div>';
+    updateStats();
+    return;
+  }
+
+  let html = '';
+  pendingData.forEach((item, bi) => {
+    const typeLabel = item.content_type === 'article' ? 'Artikel' : 'Buku';
+    html += `<div class="book-group">
+      <div class="book-header" onclick="toggleBook(${bi})">
+        <h3>${typeLabel}: ${esc(item.title)}</h3>
+        <span class="badge">${item.quizzes.length} soal baru</span>
+        <span class="badge existing-badge">${item.existing_quiz_count} existing</span>
+        <div class="bulk-actions">
+          <button onclick="event.stopPropagation();bulkBook(${bi},'accept')">Accept All</button>
+          <button onclick="event.stopPropagation();bulkBook(${bi},'reject')">Reject All</button>
+        </div>
+      </div>
+      <div class="book-quizzes" id="book-quizzes-${bi}">`;
+
+    item.quizzes.forEach((q, qi) => {
+      const state = quizStates[bi][qi];
+      html += renderQuizCard(q, bi, qi, state);
+    });
+
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+  updateStats();
+}
+
+function renderQuizCard(q, bi, qi, state) {
+  const stateClass = state === 'accepted' ? 'accepted' : state === 'rejected' ? 'rejected' : '';
+  let html = `<div class="quiz-card ${stateClass}" id="qcard-${bi}-${qi}">
+    <div class="quiz-actions">
+      <button class="btn-accept ${state === 'accepted' ? 'active' : ''}" onclick="setQuizState(${bi},${qi},'accepted')" title="Accept">&#10003;</button>
+      <button class="btn-reject ${state === 'rejected' ? 'active' : ''}" onclick="setQuizState(${bi},${qi},'rejected')" title="Reject">&#10005;</button>
+    </div>
+    <div class="quiz-type">${q.type === 'multiple_choice' ? 'Pilihan Ganda' : 'Benar / Salah'} — #${qi + 1}</div>
+    <div class="quiz-field">
+      <label>Pertanyaan</label>
+      <textarea onchange="updateQ(${bi},${qi},'question',this.value)">${esc(q.question)}</textarea>
+    </div>`;
+
+  if (q.type === 'multiple_choice') {
+    html += `<div class="quiz-field"><label>Opsi (pilih jawaban benar)</label><ul class="options-list">`;
+    (q.options || []).forEach((opt, oi) => {
+      const checked = q.answer === oi ? 'checked' : '';
+      html += `<li>
+        <input type="radio" name="ans-${bi}-${qi}" ${checked} onchange="updateQ(${bi},${qi},'answer',${oi})">
+        <input type="text" value="${esc(opt)}" onchange="updateOpt(${bi},${qi},${oi},this.value)">
+      </li>`;
+    });
+    html += '</ul></div>';
+  } else {
+    const isTrue = q.answer === true;
+    html += `<div class="quiz-field"><label>Jawaban</label><div class="tf-answer">
+      <label><input type="radio" name="ans-${bi}-${qi}" ${isTrue ? 'checked' : ''} onchange="updateQ(${bi},${qi},'answer',true)"> Benar</label>
+      <label><input type="radio" name="ans-${bi}-${qi}" ${!isTrue ? 'checked' : ''} onchange="updateQ(${bi},${qi},'answer',false)"> Salah</label>
+    </div></div>`;
+  }
+
+  html += `<div class="quiz-field">
+    <label>Penjelasan</label>
+    <textarea onchange="updateQ(${bi},${qi},'explanation',this.value)">${esc(q.explanation || '')}</textarea>
+  </div></div>`;
+  return html;
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+function setQuizState(bi, qi, state) {
+  quizStates[bi][qi] = quizStates[bi][qi] === state ? null : state;
+  const card = document.getElementById(`qcard-${bi}-${qi}`);
+  card.className = 'quiz-card ' + (quizStates[bi][qi] || '');
+  const acceptBtn = card.querySelector('.btn-accept');
+  const rejectBtn = card.querySelector('.btn-reject');
+  acceptBtn.className = 'btn-accept ' + (quizStates[bi][qi] === 'accepted' ? 'active' : '');
+  rejectBtn.className = 'btn-reject ' + (quizStates[bi][qi] === 'rejected' ? 'active' : '');
+  updateStats();
+}
+
+function updateQ(bi, qi, field, value) {
+  pendingData[bi].quizzes[qi][field] = value;
+}
+
+function updateOpt(bi, qi, oi, value) {
+  pendingData[bi].quizzes[qi].options[oi] = value;
+}
+
+function bulkBook(bi, action) {
+  const state = action === 'accept' ? 'accepted' : 'rejected';
+  quizStates[bi] = quizStates[bi].map(() => state);
+  renderReview();
+}
+
+function bulkAll(action) {
+  const state = action === 'accept' ? 'accepted' : 'rejected';
+  quizStates = quizStates.map(arr => arr.map(() => state));
+  renderReview();
+}
+
+function toggleBook(bi) {
+  const el = document.getElementById(`book-quizzes-${bi}`);
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
+function setMode(mode) {
+  applyMode = mode;
+  document.getElementById('mode-append').className = mode === 'append' ? 'active' : '';
+  document.getElementById('mode-clean').className = mode === 'clean' ? 'active' : '';
+}
+
+function updateStats() {
+  let accepted = 0, rejected = 0, total = 0;
+  quizStates.forEach(arr => arr.forEach(s => {
+    total++;
+    if (s === 'accepted') accepted++;
+    if (s === 'rejected') rejected++;
+  }));
+  const pending = total - accepted - rejected;
+  document.getElementById('apply-stats').textContent =
+    `${accepted} accepted, ${rejected} rejected` + (pending ? `, ${pending} belum ditentukan` : '') +
+    ` | Mode: ${applyMode}`;
+}
+
+// === APPLY ===
+async function doApply() {
+  const items = [];
+  pendingData.forEach((item, bi) => {
+    const acceptedQuizzes = item.quizzes.filter((_, qi) => quizStates[bi][qi] === 'accepted');
+    if (acceptedQuizzes.length > 0) {
+      items.push({ book_id: item.book_id, quizzes: acceptedQuizzes });
+    }
+  });
+
+  if (!items.length) { toast('Tidak ada quiz yang di-accept', 'error'); return; }
+
+  if (!confirm(`Apply ${items.reduce((s, i) => s + i.quizzes.length, 0)} quiz ke ${items.length} buku?\nMode: ${applyMode}`)) return;
+
+  try {
+    const res = await fetch('/api/quiz-manage/apply/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+      credentials: 'same-origin',
+      body: JSON.stringify({ mode: applyMode, items }),
+    });
+    const data = await res.json();
+    if (!res.ok) { toast(data.error || 'Apply gagal', 'error'); return; }
+    toast(`Applied! ${data.created} created, ${data.deleted} deleted, ${data.books} books synced`, 'success');
+    pendingData = [];
+    quizStates = [];
+    renderReview();
+  } catch (e) {
+    toast('Apply gagal: ' + e.message, 'error');
+  }
+}
+
+async function doClear() {
+  if (!confirm('Clear semua pending quiz?')) return;
+  await fetch('/api/quiz-manage/clear/', {
+    method: 'POST',
+    headers: { 'X-CSRFToken': CSRF },
+    credentials: 'same-origin',
+  });
+  pendingData = [];
+  quizStates = [];
+  renderReview();
+  toast('Cleared', 'success');
+}
+</script>
+</body>
+</html>
