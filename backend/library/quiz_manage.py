@@ -193,6 +193,29 @@ class ApplyView(StaffRequiredMixin, View):
         return JsonResponse({"status": "ok", **stats})
 
 
+class PublishView(StaffRequiredMixin, View):
+    """POST /api/quiz-manage/publish/ — run publish command."""
+
+    def post(self, request):
+        from django.core.management import call_command
+        from io import StringIO
+
+        try:
+            data = json.loads(request.body) if request.body else {}
+        except json.JSONDecodeError:
+            data = {}
+
+        out = StringIO()
+        book_ids = data.get("book_ids")
+
+        if book_ids:
+            call_command("publish", ids=book_ids, stdout=out)
+        else:
+            call_command("publish", all=True, force=data.get("force", False), stdout=out)
+
+        return JsonResponse({"status": "ok", "output": out.getvalue()})
+
+
 @method_decorator(ensure_csrf_cookie, name="dispatch")
 class QuizManagerPageView(StaffRequiredMixin, View):
     def get(self, request):

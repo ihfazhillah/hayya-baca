@@ -140,6 +140,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   <div class="stats" id="apply-stats"></div>
   <button class="btn-clear" onclick="doClear()">Clear All</button>
   <button class="btn-apply" onclick="doApply()">Apply Accepted</button>
+  <button class="btn-apply" style="background:#1a5276" onclick="doPublish()">Publish to App</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -396,6 +397,24 @@ function doApply() {
     pendingData=[]; quizStates=[]; expandedBooks={}; renderBookList();
   })
   .catch(function(e){toast('Apply gagal: '+e.message,'error');})
+  .finally(hideLoading);
+}
+
+function doPublish() {
+  if (!confirm('Publish semua konten ke app? (manifest + content files akan di-regenerate)')) return;
+  showLoading('Publishing...');
+  fetch('/api/quiz-manage/publish/', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-CSRFToken':getCSRF()},
+    credentials:'same-origin',
+    body:JSON.stringify({force: true}),
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.error){toast(d.error,'error');return;}
+    toast('Published! ' + d.output.split('\n').filter(Boolean).pop(),'success');
+  })
+  .catch(function(e){toast('Publish gagal: '+e.message,'error');})
   .finally(hideLoading);
 }
 
