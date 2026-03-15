@@ -3,12 +3,18 @@ import * as SQLite from "expo-sqlite";
 const DB_NAME = "hayyabaca.db";
 
 let db: SQLite.SQLiteDatabase | null = null;
+let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
 export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
   if (db) return db;
-  db = await SQLite.openDatabaseAsync(DB_NAME);
-  await initDatabase(db);
-  return db;
+  if (dbPromise) return dbPromise;
+  dbPromise = (async () => {
+    const instance = await SQLite.openDatabaseAsync(DB_NAME);
+    await initDatabase(instance);
+    db = instance;
+    return instance;
+  })();
+  return dbPromise;
 }
 
 async function initDatabase(db: SQLite.SQLiteDatabase) {

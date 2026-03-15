@@ -100,7 +100,10 @@ export function resolveContent<T>(
 
 // --- Database operations ---
 
+let tableReady = false;
+
 async function ensureManifestTable(): Promise<void> {
+  if (tableReady) return;
   const db = await getDatabase();
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS content_manifest (
@@ -115,6 +118,7 @@ async function ensureManifestTable(): Promise<void> {
       removed INTEGER NOT NULL DEFAULT 0
     )
   `);
+  tableReady = true;
 }
 
 export async function getLocalManifest(): Promise<LocalManifestEntry[]> {
