@@ -157,7 +157,7 @@ class TestPublish:
         assert book.is_published
         assert book.published_version == 1
 
-        json_file = tmp_path / "published" / "books" / f"{book.id}.json"
+        json_file = tmp_path / "published" / "books" / f"{book.slug}.json"
         assert json_file.exists()
 
         data = json.loads(json_file.read_text())
@@ -165,17 +165,18 @@ class TestPublish:
         assert len(data["pages"]) == 3
 
         manifest = json.loads((tmp_path / "published" / "manifest.json").read_text())
-        assert len(manifest["books"]) == 1
+        assert len(manifest["items"]) == 1
 
     def test_publish_article(self, article, tmp_path, settings):
         settings.PUBLISHED_ROOT = tmp_path / "published"
         out = StringIO()
         call_command("publish", ids=[article.id], stdout=out)
 
-        json_file = tmp_path / "published" / "articles" / f"{article.id}.json"
+        json_file = tmp_path / "published" / "articles" / f"{article.slug}.json"
         assert json_file.exists()
 
         data = json.loads(json_file.read_text())
         assert data["type"] == "article"
-        assert len(data["sections"]) == 3
+        assert "content" in data
+        assert "Intro text" in data["content"]
         assert len(data["quiz"]) == 1
