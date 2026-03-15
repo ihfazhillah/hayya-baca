@@ -7,9 +7,11 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useState, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useChildren } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
+import { getSetting } from "../src/lib/database";
 import { colors } from "../src/theme";
 
 function Avatar({
@@ -39,6 +41,13 @@ export default function ChildSelectScreen() {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const { data: children, isLoading } = useChildren();
+  const [syncError, setSyncError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getSetting("last_sync_status").then((status) => {
+      setSyncError(status && status !== "ok" ? status : null);
+    });
+  }, [children]); // re-check when children data updates
 
   const isTablet = width >= 600;
   const avatarSize = isTablet ? 120 : 80;
@@ -79,6 +88,10 @@ export default function ChildSelectScreen() {
           )}
           keyExtractor={(item) => String(item.id)}
         />
+      )}
+
+      {syncError && (
+        <Text style={styles.syncError}>Sync bermasalah - bilang ke Ayah/Bunda</Text>
       )}
 
       <Pressable
@@ -166,5 +179,13 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 14,
     fontWeight: "600",
+  },
+  syncError: {
+    color: colors.accent,
+    fontSize: 13,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 8,
+    paddingHorizontal: 16,
   },
 });

@@ -124,43 +124,46 @@ export async function pushReadingProgress(
     completed: boolean;
     completed_count: number;
   }
-): Promise<void> {
+): Promise<string | null> {
   const res = await apiFetch(`/children/${childId}/progress/`, {
     method: "POST",
     body: JSON.stringify(data),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
-    console.warn("pushReadingProgress failed:", res.status, err);
+    return `pushReadingProgress ${res.status}: ${err}`;
   }
+  return null;
 }
 
 export async function pushRewardsBulk(
   childId: number,
   rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[]
-): Promise<void> {
+): Promise<string | null> {
   const res = await apiFetch(`/children/${childId}/rewards/sync/`, {
     method: "POST",
     body: JSON.stringify({ rewards }),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
-    console.warn("pushRewardsBulk failed:", res.status, err);
+    return `pushRewardsBulk ${res.status}: ${err}`;
   }
+  return null;
 }
 
 export async function pushReadingLog(
   childId: number,
   entries: { book_id: string; completed_at: string; idempotency_key: string }[]
-): Promise<void> {
+): Promise<string | null> {
   const res = await apiFetch(`/children/${childId}/reading-log/`, {
     method: "POST",
     body: JSON.stringify({ entries }),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
-    console.warn("pushReadingLog failed:", res.status, err);
+    return `pushReadingLog ${res.status}: ${err}`;
   }
+  return null;
 }
 
 export async function fetchReadingLog(
@@ -189,7 +192,10 @@ export async function fetchRewardHistory(
   childId: number
 ): Promise<{ type: string; count: number; description: string; created_at: string; idempotency_key: string | null }[]> {
   const res = await apiFetch(`/children/${childId}/rewards/`);
-  if (!res.ok) return [];
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    throw new Error(`fetchRewardHistory ${res.status}: ${err}`);
+  }
   return res.json();
 }
 

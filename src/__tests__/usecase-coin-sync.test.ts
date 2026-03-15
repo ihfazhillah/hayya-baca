@@ -38,8 +38,10 @@ beforeEach(() => {
   jest.clearAllMocks();
 
   mockApi.isLoggedIn.mockResolvedValue(true);
-  mockApi.pushRewardsBulk.mockResolvedValue(undefined);
-  mockApi.pushReadingProgress.mockResolvedValue(undefined);
+  mockApi.pushRewardsBulk.mockResolvedValue(null);
+  mockApi.pushReadingProgress.mockResolvedValue(null);
+  mockApi.pushReadingLog.mockResolvedValue(null);
+  mockApi.fetchReadingLog.mockResolvedValue([]);
 
   mockChildren.getUnsyncedChildren.mockResolvedValue([]);
   mockChildren.linkChildToServer.mockResolvedValue(undefined);
@@ -50,6 +52,8 @@ beforeEach(() => {
   mockRewards.getUnsyncedRewards.mockResolvedValue([]);
   mockRewards.markRewardsSynced.mockResolvedValue(undefined);
   mockRewards.markReadingProgressSynced.mockResolvedValue(undefined);
+  mockRewards.mergeServerRewards.mockResolvedValue(undefined);
+  mockRewards.recalculateBalance.mockResolvedValue({ coins: 0, stars: 0 });
 
   mockDevice.getDeviceId.mockResolvedValue("device-1");
 });
@@ -68,29 +72,18 @@ describe("Coin sync: coins harus dihitung dari reward_history, bukan server coun
     ]);
 
     // After sync, pull server rewards and merge locally
-    // The recalculate should give correct total
-    // Mock: fetchRewardHistory returns server-side rewards (tanpa 2 yang baru di-push)
-    if (mockApi.fetchRewardHistory) {
-      mockApi.fetchRewardHistory.mockResolvedValue([]);
-    }
-
-    // Mock recalculateBalance: should be called after sync
-    if (mockRewards.recalculateBalance) {
-      mockRewards.recalculateBalance.mockResolvedValue({ coins: 20, stars: 5 });
-    }
+    mockApi.fetchRewardHistory.mockResolvedValue([]);
+    mockRewards.recalculateBalance.mockResolvedValue({ coins: 20, stars: 5 });
 
     const upsertCalls: any[] = [];
     mockChildren.upsertChildFromServer.mockImplementation(async (child) => {
       upsertCalls.push({ ...child });
     });
 
-    await syncAll(1);
+    await syncAll([1]);
 
     // Key assertion: upsertChildFromServer should NOT overwrite coins from server
-    // Either: it's not called with coins, or recalculateBalance is called after
     if (upsertCalls.length > 0) {
-      // If upsert is called, coins should NOT be the stale 18
-      // It should either be omitted or be the recalculated value (20)
       expect(upsertCalls[0].coins).not.toBe(18);
     }
 
@@ -106,19 +99,12 @@ describe("Coin sync: coins harus dihitung dari reward_history, bukan server coun
     ]);
 
     // Server has rewards from another device
-    if (mockApi.fetchRewardHistory) {
-      mockApi.fetchRewardHistory.mockResolvedValue([
-        { type: "coin", count: 5, description: "Dari device lain",
-          created_at: "2026-03-15T09:00:00", idempotency_key: "device-2:50" },
-      ]);
-    }
+    mockApi.fetchRewardHistory.mockResolvedValue([
+      { type: "coin", count: 5, description: "Dari device lain",
+        created_at: "2026-03-15T09:00:00", idempotency_key: "device-2:50" },
+    ]);
 
-    // mergeServerRewards should be called to insert missing rewards
-    if (mockRewards.mergeServerRewards) {
-      mockRewards.mergeServerRewards.mockResolvedValue(undefined);
-    }
-
-    await syncAll(1);
+    await syncAll([1]);
 
     // Pull reward history harus dipanggil
     expect(mockApi.fetchRewardHistory).toHaveBeenCalledWith(1);
@@ -138,16 +124,10 @@ describe("Coin sync: coins harus dihitung dari reward_history, bukan server coun
       { id: 1, name: "Ahmad", age: 8, avatar_color: "#E91E63", coins: 20, stars: 5 },
     ]);
 
-    if (mockApi.fetchRewardHistory) {
-      mockApi.fetchRewardHistory.mockResolvedValue([]);
-    }
+    mockApi.fetchRewardHistory.mockResolvedValue([]);
+    mockRewards.recalculateBalance.mockResolvedValue({ coins: 15, stars: 5 });
 
-    // Recalculate: was 20, spent 5, now 15
-    if (mockRewards.recalculateBalance) {
-      mockRewards.recalculateBalance.mockResolvedValue({ coins: 15, stars: 5 });
-    }
-
-    await syncAll(1);
+    await syncAll([1]);
 
     // Balance must be recalculated, NOT use MAX(local, server)
     expect(mockRewards.recalculateBalance).toHaveBeenCalledWith(1);

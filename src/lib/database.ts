@@ -111,6 +111,34 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
   } catch {
     // column already exists — ignore
   }
+
+  // Migration: remove CHECK constraint on reward_history.type to allow coin_adjustment/star_adjustment
+  // SQLite doesn't support ALTER CHECK, so we recreate the table
+  try {
+    const hasCheck = await db.getFirstAsync<{ sql: string }>(
+      "SELECT sql FROM sqlite_master WHERE type='table' AND name='reward_history'"
+    );
+    if (hasCheck?.sql?.includes("CHECK")) {
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS reward_history_new (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          child_id INTEGER NOT NULL,
+          type TEXT NOT NULL,
+          count INTEGER NOT NULL,
+          description TEXT,
+          created_at TEXT NOT NULL DEFAULT (datetime('now')),
+          synced INTEGER NOT NULL DEFAULT 0,
+          idempotency_key TEXT DEFAULT NULL,
+          FOREIGN KEY (child_id) REFERENCES children(id)
+        );
+        INSERT INTO reward_history_new SELECT id, child_id, type, count, description, created_at, synced, idempotency_key FROM reward_history;
+        DROP TABLE reward_history;
+        ALTER TABLE reward_history_new RENAME TO reward_history;
+      `);
+    }
+  } catch {
+    // migration already done or not needed
+  }
 }
 
 export async function getSetting(key: string): Promise<string | null> {

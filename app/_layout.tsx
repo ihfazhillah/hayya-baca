@@ -9,6 +9,7 @@ import { useEffect, useRef } from "react";
 import { syncAll } from "../src/lib/sync";
 import { syncContent } from "../src/lib/content-manager";
 import { getSelectedChild } from "../src/lib/session";
+import { setSetting } from "../src/lib/database";
 
 const queryClient = new QueryClient();
 
@@ -17,14 +18,19 @@ export default function RootLayout() {
 
   useEffect(() => {
     // Sync on mount (no active child yet — just pull children list)
-    syncAll();
+    syncAll().then((report) => {
+      setSetting("last_sync_status", report.success ? "ok" : report.errors.join("; "));
+    }).catch(() => {});
     // Sync content manifest in background
     syncContent().catch(() => {});
 
     // Sync when app comes to foreground (with active child if selected)
     const sub = AppState.addEventListener("change", (nextState) => {
       if (appState.current.match(/inactive|background/) && nextState === "active") {
-        syncAll(getSelectedChild()?.id);
+        const childId = getSelectedChild()?.id;
+        syncAll(childId ? [childId] : undefined).then((report) => {
+          setSetting("last_sync_status", report.success ? "ok" : report.errors.join("; "));
+        }).catch(() => {});
       }
       appState.current = nextState;
     });
