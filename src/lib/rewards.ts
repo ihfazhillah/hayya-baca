@@ -254,13 +254,14 @@ export async function markReadingProgressSynced(
 
 export async function mergeServerReadingProgress(
   childId: number,
-  serverProgress: { book_id: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]
+  serverProgress: { book: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]
 ): Promise<void> {
   const db = await getDatabase();
   for (const sp of serverProgress) {
+    const bookId = sp.book;
     const local = await db.getFirstAsync<{ last_page: number; completed: number; completed_count: number; updated_at: string }>(
       "SELECT last_page, completed, completed_count, updated_at FROM reading_progress WHERE child_id = ? AND book_id = ?",
-      childId, sp.book_id
+      childId, bookId
     );
 
     if (!local) {
@@ -268,7 +269,7 @@ export async function mergeServerReadingProgress(
       await db.runAsync(
         `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at, synced)
          VALUES (?, ?, ?, ?, ?, ?, 1)`,
-        childId, sp.book_id, sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at
+        childId, bookId, sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at
       );
     } else if (sp.updated_at > local.updated_at) {
       // Server is newer — update
@@ -276,7 +277,7 @@ export async function mergeServerReadingProgress(
         `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = 1
          WHERE child_id = ? AND book_id = ?`,
         sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at,
-        childId, sp.book_id
+        childId, bookId
       );
     }
     // If local is newer or same, keep local

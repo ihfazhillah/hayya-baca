@@ -244,7 +244,7 @@ describe("Bug 2: Reading progress tidak di-pull dari server", () => {
 
     // Server punya progress dari device B
     (t.api as any).fetchReadingProgressFromServer.mockResolvedValue([
-      { book_id: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-15T11:00:00" },
+      { book: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-15T11:00:00" },
     ]);
 
     await t.syncAll([1]);
@@ -263,7 +263,7 @@ describe("Bug 2: Reading progress tidak di-pull dari server", () => {
     );
 
     (t.api as any).fetchReadingProgressFromServer.mockResolvedValue([
-      { book_id: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-15T11:00:00" },
+      { book: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-15T11:00:00" },
     ]);
 
     await t.syncAll([1]);
@@ -279,7 +279,7 @@ describe("Bug 2: Reading progress tidak di-pull dari server", () => {
     // updated_at is now(), which is newer than server's
 
     (t.api as any).fetchReadingProgressFromServer.mockResolvedValue([
-      { book_id: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-14T10:00:00" },
+      { book: "book-1", last_page: 10, completed: false, completed_count: 0, updated_at: "2026-03-14T10:00:00" },
     ]);
 
     await t.syncAll([1]);
@@ -337,7 +337,7 @@ describe("Full round-trip: 2 device scenario", () => {
 
     // Server returns device B's reading progress
     (t.api as any).fetchReadingProgressFromServer.mockResolvedValue([
-      { book_id: "book-2", last_page: 12, completed: true, completed_count: 1, updated_at: "2026-03-15T09:30:00" },
+      { book: "book-2", last_page: 12, completed: true, completed_count: 1, updated_at: "2026-03-15T09:30:00" },
     ]);
 
     const report = await t.syncAll([1]);

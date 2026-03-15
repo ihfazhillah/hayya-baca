@@ -176,7 +176,7 @@ export async function fetchReadingLog(
 
 export async function fetchReadingProgressFromServer(
   childId: number
-): Promise<{ book_id: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]> {
+): Promise<{ book: string; last_page: number; completed: boolean; completed_count: number; updated_at: string }[]> {
   const res = await apiFetch(`/children/${childId}/progress/`);
   if (!res.ok) return [];
   return res.json();
