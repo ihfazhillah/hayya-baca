@@ -162,10 +162,9 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 <div class="toast" id="toast"></div>
 <div class="loading" id="loading" style="display:none"><div class="loading-box"><div class="spinner"></div><span id="loading-text">Loading...</span></div></div>
 
-<script>
 {% csrf_token %}
+<script>
 function getCSRF() {
-  // Try cookie first, fallback to hidden input
   return getCookie('csrftoken') || document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
 }
 let exportData = null;
