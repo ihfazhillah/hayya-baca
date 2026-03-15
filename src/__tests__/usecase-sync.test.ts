@@ -68,7 +68,7 @@ describe("Sync: children dari server", () => {
     mockApi.isLoggedIn.mockResolvedValue(true);
   });
 
-  it("fetch children → upsert ke lokal", async () => {
+  it("fetch children → upsert ke lokal (tanpa overwrite coins/stars)", async () => {
     const serverKids = [
       { id: 1, name: "Ahmad", age: 5, avatar_color: "#E91E63", coins: 15, stars: 8 },
       { id: 2, name: "Fatimah", age: 7, avatar_color: "#9C27B0", coins: 10, stars: 4 },
@@ -78,8 +78,13 @@ describe("Sync: children dari server", () => {
     await syncAll();
 
     expect(mockChildren.upsertChildFromServer).toHaveBeenCalledTimes(2);
-    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(serverKids[0]);
-    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(serverKids[1]);
+    // coins/stars should be undefined — recalculated from reward_history, not server
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 1, name: "Ahmad", coins: undefined, stars: undefined })
+    );
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 2, name: "Fatimah", coins: undefined, stars: undefined })
+    );
   });
 
   it("hapus anak lokal yang tidak ada di server", async () => {
@@ -304,7 +309,9 @@ describe("Sync: push local children to server", () => {
     await syncAll();
 
     expect(mockApi.createChildOnServer).not.toHaveBeenCalled();
-    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(serverKids[0]);
+    expect(mockChildren.upsertChildFromServer).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 1, name: "Ahmad" })
+    );
   });
 
   it("push gagal 1 anak → lanjut anak lain + pull tetap jalan", async () => {

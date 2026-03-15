@@ -79,6 +79,56 @@ export async function getRewardHistory(
   }));
 }
 
+export async function mergeServerRewards(
+  childId: number,
+  serverRewards: { type: string; count: number; description: string; created_at: string; idempotency_key: string | null }[]
+): Promise<void> {
+  const db = await getDatabase();
+  for (const r of serverRewards) {
+    if (!r.idempotency_key) continue;
+    // Skip if already exists locally
+    const existing = await db.getFirstAsync<{ id: number }>(
+      "SELECT id FROM reward_history WHERE child_id = ? AND idempotency_key = ?",
+      childId,
+      r.idempotency_key
+    );
+    if (existing) continue;
+    await db.runAsync(
+      `INSERT INTO reward_history (child_id, type, count, description, created_at, synced, idempotency_key)
+       VALUES (?, ?, ?, ?, ?, 1, ?)`,
+      childId,
+      r.type,
+      r.count,
+      r.description,
+      r.created_at,
+      r.idempotency_key
+    );
+  }
+}
+
+export async function recalculateBalance(
+  childId: number
+): Promise<{ coins: number; stars: number }> {
+  const db = await getDatabase();
+  const row = await db.getFirstAsync<{ coins: number; stars: number }>(
+    `SELECT
+       COALESCE(SUM(CASE WHEN type IN ('coin', 'coin_adjustment') THEN count ELSE 0 END), 0) as coins,
+       COALESCE(SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END), 0) as stars
+     FROM reward_history WHERE child_id = ?`,
+    childId
+  );
+  const coins = row?.coins ?? 0;
+  const stars = row?.stars ?? 0;
+  await db.runAsync(
+    "UPDATE children SET coins = ?, stars = ? WHERE id = ?",
+    coins,
+    stars,
+    childId
+  );
+  emitDataChange("children");
+  return { coins, stars };
+}
+
 export async function saveReadingProgress(
   childId: number,
   bookId: string,

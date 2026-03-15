@@ -8,7 +8,7 @@ class RewardHistorySerializer(serializers.ModelSerializer):
         model = RewardHistory
         fields = [
             "id", "child", "type", "count", "description", "created_at",
-            "synced", "source_device", "voided",
+            "synced", "source_device", "voided", "idempotency_key",
         ]
         read_only_fields = ["id", "created_at"]
 

@@ -98,6 +98,13 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
   } catch {
     // column already exists — ignore
   }
+
+  // Migration: add idempotency_key column to reward_history
+  try {
+    await db.runAsync("ALTER TABLE reward_history ADD COLUMN idempotency_key TEXT DEFAULT NULL");
+  } catch {
+    // column already exists — ignore
+  }
 }
 
 export async function getSetting(key: string): Promise<string | null> {

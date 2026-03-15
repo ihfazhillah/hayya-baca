@@ -1,6 +1,6 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
-import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced } from "./rewards";
+import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, recalculateBalance } from "./rewards";
 import { getDeviceId } from "./device";
 import { getDatabase } from "./database";
 
@@ -56,10 +56,22 @@ async function syncChildren(activeChildId?: number): Promise<void> {
   // Step 3: Pull server children (re-fetch if we pushed data or children)
   const finalChildren = (unsynced.length > 0 || didPush) ? await fetchChildren() : serverChildren;
   for (const sc of finalChildren) {
-    await upsertChildFromServer(sc);
+    // Don't overwrite coins/stars — they'll be recalculated from reward_history
+    await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
   }
   if (finalChildren.length > 0) {
     await deleteChildrenNotIn(finalChildren.map((c) => c.id));
+  }
+
+  // Step 4: Pull reward history and recalculate balance
+  if (activeChildId) {
+    try {
+      const serverRewards = await fetchRewardHistory(activeChildId);
+      await mergeServerRewards(activeChildId, serverRewards);
+      await recalculateBalance(activeChildId);
+    } catch (e) {
+      console.warn("syncRewardHistory error:", e);
+    }
   }
 }
 

@@ -185,6 +185,14 @@ export async function pushQuizAttempt(
   }
 }
 
+export async function fetchRewardHistory(
+  childId: number
+): Promise<{ type: string; count: number; description: string; created_at: string; idempotency_key: string | null }[]> {
+  const res = await apiFetch(`/children/${childId}/rewards/`);
+  if (!res.ok) return [];
+  return res.json();
+}
+
 // --- Content API (public, no auth) ---
 
 export interface ServerArticleListItem {

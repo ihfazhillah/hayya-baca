@@ -127,21 +127,40 @@ export async function upsertChildFromServer(child: {
   name: string;
   age: number | null;
   avatar_color: string;
-  coins: number;
-  stars: number;
+  coins?: number;
+  stars?: number;
 }): Promise<void> {
   const db = await getDatabase();
-  await db.runAsync(
-    `INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age, server_id)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    child.id,
-    child.name,
-    child.avatar_color,
-    child.coins,
-    child.stars,
-    child.age,
+  // Check if child already exists locally
+  const existing = await db.getFirstAsync<{ id: number; coins: number; stars: number }>(
+    "SELECT id, coins, stars FROM children WHERE id = ?",
     child.id
   );
+
+  if (existing) {
+    // Update profile fields only — coins/stars managed by recalculateBalance
+    await db.runAsync(
+      `UPDATE children SET name = ?, avatar_color = ?, age = ?, server_id = ? WHERE id = ?`,
+      child.name,
+      child.avatar_color,
+      child.age,
+      child.id,
+      child.id
+    );
+  } else {
+    // New child — use server values as initial (or 0)
+    await db.runAsync(
+      `INSERT INTO children (id, name, avatar_color, coins, stars, age, server_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      child.id,
+      child.name,
+      child.avatar_color,
+      child.coins ?? 0,
+      child.stars ?? 0,
+      child.age,
+      child.id
+    );
+  }
   emitDataChange("children");
 }
 
