@@ -84,6 +84,13 @@ class ImportView(StaffRequiredMixin, View):
         if not isinstance(data, list):
             return JsonResponse({"error": "Expected a list"}, status=400)
 
+        # Normalize: accept export format (id/existing_quizzes) or import format (book_id/quizzes)
+        for item in data:
+            if "book_id" not in item and "id" in item:
+                item["book_id"] = item["id"]
+            if "quizzes" not in item and "existing_quizzes" in item:
+                item["quizzes"] = item["existing_quizzes"]
+
         book_ids = [item["book_id"] for item in data]
         existing = set(Book.objects.filter(id__in=book_ids).values_list("id", flat=True))
         missing = [bid for bid in book_ids if bid not in existing]

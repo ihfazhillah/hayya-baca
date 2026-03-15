@@ -163,7 +163,11 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 <div class="loading" id="loading" style="display:none"><div class="loading-box"><div class="spinner"></div><span id="loading-text">Loading...</span></div></div>
 
 <script>
-const CSRF = getCookie('csrftoken');
+{% csrf_token %}
+function getCSRF() {
+  // Try cookie first, fallback to hidden input
+  return getCookie('csrftoken') || document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+}
 let exportData = null;
 let pendingData = [];
 let applyMode = 'append';
@@ -257,7 +261,7 @@ async function doImport() {
   try {
     const res = await fetch('/api/quiz-manage/import/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRF() },
       credentials: 'same-origin',
       body: text,
     });
@@ -436,7 +440,7 @@ async function doApply() {
   try {
     const res = await fetch('/api/quiz-manage/apply/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRF() },
       credentials: 'same-origin',
       body: JSON.stringify({ mode: applyMode, items }),
     });
@@ -455,7 +459,7 @@ async function doClear() {
   if (!confirm('Clear semua pending quiz?')) return;
   await fetch('/api/quiz-manage/clear/', {
     method: 'POST',
-    headers: { 'X-CSRFToken': CSRF },
+    headers: { 'X-CSRFToken': getCSRF() },
     credentials: 'same-origin',
   });
   pendingData = [];
