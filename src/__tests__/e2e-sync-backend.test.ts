@@ -597,6 +597,51 @@ describe("E2E sync against real Django backend", () => {
     expect(err2).toBeNull();
   });
 
+  // BC-4 — server-reported balance must equal the sum of reward_history
+  // rows for that child, both after a mixed push and after a full re-push
+  // where every row is skipped by idempotency. Regression guard — current
+  // behavior correct, but the serializer's skip/continue path is exactly
+  // the kind of place that breaks on future refactors.
+  it("Case 26 — BC-4: balance == sum(reward_history) across re-push", async () => {
+    const api = await loginHelper();
+    const child = await api.createChildOnServer(`BC4-${Date.now()}`);
+    const now = new Date().toISOString();
+    const base = `bc4-${Date.now()}`;
+    const batch = [
+      { type: "coin", count: 5, description: "Baca 1", created_at: now, idempotency_key: `${base}-1` },
+      { type: "coin_spend", count: -2, description: "Beli stiker", created_at: now, idempotency_key: `${base}-2` },
+      { type: "coin", count: 3, description: "Baca 2", created_at: now, idempotency_key: `${base}-3` },
+      { type: "star", count: 4, description: "Halaman bagus", created_at: now, idempotency_key: `${base}-4` },
+    ];
+
+    expect(await api.pushRewardsBulk(child.id, batch)).toBeNull();
+
+    const balUrl = `${process.env.API_BASE_URL}/children/${child.id}/balance/`;
+    const bal1 = (await (await fetch(balUrl)).json()) as { coins: number; stars: number };
+    expect(bal1.coins).toBe(6);
+    expect(bal1.stars).toBe(4);
+
+    // Re-push identical batch: every row skipped by idempotency, balance
+    // must NOT double.
+    expect(await api.pushRewardsBulk(child.id, batch)).toBeNull();
+
+    const bal2 = (await (await fetch(balUrl)).json()) as { coins: number; stars: number };
+    expect(bal2.coins).toBe(6);
+    expect(bal2.stars).toBe(4);
+
+    // And cross-check against reward_history — server's denormalized
+    // balance is supposed to be a cache of this sum.
+    const history = await api.fetchRewardHistory(child.id);
+    const coinSum = history
+      .filter((h) => h.type === "coin" || h.type === "coin_adjustment" || h.type === "coin_spend")
+      .reduce((s, h) => s + h.count, 0);
+    const starSum = history
+      .filter((h) => h.type === "star" || h.type === "star_adjustment")
+      .reduce((s, h) => s + h.count, 0);
+    expect(bal2.coins).toBe(coinSum);
+    expect(bal2.stars).toBe(starSum);
+  });
+
   // KB-3 — backend must reject coin_spend that would drive child.coins below
   // zero. Without this guard, a mobile UI glitch (stale local balance) can
   // push a negative spend and the server happily stores it → child.coins
