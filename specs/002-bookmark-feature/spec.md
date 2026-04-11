@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-bookmark-feature`
 **Created**: 2026-04-11
-**Status**: Draft
+**Status**: Implemented (PR #3)
 **Input**: Anak-anak ingin menyimpan buku/artikel favorit supaya bisa dibaca lagi nanti. Saat ini tidak ada fitur bookmark, dan ranking artikel yang sudah dibaca turun jauh, sehingga artikel menarik sulit ditemukan kembali.
 
 ## Problem Statement

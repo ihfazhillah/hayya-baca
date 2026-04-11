@@ -3,7 +3,7 @@
 **Spec**: [spec.md](./spec.md)
 **Branch**: `002-bookmark-feature`
 **Created**: 2026-04-11
-**Status**: Approved, pre-implementation
+**Status**: Implemented (PR #3)
 
 ## Scope Decisions (locked)
 
@@ -122,7 +122,7 @@ Idempotent; safe to call repeatedly.
 
 ### 4.2 New triggers
 - **On toggle**: reading screen fires `pushBookmarksOnly(activeChildSlug)` (bookmarks-only push) non-blocking, wrapped in try/catch that never throws. Does NOT call full `syncNow()` — avoids heavy sync on frequent star taps.
-- **On child activation**: in child-select flow, after setting active child, call `syncBookmarksForChild(childSlug)` — push any dirty + pull active — also non-blocking.
+- **On child activation**: in child-select flow (`app/index.tsx`), after `selectChild(child)`, fire `syncBookmarksForChild(child.id)` non-blocking before `router.push("/home")` — pushes any dirty + pulls active.
 
 ### 4.3 Failure semantics
 - Local DB is source of truth for UI.
@@ -203,16 +203,16 @@ Mocks:
 
 ## 8. Manual E2E Checklist
 
-- [ ] Toggle bookmark on article → star flips, appears in merged Favorit section at top of home.
-- [ ] Toggle bookmark on book → also appears in the same merged Favorit section, mixed with article, newest first.
-- [ ] Tap book row routes to `/read/[bookId]`; tap article row routes to `/article/[articleId]`.
-- [ ] Unbookmark → disappears from Favorit section.
-- [ ] Airplane mode → toggle still works, star state persists across app restart.
-- [ ] Re-enable network → `syncNow` pushes pending bookmarks (check SyncLog).
-- [ ] Login on second device → Favorit section populates after sync.
-- [ ] Switch child A → B → Favorit section shows B's bookmarks only, then auto-refreshes from server.
-- [ ] Uninstall + reinstall + login → bookmarks return after sync.
-- [ ] Reading flow unchanged; no regression in existing sync.
+- [x] Toggle bookmark on article → star flips, appears in merged Favorit section at top of home.
+- [x] Toggle bookmark on book → also appears in the same merged Favorit section, mixed with article, newest first.
+- [x] Tap book row routes to `/read/[bookId]`; tap article row routes to `/article/[articleId]`.
+- [x] Unbookmark → disappears from Favorit section.
+- [x] Airplane mode → toggle still works, star state persists across app restart.
+- [x] Re-enable network → `syncNow` pushes pending bookmarks (check SyncLog).
+- [x] Login on second device → Favorit section populates after sync.
+- [x] Switch child A → B → Favorit section shows B's bookmarks only, then auto-refreshes from server.
+- [x] Uninstall + reinstall + login → bookmarks return after sync.
+- [x] Reading flow unchanged; no regression in existing sync.
 
 ## 9. Out of Scope (Iterasi Lanjut)
 
