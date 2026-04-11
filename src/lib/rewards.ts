@@ -27,20 +27,16 @@ export async function addReward(
     count,
     description
   );
-  // Update child totals
-  if (type === "coin") {
-    await db.runAsync(
-      "UPDATE children SET coins = coins + ? WHERE id = ?",
-      count,
-      childId
-    );
-  } else {
-    await db.runAsync(
-      "UPDATE children SET stars = stars + ? WHERE id = ?",
-      count,
-      childId
-    );
-  }
+  // Re-derive children.coins/stars from reward_history in a single statement.
+  // Earlier code did `coins = coins + count` which could race with
+  // recalculateBalance — both writers would step on each other.
+  await db.runAsync(
+    `UPDATE children SET
+       coins = COALESCE((SELECT SUM(CASE WHEN type IN ('coin', 'coin_adjustment', 'coin_spend') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0),
+       stars = COALESCE((SELECT SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0)
+     WHERE id = ?`,
+    childId, childId, childId
+  );
   emitDataChange("children");
   triggerOpportunisticSync(childId);
 }
@@ -163,23 +159,22 @@ export async function recalculateBalance(
   childId: number
 ): Promise<{ coins: number; stars: number }> {
   const db = await getDatabase();
-  const row = await db.getFirstAsync<{ coins: number; stars: number }>(
-    `SELECT
-       COALESCE(SUM(CASE WHEN type IN ('coin', 'coin_adjustment') THEN count ELSE 0 END), 0) as coins,
-       COALESCE(SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END), 0) as stars
-     FROM reward_history WHERE child_id = ?`,
-    childId
-  );
-  const coins = row?.coins ?? 0;
-  const stars = row?.stars ?? 0;
+  // Single-statement update: SELECT and UPDATE are fused, so no writer can
+  // sneak between reading the sum and writing it back. Previously the two
+  // awaits left a gap where an addReward could be overwritten by a stale
+  // UPDATE, manifesting as "coins briefly up then snap back".
   await db.runAsync(
-    "UPDATE children SET coins = ?, stars = ? WHERE id = ?",
-    coins,
-    stars,
-    childId
+    `UPDATE children SET
+       coins = COALESCE((SELECT SUM(CASE WHEN type IN ('coin', 'coin_adjustment', 'coin_spend') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0),
+       stars = COALESCE((SELECT SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0)
+     WHERE id = ?`,
+    childId, childId, childId
+  );
+  const row = await db.getFirstAsync<{ coins: number; stars: number }>(
+    "SELECT coins, stars FROM children WHERE id = ?", childId
   );
   emitDataChange("children");
-  return { coins, stars };
+  return { coins: row?.coins ?? 0, stars: row?.stars ?? 0 };
 }
 
 export async function saveReadingProgress(
