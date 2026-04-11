@@ -3,6 +3,7 @@ import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkCh
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
 import { getDeviceId } from "./device";
 import { getDatabase } from "./database";
+import { subscribeSession, getSelectedChild } from "./session";
 
 export interface SyncReport {
   success: boolean;
@@ -60,6 +61,19 @@ export async function syncAll(childIds?: number[]): Promise<SyncReport> {
     if (syncChain === next) syncChain = null;
   }) as Promise<SyncReport>;
   return next;
+}
+
+// Fire a background sync whenever the active child changes. Without this,
+// data queued for the newly-selected child would sit idle until the next
+// AppState foreground transition.
+export function attachSessionSyncTrigger(): () => void {
+  let lastId: number | null = getSelectedChild()?.id ?? null;
+  return subscribeSession(() => {
+    const id = getSelectedChild()?.id ?? null;
+    if (id == null || id === lastId) return;
+    lastId = id;
+    syncAll([id]).catch(() => {});
+  });
 }
 
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {

@@ -6,7 +6,7 @@ import { UpdateProvider } from "../src/context/UpdateContext";
 import { UpdateBar } from "../src/components/UpdateBar";
 import { View, StyleSheet, AppState } from "react-native";
 import { useEffect, useRef } from "react";
-import { syncAll } from "../src/lib/sync";
+import { syncAll, attachSessionSyncTrigger } from "../src/lib/sync";
 import { syncContent } from "../src/lib/content-manager";
 import { getSelectedChild } from "../src/lib/session";
 import { setSetting } from "../src/lib/database";
@@ -34,7 +34,13 @@ export default function RootLayout() {
       }
       appState.current = nextState;
     });
-    return () => sub.remove();
+    // Trigger sync when the active child changes (e.g. user picks a profile)
+    const detachSession = attachSessionSyncTrigger();
+
+    return () => {
+      sub.remove();
+      detachSession();
+    };
   }, []);
 
   return (

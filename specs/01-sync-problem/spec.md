@@ -636,13 +636,18 @@ Then:  pushRewardsBulk TIDAK dipanggil untuk anak 1
 **Cara jalankan:** `npm test -- usecase-sync-mount-race`
 
 **Hasil observasi:**
-- [ ] Test ditulis
-- [ ] Dijalankan pertama kali
-- Output: _________________________
-- Status: ( ) FAIL sesuai hipotesis  ( ) PASS → hipotesis salah
+- [x] Test ditulis (`src/__tests__/usecase-sync-mount-race.test.ts`)
+- [x] Dijalankan pertama kali
+- Output: `TypeError: sync.attachSessionSyncTrigger is not a function`
+- Status: (x) FAIL — fungsi trigger belum ada. Sesudah implement → PASS.
 
-**Fix:** emitkan event saat `setSelectedChild` dipanggil; `_layout` listen
-→ trigger `syncAll([id])`.
+**Fix:** `src/lib/sync.ts attachSessionSyncTrigger()` subscribe ke
+`session.ts` listener. Trigger `syncAll([id])` saat active child berubah
+(dedupe via `lastId`). Dipasang di `app/_layout.tsx` mount effect.
+
+**Verifikasi ulang:**
+- [x] Test PASS setelah fix
+- [x] `npm test` full suite PASS (20 passed, 1 skipped)
 
 **Commit:** `fix(sync): #7 sync triggers on child selection change`
 
