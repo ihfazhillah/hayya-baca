@@ -112,16 +112,17 @@ export function attachNetInfoReconnectTrigger(): () => void {
   });
 }
 
-// Fire a background sync whenever the active child changes. Without this,
-// data queued for the newly-selected child would sit idle until the next
-// AppState foreground transition.
+// Fire a background sync whenever the active child changes. MC-2: flush
+// ALL children, not just the newly-selected one. Profile switch is a
+// natural checkpoint, and scoping to the new child would strand the
+// previous child's queued rows until mount restart or a NetInfo reconnect.
 export function attachSessionSyncTrigger(): () => void {
   let lastId: number | null = getSelectedChild()?.id ?? null;
   return subscribeSession(() => {
     const id = getSelectedChild()?.id ?? null;
     if (id == null || id === lastId) return;
     lastId = id;
-    syncAll([id]).catch(() => {});
+    syncAll().catch(() => {});
   });
 }
 
