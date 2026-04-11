@@ -282,3 +282,155 @@ Run pertama cleanup meninggalkan runserver orphaned karena `$!` dari subshell me
 - [ ] Pertimbangkan tambah e2e ke CI terpisah (butuh Python di runner — biarkan manual sekarang)
 - [ ] **Opsional:** e2e-reset endpoint (Finding #2) — hanya kalau nanti ada flakiness
 
+---
+
+## Checklist edge-cases (dari `edge-cases.md` §1)
+
+Status per 2026-04-11. Commit hash di kolom kanan = commit yang menambahkan test/fix. Test file: `src/__tests__/e2e-sync-backend.test.ts` kecuali disebut lain.
+
+### Multi-device (MD-\*)
+- [x] **MD-1** dua device earn koin bersamaan — `1fad109` fix + test Case 8
+- [x] **MD-2 / RC-1** `completed_count` derived from reading_log — `c9ce66d`, test Case 9
+- [ ] **MD-3** pull reward history saat device lain masih push — belum
+- [x] **MD-4** fresh device login pull riwayat penuh — `3fdc81d`, test Case 11
+- [x] **MD-5** device B spend setelah device A earn — `6c8f4bd`, test Case 12
+- [ ] **MD-6** clock skew 1 jam antar device — deferred (butuh clock-mock)
+- [ ] **MD-7** logout device A invalidate token device B — deferred (butuh design: per-device token)
+
+### Multi-child (MC-\*)
+- [ ] **MC-1** rapid child switch → opportunistic sync antri — belum
+- [x] **MC-2** switch child flush semua children — `88b4f07`
+- [x] **MC-3** force-kill mid-sync queue multi-child — `8b2d3fd`
+
+### Kid behavior (KB-\*)
+- [ ] **KB-1** rapid-tap 5 reward < 200ms → idempotency collision — belum
+- [x] **KB-2** 200 reward bulk push < 5s — `5cb70d5`, test Case 17
+- [x] **KB-3** spend > balance → backend reject — `fd91d9c`, test Case 18
+
+### Offline (OL-\*)
+- [x] **OL-1** mid-push network drop retry — `f9a4116`
+- [ ] **OL-2** NetInfo online tapi 5xx / timeout — belum
+- [ ] **OL-3** reconnect memicu sync saat manual sync masih jalan — belum
+
+### Identity (ID-\*)
+- [x] **ID-1** global idempotency_key collision surfaces skipped — `b93eea7`, test Case 20
+- [ ] **ID-2** `linkChildToServer` remap clash dengan child row lain — belum
+- [x] **ID-3** reading_log pull preserves idempotency_key — `3bca567`, test Case 22
+
+### Backend contract (BC-\*)
+- [ ] **BC-1** backend terima `count=-100` pada `type='coin'` (no sign validation) — belum
+- [x] **BC-2** `rewards/sync/` + `reading-log/` enforce ChildAccess — `55068de`, test Case 24
+- [x] **BC-3** book slug 400 hanya blok book itu — `4608f5e`, test Case 25
+- [x] **BC-4** balance == sum(reward_history) pada re-push — `0dd2abc`, test Case 26
+- [x] **BC-5** reward history pull 1000 entries < 3s — `3e1c253`, test Case 27
+- [x] **BC-6** reading_progress resolve slug → pk → stub — `7c947e3`/`0ea5255`, test Case 29
+- [ ] **BC-7** article slug drift saat judul diedit server — belum
+
+### Reading counter (RC-\*)
+- [x] **RC-1** = MD-2 (dicover bersamaan)
+- [ ] **RC-2** `last_page` regression `12→3→12` dalam satu sesi — belum
+
+### Auth / session (AS-\*)
+- [ ] **AS-1** token expire mid-sync — belum
+- [ ] **AS-2** login account B saat local DB ada account A data — belum
+
+**Total:** 16/30 done, 14 remaining (3 deferred design-first, 11 realistic untuk e2e).
+
+---
+
+## Risk assessment — mana yang kemungkinan jadi masalah di app sekarang
+
+Analisa tiap edge case yang belum ditutup: seberapa besar kemungkinan bug **saat ini** nyangkut di user lapangan, dan plan investigasi kalau muncul.
+
+### 🔴 High risk — kemungkinan besar sudah/akan menggigit user
+
+#### **MD-7 / AS-1** — single token per user (CRITICAL)
+
+**Kenapa high:** `backend/accounts/views.py:34` pakai `Token.objects.get_or_create(user=user)` — DRF default TokenAuthentication punya satu row per user. Implikasi:
+1. **MD-7:** Login di HP mama → login lagi di tablet Aisyah (user sama). `get_or_create` return token yang sama → HP tetap valid. OK so far. Tapi kalau HP mama **logout**, `accounts/views.py:61` delete token → tablet Aisyah langsung 401 diam-diam pada sync berikutnya. Kid lagi asyik baca, tiba-tiba reward tidak ter-persist.
+2. **AS-1:** Token tidak pernah expire sendiri di DRF default, jadi "expire mid-sync" hanya terjadi via route (1) atau admin force-delete. Tetap, dampaknya identik dengan MD-7.
+
+**Cara analisa kalau user lapor "reward hilang setelah logout di device lain":**
+- Minta user buka `Orang Tua → Manual Sync` — kalau tombol itu error "401" / "Token tidak valid", konfirm hipotesis.
+- Check backend `authtoken_token` table — kalau cuma 1 row per user, diagnosis pasti.
+- Log sisi client: sudah ada `report.errors` — cek `src/lib/sync.ts:42` apakah 401 dilog spesifik, kalau tidak, tambahkan sentinel error `AUTH_401` supaya parent dashboard bisa surface-kan "perlu login ulang".
+
+**Action:** sebelum bikin test, design decision dulu — switch ke per-device token (DRF `knox` atau custom model dengan `device_id` field). Flag di plan.md Fase E.
+
+#### **ID-2** — `linkChildToServer` ID remap clash
+
+**Kenapa high:** `src/lib/sync.ts:156-159` — saat create child offline, local pakai autoincrement id, push ke server dapat server id, lalu remap local row. Kalau server-side id **bentrok** dengan child row lain yang sudah ada (misal: user sebelumnya punya Aisyah local.id=3, lalu server return id=3 untuk child baru "Fatimah"), `UPDATE children SET id=3 WHERE ...` akan hit UNIQUE constraint atau overwrite Aisyah. Reading_log/reward_history yang sudah pakai `child_id=3` jadi nyasar.
+
+**Cara analisa kalau "anak A tiba-tiba punya reward anak B":**
+- Query local SQLite: `SELECT id, name, server_id FROM children WHERE id IN (SELECT DISTINCT child_id FROM reward_history)` — lihat apakah ada dua nama pakai id sama dalam history.
+- Cek `sync_log` (kalau ada di local) untuk link events.
+- Repro step: offline, create 2 anak beruturut; online, sync — cek mapping.
+
+**Action:** tulis test e2e yang force bentrok (two offline children, seed server dengan children lain dulu). Fix direction: remap pakai temp negative id sebelum UPDATE. **P2, worth doing.**
+
+### 🟡 Medium risk — bisa kejadian, tapi gejalanya self-healing atau cosmetic
+
+#### **BC-1** — `count=-100` pada `type='coin'`
+
+**Kenapa medium:** Serializer hanya validasi `choices`, tidak validasi sign. Client **sekarang** tidak pernah push negative coin (coin_spend pakai count negatif tapi type `coin_spend`), tapi kalau ada bug UI yang accidentally kirim `count=-5 type='coin'`, server accept → balance underflow. Belum pernah ada report, tapi tidak ada guard.
+
+**Analisa kalau user lapor "koin minus":** query `SELECT child_id, type, count FROM rewards_rewardhistory WHERE type='coin' AND count < 0` — kalau ada row, confirm.
+
+**Action:** 1 line serializer fix + test. Quick win, kerjakan segera.
+
+#### **OL-2** — NetInfo online tapi 5xx / timeout
+
+**Kenapa medium:** `sync.ts` pakai `attachNetInfoReconnectTrigger` yang fire sync saat network flap. Kalau server 5xx (Django crash, reverse-proxy restart), sync fail, errors di-log, **tapi retry hanya saat NetInfo flap lagi**. Bisa stuck puluhan menit sampai user toggle airplane mode.
+
+**Analisa:** cek `queue_depth_rewards` di parent dashboard — kalau terus naik padahal user bilang "internetnya nyala", konfirm. Backend log `5xx by IP` cross-ref jam.
+
+**Action:** exponential backoff internal saat receive 5xx (bukan cuma NetInfo). Medium effort, kerja setelah telemetri dashboard ada.
+
+#### **OL-3** — reconnect trigger saat manual sync masih jalan
+
+**Kenapa medium:** tidak ada mutex di `syncAll()`. Kalau user tekan Manual Sync, lalu koneksi flap (reconnect trigger), `syncAll()` kedua jalan paralel → dua push bulk dengan idempotency key yang sama → backend dedupe, tapi `queue_depth_rewards` telemetri bisa double-count. Cosmetic, tidak data loss.
+
+**Analisa:** sudah dicover sebagian oleh MC-3 persistence. Kalau user lapor "telemetri queue stuck padahal sync jalan", cek log untuk dua `PUSH_REWARDS` SyncLog rows dalam 1 detik.
+
+**Action:** tambah `isSyncing` flag di `sync.ts`. Low effort, eat up anytime.
+
+#### **RC-2** — `last_page` regression dalam sesi
+
+**Kenapa medium:** `reading_progress` server-side pakai MAX(last_page, incoming). Kalau kid re-open buku dari awal (halaman 1), client push `last_page=1`, server tetap simpan 12 (existing). **Ini intentional behavior**, tapi UI mobile kadang tampilkan last_page dari local yang lebih kecil → mismatch dengan server. Cosmetic untuk reward (completed_count sudah dipisah ke reading_log — fixed by MD-2). 
+
+**Analisa:** Kalau user lapor "bookmark salah", query `SELECT book_id, last_page, completed_count FROM reading_progress WHERE child_id=?` di local vs server.
+
+**Action:** skip for now — tidak dampak reward integrity.
+
+### 🟢 Low risk — edge-of-edge, skip sampai ada laporan
+
+- **MD-3** pull during push: backend SQLite serialize writes, client idempotent → konvergen di run berikutnya. Skip.
+- **MD-6** clock skew: backend pakai server time untuk `created_at` (bukan client-provided dalam kebanyakan jalur). Dampak terbatas ke "sort order di timeline". Skip.
+- **MC-1** rapid child switch: sudah dicover parsial oleh MC-2 (session switch flush). Skip sampai ada laporan flake.
+- **KB-1** rapid-tap idempotency: client pakai `uuid` per reward, collision essentially zero. Skip.
+- **BC-7** article slug drift: mitigated oleh BC-6 stub fallback. Skip.
+- **AS-2** account switch local data: butuh design ("clear local data on logout?"). Skip sampai user request.
+
+### Urutan prioritas kerjaan berikutnya
+
+1. **BC-1** — cepat (1 commit, serializer fix + test), tutup kemungkinan balance underflow.
+2. **ID-2** — P2 tapi data-integrity risk. Test dulu (expected FAIL), lalu fix.
+3. **OL-3** — mutex di syncAll, mudah.
+4. **MD-7 / AS-1** — butuh design decision token-per-device. Pindah ke plan.md Fase E, bahas dulu sebelum implement.
+5. **OL-2** — setelah backoff strategy didiskusikan.
+
+Sisa (MD-3, MD-6, MC-1, KB-1, BC-7, RC-2, AS-2) → defer, dokumentasi cukup.
+
+---
+
+## Toolkit analisa root-cause untuk laporan lapangan
+
+Supaya kalau user lapor bug, ada jalur pasti untuk diagnosis:
+
+1. **Parent dashboard telemetri** (plan.md §7.1) — `queue_depth_rewards`, `last_sync_error`, `last_successful_sync_at` per device. **Tanpa ini, semua diagnosis lapangan cuma tebak-tebakan.** Prioritas tertinggi setelah BC-1.
+2. **SyncLog export** — `backend/sync/models.py SyncLog` sudah catat push events. Tambah admin action "Export CSV per child" supaya bisa minta log sebelum memanggil user.
+3. **Client-side debug bundle** — Parent page tambah tombol "Kirim log ke support" yang tarik last 50 rows dari local `sync_log`+`reward_history unsynced` dan share via email/clipboard.
+4. **Backend `manage.py reading_report`** — sudah ada, extend untuk per-device breakdown.
+
+Hitungan quick ROI: **parent telemetri dashboard** unblock 5 dari 14 edge cases di atas (MD-7, OL-2, OL-3, ID-2, AS-1) dari "tebakan" ke "data-driven". Itu investasi yang benar sebelum lanjut test coverage.
+
