@@ -5,8 +5,39 @@ from library.models import Book
 from .models import QuizAttempt, ReadingLog, ReadingProgress
 
 
+class AutoCreateBookSlugField(serializers.SlugRelatedField):
+    """Resolve Book by slug; auto-create an unpublished stub if missing.
+
+    Why: mobile bundles content (books + articles) whose slugs may not yet
+    exist as Book rows on the server (BC-6). Hard-failing with 400 causes
+    permanent data loss — reading_progress for that slug stays synced=0
+    forever. Stubs are unpublished so they don't leak into the library UI;
+    admins can backfill metadata later.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("slug_field", "slug")
+        kwargs.setdefault("queryset", Book.objects.all())
+        super().__init__(**kwargs)
+
+    def to_internal_value(self, data):
+        try:
+            return super().to_internal_value(data)
+        except serializers.ValidationError:
+            slug = str(data)
+            book, _ = Book.objects.get_or_create(
+                slug=slug,
+                defaults={
+                    "title": f"Book {slug}",
+                    "content_type": Book.ContentType.BOOK,
+                    "is_published": False,
+                },
+            )
+            return book
+
+
 class ReadingProgressSerializer(serializers.ModelSerializer):
-    book = serializers.SlugRelatedField(slug_field='slug', queryset=Book.objects.all())
+    book = AutoCreateBookSlugField()
 
     class Meta:
         model = ReadingProgress

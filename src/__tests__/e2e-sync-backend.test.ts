@@ -192,6 +192,46 @@ describe("E2E sync against real Django backend", () => {
     expect(matches.length).toBe(1);
   });
 
+  it("Case 29 — BC-6: reading_progress push for unseeded book slug", async () => {
+    const api = await loginHelper();
+    const child = await api.createChildOnServer(`Case29-${Date.now()}`);
+
+    // Book "1" is seeded — must succeed.
+    const errKnown = await api.pushReadingProgress(child.id, {
+      book: "1",
+      last_page: 5,
+      completed: false,
+      completed_count: 0,
+    });
+    expect(errKnown).toBeNull();
+
+    // Book "99" is NOT in seed_e2e. Pre-fix this returns 400; post-fix
+    // (BC-6 option 1+3) it should succeed — server must not hard-fail
+    // on unknown slug, but accept and either auto-stub or treat book as
+    // a free-form string id.
+    const errUnknown = await api.pushReadingProgress(child.id, {
+      book: "99",
+      last_page: 5,
+      completed: false,
+      completed_count: 0,
+    });
+    expect(errUnknown).toBeNull();
+
+    // Unrelated book still works (no poison state).
+    const okAgain = await api.pushReadingProgress(child.id, {
+      book: "2",
+      last_page: 8,
+      completed: true,
+      completed_count: 1,
+    });
+    expect(okAgain).toBeNull();
+
+    // Round-trip: both slugs readable from server.
+    const rows = await api.fetchReadingProgressFromServer(child.id);
+    const slugs = rows.map((r) => r.book);
+    expect(slugs).toEqual(expect.arrayContaining(["1", "99", "2"]));
+  });
+
   it("Case 7 — device telemetry piggybacks on push without error", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case7-${Date.now()}`);
