@@ -273,22 +273,34 @@ export async function mergeServerReadingProgress(
     );
 
     if (!local) {
-      // New book from server — insert
       await db.runAsync(
         `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at, synced)
          VALUES (?, ?, ?, ?, ?, ?, 1)`,
         childId, bookId, sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at
       );
-    } else if (sp.updated_at > local.updated_at) {
-      // Server is newer — update
-      await db.runAsync(
-        `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = 1
-         WHERE child_id = ? AND book_id = ?`,
-        sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at,
-        childId, bookId
-      );
+      continue;
     }
-    // If local is newer or same, keep local
+
+    // Per-field merge instead of LWW: counters move forward only.
+    // A server update with a newer timestamp but smaller last_page must not
+    // drag the user's furthest page backward (that would be a data loss).
+    const mergedLastPage = Math.max(local.last_page, sp.last_page);
+    const mergedCount = Math.max(local.completed_count, sp.completed_count);
+    const mergedCompleted = (local.completed === 1 || sp.completed) ? 1 : 0;
+    const mergedUpdatedAt = sp.updated_at > local.updated_at ? sp.updated_at : local.updated_at;
+    const serverMatchesMerged =
+      sp.last_page === mergedLastPage &&
+      sp.completed_count === mergedCount &&
+      (sp.completed ? 1 : 0) === mergedCompleted;
+
+    await db.runAsync(
+      `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = ?
+       WHERE child_id = ? AND book_id = ?`,
+      mergedLastPage, mergedCompleted, mergedCount, mergedUpdatedAt,
+      // Stay unsynced if local side still has data the server does not know.
+      serverMatchesMerged ? 1 : 0,
+      childId, bookId
+    );
   }
   emitDataChange("children");
 }
