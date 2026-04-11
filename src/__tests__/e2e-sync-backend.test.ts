@@ -717,4 +717,34 @@ describe("E2E sync against real Django backend", () => {
       .reduce((sum, h) => sum + h.count, 0);
     expect(total2).toBe(3);
   });
+
+  // ID-3 — two reading_log completions that share completed_at (to the
+  // second) but differ in idempotency_key must BOTH land and BOTH come
+  // back on pull, with their keys preserved. The fragile path is a
+  // local dedup that collapses on (child, book, completed_at) — this
+  // test pins the server contract so a future client-side schema
+  // change can trust the pull payload's idempotency_key.
+  it("Case 22 — ID-3: reading_log pull preserves idempotency_key for same-timestamp events", async () => {
+    const apiA = await makeDevice("id3-device-A");
+    const apiB = await makeDevice("id3-device-B");
+
+    const child = await apiA.createChildOnServer(`ID3-${Date.now()}`);
+    const ts = "2026-04-11T12:34:56.000Z";
+    const base = `id3-${Date.now()}`;
+    const key1 = `${base}-rl1`;
+    const key2 = `${base}-rl2`;
+
+    const err = await apiA.pushReadingLog(child.id, [
+      { book_id: "1", completed_at: ts, idempotency_key: key1 },
+      { book_id: "1", completed_at: ts, idempotency_key: key2 },
+    ]);
+    expect(err).toBeNull();
+
+    const entries = await apiB.fetchReadingLog(child.id);
+    const mine = entries.filter((e) => e.idempotency_key === key1 || e.idempotency_key === key2);
+    expect(mine.length).toBe(2);
+    const keys = mine.map((e) => e.idempotency_key).sort();
+    expect(keys).toEqual([key1, key2].sort());
+    expect(new Set(mine.map((e) => e.completed_at)).size).toBe(1);
+  });
 });
