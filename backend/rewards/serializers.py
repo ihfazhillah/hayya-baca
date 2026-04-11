@@ -64,7 +64,11 @@ class BulkRewardSyncSerializer(serializers.Serializer):
                 idempotency_key=idem_key,
             )
             created.append(reward)
-            if entry["type"] in (RewardHistory.Type.COIN, RewardHistory.Type.COIN_ADJ):
+            if entry["type"] in (
+                RewardHistory.Type.COIN,
+                RewardHistory.Type.COIN_ADJ,
+                RewardHistory.Type.COIN_SPEND,
+            ):
                 total_coins += entry["count"]
             elif entry["type"] in (RewardHistory.Type.STAR, RewardHistory.Type.STAR_ADJ):
                 total_stars += entry["count"]
