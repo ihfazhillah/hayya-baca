@@ -597,6 +597,34 @@ describe("E2E sync against real Django backend", () => {
     expect(err2).toBeNull();
   });
 
+  // KB-2 — bulk push of 200 rewards must complete within 5s. Guard against
+  // server-side regressions (bulk_create rewrite, telemetry overhead, etc.)
+  // that would turn a 2-hour-offline session's flush into a hang.
+  it("Case 17 — KB-2: bulk push of 200 rewards finishes under 5s", async () => {
+    const api = await loginHelper();
+    const child = await api.createChildOnServer(`KB2-${Date.now()}`);
+    const now = new Date().toISOString();
+    const base = `kb2-${Date.now()}`;
+    const rewards = Array.from({ length: 200 }, (_, i) => ({
+      type: "coin",
+      count: 1,
+      description: `r${i}`,
+      created_at: now,
+      idempotency_key: `${base}-${i}`,
+    }));
+
+    const t0 = Date.now();
+    const err = await api.pushRewardsBulk(child.id, rewards);
+    const elapsed = Date.now() - t0;
+
+    expect(err).toBeNull();
+    expect(elapsed).toBeLessThan(5000);
+
+    const history = await api.fetchRewardHistory(child.id);
+    const mine = history.filter((h) => h.idempotency_key?.startsWith(base));
+    expect(mine.length).toBe(200);
+  });
+
   // BC-4 — server-reported balance must equal the sum of reward_history
   // rows for that child, both after a mixed push and after a full re-push
   // where every row is skipped by idempotency. Regression guard — current
