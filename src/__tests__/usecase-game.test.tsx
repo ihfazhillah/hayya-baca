@@ -116,7 +116,7 @@ describe("Game dimuat, koin dikurangi, WebView tampil", () => {
     });
 
     // SPY: updateChildCoins called to deduct coins locally (no reward_history entry)
-    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
+    expect(mockAddReward).toHaveBeenCalledWith(1, "coin_spend", -2, expect.stringContaining("Dino Jump"));
 
     // WebView should be rendered
     expect(screen.getByTestId("webview")).toBeTruthy();
@@ -139,7 +139,7 @@ describe("Koin tidak cukup → error ditampilkan", () => {
       expect(screen.getByText("Koin tidak cukup (perlu 2, punya 0)")).toBeTruthy();
     });
 
-    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
+    expect(mockAddReward).not.toHaveBeenCalled();
   });
 
   it("coins=1 (kurang dari cost=2) → error", async () => {
@@ -154,7 +154,7 @@ describe("Koin tidak cukup → error ditampilkan", () => {
       expect(screen.getByText("Koin tidak cukup (perlu 2, punya 1)")).toBeTruthy();
     });
 
-    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
+    expect(mockAddReward).not.toHaveBeenCalled();
   });
 });
 
@@ -204,7 +204,7 @@ describe("Sesi game: tidak double-charge", () => {
     expect(mockGetActiveSession).toHaveBeenCalledWith(1, "dino-jump");
 
     // SPY: should deduct coins locally (no active session)
-    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
+    expect(mockAddReward).toHaveBeenCalledWith(1, "coin_spend", -2, expect.stringContaining("Dino Jump"));
 
     // SPY: should create a new session
     expect(mockCreateSession).toHaveBeenCalledWith(1, "dino-jump", 5);
@@ -228,7 +228,7 @@ describe("Sesi game: tidak double-charge", () => {
     });
 
     // SPY: should NOT deduct coins
-    expect(mockUpdateChildCoins).not.toHaveBeenCalled();
+    expect(mockAddReward).not.toHaveBeenCalled();
 
     // SPY: should NOT create new session
     expect(mockCreateSession).not.toHaveBeenCalled();
@@ -258,7 +258,7 @@ describe("Sesi game: tidak double-charge", () => {
     });
 
     // Should charge again
-    expect(mockUpdateChildCoins).toHaveBeenCalledWith(1, -2);
+    expect(mockAddReward).toHaveBeenCalledWith(1, "coin_spend", -2, expect.stringContaining("Dino Jump"));
     expect(mockCreateSession).toHaveBeenCalledWith(1, "dino-jump", 5);
   });
 });

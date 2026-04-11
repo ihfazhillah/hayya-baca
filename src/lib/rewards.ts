@@ -15,7 +15,7 @@ function triggerOpportunisticSync(childId: number): void {
 
 export async function addReward(
   childId: number,
-  type: "coin" | "star",
+  type: "coin" | "star" | "coin_spend" | "coin_adjustment" | "star_adjustment",
   count: number,
   description: string
 ): Promise<void> {
