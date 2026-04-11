@@ -265,6 +265,62 @@ describe("E2E sync against real Django backend", () => {
     expect(authoritative?.coins).toBe(8);
   });
 
+  it("Case 9 — MD-2/RC-1: completed_count derives from reading_log (sum, not max)", async () => {
+    const apiT = await makeDevice("md2-device-T");
+    const apiH = await makeDevice("md2-device-H");
+
+    const child = await apiT.createChildOnServer(`MD2-${Date.now()}`);
+
+    // Both devices independently complete book "1" once. Event-sourced
+    // truth lives in reading_log; reading_progress.completed_count is
+    // the derived projection.
+    const errT = await apiT.pushReadingProgress(child.id, {
+      book: "1",
+      last_page: 10,
+      completed: true,
+      completed_count: 1,
+    });
+    expect(errT).toBeNull();
+
+    const errH = await apiH.pushReadingProgress(child.id, {
+      book: "1",
+      last_page: 10,
+      completed: true,
+      completed_count: 1,
+    });
+    expect(errH).toBeNull();
+
+    // Append-only reading_log — two distinct completions.
+    const keySuffix = Date.now();
+    const errLogT = await apiT.pushReadingLog(child.id, [
+      {
+        book_id: "1",
+        completed_at: "2026-04-11T10:00:00.000Z",
+        idempotency_key: `md2-T-${keySuffix}`,
+      },
+    ]);
+    expect(errLogT).toBeNull();
+
+    const errLogH = await apiH.pushReadingLog(child.id, [
+      {
+        book_id: "1",
+        completed_at: "2026-04-11T10:05:00.000Z",
+        idempotency_key: `md2-H-${keySuffix}`,
+      },
+    ]);
+    expect(errLogH).toBeNull();
+
+    // Reading log sanity — two events present.
+    const logs = await apiT.fetchReadingLog(child.id);
+    expect(logs.filter((l) => l.book_id === "1").length).toBe(2);
+
+    // Server's projected completed_count must match the log count, not
+    // MAX(local, incoming). Pre-fix this is 1 (MAX), post-fix 2.
+    const progress = await apiT.fetchReadingProgressFromServer(child.id);
+    const book1 = progress.find((p) => p.book === "1");
+    expect(book1?.completed_count).toBe(2);
+  });
+
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);

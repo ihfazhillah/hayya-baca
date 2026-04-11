@@ -51,6 +51,7 @@ class AutoCreateBookSlugField(serializers.SlugRelatedField):
 
 class ReadingProgressSerializer(serializers.ModelSerializer):
     book = AutoCreateBookSlugField()
+    completed_count = serializers.SerializerMethodField()
 
     class Meta:
         model = ReadingProgress
@@ -61,34 +62,59 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "child", "first_read_at", "completed_at", "updated_at"]
         validators = []  # disable unique_together validator; create() does upsert
 
+    def get_completed_count(self, obj):
+        """Derived from the append-only ReadingLog — the event-sourced
+        truth. Stored ReadingProgress.completed_count is a best-effort
+        cache written opportunistically; we read the log so multi-device
+        completions sum instead of MAX-collapse (MD-2 / RC-1)."""
+        return ReadingLog.objects.filter(
+            child_id=obj.child_id, book_id=obj.book.slug
+        ).count()
+
+    def to_internal_value(self, data):
+        # completed_count is incoming-but-ignored: stored locally for
+        # cache purposes, never trusted on read.
+        data = dict(data)
+        self._incoming_completed_count = data.pop("completed_count", 0)
+        return super().to_internal_value(data)
+
     def create(self, validated_data):
         request = self.context.get("request")
         device_id = request.META.get("HTTP_X_DEVICE_ID", "") if request else ""
 
         new_last_page = validated_data["last_page"]
         new_completed = validated_data.get("completed", False)
-        new_completed_count = validated_data.get("completed_count", 0)
+        new_completed_count = getattr(self, "_incoming_completed_count", 0)
 
         try:
             obj = ReadingProgress.objects.get(
                 child_id=validated_data["child_id"],
                 book=validated_data["book"],
             )
-            # Update with max() to prevent regression
+            # last_page is a "how far into the book are we" progress
+            # bar — MAX is correct. completed_count is a counter whose
+            # truth lives in ReadingLog, so we just refresh the cache
+            # from the log instead of MAX-ing the payload.
             obj.last_page = max(obj.last_page, new_last_page)
-            obj.completed_count = max(obj.completed_count, new_completed_count)
             obj.completed = obj.completed or new_completed
+            obj.completed_count = ReadingLog.objects.filter(
+                child_id=obj.child_id, book_id=obj.book.slug
+            ).count() or max(obj.completed_count, new_completed_count)
             obj.source_device = device_id
             if new_completed and not obj.completed_at:
                 obj.completed_at = timezone.now()
             obj.save()
         except ReadingProgress.DoesNotExist:
+            log_count = ReadingLog.objects.filter(
+                child_id=validated_data["child_id"],
+                book_id=validated_data["book"].slug,
+            ).count()
             obj = ReadingProgress.objects.create(
                 child_id=validated_data["child_id"],
                 book=validated_data["book"],
                 last_page=new_last_page,
                 completed=new_completed,
-                completed_count=new_completed_count,
+                completed_count=log_count or new_completed_count,
                 completed_at=timezone.now() if new_completed else None,
                 source_device=device_id,
             )
