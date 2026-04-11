@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useChildren } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
+import { syncBookmarksForChild } from "../src/lib/sync";
 import { getSetting } from "../src/lib/database";
 import { colors } from "../src/theme";
 
@@ -55,6 +56,7 @@ export default function ChildSelectScreen() {
 
   const handleSelectChild = (child: { id: number; name: string; age?: number }) => {
     selectChild(child);
+    Promise.resolve(syncBookmarksForChild(child.id)).catch(() => {});
     router.push("/home");
   };
 
