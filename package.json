@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@mhpdev/react-native-speech": "^1.4.0",
+    "@react-native-community/netinfo": "11.5.2",
     "@tanstack/react-query": "^5.90.21",
     "expo": "~55.0.5",
     "expo-av": "^16.0.8",

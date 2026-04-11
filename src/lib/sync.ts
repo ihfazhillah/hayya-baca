@@ -63,6 +63,26 @@ export async function syncAll(childIds?: number[]): Promise<SyncReport> {
   return next;
 }
 
+// Flush the sync queue as soon as connectivity is restored. Without this,
+// a user who stayed in the app through a connectivity drop would keep
+// queueing data locally until the next AppState foreground transition.
+// Only fires on an offline→online edge — the first event is baseline.
+export function attachNetInfoReconnectTrigger(): () => void {
+  const NetInfo = require("@react-native-community/netinfo").default ?? require("@react-native-community/netinfo");
+  let lastOnline: boolean | null = null;
+  return NetInfo.addEventListener((state: { isConnected: boolean | null; isInternetReachable: boolean | null }) => {
+    const isOnline = state.isConnected === true && state.isInternetReachable === true;
+    if (lastOnline === null) {
+      lastOnline = isOnline;
+      return;
+    }
+    if (!lastOnline && isOnline) {
+      syncAll().catch(() => {});
+    }
+    lastOnline = isOnline;
+  });
+}
+
 // Fire a background sync whenever the active child changes. Without this,
 // data queued for the newly-selected child would sit idle until the next
 // AppState foreground transition.
