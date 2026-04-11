@@ -211,7 +211,7 @@ describe("Sync: push rewards dengan idempotency key", () => {
     expect(mockApi.pushRewardsBulk).toHaveBeenCalledWith(1, [
       { type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00", idempotency_key: "device-uuid-123:10" },
       { type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00", idempotency_key: "device-uuid-123:11" },
-    ]);
+    ], expect.anything());
     expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([10, 11], expect.any(Object));
   });
 

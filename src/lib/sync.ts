@@ -1,9 +1,28 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer } from "./api";
+import Constants from "expo-constants";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, type DeviceTelemetry } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
 import { getDeviceId } from "./device";
-import { getDatabase } from "./database";
+import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
+
+async function gatherTelemetry(): Promise<DeviceTelemetry> {
+  const db = await getDatabase();
+  const rewardsRow = await db.getFirstAsync<{ c: number }>(
+    "SELECT COUNT(*) as c FROM reward_history WHERE synced = 0"
+  );
+  const progressRow = await db.getFirstAsync<{ c: number }>(
+    "SELECT COUNT(*) as c FROM reading_progress WHERE synced = 0"
+  );
+  return {
+    device_id: await getDeviceId(),
+    app_version: (Constants.expoConfig?.version as string | undefined) ?? "unknown",
+    queue_depth_rewards: rewardsRow?.c ?? 0,
+    queue_depth_progress: progressRow?.c ?? 0,
+    last_successful_sync_at: await getSetting("last_successful_sync_at"),
+    last_sync_error: await getSetting("last_sync_error"),
+  };
+}
 
 export interface SyncReport {
   success: boolean;
@@ -53,6 +72,16 @@ export async function syncAll(childIds?: number[]): Promise<SyncReport> {
       report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
       report.success = false;
     }
+    // Persist telemetry state so the NEXT push can report ground truth
+    // about the device's sync health.
+    try {
+      if (report.success && !report.notLoggedIn) {
+        await setSetting("last_successful_sync_at", new Date().toISOString());
+        await setSetting("last_sync_error", "");
+      } else if (report.errors.length > 0) {
+        await setSetting("last_sync_error", report.errors[report.errors.length - 1]);
+      }
+    } catch {}
     return report;
   };
 
@@ -239,7 +268,10 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
       idempotency_key: `${deviceId}:${r.id}`,
     }));
 
-    const err = await pushRewardsBulk(childId, rewardsWithKeys);
+    // Snapshot telemetry BEFORE marking rows synced so queue depths reflect
+    // what was actually pending when the sync began.
+    const telemetry = await gatherTelemetry();
+    const err = await pushRewardsBulk(childId, rewardsWithKeys, telemetry);
 
     if (err) {
       // Push failed — DO NOT mark synced

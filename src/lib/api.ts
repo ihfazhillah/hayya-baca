@@ -136,13 +136,25 @@ export async function pushReadingProgress(
   return null;
 }
 
+export interface DeviceTelemetry {
+  device_id: string;
+  app_version: string;
+  queue_depth_rewards: number;
+  queue_depth_progress: number;
+  last_successful_sync_at: string | null;
+  last_sync_error: string | null;
+}
+
 export async function pushRewardsBulk(
   childId: number,
-  rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[]
+  rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[],
+  telemetry?: DeviceTelemetry
 ): Promise<string | null> {
+  const body: Record<string, unknown> = { rewards };
+  if (telemetry) body.telemetry = telemetry;
   const res = await apiFetch(`/children/${childId}/rewards/sync/`, {
     method: "POST",
-    body: JSON.stringify({ rewards }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
