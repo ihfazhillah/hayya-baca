@@ -73,9 +73,19 @@ class ReadingProgressSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         # completed_count is incoming-but-ignored: stored locally for
-        # cache purposes, never trusted on read.
-        data = dict(data)
-        self._incoming_completed_count = data.pop("completed_count", 0)
+        # cache purposes, never trusted on read. Don't convert a
+        # QueryDict to a plain dict via dict() — that wraps scalar
+        # values in single-element lists and breaks downstream
+        # validation of other fields (form-encoded posts from the
+        # Django test client hit this path).
+        if hasattr(data, "copy"):
+            data = data.copy()
+        else:
+            data = dict(data)
+        try:
+            self._incoming_completed_count = int(data.pop("completed_count", 0) or 0)
+        except (TypeError, ValueError):
+            self._incoming_completed_count = 0
         return super().to_internal_value(data)
 
     def create(self, validated_data):

@@ -1,10 +1,11 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import mixins, status, viewsets
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.models import Child
+from accounts.models import Child, ChildAccess
 from accounts.permissions import IsParentOrReadOnlyTeacher
 from sync.models import SyncLog, DeviceTelemetry
 from .models import RewardHistory
@@ -24,6 +25,14 @@ class BulkRewardSyncView(APIView):
 
     @extend_schema(request=BulkRewardSyncSerializer, responses={201: None})
     def post(self, request, child_pk):
+        # BC-2: enforce ChildAccess so a leaked/guessed child_pk from
+        # another user cannot be used to inject ghost rewards.
+        # IsParentOrReadOnlyTeacher only fires via has_object_permission,
+        # which APIView.post() never invokes — check explicitly.
+        if not ChildAccess.objects.filter(
+            user=request.user, child_id=child_pk
+        ).exists():
+            raise PermissionDenied("No access to this child")
         child = Child.objects.get(id=child_pk)
         serializer = BulkRewardSyncSerializer(
             data=request.data, context={"child": child, "request": request}

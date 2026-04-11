@@ -105,13 +105,23 @@ async function loginHelper() {
 async function makeDevice(
   deviceId: string
 ): Promise<typeof import("../lib/api")> {
+  return makeDeviceAs(deviceId, CREDS.username, CREDS.password);
+}
+
+/**
+ * Variant for multi-user tests (BC-2): lets a device log in as a
+ * different user so we can exercise cross-user access control.
+ */
+async function makeDeviceAs(
+  deviceId: string,
+  username: string,
+  password: string
+): Promise<typeof import("../lib/api")> {
   let api!: typeof import("../lib/api");
   await jest.isolateModulesAsync(async () => {
     mockCurrentDeviceId = deviceId;
     api = require("../lib/api") as typeof import("../lib/api");
-    // Warm the device-id cache inside THIS isolate before anyone else
-    // can flip mockCurrentDeviceId.
-    await api.login(CREDS.username, CREDS.password);
+    await api.login(username, password);
   });
   return api;
 }
@@ -400,6 +410,37 @@ describe("E2E sync against real Django backend", () => {
     const matches = history.filter((r) => r.idempotency_key === sharedKey);
     expect(matches.length).toBe(1);
     expect(matches[0].count).toBe(5);
+  });
+
+  it("Case 24 — BC-2: intruder cannot push rewards or reading log to another user's child", async () => {
+    // Victim = default e2e user. Intruder is seeded by seed_e2e with no
+    // ChildAccess to any of e2e's children.
+    const victimApi = await makeDevice("bc2-victim");
+    const intruderApi = await makeDeviceAs(
+      "bc2-intruder",
+      "intruder",
+      "intruder-password"
+    );
+
+    const kid = await victimApi.createChildOnServer(`BC2-${Date.now()}`);
+    const now = new Date().toISOString();
+    const ghostKey = `bc2-ghost-${Date.now()}`;
+
+    // Rewards push must 403 — intruder has no ChildAccess row.
+    const errRewards = await intruderApi.pushRewardsBulk(kid.id, [
+      { type: "coin", count: 999, description: "ghost", created_at: now, idempotency_key: ghostKey },
+    ]);
+    expect(errRewards).toMatch(/403/);
+
+    // Reading log push must also 403 — same permission gap.
+    const errLog = await intruderApi.pushReadingLog(kid.id, [
+      { book_id: "1", completed_at: now, idempotency_key: `bc2-log-${Date.now()}` },
+    ]);
+    expect(errLog).toMatch(/403/);
+
+    // And nothing leaked to the victim's reward history.
+    const hist = await victimApi.fetchRewardHistory(kid.id);
+    expect(hist.some((r) => r.idempotency_key === ghostKey)).toBe(false);
   });
 
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {

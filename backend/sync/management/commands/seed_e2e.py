@@ -25,6 +25,19 @@ class Command(BaseCommand):
             user.set_password("e2e-password")
             user.save()
 
+        # Second user with NO access to any of e2e's children — used by
+        # BC-2 (Case 24) to prove a cross-user push is rejected.
+        intruder, intruder_created = User.objects.get_or_create(
+            username="intruder",
+            defaults={"email": "intruder@test.local"},
+        )
+        intruder.set_password("intruder-password")
+        intruder.save()
+        if intruder_created:
+            self.stdout.write(
+                self.style.SUCCESS("Created user intruder/intruder-password")
+            )
+
         # Books with slugs "1".."4" to match app's static JSON IDs.
         for slug in ("1", "2", "3", "4"):
             Book.objects.get_or_create(
