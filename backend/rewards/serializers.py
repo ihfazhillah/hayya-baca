@@ -35,6 +35,38 @@ class BulkRewardSyncSerializer(serializers.Serializer):
     rewards = RewardSyncItemSerializer(many=True)
     telemetry = DeviceTelemetrySerializer(required=False)
 
+    def validate(self, attrs):
+        # KB-3: reject any push whose coin_spend rows would drive child.coins
+        # below zero. Mobile already guards in UI, but a stale/desynced local
+        # balance can still submit an over-spend. Without this check the row
+        # lands and the child is left with negative coins that propagates to
+        # every device on the next pull.
+        #
+        # Only NEW rows count: duplicates filtered by idempotency_key can't
+        # move the balance, so pre-count them out to avoid false rejects on
+        # retry after a mid-flight response loss (OL-1 path).
+        child = self.context["child"]
+        incoming = attrs["rewards"]
+        new_coin_delta = 0
+        for entry in incoming:
+            idem_key = entry.get("idempotency_key")
+            if idem_key and RewardHistory.objects.filter(idempotency_key=idem_key).exists():
+                continue
+            if entry["type"] in (
+                RewardHistory.Type.COIN,
+                RewardHistory.Type.COIN_ADJ,
+                RewardHistory.Type.COIN_SPEND,
+            ):
+                new_coin_delta += entry["count"]
+        if new_coin_delta < 0 and (child.coins + new_coin_delta) < 0:
+            raise serializers.ValidationError({
+                "rewards": (
+                    f"Insufficient balance: saldo {child.coins} koin, "
+                    f"butuh {-new_coin_delta} koin."
+                )
+            })
+        return attrs
+
     def create(self, validated_data):
         child = self.context["child"]
         request = self.context.get("request")

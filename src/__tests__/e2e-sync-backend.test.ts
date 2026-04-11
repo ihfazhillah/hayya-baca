@@ -596,4 +596,52 @@ describe("E2E sync against real Django backend", () => {
     );
     expect(err2).toBeNull();
   });
+
+  // KB-3 — backend must reject coin_spend that would drive child.coins below
+  // zero. Without this guard, a mobile UI glitch (stale local balance) can
+  // push a negative spend and the server happily stores it → child.coins
+  // lands below zero, kid sees confusing UI, balance desync propagates to
+  // every other device that pulls history.
+  it("Case 18 — KB-3: backend rejects coin_spend that would make balance negative", async () => {
+    const api = await loginHelper();
+    const child = await api.createChildOnServer(`KB3-${Date.now()}`);
+    const now = new Date().toISOString();
+
+    // Earn 10.
+    const earnErr = await api.pushRewardsBulk(child.id, [
+      { type: "coin", count: 10, description: "Earn", created_at: now, idempotency_key: `kb3-earn-${Date.now()}` },
+    ]);
+    expect(earnErr).toBeNull();
+
+    // Try to spend 50. Current backend accepts this → balance = -40.
+    // Expected: 400 with user-readable reason, balance untouched.
+    const spendErr = await api.pushRewardsBulk(child.id, [
+      { type: "coin_spend", count: -50, description: "Beli game mahal", created_at: now, idempotency_key: `kb3-spend-${Date.now()}` },
+    ]);
+    expect(spendErr).not.toBeNull();
+    expect(spendErr).toMatch(/400/);
+    expect(spendErr).toMatch(/insufficient|balance|saldo/i);
+
+    // Balance must remain 10 — the spend row never landed.
+    const history = await api.fetchRewardHistory(child.id);
+    const forThisChild = history; // already child-scoped
+    const totalCoins = forThisChild
+      .filter((h) => h.type === "coin" || h.type === "coin_adjustment" || h.type === "coin_spend")
+      .reduce((sum, h) => sum + h.count, 0);
+    expect(totalCoins).toBe(10);
+    expect(forThisChild.some((h) => h.type === "coin_spend")).toBe(false);
+
+    // A legal partial spend (≤ balance) must still succeed — guard fires
+    // only on insufficient funds, not on all coin_spend.
+    const legalSpend = await api.pushRewardsBulk(child.id, [
+      { type: "coin_spend", count: -7, description: "Beli stiker", created_at: now, idempotency_key: `kb3-legal-${Date.now()}` },
+    ]);
+    expect(legalSpend).toBeNull();
+
+    const history2 = await api.fetchRewardHistory(child.id);
+    const total2 = history2
+      .filter((h) => h.type === "coin" || h.type === "coin_adjustment" || h.type === "coin_spend")
+      .reduce((sum, h) => sum + h.count, 0);
+    expect(total2).toBe(3);
+  });
 });
