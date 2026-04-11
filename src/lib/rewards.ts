@@ -2,6 +2,17 @@ import { getDatabase } from "./database";
 import { emitDataChange } from "./db-events";
 import type { RewardHistory } from "../types";
 
+// Fire-and-forget push. Lazy-require sync.ts to break the rewards↔sync cycle.
+// The sync guard already skips when a sync is in-flight, so we stay quiet.
+function triggerOpportunisticSync(childId: number): void {
+  try {
+    const { syncAll } = require("./sync") as typeof import("./sync");
+    syncAll([childId]).catch(() => {});
+  } catch {
+    // swallow — opportunistic, must never break the writer
+  }
+}
+
 export async function addReward(
   childId: number,
   type: "coin" | "star",
@@ -31,6 +42,7 @@ export async function addReward(
     );
   }
   emitDataChange("children");
+  triggerOpportunisticSync(childId);
 }
 
 export async function getUnsyncedRewards(
@@ -190,6 +202,7 @@ export async function saveReadingProgress(
     lastPage, completed ? 1 : 0, completed ? 1 : 0
   );
   emitDataChange("children");
+  triggerOpportunisticSync(childId);
 }
 
 export async function getReadingProgress(

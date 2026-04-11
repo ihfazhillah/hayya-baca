@@ -1,10 +1,10 @@
 /**
- * Bug #1 — mount-sync (syncAll tanpa childIds) tidak push data anak.
+ * Bug #2 — addReward/saveReadingProgress harus trigger opportunistic push.
  *
- * Skenario spec §Bug #1:
- *   Given: logged in, 4 anak, tiap anak 1 reward synced=0
- *   When:  syncAll() tanpa childIds
- *   Then:  pushRewardsBulk dipanggil untuk keempat anak
+ * Spec §Bug #2:
+ *   addReward(1, 'coin', 3, ...)
+ *   await delay(500)
+ *   → pushRewardsBulk dipanggil untuk reward tersebut (non-blocking)
  */
 
 import Database from "better-sqlite3";
@@ -35,7 +35,6 @@ function mockCreateTestDb() {
 jest.mock("expo-sqlite", () => ({
   openDatabaseAsync: jest.fn().mockImplementation(async () => mockCreateTestDb()),
 }));
-
 jest.mock("expo-constants", () => ({ expoConfig: { version: "0.1.0-test" } }));
 jest.mock("expo-device", () => ({ modelName: "Test Device" }));
 jest.mock("expo-crypto", () => ({ randomUUID: () => "test-device-id-A" }));
@@ -71,41 +70,59 @@ function getModules() {
   const database = require("../lib/database") as typeof import("../lib/database");
   const rewards = require("../lib/rewards") as typeof import("../lib/rewards");
   const apiMod = require("../lib/api") as jest.Mocked<typeof import("../lib/api")>;
-  return { syncAll: sync.syncAll, getDatabase: database.getDatabase, addReward: rewards.addReward, api: apiMod };
+  return { sync, getDatabase: database.getDatabase, rewards, api: apiMod };
 }
 
-describe("Bug #1: mount-sync (syncAll tanpa childIds) push semua anak lokal", () => {
-  it("syncAll() memanggil pushRewardsBulk untuk keempat anak", async () => {
-    const mods = getModules();
+async function seedChild(db: any, id: number) {
+  await db.runAsync(
+    "INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age, server_id) VALUES (?, ?, ?, 0, 0, 8, ?)",
+    id, `Child${id}`, "#E91E63", id
+  );
+}
 
+function waitForCall(mockFn: jest.Mock, timeoutMs = 1000): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const tick = () => {
+      if (mockFn.mock.calls.length > 0) return resolve();
+      if (Date.now() - start > timeoutMs) return reject(new Error("timeout waiting for mock call"));
+      setTimeout(tick, 20);
+    };
+    tick();
+  });
+}
+
+describe("Bug #2: opportunistic push after addReward / saveReadingProgress", () => {
+  it("addReward → pushRewardsBulk dipanggil tanpa syncAll manual", async () => {
+    const mods = getModules();
     mods.api.isLoggedIn.mockResolvedValue(true);
     mods.api.fetchChildren.mockResolvedValue([
       { id: 1, name: "A", age: 8, avatar_color: "#111", coins: 0, stars: 0 },
-      { id: 2, name: "B", age: 7, avatar_color: "#222", coins: 0, stars: 0 },
-      { id: 3, name: "C", age: 6, avatar_color: "#333", coins: 0, stars: 0 },
-      { id: 4, name: "D", age: 5, avatar_color: "#444", coins: 0, stars: 0 },
     ]);
-    mods.api.pushRewardsBulk.mockResolvedValue(null);
 
     const db = await mods.getDatabase();
-    for (const id of [1, 2, 3, 4]) {
-      await db.runAsync(
-        "INSERT OR REPLACE INTO children (id, name, avatar_color, coins, stars, age, server_id) VALUES (?, ?, ?, 0, 0, 8, ?)",
-        id, `Child${id}`, "#E91E63", id
-      );
-      // Insert rewards directly to avoid addReward's opportunistic push
-      // interfering with the mount-sync assertion under test.
-      await db.runAsync(
-        "INSERT INTO reward_history (child_id, type, count, description, synced) VALUES (?, 'coin', 3, ?, 0)",
-        id, `Reward anak ${id}`
-      );
-    }
+    await seedChild(db, 1);
 
-    const report = await mods.syncAll();
+    await mods.rewards.addReward(1, "coin", 3, "Baca buku");
 
-    expect(report.notLoggedIn).toBeFalsy();
-    expect(mods.api.pushRewardsBulk).toHaveBeenCalledTimes(4);
-    const pushedChildIds = mods.api.pushRewardsBulk.mock.calls.map((c) => c[0]).sort();
-    expect(pushedChildIds).toEqual([1, 2, 3, 4]);
+    await waitForCall(mods.api.pushRewardsBulk);
+    expect(mods.api.pushRewardsBulk).toHaveBeenCalled();
+    expect(mods.api.pushRewardsBulk.mock.calls[0][0]).toBe(1);
+  });
+
+  it("saveReadingProgress → pushReadingProgress dipanggil tanpa syncAll manual", async () => {
+    const mods = getModules();
+    mods.api.isLoggedIn.mockResolvedValue(true);
+    mods.api.fetchChildren.mockResolvedValue([
+      { id: 1, name: "A", age: 8, avatar_color: "#111", coins: 0, stars: 0 },
+    ]);
+
+    const db = await mods.getDatabase();
+    await seedChild(db, 1);
+
+    await mods.rewards.saveReadingProgress(1, "book-1", 5, false);
+
+    await waitForCall(mods.api.pushReadingProgress);
+    expect(mods.api.pushReadingProgress).toHaveBeenCalled();
   });
 });

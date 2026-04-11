@@ -225,8 +225,8 @@ describe("Skenario 7 & 8: Override koin manual", () => {
   });
 });
 
-describe("Skenario 9: Concurrent sync → yang kedua jujur", () => {
-  it("concurrent syncAll → yang kedua return report dengan skipped=true, bukan report kosong", async () => {
+describe("Skenario 9: Concurrent sync → queued, bukan di-skip senyap", () => {
+  it("concurrent syncAll → kedua report jujur, semua dijalankan berurutan", async () => {
     mockApi.fetchChildren.mockImplementation(
       () => new Promise((resolve) => setTimeout(() => resolve([
         { id: 1, name: "Sakinah", age: 8, avatar_color: "#E91E63", coins: 0, stars: 0 },
@@ -235,14 +235,11 @@ describe("Skenario 9: Concurrent sync → yang kedua jujur", () => {
 
     const [report1, report2] = await Promise.all([syncAll([1]), syncAll([1])]);
 
-    // One should succeed, one should be skipped
-    const reports = [report1, report2];
-    const skipped = reports.filter(r => r.skipped);
-    const ran = reports.filter(r => !r.skipped);
-    expect(skipped).toHaveLength(1);
-    expect(ran).toHaveLength(1);
-    // Skipped report should be honest about it
-    expect(skipped[0].skipped).toBe(true);
+    // Queue semantics: tidak ada yang di-skip.
+    expect(report1.skipped).toBeFalsy();
+    expect(report2.skipped).toBeFalsy();
+    // Both runs hit the network — no silent skip.
+    expect(mockApi.fetchChildren.mock.calls.length).toBeGreaterThanOrEqual(2);
   });
 });
 

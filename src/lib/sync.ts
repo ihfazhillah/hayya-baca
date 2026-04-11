@@ -30,32 +30,36 @@ function emptyReport(): SyncReport {
   };
 }
 
-let syncing = false;
+// Serialize sync runs instead of dropping concurrent ones. A silent skip
+// meant opportunistic pushes could swallow a manual sync triggered right
+// after them, leaving the user's latest data unpushed. Queue guarantees
+// every caller gets a real run.
+let syncChain: Promise<SyncReport> | null = null;
 
 export async function syncAll(childIds?: number[]): Promise<SyncReport> {
-  const report = emptyReport();
-  if (syncing) {
-    report.skipped = true;
-    return report;
-  }
-  syncing = true;
-  try {
-    const loggedIn = await isLoggedIn();
-    if (!loggedIn) {
-      report.notLoggedIn = true;
+  const run = async (): Promise<SyncReport> => {
+    const report = emptyReport();
+    try {
+      const loggedIn = await isLoggedIn();
+      if (!loggedIn) {
+        report.notLoggedIn = true;
+        report.success = false;
+        return report;
+      }
+      await syncChildren(childIds, report);
+      if (report.errors.length > 0) report.success = false;
+    } catch (e) {
+      report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
       report.success = false;
-      return report;
     }
+    return report;
+  };
 
-    await syncChildren(childIds, report);
-    if (report.errors.length > 0) report.success = false;
-  } catch (e) {
-    report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
-    report.success = false;
-  } finally {
-    syncing = false;
-  }
-  return report;
+  const next = syncChain ? syncChain.then(run, run) : run();
+  syncChain = next.finally(() => {
+    if (syncChain === next) syncChain = null;
+  }) as Promise<SyncReport>;
+  return next;
 }
 
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {

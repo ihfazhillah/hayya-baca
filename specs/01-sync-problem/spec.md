@@ -444,15 +444,28 @@ Then:  pushRewardsBulk TIDAK dipanggil
 **Cara jalankan:** `npm test -- usecase-opportunistic-push`
 
 **Hasil observasi:**
-- [ ] Test ditulis
-- [ ] Dijalankan pertama kali
-- Output: _________________________
-- Status: ( ) FAIL sesuai hipotesis  ( ) PASS → hipotesis salah
+- [x] Test ditulis (`src/__tests__/usecase-opportunistic-push.test.ts`)
+- [x] Dijalankan pertama kali
+- Output: `timeout waiting for mock call` — `pushRewardsBulk` dan `pushReadingProgress` tidak pernah dipanggil.
+- Status: (x) FAIL sesuai hipotesis.
 
-**Fix:** di `addReward`, setelah insert, panggil `syncRewards(childId)`
-atau fungsi helper fire-and-forget (`.catch(() => {})`) tanpa blok UI.
+**Fix:**
+1. `rewards.ts` — helper `triggerOpportunisticSync(childId)` fire-and-forget
+   dengan lazy `require("./sync")` untuk hindari circular import. Dipanggil
+   dari `addReward` dan `saveReadingProgress` setelah write sukses.
+2. Karena opportunistic push otomatis memicu `syncAll` di background,
+   semantic concurrent sync lama (silent-skip via flag `syncing`) membuat
+   manual `syncAll` yang langsung dipanggil sesudahnya tertelan diam-diam.
+   **Bug #6 fix dibawa maju** (Fase C → Fase A): ganti flag `syncing` dengan
+   `syncChain: Promise` yang men-queue run. Dua test lama yang mengasumsikan
+   skip-semantics (`usecase-sync.test.ts` "concurrent lock", `usecase-sync-reliable.test.ts`
+   "Skenario 9") diupdate untuk mengakui semantic baru.
 
-**Commit:** `fix(sync): #2 opportunistic push after addReward`
+**Verifikasi ulang:**
+- [x] Kedua test opportunistic PASS
+- [x] `npm test` full suite PASS (19 passed, 1 skipped)
+
+**Commit:** `fix(sync): #2 opportunistic push after addReward/saveReadingProgress`
 
 ---
 
