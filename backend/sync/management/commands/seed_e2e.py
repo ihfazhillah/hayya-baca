@@ -36,4 +36,14 @@ class Command(BaseCommand):
                     "is_published": True,
                 },
             )
-        self.stdout.write(self.style.SUCCESS("Seeded books 1..4"))
+        # Non-numeric slug for BC-6 pk-fallback test (Case 29).
+        Book.objects.get_or_create(
+            slug="e2e-alt",
+            defaults={
+                "title": "E2E Alt Slug",
+                "content_type": Book.ContentType.BOOK,
+                "reward_coins": 1,
+                "is_published": True,
+            },
+        )
+        self.stdout.write(self.style.SUCCESS("Seeded books 1..4 + e2e-alt"))

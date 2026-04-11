@@ -6,13 +6,19 @@ from .models import QuizAttempt, ReadingLog, ReadingProgress
 
 
 class AutoCreateBookSlugField(serializers.SlugRelatedField):
-    """Resolve Book by slug; auto-create an unpublished stub if missing.
+    """Resolve Book loosely: try slug, then numeric pk, then create a stub.
 
-    Why: mobile bundles content (books + articles) whose slugs may not yet
-    exist as Book rows on the server (BC-6). Hard-failing with 400 causes
-    permanent data loss — reading_progress for that slug stays synced=0
-    forever. Stubs are unpublished so they don't leak into the library UI;
-    admins can backfill metadata later.
+    Why: mobile bundles content (books + articles) whose slugs may not
+    match what's on the server (BC-6). Mobile sends numeric string ids
+    ("1", "5", "24") from bundled JSON and slugified titles for
+    articles. Hard-failing with 400 causes permanent data loss —
+    reading_progress stays synced=0 forever. Resolution order:
+
+    1. slug match (the intended key)
+    2. pk match if the payload is all-digit (legacy ids from early
+       builds where mobile sent numeric pk instead of slug)
+    3. create an unpublished stub as last resort so sync never loses a
+       row; admins can backfill metadata later.
     """
 
     def __init__(self, **kwargs):
@@ -21,19 +27,26 @@ class AutoCreateBookSlugField(serializers.SlugRelatedField):
         super().__init__(**kwargs)
 
     def to_internal_value(self, data):
-        try:
-            return super().to_internal_value(data)
-        except serializers.ValidationError:
-            slug = str(data)
-            book, _ = Book.objects.get_or_create(
-                slug=slug,
-                defaults={
-                    "title": f"Book {slug}",
-                    "content_type": Book.ContentType.BOOK,
-                    "is_published": False,
-                },
-            )
+        key = str(data)
+
+        book = Book.objects.filter(slug=key).first()
+        if book is not None:
             return book
+
+        if key.isdigit():
+            book = Book.objects.filter(pk=int(key)).first()
+            if book is not None:
+                return book
+
+        book, _ = Book.objects.get_or_create(
+            slug=key,
+            defaults={
+                "title": f"Book {key}",
+                "content_type": Book.ContentType.BOOK,
+                "is_published": False,
+            },
+        )
+        return book
 
 
 class ReadingProgressSerializer(serializers.ModelSerializer):

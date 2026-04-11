@@ -12,27 +12,31 @@
 import Database from "better-sqlite3";
 
 // --- Wire better-sqlite3 as the expo-sqlite mock so api.ts can stash
-// the auth token + device_id in a real table. ---
-let mockTestDb: ReturnType<typeof Database>;
+// the auth token + device_id in a real table. Each openDatabaseAsync
+// call gets a fresh in-memory DB — isolated per jest-module-isolate so
+// makeDevice() can spin up multiple virtual devices with independent
+// token + device_id storage. ---
+const mockOpenedDbs: ReturnType<typeof Database>[] = [];
 
 function mockCreateTestDb() {
-  mockTestDb = new Database(":memory:");
-  mockTestDb.pragma("journal_mode = WAL");
+  const inner = new Database(":memory:");
+  inner.pragma("journal_mode = WAL");
+  mockOpenedDbs.push(inner);
   return {
     execAsync: async (sql: string) => {
-      mockTestDb.exec(sql);
+      inner.exec(sql);
     },
     runAsync: async (sql: string, ...params: any[]) => {
-      const stmt = mockTestDb.prepare(sql);
+      const stmt = inner.prepare(sql);
       const result = stmt.run(...params);
       return { lastInsertRowId: result.lastInsertRowId, changes: result.changes };
     },
     getFirstAsync: async <T>(sql: string, ...params: any[]): Promise<T | null> => {
-      const stmt = mockTestDb.prepare(sql);
+      const stmt = inner.prepare(sql);
       return (stmt.get(...params) as T) ?? null;
     },
     getAllAsync: async <T>(sql: string, ...params: any[]): Promise<T[]> => {
-      const stmt = mockTestDb.prepare(sql);
+      const stmt = inner.prepare(sql);
       return stmt.all(...params) as T[];
     },
   };
@@ -65,9 +69,9 @@ async function resetBackendData() {
 }
 
 beforeEach(async () => {
-  if (mockTestDb) {
+  while (mockOpenedDbs.length) {
     try {
-      mockTestDb.close();
+      mockOpenedDbs.pop()?.close();
     } catch {}
   }
   jest.resetModules();
@@ -77,9 +81,9 @@ beforeEach(async () => {
 });
 
 afterAll(() => {
-  if (mockTestDb) {
+  while (mockOpenedDbs.length) {
     try {
-      mockTestDb.close();
+      mockOpenedDbs.pop()?.close();
     } catch {}
   }
 });
@@ -87,6 +91,28 @@ afterAll(() => {
 async function loginHelper() {
   const api = require("../lib/api") as typeof import("../lib/api");
   await api.login(CREDS.username, CREDS.password);
+  return api;
+}
+
+/**
+ * Spin up an isolated "virtual device" — its own module graph means
+ * its own in-memory sqlite (so its own auth token + cached device id),
+ * fully independent from any other device in the same test.
+ *
+ * Use for multi-device edge-case tests (MD-1, MD-2, ID-1, etc.).
+ * `deviceId` becomes the X-Device-Id header on every request.
+ */
+async function makeDevice(
+  deviceId: string
+): Promise<typeof import("../lib/api")> {
+  let api!: typeof import("../lib/api");
+  await jest.isolateModulesAsync(async () => {
+    mockCurrentDeviceId = deviceId;
+    api = require("../lib/api") as typeof import("../lib/api");
+    // Warm the device-id cache inside THIS isolate before anyone else
+    // can flip mockCurrentDeviceId.
+    await api.login(CREDS.username, CREDS.password);
+  });
   return api;
 }
 
@@ -192,44 +218,56 @@ describe("E2E sync against real Django backend", () => {
     expect(matches.length).toBe(1);
   });
 
-  it("Case 29 — BC-6: reading_progress push for unseeded book slug", async () => {
+  it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);
 
-    // Book "1" is seeded — must succeed.
-    const errKnown = await api.pushReadingProgress(child.id, {
+    // (1) Slug match — book "1" is seeded.
+    const errSlug = await api.pushReadingProgress(child.id, {
       book: "1",
       last_page: 5,
       completed: false,
       completed_count: 0,
     });
-    expect(errKnown).toBeNull();
+    expect(errSlug).toBeNull();
 
-    // Book "99" is NOT in seed_e2e. Pre-fix this returns 400; post-fix
-    // (BC-6 option 1+3) it should succeed — server must not hard-fail
-    // on unknown slug, but accept and either auto-stub or treat book as
-    // a free-form string id.
+    // (2) Numeric pk fallback — seed_e2e ships a book with a
+    // non-numeric slug ("e2e-alt"). Look it up, then push using its pk
+    // (stringified) as the `book` field. Without the pk fallback the
+    // serializer would hit the stub branch and create a SECOND Book
+    // whose slug equals the pk-as-string.
+    const listed = (await (
+      await fetch(`${process.env.API_BASE_URL}/books/?type=book`)
+    ).json()) as { id: number; slug: string }[];
+    const altBook = listed.find((b) => b.slug === "e2e-alt");
+    expect(altBook).toBeDefined();
+    const errPk = await api.pushReadingProgress(child.id, {
+      book: String(altBook!.id),
+      last_page: 7,
+      completed: false,
+      completed_count: 0,
+    });
+    expect(errPk).toBeNull();
+
+    // (3) Unknown slug — last-resort stub so sync never loses a row.
+    const unknownSlug = `case29-unknown-${Date.now()}`;
     const errUnknown = await api.pushReadingProgress(child.id, {
-      book: "99",
+      book: unknownSlug,
       last_page: 5,
       completed: false,
       completed_count: 0,
     });
     expect(errUnknown).toBeNull();
 
-    // Unrelated book still works (no poison state).
-    const okAgain = await api.pushReadingProgress(child.id, {
-      book: "2",
-      last_page: 8,
-      completed: true,
-      completed_count: 1,
-    });
-    expect(okAgain).toBeNull();
-
-    // Round-trip: both slugs readable from server.
+    // Server round-trip sees all three books under distinct slugs.
     const rows = await api.fetchReadingProgressFromServer(child.id);
     const slugs = rows.map((r) => r.book);
-    expect(slugs).toEqual(expect.arrayContaining(["1", "99", "2"]));
+    expect(slugs).toEqual(
+      expect.arrayContaining(["1", "e2e-alt", unknownSlug])
+    );
+    // And the pk fallback resolved to the existing book (not a new stub
+    // with slug === "<pk>").
+    expect(slugs).not.toContain(String(altBook!.id));
   });
 
   it("Case 7 — device telemetry piggybacks on push without error", async () => {
