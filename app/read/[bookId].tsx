@@ -8,10 +8,13 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useMemo, useState, useCallback, useRef } from "react";
+import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { getBookContent } from "../../src/lib/books";
 import { appendReadingLog } from "../../src/lib/recommendation";
 import { getSelectedChild } from "../../src/lib/session";
+import { isBookmarked as isBookmarkedFn, toggleBookmark } from "../../src/lib/bookmarks";
+import { pushBookmarksOnly } from "../../src/lib/sync";
+import { BookmarkStar } from "../../src/components/BookmarkStar";
 import {
   speakWord,
   speakPage,
@@ -67,7 +70,23 @@ export default function ReadScreen() {
   const [isReadingToMe, setIsReadingToMe] = useState(false);
   const [pageStars, setPageStars] = useState<Record<number, number>>({});
   const [pageComplete, setPageComplete] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const totalStarsRef = useRef(0);
+
+  useEffect(() => {
+    if (!child || !bookId) return;
+    isBookmarkedFn(child.id, "book", bookId).then(setBookmarked).catch(() => {});
+  }, [child?.id, bookId]);
+
+  const handleToggleBookmark = useCallback(() => {
+    if (!child || !bookId) return;
+    const next = !bookmarked;
+    setBookmarked(next);
+    toggleBookmark(child.id, "book", bookId).catch(() => {
+      setBookmarked(!next);
+    });
+    Promise.resolve(pushBookmarksOnly(child.id)).catch(() => {});
+  }, [child?.id, bookId, bookmarked]);
 
   const page = book ? book.pages[currentPage] : null;
   const words = page ? page.text.split(/\s+/).filter(Boolean) : [];
@@ -244,6 +263,7 @@ export default function ReadScreen() {
         <Text style={styles.headerTitle} numberOfLines={1}>
           {book.title}
         </Text>
+        <BookmarkStar bookmarked={bookmarked} onToggle={handleToggleBookmark} />
         <Text style={styles.pageNum}>
           {currentPage + 1}/{book.pages.length}
         </Text>

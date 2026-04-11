@@ -207,6 +207,34 @@ export async function fetchRewardHistory(
   return res.json();
 }
 
+export interface ServerBookmarkEntry {
+  content_type: "book" | "article";
+  content_slug: string;
+  is_deleted: boolean;
+  updated_at: string;
+}
+
+export async function pushBookmarks(
+  childId: number,
+  entries: { content_type: string; content_slug: string; is_deleted: boolean; updated_at: string }[]
+): Promise<string | null> {
+  const res = await apiFetch(`/children/${childId}/bookmarks/sync/`, {
+    method: "POST",
+    body: JSON.stringify({ bookmarks: entries }),
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    return `pushBookmarks ${res.status}: ${err}`;
+  }
+  return null;
+}
+
+export async function pullBookmarks(childId: number): Promise<ServerBookmarkEntry[]> {
+  const res = await apiFetch(`/children/${childId}/bookmarks/`);
+  if (!res.ok) return [];
+  return res.json();
+}
+
 // --- Content API (public, no auth) ---
 
 export interface ServerArticleListItem {

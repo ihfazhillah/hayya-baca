@@ -43,8 +43,8 @@ Sebagai anak yang sedang membaca buku/artikel, saya ingin menekan icon bintang d
 Sebagai anak yang ingin membaca ulang konten favorit, saya ingin membuka section "Favorit" di library agar dapat langsung menemukannya.
 
 **Acceptance:**
-- Library screen buku punya section/tab "Favorit" yang menampilkan hanya buku yang dibookmark oleh child aktif.
-- Library screen artikel punya section/tab "Favorit" yang menampilkan hanya artikel yang dibookmark.
+- Library screen (`app/home.tsx`) menampilkan **satu section "Favorit" merged** di bagian atas yang berisi buku + artikel bookmark child aktif dalam satu list campuran.
+- Tiap item punya indikator tipe (buku/artikel) dan tap langsung ke reading/article screen yang sesuai.
 - Jika kosong, tampilkan empty state ramah anak ("Belum ada favorit. Tekan bintang saat membaca!").
 - Urutan: terbaru di-bookmark di atas.
 
@@ -69,7 +69,7 @@ Sebagai keluarga dengan beberapa anak, saya ingin bookmark tiap anak terpisah ag
 Model baru `Bookmark`:
 - `child` (FK ke Child)
 - `content_type` — enum: `book` | `article`
-- `content_slug` — slug dari Book atau Article (konsisten dengan pola sync existing)
+- `content_slug` — untuk `book`, slug dari Book (pattern sama dengan reading progress sync). Untuk `article`, string opaque — tidak ada Article model di backend (artikel datang dari external API + bundled JSON), jadi tidak ada FK validation.
 - `created_at`
 - `updated_at`
 - `is_deleted` (soft delete untuk handle unbookmark via sync)
@@ -83,27 +83,30 @@ Mengikuti pola `src/lib/api.ts` existing:
 
 ### FR-3: Local Storage (RN)
 - Table SQLite baru `bookmarks` dengan kolom sama seperti model backend + `synced_at`.
-- CRUD lewat helper di `src/lib/db.ts` (atau file baru `src/lib/bookmarks.ts`).
+- Schema ditambahkan di `src/lib/database.ts` (pattern additive `CREATE TABLE IF NOT EXISTS` yang sudah ada).
+- CRUD lewat helper baru `src/lib/bookmarks.ts`.
 
 ### FR-4: Sync Integration
 - Extend `src/lib/sync.ts`: setelah push progress/rewards, push bookmarks, lalu pull bookmarks for active child.
 - Idempotent — aman jika dipanggil berkali-kali.
 - Tercatat di SyncLog.
 - **Trigger sync**:
-  1. Setiap kali anak toggle bookmark (push + pull untuk child aktif) — non-blocking, fail-safe (UI tetap update lokal meski network error).
+  1. Setiap kali anak toggle bookmark → panggil `pushBookmarksOnly(activeChildSlug)` (bookmarks-only push, bukan full `syncNow()`) — non-blocking, fail-safe, agar tap bintang tidak memicu sync berat.
   2. Setiap kali child menjadi aktif (switch child di child select screen) — pull bookmarks dari server supaya library langsung up-to-date.
-  3. Tetap ikut sync umum saat foreground / manual sync.
+  3. Tetap ikut sync umum (full pass) saat foreground / manual sync.
 
 ### FR-5: UI — Reading Screen
-- Icon bintang di header `app/reading/[id].tsx` (dan equivalent untuk artikel).
+- Icon bintang di header `app/read/[bookId].tsx` (untuk buku) dan `app/article/[articleId].tsx` (untuk artikel).
 - State: outline = not bookmarked, filled (kuning) = bookmarked.
 - Tap → toggle lokal + mark dirty untuk sync berikutnya.
 
-### FR-6: UI — Library Section
-- Di library buku: tambah section "Favorit" di atas/bawah list utama, atau tab toggle "Semua | Favorit".
-- Di library artikel: sama.
+### FR-6: UI — Library Section (Merged Favorit)
+- Library tinggal di satu screen `app/home.tsx` yang menampung books dan articles.
+- Tambah **satu section "Favorit" yang merged** di atas list utama — menampilkan buku + artikel yang dibookmark child aktif dalam satu list campuran.
+- Tiap item mencantumkan indikator visual tipe konten (buku vs artikel) dan tap langsung membuka reading/article screen yang sesuai.
+- Urutan: terbaru di-bookmark di atas (descending `updated_at`).
 - Hanya show untuk child aktif.
-- Empty state bila belum ada.
+- Empty state ramah anak bila belum ada.
 
 ## Tracer Bullet Scope
 

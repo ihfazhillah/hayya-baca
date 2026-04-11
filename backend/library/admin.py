@@ -3,7 +3,7 @@ from django.core.management import call_command
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .models import ArticleSection, Book, BookPage, Quiz
+from .models import ArticleSection, Book, BookPage, Bookmark, Quiz
 
 
 class BookPageInline(admin.TabularInline):
@@ -48,3 +48,10 @@ class BookAdmin(admin.ModelAdmin):
     @admin.display(description="Tools")
     def quiz_manager_link(self, obj):
         return format_html('<a href="{}">Quiz Manager</a>', "/quiz-manager/")
+
+
+@admin.register(Bookmark)
+class BookmarkAdmin(admin.ModelAdmin):
+    list_display = ["child", "content_type", "content_slug", "is_deleted", "updated_at"]
+    list_filter = ["content_type", "is_deleted"]
+    search_fields = ["content_slug", "child__name"]
