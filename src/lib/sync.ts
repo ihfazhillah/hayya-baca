@@ -28,6 +28,11 @@ export interface SyncReport {
   success: boolean;
   skipped?: boolean;
   notLoggedIn?: boolean;
+  // MD-7/AS-1: another device (or admin) invalidated our token — every
+  // authed call came back 401. Distinct from notLoggedIn (no token at
+  // all) because the queue is NOT cleared and the user just needs to
+  // re-authenticate to flush it.
+  authExpired?: boolean;
   childrenPushed: number;
   childrenPulled: number;
   rewardsPushed: number;
@@ -72,12 +77,31 @@ export async function syncAll(childIds?: number[]): Promise<SyncReport> {
       report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
       report.success = false;
     }
+    // MD-7/AS-1: if any authed call came back 401, the token got
+    // invalidated out-of-band (another device did logoutAllDevices, or
+    // admin forced it). Flag the report and persist `auth_state` so the
+    // parent page can show a re-login banner. The queue is intentionally
+    // left alone — syncRewards/syncReadingProgress/syncReadingLog all
+    // bail on error WITHOUT marking rows synced, so relogin + next sync
+    // flushes everything.
+    const sawAuthError = report.errors.some((e) => /\b401\b/.test(e));
+    if (sawAuthError) {
+      report.authExpired = true;
+      report.success = false;
+    }
     // Persist telemetry state so the NEXT push can report ground truth
     // about the device's sync health.
     try {
       if (report.success && !report.notLoggedIn) {
         await setSetting("last_successful_sync_at", new Date().toISOString());
         await setSetting("last_sync_error", "");
+        await setSetting("auth_state", "ok");
+      } else if (report.authExpired) {
+        await setSetting("auth_state", "expired");
+        await setSetting(
+          "last_sync_error",
+          report.errors[report.errors.length - 1] ?? "401"
+        );
       } else if (report.errors.length > 0) {
         await setSetting("last_sync_error", report.errors[report.errors.length - 1]);
       }

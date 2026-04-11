@@ -62,6 +62,12 @@ export async function login(
   username: string,
   password: string
 ): Promise<{ token: string }> {
+  // Clear any stale token FIRST so the login request doesn't carry an
+  // Authorization header that DRF's TokenAuthentication will try (and
+  // fail) to validate before the AllowAny LoginView runs — that path
+  // returns 401 even though the credentials are correct, blocking the
+  // re-login flow after MD-7 cross-device invalidation.
+  await setToken(null);
   const res = await apiFetch("/auth/login/", {
     method: "POST",
     body: JSON.stringify({ username, password }),
@@ -75,11 +81,24 @@ export async function login(
   return data;
 }
 
+// Local logout — clear the token on THIS device only. The backend token
+// row is left alive so other devices logged in as the same user keep
+// working. DRF's default TokenAuthentication stores one row per user, so
+// a backend-side delete would silently 401 every other device; MD-7.
 export async function logout(): Promise<void> {
+  await setToken(null);
+}
+
+// Explicit cross-device invalidation — call backend to delete the token
+// row for this user. Every other device for the same account will get
+// 401 on their next request and transition to an `auth_state='expired'`
+// state in sync.ts. Use only for "logout all devices" parent action.
+export async function logoutAllDevices(): Promise<void> {
   try {
     await apiFetch("/auth/logout/", { method: "POST" });
   } catch {
-    // ignore network errors on logout
+    // ignore network errors — caller intent is "nuke token"; if offline,
+    // fall through to local clear and try again on next connectivity.
   }
   await setToken(null);
 }

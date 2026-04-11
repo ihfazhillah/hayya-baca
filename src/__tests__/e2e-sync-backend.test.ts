@@ -780,4 +780,85 @@ describe("E2E sync against real Django backend", () => {
     expect(mine.length).toBe(1000);
     expect(elapsed).toBeLessThan(3000);
   });
+
+  // MD-7/AS-1 — DRF's default TokenAuthentication keeps one token row
+  // per user. Backend logout deletes that row, so every OTHER device
+  // logged in as the same account gets 401 on its next request. This
+  // test pins the contract we chose:
+  //   (1) `logout()` is local-only — does NOT call backend,
+  //   (2) `logoutAllDevices()` is the explicit cross-device nuke,
+  //   (3) when 401 hits sync, queue is preserved, authExpired flag set,
+  //       auth_state setting = "expired",
+  //   (4) relogin clears the flag and the queued row flushes.
+  it("Case 30 — MD-7: logoutAllDevices invalidates other device, queue survives, relogin flushes", async () => {
+    const childName = `MD7-${Date.now()}`;
+    const apiA = await makeDevice("md7-device-A");
+    const child = await apiA.createChildOnServer(childName);
+
+    await jest.isolateModulesAsync(async () => {
+      mockCurrentDeviceId = "md7-device-B";
+      const apiB = require("../lib/api") as typeof import("../lib/api");
+      await apiB.login(CREDS.username, CREDS.password);
+
+      const sync = require("../lib/sync") as typeof import("../lib/sync");
+      const database = require("../lib/database") as typeof import("../lib/database");
+      const rewards = require("../lib/rewards") as typeof import("../lib/rewards");
+
+      // Bootstrap: pull children from server into B's local DB.
+      const r1 = await sync.syncAll();
+      expect(r1.success).toBe(true);
+      expect(r1.authExpired).toBeFalsy();
+
+      const db = await database.getDatabase();
+      const localChild = await db.getFirstAsync<{ id: number }>(
+        "SELECT id FROM children WHERE name = ?",
+        childName
+      );
+      expect(localChild).not.toBeNull();
+
+      // Queue a local reward on B.
+      await rewards.addReward(localChild!.id, "coin", 7, "Before logout");
+
+      // Device A nukes tokens for the shared user. Device B's token is
+      // the same row (DRF get_or_create) → B is now invalid.
+      await apiA.logoutAllDevices();
+
+      // B's next sync must surface authExpired, keep success=false, and
+      // must NOT mark the queued row synced.
+      const r2 = await sync.syncAll();
+      expect(r2.authExpired).toBe(true);
+      expect(r2.success).toBe(false);
+
+      const pending = await db.getAllAsync<{ id: number }>(
+        "SELECT id FROM reward_history WHERE child_id = ? AND synced = 0",
+        localChild!.id
+      );
+      expect(pending.length).toBe(1);
+
+      const state = await database.getSetting("auth_state");
+      expect(state).toBe("expired");
+
+      // Relogin on B → next sync flushes the queue and flips auth_state
+      // back to "ok". Without the queue-preservation guarantee above,
+      // this would be a no-op because the row would already be synced=1.
+      await apiB.login(CREDS.username, CREDS.password);
+      const r3 = await sync.syncAll();
+      expect(r3.success).toBe(true);
+      expect(r3.authExpired).toBeFalsy();
+      expect(r3.rewardsPushed).toBeGreaterThanOrEqual(1);
+
+      const stateAfter = await database.getSetting("auth_state");
+      expect(stateAfter).toBe("ok");
+
+      const pendingAfter = await db.getAllAsync<{ id: number }>(
+        "SELECT id FROM reward_history WHERE child_id = ? AND synced = 0",
+        localChild!.id
+      );
+      expect(pendingAfter.length).toBe(0);
+
+      // And the reward actually landed on the server.
+      const history = await apiB.fetchRewardHistory(localChild!.id);
+      expect(history.some((h) => h.description === "Before logout")).toBe(true);
+    });
+  });
 });
