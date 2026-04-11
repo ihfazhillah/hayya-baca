@@ -229,3 +229,56 @@ Total: 7 test. Target runtime <30 detik (backend warm setelah case 1).
 ---
 
 **Approve plan + jawab 5 keputusan → saya mulai implementasi urutan di atas. Tidak commit sampai 7 case hijau dua kali berturut-turut.**
+
+---
+
+## Next steps (findings dari run pertama — commit 5ceda8c)
+
+Harness 6/7 hijau pada run pertama. Satu kegagalan adalah **bug backend nyata** yang lolos dari Fase B2 plan.md, bukan bug di harness.
+
+### Finding #1 — Bug #9 backend belum terima `coin_spend`
+
+**Gejala:** Case 4 `pushRewardsBulk` dengan `type: "coin_spend"` → HTTP 400 dari DRF:
+```
+{"rewards":[{},{"type":["\"coin_spend\" is not a valid choice."]}]}
+```
+
+**Root cause:**
+- `backend/rewards/models.py:7-11` — `RewardHistory.Type` hanya punya `coin`, `star`, `coin_adjustment`, `star_adjustment`.
+- `backend/rewards/serializers.py:17` — `ChoiceField(choices=RewardHistory.Type.choices)` otomatis reject.
+- Commit `32354e1` (`fix(sync): #9 game spend persisted via reward_history`) menyelesaikan client — `addReward(childId, 'coin_spend', ...)` — tapi **tidak pernah** menambah type di backend. Dev tidak crash karena `coin_spend` belum benar-benar dicoba push ke server lokal sebelum ini (error 400 di-swallow ke `report.errors`, tidak block sync lain).
+
+**Dampak lapangan:** Setiap pembelian game pada client yang sudah dapat commit `32354e1` → reward masuk ke lokal SQLite `synced=0`, tiap sync push 400, tidak pernah `synced=1`. Counter `queue_depth_rewards` terus naik. Server tidak pernah tahu koin anak di-spend → leaderboard/parent dashboard over-count.
+
+**Fix rencana (satu commit terpisah — `fix(sync): #9 backend accepts coin_spend reward type`):**
+
+1. **Model:** tambah `COIN_SPEND = "coin_spend"` ke `RewardHistory.Type` di `backend/rewards/models.py`.
+2. **Migration:** `backend/rewards/migrations/0003_rewardhistory_coin_spend.py` — alter `type` choices. Sqlite tidak butuh table rewrite untuk choices (cuma metadata), tapi Django masih emit `AlterField` — biarkan saja, aman.
+3. **Serializer (`backend/rewards/serializers.py:67`):** periksa apakah aggregation server-side perlu masukkan `coin_spend` ke update coin total. Kalau ya, tambah ke tuple `(RewardHistory.Type.COIN, RewardHistory.Type.COIN_ADJ, RewardHistory.Type.COIN_SPEND)`. Konfirmasi dulu apa yang dihitung server-side sebelum edit — kalau server cuma store history dan client yang recalc, cukup choices saja.
+4. **Manual verification (dev):**
+   - `test-local.sh` stop → `seed_e2e` DB beda, jangan campur — cukup `./backend/.venv/bin/python manage.py migrate`.
+   - Trigger buy game dari emulator → check `http://localhost:8123/admin/rewards/rewardhistory/` ada row `type=coin_spend`.
+5. **E2E rerun:** `npm run test:e2e` → 7/7 hijau dua kali berturut-turut → commit.
+6. **Client-side test regression check:** `usecase-game-spend-persistence.test.ts` tetap PASS (tidak bergantung choices backend).
+
+**Stop condition:** kalau migration bentrok dengan data prod lama, tanya dulu — user bilang "backend belum deploy" (MEMORY.md) jadi harusnya aman, tapi verifikasi sebelum ship.
+
+### Finding #2 — e2e berbagi state antar run (tidak ada reset per-test)
+
+**Gejala:** Tidak terlihat sekarang (tiap case bikin child baru dengan `Date.now()` suffix), tapi kalau `test:e2e` dijalankan 2x berturut-turut tanpa restart harness (misal `--watch`), child dari run sebelumnya masih ada. Saat ini tidak masalah karena harness selalu fresh DB — cukup catat sebagai limitasi known.
+
+**Fix opsional nanti:** endpoint `POST /api/sync/e2e-reset/` yang hanya terdaftar di `config.settings.e2e` → truncate RewardHistory/ReadingProgress/Child untuk user e2e. Kalau dibutuhkan (tanda: test mulai flaky karena cross-talk), implement; sekarang skip.
+
+### Finding #3 — Subshell PID drift di harness (fixed)
+
+Run pertama cleanup meninggalkan runserver orphaned karena `$!` dari subshell menangkap wrong PID. Sudah di-fix dengan port-fallback kill di `scripts/e2e-backend.sh` cleanup(). Catat karena pattern ini umum — kalau nambah harness lain, pakai pendekatan sama (recorded PID + port fallback).
+
+---
+
+## Checklist lanjutan
+
+- [ ] **Fix #1** backend `coin_spend` type + migration → rerun e2e 7/7 → commit
+- [ ] **Run kedua** e2e untuk verifikasi non-flaky (plan says "dua kali berturut-turut")
+- [ ] Pertimbangkan tambah e2e ke CI terpisah (butuh Python di runner — biarkan manual sekarang)
+- [ ] **Opsional:** e2e-reset endpoint (Finding #2) — hanya kalau nanti ada flakiness
+
