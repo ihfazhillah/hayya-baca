@@ -321,6 +321,47 @@ describe("E2E sync against real Django backend", () => {
     expect(book1?.completed_count).toBe(2);
   });
 
+  it("Case 12 — MD-5: spend on device B after earn on device A converges", async () => {
+    const apiT = await makeDevice("md5-device-T");
+    const apiH = await makeDevice("md5-device-H");
+
+    const child = await apiT.createChildOnServer(`MD5-${Date.now()}`);
+    const now = new Date().toISOString();
+    const keyEarn = `md5-T-earn-${Date.now()}`;
+    const keySpend = `md5-H-spend-${Date.now()}`;
+
+    // Tablet earns 50 coins.
+    const eEarn = await apiT.pushRewardsBulk(child.id, [
+      { type: "coin", count: 50, description: "Tablet earn", created_at: now, idempotency_key: keyEarn },
+    ]);
+    expect(eEarn).toBeNull();
+
+    // HP pulls and sees the earn from the tablet.
+    const viaH = await apiH.fetchRewardHistory(child.id);
+    expect(viaH.find((r) => r.idempotency_key === keyEarn)?.count).toBe(50);
+
+    // HP spends 20 coins (coin_spend is an event, not an absolute balance).
+    const eSpend = await apiH.pushRewardsBulk(child.id, [
+      { type: "coin_spend", count: -20, description: "HP spend", created_at: now, idempotency_key: keySpend },
+    ]);
+    expect(eSpend).toBeNull();
+
+    // Authoritative balance = 50 + (-20) = 30 for both devices.
+    const childrenT = await apiT.fetchChildren();
+    const childrenH = await apiH.fetchChildren();
+    expect(childrenT.find((c) => c.id === child.id)?.coins).toBe(30);
+    expect(childrenH.find((c) => c.id === child.id)?.coins).toBe(30);
+
+    // Tablet pulls full history; local recalculation sums to 30.
+    const viaT = await apiT.fetchRewardHistory(child.id);
+    const keys = viaT.map((r) => r.idempotency_key).sort();
+    expect(keys).toEqual(expect.arrayContaining([keyEarn, keySpend]));
+    const coinsSum = viaT
+      .filter((r) => r.type === "coin" || r.type === "coin_spend")
+      .reduce((acc, r) => acc + r.count, 0);
+    expect(coinsSum).toBe(30);
+  });
+
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);
