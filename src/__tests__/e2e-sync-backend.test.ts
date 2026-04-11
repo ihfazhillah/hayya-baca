@@ -362,6 +362,46 @@ describe("E2E sync against real Django backend", () => {
     expect(coinsSum).toBe(30);
   });
 
+  it("Case 20 — ID-1: duplicate device-id collision surfaces skipped count", async () => {
+    // Same device id on both isolates — simulates two installs that
+    // somehow share expo-crypto.randomUUID() output (bug, manual copy,
+    // whatever). Idempotency keys collide globally.
+    const apiA = await makeDevice("id1-dupe-device");
+    const apiB = await makeDevice("id1-dupe-device");
+
+    const child = await apiA.createChildOnServer(`ID1-${Date.now()}`);
+    const now = new Date().toISOString();
+    const sharedKey = `id1-dupe-${Date.now()}`;
+
+    const eA = await apiA.pushRewardsBulk(child.id, [
+      { type: "coin", count: 5, description: "A earn", created_at: now, idempotency_key: sharedKey },
+    ]);
+    expect(eA).toBeNull();
+
+    // Device B collides on idempotency_key. Fire the request via raw
+    // apiFetch so we can read the JSON body and assert the server
+    // surfaced the skipped count — without that, B would believe the
+    // push succeeded while its real data was silently discarded.
+    const resB = await apiB.apiFetch(`/children/${child.id}/rewards/sync/`, {
+      method: "POST",
+      body: JSON.stringify({
+        rewards: [
+          { type: "coin", count: 3, description: "B earn", created_at: now, idempotency_key: sharedKey },
+        ],
+      }),
+    });
+    expect(resB.ok).toBe(true);
+    const bodyB = (await resB.json()) as { created?: number; skipped?: number };
+    expect(bodyB.skipped).toBe(1);
+    expect(bodyB.created).toBe(0);
+
+    // And the history is unchanged — A's count wins, B's was dropped.
+    const history = await apiA.fetchRewardHistory(child.id);
+    const matches = history.filter((r) => r.idempotency_key === sharedKey);
+    expect(matches.length).toBe(1);
+    expect(matches[0].count).toBe(5);
+  });
+
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);

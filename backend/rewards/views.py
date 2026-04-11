@@ -62,7 +62,20 @@ class BulkRewardSyncView(APIView):
                 },
             )
 
-        return Response({"detail": "Synced"}, status=status.HTTP_201_CREATED)
+        # Surface skipped count so clients can detect idempotency-key
+        # collisions (ID-1). Without this, a second device pushing under
+        # a duplicated device id would silently lose writes: the server
+        # dedupes on the global idempotency_key, returns 201, and the
+        # client marks its rewards synced even though they never
+        # landed.
+        return Response(
+            {
+                "detail": "Synced",
+                "created": len(created),
+                "skipped": skipped,
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class BalanceView(APIView):
