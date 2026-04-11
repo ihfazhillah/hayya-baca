@@ -59,6 +59,15 @@ export async function syncAll(childIds?: number[]): Promise<SyncReport> {
 }
 
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {
+  // If caller didn't specify children, sync ALL local children.
+  // Without this fallback, mount-time syncAll() (no args) would skip push/pull
+  // steps entirely — data for every child stays queued forever.
+  if (!childIds || childIds.length === 0) {
+    const db = await getDatabase();
+    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+    childIds = rows.map((r) => r.id);
+  }
+
   // Step 1: Push unsynced local children to server
   const unsynced = await getUnsyncedChildren();
   let serverChildren;
