@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, type DeviceTelemetry } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
-import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
+import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
@@ -268,6 +268,16 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
       idempotency_key: `${deviceId}:${r.id}`,
     }));
 
+    // MC-3: persist idempotency_keys locally BEFORE the push hits the wire.
+    // A crash between push-succeeds and markRewardsSynced-completes would
+    // otherwise leave rows with synced=0 and no key — mergeServerRewards
+    // then can't dedupe them on pull and inserts duplicates.
+    const keyMap: Record<number, string> = {};
+    unsyncedRewards.forEach((r, i) => {
+      keyMap[r.id] = rewardsWithKeys[i].idempotency_key;
+    });
+    await persistIdempotencyKeys(keyMap);
+
     // Snapshot telemetry BEFORE marking rows synced so queue depths reflect
     // what was actually pending when the sync began.
     const telemetry = await gatherTelemetry();
@@ -278,12 +288,6 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
       report.errors.push(err);
       return;
     }
-
-    // Build mapping of local id → idempotency_key so mergeServerRewards can detect them
-    const keyMap: Record<number, string> = {};
-    unsyncedRewards.forEach((r, i) => {
-      keyMap[r.id] = rewardsWithKeys[i].idempotency_key;
-    });
 
     report.rewardsPushed += unsyncedRewards.length;
     await markRewardsSynced(unsyncedRewards.map((r) => r.id), keyMap);

@@ -51,6 +51,27 @@ export async function getUnsyncedRewards(
   );
 }
 
+// Write idempotency_keys for local rows in one atomic statement BEFORE
+// the push hits the wire. If the process is killed after push-succeeds
+// but before markRewardsSynced completes, the next syncAll's pull step
+// (mergeServerRewards) needs these keys present to dedupe — otherwise
+// every pending row comes back from the server as a fresh insert and we
+// end up with duplicates locally (MC-3).
+export async function persistIdempotencyKeys(keyMap: Record<number, string>): Promise<void> {
+  const ids = Object.keys(keyMap).map(Number).filter((id) => keyMap[id]);
+  if (ids.length === 0) return;
+  const db = await getDatabase();
+  const caseSql = ids.map(() => "WHEN ? THEN ?").join(" ");
+  const inSql = ids.map(() => "?").join(",");
+  const params: (number | string)[] = [];
+  for (const id of ids) params.push(id, keyMap[id]);
+  await db.runAsync(
+    `UPDATE reward_history SET idempotency_key = CASE id ${caseSql} END WHERE id IN (${inSql})`,
+    ...params,
+    ...ids
+  );
+}
+
 export async function markRewardsSynced(ids: number[], idempotencyKeys?: Record<number, string>): Promise<void> {
   if (ids.length === 0) return;
   const db = await getDatabase();
