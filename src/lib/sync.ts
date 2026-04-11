@@ -126,10 +126,11 @@ export function attachSessionSyncTrigger(): () => void {
 }
 
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {
+  const callerSuppliedIds = Array.isArray(childIds) && childIds.length > 0;
   // If caller didn't specify children, sync ALL local children.
   // Without this fallback, mount-time syncAll() (no args) would skip push/pull
   // steps entirely — data for every child stays queued forever.
-  if (!childIds || childIds.length === 0) {
+  if (!callerSuppliedIds) {
     const db = await getDatabase();
     const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
     childIds = rows.map((r) => r.id);
@@ -163,6 +164,23 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     }
   }
 
+  // MD-4: on a fresh device the local children table is empty when the
+  // mount-time syncAll() computes childIds — so the push/pull loops below
+  // would skip entirely and the user would see no rewards until they tap
+  // a child. Upsert server children first, then re-derive childIds from
+  // the freshly populated local table. Only do this when the caller did
+  // NOT pass explicit ids, so targeted syncs stay targeted.
+  let bootstrappedFromServer = false;
+  if (!callerSuppliedIds && serverChildren && childIds && childIds.length === 0) {
+    for (const sc of serverChildren) {
+      await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+    }
+    const db = await getDatabase();
+    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+    childIds = rows.map((r) => r.id);
+    bootstrappedFromServer = true;
+  }
+
   // Step 2: Push data for each child (push-first)
   if (childIds && childIds.length > 0) {
     for (const childId of childIds) {
@@ -177,8 +195,12 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     const needRefetch = unsynced.length > 0 || (childIds && childIds.length > 0);
     const finalChildren = needRefetch ? await fetchChildren() : serverChildren;
     report.childrenPulled = finalChildren.length;
-    for (const sc of finalChildren) {
-      await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+    // Skip the upsert loop if the bootstrap block above already did it —
+    // calling it again would double the upsert count tests rely on.
+    if (!bootstrappedFromServer) {
+      for (const sc of finalChildren) {
+        await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+      }
     }
     if (finalChildren.length > 0) {
       await deleteChildrenNotIn(finalChildren.map((c) => c.id));

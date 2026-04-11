@@ -443,6 +443,60 @@ describe("E2E sync against real Django backend", () => {
     expect(hist.some((r) => r.idempotency_key === ghostKey)).toBe(false);
   });
 
+  it("Case 11 — MD-4: fresh device syncAll() pulls all children and their rewards", async () => {
+    const childName = `MD4-${Date.now()}`;
+    const now = new Date().toISOString();
+
+    // Device A: the existing user has this child + 5 rewards on the server.
+    const apiA = await makeDevice("md4-device-A");
+    const child = await apiA.createChildOnServer(childName);
+    const errPush = await apiA.pushRewardsBulk(child.id, [
+      { type: "coin", count: 1, description: "A1", created_at: now, idempotency_key: `md4-${child.id}-1` },
+      { type: "coin", count: 1, description: "A2", created_at: now, idempotency_key: `md4-${child.id}-2` },
+      { type: "coin", count: 1, description: "A3", created_at: now, idempotency_key: `md4-${child.id}-3` },
+      { type: "coin", count: 1, description: "A4", created_at: now, idempotency_key: `md4-${child.id}-4` },
+      { type: "coin", count: 1, description: "A5", created_at: now, idempotency_key: `md4-${child.id}-5` },
+    ]);
+    expect(errPush).toBeNull();
+
+    // Device B: fresh install. Login via isolated module graph, then the
+    // mount-style `syncAll()` call (no childIds) must pull the child AND
+    // its reward history — exercising the fresh-device bootstrap path.
+    await jest.isolateModulesAsync(async () => {
+      mockCurrentDeviceId = "md4-device-B";
+      const apiB = require("../lib/api") as typeof import("../lib/api");
+      await apiB.login(CREDS.username, CREDS.password);
+
+      const sync = require("../lib/sync") as typeof import("../lib/sync");
+      const database = require("../lib/database") as typeof import("../lib/database");
+
+      const report = await sync.syncAll(); // no args — mount-time call
+      expect(report.success).toBe(true);
+
+      const db = await database.getDatabase();
+      const localChildren = await db.getAllAsync<{ id: number; name: string }>(
+        "SELECT id, name FROM children"
+      );
+      const ourChild = localChildren.find((c) => c.name === childName);
+      expect(ourChild).toBeDefined();
+
+      const localRewards = await db.getAllAsync<{ count: number; description: string }>(
+        "SELECT count, description FROM reward_history WHERE child_id = ?",
+        ourChild!.id
+      );
+      // Pre-fix: 0 rows — fresh-device childIds race causes the pull loop
+      // to skip because local children is empty at the moment childIds is
+      // computed, even though fetchChildren populates them moments later.
+      expect(localRewards.length).toBe(5);
+
+      const row = await db.getFirstAsync<{ coins: number }>(
+        "SELECT coins FROM children WHERE id = ?",
+        ourChild!.id
+      );
+      expect(row?.coins).toBe(5);
+    });
+  });
+
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);
