@@ -747,4 +747,37 @@ describe("E2E sync against real Django backend", () => {
     expect(keys).toEqual([key1, key2].sort());
     expect(new Set(mine.map((e) => e.completed_at)).size).toBe(1);
   });
+
+  // BC-5 — reward history pull must return the full dataset in a time
+  // budget that's usable on a fresh device bootstrap. 1000 rewards is
+  // ~6 months of rajin reading; dev SQLite + localhost should be well
+  // under 3s. Guards against: (a) pagination being silently added and
+  // truncating .json() to 1 page, (b) an accidental N+1 in the
+  // serializer, (c) a future order_by over an unindexed column.
+  it("Case 27 — BC-5: reward history pull handles 1000+ entries under 3s", async () => {
+    const api = await loginHelper();
+    const child = await api.createChildOnServer(`BC5-${Date.now()}`);
+    const now = new Date().toISOString();
+    const base = `bc5-${Date.now()}`;
+
+    for (let batch = 0; batch < 10; batch++) {
+      const rewards = Array.from({ length: 100 }, (_, i) => ({
+        type: "coin",
+        count: 1,
+        description: `r${batch}-${i}`,
+        created_at: now,
+        idempotency_key: `${base}-${batch}-${i}`,
+      }));
+      const err = await api.pushRewardsBulk(child.id, rewards);
+      expect(err).toBeNull();
+    }
+
+    const t0 = Date.now();
+    const history = await api.fetchRewardHistory(child.id);
+    const elapsed = Date.now() - t0;
+
+    const mine = history.filter((h) => h.idempotency_key?.startsWith(base));
+    expect(mine.length).toBe(1000);
+    expect(elapsed).toBeLessThan(3000);
+  });
 });
