@@ -277,8 +277,8 @@ Run pertama cleanup meninggalkan runserver orphaned karena `$!` dari subshell me
 
 ## Checklist lanjutan
 
-- [ ] **Fix #1** backend `coin_spend` type + migration → rerun e2e 7/7 → commit
-- [ ] **Run kedua** e2e untuk verifikasi non-flaky (plan says "dua kali berturut-turut")
+- [x] **Fix #1** backend `coin_spend` type + migration → e2e 7/7 → commit `794976b`
+- [x] **Run kedua** e2e untuk verifikasi non-flaky — dua run berturut 7/7
 - [ ] Pertimbangkan tambah e2e ke CI terpisah (butuh Python di runner — biarkan manual sekarang)
 - [ ] **Opsional:** e2e-reset endpoint (Finding #2) — hanya kalau nanti ada flakiness
 

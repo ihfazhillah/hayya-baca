@@ -215,27 +215,27 @@ Cek dashboard server: apakah semua 4 anak dapat record? Kalau ya → shipping ke
 ## Checklist ringkas (tracking)
 
 Fase A:
-- [ ] A1 — Bug #1 test + fix + commit
-- [ ] A2 — Bug #2 test + fix + commit
-- [ ] A3 — Bug #7 test + fix + commit
-- [ ] Alpha build + manual kill-restart verification
+- [x] A1 — Bug #1 test + fix + commit (`7c0f2f0`)
+- [x] A2 — Bug #2 test + fix + commit (`ee45694`)
+- [x] A3 — Bug #7 test + fix + commit (`1e7e3cd`)
+- [ ] Alpha build + manual kill-restart verification (bagian dari D3)
 
 Fase B:
-- [ ] B1 — Bug #8 test (evaluasi reproduce) + fix kalau perlu
-- [ ] B2 — Bug #9 test + fix (app + backend) + commit
-- [ ] B3 — Bug #4 test + fix + commit
+- [x] B1 — Bug #8 fix + commit (`7d99b91`, derive totals from reward_history)
+- [x] B2 — Bug #9 client fix (`32354e1`) + backend fix (`794976b`, accept `coin_spend`)
+- [x] B3 — Bug #4 test + fix + commit (`c957311`)
 
 Fase C:
-- [ ] C1 — Bug #3 test + fix + commit
-- [ ] C2 — Bug #5 test (kemungkinan eliminasi)
-- [ ] C3 — Bug #6 test + fix + commit
-- [ ] C4 — NetInfo listener + commit
-- [ ] C5 — Background fetch (tanya user dulu)
+- [x] C1 — Bug #3 test + fix + commit (`7707358`)
+- [x] C2 — Bug #5 eliminated via test (`ed0a447`)
+- [x] C3 — Bug #6 queue implementasi + test di `ee45694` (`syncChain` di `sync.ts`, test di `usecase-sync.test.ts:272`)
+- [x] C4 — NetInfo listener + commit (`2d051a6`)
+- [ ] ~~C5 — Background fetch~~ **DEFERRED** — trigger existing (mount, AppState, NetInfo reconnect, child-select, opportunistic push) dinilai cukup; Android 14+ background fetch tidak reliable (§9 Q3). Revisit kalau telemetri lapangan menunjukkan queue depth menumpuk.
 
 Fase D:
-- [ ] D1 — TC integrasi lintas-bug
-- [ ] D2 — Telemetri piggyback
-- [ ] D3 — Manual verification 3-7 hari
+- [x] D1 — TC integrasi lintas-bug (`389c5de`) + e2e backend harness (`5ceda8c`)
+- [x] D2 — Telemetri piggyback client (`df3938e`) + backend upsert (`1f4de04`)
+- [ ] D3 — Manual verification 3-7 hari (task user setelah ship)
 
 ---
 
