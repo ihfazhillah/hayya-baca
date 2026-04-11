@@ -8,7 +8,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --forceExit",
-    "test:watch": "jest --watch --forceExit"
+    "test:watch": "jest --watch --forceExit",
+    "test:e2e": "./scripts/e2e-backend.sh"
   },
   "jest": {
     "preset": "jest-expo",
@@ -20,7 +21,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "setup\\.ts$"
+      "setup\\.ts$",
+      "e2e-sync-backend\\.test\\.ts$"
     ],
     "moduleFileExtensions": [
       "ts",

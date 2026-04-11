@@ -6,7 +6,9 @@ const API_BASE_DEV = "http://10.0.2.2:8123/api";
 const API_BASE_PROD = "https://hayyabaca.ihfazh.com/api";
 
 function getApiBase(): string {
-  const override = Constants.expoConfig?.extra?.apiBaseUrl;
+  const override =
+    Constants.expoConfig?.extra?.apiBaseUrl ||
+    (typeof process !== "undefined" ? process.env?.API_BASE_URL : undefined);
   if (override) return override;
   return __DEV__ ? API_BASE_DEV : API_BASE_PROD;
 }
