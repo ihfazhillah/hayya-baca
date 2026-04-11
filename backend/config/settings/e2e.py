@@ -17,6 +17,13 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.environ.get("E2E_DB_PATH", "/tmp/hayya-baca-e2e.sqlite3"),
+        # WAL + busy-timeout so parallel writers (multi-device tests,
+        # MD-1 etc.) don't 500 on "database is locked". Prod is
+        # PostgreSQL; this is strictly a test-harness knob.
+        "OPTIONS": {
+            "timeout": 20,
+            "init_command": "PRAGMA journal_mode=WAL;",
+        },
     }
 }
 

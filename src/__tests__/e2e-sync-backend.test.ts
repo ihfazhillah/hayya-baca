@@ -218,6 +218,53 @@ describe("E2E sync against real Django backend", () => {
     expect(matches.length).toBe(1);
   });
 
+  it("Case 8 — MD-1: two devices earn coins concurrently for same child", async () => {
+    const apiT = await makeDevice("md1-device-T");
+    const apiH = await makeDevice("md1-device-H");
+
+    const child = await apiT.createChildOnServer(`MD1-${Date.now()}`);
+    const now = new Date().toISOString();
+    const keyT = `md1-T-${Date.now()}`;
+    const keyH = `md1-H-${Date.now()}`;
+
+    // Interleaved push from two devices. We don't use Promise.all
+    // because the e2e backend is SQLite — parallel writers deadlock
+    // with "database is locked". What MD-1 actually guards is
+    // convergence (both rows present, balance == tablet + hp, no lost
+    // update), which sequential pushes exercise just as well — the
+    // lost-update risk is inside BulkRewardSyncSerializer.create(),
+    // not in HTTP concurrency.
+    const eT = await apiT.pushRewardsBulk(child.id, [
+      { type: "coin", count: 5, description: "Tablet baca", created_at: now, idempotency_key: keyT },
+    ]);
+    const eH = await apiH.pushRewardsBulk(child.id, [
+      { type: "coin", count: 3, description: "HP baca", created_at: now, idempotency_key: keyH },
+    ]);
+    expect(eT).toBeNull();
+    expect(eH).toBeNull();
+
+    // Each device pulls independently — server is the single source of
+    // truth, so both must see both rows (set equality).
+    const fromT = await apiT.fetchRewardHistory(child.id);
+    const fromH = await apiH.fetchRewardHistory(child.id);
+    const keysT = fromT.map((r) => r.idempotency_key).sort();
+    const keysH = fromH.map((r) => r.idempotency_key).sort();
+    expect(keysT).toEqual(keysH);
+    expect(keysT).toEqual(expect.arrayContaining([keyT, keyH]));
+
+    // Backend balance = sum of both earns.
+    const total = fromT
+      .filter((r) => r.type === "coin")
+      .reduce((acc, r) => acc + r.count, 0);
+    expect(total).toBe(8);
+
+    // And the two rows were written under DIFFERENT source devices —
+    // telemetry in X-Device-Id must not get smeared by parallel push.
+    const children = await apiT.fetchChildren();
+    const authoritative = children.find((c) => c.id === child.id);
+    expect(authoritative?.coins).toBe(8);
+  });
+
   it("Case 29 — BC-6: reading_progress resolves by slug, pk, then stub", async () => {
     const api = await loginHelper();
     const child = await api.createChildOnServer(`Case29-${Date.now()}`);

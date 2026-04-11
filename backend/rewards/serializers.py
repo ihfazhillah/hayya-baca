@@ -1,3 +1,4 @@
+from django.db.models import F
 from rest_framework import serializers
 
 from .models import RewardHistory
@@ -73,12 +74,19 @@ class BulkRewardSyncSerializer(serializers.Serializer):
             elif entry["type"] in (RewardHistory.Type.STAR, RewardHistory.Type.STAR_ADJ):
                 total_stars += entry["count"]
 
+        # Atomic delta via F() — two devices pushing in parallel both
+        # load child.coins=0 before either saves, so the naive
+        # "child.coins += total; child.save()" pattern loses the earlier
+        # write. F() issues `UPDATE ... SET coins = coins + delta` at
+        # the DB level (MD-1).
+        updates = {}
         if total_coins:
-            child.coins += total_coins
+            updates["coins"] = F("coins") + total_coins
         if total_stars:
-            child.stars += total_stars
-        if total_coins or total_stars:
-            child.save(update_fields=["coins", "stars"])
+            updates["stars"] = F("stars") + total_stars
+        if updates:
+            type(child).objects.filter(pk=child.pk).update(**updates)
+            child.refresh_from_db(fields=list(updates.keys()))
 
         # Store skipped count for view to log
         self._skipped = skipped
