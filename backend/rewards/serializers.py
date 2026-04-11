@@ -21,8 +21,18 @@ class RewardSyncItemSerializer(serializers.Serializer):
     idempotency_key = serializers.CharField(required=False, default=None, allow_null=True)
 
 
+class DeviceTelemetrySerializer(serializers.Serializer):
+    device_id = serializers.CharField(required=False, allow_blank=True, default="")
+    app_version = serializers.CharField(required=False, allow_blank=True, default="")
+    queue_depth_rewards = serializers.IntegerField(required=False, default=0, min_value=0)
+    queue_depth_progress = serializers.IntegerField(required=False, default=0, min_value=0)
+    last_successful_sync_at = serializers.DateTimeField(required=False, allow_null=True, default=None)
+    last_sync_error = serializers.CharField(required=False, allow_blank=True, allow_null=True, default="")
+
+
 class BulkRewardSyncSerializer(serializers.Serializer):
     rewards = RewardSyncItemSerializer(many=True)
+    telemetry = DeviceTelemetrySerializer(required=False)
 
     def create(self, validated_data):
         child = self.context["child"]

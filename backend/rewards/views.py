@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from accounts.models import Child
 from accounts.permissions import IsParentOrReadOnlyTeacher
-from sync.models import SyncLog
+from sync.models import SyncLog, DeviceTelemetry
 from .models import RewardHistory
 from .serializers import BulkRewardSyncSerializer, RewardHistorySerializer
 
@@ -45,6 +45,22 @@ class BulkRewardSyncView(APIView):
             item_count=len(created),
             details=details,
         )
+
+        telemetry = serializer.validated_data.get("telemetry") or {}
+        telemetry_device_id = telemetry.get("device_id") or device_id
+        if telemetry_device_id:
+            DeviceTelemetry.objects.update_or_create(
+                user=request.user,
+                device_id=telemetry_device_id,
+                defaults={
+                    "device_name": device_name,
+                    "app_version": telemetry.get("app_version", "") or "",
+                    "queue_depth_rewards": telemetry.get("queue_depth_rewards", 0) or 0,
+                    "queue_depth_progress": telemetry.get("queue_depth_progress", 0) or 0,
+                    "last_successful_sync_at": telemetry.get("last_successful_sync_at"),
+                    "last_sync_error": telemetry.get("last_sync_error") or "",
+                },
+            )
 
         return Response({"detail": "Synced"}, status=status.HTTP_201_CREATED)
 

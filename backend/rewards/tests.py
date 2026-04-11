@@ -4,6 +4,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from accounts.models import Child, ChildAccess
+from sync.models import DeviceTelemetry
 from .models import RewardHistory
 
 User = get_user_model()
@@ -175,3 +176,62 @@ class TestSyncLog:
         assert log.device_id == "dev-123"
         assert log.device_name == "Test Phone"
         assert log.item_count == 1
+
+
+class TestDeviceTelemetry:
+    def test_push_with_telemetry_creates_row(self, auth_api, child, parent):
+        resp = auth_api.post(
+            f"/api/children/{child.id}/rewards/sync/",
+            {
+                "rewards": [{"type": "coin", "count": 1, "description": "Test"}],
+                "telemetry": {
+                    "device_id": "dev-telem-1",
+                    "app_version": "1.1.5",
+                    "queue_depth_rewards": 3,
+                    "queue_depth_progress": 2,
+                    "last_successful_sync_at": "2026-04-10T08:00:00Z",
+                    "last_sync_error": "",
+                },
+            },
+            format="json",
+            HTTP_X_DEVICE_ID="dev-telem-1",
+            HTTP_X_DEVICE_NAME="Pixel",
+        )
+        assert resp.status_code == 201
+        row = DeviceTelemetry.objects.get(user=parent, device_id="dev-telem-1")
+        assert row.app_version == "1.1.5"
+        assert row.queue_depth_rewards == 3
+        assert row.queue_depth_progress == 2
+        assert row.last_successful_sync_at is not None
+        assert row.last_sync_error == ""
+        assert row.device_name == "Pixel"
+
+    def test_second_push_upserts_same_device(self, auth_api, child, parent):
+        payload_a = {
+            "rewards": [{"type": "coin", "count": 1, "description": "A", "idempotency_key": "d1:1"}],
+            "telemetry": {"device_id": "dev-x", "queue_depth_rewards": 5, "last_sync_error": "boom"},
+        }
+        payload_b = {
+            "rewards": [{"type": "coin", "count": 1, "description": "B", "idempotency_key": "d1:2"}],
+            "telemetry": {"device_id": "dev-x", "queue_depth_rewards": 0, "last_sync_error": ""},
+        }
+        auth_api.post(f"/api/children/{child.id}/rewards/sync/", payload_a, format="json")
+        auth_api.post(f"/api/children/{child.id}/rewards/sync/", payload_b, format="json")
+
+        assert DeviceTelemetry.objects.filter(user=parent, device_id="dev-x").count() == 1
+        row = DeviceTelemetry.objects.get(user=parent, device_id="dev-x")
+        assert row.queue_depth_rewards == 0
+        assert row.last_sync_error == ""
+
+    def test_push_without_telemetry_still_succeeds(self, auth_api, child, parent):
+        resp = auth_api.post(
+            f"/api/children/{child.id}/rewards/sync/",
+            {"rewards": [{"type": "coin", "count": 1, "description": "X"}]},
+            format="json",
+            HTTP_X_DEVICE_ID="dev-no-telem",
+        )
+        assert resp.status_code == 201
+        # Header-only fallback: view upserts under the header device_id even
+        # when the payload omits the telemetry block, so operators still see
+        # *something* for older clients.
+        assert DeviceTelemetry.objects.filter(user=parent, device_id="dev-no-telem").exists()
