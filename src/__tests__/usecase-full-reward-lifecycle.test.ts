@@ -89,6 +89,8 @@ jest.mock("../lib/api", () => {
     fetchReadingProgressFromServer: jest.fn().mockImplementation(async (childId: number) =>
       Object.values(serverState.progress[childId] ?? {})
     ),
+    pushBookmarks: jest.fn().mockResolvedValue(null),
+    pullBookmarks: jest.fn().mockResolvedValue([]),
   };
 });
 

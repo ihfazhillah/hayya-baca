@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
@@ -93,3 +94,30 @@ class Quiz(models.Model):
 
     def __str__(self):
         return f"{self.book.title} - Q{self.order}"
+
+
+class Bookmark(models.Model):
+    CONTENT_BOOK = "book"
+    CONTENT_ARTICLE = "article"
+    CONTENT_CHOICES = [
+        (CONTENT_BOOK, "Book"),
+        (CONTENT_ARTICLE, "Article"),
+    ]
+
+    child = models.ForeignKey(
+        "accounts.Child",
+        on_delete=models.CASCADE,
+        related_name="bookmarks",
+    )
+    content_type = models.CharField(max_length=16, choices=CONTENT_CHOICES)
+    content_slug = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = [("child", "content_type", "content_slug")]
+        indexes = [models.Index(fields=["child", "is_deleted"])]
+
+    def __str__(self):
+        return f"{self.child} → [{self.content_type}] {self.content_slug}"

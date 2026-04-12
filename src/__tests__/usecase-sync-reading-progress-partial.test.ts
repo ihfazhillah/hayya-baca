@@ -60,6 +60,8 @@ jest.mock("../lib/api", () => {
     fetchReadingLog: jest.fn().mockResolvedValue([]),
     fetchRewardHistory: jest.fn().mockResolvedValue([]),
     fetchReadingProgressFromServer: jest.fn().mockResolvedValue([]),
+    pushBookmarks: jest.fn().mockResolvedValue(null),
+    pullBookmarks: jest.fn().mockResolvedValue([]),
   };
 });
 

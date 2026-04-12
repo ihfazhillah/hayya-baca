@@ -19,8 +19,13 @@ import { getAllReadingProgress } from "../src/lib/rewards";
 import { getLockedBooks, sortForDisplay, getNewContentIds, markContentSeen, getUnlockProgress } from "../src/lib/recommendation";
 import { useUnsyncedCount } from "../src/lib/useUnsyncedCount";
 import { syncAll } from "../src/lib/sync";
+import { listBookmarks, type BookmarkRow } from "../src/lib/bookmarks";
 import { colors } from "../src/theme";
 import type { Book, Article } from "../src/types";
+
+type FavoriteItem =
+  | { kind: "book"; id: string; title: string; updatedAt: number }
+  | { kind: "article"; id: string; title: string; updatedAt: number };
 
 type Tab = "buku" | "artikel" | "permainan";
 type ProgressMap = Record<string, { lastPage: number; completed: boolean; completedCount: number }>;
@@ -171,6 +176,39 @@ function ArticleCard({
   );
 }
 
+function FavoritSection({
+  favorites,
+  router,
+}: {
+  favorites: FavoriteItem[];
+  router: ReturnType<typeof useRouter>;
+}) {
+  return (
+    <View style={styles.favSection}>
+      <Text style={styles.favTitle}>Favorit</Text>
+      {favorites.length === 0 ? (
+        <Text style={styles.favEmpty}>Belum ada favorit. Tekan bintang saat membaca!</Text>
+      ) : (
+        <View style={styles.favList}>
+          {favorites.map((f) => (
+            <Pressable
+              key={`${f.kind}-${f.id}`}
+              style={styles.favItem}
+              onPress={() => {
+                if (f.kind === "book") router.push(`/read/${f.id}`);
+                else router.push(`/article/${f.id}`);
+              }}
+            >
+              <Text style={styles.favBadge}>{f.kind === "book" ? "BUKU" : "ARTIKEL"}</Text>
+              <Text style={styles.favItemTitle} numberOfLines={1}>{f.title}</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+
 export default function HomeScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
@@ -182,6 +220,7 @@ export default function HomeScreen() {
   const [newContentIds, setNewContentIds] = useState<Set<string>>(new Set());
   const [unlockRemainingMap, setUnlockRemainingMap] = useState<Record<string, number>>({});
   const unsyncedCount = useUnsyncedCount(child?.id ?? null);
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
   const allBooks = useMemo(() => getAllBooks(), []);
   const [articles, setArticles] = useState<Article[]>(() => getAllArticles());
@@ -210,7 +249,26 @@ export default function HomeScreen() {
     const allIds = [...allBooks.map(b => b.id), ...articles.map(a => a.slug)];
     const newIds = await getNewContentIds(child.id, allIds);
     setNewContentIds(new Set(newIds));
-  }, [child?.id, allBooks.length, articles.length]);
+
+    // Favorit (bookmarks)
+    try {
+      const rows = await listBookmarks(child.id);
+      const items: FavoriteItem[] = [];
+      for (const r of rows as BookmarkRow[]) {
+        if (r.content_type === "book") {
+          const b = allBooks.find((bk) => bk.id === r.content_slug);
+          if (b) items.push({ kind: "book", id: b.id, title: b.title, updatedAt: r.updated_at });
+        } else {
+          const a = articles.find((ar) => ar.slug === r.content_slug);
+          if (a) items.push({ kind: "article", id: a.id, title: a.title, updatedAt: r.updated_at });
+        }
+      }
+      items.sort((x, y) => y.updatedAt - x.updatedAt);
+      setFavorites(items);
+    } catch {
+      setFavorites([]);
+    }
+  }, [child?.id, allBooks, articles]);
 
   useFocusEffect(
     useCallback(() => {
@@ -303,6 +361,7 @@ export default function HomeScreen() {
           key={`buku-${numColumns}`}
           contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
+          ListHeaderComponent={<FavoritSection favorites={favorites} router={router} />}
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
             <BookCard
@@ -331,6 +390,7 @@ export default function HomeScreen() {
           key={`artikel-${numColumns}`}
           contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
+          ListHeaderComponent={<FavoritSection favorites={favorites} router={router} />}
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
             <ArticleCard
@@ -410,6 +470,56 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 14,
     fontWeight: "600",
+  },
+  favSection: {
+    paddingBottom: 16,
+    marginHorizontal: -4,
+  },
+  favTitle: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: colors.textPrimary,
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  favEmpty: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    fontStyle: "italic",
+    paddingHorizontal: 4,
+  },
+  favList: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  favItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: colors.bgCard,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
+    maxWidth: "100%",
+  },
+  favBadge: {
+    fontSize: 9,
+    fontWeight: "bold",
+    color: "#FFF",
+    backgroundColor: colors.accent,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+  favItemTitle: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: colors.textPrimary,
+    flexShrink: 1,
   },
   tabRow: {
     flexDirection: "row",
