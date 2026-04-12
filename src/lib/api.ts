@@ -264,7 +264,10 @@ export async function pushBookmarks(
 
 export async function pullBookmarks(childId: number): Promise<ServerBookmarkEntry[]> {
   const res = await apiFetch(`/children/${childId}/bookmarks/`);
-  if (!res.ok) return [];
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    throw new Error(`pullBookmarks ${res.status}: ${err}`);
+  }
   return res.json();
 }
 

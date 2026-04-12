@@ -19,8 +19,9 @@ export function useUnsyncedCount(childId: number | null | undefined): number {
           `SELECT
              (SELECT COUNT(*) FROM reward_history WHERE child_id = ? AND synced = 0) +
              (SELECT COUNT(*) FROM reading_progress WHERE child_id = ? AND synced = 0) +
-             (SELECT COUNT(*) FROM reading_log WHERE child_id = ? AND synced = 0) as cnt`,
-          childId, childId, childId
+             (SELECT COUNT(*) FROM reading_log WHERE child_id = ? AND synced = 0) +
+             (SELECT COUNT(*) FROM bookmarks WHERE child_id = ? AND (synced_at IS NULL OR synced_at < updated_at)) as cnt`,
+          childId, childId, childId, childId
         );
         if (!cancelled) setCount(row?.cnt ?? 0);
       } catch {
@@ -32,6 +33,7 @@ export function useUnsyncedCount(childId: number | null | undefined): number {
     const unsubs = [
       onDataChange("rewards", refresh),
       onDataChange("children", refresh),
+      onDataChange("bookmarks", refresh),
     ];
     return () => {
       cancelled = true;
