@@ -211,7 +211,7 @@ describe("Sync: push rewards dengan idempotency key", () => {
     expect(mockApi.pushRewardsBulk).toHaveBeenCalledWith(1, [
       { type: "coin", count: 3, description: "Baca buku", created_at: "2026-03-13T10:00:00", idempotency_key: "device-uuid-123:10" },
       { type: "star", count: 4, description: "Halaman 1", created_at: "2026-03-13T10:01:00", idempotency_key: "device-uuid-123:11" },
-    ]);
+    ], expect.anything());
     expect(mockRewards.markRewardsSynced).toHaveBeenCalledWith([10, 11], expect.any(Object));
   });
 
@@ -269,21 +269,23 @@ describe("Sync: error handling", () => {
   });
 });
 
-describe("Sync: concurrent lock", () => {
-  it("concurrent syncAll calls → hanya yang pertama jalan", async () => {
+describe("Sync: concurrent queue", () => {
+  it("concurrent syncAll calls → both run in order (queued, not skipped)", async () => {
     mockApi.isLoggedIn.mockResolvedValue(true);
     mockApi.fetchChildren.mockImplementation(
       () => new Promise((resolve) => setTimeout(() => resolve([]), 50))
     );
 
-    // Start two syncs simultaneously
     const p1 = syncAll();
     const p2 = syncAll();
 
-    await Promise.all([p1, p2]);
+    const [r1, r2] = await Promise.all([p1, p2]);
 
-    // fetchChildren should only be called once (second sync skipped)
-    expect(mockApi.fetchChildren).toHaveBeenCalledTimes(1);
+    // Queue semantics replace the old silent-skip guard so an opportunistic
+    // sync can't swallow a manual sync triggered right after it.
+    expect(r1.skipped).toBeFalsy();
+    expect(r2.skipped).toBeFalsy();
+    expect(mockApi.fetchChildren).toHaveBeenCalledTimes(2);
   });
 });
 

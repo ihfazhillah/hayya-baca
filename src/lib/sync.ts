@@ -1,14 +1,39 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks } from "./api";
+import Constants from "expo-constants";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks, type DeviceTelemetry } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
-import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
+import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
 import { getDeviceId } from "./device";
-import { getDatabase } from "./database";
+import { getDatabase, getSetting, setSetting } from "./database";
+import { subscribeSession, getSelectedChild } from "./session";
+
+async function gatherTelemetry(): Promise<DeviceTelemetry> {
+  const db = await getDatabase();
+  const rewardsRow = await db.getFirstAsync<{ c: number }>(
+    "SELECT COUNT(*) as c FROM reward_history WHERE synced = 0"
+  );
+  const progressRow = await db.getFirstAsync<{ c: number }>(
+    "SELECT COUNT(*) as c FROM reading_progress WHERE synced = 0"
+  );
+  return {
+    device_id: await getDeviceId(),
+    app_version: (Constants.expoConfig?.version as string | undefined) ?? "unknown",
+    queue_depth_rewards: rewardsRow?.c ?? 0,
+    queue_depth_progress: progressRow?.c ?? 0,
+    last_successful_sync_at: await getSetting("last_successful_sync_at"),
+    last_sync_error: await getSetting("last_sync_error"),
+  };
+}
 
 export interface SyncReport {
   success: boolean;
   skipped?: boolean;
   notLoggedIn?: boolean;
+  // MD-7/AS-1: another device (or admin) invalidated our token — every
+  // authed call came back 401. Distinct from notLoggedIn (no token at
+  // all) because the queue is NOT cleared and the user just needs to
+  // re-authenticate to flush it.
+  authExpired?: boolean;
   childrenPushed: number;
   childrenPulled: number;
   rewardsPushed: number;
@@ -31,35 +56,112 @@ function emptyReport(): SyncReport {
   };
 }
 
-let syncing = false;
+// Serialize sync runs instead of dropping concurrent ones. A silent skip
+// meant opportunistic pushes could swallow a manual sync triggered right
+// after them, leaving the user's latest data unpushed. Queue guarantees
+// every caller gets a real run.
+let syncChain: Promise<SyncReport> | null = null;
 
 export async function syncAll(childIds?: number[]): Promise<SyncReport> {
-  const report = emptyReport();
-  if (syncing) {
-    report.skipped = true;
-    return report;
-  }
-  syncing = true;
-  try {
-    const loggedIn = await isLoggedIn();
-    if (!loggedIn) {
-      report.notLoggedIn = true;
+  const run = async (): Promise<SyncReport> => {
+    const report = emptyReport();
+    try {
+      const loggedIn = await isLoggedIn();
+      if (!loggedIn) {
+        report.notLoggedIn = true;
+        report.success = false;
+        return report;
+      }
+      await syncChildren(childIds, report);
+      if (report.errors.length > 0) report.success = false;
+    } catch (e) {
+      report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
       report.success = false;
-      return report;
     }
+    // MD-7/AS-1: if any authed call came back 401, the token got
+    // invalidated out-of-band (another device did logoutAllDevices, or
+    // admin forced it). Flag the report and persist `auth_state` so the
+    // parent page can show a re-login banner. The queue is intentionally
+    // left alone — syncRewards/syncReadingProgress/syncReadingLog all
+    // bail on error WITHOUT marking rows synced, so relogin + next sync
+    // flushes everything.
+    const sawAuthError = report.errors.some((e) => /\b401\b/.test(e));
+    if (sawAuthError) {
+      report.authExpired = true;
+      report.success = false;
+    }
+    // Persist telemetry state so the NEXT push can report ground truth
+    // about the device's sync health.
+    try {
+      if (report.success && !report.notLoggedIn) {
+        await setSetting("last_successful_sync_at", new Date().toISOString());
+        await setSetting("last_sync_error", "");
+        await setSetting("auth_state", "ok");
+      } else if (report.authExpired) {
+        await setSetting("auth_state", "expired");
+        await setSetting(
+          "last_sync_error",
+          report.errors[report.errors.length - 1] ?? "401"
+        );
+      } else if (report.errors.length > 0) {
+        await setSetting("last_sync_error", report.errors[report.errors.length - 1]);
+      }
+    } catch {}
+    return report;
+  };
 
-    await syncChildren(childIds, report);
-    if (report.errors.length > 0) report.success = false;
-  } catch (e) {
-    report.errors.push(`syncAll: ${e instanceof Error ? e.message : String(e)}`);
-    report.success = false;
-  } finally {
-    syncing = false;
-  }
-  return report;
+  const next = syncChain ? syncChain.then(run, run) : run();
+  syncChain = next.finally(() => {
+    if (syncChain === next) syncChain = null;
+  }) as Promise<SyncReport>;
+  return next;
+}
+
+// Flush the sync queue as soon as connectivity is restored. Without this,
+// a user who stayed in the app through a connectivity drop would keep
+// queueing data locally until the next AppState foreground transition.
+// Only fires on an offline→online edge — the first event is baseline.
+export function attachNetInfoReconnectTrigger(): () => void {
+  const NetInfo = require("@react-native-community/netinfo").default ?? require("@react-native-community/netinfo");
+  let lastOnline: boolean | null = null;
+  return NetInfo.addEventListener((state: { isConnected: boolean | null; isInternetReachable: boolean | null }) => {
+    const isOnline = state.isConnected === true && state.isInternetReachable === true;
+    if (lastOnline === null) {
+      lastOnline = isOnline;
+      return;
+    }
+    if (!lastOnline && isOnline) {
+      syncAll().catch(() => {});
+    }
+    lastOnline = isOnline;
+  });
+}
+
+// Fire a background sync whenever the active child changes. MC-2: flush
+// ALL children, not just the newly-selected one. Profile switch is a
+// natural checkpoint, and scoping to the new child would strand the
+// previous child's queued rows until mount restart or a NetInfo reconnect.
+export function attachSessionSyncTrigger(): () => void {
+  let lastId: number | null = getSelectedChild()?.id ?? null;
+  return subscribeSession(() => {
+    const id = getSelectedChild()?.id ?? null;
+    if (id == null || id === lastId) return;
+    lastId = id;
+    syncAll().catch(() => {});
+  });
 }
 
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {
+  const callerSuppliedIds = Array.isArray(childIds) && childIds.length > 0;
+  // If caller didn't specify children, sync ALL local children.
+  // Without this fallback, mount-time syncAll() (no args) would skip push/pull
+  // steps entirely — data for every child stays queued forever.
+  if (!callerSuppliedIds) {
+    const db = await getDatabase();
+    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+    childIds = rows.map((r) => r.id);
+  }
+
   // Step 1: Push unsynced local children to server
   const unsynced = await getUnsyncedChildren();
   let serverChildren;
@@ -88,6 +190,23 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     }
   }
 
+  // MD-4: on a fresh device the local children table is empty when the
+  // mount-time syncAll() computes childIds — so the push/pull loops below
+  // would skip entirely and the user would see no rewards until they tap
+  // a child. Upsert server children first, then re-derive childIds from
+  // the freshly populated local table. Only do this when the caller did
+  // NOT pass explicit ids, so targeted syncs stay targeted.
+  let bootstrappedFromServer = false;
+  if (!callerSuppliedIds && serverChildren && childIds && childIds.length === 0) {
+    for (const sc of serverChildren) {
+      await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+    }
+    const db = await getDatabase();
+    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+    childIds = rows.map((r) => r.id);
+    bootstrappedFromServer = true;
+  }
+
   // Step 2: Push data for each child (push-first)
   if (childIds && childIds.length > 0) {
     for (const childId of childIds) {
@@ -103,8 +222,12 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     const needRefetch = unsynced.length > 0 || (childIds && childIds.length > 0);
     const finalChildren = needRefetch ? await fetchChildren() : serverChildren;
     report.childrenPulled = finalChildren.length;
-    for (const sc of finalChildren) {
-      await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+    // Skip the upsert loop if the bootstrap block above already did it —
+    // calling it again would double the upsert count tests rely on.
+    if (!bootstrappedFromServer) {
+      for (const sc of finalChildren) {
+        await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
+      }
     }
     if (finalChildren.length > 0) {
       await deleteChildrenNotIn(finalChildren.map((c) => c.id));
@@ -194,19 +317,26 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
       idempotency_key: `${deviceId}:${r.id}`,
     }));
 
-    const err = await pushRewardsBulk(childId, rewardsWithKeys);
+    // MC-3: persist idempotency_keys locally BEFORE the push hits the wire.
+    // A crash between push-succeeds and markRewardsSynced-completes would
+    // otherwise leave rows with synced=0 and no key — mergeServerRewards
+    // then can't dedupe them on pull and inserts duplicates.
+    const keyMap: Record<number, string> = {};
+    unsyncedRewards.forEach((r, i) => {
+      keyMap[r.id] = rewardsWithKeys[i].idempotency_key;
+    });
+    await persistIdempotencyKeys(keyMap);
+
+    // Snapshot telemetry BEFORE marking rows synced so queue depths reflect
+    // what was actually pending when the sync began.
+    const telemetry = await gatherTelemetry();
+    const err = await pushRewardsBulk(childId, rewardsWithKeys, telemetry);
 
     if (err) {
       // Push failed — DO NOT mark synced
       report.errors.push(err);
       return;
     }
-
-    // Build mapping of local id → idempotency_key so mergeServerRewards can detect them
-    const keyMap: Record<number, string> = {};
-    unsyncedRewards.forEach((r, i) => {
-      keyMap[r.id] = rewardsWithKeys[i].idempotency_key;
-    });
 
     report.rewardsPushed += unsyncedRewards.length;
     await markRewardsSynced(unsyncedRewards.map((r) => r.id), keyMap);

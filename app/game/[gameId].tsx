@@ -11,7 +11,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { WebView } from "react-native-webview";
 import { fetchGames } from "../../src/lib/api";
 import { getSelectedChild } from "../../src/lib/session";
-import { getChildren, updateChildCoins } from "../../src/lib/children";
+import { getChildren } from "../../src/lib/children";
+import { addReward } from "../../src/lib/rewards";
 import { getActiveSession, createSession, endSession } from "../../src/lib/game-session";
 import { colors } from "../../src/theme";
 import type { Game } from "../../src/types";
@@ -76,7 +77,14 @@ export default function GamePlayScreen() {
           setLoading(false);
           return;
         }
-        await updateChildCoins(selectedChild.id, -found.coin_cost);
+        // Persist the spend as a reward_history row so it survives
+        // recalculateBalance and syncs to the server like any other entry.
+        await addReward(
+          selectedChild.id,
+          "coin_spend",
+          -found.coin_cost,
+          `Beli game: ${found.title}`
+        );
         await createSession(selectedChild.id, found.slug, found.session_minutes);
       }
 

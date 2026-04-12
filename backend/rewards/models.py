@@ -9,6 +9,7 @@ class RewardHistory(models.Model):
         STAR = "star"
         COIN_ADJ = "coin_adjustment"
         STAR_ADJ = "star_adjustment"
+        COIN_SPEND = "coin_spend"
 
     child = models.ForeignKey(
         Child, on_delete=models.CASCADE, related_name="reward_history"

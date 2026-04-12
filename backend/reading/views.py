@@ -1,9 +1,10 @@
 from rest_framework import mixins, viewsets
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.models import Child
+from accounts.models import Child, ChildAccess
 from accounts.permissions import IsParentOrReadOnlyTeacher
 from games.models import GameSession
 from rewards.models import RewardHistory
@@ -39,12 +40,23 @@ class ReadingLogView(APIView):
     """Push/pull reading log entries for lock/recommendation sync."""
     permission_classes = [IsAuthenticated]
 
+    def _check_access(self, request, child_pk):
+        # BC-2: same access gap as rewards/sync — without this check,
+        # any authenticated user can push/pull another user's reading
+        # log just by knowing the child id.
+        if not ChildAccess.objects.filter(
+            user=request.user, child_id=child_pk
+        ).exists():
+            raise PermissionDenied("No access to this child")
+
     def get(self, request, child_pk):
+        self._check_access(request, child_pk)
         entries = ReadingLog.objects.filter(child_id=child_pk)
         serializer = ReadingLogSerializer(entries, many=True)
         return Response(serializer.data)
 
     def post(self, request, child_pk):
+        self._check_access(request, child_pk)
         entries_data = request.data.get("entries", [])
         serializer = ReadingLogEntrySerializer(data=entries_data, many=True)
         serializer.is_valid(raise_exception=True)

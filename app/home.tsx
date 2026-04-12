@@ -17,6 +17,8 @@ import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
 import { getSelectedChild } from "../src/lib/session";
 import { getAllReadingProgress } from "../src/lib/rewards";
 import { getLockedBooks, sortForDisplay, getNewContentIds, markContentSeen, getUnlockProgress } from "../src/lib/recommendation";
+import { useUnsyncedCount } from "../src/lib/useUnsyncedCount";
+import { syncAll } from "../src/lib/sync";
 import { listBookmarks, type BookmarkRow } from "../src/lib/bookmarks";
 import { colors } from "../src/theme";
 import type { Book, Article } from "../src/types";
@@ -217,6 +219,7 @@ export default function HomeScreen() {
   const [lockedSet, setLockedSet] = useState<Set<string>>(new Set());
   const [newContentIds, setNewContentIds] = useState<Set<string>>(new Set());
   const [unlockRemainingMap, setUnlockRemainingMap] = useState<Record<string, number>>({});
+  const unsyncedCount = useUnsyncedCount(child?.id ?? null);
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
   const allBooks = useMemo(() => getAllBooks(), []);
@@ -309,6 +312,15 @@ export default function HomeScreen() {
           <Text style={styles.backText}>Ganti</Text>
         </Pressable>
         <Text style={styles.greeting} numberOfLines={1}>Halo, {child.name}!</Text>
+        {unsyncedCount > 0 && (
+          <Pressable
+            testID="sync-pending-badge"
+            onPress={() => child && syncAll([child.id]).catch(() => {})}
+            style={styles.syncBadge}
+          >
+            <Text style={styles.syncBadgeText}>⟳ {unsyncedCount}</Text>
+          </Pressable>
+        )}
         <Pressable onPress={() => router.push("/leaderboard")} style={styles.lbBtn}>
           <Text style={styles.lbText}>Peringkat</Text>
         </Pressable>
@@ -441,6 +453,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: 'rgba(255,255,255,0.2)',
     borderRadius: 10,
+  },
+  syncBadge: {
+    marginLeft: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#F59E0B',
+    borderRadius: 10,
+  },
+  syncBadgeText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 13,
   },
   lbText: {
     color: "#FFF",

@@ -29,3 +29,32 @@ class SyncLog(models.Model):
 
     def __str__(self):
         return f"{self.user} {self.action} ({self.item_count} items) @ {self.timestamp}"
+
+
+class DeviceTelemetry(models.Model):
+    """One row per (user, device) capturing the last-known sync health.
+
+    Piggybacks on each push so operators can spot silent devices without a
+    separate endpoint. Queue depth + last_successful_sync_at together answer
+    "is this device stuck?" at a glance.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="device_telemetry"
+    )
+    device_id = models.CharField(max_length=255)
+    device_name = models.CharField(max_length=255, blank=True, default="")
+    app_version = models.CharField(max_length=64, blank=True, default="")
+    queue_depth_rewards = models.PositiveIntegerField(default=0)
+    queue_depth_progress = models.PositiveIntegerField(default=0)
+    last_successful_sync_at = models.DateTimeField(null=True, blank=True)
+    last_sync_error = models.TextField(blank=True, default="")
+    reported_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [("user", "device_id")]
+        ordering = ["-reported_at"]
+
+    def __str__(self):
+        return f"{self.user} / {self.device_id} @ {self.reported_at}"

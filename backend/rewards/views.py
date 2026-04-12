@@ -1,12 +1,13 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import mixins, status, viewsets
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.models import Child
+from accounts.models import Child, ChildAccess
 from accounts.permissions import IsParentOrReadOnlyTeacher
-from sync.models import SyncLog
+from sync.models import SyncLog, DeviceTelemetry
 from .models import RewardHistory
 from .serializers import BulkRewardSyncSerializer, RewardHistorySerializer
 
@@ -24,6 +25,14 @@ class BulkRewardSyncView(APIView):
 
     @extend_schema(request=BulkRewardSyncSerializer, responses={201: None})
     def post(self, request, child_pk):
+        # BC-2: enforce ChildAccess so a leaked/guessed child_pk from
+        # another user cannot be used to inject ghost rewards.
+        # IsParentOrReadOnlyTeacher only fires via has_object_permission,
+        # which APIView.post() never invokes — check explicitly.
+        if not ChildAccess.objects.filter(
+            user=request.user, child_id=child_pk
+        ).exists():
+            raise PermissionDenied("No access to this child")
         child = Child.objects.get(id=child_pk)
         serializer = BulkRewardSyncSerializer(
             data=request.data, context={"child": child, "request": request}
@@ -46,7 +55,36 @@ class BulkRewardSyncView(APIView):
             details=details,
         )
 
-        return Response({"detail": "Synced"}, status=status.HTTP_201_CREATED)
+        telemetry = serializer.validated_data.get("telemetry") or {}
+        telemetry_device_id = telemetry.get("device_id") or device_id
+        if telemetry_device_id:
+            DeviceTelemetry.objects.update_or_create(
+                user=request.user,
+                device_id=telemetry_device_id,
+                defaults={
+                    "device_name": device_name,
+                    "app_version": telemetry.get("app_version", "") or "",
+                    "queue_depth_rewards": telemetry.get("queue_depth_rewards", 0) or 0,
+                    "queue_depth_progress": telemetry.get("queue_depth_progress", 0) or 0,
+                    "last_successful_sync_at": telemetry.get("last_successful_sync_at"),
+                    "last_sync_error": telemetry.get("last_sync_error") or "",
+                },
+            )
+
+        # Surface skipped count so clients can detect idempotency-key
+        # collisions (ID-1). Without this, a second device pushing under
+        # a duplicated device id would silently lose writes: the server
+        # dedupes on the global idempotency_key, returns 201, and the
+        # client marks its rewards synced even though they never
+        # landed.
+        return Response(
+            {
+                "detail": "Synced",
+                "created": len(created),
+                "skipped": skipped,
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class BalanceView(APIView):

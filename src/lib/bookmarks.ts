@@ -1,4 +1,13 @@
 import { getDatabase } from "./database";
+import { emitDataChange } from "./db-events";
+
+// Fire-and-forget push. Lazy-require sync.ts to break the bookmarks↔sync cycle.
+function triggerOpportunisticSync(childId: number): void {
+  try {
+    const { syncAll } = require("./sync") as typeof import("./sync");
+    syncAll([childId]).catch(() => {});
+  } catch {}
+}
 
 export type BookmarkContentType = "book" | "article";
 
@@ -49,6 +58,8 @@ export async function toggleBookmark(
       now,
       existing.id
     );
+    emitDataChange("bookmarks");
+    triggerOpportunisticSync(childId);
     return next === 0;
   }
   await db.runAsync(
@@ -59,6 +70,8 @@ export async function toggleBookmark(
     now,
     now
   );
+  emitDataChange("bookmarks");
+  triggerOpportunisticSync(childId);
   return true;
 }
 
@@ -102,6 +115,7 @@ export async function markBookmarksSynced(ids: number[], ts: number): Promise<vo
     ts,
     ...ids
   );
+  emitDataChange("bookmarks");
 }
 
 export interface ServerBookmark {

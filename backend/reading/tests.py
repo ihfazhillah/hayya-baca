@@ -94,17 +94,29 @@ class TestProgressMaxMerge:
         assert resp.status_code == 201
         assert resp.data["last_page"] == 10  # should keep 10, not regress to 5
 
-    def test_completed_count_uses_max(self, auth_api, child, book):
+    def test_completed_count_derives_from_reading_log(self, auth_api, child, book):
+        # Post-MD-2: the serializer projects completed_count from the
+        # append-only ReadingLog instead of trusting payload MAX.
+        from reading.models import ReadingLog
+
         auth_api.post(f"/api/children/{child.id}/progress/", {
             "child": child.id, "book": book.slug, "last_page": 10,
             "completed": True, "completed_count": 3
         })
+        ReadingLog.objects.create(
+            child=child, book_id=book.slug, idempotency_key="t1",
+            completed_at="2026-04-11T10:00:00Z",
+        )
+        ReadingLog.objects.create(
+            child=child, book_id=book.slug, idempotency_key="t2",
+            completed_at="2026-04-11T10:05:00Z",
+        )
         resp = auth_api.post(f"/api/children/{child.id}/progress/", {
             "child": child.id, "book": book.slug, "last_page": 5,
             "completed": False, "completed_count": 1
         })
         assert resp.data["last_page"] == 10
-        assert resp.data["completed_count"] == 3
+        assert resp.data["completed_count"] == 2  # from log, not MAX
         assert resp.data["completed"] is True  # once completed, stays completed
 
     def test_forward_progress_accepted(self, auth_api, child, book):

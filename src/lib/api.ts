@@ -6,7 +6,9 @@ const API_BASE_DEV = "http://10.0.2.2:8123/api";
 const API_BASE_PROD = "https://hayyabaca.ihfazh.com/api";
 
 function getApiBase(): string {
-  const override = Constants.expoConfig?.extra?.apiBaseUrl;
+  const override =
+    Constants.expoConfig?.extra?.apiBaseUrl ||
+    (typeof process !== "undefined" ? process.env?.API_BASE_URL : undefined);
   if (override) return override;
   return __DEV__ ? API_BASE_DEV : API_BASE_PROD;
 }
@@ -60,6 +62,12 @@ export async function login(
   username: string,
   password: string
 ): Promise<{ token: string }> {
+  // Clear any stale token FIRST so the login request doesn't carry an
+  // Authorization header that DRF's TokenAuthentication will try (and
+  // fail) to validate before the AllowAny LoginView runs — that path
+  // returns 401 even though the credentials are correct, blocking the
+  // re-login flow after MD-7 cross-device invalidation.
+  await setToken(null);
   const res = await apiFetch("/auth/login/", {
     method: "POST",
     body: JSON.stringify({ username, password }),
@@ -73,11 +81,24 @@ export async function login(
   return data;
 }
 
+// Local logout — clear the token on THIS device only. The backend token
+// row is left alive so other devices logged in as the same user keep
+// working. DRF's default TokenAuthentication stores one row per user, so
+// a backend-side delete would silently 401 every other device; MD-7.
 export async function logout(): Promise<void> {
+  await setToken(null);
+}
+
+// Explicit cross-device invalidation — call backend to delete the token
+// row for this user. Every other device for the same account will get
+// 401 on their next request and transition to an `auth_state='expired'`
+// state in sync.ts. Use only for "logout all devices" parent action.
+export async function logoutAllDevices(): Promise<void> {
   try {
     await apiFetch("/auth/logout/", { method: "POST" });
   } catch {
-    // ignore network errors on logout
+    // ignore network errors — caller intent is "nuke token"; if offline,
+    // fall through to local clear and try again on next connectivity.
   }
   await setToken(null);
 }
@@ -136,13 +157,25 @@ export async function pushReadingProgress(
   return null;
 }
 
+export interface DeviceTelemetry {
+  device_id: string;
+  app_version: string;
+  queue_depth_rewards: number;
+  queue_depth_progress: number;
+  last_successful_sync_at: string | null;
+  last_sync_error: string | null;
+}
+
 export async function pushRewardsBulk(
   childId: number,
-  rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[]
+  rewards: { type: string; count: number; description: string; created_at: string; idempotency_key?: string }[],
+  telemetry?: DeviceTelemetry
 ): Promise<string | null> {
+  const body: Record<string, unknown> = { rewards };
+  if (telemetry) body.telemetry = telemetry;
   const res = await apiFetch(`/children/${childId}/rewards/sync/`, {
     method: "POST",
-    body: JSON.stringify({ rewards }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
@@ -231,7 +264,10 @@ export async function pushBookmarks(
 
 export async function pullBookmarks(childId: number): Promise<ServerBookmarkEntry[]> {
   const res = await apiFetch(`/children/${childId}/bookmarks/`);
-  if (!res.ok) return [];
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    throw new Error(`pullBookmarks ${res.status}: ${err}`);
+  }
   return res.json();
 }
 

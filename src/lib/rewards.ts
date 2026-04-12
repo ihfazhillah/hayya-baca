@@ -2,9 +2,20 @@ import { getDatabase } from "./database";
 import { emitDataChange } from "./db-events";
 import type { RewardHistory } from "../types";
 
+// Fire-and-forget push. Lazy-require sync.ts to break the rewards↔sync cycle.
+// The sync guard already skips when a sync is in-flight, so we stay quiet.
+function triggerOpportunisticSync(childId: number): void {
+  try {
+    const { syncAll } = require("./sync") as typeof import("./sync");
+    syncAll([childId]).catch(() => {});
+  } catch {
+    // swallow — opportunistic, must never break the writer
+  }
+}
+
 export async function addReward(
   childId: number,
-  type: "coin" | "star",
+  type: "coin" | "star" | "coin_spend" | "coin_adjustment" | "star_adjustment",
   count: number,
   description: string
 ): Promise<void> {
@@ -16,21 +27,18 @@ export async function addReward(
     count,
     description
   );
-  // Update child totals
-  if (type === "coin") {
-    await db.runAsync(
-      "UPDATE children SET coins = coins + ? WHERE id = ?",
-      count,
-      childId
-    );
-  } else {
-    await db.runAsync(
-      "UPDATE children SET stars = stars + ? WHERE id = ?",
-      count,
-      childId
-    );
-  }
+  // Re-derive children.coins/stars from reward_history in a single statement.
+  // Earlier code did `coins = coins + count` which could race with
+  // recalculateBalance — both writers would step on each other.
+  await db.runAsync(
+    `UPDATE children SET
+       coins = COALESCE((SELECT SUM(CASE WHEN type IN ('coin', 'coin_adjustment', 'coin_spend') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0),
+       stars = COALESCE((SELECT SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0)
+     WHERE id = ?`,
+    childId, childId, childId
+  );
   emitDataChange("children");
+  triggerOpportunisticSync(childId);
 }
 
 export async function getUnsyncedRewards(
@@ -40,6 +48,27 @@ export async function getUnsyncedRewards(
   return db.getAllAsync(
     "SELECT id, type, count, description, created_at FROM reward_history WHERE child_id = ? AND synced = 0",
     childId
+  );
+}
+
+// Write idempotency_keys for local rows in one atomic statement BEFORE
+// the push hits the wire. If the process is killed after push-succeeds
+// but before markRewardsSynced completes, the next syncAll's pull step
+// (mergeServerRewards) needs these keys present to dedupe — otherwise
+// every pending row comes back from the server as a fresh insert and we
+// end up with duplicates locally (MC-3).
+export async function persistIdempotencyKeys(keyMap: Record<number, string>): Promise<void> {
+  const ids = Object.keys(keyMap).map(Number).filter((id) => keyMap[id]);
+  if (ids.length === 0) return;
+  const db = await getDatabase();
+  const caseSql = ids.map(() => "WHEN ? THEN ?").join(" ");
+  const inSql = ids.map(() => "?").join(",");
+  const params: (number | string)[] = [];
+  for (const id of ids) params.push(id, keyMap[id]);
+  await db.runAsync(
+    `UPDATE reward_history SET idempotency_key = CASE id ${caseSql} END WHERE id IN (${inSql})`,
+    ...params,
+    ...ids
   );
 }
 
@@ -151,23 +180,22 @@ export async function recalculateBalance(
   childId: number
 ): Promise<{ coins: number; stars: number }> {
   const db = await getDatabase();
-  const row = await db.getFirstAsync<{ coins: number; stars: number }>(
-    `SELECT
-       COALESCE(SUM(CASE WHEN type IN ('coin', 'coin_adjustment') THEN count ELSE 0 END), 0) as coins,
-       COALESCE(SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END), 0) as stars
-     FROM reward_history WHERE child_id = ?`,
-    childId
-  );
-  const coins = row?.coins ?? 0;
-  const stars = row?.stars ?? 0;
+  // Single-statement update: SELECT and UPDATE are fused, so no writer can
+  // sneak between reading the sum and writing it back. Previously the two
+  // awaits left a gap where an addReward could be overwritten by a stale
+  // UPDATE, manifesting as "coins briefly up then snap back".
   await db.runAsync(
-    "UPDATE children SET coins = ?, stars = ? WHERE id = ?",
-    coins,
-    stars,
-    childId
+    `UPDATE children SET
+       coins = COALESCE((SELECT SUM(CASE WHEN type IN ('coin', 'coin_adjustment', 'coin_spend') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0),
+       stars = COALESCE((SELECT SUM(CASE WHEN type IN ('star', 'star_adjustment') THEN count ELSE 0 END) FROM reward_history WHERE child_id = ?), 0)
+     WHERE id = ?`,
+    childId, childId, childId
+  );
+  const row = await db.getFirstAsync<{ coins: number; stars: number }>(
+    "SELECT coins, stars FROM children WHERE id = ?", childId
   );
   emitDataChange("children");
-  return { coins, stars };
+  return { coins: row?.coins ?? 0, stars: row?.stars ?? 0 };
 }
 
 export async function saveReadingProgress(
@@ -190,6 +218,7 @@ export async function saveReadingProgress(
     lastPage, completed ? 1 : 0, completed ? 1 : 0
   );
   emitDataChange("children");
+  triggerOpportunisticSync(childId);
 }
 
 export async function getReadingProgress(
@@ -265,22 +294,34 @@ export async function mergeServerReadingProgress(
     );
 
     if (!local) {
-      // New book from server — insert
       await db.runAsync(
         `INSERT INTO reading_progress (child_id, book_id, last_page, completed, completed_count, updated_at, synced)
          VALUES (?, ?, ?, ?, ?, ?, 1)`,
         childId, bookId, sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at
       );
-    } else if (sp.updated_at > local.updated_at) {
-      // Server is newer — update
-      await db.runAsync(
-        `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = 1
-         WHERE child_id = ? AND book_id = ?`,
-        sp.last_page, sp.completed ? 1 : 0, sp.completed_count, sp.updated_at,
-        childId, bookId
-      );
+      continue;
     }
-    // If local is newer or same, keep local
+
+    // Per-field merge instead of LWW: counters move forward only.
+    // A server update with a newer timestamp but smaller last_page must not
+    // drag the user's furthest page backward (that would be a data loss).
+    const mergedLastPage = Math.max(local.last_page, sp.last_page);
+    const mergedCount = Math.max(local.completed_count, sp.completed_count);
+    const mergedCompleted = (local.completed === 1 || sp.completed) ? 1 : 0;
+    const mergedUpdatedAt = sp.updated_at > local.updated_at ? sp.updated_at : local.updated_at;
+    const serverMatchesMerged =
+      sp.last_page === mergedLastPage &&
+      sp.completed_count === mergedCount &&
+      (sp.completed ? 1 : 0) === mergedCompleted;
+
+    await db.runAsync(
+      `UPDATE reading_progress SET last_page = ?, completed = ?, completed_count = ?, updated_at = ?, synced = ?
+       WHERE child_id = ? AND book_id = ?`,
+      mergedLastPage, mergedCompleted, mergedCount, mergedUpdatedAt,
+      // Stay unsynced if local side still has data the server does not know.
+      serverMatchesMerged ? 1 : 0,
+      childId, bookId
+    );
   }
   emitDataChange("children");
 }
