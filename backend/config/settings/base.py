@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rewards',
     'games',
     'sync',
+    'search',
 ]
 
 MIDDLEWARE = [
