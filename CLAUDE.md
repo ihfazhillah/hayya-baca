@@ -90,6 +90,9 @@ Tests in this repo are **use-case level**, not unit tests. They are organized by
 
 ### Worktrees
 - This directory is a git worktree under `.claude/worktrees/`. Run all commands from here — do NOT `cd` to the parent repo at `/home/ihf/Projects/ksatriamuslim-android/`.
+- **Metro/Expo requires `node_modules` per worktree** — symlinks don't work. After creating a worktree, run `npm ci --legacy-peer-deps` in it before any `expo run:android` or `test-local.sh`.
+- For parallel worktrees: set different Metro port per worktree via `metro.config.js` (`config.server = { port: 8082 }`).
+- See `docs/learnings/worktree-metro-setup.md` for full details.
 
 ### Spec-Driven Development (Manual)
 - Use markdown files `spec.md`, `plan.md`, `tasks.md` under `specs/<NNN-feature>/`
