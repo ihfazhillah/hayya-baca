@@ -271,6 +271,70 @@ export async function pullBookmarks(childId: number): Promise<ServerBookmarkEntr
   return res.json();
 }
 
+// --- Search API ---
+
+import type { SearchResult, Suggestion, SearchResultType } from "../types/search";
+
+type RawSearchResult = {
+  slug: string;
+  type: SearchResultType;
+  title: string;
+  categories: string[];
+  cover_url?: string | null;
+  already_read: boolean;
+  score: number;
+};
+
+export async function searchContent(
+  query: string,
+  childId?: number
+): Promise<SearchResult[]> {
+  const params = new URLSearchParams({ q: query });
+  if (childId != null) params.set("child_id", String(childId));
+  const res = await apiFetch(`/search/?${params.toString()}`);
+  if (!res.ok) throw new Error(`searchContent ${res.status}`);
+  const data = await res.json();
+  const results: RawSearchResult[] = data.results ?? [];
+  return results.map((r) => ({
+    slug: r.slug,
+    type: r.type,
+    title: r.title,
+    categories: r.categories ?? [],
+    coverUrl: r.cover_url ?? null,
+    alreadyRead: r.already_read,
+    score: r.score,
+  }));
+}
+
+export async function searchSuggest(query: string): Promise<Suggestion[]> {
+  const params = new URLSearchParams({ q: query });
+  const res = await apiFetch(`/search/suggest/?${params.toString()}`);
+  if (!res.ok) throw new Error(`searchSuggest ${res.status}`);
+  const data = await res.json();
+  return (data.suggestions ?? []) as Suggestion[];
+}
+
+export async function logSearchClick(
+  childId: number,
+  query: string,
+  resultSlug: string,
+  resultType: SearchResultType
+): Promise<void> {
+  try {
+    await apiFetch(`/search/log/`, {
+      method: "POST",
+      body: JSON.stringify({
+        child_id: childId,
+        query,
+        result_slug: resultSlug,
+        result_type: resultType,
+      }),
+    });
+  } catch {
+    // fire-and-forget
+  }
+}
+
 // --- Content API (public, no auth) ---
 
 export interface ServerArticleListItem {

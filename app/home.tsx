@@ -321,6 +321,13 @@ export default function HomeScreen() {
             <Text style={styles.syncBadgeText}>⟳ {unsyncedCount}</Text>
           </Pressable>
         )}
+        <Pressable
+          testID="search-entry"
+          onPress={() => router.push("/search")}
+          style={styles.searchBtn}
+        >
+          <Text style={styles.searchIcon}>🔍</Text>
+        </Pressable>
         <Pressable onPress={() => router.push("/leaderboard")} style={styles.lbBtn}>
           <Text style={styles.lbText}>Peringkat</Text>
         </Pressable>
@@ -447,8 +454,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFF",
   },
+  searchBtn: {
+    marginLeft: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 10,
+  },
+  searchIcon: {
+    fontSize: 16,
+  },
   lbBtn: {
-    marginLeft: 12,
+    marginLeft: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
     backgroundColor: 'rgba(255,255,255,0.2)',
