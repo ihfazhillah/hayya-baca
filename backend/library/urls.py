@@ -12,6 +12,8 @@ router = DefaultRouter()
 router.register(r"books", views.BookViewSet, basename="book")
 
 urlpatterns = router.urls + [
+    path("children/<int:child_pk>/bookmarks/", views.BookmarkListView.as_view(), name="bookmark-list"),
+    path("children/<int:child_pk>/bookmarks/sync/", views.BookmarkPushView.as_view(), name="bookmark-sync"),
     # Bulk flow (existing)
     path("quiz-manage/export/", ExportView.as_view(), name="quiz-export"),
     path("quiz-manage/apply/", ApplyView.as_view(), name="quiz-apply"),

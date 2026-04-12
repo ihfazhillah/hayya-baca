@@ -79,6 +79,20 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       PRIMARY KEY (child_id, content_id)
     );
 
+    CREATE TABLE IF NOT EXISTS bookmarks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      child_id INTEGER NOT NULL,
+      content_type TEXT NOT NULL,
+      content_slug TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      is_deleted INTEGER NOT NULL DEFAULT 0,
+      synced_at INTEGER,
+      UNIQUE(child_id, content_type, content_slug)
+    );
+    CREATE INDEX IF NOT EXISTS idx_bookmarks_child_active
+      ON bookmarks(child_id, is_deleted);
+
     CREATE TABLE IF NOT EXISTS game_sessions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       child_id INTEGER NOT NULL,

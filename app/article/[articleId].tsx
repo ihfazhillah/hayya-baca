@@ -13,6 +13,10 @@ import { getArticle, fetchArticle } from "../../src/lib/articles";
 import { speakPage, stopSpeaking } from "../../src/lib/speech";
 import { colors } from "../../src/theme";
 import type { Article } from "../../src/types";
+import { getSelectedChild } from "../../src/lib/session";
+import { isBookmarked as isBookmarkedFn, toggleBookmark } from "../../src/lib/bookmarks";
+import { pushBookmarksOnly } from "../../src/lib/sync";
+import { BookmarkStar } from "../../src/components/BookmarkStar";
 
 export default function ArticleScreen() {
   const { articleId } = useLocalSearchParams<{ articleId: string }>();
@@ -26,7 +30,28 @@ export default function ArticleScreen() {
   const [reachedEnd, setReachedEnd] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [activeParagraph, setActiveParagraph] = useState<number | null>(null);
+  const [bookmarked, setBookmarked] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
+  const child = getSelectedChild();
+
+  const bookmarkSlug = article?.slug ?? (articleId ? `article-${articleId}` : "");
+
+  useEffect(() => {
+    if (!child || !bookmarkSlug) return;
+    isBookmarkedFn(child.id, "article", bookmarkSlug)
+      .then(setBookmarked)
+      .catch(() => {});
+  }, [child?.id, bookmarkSlug]);
+
+  const handleToggleBookmark = useCallback(() => {
+    if (!child || !bookmarkSlug) return;
+    const next = !bookmarked;
+    setBookmarked(next);
+    toggleBookmark(child.id, "article", bookmarkSlug).catch(() => {
+      setBookmarked(!next);
+    });
+    Promise.resolve(pushBookmarksOnly(child.id)).catch(() => {});
+  }, [child?.id, bookmarkSlug, bookmarked]);
 
   useEffect(() => {
     fetchArticle(articleId)
@@ -124,6 +149,7 @@ export default function ArticleScreen() {
         <Text style={styles.headerTitle} numberOfLines={1}>
           {article.title}
         </Text>
+        <BookmarkStar bookmarked={bookmarked} onToggle={handleToggleBookmark} />
       </View>
 
       {/* Category badges */}

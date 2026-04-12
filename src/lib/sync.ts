@@ -1,6 +1,7 @@
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, recalculateBalance } from "./rewards";
+import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
 import { getDeviceId } from "./device";
 import { getDatabase } from "./database";
 
@@ -93,6 +94,7 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
       await syncRewards(childId, report);
       await syncReadingProgress(childId, report);
       await syncReadingLog(childId, report);
+      await syncBookmarks(childId, report);
     }
   }
 
@@ -212,6 +214,56 @@ async function syncRewards(childId: number, report: SyncReport): Promise<void> {
     // Network error or other — DO NOT mark synced
     report.errors.push(`syncRewards(${childId}): ${e instanceof Error ? e.message : String(e)}`);
   }
+}
+
+async function syncBookmarks(childId: number, report: SyncReport): Promise<void> {
+  try {
+    const dirty = (await getDirtyBookmarks(childId)) ?? [];
+    if (dirty.length > 0) {
+      const entries = dirty.map((r) => ({
+        content_type: r.content_type,
+        content_slug: r.content_slug,
+        is_deleted: r.is_deleted === 1,
+        updated_at: new Date(r.updated_at).toISOString(),
+      }));
+      const err = await pushBookmarks(childId, entries);
+      if (err) {
+        report.errors.push(err);
+      } else {
+        await markBookmarksSynced(dirty.map((r) => r.id), Date.now());
+      }
+    }
+    const server = (await pullBookmarks(childId)) ?? [];
+    if (server.length > 0) {
+      await applyServerBookmarks(childId, server);
+    }
+  } catch (e) {
+    report.errors.push(`syncBookmarks(${childId}): ${e instanceof Error ? e.message : String(e)}`);
+  }
+}
+
+export async function pushBookmarksOnly(childId: number): Promise<void> {
+  const dirty = await getDirtyBookmarks(childId);
+  if (dirty.length === 0) return;
+  const entries = dirty.map((r) => ({
+    content_type: r.content_type,
+    content_slug: r.content_slug,
+    is_deleted: r.is_deleted === 1,
+    updated_at: new Date(r.updated_at).toISOString(),
+  }));
+  const err = await pushBookmarks(childId, entries);
+  if (err) throw new Error(err);
+  await markBookmarksSynced(dirty.map((r) => r.id), Date.now());
+}
+
+export async function syncBookmarksForChild(childId: number): Promise<void> {
+  try {
+    await pushBookmarksOnly(childId);
+  } catch {}
+  try {
+    const server = await pullBookmarks(childId);
+    if (server.length > 0) await applyServerBookmarks(childId, server);
+  } catch {}
 }
 
 async function syncReadingLog(childId: number, report: SyncReport): Promise<void> {

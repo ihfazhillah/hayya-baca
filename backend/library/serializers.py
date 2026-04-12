@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ArticleSection, Book, BookPage, Quiz
+from .models import ArticleSection, Book, BookPage, Bookmark, Quiz
 
 
 class BookPageSerializer(serializers.ModelSerializer):
@@ -31,6 +31,13 @@ class BookListSerializer(serializers.ModelSerializer):
             "min_age", "reward_coins", "has_audio", "published_version",
             "quiz_count",
         ]
+
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fields = ["content_type", "content_slug", "is_deleted", "created_at", "updated_at"]
+        read_only_fields = ["created_at"]
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
