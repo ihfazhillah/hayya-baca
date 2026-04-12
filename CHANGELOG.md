@@ -1,5 +1,43 @@
 # Changelog
 
+## v1.2.0
+- Add search feature: backend search app (TF-IDF suggestions, search log), mobile search screen with autocomplete
+- Add bookmark feature for books & articles, sync bookmarks across devices
+- Sync overhaul: 20+ edge-case fixes, e2e test suite against real Django backend
+- Sync hardening: atomic coin deltas, idempotency crash safety, device telemetry, network reconnect flush
+- Add bookmark sync aligned with new sync conventions
+- Auth: logout is local-only, surface 401 as authExpired
+
+## v1.1.4
+- Fix reading progress pull: server returns 'book' not 'book_id'
+- Add CI/CD workflows for Android build
+- Enhance quiz manager: per-book apply, bulk apply endpoint
+
+## v1.1.3
+- Fix sync: reward duplication, add reading progress pull
+
+## v1.1.2
+- Fix sync reliability: prevent data loss, push all children, show errors
+
+## v1.1.1
+- Fix database race condition causing NativeDatabase prepare async rejection
+
+## v1.1.0
+- Implement manifest-driven content download and refactor content loading
+- Fix coin sync overwrite
+- Add publish button to quiz manager
+
+## v1.0.9
+- Add quiz management SPA with export/import/review/apply workflow
+
+## v1.0.8
+- Add book lock, sorting, new badge, and reading log sync
+- Fix slug mismatch: use server slug for reading progress sync
+
+## v1.0.7
+- Add reading_report management command and prod query docs
+- Add local test harness + /test-local command
+
 ## v1.0.6
 - Replace React Query with event emitter for children data
 - Fix sync push, keyboard overlap, add-child validation, safe area layout

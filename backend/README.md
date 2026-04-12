@@ -24,10 +24,20 @@ uv run python manage.py createsuperuser
 |-----|--------|
 | `library` | Buku, artikel, sections, quiz, cover generation, publish |
 | `accounts` | Child profiles, parent/teacher access, share invite |
-| `reading` | Reading progress, quiz attempts |
-| `rewards` | Coin/star reward history |
+| `reading` | Reading progress, quiz attempts, reading log |
+| `rewards` | Coin/star reward history, idempotency, void/adjustment |
+| `sync` | SyncLog (device tracking, traceability, 30-day retention) |
+| `games` | Game model, sessions, coin spending |
+| `search` | SearchSuggestion (TF-IDF n-gram), SearchLog, search/suggest API |
 
 ## Management Commands
+
+### Search suggestions
+
+```bash
+# Generate n-gram suggestions from book titles (top 500) + user search logs
+uv run python manage.py generate_search_suggestions
+```
 
 ### Import data
 
@@ -40,6 +50,9 @@ uv run python manage.py import_articles /path/to/articles/
 
 # Import single artikel
 uv run python manage.py import_articles /path/to/article.json
+
+# Import from markdown files
+uv run python manage.py import_markdown_articles /path/to/markdown/
 ```
 
 ### Generate covers

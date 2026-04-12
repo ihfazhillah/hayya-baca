@@ -436,6 +436,8 @@ Automatically updates child's `coins` and `stars` totals.
 | Quiz attempts | ✅ | ✅ (read) | ❌ |
 | Rewards | ✅ | ✅ (read) | ❌ |
 | Reward sync | ✅ | ❌ | ❌ |
+| Search | ✅ | ✅ | ❌ |
+| Games | ✅ | ✅ | ✅ (list) |
 
 ---
 
@@ -457,3 +459,100 @@ or field-level:
 ```
 
 HTTP status codes: 200, 201, 204, 400, 401, 403, 404.
+
+---
+
+## Search
+
+### Search books & articles
+
+```
+GET /api/search/?q=sahabat&child_id=1
+Authorization: Token abc123...
+
+→ 200
+{
+  "results": [
+    {
+      "slug": "1",
+      "type": "book",
+      "title": "Sahabat yang disebut namanya di langit",
+      "categories": [],
+      "cover_url": "/media/covers/cover_1.png",
+      "already_read": true,
+      "score": 50
+    }
+  ],
+  "total": 1
+}
+```
+
+Results ranked by relevance (exact match > prefix > contains > category match > already read bonus). Max 30 results.
+
+### Suggestions (autocomplete)
+
+```
+GET /api/search/suggest/?q=sah
+Authorization: Token abc123...
+
+→ 200
+{
+  "suggestions": [
+    { "phrase": "sahabat", "source": "ngram" },
+    { "phrase": "sahabat nabi", "source": "ngram" }
+  ]
+}
+```
+
+Without `q`: returns top popular user queries. With `q`: prefix-matched suggestions (max 8).
+
+### Log search action
+
+```
+POST /api/search/log/
+Authorization: Token abc123...
+
+{
+  "child_id": 1,
+  "query": "sahabat",
+  "result_slug": "1",
+  "result_type": "book"
+}
+
+→ 201
+{ "ok": true }
+```
+
+---
+
+## Games
+
+### List games
+
+```
+GET /api/games/
+→ 200 [...]
+```
+
+### Game detail
+
+```
+GET /api/games/<id>/
+→ 200 { ... }
+```
+
+### Start game session
+
+```
+POST /api/games/<id>/sessions/
+Authorization: Token abc123...
+→ 201 { "id": 1, ... }
+```
+
+### End game session
+
+```
+POST /api/games/sessions/<id>/end/
+Authorization: Token abc123...
+→ 200 { ... }
+```

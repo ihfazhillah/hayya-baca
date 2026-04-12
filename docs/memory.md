@@ -3,7 +3,7 @@
 ## Evolution
 - **Original**: Ksatria Muslim Android (Kotlin, ~2022). Code moved to `old/`.
 - **New**: Hayya Baca - React Native port (2026)
-- **Current version**: 1.0.7
+- **Current version**: 1.2.0
 
 ## App Identity
 - **Nama**: Hayya Baca ("Ayo Baca")
@@ -29,7 +29,7 @@
 - Konten buku: static JSON files + audio, plain text (bukan gambar)
 - Bundled + downloadable content
 
-### Multi-Device Sync (v1.0.7)
+### Multi-Device Sync (v1.0.7 → v1.2.0)
 - **Push-first**: push rewards & progress SEBELUM pull children state (menghindari overwrite)
 - **Active child only**: hanya sync data anak yang sedang aktif di device, bukan semua anak
 - **Idempotency**: setiap reward punya `idempotency_key` (`device_id:local_reward_id`), server skip duplikat
@@ -161,7 +161,7 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 
 ## Current Implementation Status
 
-### Done (v1.0.7)
+### Done (v1.2.0)
 
 **Core Reading (v0.1.0-alpha.5)**
 - [x] Project setup (Expo 55, TypeScript, expo-router)
@@ -219,7 +219,7 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Replace React Query with event emitter for children data
 - [x] Bug fixes: reading, quiz, game, article screens, keyboard overlap, safe area
 
-**Sync Overhaul (v1.0.7)**
+**Sync Overhaul (v1.0.7 → v1.2.0)**
 - [x] Push-first sync order (push before pull, menghindari overwrite multi-device)
 - [x] Active child only sync (hanya push data anak yang aktif)
 - [x] Idempotency key per reward (device_id:local_reward_id, skip duplikat)
@@ -230,11 +230,34 @@ Mini games untuk reinforcement setelah/di sela membaca. Menggunakan kata-kata da
 - [x] Void/adjustment mechanism di Django admin (koreksi orang tua)
 - [x] Recalculate totals admin action (sum non-voided rewards - game spending)
 - [x] Fix game double-deduction bug (updateChildCoins instead of addReward)
+- [x] 20+ edge-case fixes: atomic coin delta (F()), derive completed_count, negative-balance guard
+- [x] E2e sync test suite against isolated local Django backend
+- [x] Device telemetry piggyback on push
+- [x] Network reconnect → flush sync queue
+- [x] Logout local-only, surface 401 as authExpired
+- [x] Persist idempotency_keys before push (crash safety)
+
+**Content & Quiz (v1.0.8 → v1.1.0)**
+- [x] Book lock, sorting, new badge, reading log sync
+- [x] Quiz management SPA (export/import/review/apply, per-book apply)
+- [x] Manifest-driven content download + refactored content loading
+- [x] Fix coin sync overwrite
+
+**Bookmark (v1.1.4+)**
+- [x] Bookmark feature for books & articles
+- [x] Pull bookmarks on child activation
+- [x] Bookmark sync aligned with new sync conventions
+
+**Search (v1.2.0)**
+- [x] Backend search app: SearchSuggestion (TF-IDF n-gram), SearchLog
+- [x] Search endpoint with relevance scoring (title, category, already_read)
+- [x] Suggestion endpoint with autocomplete (prefix match)
+- [x] generate_search_suggestions management command (top 500 n-grams + user queries)
+- [x] Mobile search screen with autocomplete, results, search log
 
 ### TODO — Medium Priority
 - [ ] Audio playback dari file rekaman (book 6 & 10)
 - [ ] Reading time estimate di header artikel
-- [ ] Content download dari server — fetch manifest, download buku/artikel baru
 
 ### TODO — Low Priority (Post-MVP)
 - [ ] Custom font untuk anak belajar baca
@@ -258,6 +281,8 @@ ksatriamuslim-android/
 │   ├── _layout.tsx         # Root (TanStack Query + UpdateProvider)
 │   ├── index.tsx           # Pilih profil anak
 │   ├── home.tsx            # Grid perpustakaan buku + artikel (tabs)
+│   ├── search.tsx          # Search buku/artikel (autocomplete + results)
+│   ├── games.tsx           # GameZone — daftar mini games
 │   ├── celebrate.tsx       # Selebrasi selesai buku/artikel
 │   ├── leaderboard.tsx     # Peringkat antar anak (coin/bintang)
 │   ├── read/
@@ -268,6 +293,8 @@ ksatriamuslim-android/
 │       └── [articleId].tsx # Kuis artikel (MC + true/false)
 ├── src/
 │   ├── components/
+│   │   ├── BookmarkStar.tsx    # Bookmark toggle (books & articles)
+│   │   ├── SearchResultItem.tsx # Search result card
 │   │   └── UpdateBar.tsx   # Auto-update UI
 │   ├── context/
 │   │   └── UpdateContext.tsx
@@ -276,17 +303,25 @@ ksatriamuslim-android/
 │   │   ├── useSpeechRecognition.ts  # Guided sequential speech recognition
 │   │   └── useUpdateCheck.ts        # GitHub releases auto-update
 │   ├── lib/
+│   │   ├── api.ts          # API client (auth, sync, search)
 │   │   ├── articles.ts     # Load artikel + quiz dari static JSON
+│   │   ├── bookmarks.ts    # Bookmark CRUD + sync
 │   │   ├── books.ts        # Load buku dari static JSON, group paragraf
 │   │   ├── children.ts     # SQLite children operations
+│   │   ├── content-manager.ts # Manifest-driven content download
 │   │   ├── database.ts     # SQLite schema (children, reading_progress, reward_history)
+│   │   ├── db-events.ts    # Database event emitter
 │   │   ├── device.ts       # Device ID (UUID) + device name
+│   │   ├── game-session.ts # Game session management
+│   │   ├── recommendation.ts # Content recommendations
 │   │   ├── rewards.ts      # Coin/star rewards + reading progress
 │   │   ├── session.ts      # In-memory selected child
-│   │   └── speech.ts       # TTS, word matching, scoring
+│   │   ├── speech.ts       # TTS, word matching, scoring
+│   │   └── sync.ts         # Sync orchestrator (push-first, idempotent)
 │   ├── theme.ts            # Centralized color theme
 │   └── types/
 │       ├── index.ts        # Core types
+│       ├── search.ts       # Search types
 │       └── update.ts       # Update types
 ├── content/articles/       # 10 artikel + quiz (JSON)
 ├── content/books/          # 20 buku (raw.json + cover + audio)
@@ -296,6 +331,7 @@ ksatriamuslim-android/
 │   ├── library/            # Book, BookPage, ArticleSection, Quiz
 │   ├── reading/            # ReadingProgress, QuizAttempt
 │   ├── rewards/            # RewardHistory (idempotency, void, adjustments)
+│   ├── search/             # SearchSuggestion, SearchLog, TF-IDF suggestions
 │   ├── sync/               # SyncLog (device tracking, traceability)
 │   └── media/published/    # Static JSON output
 ├── docs/
@@ -343,6 +379,7 @@ ksatriamuslim-android/
 | `rewards` | Coin/star reward history, idempotency, void/adjustment |
 | `sync` | SyncLog (device tracking, traceability, 30-day retention) |
 | `games` | Game model, sessions, coin spending |
+| `search` | SearchSuggestion (TF-IDF n-gram), SearchLog, search/suggest API |
 
 ### Architecture: Static Content Publisher
 - Django DB = CMS untuk edit konten

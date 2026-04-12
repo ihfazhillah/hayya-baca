@@ -10,7 +10,10 @@ Aplikasi belajar membaca bahasa Indonesia untuk anak-anak Muslim.
 - **Artikel** (anak >6 tahun) — baca mandiri + kuis di akhir
 - **GameZone** — mini games HTML5, bayar koin per sesi waktu
 - **Reward** — koin & bintang dari membaca, leaderboard antar anak
+- **Search** — cari buku/artikel dengan autocomplete dan relevance scoring
+- **Bookmark** — tandai buku/artikel favorit, sync antar device
 - **Offline-first** — semua data lokal, sync ke server kalau ada koneksi
+- **Content download** — manifest-driven, download konten baru dari server
 
 ## Struktur
 
