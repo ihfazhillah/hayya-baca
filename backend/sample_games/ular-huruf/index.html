@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ular Tangkap Huruf</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);
+  overflow: hidden; touch-action: manipulation;
+}
+.game-wrapper {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.85); border-radius: 20px; padding: 12px 15px;
+  border: 4px solid #0066CC; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.word-panel { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 8px; }
+.slots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.slot {
+  width: 34px; height: 42px; border-radius: 8px; border: 2px solid #0066CC;
+  background: #FFFFFF; color: #0066CC; font-size: 24px; font-weight: bold;
+  display: flex; justify-content: center; align-items: center; text-transform: uppercase;
+}
+.slot.filled { background: #00B894; color: #FFFFFF; border-color: #00916E; }
+.slot.current { border-color: #FF8C00; box-shadow: 0 0 0 3px rgba(255,140,0,0.35); background: #FFF6E5; }
+.hint { font-size: 18px; color: #2B2B2B; font-weight: bold; }
+.hint b { color: #FF8C00; font-size: 24px; }
+.header { display: flex; justify-content: center; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 8px; }
+.score-box {
+  background: #FFD43F; border-radius: 12px; padding: 6px 14px;
+  font-size: 15px; font-weight: bold; color: #2B2B2B;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #0066CC;
+}
+.score-box span { color: #0066CC; }
+.play-area { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.side { display: flex; flex-direction: column; align-items: center; }
+canvas {
+  border-radius: 12px; display: block;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 3px solid #0066CC;
+}
+.controls { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+button {
+  padding: 10px 22px; font-size: 16px; font-family: inherit; font-weight: bold;
+  border: 2px solid #2B2B2B; border-radius: 25px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.15s;
+}
+button:active { transform: scale(0.95); }
+#startBtn { background: #FFD43F; color: #2B2B2B; }
+#restartBtn { background: #FFAAA6; color: #2B2B2B; display: none; }
+#doneBtn { background: #0066CC; color: #FFFFFF; display: none; }
+.message {
+  margin-top: 8px; font-size: 19px; color: #0066CC; min-height: 26px; text-align: center;
+}
+/* Two big round thumb buttons fixed to the bottom corners. */
+.turn-btn {
+  position: fixed; bottom: 24px; z-index: 30;
+  width: 112px; height: 112px; border-radius: 50%;
+  border: 4px solid #0066CC; background: #FFD43F; color: #2B2B2B;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none;
+}
+.turn-btn:active { transform: scale(0.92); background: #FFC400; }
+.turn-left { left: 24px; }
+.turn-right { right: 24px; }
+.turn-arrow { font-size: 50px; line-height: 1; font-weight: bold; }
+.turn-label { font-size: 15px; font-weight: bold; letter-spacing: 1px; }
+
+@media (orientation: landscape) {
+  .play-area { flex-direction: row; align-items: center; gap: 24px; }
+  .side .controls { margin-top: 0; }
+}
+@media (orientation: landscape) and (max-height: 540px) {
+  canvas { width: 300px; height: 300px; }
+  .turn-btn { width: 92px; height: 92px; bottom: 14px; }
+  .turn-left { left: 14px; }
+  .turn-right { right: 14px; }
+  .turn-arrow { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+<div class="game-wrapper">
+  <div class="word-panel">
+    <div class="slots" id="slots"></div>
+    <div class="hint" id="hint">Tekan MAIN untuk mulai!</div>
+  </div>
+  <div class="header">
+    <div class="score-box">Skor: <span id="score">0</span></div>
+    <div class="score-box">Level: <span id="level">1</span></div>
+    <div class="score-box">Terbaik: <span id="highScore">0</span></div>
+  </div>
+  <div class="play-area">
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="side">
+      <div class="controls">
+        <button id="startBtn">MAIN!</button>
+        <button id="restartBtn">MAIN LAGI!</button>
+        <button id="doneBtn">Selesai</button>
+      </div>
+      <div class="message" id="message"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Big thumb buttons anchored to the bottom corners. Snake auto-moves forward;
+     these only turn it left / right by 90deg, reachable for small hands. -->
+<button id="turnLeft" class="turn-btn turn-left" aria-label="Belok kiri">
+  <span class="turn-arrow">&#8634;</span><span class="turn-label">KIRI</span>
+</button>
+<button id="turnRight" class="turn-btn turn-right" aria-label="Belok kanan">
+  <span class="turn-arrow">&#8635;</span><span class="turn-label">KANAN</span>
+</button>
+
+<script>
+// ===================== Word list (bawaan, dari artikel) =====================
+// Diganti otomatis jika native mengirim {type:"set_words", words:[...]} (mis. dari buku).
+let WORDS = {
+  3: ["ALI","AMR","ISA","NUH","IBU"],
+  4: ["NABI","UMAR","ARAB","MUSA","IMAM","SYAM","ZAID","IRAK","ANAS","SAAD","ADAM","SAID","UHUD","AYAT","RAJA"],
+  5: ["ISLAM","MEKAH","BAKAR","MALIK","AHMAD","WALID","ABBAS","YUSUF","HASAN","RASUL","MESIR","HAJAR","KITAB","SAUDI","YAMAN","HARAM","BILAL","QURAN","HARUN","ABDUL"],
+  6: ["UTSMAN","SYAIKH","MUSLIM","KHALID","PERANG","AISYAH","ROMAWI","THALIB","ZUBAIR","PERSIA","SUFYAN","JIBRIL","MASJID","HUSEIN","ISMAIL","ANSHAR","ZAINAB"],
+  7: ["MADINAH","QURAISY","ALQURAN","IBRAHIM","BUKHARI","UMAYYAH","KHATTAB","SALAMAH","THALHAH","SHIDDIQ","BAGHDAD"],
+  8: ["MUHAMMAD","ABDULLAH","SULAIMAN","KHALIFAH","KHADIJAH","MUAWIYAH","HABASYAH","RAMADHAN","DAMASKUS","KERAJAAN"],
+  9: ["ABBASIYAH","ANDALUSIA","PALESTINA","MUHAJIRIN","JERUSALEM","INDONESIA","JAHILIYAH","BIZANTIUM","BAITULLAH","HUDZAIFAH"],
+  10: ["RASULULLAH","MUSAILAMAH","KITABULLAH","HUDAIBIYAH","PERJANJIAN"]
+};
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function lengthsForLevel(lv) {
+  if (lv <= 1) return [3, 4];
+  if (lv === 2) return [4, 5];
+  if (lv === 3) return [5, 6];
+  if (lv === 4) return [6, 7];
+  if (lv === 5) return [7, 8];
+  if (lv === 6) return [8, 9];
+  return [9, 10];
+}
+
+function pickWord(lv) {
+  const lens = lengthsForLevel(lv).filter(L => (WORDS[L] || []).length);
+  const avail = lens.length ? lens : Object.keys(WORDS).map(Number).filter(L => WORDS[L].length);
+  const L = avail[Math.floor(Math.random() * avail.length)];
+  const pool = WORDS[L];
+  let w = pool[Math.floor(Math.random() * pool.length)];
+  if (w === currentWord && pool.length > 1) w = pool[(pool.indexOf(w) + 1) % pool.length];
+  return w;
+}
+
+// ===================== Canvas / engine =====================
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+const levelEl = document.getElementById('level');
+const highEl = document.getElementById('highScore');
+const messageEl = document.getElementById('message');
+const hintEl = document.getElementById('hint');
+const slotsEl = document.getElementById('slots');
+const startBtn = document.getElementById('startBtn');
+const restartBtn = document.getElementById('restartBtn');
+const doneBtn = document.getElementById('doneBtn');
+
+const GRID = 25;
+const COLS = canvas.width / GRID;   // 16
+const ROWS = canvas.height / GRID;  // 16
+
+let snake, direction, dirQueue, letters, score, level, wordsDone;
+let currentWord = "", filled = 0;
+let gameLoop = null, gameSpeed = 200, running = false;
+let particles = [];
+let audioCtx = null;
+
+const COLORS = { yellow:'#FFD43F', blue:'#0066CC', white:'#FFFFFF', dark:'#2B2B2B', pink:'#FFAAA6', green:'#00B894' };
+
+// ===================== Audio =====================
+function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+function tone(freqs, type, step, gain) {
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  freqs.forEach((f, i) => {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type || 'sine'; o.connect(g); g.connect(audioCtx.destination);
+    o.frequency.setValueAtTime(f, now + i * step);
+    g.gain.setValueAtTime(gain || 0.25, now + i * step);
+    g.gain.exponentialRampToValueAtTime(0.01, now + i * step + step * 0.9);
+    o.start(now + i * step); o.stop(now + i * step + step);
+  });
+}
+const sfxRight = () => tone([600, 1000], 'sine', 0.1, 0.3);
+const sfxWrong = () => tone([300, 200], 'triangle', 0.12, 0.2);
+const sfxWord  = () => tone([600, 800, 1000, 1300], 'triangle', 0.1, 0.25);
+const sfxDie   = () => tone([400, 350, 300, 200], 'square', 0.15, 0.25);
+
+// ===================== Letters / word setup =====================
+function randFreeCell() {
+  let p, tries = 0;
+  do {
+    p = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+    tries++;
+  } while (tries < 300 && (
+    snake.some(s => s.x === p.x && s.y === p.y) ||
+    letters.some(l => l.x === p.x && l.y === p.y)
+  ));
+  return p;
+}
+
+function decoyCount() { return Math.min(2 + level, 6); }
+
+// Spawn 1 correct tile (the letter we currently need) + some decoys.
+function spawnLetters() {
+  letters = [];
+  const need = currentWord[filled];
+  const cpos = randFreeCell();
+  letters.push({ x: cpos.x, y: cpos.y, ch: need, correct: true });
+  const n = decoyCount();
+  for (let i = 0; i < n; i++) {
+    let ch;
+    do { ch = ALPHABET[Math.floor(Math.random() * ALPHABET.length)]; } while (ch === need);
+    const p = randFreeCell();
+    letters.push({ x: p.x, y: p.y, ch: ch, correct: false });
+  }
+}
+
+function replaceDecoy(idx) {
+  const need = currentWord[filled];
+  let ch;
+  do { ch = ALPHABET[Math.floor(Math.random() * ALPHABET.length)]; } while (ch === need);
+  const p = randFreeCell();
+  letters[idx] = { x: p.x, y: p.y, ch: ch, correct: false };
+}
+
+function renderSlots() {
+  slotsEl.innerHTML = '';
+  for (let i = 0; i < currentWord.length; i++) {
+    const d = document.createElement('div');
+    d.className = 'slot' + (i < filled ? ' filled' : (i === filled ? ' current' : ''));
+    d.textContent = i < filled ? currentWord[i] : '';
+    slotsEl.appendChild(d);
+  }
+  hintEl.innerHTML = 'Cari huruf: <b>' + (currentWord[filled] || '') + '</b>';
+}
+
+function newWord() {
+  currentWord = pickWord(level);
+  filled = 0;
+  renderSlots();
+  spawnLetters();
+}
+
+// ===================== Drawing =====================
+function spawnParticles(cx, cy, color) {
+  for (let i = 0; i < 12; i++) {
+    const a = (Math.PI * 2 / 12) * i;
+    particles.push({ x: cx, y: cy, vx: Math.cos(a) * (2 + Math.random() * 3), vy: Math.sin(a) * (2 + Math.random() * 3), life: 1, color });
+  }
+}
+function drawParticles() {
+  particles = particles.filter(p => { p.x += p.vx; p.y += p.vy; p.life -= 0.03; return p.life > 0; });
+  particles.forEach(p => { ctx.globalAlpha = p.life; ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, 3 * p.life, 0, Math.PI * 2); ctx.fill(); });
+  ctx.globalAlpha = 1;
+}
+
+function drawBackground() {
+  const grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  grd.addColorStop(0, '#87CEEB'); grd.addColorStop(0.85, '#B0E0E6'); grd.addColorStop(1, '#90EE90');
+  ctx.fillStyle = grd; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#90EE90'; ctx.fillRect(0, canvas.height - 24, canvas.width, 24);
+  ctx.strokeStyle = COLORS.blue; ctx.lineWidth = 3; ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+}
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function drawLetters() {
+  letters.forEach(l => {
+    const px = l.x * GRID, py = l.y * GRID;
+    ctx.fillStyle = COLORS.yellow;
+    roundRect(px + 2, py + 2, GRID - 4, GRID - 4, 5); ctx.fill();
+    ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = COLORS.blue;
+    ctx.font = 'bold ' + (GRID - 9) + 'px "Comic Sans MS", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(l.ch, px + GRID / 2, py + GRID / 2 + 1);
+  });
+}
+
+function drawSnake() {
+  if (!snake) return;
+  snake.forEach((seg, i) => {
+    const px = seg.x * GRID, py = seg.y * GRID;
+    ctx.fillStyle = i === 0 ? COLORS.blue : (i % 2 ? COLORS.green : '#1aa3ff');
+    roundRect(px + 1, py + 1, GRID - 2, GRID - 2, 6); ctx.fill();
+    if (i === 0) {
+      ctx.fillStyle = COLORS.white;
+      let ex = px + GRID / 2, ey = py + GRID / 2, ox = 0, oy = 0;
+      if (direction === 'right') ox = 5; else if (direction === 'left') ox = -5;
+      else if (direction === 'down') oy = 5; else oy = -5;
+      const e1 = { x: ex + ox + (oy ? -5 : 0), y: ey + oy + (ox ? -5 : 0) };
+      const e2 = { x: ex + ox + (oy ? 5 : 0), y: ey + oy + (ox ? 5 : 0) };
+      [e1, e2].forEach(e => { ctx.beginPath(); ctx.arc(e.x, e.y, 3.5, 0, Math.PI * 2); ctx.fillStyle = COLORS.white; ctx.fill(); ctx.beginPath(); ctx.arc(e.x, e.y, 1.6, 0, Math.PI * 2); ctx.fillStyle = COLORS.dark; ctx.fill(); });
+    }
+  });
+}
+
+function draw() { drawBackground(); drawLetters(); drawSnake(); drawParticles(); }
+
+// ===================== Game flow =====================
+function update() {
+  if (dirQueue.length) direction = dirQueue.shift();
+  const head = {
+    x: snake[0].x + (direction === 'right' ? 1 : direction === 'left' ? -1 : 0),
+    y: snake[0].y + (direction === 'down' ? 1 : direction === 'up' ? -1 : 0)
+  };
+  if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return gameOver();
+  if (snake.some(s => s.x === head.x && s.y === head.y)) return gameOver();
+
+  snake.unshift(head);
+  const idx = letters.findIndex(l => l.x === head.x && l.y === head.y);
+  if (idx >= 0 && letters[idx].correct) {
+    eatCorrect(head);
+  } else if (idx >= 0) {
+    sfxWrong();
+    messageEl.textContent = 'Bukan itu, cari huruf ' + currentWord[filled] + ' ya!';
+    replaceDecoy(idx);
+    snake.pop();
+  } else {
+    snake.pop();
+  }
+}
+
+function eatCorrect(head) {
+  sfxRight();
+  spawnParticles(head.x * GRID + GRID / 2, head.y * GRID + GRID / 2, COLORS.green);
+  score += 10; scoreEl.textContent = score;
+  filled++;
+  if (filled >= currentWord.length) {
+    score += 50; scoreEl.textContent = score;
+    sfxWord();
+    messageEl.textContent = '🎉 HEBAT! ' + currentWord + ' 🎉';
+    wordsDone++;
+    if (wordsDone % 3 === 0) {
+      level++; levelEl.textContent = level;
+      gameSpeed = Math.max(90, 200 - level * 12);
+      clearInterval(gameLoop); gameLoop = setInterval(tick, gameSpeed);
+    }
+    renderSlots();
+    setTimeout(() => { if (running) { newWord(); messageEl.textContent = 'Kata baru: susun ' + currentWord + '!'; } }, 700);
+  } else {
+    renderSlots();
+    spawnLetters();
+  }
+}
+
+function tick() { if (!running) return; update(); if (running) draw(); }
+
+function gameOver() {
+  running = false;
+  clearInterval(gameLoop); gameLoop = null;
+  sfxDie();
+  let high = parseInt(localStorage.getItem('ularHurufHighScore') || '0');
+  if (score > high) { high = score; localStorage.setItem('ularHurufHighScore', high); highEl.textContent = high; }
+  messageEl.textContent = 'GAME SELESAI! Skor: ' + score;
+  hintEl.textContent = 'Tekan MAIN LAGI untuk ulang';
+  startBtn.style.display = 'none';
+  restartBtn.style.display = 'inline-block';
+  doneBtn.style.display = 'inline-block';
+}
+
+function startGame() {
+  initAudio();
+  snake = [{ x: 3, y: Math.floor(ROWS / 2) }, { x: 2, y: Math.floor(ROWS / 2) }];
+  direction = 'right'; dirQueue = [];
+  letters = []; particles = [];
+  score = 0; level = 1; wordsDone = 0;
+  scoreEl.textContent = '0'; levelEl.textContent = '1';
+  startBtn.style.display = 'none'; restartBtn.style.display = 'none'; doneBtn.style.display = 'none';
+  running = true;
+  newWord();
+  messageEl.textContent = 'Susun kata: ' + currentWord;
+  gameSpeed = 200;
+  clearInterval(gameLoop); gameLoop = setInterval(tick, gameSpeed);
+}
+
+// ===================== Controls =====================
+const CW  = { up: 'right', right: 'down', down: 'left', left: 'up' };
+const CCW = { up: 'left', left: 'down', down: 'right', right: 'up' };
+function turn(side) {
+  if (!running) return;
+  const base = dirQueue.length ? dirQueue[dirQueue.length - 1] : direction;
+  const nd = side === 'right' ? CW[base] : CCW[base];
+  if (dirQueue.length < 2) dirQueue.push(nd);
+}
+function pushAbsolute(dir) {
+  if (!running) return;
+  const opp = { up: 'down', down: 'up', left: 'right', right: 'left' };
+  const last = dirQueue.length ? dirQueue[dirQueue.length - 1] : direction;
+  if (dir !== opp[last] && dir !== last && dirQueue.length < 2) dirQueue.push(dir);
+}
+
+document.getElementById('turnLeft').addEventListener('pointerdown', e => { e.preventDefault(); turn('left'); });
+document.getElementById('turnRight').addEventListener('pointerdown', e => { e.preventDefault(); turn('right'); });
+
+document.addEventListener('keydown', e => {
+  const map = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right' };
+  if (map[e.key]) { e.preventDefault(); pushAbsolute(map[e.key]); }
+});
+
+// Swipe anywhere on the board.
+let tsx = 0, tsy = 0; const TH = 24;
+canvas.addEventListener('touchstart', e => { const t = e.touches[0]; tsx = t.clientX; tsy = t.clientY; }, { passive: true });
+canvas.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+canvas.addEventListener('touchend', e => {
+  const t = e.changedTouches[0]; const dx = t.clientX - tsx, dy = t.clientY - tsy;
+  if (Math.abs(dx) < TH && Math.abs(dy) < TH) return;
+  pushAbsolute(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+});
+
+startBtn.addEventListener('click', startGame);
+restartBtn.addEventListener('click', startGame);
+doneBtn.addEventListener('click', () => {
+  if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'game_complete' }));
+});
+
+// ===================== Future: words injected from books =====================
+function ingestWords(list) {
+  const grouped = {};
+  (list || []).forEach(w => {
+    const u = String(w).toUpperCase().replace(/[^A-Z]/g, '');
+    if (u.length >= 3 && u.length <= 10) (grouped[u.length] = grouped[u.length] || []).push(u);
+  });
+  if (Object.keys(grouped).length) WORDS = grouped;
+}
+function onNativeMessage(ev) {
+  try { const m = JSON.parse(ev.data); if (m && m.type === 'set_words') ingestWords(m.words); } catch (e) {}
+}
+window.addEventListener('message', onNativeMessage);
+document.addEventListener('message', onNativeMessage); // Android RN WebView
+
+// Initial paint
+highEl.textContent = localStorage.getItem('ularHurufHighScore') || '0';
+snake = [{ x: 3, y: 8 }]; letters = []; direction = 'right';
+renderSlots();
+draw();
+</script>
+</body>
+</html>
