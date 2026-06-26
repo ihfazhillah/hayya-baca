@@ -3,105 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ular - Seru untuk Anak!</title>
+<title>Ular</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
 body {
-  display: flex; justify-content: center; align-items: center;
-  min-height: 100vh; font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);
-  overflow: hidden; touch-action: manipulation;
+  height: 100vh; display: flex; flex-direction: column;
+  font-family: system-ui, -apple-system, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 60%, #A8E063 100%);
+  color: #0B3B66; overflow: hidden; touch-action: manipulation;
+  padding: 10px 14px;
 }
-.game-wrapper {
-  display: flex; flex-direction: column; align-items: center;
-  background: rgba(255,255,255,0.8); border-radius: 20px; padding: 15px;
-  border: 4px solid #0066CC; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+.hud { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 14px; }
+.scores { display: flex; gap: 8px; }
+.scores span {
+  background: rgba(255,255,255,.75); border: 2px solid #0066CC; border-radius: 11px;
+  padding: 6px 16px; font-size: 16px; font-weight: 700;
 }
-.header { display: flex; justify-content: space-between; width: 100%; max-width: 400px; margin-bottom: 10px; }
-.score-box {
-  background: #FFD43F; border-radius: 12px; padding: 8px 16px;
-  font-size: 16px; font-weight: bold; color: #2B2B2B;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #0066CC;
-}
-.score-box span { color: #0066CC; }
+.scores b { color: #0066CC; }
+.message { width: 100%; text-align: center; font-size: 18px; font-weight: 700; min-height: 24px; color: #0066CC; }
+
+.stage { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; margin-top: 6px; }
 canvas {
-  border-radius: 12px; display: block;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  border: 3px solid #0066CC;
+  width: min(95vw, 76vh); height: min(95vw, 76vh);
+  border-radius: 18px; border: 3px solid #0066CC; display: block;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
 }
-.play-area { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.side { display: flex; flex-direction: column; align-items: center; }
-.controls { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  background: rgba(255,255,255,.35);
+}
+.overlay.hidden { display: none; }
+.overlay .big { font-size: 26px; font-weight: 700; color: #0066CC; text-align: center; }
 button {
-  padding: 10px 24px; font-size: 16px; font-family: inherit; font-weight: bold;
-  border: 2px solid #2B2B2B; border-radius: 25px; cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.15s;
+  padding: 15px 34px; font-size: 19px; font-family: inherit; font-weight: 700;
+  border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,.25);
 }
-button:hover { transform: scale(1.05); }
+button:active { transform: scale(.96); }
 #startBtn { background: #FFD43F; color: #2B2B2B; }
 #restartBtn { background: #FFAAA6; color: #2B2B2B; display: none; }
-#doneBtn { background: #0066CC; color: #FFFFFF; display: none; }
-.message {
-  margin-top: 10px; font-size: 20px; color: #0066CC; text-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  min-height: 28px; text-align: center;
-}
-/* Two big round thumb buttons fixed to the bottom corners. */
+#doneBtn { background: #0066CC; color: #fff; display: none; }
+
 .turn-btn {
-  position: fixed; bottom: 24px; z-index: 30;
-  width: 112px; height: 112px; border-radius: 50%;
+  position: fixed; bottom: 22px; z-index: 30;
+  width: 118px; height: 118px; border-radius: 50%;
   border: 4px solid #0066CC; background: #FFD43F; color: #2B2B2B;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
-  gap: 0; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.3);
   -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none;
 }
-.turn-btn:active { transform: scale(0.92); background: #FFC400; }
-.turn-left { left: 24px; }
-.turn-right { right: 24px; }
-.turn-arrow { font-size: 50px; line-height: 1; font-weight: bold; }
-.turn-label { font-size: 15px; font-weight: bold; letter-spacing: 1px; }
-
-@media (max-width: 600px) {
-  canvas { width: 300px; height: 300px; }
-}
-
-/* Landscape: put start/restart controls beside the canvas so the board sits higher. */
-@media (orientation: landscape) {
-  .play-area { flex-direction: row; align-items: center; gap: 24px; }
-  .side .controls { margin-top: 0; }
-}
-
-/* Very short landscape (e.g. phone): scale the board + buttons down to fit. */
-@media (orientation: landscape) and (max-height: 540px) {
-  canvas { width: 280px; height: 280px; }
-  .turn-btn { width: 92px; height: 92px; bottom: 14px; }
-  .turn-left { left: 14px; }
-  .turn-right { right: 14px; }
-  .turn-arrow { font-size: 40px; }
-}
+.turn-btn:active { transform: scale(.92); background: #FFC400; }
+.turn-left { left: 22px; }
+.turn-right { right: 22px; }
+.turn-arrow { font-size: 54px; line-height: 1; font-weight: 700; }
+.turn-label { font-size: 15px; font-weight: 700; letter-spacing: 1px; }
 </style>
 </head>
 <body>
-<div class="game-wrapper">
-  <div class="header">
-    <div class="score-box">Skor: <span id="score">0</span></div>
-    <div class="score-box">Level: <span id="level">1</span></div>
-    <div class="score-box">Terbaik: <span id="highScore">0</span></div>
+<div class="hud">
+  <div class="scores">
+    <span>Skor <b id="score">0</b></span>
+    <span>Level <b id="level">1</b></span>
+    <span>Terbaik <b id="highScore">0</b></span>
   </div>
-  <div class="play-area">
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <div class="side">
-      <div class="controls">
-        <button id="startBtn">MAIN!</button>
-        <button id="restartBtn">MAIN LAGI!</button>
-        <button id="doneBtn">Selesai</button>
-      </div>
-      <div class="message" id="message">Tekan MAIN untuk mulai!</div>
-    </div>
+  <div class="message" id="message"></div>
+</div>
+
+<div class="stage">
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+  <div class="overlay" id="overlay">
+    <div class="big" id="overlayTitle">🐍 Ular</div>
+    <button id="startBtn">MAIN!</button>
+    <button id="restartBtn">MAIN LAGI!</button>
+    <button id="doneBtn">Selesai</button>
   </div>
 </div>
 
-<!-- Big thumb buttons anchored to the bottom corners — always reachable for small
-     hands. Snake auto-moves forward; these only turn it left / right by 90°. -->
 <button id="turnLeft" class="turn-btn turn-left" aria-label="Belok kiri">
   <span class="turn-arrow">&#8634;</span><span class="turn-label">KIRI</span>
 </button>
@@ -116,6 +94,8 @@ const scoreEl = document.getElementById('score');
 const levelEl = document.getElementById('level');
 const highEl = document.getElementById('highScore');
 const messageEl = document.getElementById('message');
+const overlay = document.getElementById('overlay');
+const overlayTitle = document.getElementById('overlayTitle');
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
 const doneBtn = document.getElementById('doneBtn');
@@ -124,501 +104,180 @@ const GRID = 20;
 const COLS = canvas.width / GRID;
 const ROWS = canvas.height / GRID;
 
-let snake, direction, dirQueue, food, score, level, gameLoop, gameSpeed;
+let snake, direction, dirQueue, food, score, level, gameLoop, gameSpeed, running = false;
 let particles = [];
 let foodAnimation = 0;
 let audioCtx = null;
 let obstacles = [];
 
-// Shimajiro colors
-const COLORS = {
-  yellow: '#FFD43F',
-  blue: '#0066CC',
-  white: '#FFFFFF',
-  dark: '#2B2B2B',
-  pink: '#FFAAA6'
-};
-
-const FUN_MESSAGES = ['Enak!','Nyam nyam!','Lezat!','Keren!','Hebat!','Mantap!','Super!','Wow!','Bagus!','Luar biasa!'];
+const COLORS = { yellow:'#FFD43F', blue:'#0066CC', white:'#FFFFFF', dark:'#2B2B2B', pink:'#FFAAA6' };
+const FUN = ['Enak!','Nyam nyam!','Lezat!','Keren!','Hebat!','Mantap!','Super!','Wow!','Bagus!','Luar biasa!'];
 const ENCOURAGE = ['Kamu pasti bisa!','Terus maju!','Hampir!','Sedikit lagi!','Bagus sekali!'];
 
-// Tell the React Native app to close the game and return to the menu.
-function notifyComplete() {
-  if (window.ReactNativeWebView) {
-    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'game_complete' }));
-  }
-}
-
-function initAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-}
-
+function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 function playSound(type) {
   if (!audioCtx) return;
   const now = audioCtx.currentTime;
   if (type === 'eat') {
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
     o.connect(g); g.connect(audioCtx.destination);
-    o.frequency.setValueAtTime(500, now);
-    o.frequency.exponentialRampToValueAtTime(1000, now + 0.1);
-    g.gain.setValueAtTime(0.3, now);
-    g.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+    o.frequency.setValueAtTime(500, now); o.frequency.exponentialRampToValueAtTime(1000, now + 0.1);
+    g.gain.setValueAtTime(0.3, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
     o.start(now); o.stop(now + 0.15);
   } else if (type === 'die') {
-    [400,350,300,200].forEach((f,i) => {
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.connect(g); g.connect(audioCtx.destination);
-      o.frequency.setValueAtTime(f, now + i*0.15);
-      g.gain.setValueAtTime(0.2, now + i*0.15);
-      g.gain.exponentialRampToValueAtTime(0.01, now + i*0.15 + 0.15);
-      o.start(now + i*0.15); o.stop(now + i*0.15 + 0.15);
-    });
+    [400,350,300,200].forEach((f,i) => { const o=audioCtx.createOscillator(),g=audioCtx.createGain(); o.connect(g);g.connect(audioCtx.destination); o.frequency.setValueAtTime(f,now+i*0.15); g.gain.setValueAtTime(0.2,now+i*0.15); g.gain.exponentialRampToValueAtTime(0.01,now+i*0.15+0.15); o.start(now+i*0.15);o.stop(now+i*0.15+0.15); });
   } else if (type === 'level') {
-    [600,800,1000,1200].forEach((f,i) => {
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = 'triangle';
-      o.connect(g); g.connect(audioCtx.destination);
-      o.frequency.setValueAtTime(f, now + i*0.1);
-      g.gain.setValueAtTime(0.2, now + i*0.1);
-      g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.12);
-      o.start(now + i*0.1); o.stop(now + i*0.1 + 0.12);
-    });
+    [600,800,1000,1200].forEach((f,i) => { const o=audioCtx.createOscillator(),g=audioCtx.createGain(); o.type='triangle'; o.connect(g);g.connect(audioCtx.destination); o.frequency.setValueAtTime(f,now+i*0.1); g.gain.setValueAtTime(0.2,now+i*0.1); g.gain.exponentialRampToValueAtTime(0.01,now+i*0.1+0.12); o.start(now+i*0.1);o.stop(now+i*0.1+0.12); });
   }
 }
 
 function spawnObstacles() {
-  if (level < 3) return;
+  if (level < 3) { obstacles = []; return; }
   const count = Math.min(2 + level * 2, 10);
   obstacles = [];
   for (let i = 0; i < count; i++) {
-    let pos;
-    let attempts = 0;
-    do {
-      pos = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS) };
-      attempts++;
-    } while (attempts < 100 && (
-      snake.some(s => s.x === pos.x && s.y === pos.y) ||
-      obstacles.some(o => o.x === pos.x && o.y === pos.y) ||
-      (food && food.x === pos.x && food.y === pos.y) ||
-      pos.x <= 1 || pos.y <= 1
-    ));
-    if (attempts < 100) obstacles.push(pos);
+    let pos, t = 0;
+    do { pos = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS) }; t++; }
+    while (t < 100 && (snake.some(s=>s.x===pos.x&&s.y===pos.y) || obstacles.some(o=>o.x===pos.x&&o.y===pos.y) || (food&&food.x===pos.x&&food.y===pos.y) || pos.x<=1 || pos.y<=1));
+    if (t < 100) obstacles.push(pos);
   }
 }
-
 function spawnFood() {
-  let pos;
-  let attempts = 0;
-  do {
-    pos = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS) };
-    attempts++;
-  } while (attempts < 200 && (
-    snake.some(s => s.x === pos.x && s.y === pos.y) ||
-    obstacles.some(o => o.x === pos.x && o.y === pos.y)
-  ));
-  if (attempts < 200) food = pos;
+  let pos, t = 0;
+  do { pos = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS) }; t++; }
+  while (t < 200 && (snake.some(s=>s.x===pos.x&&s.y===pos.y) || obstacles.some(o=>o.x===pos.x&&o.y===pos.y)));
+  if (t < 200) food = pos;
 }
-
 function spawnParticles(x, y) {
-  const particleColors = [COLORS.yellow, COLORS.pink, COLORS.white, COLORS.blue];
-  for (let i = 0; i < 12; i++) {
-    const angle = (Math.PI*2/12)*i;
-    particles.push({
-      x: x*GRID+GRID/2, y: y*GRID+GRID/2,
-      vx: Math.cos(angle)*(2+Math.random()*3),
-      vy: Math.sin(angle)*(2+Math.random()*3),
-      life: 1, color: particleColors[Math.floor(Math.random()*particleColors.length)]
-    });
-  }
+  const pc = [COLORS.yellow, COLORS.pink, COLORS.white, COLORS.blue];
+  for (let i = 0; i < 12; i++) { const a=(Math.PI*2/12)*i; particles.push({ x:x*GRID+GRID/2, y:y*GRID+GRID/2, vx:Math.cos(a)*(2+Math.random()*3), vy:Math.sin(a)*(2+Math.random()*3), life:1, color:pc[Math.floor(Math.random()*pc.length)] }); }
 }
-
-function updateParticles() {
-  particles = particles.filter(p => {
-    p.x += p.vx; p.y += p.vy; p.life -= 0.03;
-    return p.life > 0;
-  });
-}
-
-function drawParticles() {
-  particles.forEach(p => {
-    ctx.globalAlpha = p.life;
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 3*p.life, 0, Math.PI*2);
-    ctx.fill();
-  });
-  ctx.globalAlpha = 1;
-}
+function updateParticles() { particles = particles.filter(p => { p.x+=p.vx; p.y+=p.vy; p.life-=0.03; return p.life>0; }); }
+function drawParticles() { particles.forEach(p => { ctx.globalAlpha=p.life; ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2); ctx.fill(); }); ctx.globalAlpha=1; }
 
 function drawBackground() {
-  // Sky-blue gradient
-  const grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  grd.addColorStop(0, '#87CEEB');
-  grd.addColorStop(0.85, '#B0E0E6');
-  grd.addColorStop(1, '#90EE90');
-  ctx.fillStyle = grd;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Green grass strips at bottom
-  ctx.fillStyle = '#90EE90';
-  ctx.fillRect(0, canvas.height - 30, canvas.width, 30);
-  ctx.fillStyle = '#228B22';
-  for (let i = 0; i < canvas.width; i += 8) {
-    const h = 5 + Math.sin(i * 0.3) * 3;
-    ctx.fillRect(i, canvas.height - 20 - h, 4, h + 5);
-  }
-
-  // Border frame
-  ctx.strokeStyle = COLORS.blue;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
-
-  // Corner accents
-  ctx.fillStyle = COLORS.yellow;
-  [[10,10],[canvas.width-18,10],[10,canvas.height-18],[canvas.width-18,canvas.height-18]].forEach(([x,y]) => {
-    ctx.fillRect(x, y, 8, 8);
-    ctx.strokeStyle = COLORS.blue;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(x, y, 8, 8);
-  });
+  const grd = ctx.createLinearGradient(0,0,0,canvas.height);
+  grd.addColorStop(0,'#9BD7F0'); grd.addColorStop(0.85,'#B0E0E6'); grd.addColorStop(1,'#A8E063');
+  ctx.fillStyle = grd; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#9BDB5A'; ctx.fillRect(0, canvas.height-26, canvas.width, 26);
+  ctx.strokeStyle = COLORS.blue; ctx.lineWidth = 3; ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
 }
-
 function drawObstacles() {
   obstacles.forEach(o => {
-    ctx.fillStyle = 'rgba(0, 102, 204, 0.3)';
-    ctx.fillRect(o.x*GRID, o.y*GRID, GRID, GRID);
-    ctx.strokeStyle = COLORS.yellow;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(o.x*GRID+2, o.y*GRID+2);
-    ctx.lineTo((o.x+1)*GRID-2, (o.y+1)*GRID-2);
-    ctx.moveTo((o.x+1)*GRID-2, o.y*GRID+2);
-    ctx.lineTo(o.x*GRID+2, (o.y+1)*GRID-2);
-    ctx.stroke();
+    ctx.fillStyle = 'rgba(0, 102, 204, 0.3)'; ctx.fillRect(o.x*GRID, o.y*GRID, GRID, GRID);
+    ctx.strokeStyle = COLORS.yellow; ctx.lineWidth = 2; ctx.beginPath();
+    ctx.moveTo(o.x*GRID+2,o.y*GRID+2); ctx.lineTo((o.x+1)*GRID-2,(o.y+1)*GRID-2);
+    ctx.moveTo((o.x+1)*GRID-2,o.y*GRID+2); ctx.lineTo(o.x*GRID+2,(o.y+1)*GRID-2); ctx.stroke();
   });
 }
-
 function drawFood() {
   if (!food) return;
-  const px = food.x * GRID;
-  const py = food.y * GRID;
-
-  // Animated glow
-  foodAnimation += 0.1;
-  const glow = 0.5 + Math.sin(foodAnimation) * 0.3;
-  ctx.shadowBlur = 8 + glow * 6;
-  ctx.shadowColor = COLORS.yellow;
-
-  // Apple body
-  ctx.fillStyle = COLORS.yellow;
-  ctx.beginPath();
-  ctx.arc(px + GRID/2, py + GRID/2, GRID/2 - 2, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Dark outline
-  ctx.strokeStyle = COLORS.dark;
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  ctx.shadowBlur = 0;
-
-  // Shine highlight
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.beginPath();
-  ctx.arc(px + GRID/2 - 3, py + GRID/2 - 3, 3, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Leaf
-  ctx.fillStyle = '#32CD32';
-  ctx.beginPath();
-  ctx.ellipse(px + GRID/2 + 2, py + 2, 4, 2, 0.5, 0, Math.PI * 2);
-  ctx.fill();
+  const px = food.x*GRID, py = food.y*GRID;
+  foodAnimation += 0.1; const glow = 0.5 + Math.sin(foodAnimation)*0.3;
+  ctx.shadowBlur = 8 + glow*6; ctx.shadowColor = COLORS.yellow;
+  ctx.fillStyle = COLORS.yellow; ctx.beginPath(); ctx.arc(px+GRID/2, py+GRID/2, GRID/2-2, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 2; ctx.stroke(); ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.beginPath(); ctx.arc(px+GRID/2-3, py+GRID/2-3, 3, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#32CD32'; ctx.beginPath(); ctx.ellipse(px+GRID/2+2, py+2, 4, 2, 0.5, 0, Math.PI*2); ctx.fill();
 }
-
 function drawSnake() {
   if (!snake) return;
   snake.forEach((seg, i) => {
-    const px = seg.x * GRID;
-    const py = seg.y * GRID;
-
-    // Shimajiro colors cycling
-    const colors = [COLORS.yellow, COLORS.pink, COLORS.blue];
-    const baseColor = colors[i % colors.length];
-    ctx.fillStyle = baseColor;
-    ctx.fillRect(px, py, GRID, GRID);
-
-    // Tiger stripes (darker stripes)
-    if (i > 0) {
-      ctx.fillStyle = 'rgba(43, 43, 43, 0.3)';
-      ctx.fillRect(px + 2, py + 4, 4, 2);
-      ctx.fillRect(px + 8, py + 10, 4, 2);
-      ctx.fillRect(px + 2, py + 16, 4, 2);
-    }
-
-    // Segment border
-    ctx.strokeStyle = COLORS.dark;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(px, py, GRID, GRID);
-
-    // Snake head features
+    const px = seg.x*GRID, py = seg.y*GRID;
+    const cyc = [COLORS.yellow, COLORS.pink, COLORS.blue];
+    ctx.fillStyle = cyc[i % cyc.length]; ctx.fillRect(px, py, GRID, GRID);
+    if (i > 0) { ctx.fillStyle = 'rgba(43,43,43,0.3)'; ctx.fillRect(px+2,py+4,4,2); ctx.fillRect(px+8,py+10,4,2); ctx.fillRect(px+2,py+16,4,2); }
+    ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 1; ctx.strokeRect(px, py, GRID, GRID);
     if (i === 0) {
-      // Eyes
       ctx.fillStyle = COLORS.white;
-      let eye1x, eye1y, eye2x, eye2y;
-      if (direction === 'right' || direction === 'left') {
-        eye1x = px + (direction === 'right' ? 14 : 4);
-        eye1y = py + 5;
-        eye2x = px + (direction === 'right' ? 14 : 4);
-        eye2y = py + 12;
-      } else {
-        eye1x = px + 5;
-        eye1y = py + (direction === 'down' ? 14 : 4);
-        eye2x = px + 12;
-        eye2y = py + (direction === 'down' ? 14 : 4);
-      }
-      ctx.beginPath();
-      ctx.arc(eye1x, eye1y, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(eye2x, eye2y, 3, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Pupils
+      let e1x,e1y,e2x,e2y;
+      if (direction === 'right' || direction === 'left') { e1x=px+(direction==='right'?14:4); e1y=py+5; e2x=e1x; e2y=py+12; }
+      else { e1x=px+5; e1y=py+(direction==='down'?14:4); e2x=px+12; e2y=e1y; }
+      ctx.beginPath(); ctx.arc(e1x,e1y,3,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(e2x,e2y,3,0,Math.PI*2); ctx.fill();
       ctx.fillStyle = COLORS.dark;
-      ctx.beginPath();
-      ctx.arc(eye1x, eye1y, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(eye2x, eye2y, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Tiger nose
-      ctx.fillStyle = COLORS.dark;
-      ctx.beginPath();
-      ctx.arc(px + GRID/2, py + GRID/2, 2, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(e1x,e1y,1.5,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(e2x,e2y,1.5,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(px+GRID/2, py+GRID/2, 2, 0, Math.PI*2); ctx.fill();
     }
   });
 }
+function draw() { drawBackground(); drawObstacles(); drawFood(); drawSnake(); drawParticles(); updateParticles(); }
 
 function update() {
-  // Process direction queue
-  if (dirQueue.length > 0) {
-    direction = dirQueue.shift();
-  }
-
-  const head = {
-    x: snake[0].x + (direction === 'right' ? 1 : direction === 'left' ? -1 : 0),
-    y: snake[0].y + (direction === 'down' ? 1 : direction === 'up' ? -1 : 0)
-  };
-
-  // Wall collision
-  if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) {
-    gameOver();
-    return;
-  }
-
-  // Self collision
-  if (snake.some(s => s.x === head.x && s.y === head.y)) {
-    gameOver();
-    return;
-  }
-
-  // Obstacle collision
-  if (obstacles.some(o => o.x === head.x && o.y === head.y)) {
-    gameOver();
-    return;
-  }
-
+  if (dirQueue.length) direction = dirQueue.shift();
+  const head = { x: snake[0].x + (direction==='right'?1:direction==='left'?-1:0), y: snake[0].y + (direction==='down'?1:direction==='up'?-1:0) };
+  if (head.x<0 || head.x>=COLS || head.y<0 || head.y>=ROWS) return gameOver();
+  if (snake.some(s=>s.x===head.x&&s.y===head.y)) return gameOver();
+  if (obstacles.some(o=>o.x===head.x&&o.y===head.y)) return gameOver();
   snake.unshift(head);
-
-  // Food collision
-  if (food && head.x === food.x && head.y === food.y) {
-    score += 10;
-    scoreEl.textContent = score;
-    playSound('eat');
-    spawnParticles(food.x, food.y);
-    messageEl.textContent = FUN_MESSAGES[Math.floor(Math.random() * FUN_MESSAGES.length)];
-
-    // Level up every 50 points
-    const newLevel = Math.floor(score / 50) + 1;
-    if (newLevel > level) {
-      level = newLevel;
-      levelEl.textContent = level;
-      playSound('level');
-      messageEl.textContent = 'NAIK LEVEL!';
-      gameSpeed = Math.max(60, 180 - level * 12);
-      clearInterval(gameLoop);
-      gameLoop = setInterval(gameTick, gameSpeed);
-      spawnObstacles();
-    }
-
+  if (food && head.x===food.x && head.y===food.y) {
+    score += 10; scoreEl.textContent = score; playSound('eat'); spawnParticles(food.x, food.y);
+    messageEl.textContent = FUN[Math.floor(Math.random()*FUN.length)];
+    const nl = Math.floor(score/50) + 1;
+    if (nl > level) { level = nl; levelEl.textContent = level; playSound('level'); messageEl.textContent = 'NAIK LEVEL!'; gameSpeed = Math.max(60, 180-level*12); clearInterval(gameLoop); gameLoop = setInterval(tick, gameSpeed); spawnObstacles(); }
     spawnFood();
-  } else {
-    snake.pop();
-  }
+  } else { snake.pop(); }
 }
-
-function draw() {
-  drawBackground();
-  drawObstacles();
-  drawFood();
-  drawSnake();
-  drawParticles();
-  updateParticles();
-}
-
-function gameTick() {
-  update();
-  draw();
-}
-
+function tick() { if (!running) return; update(); if (running) draw(); }
 function gameOver() {
-  clearInterval(gameLoop);
-  playSound('die');
-
+  running = false; clearInterval(gameLoop); playSound('die');
   let high = parseInt(localStorage.getItem('snakeHighScore') || '0');
-  if (score > high) {
-    high = score;
-    localStorage.setItem('snakeHighScore', high);
-    highEl.textContent = high;
-  }
-
-  messageEl.textContent = 'GAME SELESAI! Coba lagi!';
-  startBtn.style.display = 'none';
-  restartBtn.style.display = 'inline-block';
-  doneBtn.style.display = 'inline-block';
+  if (score > high) { high = score; localStorage.setItem('snakeHighScore', high); highEl.textContent = high; }
+  messageEl.textContent = 'Skor kamu: ' + score;
+  overlayTitle.textContent = 'Yah, selesai! Skor ' + score;
+  startBtn.style.display = 'none'; restartBtn.style.display = 'inline-block'; doneBtn.style.display = 'inline-block';
+  overlay.classList.remove('hidden');
 }
-
 function startGame() {
   initAudio();
-  snake = [{ x: 5, y: 5 }];
-  direction = 'right';
-  dirQueue = [];
-  score = 0;
-  level = 1;
-  particles = [];
-  obstacles = [];
-  scoreEl.textContent = '0';
-  levelEl.textContent = '1';
-  messageEl.textContent = ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)];
-
-  startBtn.style.display = 'none';
-  restartBtn.style.display = 'none';
-  doneBtn.style.display = 'none';
-
-  spawnFood();
-  gameSpeed = 180;
-  gameLoop = setInterval(gameTick, gameSpeed);
+  snake = [{ x:5, y:10 }, { x:4, y:10 }]; direction = 'right'; dirQueue = [];
+  score = 0; level = 1; particles = []; obstacles = [];
+  scoreEl.textContent = '0'; levelEl.textContent = '1';
+  messageEl.textContent = ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)];
+  overlay.classList.add('hidden');
+  startBtn.style.display = 'none'; restartBtn.style.display = 'none'; doneBtn.style.display = 'none';
+  running = true; spawnFood(); gameSpeed = 180;
+  clearInterval(gameLoop); gameLoop = setInterval(tick, gameSpeed);
 }
 
-// Keyboard controls
-document.addEventListener('keydown', e => {
-  const keyMap = {
-    ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
-    w: 'up', s: 'down', a: 'left', d: 'right'
-  };
-  const key = keyMap[e.key];
-  if (key) {
-    e.preventDefault();
-    const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
-    const lastDir = dirQueue.length > 0 ? dirQueue[dirQueue.length - 1] : direction;
-    if (key !== opposites[lastDir] && key !== lastDir && dirQueue.length < 2) {
-      dirQueue.push(key);
-    }
-  }
-});
-
-// Relative-turn controls — two big corner buttons, easiest for small hands.
-// The snake always moves forward; these just rotate its heading 90deg, so the
-// child can reach every direction (up/down/left/right) without separate buttons.
-const CW  = { up: 'right', right: 'down', down: 'left', left: 'up' };
-const CCW = { up: 'left', left: 'down', down: 'right', right: 'up' };
+// Controls: belok kiri/kanan relatif
+const CW  = { up:'right', right:'down', down:'left', left:'up' };
+const CCW = { up:'left', left:'down', down:'right', right:'up' };
 function turn(side) {
-  if (!snake) return; // game hasn't started yet
-  const base = dirQueue.length > 0 ? dirQueue[dirQueue.length - 1] : direction;
+  if (!running) return;
+  const base = dirQueue.length ? dirQueue[dirQueue.length-1] : direction;
   const nd = side === 'right' ? CW[base] : CCW[base];
   if (dirQueue.length < 2) dirQueue.push(nd);
 }
-const turnLeftBtn = document.getElementById('turnLeft');
-const turnRightBtn = document.getElementById('turnRight');
-// pointerdown fires once for both touch and mouse, with no click delay.
-turnLeftBtn.addEventListener('pointerdown', e => { e.preventDefault(); turn('left'); });
-turnRightBtn.addEventListener('pointerdown', e => { e.preventDefault(); turn('right'); });
-
-// Touch swipe controls
-let touchStartX = 0, touchStartY = 0;
-const SWIPE_THRESHOLD = 30;
-
-canvas.addEventListener('touchstart', e => {
-  const touch = e.touches[0];
-  touchStartX = touch.clientX;
-  touchStartY = touch.clientY;
-}, { passive: true });
-
-canvas.addEventListener('touchmove', e => {
-  e.preventDefault();
-}, { passive: false });
-
+function pushAbsolute(dir) {
+  if (!running) return;
+  const opp = { up:'down', down:'up', left:'right', right:'left' };
+  const last = dirQueue.length ? dirQueue[dirQueue.length-1] : direction;
+  if (dir !== opp[last] && dir !== last && dirQueue.length < 2) dirQueue.push(dir);
+}
+document.getElementById('turnLeft').addEventListener('pointerdown', e => { e.preventDefault(); turn('left'); });
+document.getElementById('turnRight').addEventListener('pointerdown', e => { e.preventDefault(); turn('right'); });
+document.addEventListener('keydown', e => {
+  const map = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right', w:'up', s:'down', a:'left', d:'right' };
+  if (map[e.key]) { e.preventDefault(); pushAbsolute(map[e.key]); }
+});
+let tsx=0, tsy=0; const TH=24;
+canvas.addEventListener('touchstart', e => { const t=e.touches[0]; tsx=t.clientX; tsy=t.clientY; }, { passive:true });
+canvas.addEventListener('touchmove', e => e.preventDefault(), { passive:false });
 canvas.addEventListener('touchend', e => {
-  const touch = e.changedTouches[0];
-  const dx = touch.clientX - touchStartX;
-  const dy = touch.clientY - touchStartY;
-  if (Math.abs(dx) < SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_THRESHOLD) return;
-
-  let dir;
-  if (Math.abs(dx) > Math.abs(dy)) {
-    dir = dx > 0 ? 'right' : 'left';
-  } else {
-    dir = dy > 0 ? 'down' : 'up';
-  }
-
-  const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
-  const lastDir = dirQueue.length > 0 ? dirQueue[dirQueue.length - 1] : direction;
-  if (dir !== opposites[lastDir] && dir !== lastDir && dirQueue.length < 2) {
-    dirQueue.push(dir);
-  }
+  const t=e.changedTouches[0]; const dx=t.clientX-tsx, dy=t.clientY-tsy;
+  if (Math.abs(dx)<TH && Math.abs(dy)<TH) return;
+  pushAbsolute(Math.abs(dx)>Math.abs(dy) ? (dx>0?'right':'left') : (dy>0?'down':'up'));
 });
-
-// Mouse click-drag controls
-let mouseDown = false, mouseStartX = 0, mouseStartY = 0;
-
-canvas.addEventListener('mousedown', e => {
-  mouseDown = true;
-  mouseStartX = e.clientX;
-  mouseStartY = e.clientY;
-});
-
-canvas.addEventListener('mouseup', e => {
-  if (!mouseDown) return;
-  mouseDown = false;
-  const dx = e.clientX - mouseStartX;
-  const dy = e.clientY - mouseStartY;
-  if (Math.abs(dx) < SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_THRESHOLD) return;
-
-  let dir;
-  if (Math.abs(dx) > Math.abs(dy)) {
-    dir = dx > 0 ? 'right' : 'left';
-  } else {
-    dir = dy > 0 ? 'down' : 'up';
-  }
-
-  const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
-  const lastDir = dirQueue.length > 0 ? dirQueue[dirQueue.length - 1] : direction;
-  if (dir !== opposites[lastDir] && dir !== lastDir && dirQueue.length < 2) {
-    dirQueue.push(dir);
-  }
-});
-
 startBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', startGame);
-doneBtn.addEventListener('click', notifyComplete);
+doneBtn.addEventListener('click', () => { if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify({ type:'game_complete' })); });
 
-// Initial draw
+// Initial paint
 highEl.textContent = localStorage.getItem('snakeHighScore') || '0';
+snake = [{ x:5, y:10 }]; direction = 'right'; food = null;
+messageEl.textContent = 'Kumpulkan apel, hindari tabrakan!';
 draw();
 </script>
 </body>
