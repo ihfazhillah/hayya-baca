@@ -41,6 +41,12 @@ jest.mock("../../src/lib/session", () => ({
   getSelectedChild: () => mockGetSelectedChild(),
 }));
 
+// Mock api — quiz attempt push
+const mockPushQuizAttempt = jest.fn().mockResolvedValue(undefined);
+jest.mock("../../src/lib/api", () => ({
+  pushQuizAttempt: (...args: any[]) => mockPushQuizAttempt(...args),
+}));
+
 // Mock speech/tts
 jest.mock("../../src/lib/tts", () => ({
   speakWord: jest.fn(),
@@ -226,6 +232,11 @@ describe("Quiz: user jawab semua soal → navigate celebrate", () => {
     // SPY: saveReadingProgress called with article- prefix
     expect(mockSaveReadingProgress).toHaveBeenCalledWith(
       1, "article-112", 0, true
+    );
+
+    // SPY: QuizAttempt direkam ke server (book=slug, score/total benar)
+    expect(mockPushQuizAttempt).toHaveBeenCalledWith(
+      1, { book: "article-112", score: 2, total: 2 }
     );
 
     // SPY: router.replace with correct celebrate params
