@@ -320,3 +320,22 @@ describe("Quiz: reward save gagal → tetap navigate", () => {
     );
   });
 });
+
+describe("Quiz: buka artikel lagi dari header", () => {
+  beforeEach(() => {
+    useLocalSearchParams.mockReturnValue({ articleId: "112" });
+  });
+
+  it("tombol Artikel di header → push ke artikel tanpa hilang progres", async () => {
+    render(<QuizScreen />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Siapa lelaki Anshar?")).toBeTruthy();
+    });
+
+    fireEvent.press(screen.getByText("Artikel"));
+
+    // push (bukan replace/back) supaya quiz tetap di stack, progres aman
+    expect(mockRouter.push).toHaveBeenCalledWith("/article/112");
+  });
+});

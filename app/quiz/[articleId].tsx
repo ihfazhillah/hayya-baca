@@ -220,6 +220,12 @@ export default function QuizScreen() {
         <Text style={styles.headerTitle} numberOfLines={1}>
           Kuis
         </Text>
+        <Pressable
+          onPress={() => router.push(`/article/${articleId}`)}
+          style={styles.articleBtn}
+        >
+          <Text style={styles.headerBtnText}>Artikel</Text>
+        </Pressable>
       </View>
 
       {/* Progress dots */}
@@ -269,6 +275,12 @@ const styles = StyleSheet.create({
   headerBtn: {
     padding: 8,
     marginRight: 12,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderRadius: 8,
+  },
+  articleBtn: {
+    padding: 8,
+    marginLeft: 12,
     backgroundColor: "rgba(255,255,255,0.2)",
     borderRadius: 8,
   },
