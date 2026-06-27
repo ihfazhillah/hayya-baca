@@ -1,9 +1,10 @@
 name: Android Release Build
 
+# Releases are cut locally via ./build-release.sh (debug keystore, sideload).
+# This CI job uses a DIFFERENT (real) keystore, so auto-running it on every
+# version bump produced signature-mismatched releases that conflict with the
+# local ones. Keep it manual-only; trigger from the Actions tab if ever needed.
 on:
-  push:
-    branches: [master]
-    paths: ["app.config.ts"]
   workflow_dispatch: {}
 
 jobs:
