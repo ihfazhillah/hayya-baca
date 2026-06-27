@@ -224,22 +224,33 @@ export async function syncContent(
     // 3. Diff
     const diff = diffManifest(manifest.items, local);
 
-    // 4. Download new/updated
+    // 4. Download new/updated — bounded concurrency so 800+ items don't take
+    //    minutes one-at-a-time (the old sequential loop was the main reason new
+    //    content took ages to appear after a manifest bump).
     let downloaded = 0;
     let errors = 0;
     const total = diff.toDownload.length;
+    const CONCURRENCY = 6;
+    let cursor = 0;
 
-    for (const item of diff.toDownload) {
-      try {
-        const content = await downloadContent(item);
-        await saveDownloadedContent(item, content);
-        downloaded++;
-        onProgress?.(downloaded, total);
-      } catch (e) {
-        console.warn(`Download failed: ${item.slug}`, e);
-        errors++;
+    const worker = async (): Promise<void> => {
+      while (cursor < diff.toDownload.length) {
+        const item = diff.toDownload[cursor++];
+        try {
+          const content = await downloadContent(item);
+          await saveDownloadedContent(item, content);
+          downloaded++;
+          onProgress?.(downloaded, total);
+        } catch (e) {
+          console.warn(`Download failed: ${item.slug}`, e);
+          errors++;
+        }
       }
-    }
+    };
+
+    await Promise.all(
+      Array.from({ length: Math.min(CONCURRENCY, total) }, () => worker())
+    );
 
     // 5. Mark removed
     if (diff.toRemove.length > 0) {

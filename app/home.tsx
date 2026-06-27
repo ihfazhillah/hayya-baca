@@ -12,8 +12,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/core";
-import { getAllBooks } from "../src/lib/books";
+import { getAllBooks, fetchAllBooks } from "../src/lib/books";
 import { getAllArticles, fetchAllArticles } from "../src/lib/articles";
+import { onDataChange } from "../src/lib/db-events";
 import { getSelectedChild } from "../src/lib/session";
 import { getAllReadingProgress } from "../src/lib/rewards";
 import { getLockedBooks, sortForDisplay, getNewContentIds, markContentSeen, getUnlockProgress } from "../src/lib/recommendation";
@@ -222,11 +223,19 @@ export default function HomeScreen() {
   const unsyncedCount = useUnsyncedCount(child?.id ?? null);
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
-  const allBooks = useMemo(() => getAllBooks(), []);
   const [articles, setArticles] = useState<Article[]>(() => getAllArticles());
+  const [allBooks, setAllBooks] = useState<Book[]>(() => getAllBooks());
 
   useEffect(() => {
     fetchAllArticles().then(setArticles).catch(() => {});
+    fetchAllBooks().then(setAllBooks).catch(() => {});
+    // Refresh the library when a content sync downloads new books/articles/quizzes
+    // (otherwise the running app keeps showing the pre-sync list).
+    const off = onDataChange("content", () => {
+      fetchAllArticles().then(setArticles).catch(() => {});
+      fetchAllBooks().then(setAllBooks).catch(() => {});
+    });
+    return off;
   }, []);
 
   const loadData = useCallback(async () => {

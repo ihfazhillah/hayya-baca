@@ -6,6 +6,7 @@ import {
 } from "./api";
 import { getDatabase } from "./database";
 import { getDownloadedContent, getAllDownloadedByType } from "./content-manager";
+import { onDataChange } from "./db-events";
 
 // Bundled articles (fallback when offline and no cache)
 import a112 from "../../content/articles/112-lelaki-anshar-tiga-anak-panah.json";
@@ -38,6 +39,19 @@ for (const a of bundledArticles) {
 // In-memory caches
 let memoryList: Article[] | null = null;
 const memoryArticles = new Map<string, Article>();
+
+/**
+ * Drop in-memory caches so the next read repopulates from freshly-synced
+ * SQLite content. Without this, a running app keeps serving stale articles
+ * (old quizzes) even after syncContent downloads new versions.
+ */
+export function clearArticleCaches(): void {
+  memoryList = null;
+  memoryArticles.clear();
+}
+
+// When the content manifest sync downloads new/updated content, invalidate.
+onDataChange("content", clearArticleCaches);
 
 function downloadedToArticle(data: any): Article {
   return {

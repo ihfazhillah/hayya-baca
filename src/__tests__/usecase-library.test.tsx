@@ -30,11 +30,13 @@ jest.spyOn(session, "getSelectedChild").mockReturnValue({
 });
 
 // Mock book content — static imports are resolved by jest-expo
+const mockBooks = [
+  { id: "1", title: "Sahabat yang disebut namanya di langit", coverPath: null, pageCount: 12, hasAudio: false },
+  { id: "3", title: "Terbunuhnya Singa Alloh", coverPath: null, pageCount: 8, hasAudio: false },
+];
 jest.mock("../lib/books", () => ({
-  getAllBooks: () => [
-    { id: "1", title: "Sahabat yang disebut namanya di langit", coverPath: null, pageCount: 12, hasAudio: false },
-    { id: "3", title: "Terbunuhnya Singa Alloh", coverPath: null, pageCount: 8, hasAudio: false },
-  ],
+  getAllBooks: () => mockBooks,
+  fetchAllBooks: () => Promise.resolve(mockBooks),
 }));
 
 const mockArticles = [

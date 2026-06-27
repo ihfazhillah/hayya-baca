@@ -17,12 +17,26 @@ export default function RootLayout() {
   const appState = useRef(AppState.currentState);
 
   useEffect(() => {
+    // Pull content manifest and record outcome (don't swallow silently).
+    const runContentSync = () => {
+      syncContent()
+        .then((r) => {
+          setSetting(
+            "last_content_sync",
+            `downloaded=${r.downloaded} removed=${r.removed} errors=${r.errors}`
+          );
+        })
+        .catch((e) => {
+          setSetting("last_content_sync", `error: ${e?.message ?? e}`);
+        });
+    };
+
     // Sync on mount (no active child yet — just pull children list)
     syncAll().then((report) => {
       setSetting("last_sync_status", report.success ? "ok" : report.errors.join("; "));
     }).catch(() => {});
     // Sync content manifest in background
-    syncContent().catch(() => {});
+    runContentSync();
 
     // Sync when app comes to foreground (with active child if selected)
     const sub = AppState.addEventListener("change", (nextState) => {
@@ -31,6 +45,9 @@ export default function RootLayout() {
         syncAll(childId ? [childId] : undefined).then((report) => {
           setSetting("last_sync_status", report.success ? "ok" : report.errors.join("; "));
         }).catch(() => {});
+        // Content can change server-side while the app is backgrounded — re-pull
+        // so new books/articles/quizzes show up without a full app restart.
+        runContentSync();
       }
       appState.current = nextState;
     });

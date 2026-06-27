@@ -1,5 +1,6 @@
 import type { Book, BookContent, BookPage } from "../types";
 import { getDownloadedContent, getAllDownloadedByType } from "./content-manager";
+import { onDataChange } from "./db-events";
 
 // Bundled books (fallback when offline and no download)
 import book01 from "../../content/books/01-sahabat-yang-disebut-namanya-di-langit/raw.json";
@@ -104,6 +105,16 @@ function rawToBookContent(raw: RawBook): BookContent {
 
 // In-memory cache for downloaded books
 let downloadedBooks: Book[] | null = null;
+
+/**
+ * Drop the in-memory book list so the next read repopulates from freshly-synced
+ * SQLite content. Mirrors articles.clearArticleCaches.
+ */
+export function clearBookCaches(): void {
+  downloadedBooks = null;
+}
+
+onDataChange("content", clearBookCaches);
 
 /**
  * Get all books for library display.
