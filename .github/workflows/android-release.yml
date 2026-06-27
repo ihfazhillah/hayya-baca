@@ -4,6 +4,7 @@ on:
   push:
     branches: [master]
     paths: ["app.config.ts"]
+  workflow_dispatch: {}
 
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
           java-version: 17
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Run tests
         run: npm test
