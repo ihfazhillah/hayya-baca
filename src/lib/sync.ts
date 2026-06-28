@@ -3,7 +3,7 @@ import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, create
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
-import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus, setGracePeriodEndDate } from "./streak";
+import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus, setGracePeriodEndDate, setServerBadgeLevel } from "./streak";
 import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
@@ -478,7 +478,7 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
       }
     }
 
-    // Pull server streak status and store grace period state locally
+    // Pull server streak status and store grace period + badge level locally
     const serverStatus = await pullStreakStatus(childId);
     if (serverStatus) {
       // Store server's grace period as source of truth for offline checks
@@ -487,6 +487,8 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
         serverStatus.grace_active,
         serverStatus.grace_period_end_date
       );
+      // Store server's badge level as source of truth (avoids dual source of truth)
+      await setServerBadgeLevel(childId, serverStatus.badge_level);
     }
   } catch (e) {
     report.errors.push(`syncStreaks(${childId}): ${e instanceof Error ? e.message : String(e)}`);

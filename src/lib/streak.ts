@@ -71,6 +71,26 @@ export async function getGracePeriodState(
   }
 }
 
+/**
+ * Store server-provided badge level in settings table.
+ * This is the source of truth for badge level — local calculation is fallback only.
+ */
+export async function setServerBadgeLevel(
+  childId: number,
+  badgeLevel: string
+): Promise<void> {
+  await setSetting(`badge_${childId}`, badgeLevel);
+}
+
+/**
+ * Retrieve stored server badge level from settings table.
+ */
+export async function getServerBadgeLevel(
+  childId: number
+): Promise<string | null> {
+  return await getSetting(`badge_${childId}`);
+}
+
 // Badge levels based on streak count — 6 strawberry growth stages
 function getBadgeLevel(streak: number): "none" | "seed" | "sprout" | "bud" | "young" | "ripe" | "giant" {
   if (streak >= 60) return "giant";
@@ -203,13 +223,20 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
   // Calculate longest streak
   const longestStreak = calculateLongestStreak(dates);
 
+  // Use server-provided badge level as source of truth.
+  // Fall back to local calculation only if no server data available.
+  const serverBadge = await getServerBadgeLevel(childId);
+  const badgeLevel = serverBadge
+    ? mapBadgeLevel(serverBadge)
+    : getBadgeLevel(currentStreak);
+
   return {
     currentStreak,
     longestStreak,
     lastReadingDate: lastDate,
     graceActive,
     gracePeriodEndDate: serverGrace?.gracePeriodEndDate ?? null,
-    badgeLevel: getBadgeLevel(currentStreak),
+    badgeLevel,
   };
 }
 
