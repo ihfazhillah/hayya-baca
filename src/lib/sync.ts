@@ -3,7 +3,7 @@ import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, create
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
-import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus } from "./streak";
+import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus, setGracePeriodEndDate } from "./streak";
 import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
@@ -478,13 +478,15 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
       }
     }
 
-    // Pull server streak status and update local state
+    // Pull server streak status and store grace period state locally
     const serverStatus = await pullStreakStatus(childId);
     if (serverStatus) {
-      // Server is source of truth — recalculate local streak from server data
-      // The local getStreakStatus will recompute from stored daily logs,
-      // so we don't overwrite — the server status is used for badge validation
-      // and coin rewards in the rewards system.
+      // Store server's grace period as source of truth for offline checks
+      await setGracePeriodEndDate(
+        childId,
+        serverStatus.grace_active,
+        serverStatus.grace_period_end_date
+      );
     }
   } catch (e) {
     report.errors.push(`syncStreaks(${childId}): ${e instanceof Error ? e.message : String(e)}`);
