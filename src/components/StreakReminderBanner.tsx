@@ -16,6 +16,7 @@ export function StreakReminderBanner({
   onDismiss,
 }: StreakReminderBannerProps) {
   const [dismissed, setDismissed] = useState(false);
+  const [graceDaysRemaining, setGraceDaysRemaining] = useState<number | null>(null);
 
   const checkStreak = useCallback(async () => {
     if (dismissed) return;
@@ -25,6 +26,7 @@ export function StreakReminderBanner({
       setDismissed(true);
       onDismiss?.();
     }
+    setGraceDaysRemaining(status.graceDaysRemaining);
   }, [childId, dismissed, onDismiss]);
 
   useEffect(() => {
@@ -33,11 +35,15 @@ export function StreakReminderBanner({
 
   if (!visible || dismissed) return null;
 
+  const countdownText = graceDaysRemaining != null && graceDaysRemaining > 0
+    ? `Sisa ${graceDaysRemaining} hari sebelum streakmu putus`
+    : 'Streakmu hampir putus! Baca buku sekarang untuk lanjutkan streakmu.';
+
   return (
     <View style={styles.banner}>
       <Text style={styles.bannerIcon}>⚠️</Text>
       <Text style={styles.bannerText}>
-        Streakmu hampir putus! Baca buku sekarang untuk lanjutkan streakmu.
+        {countdownText}
       </Text>
       <Pressable onPress={onDismiss ?? (() => setDismissed(true))} style={styles.dismissBtn}>
         <Text style={styles.dismissText}>✕</Text>

@@ -485,7 +485,8 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
       await setGracePeriodEndDate(
         childId,
         serverStatus.grace_active,
-        serverStatus.grace_period_end_date
+        serverStatus.grace_period_end_date,
+        serverStatus.grace_days_remaining ?? null
       );
       // Store server's badge level as source of truth (avoids dual source of truth)
       await setServerBadgeLevel(childId, serverStatus.badge_level);

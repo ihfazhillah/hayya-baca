@@ -51,9 +51,10 @@ export function mapBadgeLevel(raw: string): string {
 export async function setGracePeriodEndDate(
   childId: number,
   graceActive: boolean,
-  gracePeriodEndDate: string | null
+  gracePeriodEndDate: string | null,
+  graceDaysRemaining: number | null = null
 ): Promise<void> {
-  await setSetting(`grace_${childId}`, JSON.stringify({ graceActive, gracePeriodEndDate }));
+  await setSetting(`grace_${childId}`, JSON.stringify({ graceActive, gracePeriodEndDate, graceDaysRemaining }));
 }
 
 /**
@@ -61,7 +62,7 @@ export async function setGracePeriodEndDate(
  */
 export async function getGracePeriodState(
   childId: number
-): Promise<{ graceActive: boolean; gracePeriodEndDate: string | null } | null> {
+): Promise<{ graceActive: boolean; gracePeriodEndDate: string | null; graceDaysRemaining: number | null } | null> {
   const val = await getSetting(`grace_${childId}`);
   if (!val) return null;
   try {
@@ -177,6 +178,7 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
       longestStreak: 0,
       lastReadingDate: null,
       graceActive: false,
+      graceDaysRemaining: null,
       badgeLevel: "none",
     };
   }
@@ -236,6 +238,7 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
     lastReadingDate: lastDate,
     graceActive,
     gracePeriodEndDate: serverGrace?.gracePeriodEndDate ?? null,
+    graceDaysRemaining: serverGrace?.graceDaysRemaining ?? null,
     badgeLevel,
   };
 }

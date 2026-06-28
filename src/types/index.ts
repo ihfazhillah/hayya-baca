@@ -98,6 +98,8 @@ export interface StreakStatus {
   currentStreak: number;
   longestStreak: number;
   lastReadingDate: string | null; // ISO date (YYYY-MM-DD)
-  graceActive: boolean; // one-day grace if they missed yesterday
+  graceActive: boolean; // true if within grace period
+  gracePeriodEndDate: string | null; // ISO date (YYYY-MM-DD) from server, null = not in grace
+  graceDaysRemaining: number | null; // days left in grace period from server
   badgeLevel: "none" | "seed" | "sprout" | "bud" | "young" | "ripe" | "giant";
 }

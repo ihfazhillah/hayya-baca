@@ -228,6 +228,8 @@ export interface ServerStreakStatus {
   longest_streak: number;
   last_reading_date: string | null;
   grace_active: boolean;
+  grace_period_end_date: string | null; // ISO date YYYY-MM-DD
+  grace_days_remaining: number | null;
   badge_level: string;
 }
 
