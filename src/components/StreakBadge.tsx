@@ -3,18 +3,22 @@ import { colors } from "../theme";
 
 const BADGE_ICONS: Record<string, string> = {
   none: "",
-  seedling: "🌱",
-  sprout: "🌿",
-  tree: "🌳",
-  forest: "🌲",
+  seed: "🌰",
+  sprout: "🌱",
+  bud: "🌹",
+  young: "🍓",
+  ripe: "🍓",
+  giant: "🏆",
 };
 
 const BADGE_LABELS: Record<string, string> = {
   none: "",
-  seedling: "Bibit",
-  sprout: "Tunas",
-  tree: "Pohon",
-  forest: "Hutan",
+  seed: "Benih",
+  sprout: "Tunas Hijau",
+  bud: "Kuncup Merah",
+  young: "Strawberry Muda",
+  ripe: "Strawberry Manis",
+  giant: "Strawberry Raksasa",
 };
 
 interface StreakBadgeProps {

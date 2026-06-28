@@ -17,12 +17,14 @@ function yesterday(): string {
   return d.toISOString().substring(0, 10);
 }
 
-// Badge levels based on streak count
-function getBadgeLevel(streak: number): string {
-  if (streak >= 20) return "forest";
-  if (streak >= 10) return "tree";
-  if (streak >= 4) return "sprout";
-  if (streak >= 1) return "seedling";
+// Badge levels based on streak count — 6 strawberry growth stages
+function getBadgeLevel(streak: number): "none" | "seed" | "sprout" | "bud" | "young" | "ripe" | "giant" {
+  if (streak >= 60) return "giant";
+  if (streak >= 30) return "ripe";
+  if (streak >= 14) return "young";
+  if (streak >= 7) return "bud";
+  if (streak >= 3) return "sprout";
+  if (streak >= 1) return "seed";
   return "none";
 }
 

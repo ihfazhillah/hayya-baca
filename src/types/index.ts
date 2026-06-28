@@ -99,5 +99,5 @@ export interface StreakStatus {
   longestStreak: number;
   lastReadingDate: string | null; // ISO date (YYYY-MM-DD)
   graceActive: boolean; // one-day grace if they missed yesterday
-  badgeLevel: string; // "none" | "seedling" | "sprout" | "tree" | "forest"
+  badgeLevel: "none" | "seed" | "sprout" | "bud" | "young" | "ripe" | "giant";
 }

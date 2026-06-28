@@ -17,10 +17,12 @@ import { useChildStreaks } from "../src/hooks/useChildStreaks";
 import { colors } from "../src/theme";
 
 const BADGE_EMOJIS: Record<string, string> = {
-  seedling: "🌱",
-  sprout: "🌿",
-  tree: "🌳",
-  forest: "🌲",
+  seed: "🌰",
+  sprout: "🌱",
+  bud: "🌹",
+  young: "🍓",
+  ripe: "🍓",
+  giant: "🏆",
 };
 
 function Avatar({
