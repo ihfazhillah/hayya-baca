@@ -22,6 +22,9 @@ import { useUnsyncedCount } from "../src/lib/useUnsyncedCount";
 import { syncAll } from "../src/lib/sync";
 import { listBookmarks, type BookmarkRow } from "../src/lib/bookmarks";
 import { colors } from "../src/theme";
+import { useStreak } from "../src/hooks/useStreak";
+import { StreakBadge } from "../src/components/StreakBadge";
+import { StreakReminderBanner } from "../src/components/StreakReminderBanner";
 import type { Book, Article } from "../src/types";
 
 type FavoriteItem =
@@ -216,6 +219,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const child = getSelectedChild();
   const [tab, setTab] = useState<Tab>("buku");
+  const { data: streakData } = useStreak();
   const [progress, setProgress] = useState<ProgressMap>({});
   const [lockedSet, setLockedSet] = useState<Set<string>>(new Set());
   const [newContentIds, setNewContentIds] = useState<Set<string>>(new Set());
@@ -341,6 +345,26 @@ export default function HomeScreen() {
           <Text style={styles.lbText}>Peringkat</Text>
         </Pressable>
       </View>
+
+      {/* Streak display */}
+      {streakData && streakData.currentStreak > 0 && (
+        <View style={styles.streakRow}>
+          <StreakBadge
+            streak={streakData.currentStreak}
+            badgeLevel={streakData.badgeLevel}
+            graceActive={streakData.graceActive}
+            showLabel
+          />
+        </View>
+      )}
+
+      {/* Reminder banner - shows when grace active or streak broken */}
+      {child && streakData && (streakData.graceActive || streakData.currentStreak === 0) && (
+        <StreakReminderBanner
+          childId={child.id}
+          visible
+        />
+      )}
 
       {/* Tabs */}
       <View style={styles.tabRow}>
@@ -546,6 +570,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: colors.textPrimary,
     flexShrink: 1,
+  },
+  streakRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    backgroundColor: colors.bgPrimary,
   },
   tabRow: {
     flexDirection: "row",

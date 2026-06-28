@@ -13,7 +13,15 @@ import { useChildren } from "../src/hooks/useChildren";
 import { selectChild } from "../src/lib/session";
 import { syncBookmarksForChild } from "../src/lib/sync";
 import { getSetting } from "../src/lib/database";
+import { useChildStreaks } from "../src/hooks/useChildStreaks";
 import { colors } from "../src/theme";
+
+const BADGE_EMOJIS: Record<string, string> = {
+  seedling: "🌱",
+  sprout: "🌿",
+  tree: "🌳",
+  forest: "🌲",
+};
 
 function Avatar({
   name,
@@ -43,6 +51,8 @@ export default function ChildSelectScreen() {
   const insets = useSafeAreaInsets();
   const { data: children, isLoading } = useChildren();
   const [syncError, setSyncError] = useState<string | null>(null);
+  const childIds = children.map((c) => c.id);
+  const childStreaks = useChildStreaks(childIds);
 
   useEffect(() => {
     getSetting("last_sync_status").then((status) => {
@@ -86,6 +96,12 @@ export default function ChildSelectScreen() {
               <Avatar name={item.name} color={item.avatarColor} size={avatarSize} />
               <Text style={styles.childName}>{item.name}</Text>
               <Text style={styles.childCoins}>{item.coins} koin</Text>
+              {childStreaks[item.id]?.currentStreak > 0 && (
+                <Text style={styles.childStreak}>
+                  🔥 {childStreaks[item.id].currentStreak} hari{" "}
+                  {BADGE_EMOJIS[childStreaks[item.id].badgeLevel] ?? ""}
+                </Text>
+              )}
             </Pressable>
           )}
           keyExtractor={(item) => String(item.id)}
@@ -161,6 +177,12 @@ const styles = StyleSheet.create({
   childCoins: {
     fontSize: 13,
     color: colors.accent,
+    fontWeight: "600",
+    marginTop: 2,
+  },
+  childStreak: {
+    fontSize: 12,
+    color: colors.primary,
     fontWeight: "600",
     marginTop: 2,
   },
