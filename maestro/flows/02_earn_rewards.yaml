@@ -1,0 +1,33 @@
+# TC2: Test earning rewards after completing reading + quiz
+appId: com.ihfazh.hayyabaca
+flows:
+  earn_rewards:
+    - launchApp
+    - runFlow: ensure_logged_in.yaml
+    - tapOn: "Buku"
+    - swipe:
+        from: Bottom
+        to: Top
+        slow: true
+    - tapOn:
+        contains: "halaman"
+    - assertVisible:
+        contains: "halaman"
+    - waitForAnimationToEnd
+    # Navigate pages
+    - tapOn: "Lanjutkan"
+      repeat: 10
+      delay: 1s
+    - tapOn: "Selesai"
+      continueOnFail: true
+    # Celebrate screen
+    - assertVisible:
+        contains: "Alhamdulillah"
+      timeout: 30s
+    - assertVisible: "Koin"
+    - assertVisible: "Bintang"
+      continueOnFail: true
+    - assertVisible: "Hari Streak"
+      continueOnFail: true
+    - tapOn: "Kembali"
+    - assertVisible: "Buku"
