@@ -1,20 +1,74 @@
-import { getDatabase } from "./database";
+import { getDatabase, getSetting, setSetting } from "./database";
 import { emitDataChange } from "./db-events";
 import type { StreakDailyLog, StreakStatus } from "../types";
 
+// Helper: format a Date to YYYY-MM-DD in local timezone
+function toLocalDateString(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 // Normalize ISO datetime to date string (YYYY-MM-DD) in local time
 function toDateString(iso: string): string {
-  return iso.substring(0, 10);
+  return toLocalDateString(new Date(iso));
 }
 
-function today(): string {
-  return new Date().toISOString().substring(0, 10);
+export function today(): string {
+  return toLocalDateString(new Date());
 }
 
-function yesterday(): string {
+export function yesterday(): string {
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  return d.toISOString().substring(0, 10);
+  return toLocalDateString(d);
+}
+
+
+// Backend (Indonesian) to Frontend (English) badge level mapping
+const BACKEND_BADGE_MAP: Record<string, string> = {
+  benih: "seed",
+  tunas_hijau: "sprout",
+  kuncup_merah: "bud",
+  strawberry_muda: "young",
+  strawberry_manis: "ripe",
+  strawbarry_raksasa: "giant", // backend typo preserved
+  strawberry_raksasa: "giant",
+};
+
+/**
+ * Map backend badge level (Indonesian) to frontend key (English).
+ * Returns input unchanged if already an English key.
+ */
+export function mapBadgeLevel(raw: string): string {
+  return BACKEND_BADGE_MAP[raw] ?? raw;
+}
+
+/**
+ * Store server-provided grace period end date in settings table.
+ */
+export async function setGracePeriodEndDate(
+  childId: number,
+  graceActive: boolean,
+  gracePeriodEndDate: string | null
+): Promise<void> {
+  await setSetting(`grace_${childId}`, JSON.stringify({ graceActive, gracePeriodEndDate }));
+}
+
+/**
+ * Retrieve stored grace period state from settings table.
+ */
+export async function getGracePeriodState(
+  childId: number
+): Promise<{ graceActive: boolean; gracePeriodEndDate: string | null } | null> {
+  const val = await getSetting(`grace_${childId}`);
+  if (!val) return null;
+  try {
+    return JSON.parse(val);
+  } catch {
+    return null;
+  }
 }
 
 // Badge levels based on streak count — 6 strawberry growth stages
@@ -112,6 +166,9 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
   const yesterdayStr = yesterday();
   const lastDate = dates[0];
 
+  // Fetch server grace period state (source of truth for 3-day grace)
+  const serverGrace = await getGracePeriodState(childId);
+
   let currentStreak = 0;
   let graceActive = false;
 
@@ -123,9 +180,24 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
     graceActive = true;
     currentStreak = countConsecutive(dates, yesterdayStr);
   } else {
-    // Missed both today and yesterday - streak broken
-    currentStreak = 0;
-    graceActive = false;
+    // Check server-provided grace period (3 days vs local 1-day check)
+    if (serverGrace && serverGrace.graceActive && serverGrace.gracePeriodEndDate) {
+      const endDate = serverGrace.gracePeriodEndDate.substring(0, 10);
+      if (todayStr <= endDate) {
+        // Server says grace is still active — preserve streak
+        graceActive = true;
+        // Count consecutive from the last reading date
+        currentStreak = countConsecutive(dates, lastDate);
+      } else {
+        // Grace period expired
+        currentStreak = 0;
+        graceActive = false;
+      }
+    } else {
+      // No server grace data — fallback to local 1-day check
+      currentStreak = 0;
+      graceActive = false;
+    }
   }
 
   // Calculate longest streak
@@ -136,6 +208,7 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
     longestStreak,
     lastReadingDate: lastDate,
     graceActive,
+    gracePeriodEndDate: serverGrace?.gracePeriodEndDate ?? null,
     badgeLevel: getBadgeLevel(currentStreak),
   };
 }
@@ -146,7 +219,7 @@ function countConsecutive(dates: string[], startDay: string): number {
   let count = 0;
   const cursor = new Date(startDay);
 
-  while (dateSet.has(cursor.toISOString().substring(0, 10))) {
+  while (dateSet.has(toLocalDateString(cursor))) {
     count++;
     cursor.setDate(cursor.getDate() - 1);
   }
