@@ -63,10 +63,11 @@ class StreakSyncView(APIView):
 
         today = timezone.now().date()
 
-        # Check if reading_date is today
-        if reading_date != today:
+        # Accept reading_date within ±1 day of today to handle timezone
+        # differences between device (WIB/UTC+7) and server (UTC).
+        if abs((reading_date - today).days) > 1:
             return Response(
-                {"detail": f"reading_date must be today ({today})."},
+                {"detail": f"reading_date must be within 1 day of today ({today})."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -75,8 +76,8 @@ class StreakSyncView(APIView):
                 child=child
             )[0]
 
-            # Already read today?
-            if streak.last_reading_date == today:
+            # Already read for this reading_date?
+            if streak.last_reading_date == reading_date:
                 return Response(
                     {"detail": "Already recorded a reading today."},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -89,7 +90,7 @@ class StreakSyncView(APIView):
 
             # Advance streak
             streak.current_streak += 1
-            streak.last_reading_date = today
+            streak.last_reading_date = reading_date
             streak.grace_period_end_date = today + timezone.timedelta(days=3)
 
             # Update longest streak

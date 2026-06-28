@@ -115,11 +115,11 @@ class StreakSyncTest(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_sync_wrong_date(self):
-        yesterday = timezone.now().date() - timedelta(days=1)
+        two_days_ago = timezone.now().date() - timedelta(days=2)
         resp = self.client.post(
             reverse("streak-sync", kwargs={"child_pk": self.child.pk}),
             data=json.dumps({
-                "reading_date": str(yesterday),
+                "reading_date": str(two_days_ago),
                 "content_type": "book",
                 "content_id": "1",
                 "quiz_passed": True,
@@ -278,6 +278,103 @@ class StreakCheckTest(TestCase):
         self.assertTrue(data["quiz_passed"])
         self.assertFalse(data["can_advance_streak"])
         self.assertTrue(data["already_read_today"])
+
+
+class OfflineRecoveryTest(TestCase):
+    """Test offline 4+ days deadlock recovery."""
+
+    def setUp(self):
+        self.client, self.user, self.child = _make_fixture()
+
+    def test_offline_4_days_grace_expired(self):
+        """Device offline 4 days → grace expired → sync should still work.
+
+        The device reads today and syncs. Grace expired so streak resets to 1.
+        """
+        today = timezone.now().date()
+        Streak.objects.create(
+            child=self.child,
+            current_streak=5,
+            longest_streak=5,
+            last_reading_date=today - timedelta(days=4),
+            grace_period_end_date=today - timedelta(days=1),  # expired 1 day ago
+        )
+        resp = self.client.post(
+            reverse("streak-sync", kwargs={"child_pk": self.child.pk}),
+            data=json.dumps({
+                "reading_date": str(today),
+                "content_type": "book",
+                "content_id": "1",
+                "quiz_passed": True,
+            }),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.json()
+        self.assertEqual(data["current_streak"], 1)
+        self.assertEqual(data["longest_streak"], 5)
+
+    def test_offline_reading_date_tolerance(self):
+        """Device in WIB timezone sends reading_date = tomorrow (UTC today).
+
+        Server should accept reading_date within 1 day of server's today,
+        not reject it as 'wrong date'.
+        """
+        today = timezone.now().date()
+        tomorrow = today + timedelta(days=1)
+        payload = {
+            "reading_date": str(tomorrow),
+            "content_type": "book",
+            "content_id": "1",
+            "quiz_passed": True,
+        }
+        resp = self.client.post(
+            reverse("streak-sync", kwargs={"child_pk": self.child.pk}),
+            data=json.dumps(payload),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        streak = Streak.objects.get(child=self.child)
+        self.assertEqual(streak.last_reading_date, tomorrow)
+
+    def test_offline_yesterday_reading_accepted(self):
+        """Device in WIB sends reading_date = yesterday (UTC today).
+
+        Late-night WIB reading: device thinks it's yesterday, server thinks today.
+        """
+        today = timezone.now().date()
+        yesterday = today - timedelta(days=1)
+        payload = {
+            "reading_date": str(yesterday),
+            "content_type": "book",
+            "content_id": "1",
+            "quiz_passed": True,
+        }
+        resp = self.client.post(
+            reverse("streak-sync", kwargs={"child_pk": self.child.pk}),
+            data=json.dumps(payload),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        streak = Streak.objects.get(child=self.child)
+        self.assertEqual(streak.last_reading_date, yesterday)
+
+    def test_offline_2_days_ago_rejected(self):
+        """Reading date 2+ days old should still be rejected."""
+        today = timezone.now().date()
+        two_days_ago = today - timedelta(days=2)
+        payload = {
+            "reading_date": str(two_days_ago),
+            "content_type": "book",
+            "content_id": "1",
+            "quiz_passed": True,
+        }
+        resp = self.client.post(
+            reverse("streak-sync", kwargs={"child_pk": self.child.pk}),
+            data=json.dumps(payload),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class StreakRaceConditionTest(TestCase):
