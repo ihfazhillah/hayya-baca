@@ -2,7 +2,7 @@ import json
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
@@ -278,3 +278,39 @@ class StreakCheckTest(TestCase):
         self.assertTrue(data["quiz_passed"])
         self.assertFalse(data["can_advance_streak"])
         self.assertTrue(data["already_read_today"])
+
+
+class StreakRaceConditionTest(TestCase):
+    """Test atomicity of streak sync — prevents double increment per day."""
+
+    def setUp(self):
+        self.user = User.objects.create_user(username="parent1", password="pass123")
+        self.child = Child.objects.create(name="Aisyah", created_by=self.user)
+        ChildAccess.objects.create(user=self.user, child=self.child, role="parent")
+
+    def test_double_save_same_day(self):
+        """Calling sync twice on the same day should not double-increment.
+
+        First sync sets last_reading_date=today → second sync is rejected.
+        """
+        today = timezone.now().date()
+        payload = {
+            "reading_date": str(today),
+            "content_type": "book",
+            "content_id": "1",
+            "quiz_passed": True,
+        }
+        c = APIClient()
+        c.force_authenticate(self.user)
+        url = reverse("streak-sync", kwargs={"child_pk": self.child.pk})
+
+        r1 = c.post(url, data=json.dumps(payload), content_type="application/json")
+        self.assertEqual(r1.status_code, status.HTTP_200_OK)
+
+        r2 = c.post(url, data=json.dumps(payload), content_type="application/json")
+        self.assertEqual(r2.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Streak must be exactly 1
+        streak = Streak.objects.get(child=self.child)
+        self.assertEqual(streak.current_streak, 1)
+        self.assertEqual(streak.last_reading_date, today)
