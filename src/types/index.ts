@@ -83,3 +83,21 @@ export interface GameSession {
   score: number | null;
   ended_at: string | null;
 }
+
+// --- Streak types ---
+
+export interface StreakDailyLog {
+  id: number;
+  childId: number;
+  contentId: string; // book slug or article slug
+  completedAt: string; // ISO date (YYYY-MM-DD)
+  synced: boolean;
+}
+
+export interface StreakStatus {
+  currentStreak: number;
+  longestStreak: number;
+  lastReadingDate: string | null; // ISO date (YYYY-MM-DD)
+  graceActive: boolean; // one-day grace if they missed yesterday
+  badgeLevel: string; // "none" | "seedling" | "sprout" | "tree" | "forest"
+}

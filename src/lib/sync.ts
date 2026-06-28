@@ -1,8 +1,9 @@
 import Constants from "expo-constants";
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks, type DeviceTelemetry } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks, pushStreakSync, pullStreakStatus, type DeviceTelemetry, type ServerStreakEntry, type ServerStreakStatus } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
+import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus } from "./streak";
 import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
@@ -40,6 +41,7 @@ export interface SyncReport {
   progressPushed: number;
   readingLogPushed: number;
   rewardsPulled: number;
+  streakPushed: number;
   errors: string[];
 }
 
@@ -52,6 +54,7 @@ function emptyReport(): SyncReport {
     progressPushed: 0,
     readingLogPushed: 0,
     rewardsPulled: 0,
+    streakPushed: 0,
     errors: [],
   };
 }
@@ -214,6 +217,7 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
       await syncReadingProgress(childId, report);
       await syncReadingLog(childId, report);
       await syncBookmarks(childId, report);
+      await syncStreaks(childId, report);
     }
   }
 
@@ -447,5 +451,42 @@ async function syncReadingLog(childId: number, report: SyncReport): Promise<void
     }
   } catch (e) {
     report.errors.push(`syncReadingLog(${childId}): ${e instanceof Error ? e.message : String(e)}`);
+  }
+}
+
+async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
+  try {
+    const deviceId = await getDeviceId();
+
+    // Push unsynced streak logs
+    const unsynced = await getUnsyncedStreaks(childId);
+    if (unsynced.length > 0) {
+      const entries: ServerStreakEntry[] = unsynced.map((r) => ({
+        content_id: r.contentId,
+        completed_at: r.completedAt,
+        idempotency_key: `${deviceId}:st:${r.id}`,
+      }));
+
+      const err = await pushStreakSync(childId, entries);
+
+      if (err) {
+        report.errors.push(err);
+        // DO NOT mark synced
+      } else {
+        report.streakPushed += unsynced.length;
+        await markStreaksSynced(unsynced.map((r) => r.id));
+      }
+    }
+
+    // Pull server streak status and update local state
+    const serverStatus = await pullStreakStatus(childId);
+    if (serverStatus) {
+      // Server is source of truth — recalculate local streak from server data
+      // The local getStreakStatus will recompute from stored daily logs,
+      // so we don't overwrite — the server status is used for badge validation
+      // and coin rewards in the rewards system.
+    }
+  } catch (e) {
+    report.errors.push(`syncStreaks(${childId}): ${e instanceof Error ? e.message : String(e)}`);
   }
 }
