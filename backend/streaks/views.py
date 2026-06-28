@@ -37,6 +37,17 @@ def _check_grace_period(streak, today=None):
     return False
 
 
+def _compute_effective_streak(streak, today=None):
+    """Return the effective current_streak without writing to DB.
+
+    If grace period has expired, return 0. Otherwise return stored value.
+    This avoids "lazy reset" — DB is only updated during sync.
+    """
+    if _check_grace_period(streak, today):
+        return 0
+    return streak.current_streak
+
+
 class StreakSyncView(APIView):
     """Accept offline streak data from device, validate and update server records."""
     permission_classes = [IsAuthenticated]
@@ -121,14 +132,14 @@ class StreakStatusView(APIView):
         child = Child.objects.get(id=child_pk)
         streak = _get_or_create_streak(child)
 
-        # Check if grace expired
-        if _check_grace_period(streak):
-            streak.current_streak = 0
-            streak.grace_period_end_date = None
-            streak.save(update_fields=["current_streak", "grace_period_end_date"])
-            _advance_badge(streak)
+        # Compute effective streak on-the-fly — do NOT mutate DB
+        effective_streak = _compute_effective_streak(streak)
 
-        return Response(StreakStatusSerializer(streak).data)
+        # Build response data: override current_streak with computed value
+        serializer_data = StreakStatusSerializer(streak).data
+        serializer_data["current_streak"] = effective_streak
+
+        return Response(serializer_data)
 
 
 class StreakCheckView(APIView):
@@ -158,6 +169,6 @@ class StreakCheckView(APIView):
             "quiz_passed": passed,
             "can_advance_streak": passed and not already_read,
             "already_read_today": already_read,
-            "current_streak": streak.current_streak,
+            "current_streak": _compute_effective_streak(streak, today),
             "longest_streak": streak.longest_streak,
         })

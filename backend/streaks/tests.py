@@ -411,3 +411,87 @@ class StreakRaceConditionTest(TestCase):
         streak = Streak.objects.get(child=self.child)
         self.assertEqual(streak.current_streak, 1)
         self.assertEqual(streak.last_reading_date, today)
+
+
+class LazyGraceResetTest(TestCase):
+    """Test that grace period expiration is computed on-the-fly, not lazily persisted.
+
+    Bug: GET /streak/status resets current_streak=0 in DB on first call after
+    grace expired — meaning streak count is inaccurate until user opens the app.
+
+    Fix: Compute effective streak on-the-fly without writing to DB.
+    """
+
+    def setUp(self):
+        self.client, self.user, self.child = _make_fixture()
+
+    def test_status_does_not_mutate_db_on_grace_expired(self):
+        """GET /streak/status must NOT write current_streak=0 to DB.
+
+        Grace expired → status endpoint returns streak=0, but DB still
+        retains the original current_streak value (computed on-the-fly).
+        """
+        today = timezone.now().date()
+        streak = Streak.objects.create(
+            child=self.child,
+            current_streak=5,
+            longest_streak=5,
+            last_reading_date=today - timedelta(days=4),
+            grace_period_end_date=today - timedelta(days=1),  # expired 1 day ago
+        )
+        # DB still shows 5 before status call
+        self.assertEqual(Streak.objects.get(pk=streak.pk).current_streak, 5)
+
+        # Call status — should return streak=0
+        resp = self.client.get(reverse("streak-status", kwargs={"child_pk": self.child.pk}))
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.json()
+        self.assertEqual(data["current_streak"], 0)
+
+        # DB must NOT have been mutated — still 5
+        self.assertEqual(Streak.objects.get(pk=streak.pk).current_streak, 5)
+
+    def test_check_uses_computed_streak_when_grace_expired(self):
+        """POST /streak/check must return computed streak when grace expired.
+
+        The check endpoint reads current_streak from DB — if grace expired,
+        it should compute the effective value (0) rather than stale DB value.
+        """
+        today = timezone.now().date()
+        Streak.objects.create(
+            child=self.child,
+            current_streak=5,
+            longest_streak=5,
+            last_reading_date=today - timedelta(days=4),
+            grace_period_end_date=today - timedelta(days=1),  # expired
+        )
+        resp = self.client.post(
+            reverse("streak-check", kwargs={"child_pk": self.child.pk}),
+            data=json.dumps({
+                "content_type": "book",
+                "content_id": "1",
+                "quiz_score": 4,
+                "quiz_total": 5,
+            }),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.json()
+        # current_streak should be computed as 0 (grace expired)
+        self.assertEqual(data["current_streak"], 0)
+
+    def test_status_active_grace_returns_stored_streak(self):
+        """When grace period is still active, status returns stored streak."""
+        today = timezone.now().date()
+        Streak.objects.create(
+            child=self.child,
+            current_streak=7,
+            last_reading_date=today - timedelta(days=1),
+            grace_period_end_date=today + timedelta(days=2),
+        )
+        resp = self.client.get(reverse("streak-status", kwargs={"child_pk": self.child.pk}))
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.json()
+        self.assertEqual(data["current_streak"], 7)
+        # DB must NOT have been mutated
+        self.assertEqual(Streak.objects.get(child=self.child).current_streak, 7)
