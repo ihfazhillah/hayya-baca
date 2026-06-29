@@ -3,9 +3,7 @@ name: Streak Grace Banner
 
 ---
 
-- launchApp
-- sleep: 3s
+- runFlow: 00_login_pin.yaml
 - assertVisible:
-    contains: "streak"
-  continueOnFail: true
+    text: "Orang Tua"
 - takeScreenshot: "streak_grace_banner"

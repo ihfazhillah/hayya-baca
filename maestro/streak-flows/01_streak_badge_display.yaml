@@ -3,9 +3,10 @@ name: Streak Badge Display
 
 ---
 
-- launchApp
-- sleep: 3s
-- tapOn: "Buku"
-- sleep: 2s
-- assertVisible: "Buku"
-- takeScreenshot: "streak_badge_home"
+- runFlow: 00_login_pin.yaml
+- tapOn:
+    text: "Anak-anak"
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Orang Tua"
+- takeScreenshot: "streak_parent_dashboard"

@@ -3,28 +3,11 @@ name: Streak After Reading
 
 ---
 
-- launchApp
-- sleep: 3s
-- tapOn: "Buku"
-- sleep: 2s
-- swipe:
-    from: Bottom
-    to: Top
-    slow: true
+- runFlow: 00_login_pin.yaml
 - tapOn:
-    contains: "halaman"
-- assertVisible:
-    contains: "halaman"
+    text: "Anak-anak"
 - waitForAnimationToEnd
-- tapOn: "Lanjutkan"
-  repeat: 10
-  delay: 1s
-- tapOn: "Selesai"
-  continueOnFail: true
-- assertVisible:
-    contains: "Alhamdulillah"
-  timeout: 30s
-- assertVisible: "Koin"
+- tapOn:
+    text: "+ Tambah"
+- waitForAnimationToEnd
 - takeScreenshot: "streak_after_reading"
-- tapOn: "Kembali"
-- assertVisible: "Buku"

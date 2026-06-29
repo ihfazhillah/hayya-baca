@@ -12,7 +12,8 @@ name: Login Parent PIN
     id: "android:id/content"
 - waitForAnimationToEnd
 - inputText: "1234"
-- keyEvent: "KEYCODE_BACK"
+- tapOn:
+    point: "50%,15%"
 - waitForAnimationToEnd
 - tapOn:
     text: "Masuk"

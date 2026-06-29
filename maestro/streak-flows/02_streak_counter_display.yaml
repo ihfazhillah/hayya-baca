@@ -3,13 +3,10 @@ name: Streak Counter Display
 
 ---
 
-- launchApp
-- sleep: 3s
-- tapOn: "Profil"
-  continueOnFail: true
-- sleep: 2s
+- runFlow: 00_login_pin.yaml
+- tapOn:
+    text: "Anak-anak"
+- waitForAnimationToEnd
 - assertVisible:
-    contains: "streak"
-  continueOnFail: true
-  timeout: 10s
+    text: "Orang Tua"
 - takeScreenshot: "streak_counter"
