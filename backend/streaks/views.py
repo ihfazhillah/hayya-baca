@@ -162,7 +162,11 @@ class StreakCheckView(APIView):
 
         streak = _get_or_create_streak(child)
         today = timezone.now().date()
-        already_read = streak.last_reading_date == today
+        # ±1-day tolerance to handle WIB/UTC offset
+        already_read = (
+            streak.last_reading_date is not None
+            and abs((streak.last_reading_date - today).days) <= 1
+        )
 
         return Response({
             "child_id": child.pk,
