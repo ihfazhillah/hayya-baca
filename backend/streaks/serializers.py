@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from .models import Badge, Streak
@@ -36,13 +37,11 @@ class StreakStatusSerializer(serializers.ModelSerializer):
     def get_grace_period_active(self, obj):
         if obj.grace_period_end_date is None:
             return False
-        from django.utils import timezone
         return timezone.now().date() <= obj.grace_period_end_date
 
     def get_grace_days_remaining(self, obj):
         if obj.grace_period_end_date is None:
             return None
-        from django.utils import timezone
         delta = obj.grace_period_end_date - timezone.now().date()
         return max(delta.days, 0)
 

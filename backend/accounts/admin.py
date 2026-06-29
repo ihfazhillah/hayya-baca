@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.db.models import Sum
 
+from games.models import GameSession
+from rewards.models import RewardHistory
 from .models import Child, ChildAccess, ShareInvite
 
 
@@ -12,9 +14,6 @@ class ChildAccessInline(admin.TabularInline):
 @admin.action(description="Recalculate coins/stars from reward history")
 def recalculate_totals(modeladmin, request, queryset):
     for child in queryset:
-        from rewards.models import RewardHistory
-        from games.models import GameSession
-
         coin_sum = (
             RewardHistory.objects.filter(
                 child=child, type__in=["coin", "coin_adjustment"], voided=False

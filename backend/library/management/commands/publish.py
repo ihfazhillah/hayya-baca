@@ -6,6 +6,7 @@ from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import F, Q
 from django.utils import timezone
 
 from library.models import Book
@@ -30,7 +31,6 @@ class Command(BaseCommand):
             if options["force"]:
                 books = Book.objects.all()
             else:
-                from django.db.models import F, Q
                 books = Book.objects.filter(
                     Q(is_published=False) | Q(updated_at__gt=F("published_at"))
                 )

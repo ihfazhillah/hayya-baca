@@ -1,3 +1,4 @@
+from django.db import connection
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
@@ -20,7 +21,6 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(content_type=content_type)
         category = self.request.query_params.get("category")
         if category:
-            from django.db import connection
             if connection.vendor == "sqlite":
                 # SQLite doesn't support __contains on JSON; filter in Python
                 pks = [b.pk for b in qs if category in (b.categories or [])]
