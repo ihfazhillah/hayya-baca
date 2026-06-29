@@ -1,0 +1,15 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Counter Display
+
+---
+
+- launchApp
+- sleep: 3s
+- tapOn: "Profil"
+  continueOnFail: true
+- sleep: 2s
+- assertVisible:
+    contains: "streak"
+  continueOnFail: true
+  timeout: 10s
+- takeScreenshot: "streak_counter"

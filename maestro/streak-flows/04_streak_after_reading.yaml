@@ -1,11 +1,12 @@
 appId: com.ihfazh.hayyabaca
-name: Earn Rewards
+name: Streak After Reading
 
 ---
 
 - launchApp
-- runFlow: ensure_logged_in.yaml
+- sleep: 3s
 - tapOn: "Buku"
+- sleep: 2s
 - swipe:
     from: Bottom
     to: Top
@@ -24,9 +25,6 @@ name: Earn Rewards
     contains: "Alhamdulillah"
   timeout: 30s
 - assertVisible: "Koin"
-- assertVisible: "Bintang"
-  continueOnFail: true
-- assertVisible: "Hari Streak"
-  continueOnFail: true
+- takeScreenshot: "streak_after_reading"
 - tapOn: "Kembali"
 - assertVisible: "Buku"

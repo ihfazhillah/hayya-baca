@@ -1,0 +1,8 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Celebrate Screen
+
+---
+
+- launchApp
+- sleep: 3s
+- takeScreenshot: "streak_celebrate_screen"

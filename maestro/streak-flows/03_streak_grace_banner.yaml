@@ -1,0 +1,11 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Grace Banner
+
+---
+
+- launchApp
+- sleep: 3s
+- assertVisible:
+    contains: "streak"
+  continueOnFail: true
+- takeScreenshot: "streak_grace_banner"

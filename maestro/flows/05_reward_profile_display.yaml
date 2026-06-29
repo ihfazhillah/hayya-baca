@@ -1,19 +1,19 @@
-# TC5: Verify reward display on profile screen
 appId: com.ihfazh.hayyabaca
 flows:
   reward_profile_display:
-    - launchApp
-    - runFlow: ensure_logged_in.yaml
-    - tapOn:
-        contains: "Orang Tua"
-      continueOnFail: true
-    - waitForAnimationToEnd
-    - assertVisible:
-        contains: "koin"
-      continueOnFail: true
-    - assertVisible:
-        contains: "Koin +"
-      continueOnFail: true
-    - assertVisible:
-        contains: "streak"
-      continueOnFail: true
+    commands:
+      - launchApp
+      - runFlow: ensure_logged_in.yaml
+      - tapOn:
+          contains: "Orang Tua"
+        continueOnFail: true
+      - waitForAnimationToEnd
+      - assertVisible:
+          contains: "koin"
+        continueOnFail: true
+      - assertVisible:
+          contains: "Koin +"
+        continueOnFail: true
+      - assertVisible:
+          contains: "streak"
+        continueOnFail: true

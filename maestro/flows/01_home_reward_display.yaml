@@ -1,15 +1,14 @@
-# TC1: Verify reward points display on home screen
 appId: com.ihfazh.hayyabaca
-flows:
-  home_reward_display:
-    - launchApp
-    - runFlow: ensure_logged_in.yaml
-    - assertVisible: "Buku"
-    - waitForAnimationToEnd
-    # StreakBadge: 🔥{count} badge
-    - assertVisible:
-        contains: "🔥"
-      continueOnFail: true
-    # Navigation tabs
-    - assertVisible: "Buku"
-    - assertVisible: "Artikel"
+name: Home Reward Display
+
+---
+
+- launchApp
+- runFlow: ensure_logged_in.yaml
+- assertVisible: "Buku"
+- waitForAnimationToEnd
+- assertVisible:
+    contains: "🔥"
+  continueOnFail: true
+- assertVisible: "Buku"
+- assertVisible: "Artikel"

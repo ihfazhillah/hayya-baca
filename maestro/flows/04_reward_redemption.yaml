@@ -1,15 +1,14 @@
-# TC4: Test reward redemption flow (Games screen)
 appId: com.ihfazh.hayyabaca
 flows:
   reward_redemption:
-    - launchApp
-    - runFlow: ensure_logged_in.yaml
-    - tapOn: "Permainan"
-    - waitForAnimationToEnd
-    - assertVisible: "Permainan"
-    - assertVisible:
-        contains: "koin"
-    # Tap game card
-    - tapOn:
-        contains: "koin"
-      continueOnFail: true
+    commands:
+      - launchApp
+      - runFlow: ensure_logged_in.yaml
+      - tapOn: "Permainan"
+      - waitForAnimationToEnd
+      - assertVisible: "Permainan"
+      - assertVisible:
+          contains: "koin"
+      - tapOn:
+          contains: "koin"
+        continueOnFail: true

@@ -1,12 +1,13 @@
-# Shared: Ensure logged in (pick first child)
 appId: com.ihfazh.hayyabaca
-flows:
-  ensure_logged_in:
-    - tapOn:
-        contains: "Mulai"
-      continueOnFail: true
-    - tapOn:
-        contains: "Lanjutkan"
-      continueOnFail: true
-    - assertVisible: "Buku"
-      timeout: 15s
+name: Ensure Logged In
+
+---
+
+- tapOn:
+    contains: "Mulai"
+  continueOnFail: true
+- tapOn:
+    contains: "Lanjutkan"
+  continueOnFail: true
+- assertVisible: "Buku"
+  timeout: 15s

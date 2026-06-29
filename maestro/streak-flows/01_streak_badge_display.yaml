@@ -1,0 +1,11 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Badge Display
+
+---
+
+- launchApp
+- sleep: 3s
+- tapOn: "Buku"
+- sleep: 2s
+- assertVisible: "Buku"
+- takeScreenshot: "streak_badge_home"

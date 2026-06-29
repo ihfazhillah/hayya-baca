@@ -1,0 +1,10 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Reward UI
+
+---
+
+- launchApp
+- sleep: 3s
+- assertVisible: "Hari Streak"
+  continueOnFail: true
+- takeScreenshot: "streak_reward_ui"
