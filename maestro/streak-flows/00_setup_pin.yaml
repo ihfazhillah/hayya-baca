@@ -1,0 +1,33 @@
+appId: com.ihfazh.hayyabaca
+name: Setup Parent PIN
+
+---
+
+- launchApp
+- waitForAnimationToEnd
+- tapOn:
+    text: "Orang Tua"
+- waitForAnimationToEnd
+- tapOn:
+    id: "android:id/content"
+- waitForAnimationToEnd
+- inputText: "1234"
+- tapOn:
+    point: "50%,15%"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Lanjut"
+- waitForAnimationToEnd
+- tapOn:
+    id: "android:id/content"
+- waitForAnimationToEnd
+- inputText: "1234"
+- tapOn:
+    point: "50%,15%"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Simpan"
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Orang Tua"
+- takeScreenshot: "pin_setup_done"
