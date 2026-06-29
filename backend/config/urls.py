@@ -15,6 +15,7 @@ urlpatterns = [
     path("api/search/", include("search.urls")),
     path("api/children/<int:child_pk>/", include("reading.urls")),
     path("api/children/<int:child_pk>/", include("rewards.urls")),
+    path("api/children/<int:child_pk>/", include("streaks.urls")),
     # API docs
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),

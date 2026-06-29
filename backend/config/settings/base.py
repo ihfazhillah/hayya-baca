@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'games',
     'sync',
     'search',
+    'streaks',
 ]
 
 MIDDLEWARE = [
