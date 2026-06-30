@@ -3,20 +3,20 @@ import { colors } from "../theme";
 
 export const BADGE_ICONS: Record<string, string> = {
   none: "",
-  seed: "\U0001f331",
-  sprout: "\U0001f33f",
-  bud: "\U0001f339",
-  young: "\U0001f353",
-  ripe: "\U0001f353",
-  giant: "\U0001fc6",
+  seed: "🌰",
+  sprout: "🌱",
+  bud: "🌹",
+  young: "🍓",
+  ripe: "🍓",
+  giant: "🏆",
   // Backend Indonesian names -- alias to same icons
-  benih: "\U0001f331",
-  tunas_hijau: "\U0001f33f",
-  kuncup_merah: "\U0001f339",
-  strawberry_muda: "\U0001f353",
-  strawberry_manis: "\U0001f353",
-  strawbarry_raksasa: "\U0001fc6",
-  strawberry_raksasa: "\U0001fc6",
+  benih: "🌰",
+  tunas_hijau: "🌱",
+  kuncup_merah: "🌹",
+  strawberry_muda: "🍓",
+  strawberry_manis: "🍓",
+  strawbarry_raksasa: "🏆",
+  strawberry_raksasa: "🏆",
 };
 
 const BADGE_LABELS: Record<string, string> = {
@@ -64,7 +64,7 @@ export function StreakBadge({
       ]}
     >
       <View style={styles.mainRow}>
-        <Text style={styles.flame}>{"\U0001f525"}</Text>
+        <Text style={styles.flame}>🔥</Text>
         <Text style={[styles.count, graceActive && styles.graceText]}>
           {streak}
         </Text>
