@@ -20,6 +20,7 @@ import { colors } from "../src/theme";
 import { getAllBooks } from "../src/lib/books";
 import { getSimilarBooks } from "../src/lib/recommendation";
 import { useStreak } from "../src/hooks/useStreak";
+import { BADGE_ICONS } from "../src/components/StreakBadge";
 import type { Book } from "../src/types";
 
 export default function CelebrateScreen() {
@@ -97,7 +98,7 @@ export default function CelebrateScreen() {
 
       <View style={styles.rewards}>
         <Animated.View style={[styles.rewardCard, coinsStyle]}>
-          <Text style={styles.rewardEmoji}>coin</Text>
+          <Text style={styles.rewardEmoji}>🪙</Text>
           <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
             +{coins}
           </Text>
@@ -106,7 +107,7 @@ export default function CelebrateScreen() {
 
         {Number(stars) > 0 && (
           <Animated.View style={[styles.rewardCard, starsStyle]}>
-            <Text style={styles.rewardEmoji}>star</Text>
+            <Text style={styles.rewardEmoji}>⭐</Text>
             <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
               +{stars}
             </Text>
@@ -123,7 +124,7 @@ export default function CelebrateScreen() {
 
       {streak && streak.currentStreak > 0 && (
         <Animated.View style={[styles.rewardCard, streakStyle]}>
-          <Text style={styles.rewardEmoji}>fire</Text>
+          <Text style={styles.rewardEmoji}>{BADGE_ICONS[streak.badgeLevel] ?? '🔥'}</Text>
           <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
             {streak.currentStreak}
           </Text>
