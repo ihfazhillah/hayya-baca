@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     gap: 8,
+    marginTop: 12,
+    marginBottom: 16,
   },
   bannerIcon: {
     fontSize: 18,
