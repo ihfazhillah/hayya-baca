@@ -185,7 +185,7 @@ export default function QuizScreen() {
           }
           await saveReadingProgress(child.id, article.slug, 0, true);
           await appendReadingLog(child.id, article.slug);
-          await recordDailyReading(child.id, article.slug);
+          await recordDailyReading(child.id, article.slug, 'article');
           await pushQuizAttempt(child.id, {
             book: article.slug,
             score: finalCorrect,

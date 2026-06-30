@@ -89,6 +89,7 @@ export interface GameSession {
 export interface StreakDailyLog {
   id: number;
   childId: number;
+  contentType: 'book' | 'article';
   contentId: string; // book slug or article slug
   completedAt: string; // ISO date (YYYY-MM-DD)
   synced: boolean;

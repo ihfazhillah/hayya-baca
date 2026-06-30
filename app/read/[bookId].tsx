@@ -218,7 +218,7 @@ export default function ReadScreen() {
           }
           await saveReadingProgress(child.id, book.id, book.pages.length - 1, true);
           await appendReadingLog(child.id, book.id);
-          await recordDailyReading(child.id, book.id);
+          await recordDailyReading(child.id, book.id, 'book');
         }
       } catch {}
 

@@ -107,6 +107,7 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
     CREATE TABLE IF NOT EXISTS streak_daily_logs (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       child_id INTEGER NOT NULL,
+      content_type TEXT NOT NULL DEFAULT 'book',
       content_id TEXT NOT NULL,
       completed_at TEXT NOT NULL DEFAULT (datetime('now')),
       synced INTEGER NOT NULL DEFAULT 0,
@@ -114,6 +115,13 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       UNIQUE(child_id, completed_at)
     );
   `);
+
+  // Migration: add content_type column if missing (idempotent)
+  try {
+    await db.runAsync("ALTER TABLE streak_daily_logs ADD COLUMN content_type TEXT NOT NULL DEFAULT 'book'");
+  } catch {
+    // column already exists — ignore
+  }
 
   // Migration: add server_id column if missing (idempotent)
   try {

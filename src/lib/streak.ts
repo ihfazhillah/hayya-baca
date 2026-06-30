@@ -107,17 +107,19 @@ function getBadgeLevel(streak: number): "none" | "seed" | "sprout" | "bud" | "yo
 
 export async function recordDailyReading(
   childId: number,
-  contentId: string
+  contentId: string,
+  contentType: 'book' | 'article' = 'book'
 ): Promise<void> {
   const db = await getDatabase();
   const ts = new Date().toISOString();
 
   // Upsert: one log per child per day (contentId updated if they read multiple)
   await db.runAsync(
-    `INSERT INTO streak_daily_logs (child_id, content_id, completed_at, synced)
-     VALUES (?, ?, ?, 0)
-     ON CONFLICT(child_id, completed_at) DO UPDATE SET content_id = excluded.content_id`,
+    `INSERT INTO streak_daily_logs (child_id, content_type, content_id, completed_at, synced)
+     VALUES (?, ?, ?, ?, 0)
+     ON CONFLICT(child_id, completed_at) DO UPDATE SET content_id = excluded.content_id, content_type = excluded.content_type`,
     childId,
+    contentType,
     contentId,
     ts
   );
@@ -132,17 +134,19 @@ export async function getUnsyncedStreaks(
   const rows = await db.getAllAsync<{
     id: number;
     child_id: number;
+    content_type: string;
     content_id: string;
     completed_at: string;
     synced: number;
   }>(
-    "SELECT id, child_id, content_id, completed_at, synced FROM streak_daily_logs WHERE child_id = ? AND synced = 0",
+    "SELECT id, child_id, content_type, content_id, completed_at, synced FROM streak_daily_logs WHERE child_id = ? AND synced = 0",
     childId
   );
 
   return rows.map((r) => ({
     id: r.id,
     childId: r.child_id,
+    contentType: (r.content_type === 'article' ? 'article' : 'book') as 'book' | 'article',
     contentId: r.content_id,
     completedAt: toDateString(r.completed_at),
     synced: r.synced === 1,
