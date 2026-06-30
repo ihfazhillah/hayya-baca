@@ -23,7 +23,6 @@ import { syncAll } from "../src/lib/sync";
 import { listBookmarks, type BookmarkRow } from "../src/lib/bookmarks";
 import { colors } from "../src/theme";
 import { useStreak } from "../src/hooks/useStreak";
-import { StreakBadge } from "../src/components/StreakBadge";
 import { StreakReminderBanner } from "../src/components/StreakReminderBanner";
 import type { Book, Article } from "../src/types";
 
@@ -324,7 +323,14 @@ export default function HomeScreen() {
         <Pressable onPress={() => router.replace("/")} style={styles.backBtn}>
           <Text style={styles.backText}>Ganti</Text>
         </Pressable>
-        <Text style={styles.greeting} numberOfLines={1}>Halo, {child.name}!</Text>
+        <View style={styles.greetingContainer}>
+          <Text style={styles.greeting} numberOfLines={1}>
+            Halo, {child.name}!
+            {streakData && streakData.currentStreak > 0
+              ? ` 🔥 ${streakData.currentStreak} hari`
+              : ''}
+          </Text>
+        </View>
         {unsyncedCount > 0 && (
           <Pressable
             testID="sync-pending-badge"
@@ -345,26 +351,6 @@ export default function HomeScreen() {
           <Text style={styles.lbText}>Peringkat</Text>
         </Pressable>
       </View>
-
-      {/* Streak display */}
-      {streakData && streakData.currentStreak > 0 && (
-        <View style={styles.streakRow}>
-          <StreakBadge
-            streak={streakData.currentStreak}
-            badgeLevel={streakData.badgeLevel}
-            graceActive={streakData.graceActive}
-            showLabel
-          />
-        </View>
-      )}
-
-      {/* Reminder banner - shows when grace active or streak broken */}
-      {child && streakData && (streakData.graceActive || streakData.currentStreak === 0) && (
-        <StreakReminderBanner
-          childId={child.id}
-          visible
-        />
-      )}
 
       {/* Tabs */}
       <View style={styles.tabRow}>
@@ -401,7 +387,14 @@ export default function HomeScreen() {
           key={`buku-${numColumns}`}
           contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
-          ListHeaderComponent={<FavoritSection favorites={favorites} router={router} />}
+          ListHeaderComponent={
+            <View>
+              <FavoritSection favorites={favorites} router={router} />
+              {child && streakData && (streakData.graceActive || streakData.currentStreak === 0) && (
+                <StreakReminderBanner childId={child.id} visible />
+              )}
+            </View>
+          }
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
             <BookCard
@@ -430,7 +423,14 @@ export default function HomeScreen() {
           key={`artikel-${numColumns}`}
           contentContainerStyle={[styles.list, { paddingHorizontal: padding, paddingBottom: insets.bottom + 16 }]}
           columnWrapperStyle={{ gap, paddingHorizontal: 0 }}
-          ListHeaderComponent={<FavoritSection favorites={favorites} router={router} />}
+          ListHeaderComponent={
+            <View>
+              <FavoritSection favorites={favorites} router={router} />
+              {child && streakData && (streakData.graceActive || streakData.currentStreak === 0) && (
+                <StreakReminderBanner childId={child.id} visible />
+              )}
+            </View>
+          }
           ItemSeparatorComponent={() => <View style={{ height: gap }} />}
           renderItem={({ item }) => (
             <ArticleCard
@@ -481,8 +481,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
   },
-  greeting: {
+  greetingContainer: {
     flex: 1,
+  },
+  greeting: {
     fontSize: 22,
     fontWeight: "bold",
     color: "#FFF",
@@ -570,13 +572,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: colors.textPrimary,
     flexShrink: 1,
-  },
-  streakRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    backgroundColor: colors.bgPrimary,
   },
   tabRow: {
     flexDirection: "row",
