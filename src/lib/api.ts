@@ -222,6 +222,7 @@ export interface ServerStreakEntry {
   content_type: 'book' | 'article';
   content_id: string;
   quiz_passed: boolean;
+  idempotency_key?: string;
   device_id?: string;
 }
 
@@ -244,17 +245,6 @@ export async function pushStreakSync(
     body: JSON.stringify(entry),
   });
   if (!res.ok) {
-    // Backend returns 400 with "Already recorded a reading today" when
-    // the entry already exists. Treat this as success so the local row
-    // gets marked synced and won't be re-pushed on next sync cycle.
-    try {
-      const data = await res.json();
-      if (res.status === 400 && data?.detail?.includes("Already recorded")) {
-        return null;
-      }
-    } catch {
-      // Not JSON or parse failed — fall through to error
-    }
     const err = await res.text().catch(() => "");
     return `pushStreakSync ${res.status}: ${err}`;
   }
