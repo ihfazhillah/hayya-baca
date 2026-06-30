@@ -458,23 +458,28 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
   try {
     const deviceId = await getDeviceId();
 
-    // Push unsynced streak logs
+    // Push unsynced streak logs — backend accepts one entry per POST
     const unsynced = await getUnsyncedStreaks(childId);
     if (unsynced.length > 0) {
-      const entries: ServerStreakEntry[] = unsynced.map((r) => ({
-        content_id: r.contentId,
-        completed_at: r.completedAt,
-        idempotency_key: `${deviceId}:st:${r.id}`,
-      }));
-
-      const err = await pushStreakSync(childId, entries);
-
-      if (err) {
-        report.errors.push(err);
-        // DO NOT mark synced
-      } else {
-        report.streakPushed += unsynced.length;
-        await markStreaksSynced(unsynced.map((r) => r.id));
+      const syncedIds: number[] = [];
+      for (const r of unsynced) {
+        const entry: ServerStreakEntry = {
+          reading_date: r.completedAt,
+          content_type: r.contentType,
+          content_id: r.contentId,
+          quiz_passed: true,
+          device_id: deviceId,
+        };
+        const err = await pushStreakSync(childId, entry);
+        if (err) {
+          report.errors.push(err);
+        } else {
+          syncedIds.push(r.id);
+        }
+      }
+      if (syncedIds.length > 0) {
+        report.streakPushed += syncedIds.length;
+        await markStreaksSynced(syncedIds);
       }
     }
 
