@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../theme";
 
-const BADGE_ICONS: Record<string, string> = {
+export const BADGE_ICONS: Record<string, string> = {
   none: "",
   seed: "\U0001f331",
   sprout: "\U0001f33f",

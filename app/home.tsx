@@ -24,6 +24,7 @@ import { listBookmarks, type BookmarkRow } from "../src/lib/bookmarks";
 import { colors } from "../src/theme";
 import { useStreak } from "../src/hooks/useStreak";
 import { StreakReminderBanner } from "../src/components/StreakReminderBanner";
+import { BADGE_ICONS } from "../src/components/StreakBadge";
 import type { Book, Article } from "../src/types";
 
 type FavoriteItem =
@@ -327,7 +328,7 @@ export default function HomeScreen() {
           <Text style={styles.greeting} numberOfLines={1}>
             Halo, {child.name}!
             {streakData && streakData.currentStreak > 0
-              ? ` 🔥 ${streakData.currentStreak} hari`
+              ? ` ${BADGE_ICONS[streakData.badgeLevel] ?? '🔥'} ${streakData.currentStreak} hari`
               : ''}
           </Text>
         </View>
