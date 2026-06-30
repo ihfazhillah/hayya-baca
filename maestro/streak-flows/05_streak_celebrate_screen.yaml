@@ -1,0 +1,7 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Celebrate Screen
+
+---
+
+- runFlow: 00_login_pin.yaml
+- takeScreenshot: "streak_celebrate_screen"

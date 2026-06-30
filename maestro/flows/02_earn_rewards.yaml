@@ -1,0 +1,32 @@
+appId: com.ihfazh.hayyabaca
+name: Earn Rewards
+
+---
+
+- launchApp
+- runFlow: ensure_logged_in.yaml
+- tapOn: "Buku"
+- swipe:
+    from: Bottom
+    to: Top
+    slow: true
+- tapOn:
+    contains: "halaman"
+- assertVisible:
+    contains: "halaman"
+- waitForAnimationToEnd
+- tapOn: "Lanjutkan"
+  repeat: 10
+  delay: 1s
+- tapOn: "Selesai"
+  continueOnFail: true
+- assertVisible:
+    contains: "Alhamdulillah"
+  timeout: 30s
+- assertVisible: "Koin"
+- assertVisible: "Bintang"
+  continueOnFail: true
+- assertVisible: "Hari Streak"
+  continueOnFail: true
+- tapOn: "Kembali"
+- assertVisible: "Buku"

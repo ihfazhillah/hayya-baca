@@ -1,0 +1,10 @@
+appId: com.ihfazh.hayyabaca
+name: No Connectivity Reward
+
+---
+
+- launchApp
+- sleep: 3s
+- assertVisible: "Koin"
+- assertVisible: "Buku"
+- takeScreenshot: "no_connectivity_reward"

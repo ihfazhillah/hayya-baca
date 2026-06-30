@@ -1,0 +1,23 @@
+appId: com.ihfazh.hayyabaca
+name: Login Parent PIN
+
+---
+
+- launchApp
+- waitForAnimationToEnd
+- tapOn:
+    text: "Orang Tua"
+- waitForAnimationToEnd
+- tapOn:
+    id: "android:id/content"
+- waitForAnimationToEnd
+- inputText: "1234"
+- tapOn:
+    point: "50%,15%"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Masuk"
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Orang Tua"
+- takeScreenshot: "pin_login_done"

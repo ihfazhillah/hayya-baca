@@ -19,6 +19,7 @@ import Animated, {
 import { colors } from "../src/theme";
 import { getAllBooks } from "../src/lib/books";
 import { getSimilarBooks } from "../src/lib/recommendation";
+import { useStreak } from "../src/hooks/useStreak";
 import type { Book } from "../src/types";
 
 export default function CelebrateScreen() {
@@ -38,6 +39,8 @@ export default function CelebrateScreen() {
   const coinsScale = useSharedValue(0);
   const starsScale = useSharedValue(0);
   const buttonOpacity = useSharedValue(0);
+  const streakScale = useSharedValue(0);
+  const { data: streak } = useStreak();
 
   // Get a recommendation (similar book, or first unread)
   const recommendation = useMemo(() => {
@@ -54,6 +57,7 @@ export default function CelebrateScreen() {
     titleScale.value = withSpring(1, { damping: 8 });
     coinsScale.value = withDelay(300, withSpring(1, { damping: 8 }));
     starsScale.value = withDelay(600, withSpring(1, { damping: 8 }));
+    streakScale.value = withDelay(900, withSpring(1, { damping: 8 }));
     buttonOpacity.value = withDelay(1000, withTiming(1, { duration: 400 }));
   }, []);
 
@@ -67,6 +71,10 @@ export default function CelebrateScreen() {
 
   const starsStyle = useAnimatedStyle(() => ({
     transform: [{ scale: starsScale.value }],
+  }));
+
+  const streakStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: streakScale.value }],
   }));
 
   const buttonStyle = useAnimatedStyle(() => ({
@@ -111,6 +119,16 @@ export default function CelebrateScreen() {
         <Text style={styles.quizScore}>
           Skor kuis: {quizScore} benar
         </Text>
+      )}
+
+      {streak && streak.currentStreak > 0 && (
+        <Animated.View style={[styles.rewardCard, streakStyle]}>
+          <Text style={styles.rewardEmoji}>fire</Text>
+          <Text style={[styles.rewardCount, isTablet && styles.rewardCountTablet]}>
+            {streak.currentStreak}
+          </Text>
+          <Text style={styles.rewardLabel}>Hari Streak</Text>
+        </Animated.View>
       )}
 
       {recommendation && (

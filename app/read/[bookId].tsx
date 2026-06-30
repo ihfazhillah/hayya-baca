@@ -12,6 +12,7 @@ import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { getBookContent } from "../../src/lib/books";
 import { appendReadingLog } from "../../src/lib/recommendation";
 import { getSelectedChild } from "../../src/lib/session";
+import { recordDailyReading } from "../../src/lib/streak";
 import { isBookmarked as isBookmarkedFn, toggleBookmark } from "../../src/lib/bookmarks";
 import { pushBookmarksOnly } from "../../src/lib/sync";
 import { BookmarkStar } from "../../src/components/BookmarkStar";
@@ -217,6 +218,7 @@ export default function ReadScreen() {
           }
           await saveReadingProgress(child.id, book.id, book.pages.length - 1, true);
           await appendReadingLog(child.id, book.id);
+          await recordDailyReading(child.id, book.id);
         }
       } catch {}
 

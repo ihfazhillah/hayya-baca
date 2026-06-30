@@ -14,6 +14,7 @@ import { getSelectedChild } from "../../src/lib/session";
 import { addReward, saveReadingProgress } from "../../src/lib/rewards";
 import { appendReadingLog } from "../../src/lib/recommendation";
 import { pushQuizAttempt } from "../../src/lib/api";
+import { recordDailyReading } from "../../src/lib/streak";
 import { colors } from "../../src/theme";
 import type { ArticleQuizQuestion } from "../../src/types";
 
@@ -184,6 +185,7 @@ export default function QuizScreen() {
           }
           await saveReadingProgress(child.id, article.slug, 0, true);
           await appendReadingLog(child.id, article.slug);
+          await recordDailyReading(child.id, article.slug);
           await pushQuizAttempt(child.id, {
             book: article.slug,
             score: finalCorrect,

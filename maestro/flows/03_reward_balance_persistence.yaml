@@ -1,0 +1,17 @@
+appId: com.ihfazh.hayyabaca
+name: Reward Balance Persistence
+
+---
+
+- launchApp
+- runFlow: ensure_logged_in.yaml
+- assertVisible: "Koin"
+- assertVisible: "Bintang"
+  continueOnFail: true
+- takeScreenshot: "reward_balance_home"
+- tapOn: "Profil"
+  continueOnFail: true
+- sleep: 2s
+- assertVisible: "Koin"
+  timeout: 10s
+- takeScreenshot: "reward_balance_profile"

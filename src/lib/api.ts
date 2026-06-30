@@ -215,6 +215,47 @@ export async function fetchReadingProgressFromServer(
   return res.json();
 }
 
+// --- Streak API ---
+
+export interface ServerStreakEntry {
+  content_id: string;
+  completed_at: string; // ISO date YYYY-MM-DD
+  idempotency_key: string;
+}
+
+export interface ServerStreakStatus {
+  current_streak: number;
+  longest_streak: number;
+  last_reading_date: string | null;
+  grace_active: boolean;
+  grace_period_end_date: string | null; // ISO date YYYY-MM-DD
+  grace_days_remaining: number | null;
+  badge_level: string;
+}
+
+export async function pushStreakSync(
+  childId: number,
+  entries: ServerStreakEntry[]
+): Promise<string | null> {
+  const res = await apiFetch(`/children/${childId}/streak/sync/`, {
+    method: "POST",
+    body: JSON.stringify({ entries }),
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    return `pushStreakSync ${res.status}: ${err}`;
+  }
+  return null;
+}
+
+export async function pullStreakStatus(
+  childId: number
+): Promise<ServerStreakStatus | null> {
+  const res = await apiFetch(`/children/${childId}/streak/status/`);
+  if (!res.ok) return null;
+  return res.json();
+}
+
 export async function pushQuizAttempt(
   childId: number,
   data: { book: string; score: number; total: number }

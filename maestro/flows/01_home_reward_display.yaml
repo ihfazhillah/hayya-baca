@@ -1,0 +1,14 @@
+appId: com.ihfazh.hayyabaca
+name: Home Reward Display
+
+---
+
+- launchApp
+- runFlow: ensure_logged_in.yaml
+- assertVisible: "Buku"
+- waitForAnimationToEnd
+- assertVisible:
+    contains: "🔥"
+  continueOnFail: true
+- assertVisible: "Buku"
+- assertVisible: "Artikel"

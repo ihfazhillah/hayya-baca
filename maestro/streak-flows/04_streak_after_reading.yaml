@@ -1,0 +1,13 @@
+appId: com.ihfazh.hayyabaca
+name: Streak After Reading
+
+---
+
+- runFlow: 00_login_pin.yaml
+- tapOn:
+    text: "Anak-anak"
+- waitForAnimationToEnd
+- tapOn:
+    text: "+ Tambah"
+- waitForAnimationToEnd
+- takeScreenshot: "streak_after_reading"

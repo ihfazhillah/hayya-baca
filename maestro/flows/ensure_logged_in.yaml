@@ -1,0 +1,13 @@
+appId: com.ihfazh.hayyabaca
+name: Ensure Logged In
+
+---
+
+- tapOn:
+    contains: "Mulai"
+  continueOnFail: true
+- tapOn:
+    contains: "Lanjutkan"
+  continueOnFail: true
+- assertVisible: "Buku"
+  timeout: 15s

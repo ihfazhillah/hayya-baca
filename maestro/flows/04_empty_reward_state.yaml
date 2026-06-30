@@ -1,0 +1,10 @@
+appId: com.ihfazh.hayyabaca
+name: Empty Reward State
+
+---
+
+- launchApp
+- sleep: 3s
+- assertVisible: "Koin"
+- assertVisible: "Buku"
+- takeScreenshot: "empty_reward_state"

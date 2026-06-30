@@ -1,0 +1,14 @@
+appId: com.ihfazh.hayyabaca
+flows:
+  reward_balance_update:
+    commands:
+      - launchApp
+      - runFlow: ensure_logged_in.yaml
+      - tapOn: "Permainan"
+      - waitForAnimationToEnd
+      - assertVisible: "Permainan"
+      - assertVisible:
+          contains: "koin"
+      - takeScreenshot: "coins_check"
+      - tapOn: "Kembali"
+      - assertVisible: "Buku"

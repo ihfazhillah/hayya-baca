@@ -103,6 +103,16 @@ async function initDatabase(db: SQLite.SQLiteDatabase) {
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (child_id) REFERENCES children(id)
     );
+
+    CREATE TABLE IF NOT EXISTS streak_daily_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      child_id INTEGER NOT NULL,
+      content_id TEXT NOT NULL,
+      completed_at TEXT NOT NULL DEFAULT (datetime('now')),
+      synced INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (child_id) REFERENCES children(id),
+      UNIQUE(child_id, completed_at)
+    );
   `);
 
   // Migration: add server_id column if missing (idempotent)

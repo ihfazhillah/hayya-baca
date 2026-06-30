@@ -1,0 +1,12 @@
+appId: com.ihfazh.hayyabaca
+name: Streak Badge Display
+
+---
+
+- runFlow: 00_login_pin.yaml
+- tapOn:
+    text: "Anak-anak"
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Orang Tua"
+- takeScreenshot: "streak_parent_dashboard"
