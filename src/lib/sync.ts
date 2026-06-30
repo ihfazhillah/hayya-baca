@@ -468,7 +468,6 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
           content_type: r.contentType,
           content_id: r.contentId,
           quiz_passed: true,
-          device_id: deviceId,
         };
         const err = await pushStreakSync(childId, entry);
         if (err) {

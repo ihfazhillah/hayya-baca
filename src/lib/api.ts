@@ -218,9 +218,11 @@ export async function fetchReadingProgressFromServer(
 // --- Streak API ---
 
 export interface ServerStreakEntry {
+  reading_date: string; // ISO date YYYY-MM-DD
+  content_type: 'book' | 'article';
   content_id: string;
-  completed_at: string; // ISO date YYYY-MM-DD
-  idempotency_key: string;
+  quiz_passed: boolean;
+  device_id?: string;
 }
 
 export interface ServerStreakStatus {
@@ -235,11 +237,11 @@ export interface ServerStreakStatus {
 
 export async function pushStreakSync(
   childId: number,
-  entries: ServerStreakEntry[]
+  entry: ServerStreakEntry
 ): Promise<string | null> {
   const res = await apiFetch(`/children/${childId}/streak/sync/`, {
     method: "POST",
-    body: JSON.stringify({ entries }),
+    body: JSON.stringify(entry),
   });
   if (!res.ok) {
     const err = await res.text().catch(() => "");
