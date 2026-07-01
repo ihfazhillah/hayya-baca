@@ -8,6 +8,12 @@ import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
 
+async function getChildIds(): Promise<number[]> {
+  const db = await getDatabase();
+  const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+  return rows.map((r) => r.id);
+}
+
 async function gatherTelemetry(): Promise<DeviceTelemetry> {
   const db = await getDatabase();
   const rewardsRow = await db.getFirstAsync<{ c: number }>(
@@ -154,15 +160,29 @@ export function attachSessionSyncTrigger(): () => void {
   });
 }
 
+// Periodic background timer: flush queued data every N minutes while
+// app is in foreground. Catches data that slipped through event triggers
+// (e.g. offline mutations during background, or edge cases). Silent —
+// no UI feedback needed.
+const BACKGROUND_SYNC_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+export function attachBackgroundSyncTimer(): () => void {
+  const { AppState } = require('react-native');
+  const intervalId = setInterval(() => {
+    syncAll().catch(() => {});
+  }, BACKGROUND_SYNC_INTERVAL_MS);
+
+  return () => {
+    clearInterval(intervalId);
+  };
+}
+
 async function syncChildren(childIds: number[] | undefined, report: SyncReport): Promise<void> {
   const callerSuppliedIds = Array.isArray(childIds) && childIds.length > 0;
   // If caller didn't specify children, sync ALL local children.
   // Without this fallback, mount-time syncAll() (no args) would skip push/pull
   // steps entirely — data for every child stays queued forever.
   if (!callerSuppliedIds) {
-    const db = await getDatabase();
-    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
-    childIds = rows.map((r) => r.id);
+    childIds = await getChildIds();
   }
 
   // Step 1: Push unsynced local children to server
@@ -204,9 +224,7 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     for (const sc of serverChildren) {
       await upsertChildFromServer({ ...sc, coins: undefined as any, stars: undefined as any });
     }
-    const db = await getDatabase();
-    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
-    childIds = rows.map((r) => r.id);
+    childIds = await getChildIds();
     bootstrappedFromServer = true;
   }
 
@@ -216,9 +234,7 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
   // original childIds array still contains stale local IDs, so subsequent
   // queries return 0 rows and data is never pushed.
   if (!callerSuppliedIds) {
-    const db = await getDatabase();
-    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
-    childIds = rows.map((r) => r.id);
+    childIds = await getChildIds();
   }
 
   // Step 2: Push data for each child (push-first)

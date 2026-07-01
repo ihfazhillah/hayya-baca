@@ -207,10 +207,12 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
 
   const dates = rows.map((r) => toDateString(r.completed_at)).sort().reverse();
 
-  // Fetch server-provided state (grace, badge, and computed streak values)
-  const serverGrace = await getGracePeriodState(childId);
-  const serverStreak = await getServerStreakValues(childId);
-  const serverBadge = await getServerBadgeLevel(childId);
+  // Fetch server-provided state in parallel (grace, badge, computed streak values)
+  const [serverGrace, serverStreak, serverBadge] = await Promise.all([
+    getGracePeriodState(childId),
+    getServerStreakValues(childId),
+    getServerBadgeLevel(childId),
+  ]);
 
   // NEW DEVICE PATH: no local logs — use server values as base
   if (dates.length === 0) {

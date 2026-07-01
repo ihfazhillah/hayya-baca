@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { UpdateProvider } from "../src/context/UpdateContext";
 import { UpdateBar } from "../src/components/UpdateBar";
-import { View, StyleSheet, AppState } from "react-native";
+import { View, StyleSheet, AppState, Platform } from "react-native";
 import { useEffect, useRef } from "react";
 import { syncAll, attachSessionSyncTrigger, attachNetInfoReconnectTrigger } from "../src/lib/sync";
 import { syncContent } from "../src/lib/content-manager";
@@ -38,11 +38,12 @@ export default function RootLayout() {
     // Sync content manifest in background
     runContentSync();
 
-    // Sync when app comes to foreground (with active child if selected)
+    // MC-2: Flush ALL children on foreground, not just active child.
+    // Profile switch already triggers sync via attachSessionSyncTrigger.
+    // This ensures queued data for every child gets pushed.
     const sub = AppState.addEventListener("change", (nextState) => {
       if (appState.current.match(/inactive|background/) && nextState === "active") {
-        const childId = getSelectedChild()?.id;
-        syncAll(childId ? [childId] : undefined).then((report) => {
+        syncAll().then((report) => {
           setSetting("last_sync_status", report.success ? "ok" : report.errors.join("; "));
         }).catch(() => {});
         // Content can change server-side while the app is backgrounded — re-pull
@@ -56,10 +57,20 @@ export default function RootLayout() {
     // Flush the queue the moment connectivity is restored.
     const detachNetInfo = attachNetInfoReconnectTrigger();
 
+    // Periodic background sync every 5 minutes — catches data that accumulates
+    // while user is in-activity (reading a book). Only on foreground to avoid
+    // background execution limits on iOS/Android.
+    const interval = setInterval(() => {
+      if (AppState.currentState === "active") {
+        syncAll().catch(() => {});
+      }
+    }, 5 * 60 * 1000);
+
     return () => {
       sub.remove();
       detachSession();
       detachNetInfo();
+      clearInterval(interval);
     };
   }, []);
 

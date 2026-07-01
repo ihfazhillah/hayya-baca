@@ -164,7 +164,6 @@ function PinGateScreen({
 function Dashboard({ onBack }: { onBack: () => void }) {
   const insets = useSafeAreaInsets();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [syncing, setSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState("");
   const [children, setChildren] = useState<Child[]>([]);
   const [username, setUsername] = useState("");
@@ -229,21 +228,6 @@ function Dashboard({ onBack }: { onBack: () => void }) {
     await logout();
     setLoggedIn(false);
     setSyncStatus("");
-  };
-
-  const handleSync = async () => {
-    setSyncing(true);
-    setSyncStatus("Sinkronisasi...");
-    try {
-      const kids = await getChildren();
-      const report = await syncAll(kids.map(c => c.id));
-      await loadData();
-      setSyncStatus(formatReport(report));
-    } catch (e: any) {
-      setSyncStatus(`Gagal: ${e.message}`);
-    } finally {
-      setSyncing(false);
-    }
   };
 
   const handleAddChild = async () => {
@@ -368,22 +352,11 @@ function Dashboard({ onBack }: { onBack: () => void }) {
         )}
       </View>
 
-      {/* Sync section */}
-      {loggedIn && (
+      {/* Sync status indicator — auto-sync runs in background, no manual trigger */}
+      {loggedIn && syncStatus && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Sinkronisasi</Text>
-          <View style={styles.row}>
-            <Text style={styles.label}>{syncStatus || "Siap"}</Text>
-            <Pressable
-              style={[styles.primaryBtn, syncing && styles.disabledBtn]}
-              onPress={handleSync}
-              disabled={syncing}
-            >
-              <Text style={styles.primaryBtnText}>
-                {syncing ? "..." : "Sync"}
-              </Text>
-            </Pressable>
-          </View>
+          <Text style={styles.label}>{syncStatus}</Text>
         </View>
       )}
 
