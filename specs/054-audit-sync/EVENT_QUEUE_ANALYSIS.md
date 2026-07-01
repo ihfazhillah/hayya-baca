@@ -31,7 +31,18 @@ Testing: Event Queue Perlu mock queue vs Trigger Test syncAll sudah ada
 Performance: Sama (SQLite ke HTTP)
 Offline safe: Event Queue Ya vs Trigger Sudah ada synced=0
 
-## Rekomendasi Sementara
-Improved Trigger-Based cukup. Event Queue over-engineering untuk scope ini.
+## Keputusan Final
 
-Tunggu feedback Andrew dan Bilal sebelum final decision.
+Andrew confirm: **Event Queue = over-engineering**.
+
+`synced=0` kolom sudah merupakan event queue implisit. `SELECT WHERE synced=0` = poll queue. `SET synced=1` = drain event.
+
+Yang perlu di-improve:
+1. Deduplicate re-derive childIds blocks (lines 162-166, 207-210, 218-222) → satu helper
+2. Parallelize 3 `getSetting` calls di `getStreakStatus` (line 211-213) → `Promise.all`
+3. Foreground trigger flush ALL children (bukan cuma active)
+4. Periodic timer 5 menit
+5. Hapus tombol manual sync
+6. Bulk streak push (koordinasi Bilal — approved)
+
+Event queue tidak menambah value. Abstraction layer antara mutation dan query tidak solve user-facing problem.
