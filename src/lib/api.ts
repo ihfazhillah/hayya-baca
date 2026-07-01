@@ -251,6 +251,28 @@ export async function pushStreakSync(
   return null;
 }
 
+export interface ServerStreakBulkResponse {
+  results: Array<{ reading_date: string; status: string; skipped: boolean }>;
+  processed: number;
+  skipped: number;
+  streak: ServerStreakStatus;
+}
+
+export async function pushStreaksBulk(
+  childId: number,
+  entries: ServerStreakEntry[]
+): Promise<ServerStreakBulkResponse | null> {
+  const res = await apiFetch(`/children/${childId}/streak/sync-bulk/`, {
+    method: "POST",
+    body: JSON.stringify({ entries }),
+  });
+  if (!res.ok) {
+    const err = await res.text().catch(() => "");
+    throw new Error(`pushStreaksBulk ${res.status}: ${err}`);
+  }
+  return res.json();
+}
+
 export async function pullStreakStatus(
   childId: number
 ): Promise<ServerStreakStatus | null> {

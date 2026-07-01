@@ -1,5 +1,5 @@
 import Constants from "expo-constants";
-import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks, pushStreakSync, pullStreakStatus, type DeviceTelemetry, type ServerStreakEntry, type ServerStreakStatus } from "./api";
+import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, createChildOnServer, pushReadingLog, fetchReadingLog, fetchRewardHistory, fetchReadingProgressFromServer, pushBookmarks, pullBookmarks, pushStreaksBulk, type DeviceTelemetry, type ServerStreakEntry } from "./api";
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
@@ -469,49 +469,47 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
   try {
     const deviceId = await getDeviceId();
 
-    // Push unsynced streak logs — backend accepts one entry per POST
+    // Push all unsynced streak logs in one bulk call — backend processes
+    // entries sorted by reading_date inside transaction.atomic(). Response
+    // includes updated streak status, eliminating separate pullStreakStatus call.
     const unsynced = await getUnsyncedStreaks(childId);
     if (unsynced.length > 0) {
+      const entries: ServerStreakEntry[] = unsynced.map((r) => ({
+        reading_date: r.completedAt,
+        content_type: r.contentType,
+        content_id: r.contentId,
+        quiz_passed: true,
+        idempotency_key: `${deviceId}:${r.id}`,
+      }));
+
+      const response = await pushStreaksBulk(childId, entries);
+
+      // Mark synced: entries where skipped=false were processed successfully
       const syncedIds: number[] = [];
-      for (const r of unsynced) {
-        const entry: ServerStreakEntry = {
-          reading_date: r.completedAt,
-          content_type: r.contentType,
-          content_id: r.contentId,
-          quiz_passed: true,
-          idempotency_key: `${deviceId}:${r.id}`,
-        };
-        const err = await pushStreakSync(childId, entry);
-        if (err) {
-          report.errors.push(err);
-        } else {
-          syncedIds.push(r.id);
+      for (let i = 0; i < response.results.length; i++) {
+        if (!response.results[i].skipped) {
+          syncedIds.push(unsynced[i].id);
         }
       }
       if (syncedIds.length > 0) {
         report.streakPushed += syncedIds.length;
         await markStreaksSynced(syncedIds);
       }
-    }
 
-    // Pull server streak status and store grace period + badge level locally
-    const serverStatus = await pullStreakStatus(childId);
-    if (serverStatus) {
-      // Store server's grace period as source of truth for offline checks
+      // Store server's streak status from bulk response — no separate pull needed
+      const streak = response.streak;
       await setGracePeriodEndDate(
         childId,
-        serverStatus.grace_active,
-        serverStatus.grace_period_end_date,
-        serverStatus.grace_days_remaining ?? null
+        streak.grace_active,
+        streak.grace_period_end_date,
+        streak.grace_days_remaining ?? null
       );
-      // Store server's badge level as source of truth (avoids dual source of truth)
-      await setServerBadgeLevel(childId, serverStatus.badge_level);
-      // Store server's computed streak values as fallback for new devices
+      await setServerBadgeLevel(childId, streak.badge_level);
       await setServerStreakValues(
         childId,
-        serverStatus.current_streak,
-        serverStatus.longest_streak,
-        serverStatus.last_reading_date
+        streak.current_streak,
+        streak.longest_streak,
+        streak.last_reading_date
       );
     }
   } catch (e) {
