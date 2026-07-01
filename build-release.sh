@@ -85,7 +85,7 @@ git push origin "$TAG"
 
 if command -v gh >/dev/null 2>&1; then
   echo "Creating GitHub release..."
-  gh release create "$TAG" "$APK_PATH" \
+  if gh release create "$TAG" "$APK_PATH" \
     --title "$APP_NAME $TAG" \
     --draft=false \
     --notes "Release $VERSION
@@ -93,9 +93,13 @@ if command -v gh >/dev/null 2>&1; then
 Built with:
 - Expo SDK 55 / React Native 0.83
 - Architecture: $ARCH
-- Signed with debug keystore (sideload only)"
-  echo ""
-  echo "Release published!"
+- Signed with debug keystore (sideload only)"; then
+    echo ""
+    echo "Release published!"
+  else
+    echo ""
+    echo "WARNING: GitHub release failed (network error?). Tag pushed, APK ready."
+  fi
 else
   echo ""
   echo "gh CLI not found — tag pushed but no GitHub release created."
