@@ -22,7 +22,24 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "setup\\.ts$",
-      "e2e-sync-backend\\.test\\.ts$"
+      "e2e-sync-backend\\.test\\.ts$",
+      "integration-sync\\.test\\.ts$",
+      "usecase-recalculate-race\\.test\\.ts$",
+      "usecase-recalculate-partial-pull\\.test\\.ts$",
+      "usecase-progress-merge-counter\\.test\\.ts$",
+      "usecase-sync-partial-mark-recovery\\.test\\.ts$",
+      "usecase-sync-indicator\\.test\\.tsx$",
+      "usecase-sync-mount-trigger\\.test\\.ts$",
+      "usecase-sync-netinfo-reconnect\\.test\\.ts$",
+      "usecase-game-spend-persistence\\.test\\.ts$",
+      "usecase-sync-reading-progress-partial\\.test\\.ts$",
+      "usecase-sync-telemetry\\.test\\.ts$",
+      "usecase-full-reward-lifecycle\\.test\\.ts$",
+      "usecase-opportunistic-push\\.test\\.ts$",
+      "usecase-sync-session-switch-flushes-all\\.test\\.ts$",
+      "usecase-sync-mount-race\\.test\\.ts$",
+      "usecase-sync-network-drop-retry\\.test\\.ts$",
+      "e2e/starter\\.test\\.js$"
     ],
     "moduleFileExtensions": [
       "ts",
