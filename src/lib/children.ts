@@ -45,13 +45,19 @@ export async function linkChildToServer(localId: number, serverId: number): Prom
     return;
   }
 
-  // Remap local ID to server ID across all tables
+  // Remap local ID to server ID across ALL tables including reading_log
+  // and streak_daily_logs. Missing these caused coin/history data loss
+  // (Task #53): API calls used stale local_id as child_id, server rejected
+  // unknown child.
   const db = await getDatabase();
   await db.execAsync(`
     BEGIN;
     UPDATE reading_progress SET child_id = ${serverId} WHERE child_id = ${localId};
     UPDATE reward_history SET child_id = ${serverId} WHERE child_id = ${localId};
     UPDATE game_sessions SET child_id = ${serverId} WHERE child_id = ${localId};
+    UPDATE reading_log SET child_id = ${serverId} WHERE child_id = ${localId};
+    UPDATE streak_daily_logs SET child_id = ${serverId} WHERE child_id = ${localId};
+    UPDATE bookmarks SET child_id = ${serverId} WHERE child_id = ${localId};
     DELETE FROM children WHERE id = ${serverId};
     UPDATE children SET id = ${serverId}, server_id = ${serverId} WHERE id = ${localId};
     COMMIT;

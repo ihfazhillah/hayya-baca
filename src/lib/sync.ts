@@ -210,6 +210,17 @@ async function syncChildren(childIds: number[] | undefined, report: SyncReport):
     bootstrappedFromServer = true;
   }
 
+  // BUG-53: Re-derive childIds AFTER remap. linkChildToServer replaces
+  // local child_id with server_id in all tables (reward_history,
+  // reading_progress, reading_log, streak_daily_logs, bookmarks). The
+  // original childIds array still contains stale local IDs, so subsequent
+  // queries return 0 rows and data is never pushed.
+  if (!callerSuppliedIds) {
+    const db = await getDatabase();
+    const rows = await db.getAllAsync<{ id: number }>("SELECT id FROM children");
+    childIds = rows.map((r) => r.id);
+  }
+
   // Step 2: Push data for each child (push-first)
   if (childIds && childIds.length > 0) {
     for (const childId of childIds) {
