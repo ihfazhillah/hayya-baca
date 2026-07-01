@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.models import Child, ChildAccess
-from .models import Badge, Streak
+from .models import Badge, Streak, StreakIdempotencyKey
 from .serializers import (
     StreakCheckSerializer,
     StreakStatusSerializer,
@@ -64,6 +64,7 @@ class StreakSyncView(APIView):
 
         data = serializer.validated_data
         reading_date = data["reading_date"]
+        idempotency_key = data.get("idempotency_key")
 
         # Quiz must be passed for streak credit
         if not data["quiz_passed"]:
@@ -82,6 +83,18 @@ class StreakSyncView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        # Idempotency check — key provided & already processed for this child+date
+        if idempotency_key:
+            existing = StreakIdempotencyKey.objects.filter(
+                key=idempotency_key, child=child, reading_date=reading_date
+            ).first()
+            if existing:
+                streak = _get_or_create_streak(child)
+                return Response(
+                    StreakStatusSerializer(streak).data,
+                    status=status.HTTP_200_OK,
+                )
+
         with transaction.atomic():
             streak = Streak.objects.select_for_update().get_or_create(
                 child=child
@@ -89,9 +102,15 @@ class StreakSyncView(APIView):
 
             # Already read for this reading_date?
             if streak.last_reading_date == reading_date:
+                # Store idempotency key anyway so frontend gets 200 on retry
+                if idempotency_key:
+                    StreakIdempotencyKey.objects.get_or_create(
+                        key=idempotency_key,
+                        defaults={"child": child, "reading_date": reading_date},
+                    )
                 return Response(
-                    {"detail": "Already recorded a reading today."},
-                    status=status.HTTP_400_BAD_REQUEST,
+                    StreakStatusSerializer(streak).data,
+                    status=status.HTTP_200_OK,
                 )
 
             # Grace period check
@@ -113,6 +132,13 @@ class StreakSyncView(APIView):
                 "grace_period_end_date",
             ])
             _advance_badge(streak)
+
+            # Store idempotency key for future retries
+            if idempotency_key:
+                StreakIdempotencyKey.objects.get_or_create(
+                    key=idempotency_key,
+                    defaults={"child": child, "reading_date": reading_date},
+                )
 
         return Response(
             StreakStatusSerializer(streak).data,

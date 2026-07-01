@@ -17,6 +17,20 @@ class Badge(models.Model):
         return f"Level {self.level}: {self.name} ({self.day_threshold} days)"
 
 
+class StreakIdempotencyKey(models.Model):
+    """Track processed idempotency keys for retry-safe sync."""
+    key = models.CharField(max_length=255, unique=True)
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name="streak_keys")
+    reading_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ["key", "child"]
+
+    def __str__(self):
+        return f"Key: {self.key[:12]}... ({self.child}, {self.reading_date})"
+
+
 class Streak(models.Model):
     """Per-child streak tracking with grace period support."""
     child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name="streaks")

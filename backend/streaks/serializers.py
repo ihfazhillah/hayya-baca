@@ -58,6 +58,7 @@ class StreakSyncSerializer(serializers.Serializer):
     content_id = serializers.CharField(max_length=255)
     quiz_passed = serializers.BooleanField()
     device_id = serializers.CharField(max_length=255, required=False, default="")
+    idempotency_key = serializers.CharField(max_length=255, required=False, default=None)
 
 
 class StreakCheckSerializer(serializers.Serializer):
