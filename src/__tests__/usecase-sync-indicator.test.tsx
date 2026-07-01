@@ -22,11 +22,11 @@ function mockCreateTestDb() {
       const result = stmt.run(...params);
       return { lastInsertRowId: result.lastInsertRowId, changes: result.changes };
     },
-    getFirstAsync: async <T>(sql: string, ...params: any[]): Promise<T | null> => {
+    getFirstAsync: async function getFirstAsync<T>(sql: string, ...params: any[]): Promise<T | null> {
       const stmt = mockTestDb.prepare(sql);
       return (stmt.get(...params) as T) ?? null;
     },
-    getAllAsync: async <T>(sql: string, ...params: any[]): Promise<T[]> => {
+    getAllAsync: async function getAllAsync<T>(sql: string, ...params: any[]): Promise<T[]> {
       const stmt = mockTestDb.prepare(sql);
       return stmt.all(...params) as T[];
     },

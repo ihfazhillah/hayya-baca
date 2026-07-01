@@ -92,6 +92,37 @@ export async function getServerBadgeLevel(
   return await getSetting(`badge_${childId}`);
 }
 
+/**
+ * Store server-provided computed streak values in settings table.
+ * These serve as the base/fallback when local logs are empty (e.g. new device).
+ */
+export async function setServerStreakValues(
+  childId: number,
+  currentStreak: number,
+  longestStreak: number,
+  lastReadingDate: string | null
+): Promise<void> {
+  await setSetting(
+    `server_streak_${childId}`,
+    JSON.stringify({ currentStreak, longestStreak, lastReadingDate })
+  );
+}
+
+/**
+ * Retrieve stored server streak values from settings table.
+ */
+export async function getServerStreakValues(
+  childId: number
+): Promise<{ currentStreak: number; longestStreak: number; lastReadingDate: string | null } | null> {
+  const val = await getSetting(`server_streak_${childId}`);
+  if (!val) return null;
+  try {
+    return JSON.parse(val);
+  } catch {
+    return null;
+  }
+}
+
 // Badge levels based on streak count — 6 strawberry growth stages
 function getBadgeLevel(streak: number): "none" | "seed" | "sprout" | "bud" | "young" | "ripe" | "giant" {
   if (streak >= 60) return "giant";
@@ -176,7 +207,56 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
 
   const dates = rows.map((r) => toDateString(r.completed_at)).sort().reverse();
 
+  // Fetch server-provided state (grace, badge, and computed streak values)
+  const serverGrace = await getGracePeriodState(childId);
+  const serverStreak = await getServerStreakValues(childId);
+  const serverBadge = await getServerBadgeLevel(childId);
+
+  // NEW DEVICE PATH: no local logs — use server values as base
   if (dates.length === 0) {
+    if (serverStreak) {
+      // Server has computed streak — use as base
+      const todayStr = today();
+      let currentStreak = serverStreak.currentStreak;
+      let graceActive = false;
+
+      // Check if grace period still valid
+      if (serverGrace?.graceActive && serverGrace.gracePeriodEndDate) {
+        const endDate = serverGrace.gracePeriodEndDate.substring(0, 10);
+        if (todayStr <= endDate) {
+          graceActive = true;
+        } else {
+          // Grace expired — streak resets
+          currentStreak = 0;
+        }
+      } else if (serverStreak.lastReadingDate) {
+        const lastDate = serverStreak.lastReadingDate.substring(0, 10);
+        const yesterdayStr = yesterday();
+        if (lastDate !== todayStr && lastDate !== yesterdayStr) {
+          // Last reading was more than 1 day ago and no active grace — reset
+          currentStreak = 0;
+        }
+      } else if (!serverStreak.lastReadingDate) {
+        // Never read — streak stays 0
+        currentStreak = 0;
+      }
+
+      const badgeLevel = serverBadge
+        ? mapBadgeLevel(serverBadge)
+        : getBadgeLevel(currentStreak);
+
+      return {
+        currentStreak,
+        longestStreak: serverStreak.longestStreak,
+        lastReadingDate: serverStreak.lastReadingDate?.substring(0, 10) ?? null,
+        graceActive,
+        gracePeriodEndDate: serverGrace?.gracePeriodEndDate ?? null,
+        graceDaysRemaining: serverGrace?.graceDaysRemaining ?? null,
+        badgeLevel,
+      };
+    }
+
+    // No server data either — truly empty
     return {
       currentStreak: 0,
       longestStreak: 0,
@@ -187,13 +267,10 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
     };
   }
 
-  // Calculate current streak
+  // LOCAL DATA PATH: compute from local logs, merge with server base
   const todayStr = today();
   const yesterdayStr = yesterday();
   const lastDate = dates[0];
-
-  // Fetch server grace period state (source of truth for 3-day grace)
-  const serverGrace = await getGracePeriodState(childId);
 
   let currentStreak = 0;
   let graceActive = false;
@@ -226,12 +303,20 @@ export async function getStreakStatus(childId: number): Promise<StreakStatus> {
     }
   }
 
-  // Calculate longest streak
-  const longestStreak = calculateLongestStreak(dates);
+  // Merge with server base: local calc may be lower on new device (partial
+  // logs not yet synced). Use max of both to avoid showing reduced streak.
+  if (serverStreak && serverStreak.currentStreak > currentStreak) {
+    currentStreak = serverStreak.currentStreak;
+  }
+
+  // Calculate longest streak from local, merge with server
+  const localLongest = calculateLongestStreak(dates);
+  const longestStreak = serverStreak
+    ? Math.max(localLongest, serverStreak.longestStreak)
+    : localLongest;
 
   // Use server-provided badge level as source of truth.
   // Fall back to local calculation only if no server data available.
-  const serverBadge = await getServerBadgeLevel(childId);
   const badgeLevel = serverBadge
     ? mapBadgeLevel(serverBadge)
     : getBadgeLevel(currentStreak);

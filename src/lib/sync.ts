@@ -3,7 +3,7 @@ import { fetchChildren, isLoggedIn, pushReadingProgress, pushRewardsBulk, create
 import { upsertChildFromServer, deleteChildrenNotIn, getUnsyncedChildren, linkChildToServer } from "./children";
 import { getUnsyncedReadingProgress, getUnsyncedRewards, markRewardsSynced, markReadingProgressSynced, mergeServerRewards, mergeServerReadingProgress, persistIdempotencyKeys, recalculateBalance } from "./rewards";
 import { getDirtyBookmarks, markBookmarksSynced, applyServerBookmarks } from "./bookmarks";
-import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus, setGracePeriodEndDate, setServerBadgeLevel } from "./streak";
+import { getUnsyncedStreaks, markStreaksSynced, getStreakStatus, setGracePeriodEndDate, setServerBadgeLevel, setServerStreakValues } from "./streak";
 import { getDeviceId } from "./device";
 import { getDatabase, getSetting, setSetting } from "./database";
 import { subscribeSession, getSelectedChild } from "./session";
@@ -495,6 +495,13 @@ async function syncStreaks(childId: number, report: SyncReport): Promise<void> {
       );
       // Store server's badge level as source of truth (avoids dual source of truth)
       await setServerBadgeLevel(childId, serverStatus.badge_level);
+      // Store server's computed streak values as fallback for new devices
+      await setServerStreakValues(
+        childId,
+        serverStatus.current_streak,
+        serverStatus.longest_streak,
+        serverStatus.last_reading_date
+      );
     }
   } catch (e) {
     report.errors.push(`syncStreaks(${childId}): ${e instanceof Error ? e.message : String(e)}`);
