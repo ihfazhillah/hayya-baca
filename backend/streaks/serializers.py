@@ -61,6 +61,23 @@ class StreakSyncSerializer(serializers.Serializer):
     idempotency_key = serializers.CharField(max_length=255, required=False, default=None)
 
 
+class StreakEntrySerializer(serializers.Serializer):
+    reading_date = serializers.DateField()
+    content_type = serializers.ChoiceField(choices=["book", "article"])
+    content_id = serializers.CharField(max_length=255)
+    quiz_passed = serializers.BooleanField()
+    device_id = serializers.CharField(max_length=255, required=False, default="")
+    idempotency_key = serializers.CharField(max_length=255, required=False, default=None)
+
+
+class StreakSyncBulkSerializer(serializers.Serializer):
+    entries = serializers.ListField(
+        child=StreakEntrySerializer(),
+        min_length=1,
+        max_length=100,
+    )
+
+
 class StreakCheckSerializer(serializers.Serializer):
     content_type = serializers.ChoiceField(choices=["book", "article"])
     content_id = serializers.CharField(max_length=255)

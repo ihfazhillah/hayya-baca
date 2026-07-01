@@ -13,7 +13,58 @@ from .serializers import (
     StreakCheckSerializer,
     StreakStatusSerializer,
     StreakSyncSerializer,
+    StreakSyncBulkSerializer,
 )
+
+
+def _process_streak_entry(streak, child, entry, today):
+    """Process a single streak entry. Returns dict with status info."""
+    reading_date = entry["reading_date"]
+    idempotency_key = entry.get("idempotency_key")
+    skipped = False
+
+    # Idempotency check
+    if idempotency_key:
+        if StreakIdempotencyKey.objects.filter(
+            key=idempotency_key, child=child, reading_date=reading_date
+        ).exists():
+            return {"reading_date": reading_date, "status": "duplicate_key", "skipped": True}
+
+    # Already read for this date?
+    if streak.last_reading_date == reading_date:
+        if idempotency_key:
+            StreakIdempotencyKey.objects.get_or_create(
+                key=idempotency_key,
+                defaults={"child": child, "reading_date": reading_date},
+            )
+        return {"reading_date": reading_date, "status": "already_read", "skipped": True}
+
+    # Grace period check
+    if streak.last_reading_date and _check_grace_period(streak, today):
+        streak.current_streak = 0
+        streak.grace_period_end_date = None
+
+    # Advance streak
+    streak.current_streak += 1
+    streak.last_reading_date = reading_date
+    streak.grace_period_end_date = today + timezone.timedelta(days=3)
+
+    if streak.current_streak > streak.longest_streak:
+        streak.longest_streak = streak.current_streak
+
+    streak.save(update_fields=[
+        "current_streak", "longest_streak", "last_reading_date",
+        "grace_period_end_date",
+    ])
+    _advance_badge(streak)
+
+    if idempotency_key:
+        StreakIdempotencyKey.objects.get_or_create(
+            key=idempotency_key,
+            defaults={"child": child, "reading_date": reading_date},
+        )
+
+    return {"reading_date": reading_date, "status": "processed", "skipped": False}
 
 
 def _get_or_create_streak(child):
@@ -64,7 +115,6 @@ class StreakSyncView(APIView):
 
         data = serializer.validated_data
         reading_date = data["reading_date"]
-        idempotency_key = data.get("idempotency_key")
 
         # Quiz must be passed for streak credit
         if not data["quiz_passed"]:
@@ -83,67 +133,69 @@ class StreakSyncView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Idempotency check — key provided & already processed for this child+date
-        if idempotency_key:
-            existing = StreakIdempotencyKey.objects.filter(
-                key=idempotency_key, child=child, reading_date=reading_date
-            ).first()
-            if existing:
-                streak = _get_or_create_streak(child)
-                return Response(
-                    StreakStatusSerializer(streak).data,
-                    status=status.HTTP_200_OK,
-                )
-
         with transaction.atomic():
             streak = Streak.objects.select_for_update().get_or_create(
                 child=child
             )[0]
 
-            # Already read for this reading_date?
-            if streak.last_reading_date == reading_date:
-                # Store idempotency key anyway so frontend gets 200 on retry
-                if idempotency_key:
-                    StreakIdempotencyKey.objects.get_or_create(
-                        key=idempotency_key,
-                        defaults={"child": child, "reading_date": reading_date},
-                    )
-                return Response(
-                    StreakStatusSerializer(streak).data,
-                    status=status.HTTP_200_OK,
-                )
-
-            # Grace period check
-            if streak.last_reading_date and _check_grace_period(streak, today):
-                streak.current_streak = 0
-                streak.grace_period_end_date = None
-
-            # Advance streak
-            streak.current_streak += 1
-            streak.last_reading_date = reading_date
-            streak.grace_period_end_date = today + timezone.timedelta(days=3)
-
-            # Update longest streak
-            if streak.current_streak > streak.longest_streak:
-                streak.longest_streak = streak.current_streak
-
-            streak.save(update_fields=[
-                "current_streak", "longest_streak", "last_reading_date",
-                "grace_period_end_date",
-            ])
-            _advance_badge(streak)
-
-            # Store idempotency key for future retries
-            if idempotency_key:
-                StreakIdempotencyKey.objects.get_or_create(
-                    key=idempotency_key,
-                    defaults={"child": child, "reading_date": reading_date},
-                )
+            result = _process_streak_entry(streak, child, data, today)
 
         return Response(
             StreakStatusSerializer(streak).data,
             status=status.HTTP_200_OK,
         )
+
+
+class StreakSyncBulkView(APIView):
+    """Accept a batch of offline streak entries from device, process in date order."""
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(request=StreakSyncBulkSerializer, responses={200: dict})
+    def post(self, request, child_pk):
+        # Access check
+        if not ChildAccess.objects.filter(user=request.user, child_id=child_pk).exists():
+            raise PermissionDenied("No access to this child")
+
+        child = Child.objects.get(id=child_pk)
+        serializer = StreakSyncBulkSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        today = timezone.now().date()
+        entries = serializer.validated_data["entries"]
+
+        # Validate all entries
+        for entry in entries:
+            if not entry["quiz_passed"]:
+                return Response(
+                    {"detail": "All entries must have quiz_passed=true."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            reading_date = entry["reading_date"]
+            if abs((reading_date - today).days) > 1:
+                return Response(
+                    {"detail": f"reading_date must be within 1 day of today ({today})."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        # Sort by reading_date ascending — streak logic depends on order
+        entries.sort(key=lambda e: e["reading_date"])
+
+        results = []
+        with transaction.atomic():
+            streak = Streak.objects.select_for_update().get_or_create(
+                child=child
+            )[0]
+
+            for entry in entries:
+                result = _process_streak_entry(streak, child, entry, today)
+                results.append(result)
+
+        return Response({
+            "results": results,
+            "processed": sum(1 for r in results if r["status"] == "processed"),
+            "skipped": sum(1 for r in results if r["skipped"]),
+            "streak": StreakStatusSerializer(streak).data,
+        }, status=status.HTTP_200_OK)
 
 
 class StreakStatusView(APIView):
