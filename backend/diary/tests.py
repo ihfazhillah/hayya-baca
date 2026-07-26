@@ -715,3 +715,158 @@ class TestSeen:
         assert rr.last_seen_at is not None
         # Child's own view is not a "read by" entry.
         assert r.data["read_by"] == []
+
+
+# === T4.4: feed + detail + badges ===
+
+
+def publish_post(child, slug="curhat", body_text="isi"):
+    from django.utils import timezone
+
+    from diary.models import Post, PostType
+
+    return Post.objects.create(
+        child=child,
+        type=PostType.objects.get(slug=slug),
+        body=doc(para(text(body_text))),
+        status="published",
+        published_at=timezone.now(),
+    )
+
+
+class TestFeed:
+    def test_combined_feed_ordered(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        fatimah = make_child("Fatimah", parent)
+        publish_post(ahmad, body_text="pertama")
+        publish_post(fatimah, body_text="kedua")
+        resp = auth(api, parent).get("/api/diary/feed/")
+        assert resp.status_code == 200
+        results = resp.data["results"]
+        assert len(results) == 2
+        # Newest first
+        assert results[0]["child"]["name"] == "Fatimah"
+
+    def test_feed_excludes_drafts_and_other_children(self, api, parent, db):
+        from diary.models import Post, PostType
+
+        mine = make_child("Ahmad", parent)
+        publish_post(mine)
+        Post.objects.create(
+            child=mine, type=PostType.objects.get(slug="curhat"),
+            body=doc(para(text("draft"))), status="draft",
+        )
+        # Another family's child
+        other_parent = User.objects.create_user(username="lain", password="x")
+        other_child = make_child("Zaid", other_parent)
+        publish_post(other_child)
+
+        resp = auth(api, parent).get("/api/diary/feed/")
+        assert len(resp.data["results"]) == 1
+
+    def test_feed_child_filter(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        fatimah = make_child("Fatimah", parent)
+        publish_post(ahmad)
+        publish_post(fatimah)
+        resp = auth(api, parent).get(f"/api/diary/feed/?child={ahmad.id}")
+        assert len(resp.data["results"]) == 1
+        assert resp.data["results"][0]["child"]["id"] == ahmad.id
+
+    def test_is_unread_flips_after_seen(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad)
+        papi = auth(api, parent)
+        resp = papi.get("/api/diary/feed/")
+        assert resp.data["results"][0]["is_unread"] is True
+        papi.post(f"/api/diary/posts/{post.id}/seen/")
+        resp = papi.get("/api/diary/feed/")
+        assert resp.data["results"][0]["is_unread"] is False
+
+    def test_child_cannot_use_feed(self, api, parent):
+        ahmad = make_child("Ahmad", parent, with_account=True)
+        resp = auth(api, ahmad.user).get("/api/diary/feed/")
+        assert resp.status_code == 403
+
+
+class TestPostDetail:
+    def test_detail_includes_thread_and_reactions(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("hai")))}, format="json",
+        )
+        ctx["parent_api"].put(
+            f"/api/diary/posts/{pid}/reactions/", {"emoji": "❤️"}, format="json"
+        )
+        ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
+        resp = ctx["child_api"].get(f"/api/diary/posts/{pid}/")
+        assert resp.status_code == 200
+        assert resp.data["title"] == ""
+        assert len(resp.data["comments"]) == 1
+        assert resp.data["reactions"]["counts"]["❤️"] == 1
+        assert any(rb["label"] == "ayah" for rb in resp.data["read_by"])
+
+    def test_detail_includes_panels(self, comic_ctx):
+        child, capi, post = comic_ctx
+        post.status = "published"
+        from django.utils import timezone
+
+        post.published_at = timezone.now()
+        post.save()
+        capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(400, 400), "caption": "p1"},
+            format="multipart",
+        )
+        resp = capi.get(f"/api/diary/posts/{post.id}/")
+        assert resp.status_code == 200
+        assert len(resp.data["panels"]) == 1
+        assert "token=" in resp.data["panels"][0]["image_url"]
+
+    def test_guardian_cannot_open_draft_detail(self, api, parent):
+        from diary.models import Post, PostType
+
+        child = make_child("Ahmad", parent, with_account=True)
+        draft = Post.objects.create(
+            child=child, type=PostType.objects.get(slug="curhat"),
+            body=doc(para(text("x"))), status="draft",
+        )
+        resp = auth(api, parent).get(f"/api/diary/posts/{draft.id}/")
+        assert resp.status_code == 404
+
+
+class TestBadges:
+    def test_guardian_unread_counts(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        p1 = publish_post(ahmad)
+        publish_post(ahmad)
+        papi = auth(api, parent)
+        resp = papi.get("/api/diary/badges/")
+        assert resp.status_code == 200
+        counts = {c["child_id"]: c["unread"] for c in resp.data["children"]}
+        assert counts[ahmad.id] == 2
+        papi.post(f"/api/diary/posts/{p1.id}/seen/")
+        resp = papi.get("/api/diary/badges/")
+        counts = {c["child_id"]: c["unread"] for c in resp.data["children"]}
+        assert counts[ahmad.id] == 1
+
+    def test_child_badge_on_new_comment(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        # Child sees own post first (baseline last_seen)
+        ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
+        resp = ctx["child_api"].get("/api/diary/badges/")
+        assert pid not in resp.data["posts"]
+        # Guardian comments → child badge appears
+        ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("hai")))}, format="json",
+        )
+        resp = ctx["child_api"].get("/api/diary/badges/")
+        assert pid in resp.data["posts"]
+        # Child opens → badge clears
+        ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
+        resp = ctx["child_api"].get("/api/diary/badges/")
+        assert pid not in resp.data["posts"]

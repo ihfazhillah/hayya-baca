@@ -46,4 +46,7 @@ urlpatterns = [
         views.PostSeenView.as_view(),
         name="post-seen",
     ),
+    path("feed/", views.FeedView.as_view(), name="feed"),
+    path("badges/", views.BadgesView.as_view(), name="badges"),
+    path("posts/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
 ] + router.urls

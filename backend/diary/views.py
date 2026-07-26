@@ -2,22 +2,20 @@
 from django.conf import settings
 from django.http import FileResponse, HttpResponse
 from django.utils import timezone
-from rest_framework import viewsets
-from rest_framework.generics import ListAPIView
+from rest_framework import status, viewsets
+from rest_framework.generics import ListAPIView, get_object_or_404
+from rest_framework.pagination import CursorPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .media import verify_panel_token
-from .permissions import resolve_accessible_post
-
 from accounts.models import Child, ChildAccess, is_child_account
+from accounts.permissions import IsGuardianAccount
 from accounts.serializers import ChildSerializer
 
-from rest_framework import status
-from rest_framework.generics import get_object_or_404
-
+from .badges import child_has_new_activity, guardian_unread
 from .images import MAX_PANELS_PER_POST, InvalidImage, process_panel_image
+from .media import verify_panel_token
 from .models import (
     REACTION_EMOJIS,
     ComicPanel,
@@ -27,13 +25,15 @@ from .models import (
     Reaction,
     ReadReceipt,
 )
-from .permissions import IsChildAccount
+from .permissions import IsChildAccount, resolve_accessible_post
 from .serializers import (
     ComicPanelSerializer,
     CommentSerializer,
+    FeedPostSerializer,
     PostSerializer,
     PostTypeSerializer,
     author_label,
+    child_summary,
 )
 
 
@@ -333,3 +333,103 @@ class PostSeenView(APIView):
         receipt.save(update_fields=["last_seen_at", "first_read_at"])
 
         return Response({"read_by": read_by_list(post)})
+
+
+class FeedCursorPagination(CursorPagination):
+    ordering = "-published_at"
+    page_size = 20
+
+
+class FeedView(ListAPIView):
+    """Guardian's combined feed of their children's published posts."""
+
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+    serializer_class = FeedPostSerializer
+    pagination_class = FeedCursorPagination
+
+    def get_queryset(self):
+        qs = Post.objects.filter(
+            status=Post.Status.PUBLISHED,
+            child__access__user=self.request.user,
+            child__access__role=ChildAccess.Role.PARENT,
+        ).select_related("child", "type")
+        child_id = self.request.query_params.get("child")
+        if child_id:
+            qs = qs.filter(child_id=child_id)
+        return qs.distinct()
+
+
+def post_detail_payload(post, request):
+    """Full post detail: body/panels + thread + reactions + receipts."""
+    data = PostSerializer(post, context={"request": request}).data
+    data["child"] = child_summary(post.child)
+    data["panels"] = ComicPanelSerializer(
+        post.panels.all(), many=True, context={"request": request}
+    ).data
+    data["comments"] = CommentSerializer(
+        post.comments.select_related("author"),
+        many=True,
+        context={"request": request},
+    ).data
+    data["reactions"] = reaction_summary(post, request.user)
+    data["read_by"] = read_by_list(post)
+    return data
+
+
+class PostDetailView(APIView):
+    """Read a single post (child owner: any status; guardian: published)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        post = resolve_accessible_post(request.user, pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(post_detail_payload(post, request))
+
+
+class BadgesView(APIView):
+    """Unread signals: guardians get per-child counts; children get post ids
+    with new guardian activity (Spec 060 §6.1)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if is_child_account(user):
+            return Response(self._child_badges(user))
+        return Response(self._guardian_badges(user))
+
+    def _guardian_badges(self, user):
+        posts = (
+            Post.objects.filter(
+                status=Post.Status.PUBLISHED,
+                child__access__user=user,
+                child__access__role=ChildAccess.Role.PARENT,
+            )
+            .select_related("child")
+            .distinct()
+        )
+        counts = {}
+        for post in posts:
+            receipt = post.receipts.filter(user=user).first()
+            if guardian_unread(post, receipt):
+                counts[post.child_id] = counts.get(post.child_id, 0) + 1
+        children = ChildAccess.objects.filter(
+            user=user, role=ChildAccess.Role.PARENT
+        ).values_list("child_id", flat=True)
+        return {
+            "children": [
+                {"child_id": cid, "unread": counts.get(cid, 0)} for cid in children
+            ],
+            "total": sum(counts.values()),
+        }
+
+    def _child_badges(self, user):
+        child = user.child_profile
+        post_ids = []
+        for post in Post.objects.filter(child=child):
+            receipt = post.receipts.filter(user=user).first()
+            if child_has_new_activity(post, receipt, user.id):
+                post_ids.append(post.id)
+        return {"posts": post_ids, "total": len(post_ids)}

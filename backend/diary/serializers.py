@@ -96,3 +96,46 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def validate_body(self, value):
         return validate_prosemirror_body(value)
+
+
+def child_summary(child):
+    return {"id": child.id, "name": child.name, "avatar_color": child.avatar_color}
+
+
+class FeedPostSerializer(serializers.ModelSerializer):
+    type = serializers.SlugRelatedField(slug_field="slug", read_only=True)
+    child = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
+    reaction_count = serializers.SerializerMethodField()
+    is_unread = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = [
+            "id",
+            "type",
+            "title",
+            "status",
+            "published_at",
+            "created_at",
+            "child",
+            "comment_count",
+            "reaction_count",
+            "is_unread",
+        ]
+
+    def get_child(self, obj):
+        return child_summary(obj.child)
+
+    def get_comment_count(self, obj):
+        return obj.comments.count()
+
+    def get_reaction_count(self, obj):
+        return obj.reactions.count()
+
+    def get_is_unread(self, obj):
+        from .badges import guardian_unread
+
+        user = self.context["request"].user
+        receipt = obj.receipts.filter(user=user).first()
+        return guardian_unread(obj, receipt)
