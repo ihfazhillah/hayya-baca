@@ -127,20 +127,20 @@ Aturan pengerjaan:
 
 ## Fase 6 — Frontend fondasi (`diary-web/`)
 
-- [ ] **T6.1 — Scaffold**
+- [x] **T6.1 — Scaffold**
   Vite + React + TS strict + Tailwind v4 + vite-plugin-pwa + router + react-query;
   struktur folder plan §3.2; Vite proxy `/api`→8123; vitest jalan; lint/`tsc` script.
 
-- [ ] **T6.2 — API client + types**
+- [x] **T6.2 — API client + types**
   Fetch wrapper (token header, error handling, 401 → lock), types mirror
   kontrak plan §2. Test (vitest): 401 memicu lock, retry autosave.
 
-- [ ] **T6.3 — SessionProvider**
+- [x] **T6.3 — SessionProvider**
   Token in-memory only; idle timer 10 menit → lock screen; quick-pick
   localStorage (username+nama+avatar). Test: idle→lock, tutup-tab semantics
   (tidak ada persist), quick-pick CRUD.
 
-- [ ] **T6.4 — Alur masuk**
+- [x] **T6.4 — Alur masuk**
   Layar login (quick-pick anak + form wali), lock screen, `/setup?code=` (set
   password anak → auto-login), routing per role dari `/api/diary/me/`.
 
