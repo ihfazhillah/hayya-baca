@@ -83,3 +83,38 @@ def build_notification(child_name, type_label, title, body):
     if title:
         return f"{header}\n\n“{title}”\n{excerpt_from_body(body)}".rstrip()
     return f"{header}\n\n{excerpt_from_body(body)}".rstrip()
+
+
+def build_reply_notification(child_name, type_label, body):
+    return f"💬 {child_name} membalas di {type_label}\n\n{excerpt_from_body(body)}".rstrip()
+
+
+def linked_guardian_chat_ids(child):
+    """Chat ids of the child's guardians who have linked Telegram."""
+    from accounts.models import ChildAccess
+
+    from .models import TelegramLink
+
+    guardian_ids = ChildAccess.objects.filter(
+        child=child, role=ChildAccess.Role.PARENT
+    ).values_list("user_id", flat=True)
+    return list(
+        TelegramLink.objects.filter(user_id__in=guardian_ids)
+        .exclude(chat_id__isnull=True)
+        .exclude(chat_id="")
+        .values_list("chat_id", flat=True)
+    )
+
+
+def notify_new_post(post):
+    text = build_notification(
+        post.child.name, post.type.label, post.title, post.body
+    )
+    for chat_id in linked_guardian_chat_ids(post.child):
+        send_message(chat_id, text)
+
+
+def notify_child_reply(post, comment):
+    text = build_reply_notification(post.child.name, post.type.label, comment.body)
+    for chat_id in linked_guardian_chat_ids(post.child):
+        send_message(chat_id, text)

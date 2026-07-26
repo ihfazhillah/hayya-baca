@@ -946,3 +946,122 @@ class TestTelegramLink:
         r = auth(api, parent).delete("/api/diary/telegram/link/")
         assert r.status_code == 204
         assert not TelegramLink.objects.filter(user=parent).exists()
+
+
+# === T5.2: notification sending + excerpt builder ===
+
+
+class TestExcerptBuilder:
+    def test_no_title_includes_excerpt_only(self):
+        from diary.telegram import build_notification
+
+        msg = build_notification(
+            "Ahmad", "Puisi", "", doc(para(text("Hujan turun di pagi hari")))
+        )
+        assert "Ahmad" in msg and "Puisi" in msg
+        assert "Hujan turun" in msg
+
+    def test_with_title_includes_title_and_excerpt(self):
+        from diary.telegram import build_notification
+
+        msg = build_notification(
+            "Ahmad", "Cerpen", "Kucingku", doc(para(text("Aku punya kucing")))
+        )
+        assert "Kucingku" in msg
+        assert "Aku punya kucing" in msg
+
+    def test_comic_null_body_does_not_crash(self):
+        from diary.telegram import build_notification
+
+        msg = build_notification("Ahmad", "Komik", "", None)
+        assert "Ahmad" in msg
+
+    def test_excerpt_truncated_to_120(self):
+        from diary.telegram import excerpt_from_body
+
+        long = "kata " * 60
+        out = excerpt_from_body(doc(para(text(long))))
+        assert len(out) <= 120
+
+
+class TestNotificationTrigger:
+    def _link_guardian(self, parent, chat_id="123"):
+        from django.utils import timezone
+
+        from diary.models import TelegramLink
+
+        TelegramLink.objects.create(
+            user=parent,
+            link_code="x",
+            chat_id=chat_id,
+            code_expires_at=timezone.now() + timezone.timedelta(days=1),
+        )
+
+    def test_publish_notifies_linked_guardian(self, api, parent, monkeypatch):
+        sent = []
+        monkeypatch.setattr(
+            "diary.telegram.send_message",
+            lambda chat_id, text: sent.append((chat_id, text)),
+        )
+        self._link_guardian(parent)
+        child = make_child("Ahmad", parent, with_account=True)
+        capi = auth(api, child.user)
+        r = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "puisi", "body": doc(para(text("hai")))},
+            format="json",
+        )
+        pid = r.data["id"]
+        capi.patch(
+            f"/api/diary/my/posts/{pid}/", {"status": "published"}, format="json"
+        )
+        assert len(sent) == 1
+        assert sent[0][0] == "123"
+        assert "Ahmad" in sent[0][1]
+
+    def test_publish_send_failure_does_not_break(self, api, parent, monkeypatch):
+        def boom(chat_id, text):
+            raise RuntimeError("telegram down")
+
+        monkeypatch.setattr("diary.telegram.send_message", boom)
+        self._link_guardian(parent)
+        child = make_child("Ahmad", parent, with_account=True)
+        capi = auth(api, child.user)
+        r = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "puisi", "body": doc(para(text("hai")))},
+            format="json",
+        )
+        pid = r.data["id"]
+        resp = capi.patch(
+            f"/api/diary/my/posts/{pid}/", {"status": "published"}, format="json"
+        )
+        assert resp.status_code == 200  # publish still succeeds
+
+    def test_child_reply_notifies_guardian(self, published_ctx, monkeypatch):
+        sent = []
+        monkeypatch.setattr(
+            "diary.telegram.send_message",
+            lambda chat_id, text: sent.append((chat_id, text)),
+        )
+        ctx = published_ctx
+        self._link_guardian(ctx["parent"])
+        ctx["child_api"].post(
+            f"/api/diary/posts/{ctx['post'].id}/comments/",
+            {"body": doc(para(text("balas")))}, format="json",
+        )
+        assert len(sent) == 1
+
+    def test_guardian_comment_does_not_notify(self, published_ctx, monkeypatch):
+        sent = []
+        monkeypatch.setattr(
+            "diary.telegram.send_message",
+            lambda chat_id, text: sent.append((chat_id, text)),
+        )
+        ctx = published_ctx
+        self._link_guardian(ctx["parent"])
+        ctx["parent_api"].post(
+            f"/api/diary/posts/{ctx['post'].id}/comments/",
+            {"body": doc(para(text("dari ayah")))}, format="json",
+        )
+        assert sent == []

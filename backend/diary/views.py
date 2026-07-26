@@ -26,8 +26,20 @@ from .models import (
     ReadReceipt,
     TelegramLink,
 )
+import logging
+
 from . import telegram
 from .permissions import IsChildAccount, resolve_accessible_post
+
+logger = logging.getLogger(__name__)
+
+
+def _notify(fn, *args):
+    """Fire a Telegram notification best-effort; never break the request."""
+    try:
+        fn(*args)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Diary notification failed: %s", exc)
 from .serializers import (
     ComicPanelSerializer,
     CommentSerializer,
@@ -98,9 +110,14 @@ class MyPostViewSet(viewsets.ModelViewSet):
         instance = serializer.instance
         new_status = serializer.validated_data.get("status", instance.status)
         extra = {}
-        if new_status == Post.Status.PUBLISHED and instance.published_at is None:
+        first_publish = (
+            new_status == Post.Status.PUBLISHED and instance.published_at is None
+        )
+        if first_publish:
             extra["published_at"] = timezone.now()
-        serializer.save(**extra)
+        post = serializer.save(**extra)
+        if first_publish:
+            _notify(telegram.notify_new_post, post)
 
     def perform_destroy(self, instance):
         instance.deleted_at = timezone.now()
@@ -226,7 +243,9 @@ class PostCommentsView(APIView):
             data=request.data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(post=post, author=request.user)
+        comment = serializer.save(post=post, author=request.user)
+        if is_child_account(request.user):
+            _notify(telegram.notify_child_reply, post, comment)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
