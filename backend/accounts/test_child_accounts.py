@@ -279,3 +279,64 @@ class TestSetupTokenEndpoint:
             f"/api/children/{child_with_account.id}/diary-account/setup-token/"
         )
         assert resp.status_code == 403
+
+
+# === T1.6: child-setup (set own password via token) ===
+
+
+class TestChildSetup:
+    def _token(self, child, parent):
+        return PasswordSetupToken.generate(child=child, created_by=parent).code
+
+    def test_setup_sets_password_and_logs_in(
+        self, api, child_with_account, parent
+    ):
+        code = self._token(child_with_account, parent)
+        resp = api.post(
+            "/api/auth/child-setup/", {"code": code, "password": "kucing1"}
+        )
+        assert resp.status_code == 200
+        assert "token" in resp.data
+        assert resp.data["child"]["name"] == "Ahmad"
+        child_with_account.user.refresh_from_db()
+        assert child_with_account.user.check_password("kucing1")
+
+    def test_setup_voids_token(self, api, child_with_account, parent):
+        code = self._token(child_with_account, parent)
+        api.post("/api/auth/child-setup/", {"code": code, "password": "kucing1"})
+        assert not PasswordSetupToken.objects.get(code=code).is_valid()
+
+    def test_wrong_code_rejected(self, api, child_with_account, db):
+        resp = api.post(
+            "/api/auth/child-setup/", {"code": "WRONGXYZ", "password": "kucing1"}
+        )
+        assert resp.status_code == 400
+
+    def test_short_password_rejected(self, api, child_with_account, parent):
+        code = self._token(child_with_account, parent)
+        resp = api.post(
+            "/api/auth/child-setup/", {"code": code, "password": "abc"}
+        )
+        assert resp.status_code == 400
+        assert child_with_account.user.check_password("abc") is False
+
+    def test_used_token_rejected(self, api, child_with_account, parent):
+        code = self._token(child_with_account, parent)
+        api.post("/api/auth/child-setup/", {"code": code, "password": "kucing1"})
+        resp = api.post(
+            "/api/auth/child-setup/", {"code": code, "password": "anjing2"}
+        )
+        assert resp.status_code == 400
+
+    def test_reset_flow_reuses_mechanism(self, api, child_with_account, parent):
+        # First setup.
+        c1 = self._token(child_with_account, parent)
+        api.post("/api/auth/child-setup/", {"code": c1, "password": "kucing1"})
+        # Reset: new token, new password.
+        c2 = self._token(child_with_account, parent)
+        resp = api.post(
+            "/api/auth/child-setup/", {"code": c2, "password": "anjing2"}
+        )
+        assert resp.status_code == 200
+        child_with_account.user.refresh_from_db()
+        assert child_with_account.user.check_password("anjing2")

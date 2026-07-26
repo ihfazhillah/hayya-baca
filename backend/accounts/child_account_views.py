@@ -3,12 +3,16 @@ import secrets
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import ChildAccess, PasswordSetupToken
+from .serializers import ChildSerializer
+from .validators import validate_child_password
 
 User = get_user_model()
 
@@ -111,4 +115,47 @@ class SetupTokenView(APIView):
                 "expires_at": token.expires_at,
             },
             status=status.HTTP_201_CREATED,
+        )
+
+
+class ChildSetupView(APIView):
+    """POST anon: child sets own password using a one-time code (setup/reset)."""
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        code = (request.data.get("code") or "").strip().upper()
+        password = request.data.get("password") or ""
+
+        token = PasswordSetupToken.objects.filter(code=code).first()
+        if token is None or not token.is_valid():
+            return Response(
+                {"detail": "Kode tidak valid atau sudah kedaluwarsa"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            validate_child_password(password)
+        except DjangoValidationError as exc:
+            return Response(
+                {"detail": " ".join(exc.messages)},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        child = token.child
+        user = child.user
+        if user is None:
+            return Response(
+                {"detail": "Akun anak tidak ditemukan"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user.set_password(password)
+        user.save(update_fields=["password"])
+        token.mark_used()
+
+        auth_token, _ = Token.objects.get_or_create(user=user)
+        return Response(
+            {"token": auth_token.key, "child": ChildSerializer(child).data},
+            status=status.HTTP_200_OK,
         )
