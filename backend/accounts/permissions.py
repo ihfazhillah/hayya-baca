@@ -1,6 +1,20 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-from .models import ChildAccess
+from .models import ChildAccess, is_child_account
+
+
+class IsGuardianAccount(BasePermission):
+    """Authenticated user that is NOT a child diary account.
+
+    Guards Hayya Baca guardian-facing endpoints so a child login token can
+    never be treated as a guardian.
+    """
+
+    message = "Akun anak tidak boleh mengakses endpoint ini"
+
+    def has_permission(self, request, view):
+        user = request.user
+        return bool(user and user.is_authenticated and not is_child_account(user))
 
 
 class HasChildAccess(BasePermission):

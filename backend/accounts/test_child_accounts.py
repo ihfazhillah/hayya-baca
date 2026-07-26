@@ -412,3 +412,50 @@ class TestChildLogin:
             "/api/auth/child-login/", {"username": "ayah", "password": "test1234"}
         )
         assert resp.status_code == 403
+
+
+# === T1.8: guard existing endpoints against child accounts ===
+
+
+@pytest.fixture
+def child_api(api, child_with_password):
+    from rest_framework.authtoken.models import Token
+
+    token, _ = Token.objects.get_or_create(user=child_with_password.user)
+    api.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
+    return api
+
+
+class TestGuardExistingEndpoints:
+    def test_child_cannot_list_children(self, child_api):
+        resp = child_api.get("/api/children/")
+        assert resp.status_code == 403
+
+    def test_child_cannot_create_child(self, child_api):
+        resp = child_api.post("/api/children/", {"name": "X"})
+        assert resp.status_code == 403
+
+    def test_child_rejected_at_regular_login(self, api, child_with_password):
+        resp = api.post(
+            "/api/auth/login/", {"username": "ahmad", "password": "kucing1"}
+        )
+        assert resp.status_code == 403
+
+    def test_child_cannot_create_invite(self, child_api, child_with_password):
+        resp = child_api.post(
+            "/api/share/invites/",
+            {"child": child_with_password.id, "role": "teacher"},
+        )
+        assert resp.status_code == 403
+
+    def test_child_cannot_redeem(self, child_api):
+        resp = child_api.post("/api/auth/redeem/", {"code": "WHATEVER1"})
+        assert resp.status_code == 403
+
+    def test_child_cannot_view_access_list(self, child_api, child_with_password):
+        resp = child_api.get(f"/api/children/{child_with_password.id}/access/")
+        assert resp.status_code == 403
+
+    def test_guardian_still_works(self, parent_api, child):
+        resp = parent_api.get("/api/children/")
+        assert resp.status_code == 200

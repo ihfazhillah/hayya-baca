@@ -8,8 +8,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Child, ChildAccess, ShareInvite
-from .permissions import IsParentOfChild, IsParentOrReadOnlyTeacher
+from .models import Child, ChildAccess, ShareInvite, is_child_account
+from .permissions import (
+    IsGuardianAccount,
+    IsParentOfChild,
+    IsParentOrReadOnlyTeacher,
+)
 from .serializers import (
     ChildAccessSerializer,
     ChildSerializer,
@@ -50,6 +54,11 @@ class LoginView(APIView):
                 {"detail": "Username atau password salah"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
+        if is_child_account(user):
+            return Response(
+                {"detail": "Gunakan login anak (child-login)"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
         token, _ = Token.objects.get_or_create(user=user)
         return Response({"token": token.key})
 
@@ -70,8 +79,8 @@ class ChildViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ("update", "partial_update", "destroy"):
-            return [IsAuthenticated(), IsParentOfChild()]
-        return [IsAuthenticated()]
+            return [IsAuthenticated(), IsGuardianAccount(), IsParentOfChild()]
+        return [IsAuthenticated(), IsGuardianAccount()]
 
     def perform_create(self, serializer):
         child = serializer.save(created_by=self.request.user)
@@ -82,6 +91,8 @@ class ChildViewSet(viewsets.ModelViewSet):
 
 @extend_schema(tags=["children"])
 class ChildAccessListView(APIView):
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+
     @extend_schema(responses={200: ChildAccessSerializer(many=True)})
     def get(self, request, child_pk):
         if not ChildAccess.objects.filter(
@@ -111,6 +122,7 @@ class ChildAccessListView(APIView):
 class ShareInviteViewSet(viewsets.ModelViewSet):
     serializer_class = ShareInviteCreateSerializer
     http_method_names = ["get", "post", "delete"]
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
 
     def get_queryset(self):
         return ShareInvite.objects.filter(invited_by=self.request.user)
@@ -127,6 +139,7 @@ class ShareInviteViewSet(viewsets.ModelViewSet):
 
 class RedeemInviteView(CreateAPIView):
     serializer_class = RedeemInviteSerializer
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
