@@ -67,3 +67,33 @@ class TestMe:
     def test_unauthenticated_rejected(self, api, db):
         resp = api.get("/api/diary/me/")
         assert resp.status_code == 401
+
+
+# === T2.1: models + soft-delete + seed ===
+
+
+class TestModels:
+    def test_seed_post_types_present(self, db):
+        from diary.models import PostType
+
+        slugs = set(PostType.objects.values_list("slug", flat=True))
+        assert {"puisi", "pantun", "cerpen", "komik", "curhat"} <= slugs
+
+    def test_comic_type_has_comic_kind(self, db):
+        from diary.models import PostType
+
+        assert PostType.objects.get(slug="komik").kind == "comic"
+        assert PostType.objects.get(slug="puisi").kind == "text"
+
+    def test_soft_delete_excludes_from_default_manager(self, db, parent):
+        from django.utils import timezone
+
+        from diary.models import Post, PostType
+
+        child = make_child("Ahmad", parent, with_account=True)
+        ptype = PostType.objects.get(slug="curhat")
+        post = Post.objects.create(child=child, type=ptype, body={"x": 1})
+        post.deleted_at = timezone.now()
+        post.save()
+        assert not Post.objects.filter(id=post.id).exists()
+        assert Post.all_objects.filter(id=post.id).exists()
