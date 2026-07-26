@@ -191,3 +191,32 @@ Aturan pengerjaan:
 - Setiap fase backend diakhiri: `pytest` penuh hijau (termasuk suite lama).
 - Bila pola kesalahan berulang 3× dalam satu sesi → tulis learning
   (`docs/learnings/`), sesuai aturan repo.
+
+---
+
+## Status (2026-07-27)
+
+Semua Fase 1–9 **selesai & live** di `https://ruangcerita.ihfazh.com`.
+Detail lengkap: [report.md](report.md). Ceklist test manual: [manual-test.md](manual-test.md).
+
+- Backend: 140 test hijau (accounts + diary). Frontend: 20 test hijau, `tsc`/build bersih.
+- T9.4 smoke prod dilakukan **level API** (register wali → anak → akun diary →
+  setup token → anak terbitkan puisi → wali lihat di feed + detail), data smoke
+  sudah dibersihkan. Bagian yang **belum** bisa diverifikasi otomatis (kamera,
+  QR scan, install PWA, idle-lock, Telegram) → lihat [manual-test.md](manual-test.md).
+
+## Follow-ups / Tertunda
+
+- [ ] **F1 — Reset password wali (tertunda, keputusan user)**
+  `ihfazh` = akun wali; produk hanya punya reset-link (QR/kode) untuk **anak**.
+  Django punya `PasswordReset*` tapi **belum di-wire** (URL tak di-mount) & email
+  belum dikonfigurasi (`EMAIL_BACKEND` default `localhost`, `webmaster@localhost`).
+  Opsi: (A) reset password wali langsung; (B) bangun alur reset-link Django
+  (confirm view + halaman + SMTP relay) sebagai fitur. User memilih "nanti".
+- [ ] **F2 — Aktivasi Telegram**: set `TELEGRAM_BOT_TOKEN`,
+  `TELEGRAM_WEBHOOK_SECRET`, `TELEGRAM_BOT_USERNAME` di `backend/.env` +
+  daftarkan webhook `setWebhook` ke `/api/diary/telegram/webhook/<secret>/`.
+  Sampai itu, fitur no-op (aman).
+- [ ] **F3 — Ikon PWA raster**: ikon saat ini SVG (`icon.svg`). Sebagian
+  launcher Android lebih suka PNG 192/512 + maskable ber-padding. Tambah kalau
+  install experience kurang mulus (lihat manual-test).
