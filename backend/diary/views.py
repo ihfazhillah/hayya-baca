@@ -18,7 +18,14 @@ from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
 from .images import MAX_PANELS_PER_POST, InvalidImage, process_panel_image
-from .models import ComicPanel, Comment, Post, PostType
+from .models import (
+    REACTION_EMOJIS,
+    ComicPanel,
+    Comment,
+    Post,
+    PostType,
+    Reaction,
+)
 from .permissions import IsChildAccount
 from .serializers import (
     ComicPanelSerializer,
@@ -245,3 +252,46 @@ class CommentDetailView(APIView):
         comment.deleted_at = timezone.now()
         comment.save(update_fields=["deleted_at"])
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def reaction_summary(post, user):
+    """{emoji: count} plus the emojis the current user reacted with."""
+    counts = {}
+    mine = []
+    for r in post.reactions.all():
+        counts[r.emoji] = counts.get(r.emoji, 0) + 1
+        if r.user_id == user.id:
+            mine.append(r.emoji)
+    return {"counts": counts, "mine": mine}
+
+
+class PostReactionsView(APIView):
+    """Idempotent add/remove of an emoji reaction (Spec 060 §5.2)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def _post_and_emoji(self, request, post_pk):
+        post = resolve_accessible_post(request.user, post_pk)
+        emoji = request.data.get("emoji")
+        return post, emoji
+
+    def put(self, request, post_pk):
+        post, emoji = self._post_and_emoji(request, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if emoji not in REACTION_EMOJIS:
+            return Response(
+                {"detail": "Emoji tidak valid"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        Reaction.objects.get_or_create(post=post, user=request.user, emoji=emoji)
+        return Response(reaction_summary(post, request.user))
+
+    def delete(self, request, post_pk):
+        post, emoji = self._post_and_emoji(request, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        Reaction.objects.filter(
+            post=post, user=request.user, emoji=emoji
+        ).delete()
+        return Response(reaction_summary(post, request.user))

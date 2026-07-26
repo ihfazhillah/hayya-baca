@@ -36,4 +36,9 @@ urlpatterns = [
         views.CommentDetailView.as_view(),
         name="comment-detail",
     ),
+    path(
+        "posts/<int:post_pk>/reactions/",
+        views.PostReactionsView.as_view(),
+        name="post-reactions",
+    ),
 ] + router.urls

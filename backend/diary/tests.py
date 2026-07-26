@@ -625,3 +625,53 @@ class TestComments:
         )
         r = auth(api, parent).get(f"/api/diary/posts/{draft.id}/comments/")
         assert r.status_code == 404
+
+
+# === T4.2: reactions ===
+
+
+class TestReactions:
+    def test_toggle_idempotent(self, published_ctx):
+        from diary.models import Reaction
+
+        ctx = published_ctx
+        pid = ctx["post"].id
+        url = f"/api/diary/posts/{pid}/reactions/"
+        # Add
+        r = ctx["parent_api"].put(url, {"emoji": "❤️"}, format="json")
+        assert r.status_code == 200
+        assert Reaction.objects.filter(post_id=pid, emoji="❤️").count() == 1
+        # Add again — idempotent, still one
+        ctx["parent_api"].put(url, {"emoji": "❤️"}, format="json")
+        assert Reaction.objects.filter(post_id=pid, emoji="❤️").count() == 1
+        # Remove
+        r = ctx["parent_api"].delete(url, {"emoji": "❤️"}, format="json")
+        assert r.status_code == 200
+        assert Reaction.objects.filter(post_id=pid, emoji="❤️").count() == 0
+
+    def test_invalid_emoji_rejected(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["parent_api"].put(
+            f"/api/diary/posts/{pid}/reactions/", {"emoji": "💀"}, format="json"
+        )
+        assert r.status_code == 400
+
+    def test_child_and_guardian_both_react(self, published_ctx):
+        from diary.models import Reaction
+
+        ctx = published_ctx
+        pid = ctx["post"].id
+        url = f"/api/diary/posts/{pid}/reactions/"
+        ctx["parent_api"].put(url, {"emoji": "❤️"}, format="json")
+        ctx["child_api"].put(url, {"emoji": "🌟"}, format="json")
+        assert Reaction.objects.filter(post_id=pid).count() == 2
+
+    def test_outsider_cannot_react(self, api, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        stranger = User.objects.create_user(username="stranger", password="test1234")
+        r = auth(api, stranger).put(
+            f"/api/diary/posts/{pid}/reactions/", {"emoji": "❤️"}, format="json"
+        )
+        assert r.status_code == 404
