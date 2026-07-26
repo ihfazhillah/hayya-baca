@@ -498,3 +498,130 @@ class TestSignedMedia:
         monkeypatch.undo()
         resp = APIClient().get(f"/api/diary/media/{pid}/?token={old_token}")
         assert resp.status_code == 403
+
+
+# === Fase 4 shared fixtures ===
+
+
+@pytest.fixture
+def published_ctx(api, parent):
+    """A published post by Ahmad, plus parent + child clients."""
+    from diary.models import Post, PostType
+
+    child = make_child("Ahmad", parent, with_account=True)
+    from django.utils import timezone
+
+    post = Post.objects.create(
+        child=child,
+        type=PostType.objects.get(slug="curhat"),
+        body=doc(para(text("hari ini sedih"))),
+        status="published",
+        published_at=timezone.now(),
+    )
+    child_api = auth(APIClient(), child.user)
+    parent_api = auth(APIClient(), parent)
+    return {
+        "child": child,
+        "parent": parent,
+        "post": post,
+        "child_api": child_api,
+        "parent_api": parent_api,
+    }
+
+
+# === T4.1: comments ===
+
+
+class TestComments:
+    def test_two_way_conversation(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        # Guardian comments
+        r = ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("kenapa sedih, Nak?")))},
+            format="json",
+        )
+        assert r.status_code == 201
+        assert r.data["author_role"] == "guardian"
+        # Child replies
+        r = ctx["child_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("dimarahi bu guru")))},
+            format="json",
+        )
+        assert r.status_code == 201
+        assert r.data["author_role"] == "child"
+        # Both see the thread
+        r = ctx["parent_api"].get(f"/api/diary/posts/{pid}/comments/")
+        assert len(r.data) == 2
+
+    def test_author_can_edit_own_comment(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("a")))},
+            format="json",
+        )
+        cid = r.data["id"]
+        r = ctx["parent_api"].patch(
+            f"/api/diary/comments/{cid}/",
+            {"body": doc(para(text("b")))},
+            format="json",
+        )
+        assert r.status_code == 200
+
+    def test_cannot_edit_others_comment(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("a")))},
+            format="json",
+        )
+        cid = r.data["id"]
+        r = ctx["child_api"].patch(
+            f"/api/diary/comments/{cid}/",
+            {"body": doc(para(text("hacked")))},
+            format="json",
+        )
+        assert r.status_code in (403, 404)
+
+    def test_soft_delete_own_comment(self, published_ctx):
+        from diary.models import Comment
+
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["child_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("a")))},
+            format="json",
+        )
+        cid = r.data["id"]
+        r = ctx["child_api"].delete(f"/api/diary/comments/{cid}/")
+        assert r.status_code == 204
+        assert not Comment.objects.filter(id=cid).exists()
+        assert Comment.all_objects.filter(id=cid).exists()
+
+    def test_outsider_cannot_comment(self, api, parent, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        stranger = User.objects.create_user(username="stranger", password="test1234")
+        r = auth(api, stranger).post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("x")))},
+            format="json",
+        )
+        assert r.status_code == 404
+
+    def test_guardian_cannot_comment_on_draft(self, api, parent):
+        from diary.models import Post, PostType
+
+        child = make_child("Ahmad", parent, with_account=True)
+        draft = Post.objects.create(
+            child=child, type=PostType.objects.get(slug="curhat"),
+            body=doc(para(text("rahasia"))), status="draft",
+        )
+        r = auth(api, parent).get(f"/api/diary/posts/{draft.id}/comments/")
+        assert r.status_code == 404

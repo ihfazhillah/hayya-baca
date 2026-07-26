@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .media import verify_panel_token
+from .permissions import resolve_accessible_post
 
 from accounts.models import Child, ChildAccess, is_child_account
 from accounts.serializers import ChildSerializer
@@ -17,9 +18,14 @@ from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
 from .images import MAX_PANELS_PER_POST, InvalidImage, process_panel_image
-from .models import ComicPanel, Post, PostType
+from .models import ComicPanel, Comment, Post, PostType
 from .permissions import IsChildAccount
-from .serializers import ComicPanelSerializer, PostSerializer, PostTypeSerializer
+from .serializers import (
+    ComicPanelSerializer,
+    CommentSerializer,
+    PostSerializer,
+    PostTypeSerializer,
+)
 
 
 class MeView(APIView):
@@ -183,3 +189,59 @@ class PanelMediaView(APIView):
             return response
 
         return FileResponse(panel.image.open("rb"), content_type="image/webp")
+
+
+class PostCommentsView(APIView):
+    """Flat two-way comment thread on a post (Spec 060 §5.1)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, post_pk):
+        post = resolve_accessible_post(request.user, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        comments = post.comments.select_related("author")
+        return Response(
+            CommentSerializer(
+                comments, many=True, context={"request": request}
+            ).data
+        )
+
+    def post(self, request, post_pk):
+        post = resolve_accessible_post(request.user, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = CommentSerializer(
+            data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save(post=post, author=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CommentDetailView(APIView):
+    """Edit/soft-delete a comment — author only."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get_own_comment(self, request, pk):
+        return Comment.objects.filter(pk=pk, author=request.user).first()
+
+    def patch(self, request, pk):
+        comment = self.get_own_comment(request, pk)
+        if comment is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = CommentSerializer(
+            comment, data=request.data, partial=True, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        comment = self.get_own_comment(request, pk)
+        if comment is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        comment.deleted_at = timezone.now()
+        comment.save(update_fields=["deleted_at"])
+        return Response(status=status.HTTP_204_NO_CONTENT)

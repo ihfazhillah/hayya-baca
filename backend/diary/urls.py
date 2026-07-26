@@ -26,4 +26,14 @@ urlpatterns = [
         views.PanelMediaView.as_view(),
         name="panel-media",
     ),
+    path(
+        "posts/<int:post_pk>/comments/",
+        views.PostCommentsView.as_view(),
+        name="post-comments",
+    ),
+    path(
+        "comments/<int:pk>/",
+        views.CommentDetailView.as_view(),
+        name="comment-detail",
+    ),
 ] + router.urls
