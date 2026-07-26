@@ -159,17 +159,17 @@ Aturan pengerjaan:
 
 ## Fase 8 — UX wali
 
-- [ ] **T8.1 — Feed gabungan** + chip filter per anak + badge unread (poll `badges/`).
-- [ ] **T8.2 — Post detail wali**: render body/panel (signed URL), panggil
+- [x] **T8.1 — Feed gabungan** + chip filter per anak + badge unread (poll `badges/`).
+- [x] **T8.2 — Post detail wali**: render body/panel (signed URL), panggil
   `seen/` saat buka, komentar + reaksi.
-- [ ] **T8.3 — Admin anak**: buat akun diary (username + saran), generate
+- [x] **T8.3 — Admin anak**: buat akun diary (username + saran), generate
   QR (`qrcode.react` dari `setup_url`) + kode pendek + countdown expire —
   untuk setup & reset.
-- [ ] **T8.4 — Link Telegram** (tombol → deep-link bot, status linked/unlink).
+- [x] **T8.4 — Link Telegram** (tombol → deep-link bot, status linked/unlink).
 
 ## Fase 9 — PWA & deploy
 
-- [ ] **T9.1 — PWA polish**: manifest (nama, ikon, standalone), SW app-shell
+- [x] **T9.1 — PWA polish**: manifest (nama, ikon, standalone), SW app-shell
   precache saja (`NetworkOnly` untuk `/api/` & media); uji install di
   Android/chromebook.
 - [ ] **T9.2 — Nginx + DNS + env prod**
