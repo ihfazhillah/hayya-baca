@@ -284,3 +284,49 @@ class TestChildPostCRUD:
         make_child("Ahmad", parent)
         resp = auth(api, parent).get("/api/diary/my/posts/")
         assert resp.status_code == 403
+
+
+# === T2.4: privacy isolation between children ===
+
+
+class TestPostIsolation:
+    def _make_post(self, capi, body_text="rahasia"):
+        r = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "curhat", "body": doc(para(text(body_text)))},
+            format="json",
+        )
+        return r.data["id"]
+
+    def test_sibling_cannot_retrieve_returns_404(self, api, parent):
+        ahmad = make_child("Ahmad", parent, with_account=True)
+        fatimah = make_child("Fatimah", parent, with_account=True)
+        pid = self._make_post(auth(APIClient(), ahmad.user))
+        # Fatimah tries to read Ahmad's post — must look absent, not forbidden.
+        resp = auth(api, fatimah.user).get(f"/api/diary/my/posts/{pid}/")
+        assert resp.status_code == 404
+
+    def test_sibling_cannot_patch_or_delete(self, api, parent):
+        ahmad = make_child("Ahmad", parent, with_account=True)
+        fatimah = make_child("Fatimah", parent, with_account=True)
+        pid = self._make_post(auth(APIClient(), ahmad.user))
+        fapi = auth(api, fatimah.user)
+        assert fapi.patch(
+            f"/api/diary/my/posts/{pid}/", {"title": "x"}, format="json"
+        ).status_code == 404
+        assert fapi.delete(f"/api/diary/my/posts/{pid}/").status_code == 404
+
+    def test_list_shows_only_own_posts(self, api, parent):
+        ahmad = make_child("Ahmad", parent, with_account=True)
+        fatimah = make_child("Fatimah", parent, with_account=True)
+        self._make_post(auth(APIClient(), ahmad.user), "punya ahmad")
+        resp = auth(api, fatimah.user).get("/api/diary/my/posts/")
+        assert resp.status_code == 200
+        assert resp.data == []
+
+    def test_teacher_denied_on_my_posts(self, api, parent, db):
+        child = make_child("Ahmad", parent, with_account=True)
+        teacher = User.objects.create_user(username="guru", password="test1234")
+        ChildAccess.objects.create(user=teacher, child=child, role="teacher")
+        resp = auth(api, teacher).get("/api/diary/my/posts/")
+        assert resp.status_code == 403
