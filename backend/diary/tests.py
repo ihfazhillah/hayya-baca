@@ -97,3 +97,82 @@ class TestModels:
         post.save()
         assert not Post.objects.filter(id=post.id).exists()
         assert Post.all_objects.filter(id=post.id).exists()
+
+
+# === T2.2: ProseMirror body validator ===
+
+
+def doc(*content):
+    return {"type": "doc", "content": list(content)}
+
+
+def para(*content):
+    return {"type": "paragraph", "content": list(content)}
+
+
+def text(s, marks=None):
+    node = {"type": "text", "text": s}
+    if marks:
+        node["marks"] = marks
+    return node
+
+
+class TestProseMirrorValidator:
+    def _valid(self, document):
+        from diary.prosemirror import InvalidDocument, validate_prosemirror
+
+        try:
+            validate_prosemirror(document)
+            return True
+        except InvalidDocument:
+            return False
+
+    def test_valid_document(self):
+        assert self._valid(
+            doc(para(text("Hujan turun"), {"type": "hardBreak"}, text("di pagi hari")))
+        )
+
+    def test_valid_marks(self):
+        assert self._valid(
+            doc(
+                para(
+                    text("tebal", [{"type": "bold"}]),
+                    text("miring", [{"type": "italic"}]),
+                    text(
+                        "warna",
+                        [{"type": "textStyle", "attrs": {"color": "#ff0000"}}],
+                    ),
+                )
+            )
+        )
+
+    def test_reject_non_doc_root(self):
+        assert not self._valid(para(text("x")))
+
+    def test_reject_unknown_node(self):
+        assert not self._valid(doc({"type": "image", "attrs": {"src": "x"}}))
+
+    def test_reject_unknown_mark(self):
+        assert not self._valid(
+            doc(para(text("x", [{"type": "link", "attrs": {"href": "http://x"}}])))
+        )
+
+    def test_reject_bad_color(self):
+        assert not self._valid(
+            doc(
+                para(
+                    text(
+                        "x",
+                        [{"type": "textStyle", "attrs": {"color": "javascript:1"}}],
+                    )
+                )
+            )
+        )
+
+    def test_reject_oversize(self):
+        big = "a" * 20001
+        assert not self._valid(doc(para(text(big))))
+
+    def test_reject_too_deep(self):
+        nested = doc(para(para(para(text("x")))))
+        assert not self._valid(nested)
