@@ -14,6 +14,7 @@ urlpatterns = [
     path("auth/logout/", views.LogoutView.as_view(), name="logout"),
     path("auth/redeem/", views.RedeemInviteView.as_view(), name="redeem-invite"),
     path("auth/child-setup/", ca.ChildSetupView.as_view(), name="child-setup"),
+    path("auth/child-login/", ca.ChildLoginView.as_view(), name="child-login"),
     path(
         "children/<int:child_pk>/access/",
         views.ChildAccessListView.as_view(),

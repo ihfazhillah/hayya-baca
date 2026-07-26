@@ -340,3 +340,75 @@ class TestChildSetup:
         assert resp.status_code == 200
         child_with_account.user.refresh_from_db()
         assert child_with_account.user.check_password("anjing2")
+
+
+@pytest.fixture
+def child_with_password(child_with_account):
+    child_with_account.user.set_password("kucing1")
+    child_with_account.user.save()
+    return child_with_account
+
+
+# === T1.7: child-login + progressive lockout ===
+
+
+class TestChildLogin:
+    def test_login_success(self, api, child_with_password):
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ahmad", "password": "kucing1"}
+        )
+        assert resp.status_code == 200
+        assert "token" in resp.data
+        assert resp.data["child"]["name"] == "Ahmad"
+
+    def test_wrong_password_401(self, api, child_with_password):
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ahmad", "password": "salah"}
+        )
+        assert resp.status_code == 401
+
+    def test_locks_after_five_failures(self, api, child_with_password):
+        for _ in range(5):
+            api.post(
+                "/api/auth/child-login/",
+                {"username": "ahmad", "password": "salah"},
+            )
+        # Even the correct password is now blocked.
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ahmad", "password": "kucing1"}
+        )
+        assert resp.status_code == 429
+
+    def test_success_resets_lockout(self, api, child_with_password):
+        for _ in range(4):
+            api.post(
+                "/api/auth/child-login/",
+                {"username": "ahmad", "password": "salah"},
+            )
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ahmad", "password": "kucing1"}
+        )
+        assert resp.status_code == 200
+        assert not LoginLockout.is_locked("ahmad")
+
+    def test_lock_expires(self, api, child_with_password):
+        for _ in range(5):
+            api.post(
+                "/api/auth/child-login/",
+                {"username": "ahmad", "password": "salah"},
+            )
+        lock = LoginLockout.objects.get(username="ahmad")
+        lock.locked_until = timezone.now() - timedelta(seconds=1)
+        lock.save()
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ahmad", "password": "kucing1"}
+        )
+        assert resp.status_code == 200
+
+    def test_guardian_rejected_at_child_login(self, api, parent):
+        parent.set_password("test1234")
+        parent.save()
+        resp = api.post(
+            "/api/auth/child-login/", {"username": "ayah", "password": "test1234"}
+        )
+        assert resp.status_code == 403

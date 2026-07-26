@@ -2,7 +2,7 @@
 import secrets
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import ChildAccess, PasswordSetupToken
+from .models import ChildAccess, LoginLockout, PasswordSetupToken, is_child_account
 from .serializers import ChildSerializer
 from .validators import validate_child_password
 
@@ -158,4 +158,42 @@ class ChildSetupView(APIView):
         return Response(
             {"token": auth_token.key, "child": ChildSerializer(child).data},
             status=status.HTTP_200_OK,
+        )
+
+
+class ChildLoginView(APIView):
+    """POST anon: child login with username+password, progressive lockout."""
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username = (request.data.get("username") or "").strip()
+        password = request.data.get("password") or ""
+
+        if LoginLockout.is_locked(username):
+            return Response(
+                {"detail": "Terlalu banyak percobaan. Coba lagi nanti."},
+                status=status.HTTP_429_TOO_MANY_REQUESTS,
+            )
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None and not is_child_account(user):
+            # A guardian account must use the regular login endpoint.
+            return Response(
+                {"detail": "Akun ini bukan akun anak"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        if user is None:
+            LoginLockout.record_failure(username)
+            return Response(
+                {"detail": "Username atau password salah"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        LoginLockout.reset(username)
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response(
+            {"token": token.key, "child": ChildSerializer(user.child_profile).data}
         )
