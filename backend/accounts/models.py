@@ -3,6 +3,13 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
+def is_child_account(user):
+    """True if `user` is a linked diary account for a Child (not a guardian)."""
+    if not getattr(user, "is_authenticated", False):
+        return False
+    return hasattr(user, "child_profile")
+
+
 class Child(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -13,6 +20,13 @@ class Child(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         related_name="created_children",
+    )
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="child_profile",
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
