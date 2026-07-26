@@ -48,9 +48,6 @@ class ComicPanelSerializer(serializers.ModelSerializer):
         fields = ["id", "order", "caption", "image_url"]
 
     def get_image_url(self, obj):
-        # Replaced by a signed URL in T3.2.
-        if not obj.image:
-            return None
-        request = self.context.get("request")
-        url = obj.image.url
-        return request.build_absolute_uri(url) if request else url
+        from .media import signed_panel_url
+
+        return signed_panel_url(obj, self.context.get("request"))

@@ -1,10 +1,14 @@
 """Ruang Cerita diary views (Spec 060)."""
+from django.conf import settings
+from django.http import FileResponse, HttpResponse
 from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from .media import verify_panel_token
 
 from accounts.models import Child, ChildAccess, is_child_account
 from accounts.serializers import ChildSerializer
@@ -154,3 +158,28 @@ class PanelDetailView(PanelBaseView):
         panel = self.get_panel(request, post_pk, pk)
         panel.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PanelMediaView(APIView):
+    """Serve a panel image if the signed token is valid. No auth header needed
+    (the short-lived signature is the capability), so <img src> works."""
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request, pk):
+        token = request.query_params.get("token", "")
+        if not verify_panel_token(token, pk):
+            return HttpResponse(status=status.HTTP_403_FORBIDDEN)
+
+        panel = get_object_or_404(ComicPanel, pk=pk)
+        if not panel.image:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+        if settings.DIARY_USE_X_ACCEL:
+            response = HttpResponse(content_type="image/webp")
+            internal = settings.DIARY_INTERNAL_MEDIA_LOCATION.rstrip("/")
+            response["X-Accel-Redirect"] = f"{internal}/{panel.image.name}"
+            return response
+
+        return FileResponse(panel.image.open("rb"), content_type="image/webp")

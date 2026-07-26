@@ -446,3 +446,55 @@ class TestComicPanelUpload:
             format="multipart",
         )
         assert resp.status_code == 404
+
+
+# === T3.2: signed media URL + private serving ===
+
+
+def _upload_panel(capi, post):
+    r = capi.post(
+        f"/api/diary/my/posts/{post.id}/panels/",
+        {"image": make_image(400, 400)},
+        format="multipart",
+    )
+    return r.data["id"], r.data["image_url"]
+
+
+class TestSignedMedia:
+    def test_image_url_is_signed_and_serves(self, comic_ctx):
+        child, capi, post = comic_ctx
+        pid, url = _upload_panel(capi, post)
+        assert "token=" in url
+        # A fresh browser (no auth header) can fetch via the signed URL.
+        path = url.split("testserver")[-1] if "testserver" in url else url
+        anon = APIClient()
+        resp = anon.get(path)
+        assert resp.status_code == 200
+
+    def test_tampered_token_rejected(self, comic_ctx):
+        child, capi, post = comic_ctx
+        pid, _ = _upload_panel(capi, post)
+        anon = APIClient()
+        resp = anon.get(f"/api/diary/media/{pid}/?token=deadbeef:1:bad")
+        assert resp.status_code == 403
+
+    def test_missing_token_rejected(self, comic_ctx):
+        child, capi, post = comic_ctx
+        pid, _ = _upload_panel(capi, post)
+        resp = APIClient().get(f"/api/diary/media/{pid}/")
+        assert resp.status_code == 403
+
+    def test_expired_token_rejected(self, comic_ctx, monkeypatch):
+        import django.core.signing as signing
+
+        from diary.media import signed_panel_token
+
+        child, capi, post = comic_ctx
+        pid, _ = _upload_panel(capi, post)
+        # Stamp the token ~2 hours in the past so the 1h TTL rejects it.
+        real = signing.time.time()
+        monkeypatch.setattr(signing.time, "time", lambda: real - 7200)
+        old_token = signed_panel_token(pid)
+        monkeypatch.undo()
+        resp = APIClient().get(f"/api/diary/media/{pid}/?token={old_token}")
+        assert resp.status_code == 403

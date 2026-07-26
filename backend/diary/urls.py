@@ -21,4 +21,9 @@ urlpatterns = [
         views.PanelDetailView.as_view(),
         name="panel-detail",
     ),
+    path(
+        "media/<int:pk>/",
+        views.PanelMediaView.as_view(),
+        name="panel-media",
+    ),
 ] + router.urls

@@ -118,3 +118,10 @@ DIARY_WEB_BASE_URL = os.environ.get(
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_BOT_USERNAME = os.environ.get("TELEGRAM_BOT_USERNAME", "")
 TELEGRAM_WEBHOOK_SECRET = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "")
+
+# Private media serving: in production nginx serves the file via an internal
+# X-Accel-Redirect location; in dev Django streams it directly.
+DIARY_USE_X_ACCEL = os.environ.get("DIARY_USE_X_ACCEL", "") == "1"
+DIARY_INTERNAL_MEDIA_LOCATION = os.environ.get(
+    "DIARY_INTERNAL_MEDIA_LOCATION", "/protected-media/"
+)
