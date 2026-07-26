@@ -176,3 +176,111 @@ class TestProseMirrorValidator:
     def test_reject_too_deep(self):
         nested = doc(para(para(para(text("x")))))
         assert not self._valid(nested)
+
+
+# === T2.3: child post CRUD ===
+
+
+@pytest.fixture
+def child_ctx(api, parent):
+    """A child with a diary account + authed client."""
+    child = make_child("Ahmad", parent, with_account=True)
+    return child, auth(api, child.user)
+
+
+class TestPostTypesEndpoint:
+    def test_list_active_types(self, api, parent):
+        child = make_child("Ahmad", parent, with_account=True)
+        resp = auth(api, child.user).get("/api/diary/post-types/")
+        assert resp.status_code == 200
+        slugs = {t["slug"] for t in resp.data}
+        assert {"puisi", "komik"} <= slugs
+
+
+class TestChildPostCRUD:
+    def test_write_journey(self, child_ctx):
+        child, capi = child_ctx
+        # Create draft
+        resp = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "puisi", "body": doc(para(text("Hujan turun")))},
+            format="json",
+        )
+        assert resp.status_code == 201
+        assert resp.data["status"] == "draft"
+        pid = resp.data["id"]
+
+        # Autosave (PATCH body)
+        resp = capi.patch(
+            f"/api/diary/my/posts/{pid}/",
+            {"body": doc(para(text("Hujan turun deras")))},
+            format="json",
+        )
+        assert resp.status_code == 200
+
+        # Publish
+        resp = capi.patch(
+            f"/api/diary/my/posts/{pid}/", {"status": "published"}, format="json"
+        )
+        assert resp.status_code == 200
+        assert resp.data["status"] == "published"
+        assert resp.data["published_at"] is not None
+
+        # Edit after publish
+        resp = capi.patch(
+            f"/api/diary/my/posts/{pid}/", {"title": "Hujan"}, format="json"
+        )
+        assert resp.status_code == 200
+        assert resp.data["title"] == "Hujan"
+
+        # Soft delete
+        resp = capi.delete(f"/api/diary/my/posts/{pid}/")
+        assert resp.status_code == 204
+        from diary.models import Post
+
+        assert not Post.objects.filter(id=pid).exists()
+        assert Post.all_objects.filter(id=pid).exists()
+
+    def test_list_filter_by_status(self, child_ctx):
+        child, capi = child_ctx
+        capi.post(
+            "/api/diary/my/posts/",
+            {"type": "curhat", "body": doc(para(text("draft")))},
+            format="json",
+        )
+        r = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "curhat", "body": doc(para(text("pub")))},
+            format="json",
+        )
+        capi.patch(
+            f"/api/diary/my/posts/{r.data['id']}/",
+            {"status": "published"},
+            format="json",
+        )
+        resp = capi.get("/api/diary/my/posts/?status=published")
+        assert resp.status_code == 200
+        assert len(resp.data) == 1
+        assert resp.data[0]["status"] == "published"
+
+    def test_invalid_body_rejected(self, child_ctx):
+        child, capi = child_ctx
+        resp = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "puisi", "body": {"type": "image"}},
+            format="json",
+        )
+        assert resp.status_code == 400
+
+    def test_comic_allows_null_body(self, child_ctx):
+        child, capi = child_ctx
+        resp = capi.post(
+            "/api/diary/my/posts/", {"type": "komik"}, format="json"
+        )
+        assert resp.status_code == 201
+        assert resp.data["body"] is None
+
+    def test_guardian_cannot_use_my_posts(self, api, parent):
+        make_child("Ahmad", parent)
+        resp = auth(api, parent).get("/api/diary/my/posts/")
+        assert resp.status_code == 403

@@ -1,9 +1,14 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
 app_name = "diary"
 
+router = DefaultRouter()
+router.register(r"my/posts", views.MyPostViewSet, basename="my-post")
+
 urlpatterns = [
     path("me/", views.MeView.as_view(), name="me"),
-]
+    path("post-types/", views.PostTypeListView.as_view(), name="post-types"),
+] + router.urls
