@@ -49,4 +49,14 @@ urlpatterns = [
     path("feed/", views.FeedView.as_view(), name="feed"),
     path("badges/", views.BadgesView.as_view(), name="badges"),
     path("posts/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
+    path(
+        "telegram/link/",
+        views.TelegramLinkView.as_view(),
+        name="telegram-link",
+    ),
+    path(
+        "telegram/webhook/<str:secret>/",
+        views.TelegramWebhookView.as_view(),
+        name="telegram-webhook",
+    ),
 ] + router.urls

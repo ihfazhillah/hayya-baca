@@ -24,7 +24,9 @@ from .models import (
     PostType,
     Reaction,
     ReadReceipt,
+    TelegramLink,
 )
+from . import telegram
 from .permissions import IsChildAccount, resolve_accessible_post
 from .serializers import (
     ComicPanelSerializer,
@@ -433,3 +435,59 @@ class BadgesView(APIView):
             if child_has_new_activity(post, receipt, user.id):
                 post_ids.append(post.id)
         return {"posts": post_ids, "total": len(post_ids)}
+
+
+class TelegramLinkView(APIView):
+    """Guardian links/unlinks their Telegram account (Spec 060 §6.2)."""
+
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+
+    def post(self, request):
+        code = telegram.new_link_code()
+        link, _ = TelegramLink.objects.update_or_create(
+            user=request.user,
+            defaults={
+                "link_code": code,
+                "code_expires_at": telegram.link_code_expiry(),
+            },
+        )
+        return Response(
+            {"deep_link": telegram.deep_link(code), "link_code": code}
+        )
+
+    def delete(self, request):
+        TelegramLink.objects.filter(user=request.user).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TelegramWebhookView(APIView):
+    """Telegram calls this on bot updates. Handles /start <code> linking."""
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request, secret):
+        configured = settings.TELEGRAM_WEBHOOK_SECRET
+        if not configured or secret != configured:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        message = (request.data or {}).get("message", {})
+        text = (message.get("text") or "").strip()
+        chat_id = str((message.get("chat") or {}).get("id", "")) or None
+
+        if text.startswith("/start") and chat_id:
+            parts = text.split(maxsplit=1)
+            if len(parts) == 2:
+                self._link(parts[1].strip(), chat_id)
+
+        return Response({"ok": True})
+
+    def _link(self, code, chat_id):
+        link = TelegramLink.objects.filter(link_code=code).first()
+        if link is None or link.code_expires_at < timezone.now():
+            return
+        link.chat_id = chat_id
+        link.save(update_fields=["chat_id"])
+        telegram.send_message(
+            chat_id, "Akun Ruang Cerita terhubung. Kamu akan dapat kabar di sini."
+        )

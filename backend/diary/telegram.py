@@ -1,0 +1,85 @@
+"""Telegram notification channel for guardians (Spec 060 §6.2).
+
+A doorbell, not a postman: notifications carry name + type + optional title +
+a short excerpt, never the full writing — diary content lives only in the app.
+Sending is synchronous best-effort; failures are logged and never break the
+request that triggered them. When TELEGRAM_BOT_TOKEN is unset the sender is a
+no-op, so the whole feature stays dormant in dev/tests.
+"""
+import json
+import logging
+import secrets
+import urllib.request
+from datetime import timedelta
+
+from django.conf import settings
+from django.utils import timezone
+
+logger = logging.getLogger(__name__)
+
+LINK_CODE_TTL = timedelta(minutes=15)
+SEND_TIMEOUT = 3  # seconds
+EXCERPT_LEN = 120
+
+
+def new_link_code():
+    return secrets.token_urlsafe(8)
+
+
+def link_code_expiry():
+    return timezone.now() + LINK_CODE_TTL
+
+
+def deep_link(code):
+    bot = settings.TELEGRAM_BOT_USERNAME or "bot"
+    return f"https://t.me/{bot}?start={code}"
+
+
+def send_message(chat_id, text):
+    """Best-effort Telegram sendMessage. Returns True on success."""
+    token = settings.TELEGRAM_BOT_TOKEN
+    if not token or not chat_id:
+        return False
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = json.dumps({"chat_id": chat_id, "text": text}).encode()
+    req = urllib.request.Request(
+        url, data=payload, headers={"Content-Type": "application/json"}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=SEND_TIMEOUT) as resp:
+            return resp.status == 200
+    except Exception as exc:  # noqa: BLE001 — best-effort, never bubble up
+        logger.warning("Telegram send failed: %s", exc)
+        return False
+
+
+def excerpt_from_body(body, limit=EXCERPT_LEN):
+    """Flatten ProseMirror JSON to plain text, truncated to `limit` chars."""
+    if not body:
+        return ""
+    parts = []
+
+    def walk(node):
+        if not isinstance(node, dict):
+            return
+        if node.get("type") == "text":
+            parts.append(node.get("text", ""))
+        for child in node.get("content", []) or []:
+            walk(child)
+        # Paragraph breaks keep poems/pantun readable.
+        if node.get("type") == "paragraph":
+            parts.append("\n")
+
+    walk(body)
+    text = " ".join("".join(parts).split())
+    if len(text) > limit:
+        text = text[: limit - 1].rstrip() + "…"
+    return text
+
+
+def build_notification(child_name, type_label, title, body):
+    """Compose the message: name + type + (title if any) + excerpt."""
+    header = f"🖋️ {child_name} menulis {type_label}"
+    if title:
+        return f"{header}\n\n“{title}”\n{excerpt_from_body(body)}".rstrip()
+    return f"{header}\n\n{excerpt_from_body(body)}".rstrip()

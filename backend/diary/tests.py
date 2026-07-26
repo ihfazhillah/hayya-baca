@@ -870,3 +870,79 @@ class TestBadges:
         ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
         resp = ctx["child_api"].get("/api/diary/badges/")
         assert pid not in resp.data["posts"]
+
+
+# === T5.1: telegram link + webhook ===
+
+
+class TestTelegramLink:
+    def test_link_returns_deep_link(self, api, parent, settings):
+        settings.TELEGRAM_BOT_USERNAME = "ruangcerita_bot"
+        make_child("Ahmad", parent)
+        r = auth(api, parent).post("/api/diary/telegram/link/")
+        assert r.status_code == 200
+        assert r.data["deep_link"].startswith("https://t.me/ruangcerita_bot?start=")
+
+    def test_webhook_start_sets_chat_id(self, api, parent, settings):
+        from diary.models import TelegramLink
+
+        settings.TELEGRAM_WEBHOOK_SECRET = "s3cr3t"
+        make_child("Ahmad", parent)
+        r = auth(api, parent).post("/api/diary/telegram/link/")
+        code = r.data["link_code"]
+        update = {
+            "message": {"text": f"/start {code}", "chat": {"id": 998877}}
+        }
+        resp = api.post(
+            "/api/diary/telegram/webhook/s3cr3t/", update, format="json"
+        )
+        assert resp.status_code == 200
+        link = TelegramLink.objects.get(user=parent)
+        assert link.chat_id == "998877"
+
+    def test_webhook_wrong_secret_404(self, api, parent, settings):
+        settings.TELEGRAM_WEBHOOK_SECRET = "s3cr3t"
+        resp = api.post(
+            "/api/diary/telegram/webhook/wrong/",
+            {"message": {"text": "/start X", "chat": {"id": 1}}},
+            format="json",
+        )
+        assert resp.status_code == 404
+
+    def test_webhook_disabled_when_no_secret(self, api, settings):
+        settings.TELEGRAM_WEBHOOK_SECRET = ""
+        resp = api.post(
+            "/api/diary/telegram/webhook//",
+            {"message": {"text": "/start X", "chat": {"id": 1}}},
+            format="json",
+        )
+        assert resp.status_code == 404
+
+    def test_expired_code_does_not_link(self, api, parent, settings):
+        from django.utils import timezone
+
+        from diary.models import TelegramLink
+
+        settings.TELEGRAM_WEBHOOK_SECRET = "s3cr3t"
+        make_child("Ahmad", parent)
+        r = auth(api, parent).post("/api/diary/telegram/link/")
+        code = r.data["link_code"]
+        TelegramLink.objects.filter(user=parent).update(
+            code_expires_at=timezone.now() - timezone.timedelta(minutes=1)
+        )
+        api.post(
+            "/api/diary/telegram/webhook/s3cr3t/",
+            {"message": {"text": f"/start {code}", "chat": {"id": 5}}},
+            format="json",
+        )
+        link = TelegramLink.objects.get(user=parent)
+        assert link.chat_id is None
+
+    def test_unlink(self, api, parent):
+        from diary.models import TelegramLink
+
+        make_child("Ahmad", parent)
+        auth(api, parent).post("/api/diary/telegram/link/")
+        r = auth(api, parent).delete("/api/diary/telegram/link/")
+        assert r.status_code == 204
+        assert not TelegramLink.objects.filter(user=parent).exists()
