@@ -3,7 +3,16 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from .models import Child, ChildAccess, is_child_account
+from django.utils import timezone
+from datetime import timedelta
+
+from .models import (
+    Child,
+    ChildAccess,
+    LoginLockout,
+    PasswordSetupToken,
+    is_child_account,
+)
 
 User = get_user_model()
 
@@ -43,3 +52,69 @@ class TestChildAccountHelper:
 
     def test_is_child_account_false_for_anonymous(self, db):
         assert is_child_account(AnonymousUser()) is False
+
+
+# === T1.2: PasswordSetupToken + LoginLockout ===
+
+
+class TestPasswordSetupToken:
+    def test_generate_creates_valid_token(self, child, parent):
+        token = PasswordSetupToken.generate(child=child, created_by=parent)
+        assert len(token.code) == 8
+        assert token.used_at is None
+        assert token.expires_at > timezone.now()
+        assert token.is_valid()
+
+    def test_code_has_no_ambiguous_chars(self, child, parent):
+        token = PasswordSetupToken.generate(child=child, created_by=parent)
+        assert not (set(token.code) & set("O0I1L"))
+
+    def test_generate_voids_previous_active_tokens(self, child, parent):
+        old = PasswordSetupToken.generate(child=child, created_by=parent)
+        PasswordSetupToken.generate(child=child, created_by=parent)
+        old.refresh_from_db()
+        assert not old.is_valid()
+
+    def test_expired_token_is_invalid(self, child, parent):
+        token = PasswordSetupToken.generate(child=child, created_by=parent)
+        token.expires_at = timezone.now() - timedelta(minutes=1)
+        token.save()
+        assert not token.is_valid()
+
+    def test_used_token_is_invalid(self, child, parent):
+        token = PasswordSetupToken.generate(child=child, created_by=parent)
+        token.mark_used()
+        assert not token.is_valid()
+
+
+class TestLoginLockout:
+    def test_no_lock_before_threshold(self, db):
+        for _ in range(4):
+            LoginLockout.record_failure("ahmad")
+        assert not LoginLockout.is_locked("ahmad")
+
+    def test_locks_after_five_failures(self, db):
+        for _ in range(5):
+            LoginLockout.record_failure("ahmad")
+        assert LoginLockout.is_locked("ahmad")
+
+    def test_lock_duration_doubles(self, db):
+        # 5th failure → 60s, 6th → 120s, capped at 900s
+        assert LoginLockout.lock_seconds(5) == 60
+        assert LoginLockout.lock_seconds(6) == 120
+        assert LoginLockout.lock_seconds(7) == 240
+        assert LoginLockout.lock_seconds(100) == 900
+
+    def test_reset_clears_lock(self, db):
+        for _ in range(5):
+            LoginLockout.record_failure("ahmad")
+        LoginLockout.reset("ahmad")
+        assert not LoginLockout.is_locked("ahmad")
+
+    def test_expired_lock_not_locked(self, db):
+        for _ in range(5):
+            LoginLockout.record_failure("ahmad")
+        lock = LoginLockout.objects.get(username="ahmad")
+        lock.locked_until = timezone.now() - timedelta(seconds=1)
+        lock.save()
+        assert not LoginLockout.is_locked("ahmad")
