@@ -146,14 +146,14 @@ Aturan pengerjaan:
 
 ## Fase 7 — UX anak
 
-- [ ] **T7.1 — Timeline sendiri** (draft & published, status jelas, tombol besar "Aku mau nulis…")
-- [ ] **T7.2 — Type-picker** 5 kartu (dari `/post-types/`) → editor sesuai `kind`.
-- [ ] **T7.3 — Editor teks TipTap**
+- [x] **T7.1 — Timeline sendiri** (draft & published, status jelas, tombol besar "Aku mau nulis…")
+- [x] **T7.2 — Type-picker** 5 kartu (dari `/post-types/`) → editor sesuai `kind`.
+- [x] **T7.3 — Editor teks TipTap**
   Toolbar besar: bold/italic/warna/emoji; autosave debounce 3 dtk + indikator
   "tersimpan"; retry in-memory saat offline; publish; judul opsional.
-- [ ] **T7.4 — Comic composer**
+- [x] **T7.4 — Comic composer**
   Ambil foto/file per panel, urutkan, caption, hapus panel, publish.
-- [ ] **T7.5 — Post detail sisi anak**
+- [x] **T7.5 — Post detail sisi anak**
   Baca karya + komentar wali, balas, reaksi, lihat "✓ Dibaca Ayah/Ibu";
   edit/hapus karya sendiri (konfirmasi hapus).
 
