@@ -15,44 +15,44 @@ Aturan pengerjaan:
 
 ## Fase 1 — Fondasi akun anak (`accounts`)
 
-- [ ] **T1.1 — Migrasi `Child.user` + helper**
+- [x] **T1.1 — Migrasi `Child.user` + helper**
   OneToOne nullable ke `User` (`related_name="child_profile"`, `on_delete=SET_NULL`).
   Helper `is_child_account(user)`. Test: buat user-anak ter-link, helper benar
   untuk wali/anak/anonim.
 
-- [ ] **T1.2 — Model `PasswordSetupToken` + `LoginLockout`**
+- [x] **T1.2 — Model `PasswordSetupToken` + `LoginLockout`**
   Sesuai plan §1.1 (kode 8 char alfabet non-ambigu, expire 15 menit, void token
   lama saat generate baru). Test: generate → void lama; expire; single-use.
 
-- [ ] **T1.3 — `ChildPasswordValidator`**
+- [x] **T1.3 — `ChildPasswordValidator`**
   Min 6 karakter, bebas bentuk; dipakai hanya di alur set-password anak.
   Test: "kucing1" & "123456" lolos; "abc" ditolak; validator global tak berubah.
 
-- [ ] **T1.4 — `POST /api/children/{id}/diary-account/`** (parent)
+- [x] **T1.4 — `POST /api/children/{id}/diary-account/`** (parent)
   Buat user anak `{username}`; username unik global; 409 + `suggestions`
   (nama + 2 digit acak) saat bentrok. Test: sukses, bentrok+saran, teacher
   ditolak, non-wali ditolak.
 
-- [ ] **T1.5 — `POST .../diary-account/setup-token/`** (parent)
+- [x] **T1.5 — `POST .../diary-account/setup-token/`** (parent)
   → `{code, setup_url, expires_at}`. Test: hanya parent; token lama ter-void.
 
-- [ ] **T1.6 — `POST /api/auth/child-setup/`** (anon)
+- [x] **T1.6 — `POST /api/auth/child-setup/`** (anon)
   `{code, password}` → set password (T1.3), void token, balas `{token, child}`.
   Test: happy path; kode salah/expired/terpakai; dipakai untuk setup awal DAN reset.
 
-- [ ] **T1.7 — `POST /api/auth/child-login/` + lockout progresif**
+- [x] **T1.7 — `POST /api/auth/child-login/` + lockout progresif**
   5 gagal → 60 dtk, ×2 per gagal berikut, cap 15 menit, reset saat sukses;
   menolak akun non-anak. Test: journey lockout penuh (freeze time), reset,
   wali ditolak di endpoint ini.
 
-- [ ] **T1.8 — Guard endpoint existing + audit**
+- [x] **T1.8 — Guard endpoint existing + audit**
   Permission `IsGuardianAccount` di `ChildViewSet`, `ShareInviteViewSet`,
   `RedeemInviteView`, `ChildAccessListView`; `POST /api/auth/login/` menolak
   akun anak (403). Audit semua urls nested (`reading`/`rewards`/`streaks`) —
   catat hasil audit di komentar PR/commit. Test negatif: akun anak ditolak di
   tiap endpoint tersebut.
 
-- [ ] **T1.9 — `GET /api/diary/me/`**
+- [x] **T1.9 — `GET /api/diary/me/`**
   `{role, child?|children?}`. Test: anak, wali (multi-anak), teacher
   (`children: []` — tidak melihat apa pun).
 
