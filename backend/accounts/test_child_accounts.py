@@ -118,3 +118,31 @@ class TestLoginLockout:
         lock.locked_until = timezone.now() - timedelta(seconds=1)
         lock.save()
         assert not LoginLockout.is_locked("ahmad")
+
+
+# === T1.3: ChildPasswordValidator ===
+
+
+class TestChildPasswordValidator:
+    def _validate(self, password):
+        from django.core.exceptions import ValidationError as DjangoValidationError
+
+        from .validators import ChildPasswordValidator
+
+        try:
+            ChildPasswordValidator().validate(password)
+            return True
+        except DjangoValidationError:
+            return False
+
+    def test_simple_word_with_digit_ok(self):
+        assert self._validate("kucing1") is True
+
+    def test_all_numeric_ok(self):
+        assert self._validate("123456") is True
+
+    def test_too_short_rejected(self):
+        assert self._validate("abc") is False
+
+    def test_exactly_six_ok(self):
+        assert self._validate("abcdef") is True
