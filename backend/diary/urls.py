@@ -41,4 +41,9 @@ urlpatterns = [
         views.PostReactionsView.as_view(),
         name="post-reactions",
     ),
+    path(
+        "posts/<int:post_pk>/seen/",
+        views.PostSeenView.as_view(),
+        name="post-seen",
+    ),
 ] + router.urls

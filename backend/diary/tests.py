@@ -675,3 +675,43 @@ class TestReactions:
             f"/api/diary/posts/{pid}/reactions/", {"emoji": "❤️"}, format="json"
         )
         assert r.status_code == 404
+
+
+# === T4.3: seen + read receipt ===
+
+
+class TestSeen:
+    def test_guardian_seen_creates_read_receipt(self, published_ctx):
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
+        assert r.status_code == 200
+        labels = [rb["label"] for rb in r.data["read_by"]]
+        assert "ayah" in labels
+
+    def test_first_read_unchanged_on_second_visit(self, published_ctx):
+        from diary.models import ReadReceipt
+
+        ctx = published_ctx
+        pid = ctx["post"].id
+        ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
+        first = ReadReceipt.objects.get(
+            post_id=pid, user=ctx["parent"]
+        ).first_read_at
+        ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
+        rr = ReadReceipt.objects.get(post_id=pid, user=ctx["parent"])
+        assert rr.first_read_at == first
+        assert rr.last_seen_at >= first
+
+    def test_child_seen_no_read_receipt(self, published_ctx):
+        from diary.models import ReadReceipt
+
+        ctx = published_ctx
+        pid = ctx["post"].id
+        r = ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
+        assert r.status_code == 200
+        rr = ReadReceipt.objects.get(post_id=pid, user=ctx["child"].user)
+        assert rr.first_read_at is None
+        assert rr.last_seen_at is not None
+        # Child's own view is not a "read by" entry.
+        assert r.data["read_by"] == []

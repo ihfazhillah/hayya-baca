@@ -107,7 +107,8 @@ class ReadReceipt(models.Model):
         Post, on_delete=models.CASCADE, related_name="receipts"
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    first_read_at = models.DateTimeField()
+    # Null for the child's own views — a read receipt is a guardian concept.
+    first_read_at = models.DateTimeField(null=True, blank=True)
     last_seen_at = models.DateTimeField()
 
     class Meta:

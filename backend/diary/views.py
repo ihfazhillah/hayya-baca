@@ -25,6 +25,7 @@ from .models import (
     Post,
     PostType,
     Reaction,
+    ReadReceipt,
 )
 from .permissions import IsChildAccount
 from .serializers import (
@@ -32,6 +33,7 @@ from .serializers import (
     CommentSerializer,
     PostSerializer,
     PostTypeSerializer,
+    author_label,
 )
 
 
@@ -295,3 +297,39 @@ class PostReactionsView(APIView):
             post=post, user=request.user, emoji=emoji
         ).delete()
         return Response(reaction_summary(post, request.user))
+
+
+def read_by_list(post):
+    """Guardians who have read this post → shown to the child as receipts."""
+    receipts = post.receipts.filter(first_read_at__isnull=False).select_related(
+        "user"
+    )
+    return [
+        {"label": author_label(r.user), "at": r.first_read_at} for r in receipts
+    ]
+
+
+class PostSeenView(APIView):
+    """Mark a post seen: guardians leave a read receipt, everyone updates the
+    last-seen watermark used for unread badges (Spec 060 §5.3, §6.1)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, post_pk):
+        post = resolve_accessible_post(request.user, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        now = timezone.now()
+        receipt, created = ReadReceipt.objects.get_or_create(
+            post=post,
+            user=request.user,
+            defaults={"last_seen_at": now},
+        )
+        receipt.last_seen_at = now
+        # A read receipt ("Dibaca Ayah") is a guardian action only.
+        if not is_child_account(request.user) and receipt.first_read_at is None:
+            receipt.first_read_at = now
+        receipt.save(update_fields=["last_seen_at", "first_read_at"])
+
+        return Response({"read_by": read_by_list(post)})
