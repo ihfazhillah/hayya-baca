@@ -11,12 +11,15 @@ import { createApiClient } from '@/api/client'
 import { createEndpoints, type Endpoints } from '@/api/endpoints'
 import { SessionStore, type SessionState } from './sessionStore'
 import { addQuickPick, type QuickPick } from './quickpick'
-import type { Me } from '@/api/types'
+
+const GUARDIAN_AVATAR = '#6d28d9'
 
 interface SessionContextValue {
   state: SessionState
   api: Endpoints
-  login: (token: string, me: Me, profile?: QuickPick | null) => void
+  signInChild: (username: string, password: string) => Promise<void>
+  signInGuardian: (username: string, password: string) => Promise<void>
+  completeSetup: (code: string, password: string) => Promise<void>
   logout: () => void
   lock: () => void
 }
@@ -35,13 +38,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionState>(store.state)
 
   useEffect(() => {
-    // Bridge store → React. onChange is set here so it survives StrictMode.
     ;(store as unknown as { onChange?: (s: SessionState) => void }).onChange =
       setState
     return () => store.destroy()
   }, [store])
 
-  // Reset the idle timer on any user activity.
   useEffect(() => {
     const handler = () => store.touch()
     ACTIVITY_EVENTS.forEach((e) => window.addEventListener(e, handler))
@@ -49,6 +50,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       ACTIVITY_EVENTS.forEach((e) => window.removeEventListener(e, handler))
   }, [store])
 
+  // Client bound to the live in-memory token, for authenticated calls.
   const api = useMemo(() => {
     const client = createApiClient({
       getToken: store.getToken,
@@ -57,19 +59,55 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return createEndpoints(client)
   }, [store])
 
-  const value = useMemo<SessionContextValue>(
-    () => ({
+  const value = useMemo<SessionContextValue>(() => {
+    // Fetch the canonical Me with a just-issued token, then commit the session.
+    async function bootstrap(token: string, profile: QuickPick | null) {
+      const client = createApiClient({
+        getToken: () => token,
+        onUnauthorized: store.lock,
+      })
+      const me = await createEndpoints(client).me()
+      store.login(token, me, profile)
+    }
+
+    return {
       state,
       api,
-      login: (token, me, profile) => {
+      signInChild: async (username, password) => {
+        const res = await api.childLogin(username, password)
+        const profile: QuickPick = {
+          username,
+          name: res.child?.name ?? username,
+          avatar_color: res.child?.avatar_color ?? GUARDIAN_AVATAR,
+        }
+        addQuickPick(profile)
+        await bootstrap(res.token, profile)
+      },
+      signInGuardian: async (username, password) => {
+        const res = await api.guardianLogin(username, password)
+        // Guardians get a lock-screen profile but stay out of the quick-pick roster.
+        await bootstrap(res.token, {
+          username,
+          name: username,
+          avatar_color: GUARDIAN_AVATAR,
+        })
+      },
+      completeSetup: async (code, password) => {
+        const res = await api.childSetup(code, password)
+        const profile: QuickPick | null = res.child
+          ? {
+              username: res.child.name,
+              name: res.child.name,
+              avatar_color: res.child.avatar_color,
+            }
+          : null
         if (profile) addQuickPick(profile)
-        store.login(token, me, profile ?? null)
+        await bootstrap(res.token, profile)
       },
       logout: () => store.logout(),
       lock: () => store.lock(),
-    }),
-    [state, api, store],
-  )
+    }
+  }, [state, api, store])
 
   return (
     <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
