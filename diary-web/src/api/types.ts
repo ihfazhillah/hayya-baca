@@ -33,6 +33,7 @@ export interface MeGuardian {
   role: 'guardian'
   user_id: number
   children: GuardianChild[]
+  telegram_linked: boolean
 }
 
 export type Me = MeChild | MeGuardian

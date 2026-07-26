@@ -77,11 +77,15 @@ class MeView(APIView):
             row["has_diary_account"] = child.user_id is not None
             row["username"] = child.user.username if child.user_id else None
             children_data.append(row)
+        telegram_linked = TelegramLink.objects.filter(
+            user=user, chat_id__isnull=False
+        ).exclude(chat_id="").exists()
         return Response(
             {
                 "role": "guardian",
                 "user_id": user.id,
                 "children": children_data,
+                "telegram_linked": telegram_linked,
             }
         )
 
