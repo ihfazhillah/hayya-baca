@@ -146,3 +146,81 @@ class TestChildPasswordValidator:
 
     def test_exactly_six_ok(self):
         assert self._validate("abcdef") is True
+
+
+# === Shared API fixtures ===
+
+
+@pytest.fixture
+def api():
+    from rest_framework.test import APIClient
+
+    return APIClient()
+
+
+@pytest.fixture
+def parent_api(api, parent):
+    from rest_framework.authtoken.models import Token
+
+    token, _ = Token.objects.get_or_create(user=parent)
+    api.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
+    return api
+
+
+# === T1.4: create child diary account ===
+
+
+class TestCreateDiaryAccount:
+    def test_create_success(self, parent_api, child):
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "ahmad"}
+        )
+        assert resp.status_code == 201
+        assert resp.data["username"] == "ahmad"
+        child.refresh_from_db()
+        assert child.user is not None
+        assert child.user.username == "ahmad"
+        # No password yet — child cannot log in until setup.
+        assert not child.user.has_usable_password()
+
+    def test_duplicate_username_returns_suggestions(self, parent_api, child, db):
+        User.objects.create_user(username="ahmad", password="test1234")
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "ahmad"}
+        )
+        assert resp.status_code == 409
+        assert len(resp.data["suggestions"]) >= 1
+        for s in resp.data["suggestions"]:
+            assert not User.objects.filter(username=s).exists()
+
+    def test_child_already_has_account_rejected(self, parent_api, child, db):
+        u = User.objects.create_user(username="ahmad")
+        child.user = u
+        child.save()
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "ahmad2"}
+        )
+        assert resp.status_code == 400
+
+    def test_teacher_cannot_create(self, api, child, db):
+        from rest_framework.authtoken.models import Token
+
+        teacher = User.objects.create_user(username="guru", password="test1234")
+        ChildAccess.objects.create(user=teacher, child=child, role="teacher")
+        token, _ = Token.objects.get_or_create(user=teacher)
+        api.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
+        resp = api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "x"}
+        )
+        assert resp.status_code == 403
+
+    def test_non_guardian_cannot_create(self, api, child, db):
+        from rest_framework.authtoken.models import Token
+
+        other = User.objects.create_user(username="other", password="test1234")
+        token, _ = Token.objects.get_or_create(user=other)
+        api.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
+        resp = api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "x"}
+        )
+        assert resp.status_code in (403, 404)

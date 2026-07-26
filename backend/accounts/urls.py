@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from . import child_account_views as ca
 from . import views
 
 router = DefaultRouter()
@@ -16,5 +17,10 @@ urlpatterns = [
         "children/<int:child_pk>/access/",
         views.ChildAccessListView.as_view(),
         name="child-access",
+    ),
+    path(
+        "children/<int:child_pk>/diary-account/",
+        ca.DiaryAccountView.as_view(),
+        name="diary-account",
     ),
 ] + router.urls
