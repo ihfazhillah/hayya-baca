@@ -30,6 +30,9 @@ set -euo pipefail
 cd $REMOTE_APP
 git pull --ff-only origin master
 cd backend
+# manage.py defaults to config.settings.dev (SQLite) — source .env so migrate
+# targets the PRODUCTION Postgres, exactly like the systemd EnvironmentFile does.
+set -a; . ./.env; set +a
 $VENV/python manage.py migrate --noinput
 sudo systemctl restart hayyabaca.service
 sudo systemctl reload nginx

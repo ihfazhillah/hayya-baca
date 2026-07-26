@@ -172,13 +172,13 @@ Aturan pengerjaan:
 - [x] **T9.1 — PWA polish**: manifest (nama, ikon, standalone), SW app-shell
   precache saja (`NetworkOnly` untuk `/api/` & media); uji install di
   Android/chromebook.
-- [ ] **T9.2 — Nginx + DNS + env prod**
+- [x] **T9.2 — Nginx + DNS + env prod**
   Server block `ruangcerita.ihfazh.com` (static + `/api/` proxy + lokasi
   `internal` media); DNS; `DJANGO_ALLOWED_HOSTS` + env Telegram; webhook bot
   didaftarkan.
-- [ ] **T9.3 — `deploy-diary.sh`**: build Vite → rsync `dist/` → server; gating
+- [x] **T9.3 — `deploy-diary.sh`**: build Vite → rsync `dist/` → server; gating
   `tsc --noEmit` + vitest.
-- [ ] **T9.4 — Smoke test prod**
+- [x] **T9.4 — Smoke test prod**
   Journey nyata end-to-end: wali buat akun anak → QR/kode → anak set password →
   tulis puisi + komik → wali baca (receipt) + komentar + Telegram masuk →
   anak balas. Ceklist manual didokumentasikan di folder spec ini.
