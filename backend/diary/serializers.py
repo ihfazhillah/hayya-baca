@@ -1,7 +1,7 @@
 """Serializers for Ruang Cerita diary (Spec 060)."""
 from rest_framework import serializers
 
-from .models import Post, PostType
+from .models import ComicPanel, Post, PostType
 from .prosemirror import InvalidDocument, validate_prosemirror
 
 
@@ -38,3 +38,19 @@ class PostSerializer(serializers.ModelSerializer):
         except InvalidDocument as exc:
             raise serializers.ValidationError(str(exc))
         return value
+
+
+class ComicPanelSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ComicPanel
+        fields = ["id", "order", "caption", "image_url"]
+
+    def get_image_url(self, obj):
+        # Replaced by a signed URL in T3.2.
+        if not obj.image:
+            return None
+        request = self.context.get("request")
+        url = obj.image.url
+        return request.build_absolute_uri(url) if request else url

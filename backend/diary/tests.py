@@ -330,3 +330,119 @@ class TestPostIsolation:
         ChildAccess.objects.create(user=teacher, child=child, role="teacher")
         resp = auth(api, teacher).get("/api/diary/my/posts/")
         assert resp.status_code == 403
+
+
+# === T3.1: comic panel upload + resize ===
+
+
+def make_image(width=2400, height=1200, fmt="PNG"):
+    """An in-memory uploaded image file for tests."""
+    from io import BytesIO
+
+    from django.core.files.uploadedfile import SimpleUploadedFile
+    from PIL import Image
+
+    img = Image.new("RGB", (width, height), (120, 80, 200))
+    buf = BytesIO()
+    img.save(buf, format=fmt)
+    ext = fmt.lower()
+    ctype = f"image/{'jpeg' if ext == 'jpg' else ext}"
+    return SimpleUploadedFile(f"panel.{ext}", buf.getvalue(), content_type=ctype)
+
+
+@pytest.fixture
+def comic_ctx(api, parent):
+    from diary.models import Post, PostType
+
+    child = make_child("Ahmad", parent, with_account=True)
+    capi = auth(api, child.user)
+    post = Post.objects.create(
+        child=child, type=PostType.objects.get(slug="komik")
+    )
+    return child, capi, post
+
+
+class TestComicPanelUpload:
+    def test_upload_resizes_to_webp(self, comic_ctx):
+        from PIL import Image
+
+        from diary.models import ComicPanel
+
+        child, capi, post = comic_ctx
+        resp = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(2400, 1200), "caption": "panel 1"},
+            format="multipart",
+        )
+        assert resp.status_code == 201
+        panel = ComicPanel.objects.get(id=resp.data["id"])
+        assert panel.image.name.endswith(".webp")
+        img = Image.open(panel.image.path)
+        assert img.format == "WEBP"
+        assert max(img.size) <= 1600
+
+    def test_non_image_rejected(self, comic_ctx):
+        from django.core.files.uploadedfile import SimpleUploadedFile
+
+        child, capi, post = comic_ctx
+        bad = SimpleUploadedFile("x.png", b"not an image", content_type="image/png")
+        resp = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": bad},
+            format="multipart",
+        )
+        assert resp.status_code == 400
+
+    def test_panel_limit_enforced(self, comic_ctx, settings):
+        from diary.models import ComicPanel
+
+        child, capi, post = comic_ctx
+        for i in range(20):
+            ComicPanel.objects.create(post=post, order=i, image="diary/x.webp")
+        resp = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(400, 400)},
+            format="multipart",
+        )
+        assert resp.status_code == 400
+
+    def test_reorder_and_caption(self, comic_ctx):
+        child, capi, post = comic_ctx
+        r = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(400, 400)},
+            format="multipart",
+        )
+        pid = r.data["id"]
+        resp = capi.patch(
+            f"/api/diary/my/posts/{post.id}/panels/{pid}/",
+            {"order": 5, "caption": "baru"},
+            format="json",
+        )
+        assert resp.status_code == 200
+        assert resp.data["order"] == 5
+        assert resp.data["caption"] == "baru"
+
+    def test_delete_panel(self, comic_ctx):
+        from diary.models import ComicPanel
+
+        child, capi, post = comic_ctx
+        r = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(400, 400)},
+            format="multipart",
+        )
+        pid = r.data["id"]
+        resp = capi.delete(f"/api/diary/my/posts/{post.id}/panels/{pid}/")
+        assert resp.status_code == 204
+        assert not ComicPanel.objects.filter(id=pid).exists()
+
+    def test_sibling_cannot_upload(self, api, parent, comic_ctx):
+        child, capi, post = comic_ctx
+        other = make_child("Fatimah", parent, with_account=True)
+        resp = auth(api, other.user).post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": make_image(400, 400)},
+            format="multipart",
+        )
+        assert resp.status_code == 404
