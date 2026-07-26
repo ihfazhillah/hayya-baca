@@ -71,11 +71,17 @@ class MeView(APIView):
         children = Child.objects.filter(
             access__user=user, access__role=ChildAccess.Role.PARENT
         ).distinct()
+        children_data = []
+        for child in children:
+            row = ChildSerializer(child).data
+            row["has_diary_account"] = child.user_id is not None
+            row["username"] = child.user.username if child.user_id else None
+            children_data.append(row)
         return Response(
             {
                 "role": "guardian",
                 "user_id": user.id,
-                "children": ChildSerializer(children, many=True).data,
+                "children": children_data,
             }
         )
 

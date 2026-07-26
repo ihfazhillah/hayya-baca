@@ -24,10 +24,15 @@ export interface MeChild {
   child: ChildProfile
 }
 
+export interface GuardianChild extends ChildProfile {
+  has_diary_account: boolean
+  username: string | null
+}
+
 export interface MeGuardian {
   role: 'guardian'
   user_id: number
-  children: ChildProfile[]
+  children: GuardianChild[]
 }
 
 export type Me = MeChild | MeGuardian

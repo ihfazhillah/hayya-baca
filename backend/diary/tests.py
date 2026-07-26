@@ -55,6 +55,7 @@ class TestMe:
         assert resp.data["role"] == "guardian"
         names = {c["name"] for c in resp.data["children"]}
         assert names == {"Ahmad", "Fatimah"}
+        assert all("has_diary_account" in c for c in resp.data["children"])
 
     def test_teacher_sees_no_children(self, api, parent, db):
         child = make_child("Ahmad", parent)
