@@ -58,53 +58,53 @@ Aturan pengerjaan:
 
 ## Fase 2 — Diary core (`diary`)
 
-- [ ] **T2.1 — App `diary` + models + migrasi + seed**
+- [x] **T2.1 — App `diary` + models + migrasi + seed**
   `PostType, Post, ComicPanel, Comment, Reaction, ReadReceipt, TelegramLink`
   (plan §1.2), soft-delete manager, data migration seed 5 `PostType`
   (kind text/comic). Test: manager exclude deleted; seed ada.
 
-- [ ] **T2.2 — Validator body ProseMirror**
+- [x] **T2.2 — Validator body ProseMirror**
   Whitelist node/mark + batas 20k char & depth 3 (fungsi murni).
   Test: dokumen valid; node liar ditolak; mark liar ditolak; oversize ditolak.
 
-- [ ] **T2.3 — CRUD post anak** (`/api/diary/my/posts/`)
+- [x] **T2.3 — CRUD post anak** (`/api/diary/my/posts/`)
   List (filter status), create draft, PATCH (autosave/publish — set
   `published_at`), DELETE soft. `GET /api/diary/post-types/`. Test: journey
   draft→autosave→publish→edit→hapus; body tervalidasi via T2.2; komik boleh
   body null.
 
-- [ ] **T2.4 — Permission & isolasi queryset**
+- [x] **T2.4 — Permission & isolasi queryset**
   `IsChildOwner`, `IsGuardianOfPost`; filter di queryset (404, bukan 403).
   Test journey privasi: saudara tak bisa list/GET/tebak-ID; teacher ditolak;
   wali tak melihat draft; wali anak lain ditolak.
 
 ## Fase 3 — Komik & media
 
-- [ ] **T3.1 — Upload panel + resize**
+- [x] **T3.1 — Upload panel + resize**
   `POST .../panels/` multipart; validasi tipe & ≤10 MB; maks 20 panel;
   re-encode WebP q80 sisi ≤1600 px (EXIF terbuang). PATCH caption/order,
   DELETE panel. Test: upload+resize, limit panel, tipe salah ditolak, reorder.
 
-- [ ] **T3.2 — Signed URL + serving privat**
+- [x] **T3.2 — Signed URL + serving privat**
   URL `/api/diary/media/{panel_id}/?sig&exp` (umur 1 jam) di payload API;
   view validasi → dev `FileResponse`, prod `X-Accel-Redirect`. Test: URL valid
   melayani file; expired/tanda-tangan salah → 403; tanpa sig → 403.
 
 ## Fase 4 — Interaksi
 
-- [ ] **T4.1 — Comments** (`.../comments/`, edit/hapus milik sendiri, soft-delete)
+- [x] **T4.1 — Comments** (`.../comments/`, edit/hapus milik sendiri, soft-delete)
   Body pakai validator T2.2. Test: journey dua arah wali↔anak; anak lain
   ditolak; edit/hapus hanya penulis.
 
-- [ ] **T4.2 — Reactions** (PUT/DELETE toggle idempoten, choices ❤️ 👏 🌟 😄)
+- [x] **T4.2 — Reactions** (PUT/DELETE toggle idempoten, choices ❤️ 👏 🌟 😄)
   Test: toggle, emoji liar ditolak, unique per user+post+emoji.
 
-- [ ] **T4.3 — Seen & ReadReceipt** (`POST .../seen/`)
+- [x] **T4.3 — Seen & ReadReceipt** (`POST .../seen/`)
   Upsert: wali set `first_read_at` sekali + `last_seen_at`; anak hanya
   `last_seen_at`. Detail post memuat receipts ("Dibaca Ayah"). Test: receipt
   muncul untuk anak; first_read tidak berubah di kunjungan kedua.
 
-- [ ] **T4.4 — Feed wali + detail + badges**
+- [x] **T4.4 — Feed wali + detail + badges**
   `GET /api/diary/feed/` (gabungan, `?child=`, cursor, annotate `is_unread` +
   jumlah komentar/reaksi); `GET /api/diary/posts/{id}/`;
   `GET /api/diary/badges/` dua peran. Test: feed multi-anak terurut; unread
@@ -113,12 +113,12 @@ Aturan pengerjaan:
 
 ## Fase 5 — Telegram
 
-- [ ] **T5.1 — Link & webhook**
+- [x] **T5.1 — Link & webhook**
   `POST/DELETE /api/diary/telegram/link/`; webhook `/start <code>` mengisi
   `chat_id`. Env `TELEGRAM_BOT_TOKEN`/`TELEGRAM_WEBHOOK_SECRET` (kosong = no-op).
   Test: link journey via webhook; kode expired; secret salah → 404.
 
-- [ ] **T5.2 — Pengiriman + excerpt builder**
+- [x] **T5.2 — Pengiriman + excerpt builder**
   Trigger: publish post & komentar anak → kirim ke semua wali ter-link
   (sync, timeout 3 dtk, best-effort). Excerpt 120 char dari body JSON;
   format: nama + jenis + (judul) + excerpt. Test: excerpt builder (judul/
