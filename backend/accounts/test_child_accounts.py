@@ -224,3 +224,58 @@ class TestCreateDiaryAccount:
             f"/api/children/{child.id}/diary-account/", {"username": "x"}
         )
         assert resp.status_code in (403, 404)
+
+
+@pytest.fixture
+def child_with_account(child, db):
+    u = User.objects.create_user(username="ahmad")
+    u.set_unusable_password()
+    u.save()
+    child.user = u
+    child.save()
+    return child
+
+
+# === T1.5: setup token endpoint ===
+
+
+class TestSetupTokenEndpoint:
+    def test_parent_generates_token(self, parent_api, child_with_account):
+        resp = parent_api.post(
+            f"/api/children/{child_with_account.id}/diary-account/setup-token/"
+        )
+        assert resp.status_code == 201
+        assert len(resp.data["code"]) == 8
+        assert resp.data["code"] in resp.data["setup_url"]
+        assert "expires_at" in resp.data
+
+    def test_generating_voids_previous(self, parent_api, child_with_account):
+        r1 = parent_api.post(
+            f"/api/children/{child_with_account.id}/diary-account/setup-token/"
+        )
+        old_code = r1.data["code"]
+        parent_api.post(
+            f"/api/children/{child_with_account.id}/diary-account/setup-token/"
+        )
+        old = PasswordSetupToken.objects.get(code=old_code)
+        assert not old.is_valid()
+
+    def test_requires_account_first(self, parent_api, child):
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/setup-token/"
+        )
+        assert resp.status_code == 400
+
+    def test_teacher_cannot_generate(self, api, child_with_account, db):
+        from rest_framework.authtoken.models import Token
+
+        teacher = User.objects.create_user(username="guru", password="test1234")
+        ChildAccess.objects.create(
+            user=teacher, child=child_with_account, role="teacher"
+        )
+        token, _ = Token.objects.get_or_create(user=teacher)
+        api.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
+        resp = api.post(
+            f"/api/children/{child_with_account.id}/diary-account/setup-token/"
+        )
+        assert resp.status_code == 403

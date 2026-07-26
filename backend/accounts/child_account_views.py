@@ -1,6 +1,7 @@
 """Views for child diary accounts (Spec 060 — Ruang Cerita, Fase 1)."""
 import secrets
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -10,6 +11,10 @@ from rest_framework.views import APIView
 from .models import ChildAccess, PasswordSetupToken
 
 User = get_user_model()
+
+
+def setup_url_for(code):
+    return f"{settings.DIARY_WEB_BASE_URL.rstrip('/')}/setup?code={code}"
 
 
 def _is_parent_of(user, child_id):
@@ -80,5 +85,30 @@ class DiaryAccountView(APIView):
 
         return Response(
             {"username": user.username, "child_id": child.id},
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class SetupTokenView(APIView):
+    """POST generate a one-time password-setup token (parent only)."""
+
+    def post(self, request, child_pk):
+        child = _get_parent_child(request.user, child_pk)
+        if child is None:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+        if child.user_id is None:
+            return Response(
+                {"detail": "Buat akun anak dulu"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        token = PasswordSetupToken.generate(child=child, created_by=request.user)
+        return Response(
+            {
+                "code": token.code,
+                "setup_url": setup_url_for(token.code),
+                "expires_at": token.expires_at,
+            },
             status=status.HTTP_201_CREATED,
         )

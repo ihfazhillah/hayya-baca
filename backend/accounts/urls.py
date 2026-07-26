@@ -23,4 +23,9 @@ urlpatterns = [
         ca.DiaryAccountView.as_view(),
         name="diary-account",
     ),
+    path(
+        "children/<int:child_pk>/diary-account/setup-token/",
+        ca.SetupTokenView.as_view(),
+        name="diary-setup-token",
+    ),
 ] + router.urls

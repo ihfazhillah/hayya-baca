@@ -109,3 +109,11 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Backend API for Hayya Baca reading app',
     'VERSION': '1.0.0',
 }
+
+# Ruang Cerita (Spec 060) — diary PWA
+DIARY_WEB_BASE_URL = os.environ.get(
+    "DIARY_WEB_BASE_URL", "https://ruangcerita.ihfazh.com"
+)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_BOT_USERNAME = os.environ.get("TELEGRAM_BOT_USERNAME", "")
+TELEGRAM_WEBHOOK_SECRET = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "")
