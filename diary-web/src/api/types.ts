@@ -20,11 +20,13 @@ export interface ChildSummary {
 
 export interface MeChild {
   role: 'child'
+  user_id: number
   child: ChildProfile
 }
 
 export interface MeGuardian {
   role: 'guardian'
+  user_id: number
   children: ChildProfile[]
 }
 

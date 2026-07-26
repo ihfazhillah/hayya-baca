@@ -5,6 +5,7 @@ import type { Me } from '@/api/types'
 
 const ME: Me = {
   role: 'child',
+  user_id: 10,
   child: {
     id: 1,
     name: 'Ahmad',

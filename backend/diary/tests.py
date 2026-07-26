@@ -44,6 +44,7 @@ class TestMe:
         resp = auth(api, child.user).get("/api/diary/me/")
         assert resp.status_code == 200
         assert resp.data["role"] == "child"
+        assert resp.data["user_id"] == child.user.id
         assert resp.data["child"]["name"] == "Ahmad"
 
     def test_guardian_sees_all_their_children(self, api, parent):

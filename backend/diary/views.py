@@ -62,6 +62,7 @@ class MeView(APIView):
             return Response(
                 {
                     "role": "child",
+                    "user_id": user.id,
                     "child": ChildSerializer(user.child_profile).data,
                 }
             )
@@ -73,6 +74,7 @@ class MeView(APIView):
         return Response(
             {
                 "role": "guardian",
+                "user_id": user.id,
                 "children": ChildSerializer(children, many=True).data,
             }
         )
