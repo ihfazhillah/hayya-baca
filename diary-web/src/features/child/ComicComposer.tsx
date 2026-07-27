@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useApi, usePostDetail } from '@/features/shared/hooks'
+import { compressImage } from '@/features/shared/image'
 import { Button } from '@/features/shared/ui'
 import type { Panel } from '@/api/types'
 
@@ -18,7 +19,9 @@ export default function ComicComposer() {
   const invalidate = () => qc.invalidateQueries({ queryKey: ['post', postId] })
 
   const upload = useMutation({
-    mutationFn: (file: File) => api.uploadPanel(postId, file),
+    // Compress in the browser first so the full-res photo never leaves the device.
+    mutationFn: async (file: File) =>
+      api.uploadPanel(postId, await compressImage(file)),
     onSuccess: invalidate,
     onError: () => setError('Gagal mengunggah gambar (maks 10 MB).'),
   })
