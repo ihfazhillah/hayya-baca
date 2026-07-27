@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
+import { useWindowVirtualizer } from '@tanstack/react-virtual'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi, usePostTypes } from '@/features/shared/hooks'
 import { Avatar } from '@/features/shared/ui'
@@ -36,8 +37,8 @@ export default function Feed() {
     getNextPageParam: (lastPage) => cursorFromUrl(lastPage.next),
   })
   const posts = feed.data?.pages.flatMap((p) => p.results) ?? []
+  const { hasNextPage, isFetchingNextPage, fetchNextPage } = feed
 
-  // Poll unread counts so chips stay fresh (Spec 060 §6.1).
   const badges = useQuery({
     queryKey: ['badges'],
     queryFn: () => api.badges() as Promise<GuardianBadges>,
@@ -50,24 +51,29 @@ export default function Feed() {
     (types.data ?? []).map((t) => [t.slug, t]),
   )
 
-  // Load the next page as the sentinel scrolls into view (lazy feed).
-  const sentinelRef = useRef<HTMLDivElement | null>(null)
-  const { hasNextPage, isFetchingNextPage, fetchNextPage } = feed
+  // Only the windowed cards (+ overscan buffer for context) stay mounted, so
+  // scrolling deep never piles heavy cards into the DOM (Spec 061 perf).
+  const listRef = useRef<HTMLDivElement>(null)
+  const offsetRef = useRef(0)
+  useLayoutEffect(() => {
+    offsetRef.current = listRef.current?.offsetTop ?? 0
+  }, [feed.isLoading, children.length])
+
+  const virtualizer = useWindowVirtualizer({
+    count: posts.length,
+    estimateSize: () => 480,
+    overscan: 5, // keep a few off-screen cards for smooth context
+    scrollMargin: offsetRef.current,
+  })
+  const virtualItems = virtualizer.getVirtualItems()
+  const lastIndex = virtualItems[virtualItems.length - 1]?.index ?? -1
+
+  // Fetch the next page once the last mounted card is near the end.
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') return
-    const el = sentinelRef.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage()
-        }
-      },
-      { rootMargin: '300px' },
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+    if (lastIndex >= posts.length - 1 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
+    }
+  }, [lastIndex, posts.length, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4">
@@ -91,21 +97,40 @@ export default function Feed() {
         <p className="text-center text-purple-400">Belum ada cerita baru.</p>
       )}
 
-      <div className="flex flex-col gap-4">
-        {posts.map((item) => (
-          <FeedPost
-            key={item.id}
-            item={item}
-            emoji={typeBySlug.get(item.type)?.emoji ?? '📝'}
-            myUserId={myUserId}
-          />
-        ))}
+      <div ref={listRef}>
+        <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              transform: `translateY(${(virtualItems[0]?.start ?? 0) - virtualizer.options.scrollMargin}px)`,
+            }}
+          >
+            {virtualItems.map((vi) => {
+              const item = posts[vi.index]
+              return (
+                <div
+                  key={item.id}
+                  data-index={vi.index}
+                  ref={virtualizer.measureElement}
+                  className="pb-4"
+                >
+                  <FeedPost
+                    item={item}
+                    emoji={typeBySlug.get(item.type)?.emoji ?? '📝'}
+                    myUserId={myUserId}
+                  />
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
-      {hasNextPage && (
-        <div ref={sentinelRef} className="py-4 text-center text-sm text-purple-400">
-          {isFetchingNextPage ? 'Memuat…' : ' '}
-        </div>
+      {isFetchingNextPage && (
+        <p className="py-2 text-center text-sm text-purple-400">Memuat…</p>
       )}
     </div>
   )
