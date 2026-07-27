@@ -446,7 +446,7 @@ class BadgesView(APIView):
         counts = {}
         for post in posts:
             receipt = post.receipts.filter(user=user).first()
-            if guardian_unread(post, receipt):
+            if guardian_unread(post, receipt, user.id):
                 counts[post.child_id] = counts.get(post.child_id, 0) + 1
         children = ChildAccess.objects.filter(
             user=user, role=ChildAccess.Role.PARENT

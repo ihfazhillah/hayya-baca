@@ -18,10 +18,14 @@ def latest_activity(post, exclude_user_id=None):
     return max(times) if times else None
 
 
-def guardian_unread(post, receipt):
-    """A post is unread for a guardian until they've seen its latest activity."""
+def guardian_unread(post, receipt, viewer_id=None):
+    """A post is unread for a guardian until they've seen its latest activity.
+
+    The viewer's OWN comments/reactions never count as new activity — otherwise
+    replying to a post you just read would flip it back to unread.
+    """
     last = post.published_at or post.created_at
-    la = latest_activity(post)
+    la = latest_activity(post, exclude_user_id=viewer_id)
     if la and la > last:
         last = la
     if receipt is None:

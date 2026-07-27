@@ -138,4 +138,4 @@ class FeedPostSerializer(serializers.ModelSerializer):
 
         user = self.context["request"].user
         receipt = obj.receipts.filter(user=user).first()
-        return guardian_unread(obj, receipt)
+        return guardian_unread(obj, receipt, user.id)

@@ -790,6 +790,25 @@ class TestFeed:
         resp = auth(api, ahmad.user).get("/api/diary/feed/")
         assert resp.status_code == 403
 
+    def test_guardian_own_reply_does_not_reflip_unread(self, api, parent):
+        # Bug: a guardian's OWN comment counted as new activity and flipped the
+        # post back to unread after they had already read it.
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad)
+        papi = auth(api, parent)
+        papi.post(f"/api/diary/posts/{post.id}/seen/")  # read it
+        papi.post(
+            f"/api/diary/posts/{post.id}/comments/",
+            {"body": doc(para(text("bagus, nak")))},
+            format="json",
+        )
+        resp = papi.get("/api/diary/feed/")
+        assert resp.data["results"][0]["is_unread"] is False
+        # And the per-child badge count stays 0.
+        resp = papi.get("/api/diary/badges/")
+        counts = {c["child_id"]: c["unread"] for c in resp.data["children"]}
+        assert counts[ahmad.id] == 0
+
 
 class TestPostDetail:
     def test_detail_includes_thread_and_reactions(self, published_ctx):
