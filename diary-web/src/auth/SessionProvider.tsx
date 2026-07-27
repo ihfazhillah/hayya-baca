@@ -16,9 +16,8 @@ interface SessionContextValue {
   state: SessionState
   me: Me | null // the active profile's Me (null in lobby / unlock)
   api: Endpoints
-  unlock: (username: string, password: string) => Promise<void>
   enterChild: (username: string, password: string) => Promise<void>
-  enterGuardian: (password: string) => Promise<void>
+  enterGuardian: (username: string, password: string) => Promise<void>
   completeSetup: (code: string, password: string) => Promise<void>
   switchProfile: () => void
   logout: () => void
@@ -83,13 +82,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       state,
       me: state.active?.me ?? null,
       api,
-      // Guardian authenticates → cache the family, land on the lobby.
-      unlock: async (username, password) => {
-        const res = await authApi.guardianLogin(username, password)
-        const me = await fetchMe(res.token)
-        if (me.role !== 'guardian') throw new Error('Akun ini bukan orang tua')
-        store.unlock(username.trim().toLowerCase(), me as MeGuardian)
-      },
       // Enter a child profile with its own password.
       enterChild: async (username, password) => {
         const res = await authApi.childLogin(username, password)
@@ -97,14 +89,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         if (me.role !== 'child') throw new Error('Akun ini bukan anak')
         store.enterChild(me as MeChild, res.token)
       },
-      // Re-auth to enter guardian mode (username from the family cache).
-      enterGuardian: async (password) => {
-        const username = state.family?.guardianUsername
-        if (!username) throw new Error('Belum membuka kunci keluarga')
-        const res = await authApi.guardianLogin(username, password)
+      // Guardian login = enter guardian mode AND (re)populate the family cache.
+      enterGuardian: async (username, password) => {
+        const login = username.trim().toLowerCase()
+        const res = await authApi.guardianLogin(login, password)
         const me = await fetchMe(res.token)
         if (me.role !== 'guardian') throw new Error('Akun ini bukan orang tua')
-        store.enterGuardian(me as MeGuardian, res.token)
+        store.enterGuardian(login, me as MeGuardian, res.token)
       },
       // Child sets a password via a one-time code → enters their profile.
       completeSetup: async (code, password) => {

@@ -38,6 +38,22 @@ const CHILD_ME = {
   },
 }
 
+const POST_DETAIL = {
+  id: 5,
+  type: 'curhat',
+  title: '',
+  body: { type: 'doc', content: [] },
+  status: 'published',
+  published_at: '',
+  created_at: '',
+  updated_at: '',
+  child: { id: 1, name: 'Ahmad', avatar_color: '#111' },
+  panels: [],
+  comments: [],
+  reactions: { counts: {}, mine: [] },
+  read_by: [],
+}
+
 function json(status: number, data: unknown): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -47,7 +63,6 @@ function json(status: number, data: unknown): Response {
 
 type Handler = (url: string, init: RequestInit) => Response | Promise<Response>
 
-// Default backend: guardian unlock + per-token /me + empty app data.
 function defaultHandler(url: string, init: RequestInit): Response {
   const auth =
     ((init.headers as Record<string, string>) ?? {})['Authorization'] ?? ''
@@ -83,87 +98,101 @@ function renderApp(path = '/') {
   )
 }
 
-async function unlock() {
-  await userEvent.type(
-    screen.getByPlaceholderText('Nama pengguna orang tua'),
-    'ayah',
+function seedFamily() {
+  localStorage.setItem(
+    'ruangcerita.family',
+    JSON.stringify({
+      guardianUsername: 'ayah',
+      children: [
+        {
+          id: 1,
+          name: 'Ahmad',
+          avatar_color: '#111',
+          username: 'ahmad',
+          has_diary_account: true,
+        },
+      ],
+    }),
   )
-  await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'rahasia')
-  await userEvent.click(screen.getByRole('button', { name: 'Buka' }))
-  await screen.findByText('Siapa yang mau cerita?')
 }
 
 beforeEach(() => localStorage.clear())
 afterEach(() => vi.unstubAllGlobals())
 
-describe('family login', () => {
-  it('unlock shows the lobby with children + Orang Tua', async () => {
+describe('family login (lobby-first)', () => {
+  it('first run: the lobby Orang Tua tile logs the guardian in directly', async () => {
     stubFetch()
     renderApp()
-    await unlock()
-    expect(screen.getByText('Ahmad')).toBeInTheDocument()
-    expect(screen.getByText('Orang Tua')).toBeInTheDocument()
-  })
-
-  it('entering a child needs the child password → ChildApp', async () => {
-    stubFetch()
-    renderApp()
-    await unlock()
-    await userEvent.click(screen.getByText('Ahmad'))
-    await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'anakpass')
-    await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
-    expect(await screen.findByText('Halo, Ahmad')).toBeInTheDocument()
-  })
-
-  it('entering Orang Tua needs the guardian password again → GuardianApp', async () => {
-    stubFetch()
-    renderApp()
-    await unlock()
-    await userEvent.click(screen.getByText('Orang Tua'))
+    await userEvent.click(await screen.findByText('Orang Tua'))
+    await userEvent.type(
+      screen.getByPlaceholderText('Nama pengguna orang tua'),
+      'ayah',
+    )
     await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'rahasia')
     await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
     expect(await screen.findByText('Kelola Anak')).toBeInTheDocument()
   })
 
-  it('a wrong profile password shows an error and stays on the lobby', async () => {
+  it('cached family: tap a child + child password → ChildApp', async () => {
+    seedFamily()
+    stubFetch()
+    renderApp()
+    await userEvent.click(await screen.findByText('Ahmad'))
+    await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'anakpass')
+    await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+    expect(await screen.findByText('Halo, Ahmad')).toBeInTheDocument()
+  })
+
+  it('cached family: Orang Tua tile asks only for the password', async () => {
+    seedFamily()
+    stubFetch()
+    renderApp()
+    await userEvent.click(await screen.findByText('Orang Tua'))
+    expect(
+      screen.queryByPlaceholderText('Nama pengguna orang tua'),
+    ).not.toBeInTheDocument()
+    await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'rahasia')
+    await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+    expect(await screen.findByText('Kelola Anak')).toBeInTheDocument()
+  })
+
+  it('a wrong child password shows an error and stays on the prompt', async () => {
+    seedFamily()
     stubFetch((url, init) =>
       url.includes('/api/auth/child-login/')
         ? json(401, { detail: 'Username atau password salah' })
         : defaultHandler(url, init),
     )
     renderApp()
-    await unlock()
-    await userEvent.click(screen.getByText('Ahmad'))
+    await userEvent.click(await screen.findByText('Ahmad'))
     await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'salah')
     await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
     expect(
       await screen.findByText('Username atau password salah'),
     ).toBeInTheDocument()
-    // Still in the family flow (the profile picker button is reachable).
     expect(screen.getByText('← Pilih profil lain')).toBeInTheDocument()
   })
 
-  it('a reload restores the lobby (family cache), not a live profile', async () => {
-    localStorage.setItem(
-      'ruangcerita.family',
-      JSON.stringify({
-        guardianUsername: 'ayah',
-        children: [
-          {
-            id: 1,
-            name: 'Ahmad',
-            avatar_color: '#111',
-            username: 'ahmad',
-            has_diary_account: true,
-          },
-        ],
-      }),
-    )
+  it('reload restores the lobby (family cache), not a live profile', async () => {
+    seedFamily()
     stubFetch()
     renderApp()
     expect(await screen.findByText('Siapa yang mau cerita?')).toBeInTheDocument()
-    // Not logged into any profile.
     expect(screen.queryByText('Halo, Ahmad')).not.toBeInTheDocument()
+  })
+
+  it('a /post/5 deep link lands on the post after entering guardian mode', async () => {
+    seedFamily()
+    stubFetch((url, init) => {
+      if (url.includes('/api/diary/posts/5/seen/')) return json(200, { read_by: [] })
+      if (url.includes('/api/diary/posts/5/')) return json(200, POST_DETAIL)
+      return defaultHandler(url, init)
+    })
+    renderApp('/post/5')
+    await userEvent.click(await screen.findByText('Orang Tua'))
+    await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'rahasia')
+    await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+    expect(await screen.findByText('← Beranda')).toBeInTheDocument()
   })
 
   it('setup via code logs the child straight into ChildApp', async () => {

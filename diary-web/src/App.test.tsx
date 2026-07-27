@@ -10,8 +10,8 @@ describe('App', () => {
         <App />
       </MemoryRouter>,
     )
-    // Product title + the guardian unlock form (family-lobby model, Spec 061).
+    // First screen is the lobby with an Orang Tua tile (Spec 061 rev).
     expect(screen.getByRole('heading', { name: 'Ruang Cerita' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Buka' })).toBeInTheDocument()
+    expect(screen.getByText('Orang Tua')).toBeInTheDocument()
   })
 })

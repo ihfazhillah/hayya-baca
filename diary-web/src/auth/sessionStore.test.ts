@@ -53,43 +53,35 @@ describe('SessionStore', () => {
   })
   afterEach(() => vi.useRealTimers())
 
-  it('unlock caches the family and lands on the lobby without a token', () => {
+  it('enterGuardian caches the family and enters guardian mode', () => {
     const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
-    expect(s.getToken()).toBeNull()
-    expect(s.state.active).toBeNull()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    expect(s.getToken()).toBe('gtok')
+    expect(s.state.active?.kind).toBe('guardian')
     expect(s.state.family?.guardianUsername).toBe('ayah')
     expect(s.state.family?.children).toHaveLength(2)
   })
 
   it('restores the family (only) after a reload — no token, on the lobby', () => {
-    new SessionStore().unlock('ayah', GUARDIAN_ME)
+    new SessionStore().enterGuardian('ayah', GUARDIAN_ME, 'gtok')
     const reloaded = new SessionStore()
     expect(reloaded.state.family?.guardianUsername).toBe('ayah')
-    expect(reloaded.state.active).toBeNull()
+    expect(reloaded.state.active).toBeNull() // reload → lobby, not guardian
     expect(reloaded.getToken()).toBeNull()
   })
 
   it('enterChild sets an in-memory child session with a token', () => {
     const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.switchProfile() // → lobby
     s.enterChild(CHILD_ME, 'ctok')
     expect(s.getToken()).toBe('ctok')
     expect(s.state.active?.kind).toBe('child')
   })
 
-  it('enterGuardian sets guardian session + refreshes the family cache', () => {
-    const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
-    s.enterGuardian(GUARDIAN_ME, 'gtok')
-    expect(s.getToken()).toBe('gtok')
-    expect(s.state.active?.kind).toBe('guardian')
-  })
-
   it('idle timeout drops the active profile back to the lobby, keeping family', () => {
     const s = new SessionStore({ idleMs: 1000 })
-    s.unlock('ayah', GUARDIAN_ME)
-    s.enterChild(CHILD_ME, 'ctok')
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
     vi.advanceTimersByTime(1001)
     expect(s.state.active).toBeNull()
     expect(s.getToken()).toBeNull()
@@ -98,8 +90,7 @@ describe('SessionStore', () => {
 
   it('switchProfile returns to the lobby, keeping the family', () => {
     const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
-    s.enterChild(CHILD_ME, 'ctok')
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
     s.switchProfile()
     expect(s.state.active).toBeNull()
     expect(s.state.family).not.toBeNull()
@@ -108,8 +99,7 @@ describe('SessionStore', () => {
 
   it('touch resets the idle countdown while in a profile', () => {
     const s = new SessionStore({ idleMs: 1000 })
-    s.unlock('ayah', GUARDIAN_ME)
-    s.enterChild(CHILD_ME, 'ctok')
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
     vi.advanceTimersByTime(800)
     s.touch()
     vi.advanceTimersByTime(800)
@@ -120,8 +110,7 @@ describe('SessionStore', () => {
 
   it('logout clears the family and its storage', () => {
     const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
-    s.enterChild(CHILD_ME, 'ctok')
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
     s.logout()
     expect(s.state.family).toBeNull()
     expect(s.state.active).toBeNull()
@@ -130,9 +119,9 @@ describe('SessionStore', () => {
 
   it('never persists any token to localStorage', () => {
     const s = new SessionStore()
-    s.unlock('ayah', GUARDIAN_ME)
+    s.enterGuardian('ayah', GUARDIAN_ME, 'secret-guardian-token')
+    s.switchProfile()
     s.enterChild(CHILD_ME, 'secret-child-token')
-    s.enterGuardian(GUARDIAN_ME, 'secret-guardian-token')
     const dump = JSON.stringify(localStorage)
     expect(dump).not.toContain('secret-child-token')
     expect(dump).not.toContain('secret-guardian-token')

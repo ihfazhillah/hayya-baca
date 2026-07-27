@@ -101,15 +101,6 @@ export class SessionStore {
     return { family: this.family, active: this.active }
   }
 
-  /** Guardian authenticated → cache the family, land on the lobby (no token). */
-  unlock(guardianUsername: string, me: MeGuardian) {
-    this.family = { guardianUsername, children: toFamilyChildren(me) }
-    this.active = null
-    saveFamily(this.family)
-    this.clearTimer()
-    this.notify()
-  }
-
   /** Enter a child profile with a freshly issued token. */
   enterChild(me: MeChild, token: string) {
     this.active = { kind: 'child', token, me }
@@ -117,13 +108,15 @@ export class SessionStore {
     this.notify()
   }
 
-  /** Enter guardian mode (re-auth) and refresh the cached children. */
-  enterGuardian(me: MeGuardian, token: string) {
+  /**
+   * Enter guardian mode. Also (re)caches the family so the lobby knows the
+   * children — the guardian login IS how the family cache gets populated, so
+   * there is no separate "unlock" step (Spec 061 rev: lobby-first).
+   */
+  enterGuardian(guardianUsername: string, me: MeGuardian, token: string) {
+    this.family = { guardianUsername, children: toFamilyChildren(me) }
     this.active = { kind: 'guardian', token, me }
-    if (this.family) {
-      this.family = { ...this.family, children: toFamilyChildren(me) }
-      saveFamily(this.family)
-    }
+    saveFamily(this.family)
     this.resetIdle()
     this.notify()
   }

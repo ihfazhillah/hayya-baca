@@ -1,9 +1,31 @@
 # Spec 061 — Login Keluarga (Family Lobby)
 
-**Status:** Draft — menunggu approval
+**Status:** Deployed 2026-07-27 (dengan revisi di bawah)
 **Tanggal:** 2026-07-27
 **Produk:** Ruang Cerita (lihat [Spec 060](../060-ruang-cerita/spec.md))
 **Mengubah:** Alur autentikasi & sesi (Spec 060 §3)
+
+## Revisi 2026-07-27 (post-deploy) — lobby-first
+
+Setelah dipakai, keputusan D1/D5 diubah karena (a) unlock + tile "Orang Tua"
+= login orang tua yang sama → double-password terasa ribet, dan (b) kalau
+unlock langsung ke mode orang tua, perangkat "beristirahat" di mode orang tua →
+anak bisa melihat diari saudaranya.
+
+Keputusan final:
+
+- **Tidak ada layar unlock terpisah.** **Lobby = layar utama & keadaan istirahat.**
+  Login orang tua ada di **tile "Orang Tua"** (bukan layar sendiri). Pertama kali
+  (belum ada cache) lobby hanya menampilkan tile "Orang Tua" (minta username +
+  password); login ini sekaligus mengisi cache daftar anak.
+- **Satu password per profil.** Tap "Orang Tua" → password orang tua (1×) → mode
+  orang tua. Tap anak → password anak. Tak ada double-password.
+- **Anak tak pernah lihat diari saudara:** keadaan istirahat = lobby (cuma nama);
+  mode orang tua (semua anak terlihat) selalu di balik password.
+- **Reload/relaunch → lobby** (menang atas "tetap login"): tidak ada token di
+  storage (D4 tetap). Menyalakan lagi = tap profil + password. Idle → lobby.
+- Konsekuensi: `unlock` dihapus, digabung ke `enterGuardian(username, me, token)`
+  yang mengisi cache family **dan** masuk mode orang tua. `LoginPage` dihapus.
 
 ## 1. Konteks & masalah
 

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { ApiError } from '@/api/client'
 import { Avatar, Button, Card, ErrorText, TextInput } from '@/features/shared/ui'
@@ -14,24 +15,33 @@ function errorMessage(err: unknown): string {
     const detail = (err.data as { detail?: string })?.detail
     return detail ?? 'Kata sandi salah'
   }
+  if (err instanceof Error && err.message) return err.message
   return 'Tidak bisa terhubung. Periksa koneksi.'
 }
 
 export default function Lobby() {
   const { state, logout } = useSession()
   const family = state.family
+  const children = family?.children ?? []
   const [target, setTarget] = useState<Target | null>(null)
 
-  if (!family) return null
-  if (target) return <PasswordPrompt target={target} onBack={() => setTarget(null)} />
+  if (target) {
+    return (
+      <PasswordPrompt
+        target={target}
+        guardianUsername={family?.guardianUsername ?? null}
+        onBack={() => setTarget(null)}
+      />
+    )
+  }
 
   return (
     <div className="flex min-h-full flex-col items-center justify-center gap-6 bg-purple-50 p-6">
       <h1 className="text-2xl font-extrabold text-purple-800">
-        Siapa yang mau cerita?
+        {family ? 'Siapa yang mau cerita?' : 'Ruang Cerita'}
       </h1>
       <div className="grid w-full max-w-sm grid-cols-2 gap-4">
-        {family.children.map((c) => (
+        {children.map((c) => (
           <ProfileTile
             key={c.id}
             name={c.name}
@@ -47,9 +57,16 @@ export default function Lobby() {
           onClick={() => setTarget({ kind: 'guardian' })}
         />
       </div>
-      <button onClick={logout} className="text-sm text-purple-400 underline">
-        Keluar
-      </button>
+      <div className="flex flex-col items-center gap-2">
+        <Link to="/setup" className="text-sm font-medium text-purple-500 underline">
+          Anak baru? Buat kata sandi →
+        </Link>
+        {family && (
+          <button onClick={logout} className="text-sm text-purple-400 underline">
+            Lupakan perangkat ini
+          </button>
+        )}
+      </div>
     </div>
   )
 }
@@ -82,12 +99,17 @@ function ProfileTile({
 
 function PasswordPrompt({
   target,
+  guardianUsername,
   onBack,
 }: {
   target: Target
+  guardianUsername: string | null
   onBack: () => void
 }) {
   const { enterChild, enterGuardian } = useSession()
+  // First-ever guardian login needs the username too (no family cached yet).
+  const needsUsername = target.kind === 'guardian' && !guardianUsername
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -104,7 +126,7 @@ function PasswordPrompt({
       if (target.kind === 'child') {
         await enterChild(target.child.username ?? '', password)
       } else {
-        await enterGuardian(password)
+        await enterGuardian(guardianUsername ?? username, password)
       }
     } catch (err) {
       setError(errorMessage(err))
@@ -120,15 +142,26 @@ function PasswordPrompt({
           <p className="text-lg font-bold text-purple-800">{name}</p>
         </div>
         <form onSubmit={submit} className="mt-5 flex flex-col gap-3">
+          {needsUsername && (
+            <TextInput
+              placeholder="Nama pengguna orang tua"
+              value={username}
+              autoCapitalize="none"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          )}
           <TextInput
             type="password"
             placeholder="Kata sandi"
             value={password}
-            autoFocus
+            autoFocus={!needsUsername}
             onChange={(e) => setPassword(e.target.value)}
           />
           <ErrorText>{error}</ErrorText>
-          <Button type="submit" disabled={busy || !password}>
+          <Button
+            type="submit"
+            disabled={busy || !password || (needsUsername && !username)}
+          >
             {busy ? 'Masuk…' : 'Masuk'}
           </Button>
           <button
