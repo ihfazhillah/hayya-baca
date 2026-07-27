@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.http import FileResponse, HttpResponse
 from django.utils import timezone
-from rest_framework import status, viewsets
+from rest_framework import serializers, status, viewsets
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.pagination import CursorPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -43,7 +43,6 @@ def _notify(fn, *args):
 from .serializers import (
     ComicPanelSerializer,
     CommentSerializer,
-    FeedPostSerializer,
     PostSerializer,
     PostTypeSerializer,
     author_label,
@@ -373,19 +372,37 @@ class FeedCursorPagination(CursorPagination):
     page_size = 20
 
 
+class FeedItemSerializer(serializers.Serializer):
+    """FB-style feed item: the full post detail + per-viewer read state."""
+
+    def to_representation(self, post):
+        request = self.context["request"]
+        data = post_detail_payload(post, request)
+        receipt = post.receipts.filter(user=request.user).first()
+        data["is_unread"] = guardian_unread(post, receipt, request.user.id)
+        data["seen_by_me"] = bool(receipt and receipt.first_read_at)
+        return data
+
+
 class FeedView(ListAPIView):
     """Guardian's combined feed of their children's published posts."""
 
     permission_classes = [IsAuthenticated, IsGuardianAccount]
-    serializer_class = FeedPostSerializer
+    serializer_class = FeedItemSerializer
     pagination_class = FeedCursorPagination
 
     def get_queryset(self):
-        qs = Post.objects.filter(
-            status=Post.Status.PUBLISHED,
-            child__access__user=self.request.user,
-            child__access__role=ChildAccess.Role.PARENT,
-        ).select_related("child", "type")
+        qs = (
+            Post.objects.filter(
+                status=Post.Status.PUBLISHED,
+                child__access__user=self.request.user,
+                child__access__role=ChildAccess.Role.PARENT,
+            )
+            .select_related("child", "type")
+            .prefetch_related(
+                "panels", "reactions", "comments__author", "receipts"
+            )
+        )
         child_id = self.request.query_params.get("child")
         if child_id:
             qs = qs.filter(child_id=child_id)

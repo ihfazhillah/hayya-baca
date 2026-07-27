@@ -53,7 +53,10 @@ function CommentRow({
   const qc = useQueryClient()
   const del = useMutation({
     mutationFn: () => api.deleteComment(comment.id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['post', postId] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['post', postId] })
+      qc.invalidateQueries({ queryKey: ['feed'] })
+    },
   })
   return (
     <div

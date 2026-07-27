@@ -1,16 +1,18 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi, usePostTypes } from '@/features/shared/hooks'
 import { Avatar } from '@/features/shared/ui'
+import { RenderDoc } from '@/features/shared/RenderDoc'
+import { ReactionBar } from '@/features/shared/ReactionBar'
+import { CommentThread } from '@/features/shared/CommentThread'
 import type { FeedItem, GuardianBadges, PostType } from '@/api/types'
 
 export default function Feed() {
   const api = useApi()
-  const navigate = useNavigate()
   const { state } = useSession()
   const children = state.me?.role === 'guardian' ? state.me.children : []
+  const myUserId = state.me?.role === 'guardian' ? state.me.user_id : 0
   const [filter, setFilter] = useState<number | null>(null)
   const types = usePostTypes()
 
@@ -54,13 +56,13 @@ export default function Feed() {
         <p className="text-center text-purple-400">Belum ada cerita baru.</p>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {feed.data?.results.map((item) => (
-          <FeedCard
+          <FeedPost
             key={item.id}
             item={item}
             emoji={typeBySlug.get(item.type)?.emoji ?? '📝'}
-            onOpen={() => navigate(`/post/${item.id}`)}
+            myUserId={myUserId}
           />
         ))}
       </div>
@@ -97,36 +99,80 @@ function Chip({
   )
 }
 
-function FeedCard({
+function FeedPost({
   item,
   emoji,
-  onOpen,
+  myUserId,
 }: {
   item: FeedItem
   emoji: string
-  onOpen: () => void
+  myUserId: number
 }) {
+  const api = useApi()
+  const qc = useQueryClient()
+  const markSeen = useMutation({
+    mutationFn: () => api.markSeen(item.id),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['feed'] })
+      qc.invalidateQueries({ queryKey: ['badges'] })
+    },
+  })
+
   return (
-    <button
-      onClick={onOpen}
-      className="flex items-start gap-3 rounded-2xl bg-white p-4 text-left shadow-sm transition active:scale-[0.99]"
-    >
-      <Avatar name={item.child.name} color={item.child.avatar_color} size={40} />
-      <span className="min-w-0 flex-1">
-        <span className="flex items-center gap-2">
-          <span className="font-semibold text-purple-800">{item.child.name}</span>
-          <span>{emoji}</span>
-          {item.is_unread && (
-            <span className="h-2 w-2 rounded-full bg-red-500" aria-label="baru" />
+    <article className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-sm">
+      <header className="flex items-center gap-3">
+        <Avatar name={item.child.name} color={item.child.avatar_color} size={40} />
+        <div className="min-w-0 flex-1">
+          <p className="flex items-center gap-2 font-semibold text-purple-800">
+            {item.child.name} <span>{emoji}</span>
+            {item.is_unread && (
+              <span className="h-2 w-2 rounded-full bg-red-500" aria-label="baru" />
+            )}
+          </p>
+          {item.title && (
+            <p className="truncate text-sm text-purple-500">{item.title}</p>
           )}
-        </span>
-        <span className="mt-1 block truncate text-sm text-purple-500">
-          {item.title || 'Cerita baru'}
-        </span>
-        <span className="mt-1 block text-xs text-purple-400">
-          💬 {item.comment_count} · ❤️ {item.reaction_count}
-        </span>
-      </span>
-    </button>
+        </div>
+        {item.seen_by_me ? (
+          <span className="shrink-0 text-sm font-medium text-green-600">
+            ✓ Sudah dibaca
+          </span>
+        ) : (
+          <button
+            onClick={() => markSeen.mutate()}
+            disabled={markSeen.isPending}
+            className="shrink-0 rounded-full border-2 border-purple-500 px-3 py-1 text-sm font-medium text-purple-600 disabled:opacity-50"
+          >
+            {markSeen.isPending ? '…' : 'Tandai sudah dibaca'}
+          </button>
+        )}
+      </header>
+
+      <RenderDoc doc={item.body} />
+
+      {item.panels.length > 0 && (
+        <div className="flex flex-col gap-3">
+          {item.panels.map((panel, i) => (
+            <figure key={panel.id}>
+              {panel.image_url && (
+                <img
+                  src={panel.image_url}
+                  alt={`Panel ${i + 1}`}
+                  className="w-full rounded-xl object-contain"
+                />
+              )}
+              {panel.caption && (
+                <figcaption className="mt-1 text-center text-sm text-purple-500">
+                  {panel.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      )}
+
+      <ReactionBar postId={item.id} reactions={item.reactions} />
+      <CommentThread postId={item.id} comments={item.comments} myUserId={myUserId} />
+    </article>
   )
 }

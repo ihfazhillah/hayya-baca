@@ -790,6 +790,33 @@ class TestFeed:
         resp = auth(api, ahmad.user).get("/api/diary/feed/")
         assert resp.status_code == 403
 
+    def test_feed_item_carries_full_content(self, published_ctx):
+        # FB-style feed: each item includes body, panels, thread, reactions,
+        # read receipts, and per-viewer read state.
+        ctx = published_ctx
+        pid = ctx["post"].id
+        ctx["parent_api"].post(
+            f"/api/diary/posts/{pid}/comments/",
+            {"body": doc(para(text("hai")))},
+            format="json",
+        )
+        ctx["parent_api"].put(
+            f"/api/diary/posts/{pid}/reactions/",
+            {"emoji": "❤️"},
+            format="json",
+        )
+        item = ctx["parent_api"].get("/api/diary/feed/").data["results"][0]
+        assert "body" in item
+        assert item["panels"] == []
+        assert len(item["comments"]) == 1
+        assert item["reactions"]["counts"]["❤️"] == 1
+        assert "read_by" in item
+        assert item["seen_by_me"] is False
+        # Marking seen sets seen_by_me (the explicit read signal).
+        ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
+        item = ctx["parent_api"].get("/api/diary/feed/").data["results"][0]
+        assert item["seen_by_me"] is True
+
     def test_guardian_own_reply_does_not_reflip_unread(self, api, parent):
         # Bug: a guardian's OWN comment counted as new activity and flipped the
         # post back to unread after they had already read it.

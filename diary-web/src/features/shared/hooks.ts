@@ -44,12 +44,19 @@ export function useBadges() {
   return useQuery({ queryKey: ['badges'], queryFn: () => api.badges() })
 }
 
+// Reactions/comments render inline in the guardian feed too, so refresh both
+// the detail query AND the feed list after a mutation.
+function invalidatePostAndFeed(qc: ReturnType<typeof useQueryClient>, postId: number) {
+  qc.invalidateQueries({ queryKey: ['post', postId] })
+  qc.invalidateQueries({ queryKey: ['feed'] })
+}
+
 export function useAddComment(postId: number) {
   const api = useApi()
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (body: PMDoc) => api.addComment(postId, body),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['post', postId] }),
+    onSuccess: () => invalidatePostAndFeed(qc, postId),
   })
 }
 
@@ -59,6 +66,6 @@ export function useToggleReaction(postId: number) {
   return useMutation({
     mutationFn: ({ emoji, active }: { emoji: string; active: boolean }) =>
       active ? api.removeReaction(postId, emoji) : api.addReaction(postId, emoji),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['post', postId] }),
+    onSuccess: () => invalidatePostAndFeed(qc, postId),
   })
 }

@@ -112,17 +112,9 @@ export interface PostDetail extends Post {
   read_by: ReadReceiptItem[]
 }
 
-export interface FeedItem {
-  id: number
-  type: string
-  title: string
-  status: PostStatus
-  published_at: string | null
-  created_at: string
-  child: ChildSummary
-  comment_count: number
-  reaction_count: number
+export interface FeedItem extends PostDetail {
   is_unread: boolean
+  seen_by_me: boolean
 }
 
 export interface FeedPage {
