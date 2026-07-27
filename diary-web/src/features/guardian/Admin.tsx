@@ -69,8 +69,13 @@ function ChildAdminCard({ child }: { child: GuardianChild }) {
             placeholder="Nama pengguna anak"
             value={username}
             autoCapitalize="none"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) =>
+              setUsername(e.target.value.toLowerCase().replace(/\s+/g, ''))
+            }
           />
+          <p className="text-xs text-purple-400">
+            Huruf kecil, tanpa spasi.
+          </p>
           {suggestions.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {suggestions.map((s) => (

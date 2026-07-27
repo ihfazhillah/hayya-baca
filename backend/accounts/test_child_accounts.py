@@ -183,6 +183,24 @@ class TestCreateDiaryAccount:
         # No password yet — child cannot log in until setup.
         assert not child.user.has_usable_password()
 
+    def test_username_normalized_to_lowercase(self, parent_api, child):
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/", {"username": "AhmaD"}
+        )
+        assert resp.status_code == 201
+        assert resp.data["username"] == "ahmad"
+        child.refresh_from_db()
+        assert child.user.username == "ahmad"
+
+    def test_username_with_spaces_rejected(self, parent_api, child):
+        resp = parent_api.post(
+            f"/api/children/{child.id}/diary-account/",
+            {"username": "ahmad keren"},
+        )
+        assert resp.status_code == 400
+        child.refresh_from_db()
+        assert child.user_id is None
+
     def test_duplicate_username_returns_suggestions(self, parent_api, child, db):
         User.objects.create_user(username="ahmad", password="test1234")
         resp = parent_api.post(

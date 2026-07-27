@@ -64,10 +64,15 @@ class DiaryAccountView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        username = (request.data.get("username") or "").strip()
+        username = (request.data.get("username") or "").strip().lower()
         if not username:
             return Response(
                 {"detail": "Username wajib diisi"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if any(c.isspace() for c in username):
+            return Response(
+                {"detail": "Username tidak boleh mengandung spasi"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

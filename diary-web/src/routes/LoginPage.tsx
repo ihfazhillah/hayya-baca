@@ -71,7 +71,7 @@ function ChildLogin() {
     setBusy(true)
     setError('')
     try {
-      await signInChild(username.trim(), password)
+      await signInChild(username.trim().toLowerCase(), password)
     } catch (err) {
       setError(errorMessage(err))
       setBusy(false)
