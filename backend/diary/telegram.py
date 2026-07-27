@@ -84,16 +84,32 @@ def excerpt_from_body(body, limit=EXCERPT_LEN):
     return text
 
 
-def build_notification(child_name, type_label, title, body):
-    """Compose the message: name + type + (title if any) + excerpt."""
+def post_url(post):
+    """Web URL that opens this post in the app."""
+    base = settings.DIARY_WEB_BASE_URL.rstrip("/")
+    return f"{base}/post/{post.id}"
+
+
+def _with_link(message, url):
+    """Append the post link on its own line (Telegram auto-links plain URLs)."""
+    return f"{message}\n\n{url}" if url else message
+
+
+def build_notification(child_name, type_label, title, body, url=None):
+    """Compose the message: name + type + (title if any) + excerpt + link."""
     header = f"🖋️ {child_name} menulis {type_label}"
     if title:
-        return f"{header}\n\n“{title}”\n{excerpt_from_body(body)}".rstrip()
-    return f"{header}\n\n{excerpt_from_body(body)}".rstrip()
+        body_msg = f"{header}\n\n“{title}”\n{excerpt_from_body(body)}".rstrip()
+    else:
+        body_msg = f"{header}\n\n{excerpt_from_body(body)}".rstrip()
+    return _with_link(body_msg, url)
 
 
-def build_reply_notification(child_name, type_label, body):
-    return f"💬 {child_name} membalas di {type_label}\n\n{excerpt_from_body(body)}".rstrip()
+def build_reply_notification(child_name, type_label, body, url=None):
+    body_msg = (
+        f"💬 {child_name} membalas di {type_label}\n\n{excerpt_from_body(body)}"
+    ).rstrip()
+    return _with_link(body_msg, url)
 
 
 def linked_guardian_chat_ids(child):
@@ -115,13 +131,15 @@ def linked_guardian_chat_ids(child):
 
 def notify_new_post(post):
     text = build_notification(
-        post.child.name, post.type.label, post.title, post.body
+        post.child.name, post.type.label, post.title, post.body, post_url(post)
     )
     for chat_id in linked_guardian_chat_ids(post.child):
         send_message(chat_id, text)
 
 
 def notify_child_reply(post, comment):
-    text = build_reply_notification(post.child.name, post.type.label, comment.body)
+    text = build_reply_notification(
+        post.child.name, post.type.label, comment.body, post_url(post)
+    )
     for chat_id in linked_guardian_chat_ids(post.child):
         send_message(chat_id, text)

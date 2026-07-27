@@ -1087,6 +1087,7 @@ class TestNotificationTrigger:
         assert len(sent) == 1
         assert sent[0][0] == "123"
         assert "Ahmad" in sent[0][1]
+        assert f"/post/{pid}" in sent[0][1]
 
     def test_publish_send_failure_does_not_break(self, api, parent, monkeypatch):
         def boom(chat_id, text):
@@ -1120,6 +1121,7 @@ class TestNotificationTrigger:
             {"body": doc(para(text("balas")))}, format="json",
         )
         assert len(sent) == 1
+        assert f"/post/{ctx['post'].id}" in sent[0][1]
 
     def test_guardian_comment_does_not_notify(self, published_ctx, monkeypatch):
         sent = []
