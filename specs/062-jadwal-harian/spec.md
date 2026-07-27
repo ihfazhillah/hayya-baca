@@ -65,12 +65,11 @@ Diputuskan bersama pengguna (2026-07-27):
 - Per anak: lihat **jadwal & progres hari ini** (mirip "sudah dibaca" di feed),
   dan **tambah tugas** untuk anak itu.
 
-## 6. Reward (opsional — perlu keputusan)
+## 6. Reward — DITUNDA ke fase 2 (keputusan 2026-07-27)
 
-`Child` sudah punya field **coins/stars**. Mencentang tugas bisa memberi
-**bintang** (motivasi lembut) tanpa sistem baru. **Perlu dikonfirmasi**: apakah
-v1 sudah menyalakan reward, atau ditunda ke fase berikutnya agar v1 sederhana
-(hanya centang + progres).
+v1 **tanpa reward**: fokus ke buat tugas + centang + progres "x/y selesai".
+`Child` sudah punya field **coins/stars**, jadi bintang bisa ditambahkan nanti
+tanpa mengubah data — fase 2, setelah alur inti mantap.
 
 ## 7. Privasi & isolasi
 
@@ -94,4 +93,4 @@ v1 sudah menyalakan reward, atau ditunda ke fase berikutnya agar v1 sederhana
 - Orang tua bisa menambah tugas untuk anak & melihat progres hari ini.
 - Riwayat centang tersimpan per tanggal.
 - Saudara tidak bisa mengakses jadwal anak lain.
-- Keputusan reward (fase 1 atau tunda) sudah dipilih.
+- v1 tanpa reward (bintang = fase 2).
