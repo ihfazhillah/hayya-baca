@@ -17,8 +17,18 @@ const ME: Me = {
   },
 }
 
+const GUARDIAN: Me = {
+  role: 'guardian',
+  user_id: 5,
+  children: [],
+  telegram_linked: false,
+}
+
 describe('SessionStore', () => {
-  beforeEach(() => vi.useFakeTimers())
+  beforeEach(() => {
+    vi.useFakeTimers()
+    localStorage.clear()
+  })
   afterEach(() => vi.useRealTimers())
 
   it('holds the token in memory and returns it', () => {
@@ -56,11 +66,45 @@ describe('SessionStore', () => {
     expect(s.state.locked).toBe(false)
   })
 
-  it('never persists the token to localStorage (tab-close semantics)', () => {
+  it('never persists a CHILD token to localStorage (shared-device semantics)', () => {
     const s = new SessionStore()
     s.login('secret-token', ME)
     const dump = JSON.stringify(localStorage)
     expect(dump).not.toContain('secret-token')
+    // A fresh instance (page reload) must NOT restore a child session.
+    const reloaded = new SessionStore()
+    expect(reloaded.getToken()).toBeNull()
+    expect(reloaded.state.me).toBeNull()
+  })
+
+  it('persists a GUARDIAN session and restores it after a reload', () => {
+    const s = new SessionStore()
+    s.login('gtok', GUARDIAN)
+    const reloaded = new SessionStore()
+    expect(reloaded.getToken()).toBe('gtok')
+    expect(reloaded.state.me?.role).toBe('guardian')
+    expect(reloaded.state.locked).toBe(false)
+  })
+
+  it('restores an idle-locked guardian session to the LOCK screen, not a live session', () => {
+    const s = new SessionStore({ idleMs: 1000 })
+    s.login('gtok', GUARDIAN)
+    vi.advanceTimersByTime(1001)
+    expect(s.state.locked).toBe(true)
+
+    const reloaded = new SessionStore()
+    expect(reloaded.getToken()).toBeNull() // token not usable after idle-lock
+    expect(reloaded.state.locked).toBe(true) // → shows the lock screen
+    expect(reloaded.state.me?.role).toBe('guardian')
+  })
+
+  it('logout clears the persisted guardian session', () => {
+    const s = new SessionStore()
+    s.login('gtok', GUARDIAN)
+    s.logout()
+    const reloaded = new SessionStore()
+    expect(reloaded.getToken()).toBeNull()
+    expect(reloaded.state.me).toBeNull()
   })
 })
 

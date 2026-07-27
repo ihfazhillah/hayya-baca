@@ -1,17 +1,42 @@
-// Framework-agnostic session state. The auth token lives ONLY here in memory:
-// closing the tab drops it, and an idle timeout locks the session on shared
-// devices (Spec 060 §3.4). Nothing here touches localStorage except via the
-// quick-pick module.
+// Framework-agnostic session state.
+//
+// Children (shared chromebooks) keep the token ONLY in memory — closing the tab
+// or refreshing drops it (Spec 060 §3.4). Guardians (their own phone) instead
+// persist the session to localStorage so a refresh or PWA relaunch does NOT log
+// them out; the idle-lock still applies, and an idle-locked session restores to
+// the lock screen (not a live session).
 import type { Me } from '@/api/types'
 import type { QuickPick } from './quickpick'
 
 export const IDLE_MS = 10 * 60 * 1000 // 10 minutes
+
+const SESSION_KEY = 'ruangcerita.session'
 
 export interface SessionState {
   token: string | null
   me: Me | null
   locked: boolean
   lockedProfile: QuickPick | null
+}
+
+/** Read a persisted GUARDIAN session, if any. Anything else is ignored. */
+function loadPersisted(): SessionState | null {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY)
+    if (!raw) return null
+    const p = JSON.parse(raw) as SessionState
+    return p?.me?.role === 'guardian' ? p : null
+  } catch {
+    return null
+  }
+}
+
+function clearPersisted() {
+  try {
+    localStorage.removeItem(SESSION_KEY)
+  } catch {
+    /* ignore */
+  }
 }
 
 export interface SessionStoreOptions {
@@ -31,6 +56,29 @@ export class SessionStore {
   constructor(opts: SessionStoreOptions = {}) {
     this.idleMs = opts.idleMs ?? IDLE_MS
     this.onChange = opts.onChange
+    // Restore a persisted guardian session on construction (page reload).
+    const p = loadPersisted()
+    if (p) {
+      this.me = p.me
+      this.lockedProfile = p.lockedProfile
+      this.locked = p.locked
+      // A locked session restores without a usable token (→ lock screen).
+      this.token = p.locked ? null : p.token
+      if (this.token) this.resetIdle()
+    }
+  }
+
+  /** Persist guardian sessions only; everything else clears storage. */
+  private persist() {
+    if (this.me?.role === 'guardian') {
+      try {
+        localStorage.setItem(SESSION_KEY, JSON.stringify(this.state))
+      } catch {
+        /* ignore */
+      }
+    } else {
+      clearPersisted()
+    }
   }
 
   getToken = (): string | null => this.token
@@ -93,6 +141,7 @@ export class SessionStore {
   }
 
   private notify() {
+    this.persist()
     this.onChange?.(this.state)
   }
 }
