@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import Feed from './Feed'
 import GuardianPostDetail from './GuardianPostDetail'
@@ -6,7 +6,8 @@ import Admin from './Admin'
 import TelegramSettings from './TelegramSettings'
 
 function TopNav() {
-  const { logout } = useSession()
+  const { switchProfile } = useSession()
+  const navigate = useNavigate()
   const link = ({ isActive }: { isActive: boolean }) =>
     'rounded-full px-3 py-1 text-sm font-medium ' +
     (isActive ? 'bg-purple-600 text-white' : 'text-purple-600')
@@ -23,8 +24,14 @@ function TopNav() {
           Telegram
         </NavLink>
       </nav>
-      <button onClick={logout} className="text-sm text-purple-400 underline">
-        Keluar
+      <button
+        onClick={() => {
+          switchProfile()
+          navigate('/')
+        }}
+        className="text-sm text-purple-400 underline"
+      >
+        Ganti profil
       </button>
     </header>
   )
