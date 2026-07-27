@@ -74,10 +74,10 @@ export function createApiClient(opts: ApiClientOptions) {
   }
 
   async function handleResponse<T>(res: Response): Promise<T> {
-    if (res.status === 401) {
-      opts.onUnauthorized()
-      throw new ApiError(401, null, 'Sesi berakhir')
-    }
+    // A 401 on an authenticated request means the session lapsed → lock.
+    // (Login/setup calls use a client whose onUnauthorized is a no-op, so a
+    // wrong password surfaces as an ApiError instead of locking the app.)
+    if (res.status === 401) opts.onUnauthorized()
     if (res.status === 204) return undefined as T
 
     let data: unknown = null

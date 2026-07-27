@@ -42,6 +42,27 @@ describe('auth flow', () => {
     expect(link).toHaveAttribute('href', '/setup')
   })
 
+  it('surfaces the error inline and stays on the login form when the password is wrong (bug 3)', async () => {
+    stubFetch((url) =>
+      url.includes('/api/auth/child-login/')
+        ? json(401, { detail: 'Username atau password salah' })
+        : json(200, {}),
+    )
+    renderApp('/')
+    await userEvent.type(screen.getByPlaceholderText('Nama pengguna'), 'budi')
+    await userEvent.type(screen.getByPlaceholderText('Kata sandi'), 'salahsandi')
+    await userEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    expect(
+      await screen.findByText('Username atau password salah'),
+    ).toBeInTheDocument()
+    // Still on the login screen — must NOT flip to the lock screen.
+    expect(screen.getByText('Orang Tua')).toBeInTheDocument()
+    expect(
+      screen.queryByText('Sesi terkunci. Masuk lagi ya.'),
+    ).not.toBeInTheDocument()
+  })
+
   it('navigates into the app after a successful setup (bug 2)', async () => {
     stubFetch((url) => {
       if (url.includes('/api/auth/child-setup/'))

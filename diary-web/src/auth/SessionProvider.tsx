@@ -59,6 +59,17 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return createEndpoints(client)
   }, [store])
 
+  // Unauthenticated client for login/setup. A 401 here means "wrong
+  // credentials", NOT an expired session, so it must never trigger the lock —
+  // otherwise a failed login swaps the form for the lock screen (bug 3).
+  const authApi = useMemo(
+    () =>
+      createEndpoints(
+        createApiClient({ getToken: () => null, onUnauthorized: () => {} }),
+      ),
+    [],
+  )
+
   const value = useMemo<SessionContextValue>(() => {
     // Fetch the canonical Me with a just-issued token, then commit the session.
     async function bootstrap(token: string, profile: QuickPick | null) {
@@ -74,7 +85,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       state,
       api,
       signInChild: async (username, password) => {
-        const res = await api.childLogin(username, password)
+        const res = await authApi.childLogin(username, password)
         const profile: QuickPick = {
           username,
           name: res.child?.name ?? username,
@@ -84,7 +95,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         await bootstrap(res.token, profile)
       },
       signInGuardian: async (username, password) => {
-        const res = await api.guardianLogin(username, password)
+        const res = await authApi.guardianLogin(username, password)
         // Guardians get a lock-screen profile but stay out of the quick-pick roster.
         await bootstrap(res.token, {
           username,
@@ -93,7 +104,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         })
       },
       completeSetup: async (code, password) => {
-        const res = await api.childSetup(code, password)
+        const res = await authApi.childSetup(code, password)
         const profile: QuickPick | null = res.child
           ? {
               username: res.child.name,
@@ -107,7 +118,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       logout: () => store.logout(),
       lock: () => store.lock(),
     }
-  }, [state, api, store])
+  }, [state, api, authApi, store])
 
   return (
     <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
