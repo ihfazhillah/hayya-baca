@@ -23,6 +23,12 @@ def process_panel_image(uploaded):
     if uploaded.size and uploaded.size > MAX_UPLOAD_BYTES:
         raise InvalidImage("Gambar terlalu besar (maksimal 10 MB)")
 
+    # Reject video (and anything non-image) up front with a clear message; PIL
+    # below is the real gate, but this makes the intent explicit for children.
+    ctype = (getattr(uploaded, "content_type", "") or "").lower()
+    if ctype.startswith("video/"):
+        raise InvalidImage("Video tidak didukung — hanya gambar")
+
     try:
         img = Image.open(uploaded)
         img.load()

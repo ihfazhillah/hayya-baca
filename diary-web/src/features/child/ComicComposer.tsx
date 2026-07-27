@@ -88,7 +88,13 @@ export default function ComicComposer() {
         hidden
         onChange={(e) => {
           const file = e.target.files?.[0]
-          if (file) upload.mutate(file)
+          if (file) {
+            if (!file.type.startsWith('image/')) {
+              setError('Hanya gambar yang boleh diunggah, bukan video.')
+            } else {
+              upload.mutate(file)
+            }
+          }
           e.target.value = ''
         }}
       />
@@ -104,6 +110,8 @@ export default function ComicComposer() {
               <img
                 src={panel.image_url}
                 alt={`Panel ${i + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="max-h-80 w-full rounded-xl object-contain"
               />
             )}

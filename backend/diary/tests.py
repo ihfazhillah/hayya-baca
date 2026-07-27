@@ -395,6 +395,22 @@ class TestComicPanelUpload:
         )
         assert resp.status_code == 400
 
+    def test_video_rejected(self, comic_ctx):
+        from django.core.files.uploadedfile import SimpleUploadedFile
+
+        child, capi, post = comic_ctx
+        vid = SimpleUploadedFile(
+            "clip.mp4",
+            b"\x00\x00\x00\x18ftypmp42\x00\x00\x00\x00mp42isom",
+            content_type="video/mp4",
+        )
+        resp = capi.post(
+            f"/api/diary/my/posts/{post.id}/panels/",
+            {"image": vid},
+            format="multipart",
+        )
+        assert resp.status_code == 400
+
     def test_panel_limit_enforced(self, comic_ctx, settings):
         from diary.models import ComicPanel
 
