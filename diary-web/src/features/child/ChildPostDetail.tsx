@@ -39,7 +39,7 @@ export default function ChildPostDetail() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mx-auto flex max-w-xl flex-col gap-4">
       <button
         onClick={() => navigate('/')}
         className="self-start text-sm text-purple-400"
