@@ -14,6 +14,7 @@ urlpatterns = [
     path("api/", include("games.urls")),
     path("api/search/", include("search.urls")),
     path("api/diary/", include("diary.urls")),
+    path("api/schedule/", include("schedule.urls")),
     path("api/children/<int:child_pk>/", include("reading.urls")),
     path("api/children/<int:child_pk>/", include("rewards.urls")),
     path("api/children/<int:child_pk>/", include("streaks.urls")),

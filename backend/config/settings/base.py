@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'search',
     'streaks',
     'diary',
+    'schedule',
 ]
 
 MIDDLEWARE = [
