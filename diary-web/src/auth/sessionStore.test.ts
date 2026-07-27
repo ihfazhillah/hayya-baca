@@ -1,27 +1,50 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SessionStore } from './sessionStore'
 import { addQuickPick, getQuickPicks, removeQuickPick } from './quickpick'
-import type { Me } from '@/api/types'
+import type { MeChild, MeGuardian } from '@/api/types'
 
-const ME: Me = {
+const GUARDIAN_ME: MeGuardian = {
+  role: 'guardian',
+  user_id: 5,
+  telegram_linked: false,
+  children: [
+    {
+      id: 1,
+      name: 'Ahmad',
+      age: 8,
+      avatar_color: '#111',
+      coins: 0,
+      stars: 0,
+      created_at: '',
+      has_diary_account: true,
+      username: 'ahmad',
+    },
+    {
+      id: 2,
+      name: 'Fatimah',
+      age: 6,
+      avatar_color: '#222',
+      coins: 0,
+      stars: 0,
+      created_at: '',
+      has_diary_account: false,
+      username: null,
+    },
+  ],
+}
+
+const CHILD_ME: MeChild = {
   role: 'child',
   user_id: 10,
   child: {
     id: 1,
     name: 'Ahmad',
     age: 8,
-    avatar_color: '#1A73E8',
+    avatar_color: '#111',
     coins: 0,
     stars: 0,
     created_at: '',
   },
-}
-
-const GUARDIAN: Me = {
-  role: 'guardian',
-  user_id: 5,
-  children: [],
-  telegram_linked: false,
 }
 
 describe('SessionStore', () => {
@@ -31,80 +54,89 @@ describe('SessionStore', () => {
   })
   afterEach(() => vi.useRealTimers())
 
-  it('holds the token in memory and returns it', () => {
+  it('unlock caches the family and lands on the lobby without a token', () => {
     const s = new SessionStore()
-    s.login('tok', ME)
-    expect(s.getToken()).toBe('tok')
-    expect(s.state.locked).toBe(false)
-  })
-
-  it('locks after the idle timeout, dropping the token', () => {
-    const s = new SessionStore({ idleMs: 1000 })
-    s.login('tok', ME)
-    vi.advanceTimersByTime(1001)
+    s.unlock('ayah', GUARDIAN_ME)
     expect(s.getToken()).toBeNull()
-    expect(s.state.locked).toBe(true)
+    expect(s.state.active).toBeNull()
+    expect(s.state.family?.guardianUsername).toBe('ayah')
+    expect(s.state.family?.children).toHaveLength(2)
   })
 
-  it('touch resets the idle countdown', () => {
+  it('restores the family (only) after a reload — no token, on the lobby', () => {
+    new SessionStore().unlock('ayah', GUARDIAN_ME)
+    const reloaded = new SessionStore()
+    expect(reloaded.state.family?.guardianUsername).toBe('ayah')
+    expect(reloaded.state.active).toBeNull()
+    expect(reloaded.getToken()).toBeNull()
+  })
+
+  it('enterChild sets an in-memory child session with a token', () => {
+    const s = new SessionStore()
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'ctok')
+    expect(s.getToken()).toBe('ctok')
+    expect(s.state.active?.kind).toBe('child')
+  })
+
+  it('enterGuardian sets guardian session + refreshes the family cache', () => {
+    const s = new SessionStore()
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterGuardian(GUARDIAN_ME, 'gtok')
+    expect(s.getToken()).toBe('gtok')
+    expect(s.state.active?.kind).toBe('guardian')
+  })
+
+  it('idle timeout drops the active profile back to the lobby, keeping family', () => {
     const s = new SessionStore({ idleMs: 1000 })
-    s.login('tok', ME)
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'ctok')
+    vi.advanceTimersByTime(1001)
+    expect(s.state.active).toBeNull()
+    expect(s.getToken()).toBeNull()
+    expect(s.state.family).not.toBeNull()
+  })
+
+  it('switchProfile returns to the lobby, keeping the family', () => {
+    const s = new SessionStore()
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'ctok')
+    s.switchProfile()
+    expect(s.state.active).toBeNull()
+    expect(s.state.family).not.toBeNull()
+    expect(s.getToken()).toBeNull()
+  })
+
+  it('touch resets the idle countdown while in a profile', () => {
+    const s = new SessionStore({ idleMs: 1000 })
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'ctok')
     vi.advanceTimersByTime(800)
     s.touch()
     vi.advanceTimersByTime(800)
-    expect(s.state.locked).toBe(false)
+    expect(s.state.active).not.toBeNull()
     vi.advanceTimersByTime(300)
-    expect(s.state.locked).toBe(true)
+    expect(s.state.active).toBeNull()
   })
 
-  it('logout clears everything', () => {
+  it('logout clears the family and its storage', () => {
     const s = new SessionStore()
-    s.login('tok', ME)
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'ctok')
     s.logout()
-    expect(s.getToken()).toBeNull()
-    expect(s.state.me).toBeNull()
-    expect(s.state.locked).toBe(false)
+    expect(s.state.family).toBeNull()
+    expect(s.state.active).toBeNull()
+    expect(new SessionStore().state.family).toBeNull()
   })
 
-  it('never persists a CHILD token to localStorage (shared-device semantics)', () => {
+  it('never persists any token to localStorage', () => {
     const s = new SessionStore()
-    s.login('secret-token', ME)
+    s.unlock('ayah', GUARDIAN_ME)
+    s.enterChild(CHILD_ME, 'secret-child-token')
+    s.enterGuardian(GUARDIAN_ME, 'secret-guardian-token')
     const dump = JSON.stringify(localStorage)
-    expect(dump).not.toContain('secret-token')
-    // A fresh instance (page reload) must NOT restore a child session.
-    const reloaded = new SessionStore()
-    expect(reloaded.getToken()).toBeNull()
-    expect(reloaded.state.me).toBeNull()
-  })
-
-  it('persists a GUARDIAN session and restores it after a reload', () => {
-    const s = new SessionStore()
-    s.login('gtok', GUARDIAN)
-    const reloaded = new SessionStore()
-    expect(reloaded.getToken()).toBe('gtok')
-    expect(reloaded.state.me?.role).toBe('guardian')
-    expect(reloaded.state.locked).toBe(false)
-  })
-
-  it('restores an idle-locked guardian session to the LOCK screen, not a live session', () => {
-    const s = new SessionStore({ idleMs: 1000 })
-    s.login('gtok', GUARDIAN)
-    vi.advanceTimersByTime(1001)
-    expect(s.state.locked).toBe(true)
-
-    const reloaded = new SessionStore()
-    expect(reloaded.getToken()).toBeNull() // token not usable after idle-lock
-    expect(reloaded.state.locked).toBe(true) // → shows the lock screen
-    expect(reloaded.state.me?.role).toBe('guardian')
-  })
-
-  it('logout clears the persisted guardian session', () => {
-    const s = new SessionStore()
-    s.login('gtok', GUARDIAN)
-    s.logout()
-    const reloaded = new SessionStore()
-    expect(reloaded.getToken()).toBeNull()
-    expect(reloaded.state.me).toBeNull()
+    expect(dump).not.toContain('secret-child-token')
+    expect(dump).not.toContain('secret-guardian-token')
   })
 })
 

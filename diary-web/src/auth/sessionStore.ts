@@ -1,42 +1,39 @@
-// Framework-agnostic session state.
+// Framework-agnostic session state for the family-lobby model (Spec 061).
 //
-// Children (shared chromebooks) keep the token ONLY in memory — closing the tab
-// or refreshing drops it (Spec 060 §3.4). Guardians (their own phone) instead
-// persist the session to localStorage so a refresh or PWA relaunch does NOT log
-// them out; the idle-lock still applies, and an idle-locked session restores to
-// the lock screen (not a live session).
-import type { Me } from '@/api/types'
-import type { QuickPick } from './quickpick'
+// Two layers:
+//   • family  — the unlocked guardian's username + cached children list. This
+//     is the ONLY thing persisted (localStorage), and it carries NO token, so
+//     a reload lands on the lobby without re-login and without a usable token.
+//   • active  — the live profile (child or guardian) with its token. In-memory
+//     ONLY: reload/relaunch drops it, and every profile entry needs its own
+//     password. Idle-lock drops `active` back to the lobby; `family` stays.
+import type { MeChild, MeGuardian } from '@/api/types'
 
 export const IDLE_MS = 10 * 60 * 1000 // 10 minutes
 
-const SESSION_KEY = 'ruangcerita.session'
+const FAMILY_KEY = 'ruangcerita.family'
+
+export interface FamilyChild {
+  id: number
+  name: string
+  avatar_color: string
+  username: string | null
+  has_diary_account: boolean
+}
+
+export interface Family {
+  guardianUsername: string
+  children: FamilyChild[]
+}
+
+export type Active =
+  | { kind: 'child'; token: string; me: MeChild }
+  | { kind: 'guardian'; token: string; me: MeGuardian }
+  | null
 
 export interface SessionState {
-  token: string | null
-  me: Me | null
-  locked: boolean
-  lockedProfile: QuickPick | null
-}
-
-/** Read a persisted GUARDIAN session, if any. Anything else is ignored. */
-function loadPersisted(): SessionState | null {
-  try {
-    const raw = localStorage.getItem(SESSION_KEY)
-    if (!raw) return null
-    const p = JSON.parse(raw) as SessionState
-    return p?.me?.role === 'guardian' ? p : null
-  } catch {
-    return null
-  }
-}
-
-function clearPersisted() {
-  try {
-    localStorage.removeItem(SESSION_KEY)
-  } catch {
-    /* ignore */
-  }
+  family: Family | null // null → Unlock screen; else → lobby available
+  active: Active // null → Lobby; else → inside a profile
 }
 
 export interface SessionStoreOptions {
@@ -44,11 +41,48 @@ export interface SessionStoreOptions {
   onChange?: (state: SessionState) => void
 }
 
+function toFamilyChildren(me: MeGuardian): FamilyChild[] {
+  return me.children.map((c) => ({
+    id: c.id,
+    name: c.name,
+    avatar_color: c.avatar_color,
+    username: c.username,
+    has_diary_account: c.has_diary_account,
+  }))
+}
+
+function loadFamily(): Family | null {
+  try {
+    const raw = localStorage.getItem(FAMILY_KEY)
+    if (!raw) return null
+    const f = JSON.parse(raw) as Family
+    return f && typeof f.guardianUsername === 'string' && Array.isArray(f.children)
+      ? f
+      : null
+  } catch {
+    return null
+  }
+}
+
+function saveFamily(family: Family) {
+  try {
+    localStorage.setItem(FAMILY_KEY, JSON.stringify(family))
+  } catch {
+    /* ignore */
+  }
+}
+
+function clearFamily() {
+  try {
+    localStorage.removeItem(FAMILY_KEY)
+  } catch {
+    /* ignore */
+  }
+}
+
 export class SessionStore {
-  private token: string | null = null
-  private me: Me | null = null
-  private locked = false
-  private lockedProfile: QuickPick | null = null
+  private family: Family | null = null
+  private active: Active = null
   private idleMs: number
   private onChange?: (state: SessionState) => void
   private timer: ReturnType<typeof setTimeout> | null = null
@@ -56,72 +90,71 @@ export class SessionStore {
   constructor(opts: SessionStoreOptions = {}) {
     this.idleMs = opts.idleMs ?? IDLE_MS
     this.onChange = opts.onChange
-    // Restore a persisted guardian session on construction (page reload).
-    const p = loadPersisted()
-    if (p) {
-      this.me = p.me
-      this.lockedProfile = p.lockedProfile
-      this.locked = p.locked
-      // A locked session restores without a usable token (→ lock screen).
-      this.token = p.locked ? null : p.token
-      if (this.token) this.resetIdle()
-    }
+    // Restore the family cache (no token) on reload → lands on the lobby.
+    this.family = loadFamily()
   }
 
-  /** Persist guardian sessions only; everything else clears storage. */
-  private persist() {
-    if (this.me?.role === 'guardian') {
-      try {
-        localStorage.setItem(SESSION_KEY, JSON.stringify(this.state))
-      } catch {
-        /* ignore */
-      }
-    } else {
-      clearPersisted()
-    }
-  }
-
-  getToken = (): string | null => this.token
+  /** The active profile's token, or null in the lobby / unlock screen. */
+  getToken = (): string | null => this.active?.token ?? null
 
   get state(): SessionState {
-    return {
-      token: this.token,
-      me: this.me,
-      locked: this.locked,
-      lockedProfile: this.lockedProfile,
-    }
+    return { family: this.family, active: this.active }
   }
 
-  login(token: string, me: Me, profile: QuickPick | null = null) {
-    this.token = token
-    this.me = me
-    this.locked = false
-    if (profile) this.lockedProfile = profile
-    this.resetIdle()
-    this.notify()
-  }
-
-  /** Idle/401 lock: drop the token but remember who to re-auth. */
-  lock = () => {
-    if (this.token === null && this.locked) return
-    this.token = null
-    this.locked = true
+  /** Guardian authenticated → cache the family, land on the lobby (no token). */
+  unlock(guardianUsername: string, me: MeGuardian) {
+    this.family = { guardianUsername, children: toFamilyChildren(me) }
+    this.active = null
+    saveFamily(this.family)
     this.clearTimer()
     this.notify()
   }
 
+  /** Enter a child profile with a freshly issued token. */
+  enterChild(me: MeChild, token: string) {
+    this.active = { kind: 'child', token, me }
+    this.resetIdle()
+    this.notify()
+  }
+
+  /** Enter guardian mode (re-auth) and refresh the cached children. */
+  enterGuardian(me: MeGuardian, token: string) {
+    this.active = { kind: 'guardian', token, me }
+    if (this.family) {
+      this.family = { ...this.family, children: toFamilyChildren(me) }
+      saveFamily(this.family)
+    }
+    this.resetIdle()
+    this.notify()
+  }
+
+  /** Back to the lobby, keeping the family unlocked. */
+  switchProfile() {
+    this.active = null
+    this.clearTimer()
+    this.notify()
+  }
+
+  /** Full logout → unlock screen. */
   logout() {
-    this.token = null
-    this.me = null
-    this.locked = false
-    this.lockedProfile = null
+    this.family = null
+    this.active = null
+    clearFamily()
+    this.clearTimer()
+    this.notify()
+  }
+
+  /** Idle timeout / 401 → drop the active profile back to the lobby. */
+  lock = () => {
+    if (this.active === null) return
+    this.active = null
     this.clearTimer()
     this.notify()
   }
 
   /** Reset the idle countdown on user activity. */
   touch = () => {
-    if (this.token !== null) this.resetIdle()
+    if (this.active !== null) this.resetIdle()
   }
 
   destroy() {
@@ -141,7 +174,6 @@ export class SessionStore {
   }
 
   private notify() {
-    this.persist()
     this.onChange?.(this.state)
   }
 }
