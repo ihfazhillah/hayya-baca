@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { ApiError } from '@/api/client'
 import { Button, Card, ErrorText, TextInput } from '@/features/shared/ui'
 
 export default function SetupPage() {
   const [params] = useSearchParams()
+  const navigate = useNavigate()
   const { completeSetup } = useSession()
   const [code, setCode] = useState(params.get('code') ?? '')
   const [password, setPassword] = useState('')
@@ -27,6 +28,8 @@ export default function SetupPage() {
     setError('')
     try {
       await completeSetup(code.trim().toUpperCase(), password)
+      // Session is now live; hand off to AuthGate (stay busy through the nav).
+      navigate('/', { replace: true })
     } catch (err) {
       const detail =
         err instanceof ApiError
