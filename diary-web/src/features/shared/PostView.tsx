@@ -36,6 +36,8 @@ export function PostView({
                   <img
                     src={panel.image_url}
                     alt={`Panel ${i + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full rounded-xl object-contain"
                   />
                 )}

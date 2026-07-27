@@ -1,5 +1,10 @@
-import { useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useRef, useState } from 'react'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi, usePostTypes } from '@/features/shared/hooks'
 import { Avatar } from '@/features/shared/ui'
@@ -7,6 +12,13 @@ import { RenderDoc } from '@/features/shared/RenderDoc'
 import { ReactionBar } from '@/features/shared/ReactionBar'
 import { CommentThread } from '@/features/shared/CommentThread'
 import type { FeedItem, GuardianBadges, PostType } from '@/api/types'
+
+// DRF returns a full `next` URL; pull the opaque cursor back out for api.feed.
+function cursorFromUrl(url: string | null): string | undefined {
+  if (!url) return undefined
+  const m = url.match(/[?&]cursor=([^&]+)/)
+  return m ? decodeURIComponent(m[1]) : undefined
+}
 
 export default function Feed() {
   const api = useApi()
@@ -16,10 +28,14 @@ export default function Feed() {
   const [filter, setFilter] = useState<number | null>(null)
   const types = usePostTypes()
 
-  const feed = useQuery({
+  const feed = useInfiniteQuery({
     queryKey: ['feed', filter ?? 'all'],
-    queryFn: () => api.feed({ child: filter ?? undefined }),
+    queryFn: ({ pageParam }) =>
+      api.feed({ child: filter ?? undefined, cursor: pageParam }),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => cursorFromUrl(lastPage.next),
   })
+  const posts = feed.data?.pages.flatMap((p) => p.results) ?? []
 
   // Poll unread counts so chips stay fresh (Spec 060 §6.1).
   const badges = useQuery({
@@ -33,6 +49,25 @@ export default function Feed() {
   const typeBySlug = new Map<string, PostType>(
     (types.data ?? []).map((t) => [t.slug, t]),
   )
+
+  // Load the next page as the sentinel scrolls into view (lazy feed).
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const { hasNextPage, isFetchingNextPage, fetchNextPage } = feed
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return
+    const el = sentinelRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      { rootMargin: '300px' },
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4">
@@ -52,12 +87,12 @@ export default function Feed() {
       )}
 
       {feed.isLoading && <p className="text-purple-400">Memuat…</p>}
-      {feed.data?.results.length === 0 && (
+      {!feed.isLoading && posts.length === 0 && (
         <p className="text-center text-purple-400">Belum ada cerita baru.</p>
       )}
 
       <div className="flex flex-col gap-4">
-        {feed.data?.results.map((item) => (
+        {posts.map((item) => (
           <FeedPost
             key={item.id}
             item={item}
@@ -66,6 +101,12 @@ export default function Feed() {
           />
         ))}
       </div>
+
+      {hasNextPage && (
+        <div ref={sentinelRef} className="py-4 text-center text-sm text-purple-400">
+          {isFetchingNextPage ? 'Memuat…' : ' '}
+        </div>
+      )}
     </div>
   )
 }
@@ -158,6 +199,8 @@ function FeedPost({
                 <img
                   src={panel.image_url}
                   alt={`Panel ${i + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full rounded-xl object-contain"
                 />
               )}
