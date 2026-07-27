@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SessionStore } from './sessionStore'
-import { addQuickPick, getQuickPicks, removeQuickPick } from './quickpick'
 import type { MeChild, MeGuardian } from '@/api/types'
 
 const GUARDIAN_ME: MeGuardian = {
@@ -137,31 +136,5 @@ describe('SessionStore', () => {
     const dump = JSON.stringify(localStorage)
     expect(dump).not.toContain('secret-child-token')
     expect(dump).not.toContain('secret-guardian-token')
-  })
-})
-
-describe('quickpick', () => {
-  beforeEach(() => localStorage.clear())
-
-  it('adds and lists picks', () => {
-    addQuickPick({ username: 'ahmad', name: 'Ahmad', avatar_color: '#111' })
-    expect(getQuickPicks()).toHaveLength(1)
-    expect(getQuickPicks()[0].username).toBe('ahmad')
-  })
-
-  it('dedupes by username, newest first', () => {
-    addQuickPick({ username: 'ahmad', name: 'A', avatar_color: '#1' })
-    addQuickPick({ username: 'fatimah', name: 'F', avatar_color: '#2' })
-    addQuickPick({ username: 'ahmad', name: 'A2', avatar_color: '#3' })
-    const picks = getQuickPicks()
-    expect(picks).toHaveLength(2)
-    expect(picks[0].username).toBe('ahmad')
-    expect(picks[0].name).toBe('A2')
-  })
-
-  it('removes a pick', () => {
-    addQuickPick({ username: 'ahmad', name: 'A', avatar_color: '#1' })
-    removeQuickPick('ahmad')
-    expect(getQuickPicks()).toHaveLength(0)
   })
 })

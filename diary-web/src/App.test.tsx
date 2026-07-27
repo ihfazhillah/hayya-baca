@@ -10,8 +10,8 @@ describe('App', () => {
         <App />
       </MemoryRouter>,
     )
-    // Product title + the child/guardian tabs of the login screen.
+    // Product title + the guardian unlock form (family-lobby model, Spec 061).
     expect(screen.getByRole('heading', { name: 'Ruang Cerita' })).toBeInTheDocument()
-    expect(screen.getByText('Orang Tua')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Buka' })).toBeInTheDocument()
   })
 })
