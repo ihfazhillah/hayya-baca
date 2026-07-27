@@ -31,14 +31,11 @@ def link_code_expiry():
 
 
 def bot_username():
-    """Effective Telegram bot username: DB config first, then env. '@' stripped.
+    """Telegram bot username from system config (env). '@' stripped.
 
     Empty string means no bot is configured yet.
     """
-    from .models import DiaryConfig
-
-    stored = DiaryConfig.load().telegram_bot_username
-    return (stored or settings.TELEGRAM_BOT_USERNAME or "").strip().lstrip("@")
+    return (settings.TELEGRAM_BOT_USERNAME or "").strip().lstrip("@")
 
 
 def deep_link(code):

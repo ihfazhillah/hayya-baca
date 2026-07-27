@@ -963,35 +963,6 @@ class TestTelegramConfig:
         r = auth(api, parent).post("/api/diary/telegram/link/")
         assert r.status_code == 400
 
-    def test_guardian_sets_bot_username_then_link_works(self, api, parent, settings):
-        settings.TELEGRAM_BOT_USERNAME = ""
-        client = auth(api, parent)
-
-        # Leading '@' is stripped on save.
-        r = client.put(
-            "/api/diary/telegram/config/",
-            {"bot_username": "@my_bot"},
-            format="json",
-        )
-        assert r.status_code == 200
-        assert r.data["bot_username"] == "my_bot"
-
-        # GET reflects the stored value.
-        g = client.get("/api/diary/telegram/config/")
-        assert g.data["bot_username"] == "my_bot"
-
-        # And the deep link now uses the configured username.
-        make_child("Ahmad", parent)
-        link = client.post("/api/diary/telegram/link/")
-        assert link.status_code == 200
-        assert link.data["deep_link"].startswith("https://t.me/my_bot?start=")
-
-    def test_child_cannot_access_config(self, api, parent):
-        child = make_child("Ahmad", parent, with_account=True)
-        r = auth(api, child.user).get("/api/diary/telegram/config/")
-        assert r.status_code == 403
-
-
 # === T5.2: notification sending + excerpt builder ===
 
 
