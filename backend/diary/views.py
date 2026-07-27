@@ -13,7 +13,7 @@ from accounts.models import Child, ChildAccess, is_child_account
 from accounts.permissions import IsGuardianAccount
 from accounts.serializers import ChildSerializer
 
-from .badges import child_has_new_activity, guardian_unread
+from .badges import guardian_unread
 from .images import MAX_PANELS_PER_POST, InvalidImage, process_panel_image
 from .media import verify_panel_token
 from .models import (
@@ -476,13 +476,22 @@ class BadgesView(APIView):
         }
 
     def _child_badges(self, user):
+        """Per-post count of guardian replies the child hasn't seen yet."""
         child = user.child_profile
-        post_ids = []
+        posts = []
+        total = 0
         for post in Post.objects.filter(child=child):
             receipt = post.receipts.filter(user=user).first()
-            if child_has_new_activity(post, receipt, user.id):
-                post_ids.append(post.id)
-        return {"posts": post_ids, "total": len(post_ids)}
+            baseline = receipt.last_seen_at if receipt else post.created_at
+            unread = (
+                post.comments.exclude(author_id=user.id)
+                .filter(created_at__gt=baseline)
+                .count()
+            )
+            if unread:
+                posts.append({"post_id": post.id, "unread_replies": unread})
+                total += unread
+        return {"posts": posts, "total": total}
 
 
 class TelegramLinkView(APIView):

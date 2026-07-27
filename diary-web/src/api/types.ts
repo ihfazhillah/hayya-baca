@@ -129,7 +129,7 @@ export interface GuardianBadges {
 }
 
 export interface ChildBadges {
-  posts: number[]
+  posts: { post_id: number; unread_replies: number }[]
   total: number
 }
 

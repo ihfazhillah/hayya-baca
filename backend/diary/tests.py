@@ -900,24 +900,32 @@ class TestBadges:
         counts = {c["child_id"]: c["unread"] for c in resp.data["children"]}
         assert counts[ahmad.id] == 1
 
-    def test_child_badge_on_new_comment(self, published_ctx):
+    def test_child_badge_counts_unread_replies(self, published_ctx):
         ctx = published_ctx
         pid = ctx["post"].id
-        # Child sees own post first (baseline last_seen)
+
+        def replies_for(post_id):
+            data = ctx["child_api"].get("/api/diary/badges/").data
+            for p in data["posts"]:
+                if p["post_id"] == post_id:
+                    return p["unread_replies"]
+            return 0
+
+        # Child sees own post first (baseline last_seen).
         ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
-        resp = ctx["child_api"].get("/api/diary/badges/")
-        assert pid not in resp.data["posts"]
-        # Guardian comments → child badge appears
-        ctx["parent_api"].post(
-            f"/api/diary/posts/{pid}/comments/",
-            {"body": doc(para(text("hai")))}, format="json",
-        )
-        resp = ctx["child_api"].get("/api/diary/badges/")
-        assert pid in resp.data["posts"]
-        # Child opens → badge clears
+        assert replies_for(pid) == 0
+        # Two guardian replies → count = 2.
+        for msg in ("hai", "keren"):
+            ctx["parent_api"].post(
+                f"/api/diary/posts/{pid}/comments/",
+                {"body": doc(para(text(msg)))},
+                format="json",
+            )
+        assert replies_for(pid) == 2
+        assert ctx["child_api"].get("/api/diary/badges/").data["total"] == 2
+        # Child opens → count clears.
         ctx["child_api"].post(f"/api/diary/posts/{pid}/seen/")
-        resp = ctx["child_api"].get("/api/diary/badges/")
-        assert pid not in resp.data["posts"]
+        assert replies_for(pid) == 0
 
 
 # === T5.1: telegram link + webhook ===
