@@ -1,6 +1,6 @@
 # Tasks 061 — Login Keluarga (Family Lobby)
 
-**Status:** Draft — menunggu approval
+**Status:** Selesai — deployed 2026-07-27
 **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) (approved 2026-07-27)
 
 Aturan pengerjaan:
@@ -15,7 +15,7 @@ Aturan pengerjaan:
 
 ## Fase 1 — Inti sesi
 
-- [ ] **T1 — Model `sessionStore` baru (`family` + `active`)**
+- [x] **T1 — Model `sessionStore` baru (`family` + `active`)**
   Tulis ulang `auth/sessionStore.ts` sesuai plan §1: state `{family, active}`,
   method `unlock/enterChild/enterGuardian/switchProfile/logout/lock/touch`,
   `getToken()` = token aktif. Persist HANYA `family` (tanpa token) ke
@@ -31,7 +31,7 @@ Aturan pengerjaan:
 
 ## Fase 2 — Provider & client
 
-- [ ] **T2 — API `SessionProvider` baru**
+- [x] **T2 — API `SessionProvider` baru**
   Ekspos `unlock/enterChild/enterGuardian/switchProfile/logout` (plan §2).
   `authApi` (no-op 401) untuk `login`/`child-login`; `bootstrap` ambil `/me/`
   dengan token sesaat lalu commit ke store. `enterGuardian` pakai
@@ -39,7 +39,7 @@ Aturan pengerjaan:
 
 ## Fase 3 — Routing & unlock
 
-- [ ] **T3 — `App.tsx` Gate + `LoginPage` unlock**
+- [x] **T3 — `App.tsx` Gate + `LoginPage` unlock**
   `Gate`: `!family`→`LoginPage`, `!active`→`Lobby`, else `ChildApp/GuardianApp`
   (plan §4). `LoginPage` jadi form unlock orang tua saja (hapus tab
   Anak/Orang Tua); simpan link kecil "Anak baru? Buat kata sandi" → `/setup`.
@@ -47,7 +47,7 @@ Aturan pengerjaan:
 
 ## Fase 4 — Lobby
 
-- [ ] **T4 — `Lobby` + `PasswordPrompt`**
+- [x] **T4 — `Lobby` + `PasswordPrompt`**
   `features/lobby/Lobby.tsx`: tile anak (`has_diary_account`) + tile "Orang Tua"
   + tombol "Keluar"; anak tanpa akun disabled. State `selected` → tampilkan
   `PasswordPrompt` (avatar+nama, input password, error) → `enterChild`/
@@ -60,21 +60,21 @@ Aturan pengerjaan:
 
 ## Fase 5 — Navigasi & pembersihan
 
-- [ ] **T5 — Tombol "Ganti profil"**
+- [x] **T5 — Tombol "Ganti profil"**
   Header `ChildApp` + `TopNav` `GuardianApp`: `switchProfile()` + `navigate('/')`.
 
-- [ ] **T6 — Hapus `LockScreen` + `quickpick`; `completeSetup` → `enterChild`**
+- [x] **T6 — Hapus `LockScreen` + `quickpick`; `completeSetup` → `enterChild`**
   Hapus `routes/LockScreen.tsx`, `auth/quickpick.ts` + test quickpick lama;
   bersihkan import. `SessionProvider.completeSetup` commit sebagai `active=child`
   (bukan quick-pick). Setup via `/setup?code=` tetap masuk ChildApp langsung.
 
 ## Fase 6 — Verifikasi & rilis
 
-- [ ] **T7 — Suite hijau**
+- [x] **T7 — Suite hijau**
   `npm run typecheck` + `npx vitest run` hijau; `auth-flow` mencakup journey
   unlock → lobby → anak/ortu → ganti profil → reload.
 
-- [ ] **T8 — Deploy & smoke test**
+- [x] **T8 — Deploy & smoke test**
   `./deploy-diary.sh`; verifikasi di device: unlock → lobby → masuk anak (password)
   → ganti profil → masuk orang tua (password) → reload kembali ke lobby;
   deep-link `/post/<id>` (notifikasi Telegram) tetap resolve lewat unlock → lobby.
