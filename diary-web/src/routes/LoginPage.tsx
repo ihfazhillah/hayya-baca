@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { getQuickPicks, type QuickPick } from '@/auth/quickpick'
 import { ApiError } from '@/api/client'
@@ -115,6 +116,12 @@ function ChildLogin() {
       <Button type="submit" disabled={busy || !username || !password}>
         {busy ? 'Masuk…' : 'Masuk'}
       </Button>
+      <Link
+        to="/setup"
+        className="text-center text-sm font-medium text-purple-500 underline"
+      >
+        Punya kode dari orang tua? Buat kata sandi →
+      </Link>
     </form>
   )
 }
