@@ -316,6 +316,9 @@ class TestChildSetup:
         assert resp.status_code == 200
         assert "token" in resp.data
         assert resp.data["child"]["name"] == "Ahmad"
+        # Username is returned so the web quick-pick stores the real login id,
+        # not the display name.
+        assert resp.data["username"] == "ahmad"
         child_with_account.user.refresh_from_db()
         assert child_with_account.user.check_password("kucing1")
 

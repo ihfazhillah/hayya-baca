@@ -2,8 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '@/App'
+import { getQuickPicks } from '@/auth/quickpick'
 
 function json(status: number, data: unknown): Response {
   return new Response(JSON.stringify(data), {
@@ -32,6 +33,7 @@ function renderApp(path: string) {
   )
 }
 
+beforeEach(() => localStorage.clear())
 afterEach(() => vi.unstubAllGlobals())
 
 describe('auth flow', () => {
@@ -68,6 +70,7 @@ describe('auth flow', () => {
       if (url.includes('/api/auth/child-setup/'))
         return json(200, {
           token: 'tok',
+          username: 'budi_hebat',
           child: { id: 1, name: 'Budi', avatar_color: '#f00' },
         })
       if (url.includes('/api/diary/me/'))
@@ -103,5 +106,10 @@ describe('auth flow', () => {
         screen.queryByRole('heading', { name: 'Buat Kata Sandi' }),
       ).not.toBeInTheDocument(),
     )
+
+    // Quick-pick keeps the real login id, not the display name (bug 8).
+    const picks = getQuickPicks()
+    expect(picks[0]?.username).toBe('budi_hebat')
+    expect(picks[0]?.name).toBe('Budi')
   })
 })

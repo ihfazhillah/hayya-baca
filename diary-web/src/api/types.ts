@@ -41,6 +41,8 @@ export type Me = MeChild | MeGuardian
 export interface AuthResult {
   token: string
   child?: ChildProfile
+  // The login id, returned on setup so the quick-pick stores it (not the name).
+  username?: string
 }
 
 // ProseMirror document — validated server-side against a small whitelist.

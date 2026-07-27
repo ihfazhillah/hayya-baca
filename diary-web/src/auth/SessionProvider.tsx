@@ -107,7 +107,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         const res = await authApi.childSetup(code, password)
         const profile: QuickPick | null = res.child
           ? {
-              username: res.child.name,
+              // Real login id (fall back to name only if the API omits it).
+              username: res.username ?? res.child.name,
               name: res.child.name,
               avatar_color: res.child.avatar_color,
             }

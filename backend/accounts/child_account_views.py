@@ -161,7 +161,11 @@ class ChildSetupView(APIView):
 
         auth_token, _ = Token.objects.get_or_create(user=user)
         return Response(
-            {"token": auth_token.key, "child": ChildSerializer(child).data},
+            {
+                "token": auth_token.key,
+                "child": ChildSerializer(child).data,
+                "username": user.username,
+            },
             status=status.HTTP_200_OK,
         )
 
