@@ -98,9 +98,13 @@ function Composer({ postId }: { postId: number }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Tulis balasan…"
         onKeyDown={(e) => e.key === 'Enter' && send()}
-        className="flex-1 rounded-2xl border-2 border-purple-200 bg-white px-3 py-2 outline-none focus:border-purple-500"
+        className="min-w-0 flex-1 rounded-2xl border-2 border-purple-200 bg-white px-3 py-2 outline-none focus:border-purple-500"
       />
-      <Button onClick={send} disabled={add.isPending || !text.trim()} className="px-4 py-2">
+      <Button
+        onClick={send}
+        disabled={add.isPending || !text.trim()}
+        className="shrink-0 px-4 py-2"
+      >
         Kirim
       </Button>
     </div>
