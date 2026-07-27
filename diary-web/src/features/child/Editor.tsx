@@ -27,6 +27,11 @@ export default function Editor() {
   const api = useApi()
   const detail = usePostDetail(postId)
 
+  const del = useMutation({
+    mutationFn: () => api.deletePost(postId),
+    onSuccess: () => navigate('/'),
+  })
+
   return detail.data ? (
     <EditorForm
       key={postId}
@@ -35,6 +40,10 @@ export default function Editor() {
       initialBody={detail.data.body}
       onDone={() => navigate('/')}
       onPublished={() => navigate(`/post/${postId}`)}
+      onDelete={() => {
+        if (confirm('Hapus cerita ini? Tidak bisa dikembalikan.')) del.mutate()
+      }}
+      deleting={del.isPending}
       save={api.updatePost}
     />
   ) : (
@@ -48,6 +57,8 @@ function EditorForm({
   initialBody,
   onDone,
   onPublished,
+  onDelete,
+  deleting,
   save,
 }: {
   postId: number
@@ -55,6 +66,8 @@ function EditorForm({
   initialBody: PMDoc | null
   onDone: () => void
   onPublished: () => void
+  onDelete: () => void
+  deleting: boolean
   save: (
     id: number,
     payload: Partial<{ title: string; body: PMDoc | null; status: string }>,
@@ -94,9 +107,18 @@ function EditorForm({
         <button onClick={onDone} className="text-sm text-purple-400">
           ← Simpan draf
         </button>
-        <span className="text-xs text-purple-500">
-          {statusLabel(autosave.status)}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-purple-500">
+            {statusLabel(autosave.status)}
+          </span>
+          <button
+            onClick={onDelete}
+            disabled={deleting}
+            className="text-sm text-red-500 disabled:opacity-50"
+          >
+            {deleting ? 'Menghapus…' : 'Hapus'}
+          </button>
+        </div>
       </div>
 
       <input

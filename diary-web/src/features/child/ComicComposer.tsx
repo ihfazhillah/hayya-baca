@@ -48,16 +48,33 @@ export default function ComicComposer() {
     onSuccess: () => navigate(`/post/${postId}`),
   })
 
+  const del = useMutation({
+    mutationFn: () => api.deletePost(postId),
+    onSuccess: () => navigate('/'),
+  })
+
   const panels = detail.data?.panels ?? []
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-3">
-      <button
-        onClick={() => navigate('/')}
-        className="self-start text-sm text-purple-400"
-      >
-        ← Simpan draf
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => navigate('/')}
+          className="text-sm text-purple-400"
+        >
+          ← Simpan draf
+        </button>
+        <button
+          onClick={() => {
+            if (confirm('Hapus komik ini? Tidak bisa dikembalikan.'))
+              del.mutate()
+          }}
+          disabled={del.isPending}
+          className="text-sm text-red-500 disabled:opacity-50"
+        >
+          {del.isPending ? 'Menghapus…' : 'Hapus'}
+        </button>
+      </div>
       <h2 className="text-xl font-bold text-purple-800">🎨 Komikku</h2>
 
       <input
