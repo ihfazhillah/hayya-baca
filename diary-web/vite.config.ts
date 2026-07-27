@@ -11,7 +11,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.svg'],
+      includeAssets: ['icon.svg', 'icon-192.png', 'icon-512.png'],
       // App-shell only — never cache diary data (Spec 060 §7, online-required).
       workbox: {
         navigateFallback: '/index.html',
@@ -35,10 +35,12 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
+        // Chrome ignores SVG icons for installability — PNG 192 + 512 (purpose
+        // "any") are required for the install prompt to appear.
         icons: [
-          { src: '/icon.svg', sizes: '192x192', type: 'image/svg+xml', purpose: 'any' },
-          { src: '/icon.svg', sizes: '512x512', type: 'image/svg+xml', purpose: 'any' },
-          { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'maskable' },
+          { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
     }),
