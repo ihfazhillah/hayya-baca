@@ -8,6 +8,21 @@ from accounts.models import Child
 REACTION_EMOJIS = ["❤️", "👏", "🌟", "😄"]
 
 
+class DiaryConfig(models.Model):
+    """Global Ruang Cerita settings — a single row (pk=1).
+
+    Holds the Telegram bot username so guardians can configure it from the app
+    instead of editing the server .env. Empty means the bot isn't set up yet.
+    """
+
+    telegram_bot_username = models.CharField(max_length=64, blank=True, default="")
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+
 class PostType(models.Model):
     """Kind of writing a child picks up front; drives the editor shape."""
 

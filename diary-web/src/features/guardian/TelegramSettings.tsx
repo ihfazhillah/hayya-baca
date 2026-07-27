@@ -1,14 +1,34 @@
-import { useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi } from '@/features/shared/hooks'
-import { Button } from '@/features/shared/ui'
+import { Button, TextInput } from '@/features/shared/ui'
 
 export default function TelegramSettings() {
   const api = useApi()
+  const qc = useQueryClient()
   const { state } = useSession()
   const linked = state.me?.role === 'guardian' ? state.me.telegram_linked : false
   const [deepLink, setDeepLink] = useState<string | null>(null)
+
+  const config = useQuery({
+    queryKey: ['telegram-config'],
+    queryFn: () => api.telegramConfig(),
+  })
+  const [username, setUsername] = useState('')
+  useEffect(() => {
+    if (config.data) setUsername(config.data.bot_username)
+  }, [config.data])
+
+  const configured = (config.data?.bot_username ?? '').length > 0
+
+  const saveConfig = useMutation({
+    mutationFn: () => api.setTelegramConfig(username.trim().replace(/^@/, '')),
+    onSuccess: (data) => {
+      qc.setQueryData(['telegram-config'], data)
+      setUsername(data.bot_username)
+    },
+  })
 
   const link = useMutation({
     mutationFn: () => api.telegramLink(),
@@ -32,6 +52,32 @@ export default function TelegramSettings() {
       </p>
 
       <div className="rounded-2xl bg-white p-4 shadow-sm">
+        <p className="mb-2 text-sm font-medium text-purple-700">
+          Username bot Telegram
+        </p>
+        <p className="mb-3 text-xs text-purple-400">
+          Buat bot lewat @BotFather, lalu masukkan username-nya di sini (mis.
+          ruangcerita_bot).
+        </p>
+        <div className="flex items-center gap-2">
+          <div className="flex-1">
+            <TextInput
+              placeholder="username_bot"
+              value={username}
+              autoCapitalize="none"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <Button
+            onClick={() => saveConfig.mutate()}
+            disabled={saveConfig.isPending || !username.trim()}
+          >
+            {saveConfig.isPending ? 'Menyimpan…' : 'Simpan'}
+          </Button>
+        </div>
+      </div>
+
+      <div className="rounded-2xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-sm">
           Status:{' '}
           <span
@@ -41,9 +87,17 @@ export default function TelegramSettings() {
           </span>
         </p>
         <div className="flex flex-col gap-2">
-          <Button onClick={() => link.mutate()} disabled={link.isPending}>
+          <Button
+            onClick={() => link.mutate()}
+            disabled={link.isPending || !configured}
+          >
             {linked ? 'Hubungkan ulang' : 'Hubungkan Telegram'}
           </Button>
+          {!configured && (
+            <p className="text-center text-sm text-purple-400">
+              Isi username bot Telegram dulu untuk menghubungkan.
+            </p>
+          )}
           {deepLink && (
             <a
               href={deepLink}

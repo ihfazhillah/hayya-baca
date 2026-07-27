@@ -155,4 +155,8 @@ export interface TelegramLinkResult {
   link_code: string
 }
 
+export interface TelegramConfig {
+  bot_username: string
+}
+
 export const REACTION_EMOJIS = ['❤️', '👏', '🌟', '😄'] as const

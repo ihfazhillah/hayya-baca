@@ -55,6 +55,11 @@ urlpatterns = [
         name="telegram-link",
     ),
     path(
+        "telegram/config/",
+        views.TelegramConfigView.as_view(),
+        name="telegram-config",
+    ),
+    path(
         "telegram/webhook/<str:secret>/",
         views.TelegramWebhookView.as_view(),
         name="telegram-webhook",

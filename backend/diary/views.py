@@ -20,6 +20,7 @@ from .models import (
     REACTION_EMOJIS,
     ComicPanel,
     Comment,
+    DiaryConfig,
     Post,
     PostType,
     Reaction,
@@ -474,6 +475,11 @@ class TelegramLinkView(APIView):
     permission_classes = [IsAuthenticated, IsGuardianAccount]
 
     def post(self, request):
+        if not telegram.bot_username():
+            return Response(
+                {"detail": "Bot Telegram belum dikonfigurasi"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         code = telegram.new_link_code()
         link, _ = TelegramLink.objects.update_or_create(
             user=request.user,
@@ -489,6 +495,22 @@ class TelegramLinkView(APIView):
     def delete(self, request):
         TelegramLink.objects.filter(user=request.user).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TelegramConfigView(APIView):
+    """Guardian reads/sets the global Telegram bot username."""
+
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+
+    def get(self, request):
+        return Response({"bot_username": telegram.bot_username()})
+
+    def put(self, request):
+        raw = (request.data.get("bot_username") or "").strip().lstrip("@")
+        config = DiaryConfig.load()
+        config.telegram_bot_username = raw
+        config.save(update_fields=["telegram_bot_username"])
+        return Response({"bot_username": raw})
 
 
 class TelegramWebhookView(APIView):

@@ -30,9 +30,19 @@ def link_code_expiry():
     return timezone.now() + LINK_CODE_TTL
 
 
+def bot_username():
+    """Effective Telegram bot username: DB config first, then env. '@' stripped.
+
+    Empty string means no bot is configured yet.
+    """
+    from .models import DiaryConfig
+
+    stored = DiaryConfig.load().telegram_bot_username
+    return (stored or settings.TELEGRAM_BOT_USERNAME or "").strip().lstrip("@")
+
+
 def deep_link(code):
-    bot = settings.TELEGRAM_BOT_USERNAME or "bot"
-    return f"https://t.me/{bot}?start={code}"
+    return f"https://t.me/{bot_username()}?start={code}"
 
 
 def send_message(chat_id, text):

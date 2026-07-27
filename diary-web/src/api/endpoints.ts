@@ -16,6 +16,7 @@ import type {
   ReactionSummary,
   ReadReceiptItem,
   SetupTokenResult,
+  TelegramConfig,
   TelegramLinkResult,
 } from './types'
 
@@ -113,6 +114,10 @@ export function createEndpoints(c: ApiClient) {
     telegramLink: () =>
       c.post<TelegramLinkResult>('/api/diary/telegram/link/'),
     telegramUnlink: () => c.del<void>('/api/diary/telegram/link/'),
+    telegramConfig: () =>
+      c.get<TelegramConfig>('/api/diary/telegram/config/'),
+    setTelegramConfig: (bot_username: string) =>
+      c.put<TelegramConfig>('/api/diary/telegram/config/', { bot_username }),
   }
 }
 

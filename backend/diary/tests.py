@@ -889,6 +889,7 @@ class TestTelegramLink:
         from diary.models import TelegramLink
 
         settings.TELEGRAM_WEBHOOK_SECRET = "s3cr3t"
+        settings.TELEGRAM_BOT_USERNAME = "ruangcerita_bot"
         make_child("Ahmad", parent)
         r = auth(api, parent).post("/api/diary/telegram/link/")
         code = r.data["link_code"]
@@ -926,6 +927,7 @@ class TestTelegramLink:
         from diary.models import TelegramLink
 
         settings.TELEGRAM_WEBHOOK_SECRET = "s3cr3t"
+        settings.TELEGRAM_BOT_USERNAME = "ruangcerita_bot"
         make_child("Ahmad", parent)
         r = auth(api, parent).post("/api/diary/telegram/link/")
         code = r.data["link_code"]
@@ -940,14 +942,54 @@ class TestTelegramLink:
         link = TelegramLink.objects.get(user=parent)
         assert link.chat_id is None
 
-    def test_unlink(self, api, parent):
+    def test_unlink(self, api, parent, settings):
         from diary.models import TelegramLink
 
+        settings.TELEGRAM_BOT_USERNAME = "ruangcerita_bot"
         make_child("Ahmad", parent)
         auth(api, parent).post("/api/diary/telegram/link/")
         r = auth(api, parent).delete("/api/diary/telegram/link/")
         assert r.status_code == 204
         assert not TelegramLink.objects.filter(user=parent).exists()
+
+
+# === Configurable Telegram bot username ===
+
+
+class TestTelegramConfig:
+    def test_link_requires_a_configured_bot(self, api, parent, settings):
+        settings.TELEGRAM_BOT_USERNAME = ""
+        make_child("Ahmad", parent)
+        r = auth(api, parent).post("/api/diary/telegram/link/")
+        assert r.status_code == 400
+
+    def test_guardian_sets_bot_username_then_link_works(self, api, parent, settings):
+        settings.TELEGRAM_BOT_USERNAME = ""
+        client = auth(api, parent)
+
+        # Leading '@' is stripped on save.
+        r = client.put(
+            "/api/diary/telegram/config/",
+            {"bot_username": "@my_bot"},
+            format="json",
+        )
+        assert r.status_code == 200
+        assert r.data["bot_username"] == "my_bot"
+
+        # GET reflects the stored value.
+        g = client.get("/api/diary/telegram/config/")
+        assert g.data["bot_username"] == "my_bot"
+
+        # And the deep link now uses the configured username.
+        make_child("Ahmad", parent)
+        link = client.post("/api/diary/telegram/link/")
+        assert link.status_code == 200
+        assert link.data["deep_link"].startswith("https://t.me/my_bot?start=")
+
+    def test_child_cannot_access_config(self, api, parent):
+        child = make_child("Ahmad", parent, with_account=True)
+        r = auth(api, child.user).get("/api/diary/telegram/config/")
+        assert r.status_code == 403
 
 
 # === T5.2: notification sending + excerpt builder ===
