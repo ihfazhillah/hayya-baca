@@ -11,7 +11,7 @@ export default function GuardianPostDetail() {
   const navigate = useNavigate()
   const api = useApi()
   const qc = useQueryClient()
-  const { state } = useSession()
+  const { me } = useSession()
   const detail = usePostDetail(postId)
 
   // Opening the post records the read receipt + clears the unread badge.
@@ -27,7 +27,7 @@ export default function GuardianPostDetail() {
   }, [loadedId])
 
   if (!detail.data) return <p className="text-purple-400">Memuat…</p>
-  const myUserId = state.me?.role === 'guardian' ? state.me.user_id : 0
+  const myUserId = me?.role === 'guardian' ? me.user_id : 0
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4">

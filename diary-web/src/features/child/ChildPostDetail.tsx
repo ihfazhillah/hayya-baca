@@ -10,7 +10,7 @@ export default function ChildPostDetail() {
   const postId = Number(id)
   const navigate = useNavigate()
   const api = useApi()
-  const { state } = useSession()
+  const { me } = useSession()
   const detail = usePostDetail(postId)
   const types = usePostTypes()
 
@@ -29,7 +29,7 @@ export default function ChildPostDetail() {
 
   if (!detail.data) return <p className="text-purple-400">Memuat…</p>
   const post = detail.data
-  const myUserId = state.me?.role === 'child' ? state.me.user_id : 0
+  const myUserId = me?.role === 'child' ? me.user_id : 0
   const kind = types.data?.find((t) => t.slug === post.type)?.kind ?? 'text'
 
   const onEdit = () =>

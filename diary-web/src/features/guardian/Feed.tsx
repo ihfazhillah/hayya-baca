@@ -10,9 +10,9 @@ import type { FeedItem, GuardianBadges, PostType } from '@/api/types'
 
 export default function Feed() {
   const api = useApi()
-  const { state } = useSession()
-  const children = state.me?.role === 'guardian' ? state.me.children : []
-  const myUserId = state.me?.role === 'guardian' ? state.me.user_id : 0
+  const { me } = useSession()
+  const children = me?.role === 'guardian' ? me.children : []
+  const myUserId = me?.role === 'guardian' ? me.user_id : 0
   const [filter, setFilter] = useState<number | null>(null)
   const types = usePostTypes()
 

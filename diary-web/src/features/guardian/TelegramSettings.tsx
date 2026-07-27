@@ -6,8 +6,8 @@ import { Button } from '@/features/shared/ui'
 
 export default function TelegramSettings() {
   const api = useApi()
-  const { state } = useSession()
-  const linked = state.me?.role === 'guardian' ? state.me.telegram_linked : false
+  const { me } = useSession()
+  const linked = me?.role === 'guardian' ? me.telegram_linked : false
   const [deepLink, setDeepLink] = useState<string | null>(null)
 
   const link = useMutation({

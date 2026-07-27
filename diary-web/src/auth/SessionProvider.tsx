@@ -9,19 +9,19 @@ import {
 } from 'react'
 import { createApiClient } from '@/api/client'
 import { createEndpoints, type Endpoints } from '@/api/endpoints'
+import type { Me, MeChild, MeGuardian } from '@/api/types'
 import { SessionStore, type SessionState } from './sessionStore'
-import { addQuickPick, type QuickPick } from './quickpick'
-
-const GUARDIAN_AVATAR = '#6d28d9'
 
 interface SessionContextValue {
   state: SessionState
+  me: Me | null // the active profile's Me (null in lobby / unlock)
   api: Endpoints
-  signInChild: (username: string, password: string) => Promise<void>
-  signInGuardian: (username: string, password: string) => Promise<void>
+  unlock: (username: string, password: string) => Promise<void>
+  enterChild: (username: string, password: string) => Promise<void>
+  enterGuardian: (password: string) => Promise<void>
   completeSetup: (code: string, password: string) => Promise<void>
+  switchProfile: () => void
   logout: () => void
-  lock: () => void
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
@@ -50,18 +50,17 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       ACTIVITY_EVENTS.forEach((e) => window.removeEventListener(e, handler))
   }, [store])
 
-  // Client bound to the live in-memory token, for authenticated calls.
-  const api = useMemo(() => {
-    const client = createApiClient({
-      getToken: store.getToken,
-      onUnauthorized: store.lock,
-    })
-    return createEndpoints(client)
-  }, [store])
+  // Client bound to the active profile's token; a 401 drops back to the lobby.
+  const api = useMemo(
+    () =>
+      createEndpoints(
+        createApiClient({ getToken: store.getToken, onUnauthorized: store.lock }),
+      ),
+    [store],
+  )
 
-  // Unauthenticated client for login/setup. A 401 here means "wrong
-  // credentials", NOT an expired session, so it must never trigger the lock —
-  // otherwise a failed login swaps the form for the lock screen (bug 3).
+  // Unauthenticated client for login/setup — a 401 here means "wrong password",
+  // not an expired session, so it must never trigger the lock.
   const authApi = useMemo(
     () =>
       createEndpoints(
@@ -71,53 +70,51 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   )
 
   const value = useMemo<SessionContextValue>(() => {
-    // Fetch the canonical Me with a just-issued token, then commit the session.
-    async function bootstrap(token: string, profile: QuickPick | null) {
+    // Fetch the canonical Me with a just-issued token.
+    async function fetchMe(token: string): Promise<Me> {
       const client = createApiClient({
         getToken: () => token,
         onUnauthorized: store.lock,
       })
-      const me = await createEndpoints(client).me()
-      store.login(token, me, profile)
+      return createEndpoints(client).me()
     }
 
     return {
       state,
+      me: state.active?.me ?? null,
       api,
-      signInChild: async (username, password) => {
-        const res = await authApi.childLogin(username, password)
-        const profile: QuickPick = {
-          username,
-          name: res.child?.name ?? username,
-          avatar_color: res.child?.avatar_color ?? GUARDIAN_AVATAR,
-        }
-        addQuickPick(profile)
-        await bootstrap(res.token, profile)
-      },
-      signInGuardian: async (username, password) => {
+      // Guardian authenticates → cache the family, land on the lobby.
+      unlock: async (username, password) => {
         const res = await authApi.guardianLogin(username, password)
-        // Guardians get a lock-screen profile but stay out of the quick-pick roster.
-        await bootstrap(res.token, {
-          username,
-          name: username,
-          avatar_color: GUARDIAN_AVATAR,
-        })
+        const me = await fetchMe(res.token)
+        if (me.role !== 'guardian') throw new Error('Akun ini bukan orang tua')
+        store.unlock(username.trim().toLowerCase(), me as MeGuardian)
       },
+      // Enter a child profile with its own password.
+      enterChild: async (username, password) => {
+        const res = await authApi.childLogin(username, password)
+        const me = await fetchMe(res.token)
+        if (me.role !== 'child') throw new Error('Akun ini bukan anak')
+        store.enterChild(me as MeChild, res.token)
+      },
+      // Re-auth to enter guardian mode (username from the family cache).
+      enterGuardian: async (password) => {
+        const username = state.family?.guardianUsername
+        if (!username) throw new Error('Belum membuka kunci keluarga')
+        const res = await authApi.guardianLogin(username, password)
+        const me = await fetchMe(res.token)
+        if (me.role !== 'guardian') throw new Error('Akun ini bukan orang tua')
+        store.enterGuardian(me as MeGuardian, res.token)
+      },
+      // Child sets a password via a one-time code → enters their profile.
       completeSetup: async (code, password) => {
         const res = await authApi.childSetup(code, password)
-        const profile: QuickPick | null = res.child
-          ? {
-              // Real login id (fall back to name only if the API omits it).
-              username: res.username ?? res.child.name,
-              name: res.child.name,
-              avatar_color: res.child.avatar_color,
-            }
-          : null
-        if (profile) addQuickPick(profile)
-        await bootstrap(res.token, profile)
+        const me = await fetchMe(res.token)
+        if (me.role !== 'child') throw new Error('Akun ini bukan anak')
+        store.enterChild(me as MeChild, res.token)
       },
+      switchProfile: () => store.switchProfile(),
       logout: () => store.logout(),
-      lock: () => store.lock(),
     }
   }, [state, api, authApi, store])
 

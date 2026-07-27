@@ -8,8 +8,8 @@ import { Avatar, Button, TextInput } from '@/features/shared/ui'
 import type { GuardianChild, SetupTokenResult } from '@/api/types'
 
 export default function Admin() {
-  const { state } = useSession()
-  const children = state.me?.role === 'guardian' ? state.me.children : []
+  const { me } = useSession()
+  const children = me?.role === 'guardian' ? me.children : []
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4">
       <h2 className="text-xl font-bold text-purple-800">Kelola Akun Anak</h2>
