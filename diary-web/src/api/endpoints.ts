@@ -15,8 +15,11 @@ import type {
   PostType,
   ReactionSummary,
   ReadReceiptItem,
+  ScheduleTask,
+  ScheduleTaskInput,
   SetupTokenResult,
   TelegramLinkResult,
+  TodaySchedule,
 } from './types'
 
 export function createEndpoints(c: ApiClient) {
@@ -113,6 +116,28 @@ export function createEndpoints(c: ApiClient) {
     telegramLink: () =>
       c.post<TelegramLinkResult>('/api/diary/telegram/link/'),
     telegramUnlink: () => c.del<void>('/api/diary/telegram/link/'),
+
+    // Schedule (Spec 062)
+    scheduleToday: (date: string) =>
+      c.get<TodaySchedule>(`/api/schedule/today/?date=${date}`),
+    scheduleTasks: () => c.get<ScheduleTask[]>('/api/schedule/tasks/'),
+    createScheduleTask: (payload: ScheduleTaskInput) =>
+      c.post<ScheduleTask>('/api/schedule/tasks/', payload),
+    updateScheduleTask: (id: number, payload: Partial<ScheduleTaskInput>) =>
+      c.patch<ScheduleTask>(`/api/schedule/tasks/${id}/`, payload),
+    deleteScheduleTask: (id: number) =>
+      c.del<void>(`/api/schedule/tasks/${id}/`),
+    toggleScheduleTask: (id: number, date: string, done: boolean) =>
+      c.post<{ done: boolean }>(`/api/schedule/tasks/${id}/toggle/`, {
+        date,
+        done,
+      }),
+    childScheduleToday: (childId: number, date: string) =>
+      c.get<TodaySchedule>(
+        `/api/schedule/children/${childId}/today/?date=${date}`,
+      ),
+    addChildScheduleTask: (childId: number, payload: ScheduleTaskInput) =>
+      c.post<ScheduleTask>(`/api/schedule/children/${childId}/tasks/`, payload),
   }
 }
 

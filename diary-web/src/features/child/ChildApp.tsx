@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { Avatar } from '@/features/shared/ui'
 import Timeline from './Timeline'
@@ -6,6 +6,23 @@ import TypePicker from './TypePicker'
 import Editor from './Editor'
 import ComicComposer from './ComicComposer'
 import ChildPostDetail from './ChildPostDetail'
+import Schedule from './Schedule'
+
+function ChildNav() {
+  const link = ({ isActive }: { isActive: boolean }) =>
+    'flex-1 rounded-full py-1.5 text-center text-sm font-semibold ' +
+    (isActive ? 'bg-white text-purple-700 shadow' : 'text-purple-500')
+  return (
+    <nav className="mx-auto mb-4 flex max-w-xl gap-1 rounded-2xl bg-purple-100 p-1">
+      <NavLink to="/" end className={link}>
+        Cerita
+      </NavLink>
+      <NavLink to="/jadwal" className={link}>
+        Jadwal
+      </NavLink>
+    </nav>
+  )
+}
 
 function ChildHeader() {
   const { me, switchProfile } = useSession()
@@ -35,8 +52,10 @@ export default function ChildApp() {
   return (
     <div className="min-h-full bg-purple-50 p-4">
       <ChildHeader />
+      <ChildNav />
       <Routes>
         <Route path="/" element={<Timeline />} />
+        <Route path="/jadwal" element={<Schedule />} />
         <Route path="/new" element={<TypePicker />} />
         <Route path="/tulis/:id" element={<Editor />} />
         <Route path="/komik/:id" element={<ComicComposer />} />

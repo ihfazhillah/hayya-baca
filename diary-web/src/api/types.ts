@@ -150,3 +150,47 @@ export interface TelegramLinkResult {
 }
 
 export const REACTION_EMOJIS = ['❤️', '👏', '🌟', '😄'] as const
+
+// === Jadwal harian (Spec 062) ===
+
+export type PartOfDay = 'pagi' | 'siang' | 'sore' | 'malam'
+export type ScheduleKind = 'routine' | 'once'
+
+export interface ScheduleTask {
+  id: number
+  title: string
+  part_of_day: PartOfDay
+  kind: ScheduleKind
+  repeat_days: number[]
+  date: string | null
+  emoji: string
+  order: number
+  archived: boolean
+  from_guardian: boolean
+  created_at: string
+}
+
+export interface TodayTask extends ScheduleTask {
+  done: boolean
+}
+
+export interface TodayGroup {
+  part_of_day: PartOfDay
+  items: TodayTask[]
+}
+
+export interface TodaySchedule {
+  date: string
+  groups: TodayGroup[]
+  total: number
+  done_count: number
+}
+
+export interface ScheduleTaskInput {
+  title: string
+  part_of_day: PartOfDay
+  kind: ScheduleKind
+  repeat_days?: number[]
+  date?: string | null
+  emoji?: string
+}

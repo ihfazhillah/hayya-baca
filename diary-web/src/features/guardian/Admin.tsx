@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi } from '@/features/shared/hooks'
@@ -22,6 +23,7 @@ export default function Admin() {
 
 function ChildAdminCard({ child }: { child: GuardianChild }) {
   const api = useApi()
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [error, setError] = useState('')
@@ -55,12 +57,20 @@ function ChildAdminCard({ child }: { child: GuardianChild }) {
     <div className="rounded-2xl bg-white p-4 shadow-sm">
       <div className="flex items-center gap-3">
         <Avatar name={child.name} color={child.avatar_color} size={40} />
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="font-semibold text-purple-800">{child.name}</p>
           <p className="text-sm text-purple-400">
             {hasAccount ? `@${child.username ?? username}` : 'Belum punya akun'}
           </p>
         </div>
+        {hasAccount && (
+          <button
+            onClick={() => navigate(`/jadwal/${child.id}`)}
+            className="shrink-0 rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-600"
+          >
+            Jadwal
+          </button>
+        )}
       </div>
 
       {!hasAccount ? (

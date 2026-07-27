@@ -3,6 +3,7 @@ import { useSession } from '@/auth/SessionProvider'
 import Feed from './Feed'
 import GuardianPostDetail from './GuardianPostDetail'
 import Admin from './Admin'
+import GuardianSchedule from './GuardianSchedule'
 import TelegramSettings from './TelegramSettings'
 
 function TopNav() {
@@ -45,6 +46,7 @@ export default function GuardianApp() {
         <Route path="/" element={<Feed />} />
         <Route path="/post/:id" element={<GuardianPostDetail />} />
         <Route path="/kelola" element={<Admin />} />
+        <Route path="/jadwal/:childId" element={<GuardianSchedule />} />
         <Route path="/telegram" element={<TelegramSettings />} />
       </Routes>
     </div>
