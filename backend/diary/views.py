@@ -257,6 +257,9 @@ class PostCommentsView(APIView):
         comment = serializer.save(post=post, author=request.user)
         if is_child_account(request.user):
             _notify(telegram.notify_child_reply, post, comment)
+        else:
+            # A guardian replying has clearly read the post → mark it seen.
+            mark_post_seen(post, request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -319,6 +322,9 @@ class PostReactionsView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         Reaction.objects.get_or_create(post=post, user=request.user, emoji=emoji)
+        # A guardian reacting has clearly read the post → mark it seen.
+        if not is_child_account(request.user):
+            mark_post_seen(post, request.user)
         return Response(reaction_summary(post, request.user))
 
     def delete(self, request, post_pk):
@@ -341,6 +347,22 @@ def read_by_list(post):
     ]
 
 
+def mark_post_seen(post, user):
+    """Upsert the viewer's read state: everyone updates the last-seen watermark
+    (unread badges); guardians also leave a read receipt ("Dibaca Ayah")."""
+    now = timezone.now()
+    receipt, _ = ReadReceipt.objects.get_or_create(
+        post=post,
+        user=user,
+        defaults={"last_seen_at": now},
+    )
+    receipt.last_seen_at = now
+    if not is_child_account(user) and receipt.first_read_at is None:
+        receipt.first_read_at = now
+    receipt.save(update_fields=["last_seen_at", "first_read_at"])
+    return receipt
+
+
 class PostSeenView(APIView):
     """Mark a post seen: guardians leave a read receipt, everyone updates the
     last-seen watermark used for unread badges (Spec 060 §5.3, §6.1)."""
@@ -352,18 +374,7 @@ class PostSeenView(APIView):
         if post is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        now = timezone.now()
-        receipt, created = ReadReceipt.objects.get_or_create(
-            post=post,
-            user=request.user,
-            defaults={"last_seen_at": now},
-        )
-        receipt.last_seen_at = now
-        # A read receipt ("Dibaca Ayah") is a guardian action only.
-        if not is_child_account(request.user) and receipt.first_read_at is None:
-            receipt.first_read_at = now
-        receipt.save(update_fields=["last_seen_at", "first_read_at"])
-
+        mark_post_seen(post, request.user)
         return Response({"read_by": read_by_list(post)})
 
 

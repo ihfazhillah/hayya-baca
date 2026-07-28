@@ -889,6 +889,48 @@ class TestResolveCurhat:
         r = auth(api, other).post(f"/api/diary/posts/{post.id}/resolve/")
         assert r.status_code == 404
 
+
+class TestGuardianEngagementMarksSeen:
+    """A guardian commenting or reacting implies they read the post, so it is
+    marked seen automatically (Spec 063 follow-up)."""
+
+    def test_guardian_comment_marks_post_seen(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad)
+        papi = auth(api, parent)
+        assert papi.get("/api/diary/feed/").data["results"][0]["is_unread"] is True
+
+        papi.post(
+            f"/api/diary/posts/{post.id}/comments/",
+            {"body": doc(para(text("semangat ya, Nak")))},
+            format="json",
+        )
+        row = papi.get("/api/diary/feed/").data["results"][0]
+        assert row["seen_by_me"] is True
+        assert row["is_unread"] is False
+
+    def test_guardian_reaction_marks_post_seen(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad)
+        papi = auth(api, parent)
+        papi.put(
+            f"/api/diary/posts/{post.id}/reactions/",
+            {"emoji": "❤️"},
+            format="json",
+        )
+        assert papi.get("/api/diary/feed/").data["results"][0]["seen_by_me"] is True
+
+    def test_child_comment_leaves_no_guardian_read_receipt(self, api, parent):
+        child = make_child("Ahmad", parent, with_account=True)
+        post = publish_post(child)
+        auth(api, child.user).post(
+            f"/api/diary/posts/{post.id}/comments/",
+            {"body": doc(para(text("hai")))},
+            format="json",
+        )
+        detail = auth(api, parent).get(f"/api/diary/posts/{post.id}/").data
+        assert detail["read_by"] == []
+
     def test_child_cannot_use_feed(self, api, parent):
         ahmad = make_child("Ahmad", parent, with_account=True)
         resp = auth(api, ahmad.user).get("/api/diary/feed/")
@@ -915,10 +957,8 @@ class TestResolveCurhat:
         assert len(item["comments"]) == 1
         assert item["reactions"]["counts"]["❤️"] == 1
         assert "read_by" in item
-        assert item["seen_by_me"] is False
-        # Marking seen sets seen_by_me (the explicit read signal).
-        ctx["parent_api"].post(f"/api/diary/posts/{pid}/seen/")
-        item = ctx["parent_api"].get("/api/diary/feed/").data["results"][0]
+        # A guardian who commented/reacted has engaged, so it is already seen
+        # (Spec 063 follow-up) — no separate "mark seen" tap needed.
         assert item["seen_by_me"] is True
 
     def test_guardian_own_reply_does_not_reflip_unread(self, api, parent):

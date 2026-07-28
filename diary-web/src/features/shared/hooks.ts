@@ -44,11 +44,13 @@ export function useBadges() {
   return useQuery({ queryKey: ['badges'], queryFn: () => api.badges() })
 }
 
-// Reactions/comments render inline in the guardian feed too, so refresh both
-// the detail query AND the feed list after a mutation.
+// Reactions/comments render inline in the guardian feed too, so refresh the
+// detail query AND the feed list after a mutation. A guardian comment/reaction
+// also marks the post seen server-side, so refresh badges too.
 function invalidatePostAndFeed(qc: ReturnType<typeof useQueryClient>, postId: number) {
   qc.invalidateQueries({ queryKey: ['post', postId] })
   qc.invalidateQueries({ queryKey: ['feed'] })
+  qc.invalidateQueries({ queryKey: ['badges'] })
 }
 
 export function useAddComment(postId: number) {
