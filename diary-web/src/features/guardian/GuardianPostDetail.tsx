@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { useApi, usePostDetail } from '@/features/shared/hooks'
 import { PostView } from '@/features/shared/PostView'
+import { formatPostTime } from '@/features/shared/datetime'
 
 export default function GuardianPostDetail() {
   const { id } = useParams()
@@ -53,6 +54,9 @@ export default function GuardianPostDetail() {
         post={detail.data}
         myUserId={myUserId}
         showReadBy={false}
+        subtitle={`${detail.data.child.name} • ${formatPostTime(
+          detail.data.published_at ?? detail.data.created_at,
+        )}`}
         headerRight={
           isCurhat ? (
             <button

@@ -9,11 +9,13 @@ export function PostView({
   myUserId,
   showReadBy,
   headerRight,
+  subtitle,
 }: {
   post: PostDetail
   myUserId: number
   showReadBy: boolean
   headerRight?: React.ReactNode
+  subtitle?: React.ReactNode
 }) {
   return (
     <article className="mx-auto flex max-w-xl flex-col gap-4">
@@ -21,6 +23,9 @@ export function PostView({
         <div>
           {post.title && (
             <h2 className="text-2xl font-bold text-purple-900">{post.title}</h2>
+          )}
+          {subtitle && (
+            <p className="text-sm text-purple-400">{subtitle}</p>
           )}
         </div>
         {headerRight}

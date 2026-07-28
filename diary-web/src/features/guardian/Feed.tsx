@@ -12,6 +12,7 @@ import { Avatar } from '@/features/shared/ui'
 import { RenderDoc } from '@/features/shared/RenderDoc'
 import { ReactionBar } from '@/features/shared/ReactionBar'
 import { CommentThread } from '@/features/shared/CommentThread'
+import { formatPostTime } from '@/features/shared/datetime'
 import type { FeedItem, GuardianBadges, PostType } from '@/api/types'
 
 // DRF returns a full `next` URL; pull the opaque cursor back out for api.feed.
@@ -247,6 +248,9 @@ function FeedPost({
           {item.title && (
             <p className="truncate text-sm text-purple-500">{item.title}</p>
           )}
+          <time className="block text-xs text-purple-400">
+            {formatPostTime(item.published_at ?? item.created_at)}
+          </time>
         </div>
         {item.seen_by_me ? (
           <span className="shrink-0 text-sm font-medium text-green-600">
