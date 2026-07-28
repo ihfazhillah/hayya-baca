@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { ApiError } from '@/api/client'
 import {
@@ -10,6 +10,8 @@ import {
   PasswordInput,
   TextInput,
 } from '@/features/shared/ui'
+import { QrScanner } from '@/features/shared/QrScanner'
+import { parseSetupCode } from '@/features/shared/setupCode'
 import type { FamilyChild } from '@/auth/sessionStore'
 
 const GUARDIAN_COLOR = '#6d28d9'
@@ -114,16 +116,38 @@ function PasswordPrompt({
   onBack: () => void
 }) {
   const { enterChild, enterGuardian } = useSession()
+  const navigate = useNavigate()
   // First-ever guardian login needs the username too (no family cached yet).
   const needsUsername = target.kind === 'guardian' && !guardianUsername
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [scanning, setScanning] = useState(false)
 
   const name = target.kind === 'child' ? target.child.name : 'Orang Tua'
   const color =
     target.kind === 'child' ? target.child.avatar_color : GUARDIAN_COLOR
+
+  const onScan = (value: string) => {
+    const code = parseSetupCode(value)
+    setScanning(false)
+    if (code) navigate(`/setup?code=${encodeURIComponent(code)}`)
+    else setError('QR tidak dikenali. Coba lagi atau ketik kode.')
+  }
+
+  if (scanning) {
+    return (
+      <div className="flex min-h-full flex-col items-center justify-center gap-6 bg-purple-50 p-6">
+        <Card>
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-lg font-bold text-purple-800">Scan QR reset</p>
+            <QrScanner onDetect={onScan} onCancel={() => setScanning(false)} />
+          </div>
+        </Card>
+      </div>
+    )
+  }
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
@@ -170,6 +194,18 @@ function PasswordPrompt({
           >
             {busy ? 'Masuk…' : 'Masuk'}
           </Button>
+          {target.kind === 'child' && (
+            <button
+              type="button"
+              onClick={() => {
+                setError('')
+                setScanning(true)
+              }}
+              className="text-sm font-medium text-purple-500 underline"
+            >
+              Lupa kata sandi? Scan QR dari orang tua
+            </button>
+          )}
           <button
             type="button"
             onClick={onBack}

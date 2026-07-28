@@ -113,8 +113,13 @@ function ChildAdminCard({ child }: { child: GuardianChild }) {
             onClick={() => generateToken.mutate()}
             disabled={generateToken.isPending}
           >
-            {token ? 'Buat kode baru' : 'Buat kode kata sandi'}
+            {token ? 'Buat kode baru' : 'Reset kata sandi (kode + QR)'}
           </Button>
+          {token && (
+            <p className="text-xs text-purple-400">
+              Anak scan QR ini (atau ketik kode) untuk membuat kata sandi baru.
+            </p>
+          )}
           {token && <SetupCode token={token} onExpired={() => setToken(null)} />}
         </div>
       )}
