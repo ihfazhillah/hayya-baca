@@ -5,6 +5,7 @@ import GuardianPostDetail from './GuardianPostDetail'
 import Admin from './Admin'
 import GuardianSchedule from './GuardianSchedule'
 import TelegramSettings from './TelegramSettings'
+import Settings from './Settings'
 
 function TopNav() {
   const { switchProfile } = useSession()
@@ -23,6 +24,9 @@ function TopNav() {
         </NavLink>
         <NavLink to="/telegram" className={link}>
           Telegram
+        </NavLink>
+        <NavLink to="/pengaturan" className={link}>
+          Pengaturan
         </NavLink>
       </nav>
       <button
@@ -48,6 +52,7 @@ export default function GuardianApp() {
         <Route path="/kelola" element={<Admin />} />
         <Route path="/jadwal/:childId" element={<GuardianSchedule />} />
         <Route path="/telegram" element={<TelegramSettings />} />
+        <Route path="/pengaturan" element={<Settings />} />
       </Routes>
     </div>
   )

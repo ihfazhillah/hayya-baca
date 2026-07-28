@@ -126,4 +126,61 @@ describe('SessionStore', () => {
     expect(dump).not.toContain('secret-child-token')
     expect(dump).not.toContain('secret-guardian-token')
   })
+
+  // F8 — trusted parent device
+  it('trusted device restores the guardian session on reload (skips lobby)', () => {
+    const s = new SessionStore()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    expect(s.state.trusted).toBe(true)
+
+    const reloaded = new SessionStore()
+    expect(reloaded.state.active?.kind).toBe('guardian')
+    expect(reloaded.getToken()).toBe('gtok')
+  })
+
+  it('trusted device disables the idle-lock', () => {
+    const s = new SessionStore({ idleMs: 1000 })
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    vi.advanceTimersByTime(5000)
+    expect(s.state.active?.kind).toBe('guardian') // still logged in
+  })
+
+  it('turning trust off forgets the persisted guardian', () => {
+    const s = new SessionStore()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    s.setTrusted(false)
+    const reloaded = new SessionStore()
+    expect(reloaded.state.active).toBeNull() // back to lobby-on-reload
+  })
+
+  it('a 401 lock forgets the persisted guardian even when trusted', () => {
+    const s = new SessionStore()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    s.lock() // simulate 401
+    expect(s.state.active).toBeNull()
+    expect(new SessionStore().state.active).toBeNull()
+  })
+
+  it('never persists a child token even on a trusted device', () => {
+    const s = new SessionStore()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    s.switchProfile()
+    s.enterChild(CHILD_ME, 'secret-child-token')
+    expect(JSON.stringify(localStorage)).not.toContain('secret-child-token')
+  })
+
+  it('logout clears the trusted flag and stored guardian', () => {
+    const s = new SessionStore()
+    s.enterGuardian('ayah', GUARDIAN_ME, 'gtok')
+    s.setTrusted(true)
+    s.logout()
+    const reloaded = new SessionStore()
+    expect(reloaded.state.trusted).toBe(false)
+    expect(reloaded.state.active).toBeNull()
+  })
 })

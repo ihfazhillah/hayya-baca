@@ -21,6 +21,7 @@ interface SessionContextValue {
   completeSetup: (code: string, password: string) => Promise<void>
   switchProfile: () => void
   logout: () => void
+  setTrusted: (on: boolean) => void
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
@@ -106,6 +107,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       },
       switchProfile: () => store.switchProfile(),
       logout: () => store.logout(),
+      setTrusted: (on: boolean) => store.setTrusted(on),
     }
   }, [state, api, authApi, store])
 
