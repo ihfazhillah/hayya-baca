@@ -12,11 +12,23 @@ function TopNav() {
   const { switchProfile } = useSession()
   const navigate = useNavigate()
   const link = ({ isActive }: { isActive: boolean }) =>
-    'rounded-full px-3 py-1 text-sm font-medium ' +
+    'shrink-0 whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium ' +
     (isActive ? 'bg-purple-600 text-white' : 'text-purple-600')
   return (
-    <header className="mx-auto mb-5 flex max-w-xl items-center justify-between">
-      <nav className="flex gap-1">
+    <header className="mx-auto mb-4 flex max-w-xl flex-col gap-2">
+      <div className="flex justify-end">
+        <button
+          onClick={() => {
+            switchProfile()
+            navigate('/')
+          }}
+          className="text-sm text-purple-400 underline"
+        >
+          Ganti profil
+        </button>
+      </div>
+      {/* Horizontal scroll keeps the nav from overflowing narrow phones (S22). */}
+      <nav className="flex gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <NavLink to="/" end className={link}>
           Beranda
         </NavLink>
@@ -33,15 +45,6 @@ function TopNav() {
           Pengaturan
         </NavLink>
       </nav>
-      <button
-        onClick={() => {
-          switchProfile()
-          navigate('/')
-        }}
-        className="text-sm text-purple-400 underline"
-      >
-        Ganti profil
-      </button>
     </header>
   )
 }
