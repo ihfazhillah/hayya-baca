@@ -837,6 +837,58 @@ class TestFeed:
         resp = papi.get("/api/diary/feed/")
         assert resp.data["results"][0]["is_unread"] is False
 
+    def test_feed_type_filter(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        publish_post(ahmad, slug="puisi")
+        publish_post(ahmad, slug="curhat")
+        resp = auth(api, parent).get("/api/diary/feed/?type=puisi")
+        assert len(resp.data["results"]) == 1
+        assert resp.data["results"][0]["type"] == "puisi"
+
+
+class TestResolveCurhat:
+    def test_guardian_resolve_hides_from_feed_and_unresolve_restores(
+        self, api, parent
+    ):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="curhat")
+        papi = auth(api, parent)
+
+        # Resolve → resolved_at set, gone from default feed.
+        r = papi.post(f"/api/diary/posts/{post.id}/resolve/")
+        assert r.status_code == 200
+        assert r.data["resolved_at"] is not None
+        assert len(papi.get("/api/diary/feed/").data["results"]) == 0
+        # Visible under ?resolved=1
+        resolved = papi.get("/api/diary/feed/?resolved=1").data["results"]
+        assert len(resolved) == 1
+        assert resolved[0]["is_resolved"] is True
+
+        # Unresolve → back in the default feed.
+        r = papi.delete(f"/api/diary/posts/{post.id}/resolve/")
+        assert r.status_code == 200
+        assert r.data["resolved_at"] is None
+        assert len(papi.get("/api/diary/feed/").data["results"]) == 1
+
+    def test_non_curhat_cannot_resolve(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="puisi")
+        r = auth(api, parent).post(f"/api/diary/posts/{post.id}/resolve/")
+        assert r.status_code == 400
+
+    def test_child_cannot_resolve(self, api, parent):
+        child = make_child("Ahmad", parent, with_account=True)
+        post = publish_post(child, slug="curhat")
+        r = auth(api, child.user).post(f"/api/diary/posts/{post.id}/resolve/")
+        assert r.status_code == 403
+
+    def test_other_family_cannot_resolve(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="curhat")
+        other = User.objects.create_user(username="lain", password="x")
+        r = auth(api, other).post(f"/api/diary/posts/{post.id}/resolve/")
+        assert r.status_code == 404
+
     def test_child_cannot_use_feed(self, api, parent):
         ahmad = make_child("Ahmad", parent, with_account=True)
         resp = auth(api, ahmad.user).get("/api/diary/feed/")

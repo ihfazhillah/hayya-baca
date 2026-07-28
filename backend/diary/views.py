@@ -367,6 +367,42 @@ class PostSeenView(APIView):
         return Response({"read_by": read_by_list(post)})
 
 
+class PostResolveView(APIView):
+    """Guardian marks a curhat post as handled (hidden from default feed) or
+    reopens it (Spec 063 F7). Only `curhat` posts are resolvable."""
+
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+
+    def _get_curhat(self, request, post_pk):
+        post = resolve_accessible_post(request.user, post_pk)
+        if post is None:
+            return None, Response(status=status.HTTP_404_NOT_FOUND)
+        if post.type.slug != "curhat":
+            return None, Response(
+                {"detail": "Hanya curhat yang bisa ditandai selesai"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return post, None
+
+    def post(self, request, post_pk):
+        post, err = self._get_curhat(request, post_pk)
+        if err is not None:
+            return err
+        if post.resolved_at is None:
+            post.resolved_at = timezone.now()
+            post.save(update_fields=["resolved_at"])
+        return Response({"resolved_at": post.resolved_at})
+
+    def delete(self, request, post_pk):
+        post, err = self._get_curhat(request, post_pk)
+        if err is not None:
+            return err
+        if post.resolved_at is not None:
+            post.resolved_at = None
+            post.save(update_fields=["resolved_at"])
+        return Response({"resolved_at": None})
+
+
 class FeedCursorPagination(CursorPagination):
     ordering = "-published_at"
     page_size = 20
@@ -406,6 +442,14 @@ class FeedView(ListAPIView):
         child_id = self.request.query_params.get("child")
         if child_id:
             qs = qs.filter(child_id=child_id)
+        type_slug = self.request.query_params.get("type")
+        if type_slug:
+            qs = qs.filter(type__slug=type_slug)
+        # Resolved curhat is hidden by default; ?resolved=1 shows only those.
+        if self.request.query_params.get("resolved") == "1":
+            qs = qs.filter(resolved_at__isnull=False)
+        else:
+            qs = qs.filter(resolved_at__isnull=True)
         return qs.distinct()
 
 
@@ -423,6 +467,7 @@ def post_detail_payload(post, request):
     ).data
     data["reactions"] = reaction_summary(post, request.user)
     data["read_by"] = read_by_list(post)
+    data["is_resolved"] = post.resolved_at is not None
     return data
 
 

@@ -42,10 +42,17 @@ class PostSerializer(serializers.ModelSerializer):
             "body",
             "status",
             "published_at",
+            "resolved_at",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "published_at", "created_at", "updated_at"]
+        read_only_fields = [
+            "id",
+            "published_at",
+            "resolved_at",
+            "created_at",
+            "updated_at",
+        ]
 
     def validate_body(self, value):
         if value is None:
