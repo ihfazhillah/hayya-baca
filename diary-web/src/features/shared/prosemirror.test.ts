@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { docToPlainText, excerpt, isEmptyDoc } from './prosemirror'
+import { docToPlainText, excerpt, isEmptyDoc, textToDoc } from './prosemirror'
 import type { PMDoc } from '@/api/types'
 
 const doc = (text: string): PMDoc => ({
@@ -26,5 +26,26 @@ describe('prosemirror helpers', () => {
   it('handles null', () => {
     expect(docToPlainText(null)).toBe('')
     expect(isEmptyDoc(null)).toBe(true)
+  })
+})
+
+describe('textToDoc', () => {
+  it('wraps a single line in one paragraph', () => {
+    expect(textToDoc('Halo')).toEqual({
+      type: 'doc',
+      content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Halo' }] }],
+    })
+  })
+
+  it('splits newlines into separate paragraphs', () => {
+    const out = textToDoc('baris satu\nbaris dua')
+    expect(out.content).toHaveLength(2)
+    expect(docToPlainText(out)).toBe('baris satu\nbaris dua')
+  })
+
+  it('keeps a blank line as an empty paragraph', () => {
+    const out = textToDoc('atas\n\nbawah')
+    expect(out.content).toHaveLength(3)
+    expect(out.content?.[1]).toEqual({ type: 'paragraph' })
   })
 })

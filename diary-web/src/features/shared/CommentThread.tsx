@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { CommentItem, PMDoc } from '@/api/types'
+import type { CommentItem } from '@/api/types'
 import { RenderDoc } from './RenderDoc'
+import { textToDoc } from './prosemirror'
 import { Button } from './ui'
 import { useApi, useAddComment } from './hooks'
-
-function plainDoc(text: string): PMDoc {
-  return {
-    type: 'doc',
-    content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
-  }
-}
 
 export function CommentThread({
   postId,
@@ -87,18 +81,27 @@ function Composer({ postId }: { postId: number }) {
   const [text, setText] = useState('')
   const add = useAddComment(postId)
   const send = () => {
-    const trimmed = text.trim()
+    const trimmed = text.replace(/\n+$/, '').trim()
     if (!trimmed) return
-    add.mutate(plainDoc(trimmed), { onSuccess: () => setText('') })
+    // Send the original text (minus trailing blank lines) so intended line
+    // breaks are preserved; `trimmed` above is only the non-empty guard.
+    add.mutate(textToDoc(text.replace(/\n+$/, '')), {
+      onSuccess: () => setText(''),
+    })
   }
   return (
-    <div className="flex gap-2">
-      <input
+    <div className="flex items-end gap-2">
+      <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Tulis balasan…"
-        onKeyDown={(e) => e.key === 'Enter' && send()}
-        className="min-w-0 flex-1 rounded-2xl border-2 border-purple-200 bg-white px-3 py-2 outline-none focus:border-purple-500"
+        rows={1}
+        className="max-h-40 min-h-11 min-w-0 flex-1 resize-none rounded-2xl border-2 border-purple-200 bg-white px-3 py-2 outline-none focus:border-purple-500"
+        onInput={(e) => {
+          const el = e.currentTarget
+          el.style.height = 'auto'
+          el.style.height = `${el.scrollHeight}px`
+        }}
       />
       <Button
         onClick={send}

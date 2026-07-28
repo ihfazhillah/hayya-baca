@@ -6,6 +6,19 @@ export function emptyDoc(): PMDoc {
   return { type: 'doc', content: [{ type: 'paragraph' }] }
 }
 
+// Plain text → ProseMirror doc, one paragraph per line (blank line = empty
+// paragraph). Mirrors the backend whitelist: doc → paragraph → text.
+export function textToDoc(text: string): PMDoc {
+  return {
+    type: 'doc',
+    content: text.split('\n').map((line) =>
+      line.length === 0
+        ? { type: 'paragraph' }
+        : { type: 'paragraph', content: [{ type: 'text', text: line }] },
+    ),
+  }
+}
+
 export function docToPlainText(doc: PMDoc | null): string {
   if (!doc) return ''
   const parts: string[] = []
