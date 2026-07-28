@@ -1,6 +1,6 @@
 # Tasks 063 — Peningkatan Ruang Cerita
 
-**Status:** Implementasi selesai — menunggu deploy (T8 sisa: `deploy-diary.sh`)
+**Status:** Selesai — deployed 2026-07-28
 **Spec:** [spec.md](spec.md) · **Plan:** [plan.md](plan.md) (approved 2026-07-28)
 
 Aturan pengerjaan:
@@ -59,7 +59,7 @@ Aturan pengerjaan:
 
 ## Fase 6 — Verifikasi & rilis
 
-- [ ] **T8 — Suite hijau + deploy**
+- [x] **T8 — Suite hijau + deploy**
   pytest + `npx tsc` + vitest hijau. `./deploy-diary.sh` (migrasi `resolved_at`
   ikut). Smoke test device: komentar multi-baris; toggle password; anak scan QR
   reset; edit post terbit; ortu filter tipe + resolve curhat (hilang dari feed);
