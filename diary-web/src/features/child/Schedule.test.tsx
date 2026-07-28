@@ -97,4 +97,47 @@ describe('Schedule', () => {
       expect(calls.some((u) => u.includes('/toggle/'))).toBe(true),
     )
   })
+
+  it('adding a task POSTs to the tasks endpoint', async () => {
+    const posts: string[] = []
+    renderSchedule((url) => {
+      if (url.includes('/api/schedule/today/')) return json(200, TODAY)
+      if (url.endsWith('/api/schedule/tasks/')) {
+        posts.push(url)
+        return json(201, {})
+      }
+      return json(200, {})
+    })
+    await screen.findByText('Sholat Subuh')
+    await userEvent.click(screen.getByText('＋ Tambah kegiatan'))
+    await userEvent.type(
+      screen.getByPlaceholderText('Nama kegiatan (mis. Sholat Subuh)'),
+      'Beresin mainan',
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Simpan' }))
+    await waitFor(() => expect(posts.length).toBe(1))
+  })
+
+  it('shows an error (not silent) when creating a task fails', async () => {
+    renderSchedule((url) => {
+      if (url.includes('/api/schedule/today/')) return json(200, TODAY)
+      if (url.endsWith('/api/schedule/tasks/'))
+        return json(400, { detail: 'Pilih minimal satu hari' })
+      return json(200, {})
+    })
+    await screen.findByText('Sholat Subuh')
+    await userEvent.click(screen.getByText('＋ Tambah kegiatan'))
+    await userEvent.type(
+      screen.getByPlaceholderText('Nama kegiatan (mis. Sholat Subuh)'),
+      'Beresin mainan',
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Simpan' }))
+    // The form stays open AND the server's reason is shown (no silent failure).
+    expect(
+      await screen.findByText('Pilih minimal satu hari'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByPlaceholderText('Nama kegiatan (mis. Sholat Subuh)'),
+    ).toBeInTheDocument()
+  })
 })

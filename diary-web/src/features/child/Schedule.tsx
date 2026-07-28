@@ -1,9 +1,19 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useApi } from '@/features/shared/hooks'
+import { ApiError } from '@/api/client'
 import { Button } from '@/features/shared/ui'
 import { PARTS, TaskForm, localDate } from '@/features/schedule/TaskForm'
 import type { ScheduleTaskInput, TodayTask } from '@/api/types'
+
+function errorMessage(err: unknown): string {
+  if (err instanceof ApiError) {
+    const detail = (err.data as { detail?: string })?.detail
+    if (detail) return detail
+    if (err.status === 401) return 'Sesi berakhir. Masuk lagi ya.'
+  }
+  return 'Gagal menyimpan. Coba lagi.'
+}
 
 const PART_LABEL = Object.fromEntries(PARTS.map((p) => [p.key, p.label]))
 
@@ -38,6 +48,11 @@ export default function Schedule() {
     onSuccess: invalidate,
   })
 
+  const actionError =
+    (toggle.error && errorMessage(toggle.error)) ||
+    (del.error && errorMessage(del.error)) ||
+    ''
+
   const data = today.data
   const allDone = !!data && data.total > 0 && data.done_count === data.total
 
@@ -56,6 +71,12 @@ export default function Schedule() {
         <div className="rounded-2xl bg-green-100 px-4 py-3 text-center text-sm font-semibold text-green-700">
           🎉 Semua selesai, hebat!
         </div>
+      )}
+
+      {actionError && (
+        <p className="rounded-2xl bg-red-100 px-4 py-2 text-center text-sm font-medium text-red-700">
+          {actionError}
+        </p>
       )}
 
       {today.isLoading && <p className="text-purple-400">Memuat…</p>}
@@ -82,11 +103,21 @@ export default function Schedule() {
       ))}
 
       {adding ? (
-        <TaskForm
-          busy={create.isPending}
-          onCancel={() => setAdding(false)}
-          onSubmit={(input) => create.mutate(input)}
-        />
+        <div className="flex flex-col gap-2">
+          {create.isError && (
+            <p className="rounded-2xl bg-red-100 px-4 py-2 text-center text-sm font-medium text-red-700">
+              {errorMessage(create.error)}
+            </p>
+          )}
+          <TaskForm
+            busy={create.isPending}
+            onCancel={() => {
+              create.reset()
+              setAdding(false)
+            }}
+            onSubmit={(input) => create.mutate(input)}
+          />
+        </div>
       ) : (
         <Button onClick={() => setAdding(true)}>＋ Tambah kegiatan</Button>
       )}
