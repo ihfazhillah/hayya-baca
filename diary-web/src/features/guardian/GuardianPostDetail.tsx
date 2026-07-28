@@ -32,6 +32,15 @@ export default function GuardianPostDetail() {
     },
   })
 
+  const save = useMutation({
+    mutationFn: () =>
+      detail.data?.is_saved ? api.unsavePost(postId) : api.savePost(postId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['post', postId] })
+      qc.invalidateQueries({ queryKey: ['feed'] })
+    },
+  })
+
   const loadedId = detail.data?.id
   useEffect(() => {
     if (loadedId) seen.mutate()
@@ -58,24 +67,43 @@ export default function GuardianPostDetail() {
           detail.data.published_at ?? detail.data.created_at,
         )}`}
         headerRight={
-          isCurhat ? (
+          <div className="flex shrink-0 flex-col items-end gap-1.5">
             <button
-              onClick={() => resolve.mutate()}
-              disabled={resolve.isPending}
+              onClick={() => save.mutate()}
+              disabled={save.isPending}
+              aria-pressed={detail.data.is_saved}
               className={
-                'shrink-0 rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
-                (detail.data.is_resolved
-                  ? 'bg-purple-100 text-purple-600'
-                  : 'bg-green-100 text-green-700')
+                'rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
+                (detail.data.is_saved
+                  ? 'bg-amber-100 text-amber-700'
+                  : 'bg-purple-50 text-purple-500')
               }
             >
-              {resolve.isPending
+              {save.isPending
                 ? '…'
-                : detail.data.is_resolved
-                  ? '↩︎ Buka lagi'
-                  : '✓ Tandai selesai'}
+                : detail.data.is_saved
+                  ? '⭐ Tersimpan'
+                  : '☆ Simpan'}
             </button>
-          ) : undefined
+            {isCurhat && (
+              <button
+                onClick={() => resolve.mutate()}
+                disabled={resolve.isPending}
+                className={
+                  'rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
+                  (detail.data.is_resolved
+                    ? 'bg-purple-100 text-purple-600'
+                    : 'bg-green-100 text-green-700')
+                }
+              >
+                {resolve.isPending
+                  ? '…'
+                  : detail.data.is_resolved
+                    ? '↩︎ Buka lagi'
+                    : '✓ Tandai selesai'}
+              </button>
+            )}
+          </div>
         }
       />
     </div>

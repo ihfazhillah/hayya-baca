@@ -51,6 +51,11 @@ urlpatterns = [
         views.PostResolveView.as_view(),
         name="post-resolve",
     ),
+    path(
+        "posts/<int:post_pk>/save/",
+        views.PostSaveView.as_view(),
+        name="post-save",
+    ),
     path("feed/", views.FeedView.as_view(), name="feed"),
     path("badges/", views.BadgesView.as_view(), name="badges"),
     path("posts/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),

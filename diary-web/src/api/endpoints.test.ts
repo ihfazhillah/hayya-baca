@@ -30,10 +30,32 @@ describe('feed endpoint query building', () => {
     expect(url()).toContain('resolved=1')
   })
 
+  it('adds the saved param for the keepsake view', async () => {
+    const { api, url } = setup()
+    await api.feed({ saved: true })
+    expect(url()).toBe('/api/diary/feed/?saved=1')
+  })
+
   it('omits params when not given', async () => {
     const { api, url } = setup()
     await api.feed({})
     expect(url()).toBe('/api/diary/feed/')
+  })
+})
+
+describe('save endpoints', () => {
+  it('savePost POSTs to the save url', async () => {
+    const { api, url, method } = setup()
+    await api.savePost(9)
+    expect(url()).toBe('/api/diary/posts/9/save/')
+    expect(method()).toBe('POST')
+  })
+
+  it('unsavePost DELETEs the save url', async () => {
+    const { api, url, method } = setup()
+    await api.unsavePost(9)
+    expect(url()).toBe('/api/diary/posts/9/save/')
+    expect(method()).toBe('DELETE')
   })
 })
 

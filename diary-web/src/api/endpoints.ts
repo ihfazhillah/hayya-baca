@@ -76,6 +76,7 @@ export function createEndpoints(c: ApiClient) {
         child?: number
         type?: string
         resolved?: boolean
+        saved?: boolean
         cursor?: string
       } = {},
     ) => {
@@ -83,6 +84,7 @@ export function createEndpoints(c: ApiClient) {
       if (opts.child) params.set('child', String(opts.child))
       if (opts.type) params.set('type', opts.type)
       if (opts.resolved) params.set('resolved', '1')
+      if (opts.saved) params.set('saved', '1')
       if (opts.cursor) params.set('cursor', opts.cursor)
       const q = params.toString()
       return c.get<FeedPage>('/api/diary/feed/' + (q ? `?${q}` : ''))
@@ -96,6 +98,10 @@ export function createEndpoints(c: ApiClient) {
       ),
     unresolvePost: (id: number) =>
       c.del<{ resolved_at: string | null }>(`/api/diary/posts/${id}/resolve/`),
+    savePost: (id: number) =>
+      c.post<{ saved_at: string | null }>(`/api/diary/posts/${id}/save/`),
+    unsavePost: (id: number) =>
+      c.del<{ saved_at: string | null }>(`/api/diary/posts/${id}/save/`),
 
     // Comments
     comments: (postId: number) =>

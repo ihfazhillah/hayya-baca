@@ -16,7 +16,7 @@ import { formatPostTime } from '@/features/shared/datetime'
 import type { FeedItem, GuardianBadges, PostType } from '@/api/types'
 
 // DRF returns a full `next` URL; pull the opaque cursor back out for api.feed.
-function cursorFromUrl(url: string | null): string | undefined {
+export function cursorFromUrl(url: string | null): string | undefined {
   if (!url) return undefined
   const m = url.match(/[?&]cursor=([^&]+)/)
   return m ? decodeURIComponent(m[1]) : undefined
@@ -209,7 +209,7 @@ function Chip({
   )
 }
 
-function FeedPost({
+export function FeedPost({
   item,
   emoji,
   myUserId,
@@ -230,6 +230,11 @@ function FeedPost({
   const resolve = useMutation({
     mutationFn: () =>
       item.is_resolved ? api.unresolvePost(item.id) : api.resolvePost(item.id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['feed'] }),
+  })
+  const save = useMutation({
+    mutationFn: () =>
+      item.is_saved ? api.unsavePost(item.id) : api.savePost(item.id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['feed'] }),
   })
   const isCurhat = item.type === 'curhat'
@@ -282,6 +287,19 @@ function FeedPost({
                   : '✓ Selesai'}
             </button>
           )}
+          <button
+            onClick={() => save.mutate()}
+            disabled={save.isPending}
+            aria-pressed={item.is_saved}
+            className={
+              'rounded-full px-2.5 py-0.5 text-xs font-medium disabled:opacity-50 ' +
+              (item.is_saved
+                ? 'bg-amber-100 text-amber-700'
+                : 'bg-purple-50 text-purple-500')
+            }
+          >
+            {save.isPending ? '…' : item.is_saved ? '⭐ Tersimpan' : '☆ Simpan'}
+          </button>
         </div>
       </header>
 

@@ -890,6 +890,62 @@ class TestResolveCurhat:
         assert r.status_code == 404
 
 
+class TestSaveKenangan:
+    """A guardian saves a child's post to the shared family keepsake collection
+    (Spec 063 follow-up). Applies to any post type; independent of 'resolved'."""
+
+    def test_guardian_save_and_unsave_any_type(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="puisi")
+        papi = auth(api, parent)
+
+        r = papi.post(f"/api/diary/posts/{post.id}/save/")
+        assert r.status_code == 200
+        assert r.data["saved_at"] is not None
+        saved = papi.get("/api/diary/feed/?saved=1").data["results"]
+        assert len(saved) == 1
+        assert saved[0]["is_saved"] is True
+
+        r = papi.delete(f"/api/diary/posts/{post.id}/save/")
+        assert r.status_code == 200
+        assert r.data["saved_at"] is None
+        assert papi.get("/api/diary/feed/?saved=1").data["results"] == []
+
+    def test_saved_view_includes_resolved_posts(self, api, parent):
+        """A saved curhat that gets resolved must stay in the keepsake view."""
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="curhat")
+        papi = auth(api, parent)
+        papi.post(f"/api/diary/posts/{post.id}/save/")
+        papi.post(f"/api/diary/posts/{post.id}/resolve/")
+
+        # Hidden from the default feed (resolved) …
+        assert papi.get("/api/diary/feed/").data["results"] == []
+        # … but still present in the keepsake collection.
+        assert len(papi.get("/api/diary/feed/?saved=1").data["results"]) == 1
+
+    def test_default_feed_still_shows_saved_post(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="puisi")
+        papi = auth(api, parent)
+        papi.post(f"/api/diary/posts/{post.id}/save/")
+        # Saving does not hide it from the normal feed.
+        assert len(papi.get("/api/diary/feed/").data["results"]) == 1
+
+    def test_child_cannot_save(self, api, parent):
+        child = make_child("Ahmad", parent, with_account=True)
+        post = publish_post(child, slug="puisi")
+        r = auth(api, child.user).post(f"/api/diary/posts/{post.id}/save/")
+        assert r.status_code == 403
+
+    def test_other_family_cannot_save(self, api, parent):
+        ahmad = make_child("Ahmad", parent)
+        post = publish_post(ahmad, slug="puisi")
+        other = User.objects.create_user(username="lain", password="x")
+        r = auth(api, other).post(f"/api/diary/posts/{post.id}/save/")
+        assert r.status_code == 404
+
+
 class TestGuardianEngagementMarksSeen:
     """A guardian commenting or reacting implies they read the post, so it is
     marked seen automatically (Spec 063 follow-up)."""

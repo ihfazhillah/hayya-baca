@@ -414,6 +414,34 @@ class PostResolveView(APIView):
         return Response({"resolved_at": None})
 
 
+class PostSaveView(APIView):
+    """Guardian saves/unsaves a post to the shared family keepsake collection
+    (Spec 063 follow-up). Any published post of their child is eligible."""
+
+    permission_classes = [IsAuthenticated, IsGuardianAccount]
+
+    def _get(self, request, post_pk):
+        return resolve_accessible_post(request.user, post_pk)
+
+    def post(self, request, post_pk):
+        post = self._get(request, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if post.saved_at is None:
+            post.saved_at = timezone.now()
+            post.save(update_fields=["saved_at"])
+        return Response({"saved_at": post.saved_at})
+
+    def delete(self, request, post_pk):
+        post = self._get(request, post_pk)
+        if post is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if post.saved_at is not None:
+            post.saved_at = None
+            post.save(update_fields=["saved_at"])
+        return Response({"saved_at": None})
+
+
 class FeedCursorPagination(CursorPagination):
     ordering = "-published_at"
     page_size = 20
@@ -456,10 +484,14 @@ class FeedView(ListAPIView):
         type_slug = self.request.query_params.get("type")
         if type_slug:
             qs = qs.filter(type__slug=type_slug)
-        # Resolved curhat is hidden by default; ?resolved=1 shows only those.
-        if self.request.query_params.get("resolved") == "1":
+        if self.request.query_params.get("saved") == "1":
+            # Keepsake collection: saved posts regardless of resolved state
+            # (a saved memory must not vanish when a curhat is resolved).
+            qs = qs.filter(saved_at__isnull=False)
+        elif self.request.query_params.get("resolved") == "1":
             qs = qs.filter(resolved_at__isnull=False)
         else:
+            # Default feed hides resolved curhat (saved posts still show).
             qs = qs.filter(resolved_at__isnull=True)
         return qs.distinct()
 
@@ -479,6 +511,7 @@ def post_detail_payload(post, request):
     data["reactions"] = reaction_summary(post, request.user)
     data["read_by"] = read_by_list(post)
     data["is_resolved"] = post.resolved_at is not None
+    data["is_saved"] = post.saved_at is not None
     return data
 
 

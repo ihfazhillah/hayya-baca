@@ -51,6 +51,8 @@ class Post(models.Model):
     published_at = models.DateTimeField(null=True, blank=True)
     # Guardian marks a "curhat" as handled → hidden from the default feed.
     resolved_at = models.DateTimeField(null=True, blank=True)
+    # Guardian saves this post to the shared family keepsake collection.
+    saved_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

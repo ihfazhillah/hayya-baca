@@ -112,6 +112,7 @@ export interface PostDetail extends Post {
   reactions: ReactionSummary
   read_by: ReadReceiptItem[]
   is_resolved: boolean
+  is_saved: boolean
 }
 
 export interface FeedItem extends PostDetail {
