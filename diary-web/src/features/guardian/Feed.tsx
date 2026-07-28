@@ -236,7 +236,7 @@ function FeedPost({
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-sm">
-      <header className="flex items-center gap-3">
+      <header className="flex items-start gap-3">
         <Avatar name={item.child.name} color={item.child.avatar_color} size={40} />
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-2 font-semibold text-purple-800">
@@ -252,19 +252,37 @@ function FeedPost({
             {formatPostTime(item.published_at ?? item.created_at)}
           </time>
         </div>
-        {item.seen_by_me ? (
-          <span className="shrink-0 text-sm font-medium text-green-600">
-            ✓ Sudah dibaca
-          </span>
-        ) : (
-          <button
-            onClick={() => markSeen.mutate()}
-            disabled={markSeen.isPending}
-            className="shrink-0 rounded-full border-2 border-purple-500 px-3 py-1 text-sm font-medium text-purple-600 disabled:opacity-50"
-          >
-            {markSeen.isPending ? '…' : 'Tandai sudah dibaca'}
-          </button>
-        )}
+        <div className="flex shrink-0 flex-col items-end gap-1.5">
+          {item.seen_by_me ? (
+            <span className="text-sm font-medium text-green-600">✓ Sudah dibaca</span>
+          ) : (
+            <button
+              onClick={() => markSeen.mutate()}
+              disabled={markSeen.isPending}
+              className="rounded-full border-2 border-purple-500 px-3 py-1 text-sm font-medium text-purple-600 disabled:opacity-50"
+            >
+              {markSeen.isPending ? '…' : 'Tandai sudah dibaca'}
+            </button>
+          )}
+          {isCurhat && (
+            <button
+              onClick={() => resolve.mutate()}
+              disabled={resolve.isPending}
+              className={
+                'rounded-full px-2.5 py-0.5 text-xs font-medium disabled:opacity-50 ' +
+                (item.is_resolved
+                  ? 'bg-purple-100 text-purple-600'
+                  : 'bg-green-100 text-green-700')
+              }
+            >
+              {resolve.isPending
+                ? '…'
+                : item.is_resolved
+                  ? '↩︎ Buka lagi'
+                  : '✓ Selesai'}
+            </button>
+          )}
+        </div>
       </header>
 
       <RenderDoc doc={item.body} />
@@ -294,25 +312,6 @@ function FeedPost({
 
       <ReactionBar postId={item.id} reactions={item.reactions} />
       <CommentThread postId={item.id} comments={item.comments} myUserId={myUserId} />
-
-      {isCurhat && (
-        <button
-          onClick={() => resolve.mutate()}
-          disabled={resolve.isPending}
-          className={
-            'self-start rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
-            (item.is_resolved
-              ? 'bg-purple-100 text-purple-600'
-              : 'bg-green-100 text-green-700')
-          }
-        >
-          {resolve.isPending
-            ? '…'
-            : item.is_resolved
-              ? '↩︎ Buka lagi'
-              : '✓ Tandai selesai'}
-        </button>
-      )}
     </article>
   )
 }
