@@ -2,7 +2,13 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { ApiError } from '@/api/client'
-import { Button, Card, ErrorText, TextInput } from '@/features/shared/ui'
+import {
+  Button,
+  Card,
+  ErrorText,
+  PasswordInput,
+  TextInput,
+} from '@/features/shared/ui'
 
 export default function SetupPage() {
   const [params] = useSearchParams()
@@ -51,14 +57,12 @@ export default function SetupPage() {
             autoCapitalize="characters"
             onChange={(e) => setCode(e.target.value)}
           />
-          <TextInput
-            type="password"
+          <PasswordInput
             placeholder="Kata sandi baru"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextInput
-            type="password"
+          <PasswordInput
             placeholder="Ulangi kata sandi"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}

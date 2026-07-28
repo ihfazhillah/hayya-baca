@@ -2,7 +2,14 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useSession } from '@/auth/SessionProvider'
 import { ApiError } from '@/api/client'
-import { Avatar, Button, Card, ErrorText, TextInput } from '@/features/shared/ui'
+import {
+  Avatar,
+  Button,
+  Card,
+  ErrorText,
+  PasswordInput,
+  TextInput,
+} from '@/features/shared/ui'
 import type { FamilyChild } from '@/auth/sessionStore'
 
 const GUARDIAN_COLOR = '#6d28d9'
@@ -150,8 +157,7 @@ function PasswordPrompt({
               onChange={(e) => setUsername(e.target.value)}
             />
           )}
-          <TextInput
-            type="password"
+          <PasswordInput
             placeholder="Kata sandi"
             value={password}
             autoFocus={!needsUsername}
