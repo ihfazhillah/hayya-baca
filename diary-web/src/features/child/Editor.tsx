@@ -36,9 +36,12 @@ export default function Editor() {
     <EditorForm
       key={postId}
       postId={postId}
+      published={detail.data.status === 'published'}
       initialTitle={detail.data.title}
       initialBody={detail.data.body}
-      onDone={() => navigate('/')}
+      onDone={() =>
+        navigate(detail.data?.status === 'published' ? `/post/${postId}` : '/')
+      }
       onPublished={() => navigate(`/post/${postId}`)}
       onDelete={() => {
         if (confirm('Hapus cerita ini? Tidak bisa dikembalikan.')) del.mutate()
@@ -53,6 +56,7 @@ export default function Editor() {
 
 function EditorForm({
   postId,
+  published,
   initialTitle,
   initialBody,
   onDone,
@@ -62,6 +66,7 @@ function EditorForm({
   save,
 }: {
   postId: number
+  published: boolean
   initialTitle: string
   initialBody: PMDoc | null
   onDone: () => void
@@ -105,7 +110,7 @@ function EditorForm({
     <div className="mx-auto flex max-w-xl flex-col gap-3">
       <div className="flex items-center justify-between">
         <button onClick={onDone} className="text-sm text-purple-400">
-          ← Simpan draf
+          {published ? '← Selesai' : '← Simpan draf'}
         </button>
         <div className="flex items-center gap-3">
           <span className="text-xs text-purple-500">
@@ -133,17 +138,25 @@ function EditorForm({
         onChange={(doc) => scheduleSave({ body: doc })}
       />
 
-      <Button
-        onClick={() => publish.mutate()}
-        disabled={publish.isPending}
-        className="mt-2"
-      >
-        {publish.isPending ? 'Menerbitkan…' : '📮 Terbitkan untuk Orang Tua'}
-      </Button>
-      {publish.isError && (
-        <p className="text-center text-sm text-red-600">
-          Gagal menerbitkan. Coba lagi.
+      {published ? (
+        <p className="mt-2 text-center text-sm text-purple-500">
+          Sudah terbit — perubahan tersimpan otomatis untuk orang tua.
         </p>
+      ) : (
+        <>
+          <Button
+            onClick={() => publish.mutate()}
+            disabled={publish.isPending}
+            className="mt-2"
+          >
+            {publish.isPending ? 'Menerbitkan…' : '📮 Terbitkan untuk Orang Tua'}
+          </Button>
+          {publish.isError && (
+            <p className="text-center text-sm text-red-600">
+              Gagal menerbitkan. Coba lagi.
+            </p>
+          )}
+        </>
       )}
     </div>
   )

@@ -243,6 +243,42 @@ class TestChildPostCRUD:
         assert not Post.objects.filter(id=pid).exists()
         assert Post.all_objects.filter(id=pid).exists()
 
+    def test_edit_published_keeps_published_at_and_no_renotify(
+        self, child_ctx, monkeypatch
+    ):
+        """Editing an already-published post must not re-stamp published_at
+        nor fire the 'new post' Telegram notification again (Spec 063 F5)."""
+        child, capi = child_ctx
+        from diary import views
+
+        calls = []
+        monkeypatch.setattr(
+            views.telegram, "notify_new_post", lambda post: calls.append(post)
+        )
+
+        pid = capi.post(
+            "/api/diary/my/posts/",
+            {"type": "curhat", "body": doc(para(text("isi")))},
+            format="json",
+        ).data["id"]
+        capi.patch(
+            f"/api/diary/my/posts/{pid}/", {"status": "published"}, format="json"
+        )
+        assert len(calls) == 1  # publish notified once
+        first_published_at = capi.get(f"/api/diary/my/posts/{pid}/").data[
+            "published_at"
+        ]
+
+        # Edit the published post — content changes, publish state does not.
+        resp = capi.patch(
+            f"/api/diary/my/posts/{pid}/",
+            {"body": doc(para(text("isi yang sudah diperbaiki")))},
+            format="json",
+        )
+        assert resp.status_code == 200
+        assert resp.data["published_at"] == first_published_at
+        assert len(calls) == 1  # no second notification
+
     def test_list_filter_by_status(self, child_ctx):
         child, capi = child_ctx
         capi.post(
