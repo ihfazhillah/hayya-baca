@@ -20,6 +20,17 @@ export default function GuardianPostDetail() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['badges'] }),
   })
 
+  const resolve = useMutation({
+    mutationFn: () =>
+      detail.data?.is_resolved
+        ? api.unresolvePost(postId)
+        : api.resolvePost(postId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['post', postId] })
+      qc.invalidateQueries({ queryKey: ['feed'] })
+    },
+  })
+
   const loadedId = detail.data?.id
   useEffect(() => {
     if (loadedId) seen.mutate()
@@ -28,6 +39,7 @@ export default function GuardianPostDetail() {
 
   if (!detail.data) return <p className="text-purple-400">Memuat…</p>
   const myUserId = me?.role === 'guardian' ? me.user_id : 0
+  const isCurhat = detail.data.type === 'curhat'
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4">
@@ -37,7 +49,31 @@ export default function GuardianPostDetail() {
       >
         ← Beranda
       </button>
-      <PostView post={detail.data} myUserId={myUserId} showReadBy={false} />
+      <PostView
+        post={detail.data}
+        myUserId={myUserId}
+        showReadBy={false}
+        headerRight={
+          isCurhat ? (
+            <button
+              onClick={() => resolve.mutate()}
+              disabled={resolve.isPending}
+              className={
+                'shrink-0 rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
+                (detail.data.is_resolved
+                  ? 'bg-purple-100 text-purple-600'
+                  : 'bg-green-100 text-green-700')
+              }
+            >
+              {resolve.isPending
+                ? '…'
+                : detail.data.is_resolved
+                  ? '↩︎ Buka lagi'
+                  : '✓ Tandai selesai'}
+            </button>
+          ) : undefined
+        }
+      />
     </div>
   )
 }

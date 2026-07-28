@@ -27,15 +27,27 @@ export default function Feed() {
   const children = me?.role === 'guardian' ? me.children : []
   const myUserId = me?.role === 'guardian' ? me.user_id : 0
   const [filter, setFilter] = useState<number | null>(null)
+  const [typeFilter, setTypeFilter] = useState<string | null>(null)
+  const [resolvedView, setResolvedView] = useState(false)
   const types = usePostTypes()
 
   const feed = useInfiniteQuery({
-    queryKey: ['feed', filter ?? 'all'],
+    queryKey: ['feed', filter ?? 'all', typeFilter ?? 'all', resolvedView],
     queryFn: ({ pageParam }) =>
-      api.feed({ child: filter ?? undefined, cursor: pageParam }),
+      api.feed({
+        child: filter ?? undefined,
+        type: typeFilter ?? undefined,
+        resolved: resolvedView || undefined,
+        cursor: pageParam,
+      }),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => cursorFromUrl(lastPage.next),
   })
+
+  const pickType = (slug: string | null) => {
+    setTypeFilter(slug)
+    if (slug !== 'curhat') setResolvedView(false)
+  }
   const posts = feed.data?.pages.flatMap((p) => p.results) ?? []
   const { hasNextPage, isFetchingNextPage, fetchNextPage } = feed
 
@@ -89,6 +101,37 @@ export default function Feed() {
               badge={unreadByChild.get(c.id) ?? 0}
             />
           ))}
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-2">
+        <Chip
+          active={typeFilter === null}
+          onClick={() => pickType(null)}
+          label="Semua jenis"
+        />
+        {(types.data ?? []).map((t) => (
+          <Chip
+            key={t.slug}
+            active={typeFilter === t.slug}
+            onClick={() => pickType(t.slug)}
+            label={`${t.emoji} ${t.label}`}
+          />
+        ))}
+      </div>
+
+      {typeFilter === 'curhat' && (
+        <div className="flex flex-wrap gap-2">
+          <Chip
+            active={!resolvedView}
+            onClick={() => setResolvedView(false)}
+            label="Belum selesai"
+          />
+          <Chip
+            active={resolvedView}
+            onClick={() => setResolvedView(true)}
+            label="Sudah selesai"
+          />
         </div>
       )}
 
@@ -183,6 +226,12 @@ function FeedPost({
       qc.invalidateQueries({ queryKey: ['badges'] })
     },
   })
+  const resolve = useMutation({
+    mutationFn: () =>
+      item.is_resolved ? api.unresolvePost(item.id) : api.resolvePost(item.id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['feed'] }),
+  })
+  const isCurhat = item.type === 'curhat'
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-sm">
@@ -241,6 +290,25 @@ function FeedPost({
 
       <ReactionBar postId={item.id} reactions={item.reactions} />
       <CommentThread postId={item.id} comments={item.comments} myUserId={myUserId} />
+
+      {isCurhat && (
+        <button
+          onClick={() => resolve.mutate()}
+          disabled={resolve.isPending}
+          className={
+            'self-start rounded-full px-3 py-1 text-sm font-medium disabled:opacity-50 ' +
+            (item.is_resolved
+              ? 'bg-purple-100 text-purple-600'
+              : 'bg-green-100 text-green-700')
+          }
+        >
+          {resolve.isPending
+            ? '…'
+            : item.is_resolved
+              ? '↩︎ Buka lagi'
+              : '✓ Tandai selesai'}
+        </button>
+      )}
     </article>
   )
 }

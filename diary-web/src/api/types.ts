@@ -73,6 +73,7 @@ export interface Post {
   body: PMDoc | null
   status: PostStatus
   published_at: string | null
+  resolved_at: string | null
   created_at: string
   updated_at: string
 }
@@ -110,6 +111,7 @@ export interface PostDetail extends Post {
   comments: CommentItem[]
   reactions: ReactionSummary
   read_by: ReadReceiptItem[]
+  is_resolved: boolean
 }
 
 export interface FeedItem extends PostDetail {

@@ -71,9 +71,18 @@ export function createEndpoints(c: ApiClient) {
       c.del<void>(`/api/diary/my/posts/${postId}/panels/${panelId}/`),
 
     // Feed / detail
-    feed: (opts: { child?: number; cursor?: string } = {}) => {
+    feed: (
+      opts: {
+        child?: number
+        type?: string
+        resolved?: boolean
+        cursor?: string
+      } = {},
+    ) => {
       const params = new URLSearchParams()
       if (opts.child) params.set('child', String(opts.child))
+      if (opts.type) params.set('type', opts.type)
+      if (opts.resolved) params.set('resolved', '1')
       if (opts.cursor) params.set('cursor', opts.cursor)
       const q = params.toString()
       return c.get<FeedPage>('/api/diary/feed/' + (q ? `?${q}` : ''))
@@ -81,6 +90,12 @@ export function createEndpoints(c: ApiClient) {
     post: (id: number) => c.get<PostDetail>(`/api/diary/posts/${id}/`),
     markSeen: (id: number) =>
       c.post<{ read_by: ReadReceiptItem[] }>(`/api/diary/posts/${id}/seen/`),
+    resolvePost: (id: number) =>
+      c.post<{ resolved_at: string | null }>(
+        `/api/diary/posts/${id}/resolve/`,
+      ),
+    unresolvePost: (id: number) =>
+      c.del<{ resolved_at: string | null }>(`/api/diary/posts/${id}/resolve/`),
 
     // Comments
     comments: (postId: number) =>
