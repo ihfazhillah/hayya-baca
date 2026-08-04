@@ -205,21 +205,29 @@ export function useEnglishRecorder(): EnglishRecorder {
 
   useEffect(() => cleanupStream, [cleanupStream])
 
-  // Server STT (fallback): upload the clip to faster-whisper on Django.
-  const serverTranscribe = useCallback(async (blob: Blob): Promise<string> => {
-    const form = new FormData()
-    const ext = blob.type.includes('mp4') ? 'mp4' : 'webm'
-    form.append('audio', blob, `speech.${ext}`)
-    const token = getToken()
-    const res = await fetch('/api/english/transcribe/', {
-      method: 'POST',
-      headers: token ? { Authorization: `Token ${token}` } : undefined,
-      body: form,
-    })
-    const data = (await res.json()) as { transcript?: string; detail?: string }
-    if (!res.ok) throw new Error(data.detail ?? `API error ${res.status}`)
-    return data.transcript ?? ''
-  }, [])
+  // Server STT: upload the clip to faster-whisper on Django. Returns the
+  // transcript + word timestamps (for Salis pause/rhythm & WPM, Spec 067).
+  const serverTranscribe = useCallback(
+    async (blob: Blob): Promise<{ text: string; words: Word[] }> => {
+      const form = new FormData()
+      const ext = blob.type.includes('mp4') ? 'mp4' : 'webm'
+      form.append('audio', blob, `speech.${ext}`)
+      const token = getToken()
+      const res = await fetch('/api/english/transcribe/', {
+        method: 'POST',
+        headers: token ? { Authorization: `Token ${token}` } : undefined,
+        body: form,
+      })
+      const data = (await res.json()) as {
+        transcript?: string
+        words?: Word[]
+        detail?: string
+      }
+      if (!res.ok) throw new Error(data.detail ?? `API error ${res.status}`)
+      return { text: data.transcript ?? '', words: data.words ?? [] }
+    },
+    [],
+  )
 
   const upload = useCallback(
     async (blob: Blob, pcm?: Float32Array | null) => {
@@ -277,14 +285,14 @@ export function useEnglishRecorder(): EnglishRecorder {
         } else {
           ev.fallback_used = true
         }
-        const text = await serverTranscribe(blob)
-        setTranscript(text)
-        setWords([])
+        const sr = await serverTranscribe(blob)
+        setTranscript(sr.text)
+        setWords(sr.words)
         Object.assign(ev, {
           path: 'server',
-          transcript: text.slice(0, 240),
-          transcript_words: text ? text.trim().split(/\s+/).length : 0,
-          words_count: 0,
+          transcript: sr.text.slice(0, 240),
+          transcript_words: sr.text ? sr.text.trim().split(/\s+/).length : 0,
+          words_count: sr.words.length,
         })
       } catch (e) {
         ev.error = e instanceof Error ? e.message : String(e)

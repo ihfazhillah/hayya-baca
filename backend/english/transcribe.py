@@ -43,13 +43,31 @@ def _get_model():
         return _model
 
 
-def transcribe_bytes(data: bytes, language: str = "en") -> str:
-    """Transkrip audio (webm/ogg/mp4/wav bytes) menjadi teks."""
+def transcribe_bytes(data: bytes, language: str = "en") -> dict:
+    """Transkrip audio (webm/ogg/mp4/wav bytes) → {text, words}.
+
+    Word timestamps (Spec 067 "Salis") feed the pause/rhythm & WPM analysis.
+    """
     model = _get_model()
     segments, _info = model.transcribe(
         io.BytesIO(data),
         language=language,
         vad_filter=True,
         beam_size=5,
+        word_timestamps=True,
     )
-    return " ".join(seg.text.strip() for seg in segments).strip()
+    text_parts: list[str] = []
+    words: list[dict] = []
+    for seg in segments:
+        text_parts.append(seg.text.strip())
+        for w in seg.words or []:
+            token = w.word.strip()
+            if token:
+                words.append(
+                    {
+                        "word": token,
+                        "start": round(w.start, 3),
+                        "end": round(w.end, 3),
+                    }
+                )
+    return {"text": " ".join(text_parts).strip(), "words": words}

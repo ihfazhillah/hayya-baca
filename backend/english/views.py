@@ -128,7 +128,7 @@ class TranscribeView(APIView):
                 status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             )
         try:
-            transcript = transcribe_bytes(upload.read())
+            result = transcribe_bytes(upload.read())
         except SttUnavailable as e:
             return Response(
                 {"detail": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE
@@ -138,7 +138,9 @@ class TranscribeView(APIView):
                 {"detail": "Gagal memproses audio"},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
-        return Response({"transcript": transcript})
+        return Response(
+            {"transcript": result["text"], "words": result["words"]}
+        )
 
 
 class WeakPointListView(APIView):
