@@ -115,6 +115,17 @@ class SttManager {
     }
     const audio = await blobToPcm16k(blob) // throws SttFallback on decode failure
 
+    // Diagnostic: is the decoded PCM silent after the first bit? (webm decode
+    // corruption would leave the tail near-zero → whisper only sees the start.)
+    const rms = (s: number, e: number) => {
+      let x = 0
+      for (let i = s; i < e; i++) x += audio[i] * audio[i]
+      return Math.sqrt(x / Math.max(1, e - s))
+    }
+    const half = Math.floor(audio.length / 2)
+    const rmsHead = +rms(0, half).toFixed(4)
+    const rmsTail = +rms(half, audio.length).toFixed(4)
+
     const worker = this.ensureWorker()
     const id = ++this.seq
     const raw = await new Promise<{
@@ -147,6 +158,8 @@ class SttManager {
         blob_type: blob.type,
         pcm_samples: audio.length,
         pcm_dur_s: +(audio.length / 16000).toFixed(2),
+        rms_head: rmsHead,
+        rms_tail: rmsTail,
         ...raw.meta,
       },
     }
