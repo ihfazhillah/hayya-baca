@@ -2,7 +2,7 @@ import re
 
 from rest_framework import serializers
 
-from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
+from .models import EnglishLesson, EnglishSegment, EnglishStreak, EnglishWeakPoint
 from .signing import sign_segment
 
 MAX_TEXT_CHARS = 5000
@@ -116,3 +116,21 @@ class EnglishWeakPointSerializer(serializers.ModelSerializer):
     class Meta:
         model = EnglishWeakPoint
         fields = ["phoneme", "fail_count", "pass_streak", "total_attempts", "status"]
+
+
+class EnglishStreakSerializer(serializers.ModelSerializer):
+    practiced_today = serializers.SerializerMethodField()
+
+    class Meta:
+        model = EnglishStreak
+        fields = [
+            "current_streak",
+            "longest_streak",
+            "last_practice_date",
+            "practiced_today",
+        ]
+
+    def get_practiced_today(self, obj) -> bool:
+        from django.utils import timezone
+
+        return obj.last_practice_date == timezone.localdate()

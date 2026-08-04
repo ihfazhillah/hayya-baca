@@ -1,5 +1,6 @@
 import shutil
 import tempfile
+from datetime import timedelta
 from unittest import mock
 
 from django.contrib.auth import get_user_model
@@ -7,10 +8,16 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from english.models import EnglishLesson, EnglishSegment, EnglishWeakPoint
+from english.models import (
+    EnglishLesson,
+    EnglishSegment,
+    EnglishStreak,
+    EnglishWeakPoint,
+)
 from english.signing import sign_segment
 
 User = get_user_model()
@@ -330,3 +337,58 @@ class WeakPointTest(TestCase):
             self.record(cb, "TH", fail=1)
         self.assertIn("TH", self.active_phonemes(cb))
         self.assertNotIn("TH", self.active_phonemes(auth(self.a)))
+
+
+class StreakTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.b = User.objects.create_user("bob", password="pw")
+        self.ping_url = reverse("english-streak-ping")
+        self.status_url = reverse("english-streak")
+        self.today = timezone.localdate()
+
+    def test_requires_auth(self):
+        self.assertEqual(APIClient().get(self.status_url).status_code, 401)
+        self.assertEqual(APIClient().post(self.ping_url).status_code, 401)
+
+    def test_first_ping_is_one(self):
+        r = auth(self.a).post(self.ping_url)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()["current_streak"], 1)
+        self.assertEqual(r.json()["longest_streak"], 1)
+        self.assertTrue(r.json()["practiced_today"])
+
+    def test_same_day_ping_no_change(self):
+        c = auth(self.a)
+        c.post(self.ping_url)
+        r = c.post(self.ping_url)
+        self.assertEqual(r.json()["current_streak"], 1)
+
+    def test_consecutive_day_increments(self):
+        c = auth(self.a)
+        c.post(self.ping_url)  # today → 1
+        # pretend the last practice was yesterday
+        s = EnglishStreak.objects.get(owner=self.a)
+        s.last_practice_date = self.today - timedelta(days=1)
+        s.save()
+        r = c.post(self.ping_url)
+        self.assertEqual(r.json()["current_streak"], 2)
+
+    def test_gap_resets_but_keeps_longest(self):
+        s = EnglishStreak.objects.create(
+            owner=self.a,
+            current_streak=5,
+            longest_streak=5,
+            last_practice_date=self.today - timedelta(days=2),
+        )
+        r = auth(self.a).post(self.ping_url)
+        self.assertEqual(r.json()["current_streak"], 1)
+        self.assertEqual(r.json()["longest_streak"], 5)
+        s.refresh_from_db()
+        self.assertEqual(s.current_streak, 1)
+
+    def test_owner_isolation(self):
+        auth(self.b).post(self.ping_url)
+        r = auth(self.a).get(self.status_url)
+        self.assertEqual(r.json()["current_streak"], 0)
+        self.assertFalse(r.json()["practiced_today"])

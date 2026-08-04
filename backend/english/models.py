@@ -1,4 +1,5 @@
 import secrets
+from datetime import timedelta
 
 from django.conf import settings
 from django.db import models
@@ -158,3 +159,36 @@ class EnglishWeakPoint(models.Model):
 
     def __str__(self):
         return f"{self.owner_id}:{self.phoneme} ({self.status})"
+
+
+class EnglishStreak(models.Model):
+    """Per-user daily practice streak for the English module (Spec 068).
+
+    Independent of the Child reading streak (`streaks` app). A day counts when
+    the learner completes ≥1 scored attempt that day.
+    """
+
+    owner = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="english_streak",
+    )
+    current_streak = models.PositiveIntegerField(default=0)
+    longest_streak = models.PositiveIntegerField(default=0)
+    last_practice_date = models.DateField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def register_practice(self, today):
+        """Record a practice on `today`; returns self. Idempotent per day."""
+        if self.last_practice_date == today:
+            return self
+        if self.last_practice_date == today - timedelta(days=1):
+            self.current_streak += 1
+        else:
+            self.current_streak = 1
+        self.last_practice_date = today
+        self.longest_streak = max(self.longest_streak, self.current_streak)
+        return self
+
+    def __str__(self):
+        return f"{self.owner_id}: {self.current_streak}d"

@@ -9,8 +9,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.db import transaction
+from django.utils import timezone
 
-from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
+from .models import EnglishLesson, EnglishSegment, EnglishStreak, EnglishWeakPoint
 from .signing import unsign_segment
 from .transcribe import SttUnavailable, transcribe_bytes
 from .serializers import (
@@ -18,6 +19,7 @@ from .serializers import (
     EnglishLessonDetailSerializer,
     EnglishLessonListSerializer,
     EnglishLessonUpdateSerializer,
+    EnglishStreakSerializer,
     EnglishWeakPointSerializer,
 )
 
@@ -197,3 +199,28 @@ class WeakPointRecordView(APIView):
                 wp.save()
                 updated.append(wp)
         return Response(EnglishWeakPointSerializer(updated, many=True).data)
+
+
+class StreakView(APIView):
+    """GET current English daily streak (Spec 068)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        streak, _ = EnglishStreak.objects.get_or_create(owner=request.user)
+        return Response(EnglishStreakSerializer(streak).data)
+
+
+class StreakPingView(APIView):
+    """POST → register today's practice; returns the updated streak."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        with transaction.atomic():
+            streak, _ = EnglishStreak.objects.select_for_update().get_or_create(
+                owner=request.user
+            )
+            streak.register_practice(timezone.localdate())
+            streak.save()
+        return Response(EnglishStreakSerializer(streak).data)

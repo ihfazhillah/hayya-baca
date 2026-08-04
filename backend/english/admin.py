@@ -1,7 +1,18 @@
 from django.contrib import admin
 from django.utils import timezone
 
-from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
+from .models import (
+    EnglishLesson,
+    EnglishSegment,
+    EnglishStreak,
+    EnglishWeakPoint,
+)
+
+
+@admin.register(EnglishStreak)
+class EnglishStreakAdmin(admin.ModelAdmin):
+    list_display = ("owner", "current_streak", "longest_streak", "last_practice_date")
+    search_fields = ("owner__username",)
 
 
 @admin.register(EnglishWeakPoint)
