@@ -8,6 +8,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { getToken } from './api'
 
 // ---------------------------------------------------------------------------
 // TTS
@@ -127,8 +128,10 @@ export function useEnglishRecorder(): EnglishRecorder {
       const form = new FormData()
       const ext = blob.type.includes('mp4') ? 'mp4' : 'webm'
       form.append('audio', blob, `speech.${ext}`)
+      const token = getToken()
       const res = await fetch('/api/english/transcribe/', {
         method: 'POST',
+        headers: token ? { Authorization: `Token ${token}` } : undefined,
         body: form,
       })
       const data = (await res.json()) as { transcript?: string; detail?: string }

@@ -27,11 +27,27 @@ export function LessonPlayer() {
 
   useEffect(() => {
     if (!id) return
-    fetchLesson(id)
-      .then(setLesson)
-      .catch((e: unknown) =>
-        setError(e instanceof Error ? e.message : 'Gagal memuat'),
-      )
+    let alive = true
+    let t: ReturnType<typeof setTimeout> | null = null
+    const load = () => {
+      fetchLesson(id)
+        .then((l) => {
+          if (!alive) return
+          setLesson(l)
+          // Poll while the MeloTTS worker is still generating audio.
+          if (l.audio_status === 'pending' || l.audio_status === 'processing') {
+            t = setTimeout(load, 4000)
+          }
+        })
+        .catch((e: unknown) =>
+          setError(e instanceof Error ? e.message : 'Gagal memuat'),
+        )
+    }
+    load()
+    return () => {
+      alive = false
+      if (t) clearTimeout(t)
+    }
   }, [id])
 
   const segment = lesson?.segments[index]
@@ -58,7 +74,33 @@ export function LessonPlayer() {
   }, [rec.transcript])
 
   if (error) return <p className="text-red-500">{error}</p>
-  if (!lesson || !segment) return <p className="text-gray-500">Memuat…</p>
+  if (!lesson) return <p className="text-gray-500">Memuat…</p>
+
+  if (lesson.audio_status !== 'ready') {
+    return (
+      <div>
+        <h2 className="text-xl font-extrabold text-gray-800">{lesson.title}</h2>
+        {lesson.audio_status === 'failed' ? (
+          <div className="mt-4 rounded-xl bg-red-50 p-4 text-red-700">
+            <p className="font-semibold">⚠️ Gagal membuat audio.</p>
+            {lesson.is_owner && lesson.error && (
+              <p className="mt-1 text-sm">{lesson.error}</p>
+            )}
+          </div>
+        ) : (
+          <div className="mt-4 rounded-xl bg-amber-50 p-4 text-amber-700">
+            <p className="font-semibold">⏳ Audio sedang dibuat di server…</p>
+            <p className="mt-1 text-sm">
+              Aksen Australia disintesis per kalimat. Halaman ini akan otomatis
+              diperbarui saat siap.
+            </p>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  if (!segment) return <p className="text-gray-500">Memuat…</p>
 
   return (
     <div>
@@ -71,7 +113,7 @@ export function LessonPlayer() {
         ref={audioRef}
         key={segment.id}
         controls
-        src={segment.audio_url}
+        src={segment.audio_url ?? undefined}
         className="w-full"
       />
 
