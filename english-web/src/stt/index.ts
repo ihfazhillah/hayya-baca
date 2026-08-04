@@ -114,7 +114,17 @@ class SttManager {
       chunks: RawChunk[]
       meta: Record<string, unknown>
     }>((resolve, reject) => {
-      this.pending.set(id, { resolve, reject })
+      // A hung model call must never freeze the UI — time out → server fallback.
+      const timer = setTimeout(() => {
+        if (this.pending.delete(id)) {
+          reject(new SttFallback('device STT timeout'))
+        }
+      }, 20_000)
+      const done = <T>(fn: (v: T) => void) => (v: T) => {
+        clearTimeout(timer)
+        fn(v)
+      }
+      this.pending.set(id, { resolve: done(resolve), reject: done(reject) })
       worker.postMessage({ id, audio, device: this.backend })
     })
     if (this.status !== 'ready') this.emit('ready', 100)

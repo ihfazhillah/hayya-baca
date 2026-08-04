@@ -197,15 +197,24 @@ export function useEnglishRecorder(): EnglishRecorder {
         if (stt.available) {
           try {
             const r = await stt.transcribe(blob)
-            setTranscript(r.text)
-            setWords(r.words)
+            const tw = r.text ? r.text.trim().split(/\s+/).length : 0
+            const targetWords = Number(contextRef.current.target_words) || 0
+            // Guard the known device bug: a truncated transcript (e.g. "First"
+            // for a 9-word target) → discard and use the server instead.
+            const suspicious = targetWords >= 4 && tw < Math.max(2, targetWords * 0.4)
             Object.assign(ev, r.meta, {
               path: 'device',
               transcript: r.text.slice(0, 240),
-              transcript_words: r.text ? r.text.trim().split(/\s+/).length : 0,
+              transcript_words: tw,
               words_count: r.words.length,
+              device_suspicious: suspicious,
             })
-            return
+            if (!suspicious) {
+              setTranscript(r.text)
+              setWords(r.words)
+              return
+            }
+            ev.fallback_reason = 'device_truncated'
           } catch (err) {
             ev.device_error = err instanceof Error ? err.message : String(err)
             ev.fallback_used = true

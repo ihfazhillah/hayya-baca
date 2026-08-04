@@ -41,39 +41,22 @@ self.onmessage = async (e: MessageEvent) => {
     const t = await getTranscriber(device)
     self.postMessage({ type: 'ready' })
 
-    // Pass 1 — reliable transcript. Plain decode (no timestamps) avoids the
-    // word-timestamp path that can truncate output to the first word.
+    // Single plain decode — reliable text. (Word timestamps caused truncation
+    // AND a hang, so they're dropped for now; Salis degrades gracefully.)
     const t0 = performance.now()
     const base = await t(audio)
-    const text = ((Array.isArray(base) ? base[0] : base).text ?? '').trim()
+    const single = Array.isArray(base) ? base[0] : base
+    const text = (single.text ?? '').trim()
     const t1 = performance.now()
-
-    // Pass 2 — best-effort word timestamps for Salis/pause. Never affects the
-    // transcript: if word output is missing or looks truncated, drop it.
-    let chunks: { text: string; timestamp: [number | null, number | null] }[] = []
-    let pass2_chunks = 0
-    try {
-      const wOut = await t(audio, { return_timestamps: 'word' })
-      const wc = (Array.isArray(wOut) ? wOut[0] : wOut).chunks ?? []
-      pass2_chunks = wc.length
-      const words = text ? text.split(/\s+/).length : 0
-      if (wc.length >= Math.max(2, words * 0.6)) chunks = wc
-    } catch {
-      /* keep reliable text, no word timing */
-    }
-    const t2 = performance.now()
 
     self.postMessage({
       type: 'result',
       id,
       text,
-      chunks,
+      chunks: [],
       meta: {
         device,
         pass1_ms: Math.round(t1 - t0),
-        pass2_ms: Math.round(t2 - t1),
-        pass2_chunks,
-        pass2_used: chunks.length > 0,
         audio_samples: audio.length,
       },
     })
