@@ -12,6 +12,9 @@ dependencies = [
 ]
 
 [dependency-groups]
+stt = [
+    "faster-whisper>=1.2.1",
+]
 dev = [
     "pytest>=9.0.2",
     "pytest-django>=4.12.0",

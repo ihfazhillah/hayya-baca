@@ -1,0 +1,5 @@
+# Python 3.10 - 3.12 (JANGAN pakai venv backend yang 3.14)
+yt-dlp>=2025.1.1
+youtube-transcript-api>=0.6.2
+faster-whisper>=1.0
+git+https://github.com/myshell-ai/MeloTTS.git

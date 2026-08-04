@@ -12,6 +12,7 @@ urlpatterns = [
     path("api/", include("accounts.urls")),
     path("api/", include("library.urls")),
     path("api/", include("games.urls")),
+    path("api/", include("english.urls")),
     path("api/search/", include("search.urls")),
     path("api/diary/", include("diary.urls")),
     path("api/schedule/", include("schedule.urls")),
