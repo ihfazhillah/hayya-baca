@@ -7,7 +7,7 @@ import {
   ttsSupported,
   useEnglishRecorder,
 } from '../speech'
-import { ScoreMarks } from '../components/ScoreMarks'
+import { SalisPanel } from '../components/SalisPanel'
 import { recordAttempt } from '../fitness/record'
 
 const DEFAULT_TEXT = "G'day! I reckon we should head to the beach this arvo."
@@ -129,7 +129,14 @@ export function Custom() {
         <p className="mt-3 italic text-gray-500">Terdengar: “{rec.transcript}”</p>
       )}
       {rec.error && <p className="mt-2 text-red-500">{rec.error}</p>}
-      {result && <ScoreMarks result={result} />}
+      {result && (
+        <SalisPanel
+          score={result}
+          target={text}
+          words={rec.words}
+          myAudioUrl={rec.lastRecordingUrl}
+        />
+      )}
     </div>
   )
 }

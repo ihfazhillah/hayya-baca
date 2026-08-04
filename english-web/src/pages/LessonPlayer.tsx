@@ -4,6 +4,7 @@ import { fetchLesson, type LessonDetail } from '../api'
 import { scoreAttempt, type AttemptScore } from '../scoring'
 import { useEnglishRecorder } from '../speech'
 import { ScoreMarks } from '../components/ScoreMarks'
+import { SalisPanel } from '../components/SalisPanel'
 import { recordAttempt } from '../fitness/record'
 
 type Mode = 'listen' | 'dictation' | 'shadowing'
@@ -235,9 +236,20 @@ export function LessonPlayer() {
         </div>
       )}
 
-      {result && <ScoreMarks result={result} />}
+      {result &&
+        (mode === 'shadowing' ? (
+          <SalisPanel
+            score={result}
+            target={segment.text}
+            words={rec.words}
+            refAudioUrl={segment.audio_url}
+            myAudioUrl={rec.lastRecordingUrl}
+          />
+        ) : (
+          <ScoreMarks result={result} />
+        ))}
 
-      {showText && (
+      {showText && !(mode === 'shadowing' && result) && (
         <div className="mt-4 rounded-xl bg-white p-4 shadow-sm">
           <p className="mb-1 text-xs text-gray-500">Teks asli:</p>
           <p className="text-lg leading-relaxed text-gray-800">{segment.text}</p>

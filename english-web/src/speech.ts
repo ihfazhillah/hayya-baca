@@ -92,6 +92,8 @@ export interface EnglishRecorder {
   transcript: string
   /** Per-word timestamps when device STT is used (empty on server fallback). */
   words: Word[]
+  /** Object URL of the last recording, for A/B compare playback (Spec 067). */
+  lastRecordingUrl: string | null
   error: string | null
   /** 'idle' | 'downloading' | 'ready' | 'error' — device model load progress. */
   sttStatus: SttStatus
@@ -113,6 +115,7 @@ export function useEnglishRecorder(): EnglishRecorder {
   const [isTranscribing, setIsTranscribing] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [words, setWords] = useState<Word[]>([])
+  const [lastRecordingUrl, setLastRecordingUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [sttStatus, setSttStatus] = useState<SttStatus>('idle')
   const [sttProgress, setSttProgress] = useState(0)
@@ -207,7 +210,13 @@ export function useEnglishRecorder(): EnglishRecorder {
           type: rec.mimeType || 'audio/webm',
         })
         cleanupStream()
-        if (blob.size > 0) void upload(blob)
+        if (blob.size > 0) {
+          setLastRecordingUrl((prev) => {
+            if (prev) URL.revokeObjectURL(prev)
+            return URL.createObjectURL(blob)
+          })
+          void upload(blob)
+        }
       }
       recorderRef.current = rec
       rec.start()
@@ -225,6 +234,10 @@ export function useEnglishRecorder(): EnglishRecorder {
   const reset = useCallback(() => {
     setTranscript('')
     setWords([])
+    setLastRecordingUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev)
+      return null
+    })
     setError(null)
   }, [])
 
@@ -234,6 +247,7 @@ export function useEnglishRecorder(): EnglishRecorder {
     isTranscribing,
     transcript,
     words,
+    lastRecordingUrl,
     error,
     sttStatus,
     sttProgress,
