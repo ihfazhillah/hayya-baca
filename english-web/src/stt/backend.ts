@@ -7,10 +7,12 @@ export interface SttCaps {
   wasm: boolean
 }
 
-/** Choose the fastest usable backend; 'server' means fall back to the API. */
+/** Choose the backend. WebGPU whisper (transformers.js/ONNX Runtime) produces
+ *  garbage output ("B. C. C…") on non-trivial audio on this stack, so prefer
+ *  WASM (CPU — slower but numerically stable & correct). */
 export function pickBackend(caps: SttCaps): SttBackend {
-  if (caps.webgpu) return 'webgpu'
   if (caps.wasm) return 'wasm'
+  if (caps.webgpu) return 'webgpu'
   return 'server'
 }
 

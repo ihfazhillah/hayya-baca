@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { normalizeWords, pickBackend, type RawChunk } from './backend'
 
 describe('pickBackend', () => {
-  it('prefers webgpu when available', () => {
-    expect(pickBackend({ webgpu: true, wasm: true })).toBe('webgpu')
-    expect(pickBackend({ webgpu: true, wasm: false })).toBe('webgpu')
-  })
-  it('falls back to wasm when no webgpu', () => {
+  it('prefers wasm (WebGPU whisper is unstable on this stack)', () => {
+    expect(pickBackend({ webgpu: true, wasm: true })).toBe('wasm')
     expect(pickBackend({ webgpu: false, wasm: true })).toBe('wasm')
+  })
+  it('uses webgpu only when wasm is unavailable', () => {
+    expect(pickBackend({ webgpu: true, wasm: false })).toBe('webgpu')
   })
   it('falls back to server when neither is available', () => {
     expect(pickBackend({ webgpu: false, wasm: false })).toBe('server')
