@@ -4,6 +4,7 @@ import { fetchLesson, type LessonDetail } from '../api'
 import { scoreAttempt, type AttemptScore } from '../scoring'
 import { useEnglishRecorder } from '../speech'
 import { ScoreMarks } from '../components/ScoreMarks'
+import { recordAttempt } from '../fitness/record'
 
 type Mode = 'listen' | 'dictation' | 'shadowing'
 
@@ -67,7 +68,9 @@ export function LessonPlayer() {
 
   useEffect(() => {
     if (mode === 'shadowing' && rec.transcript && segment) {
-      setResult(scoreAttempt(segment.text, rec.transcript))
+      const s = scoreAttempt(segment.text, rec.transcript)
+      setResult(s)
+      recordAttempt(s)
       setShowText(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -174,7 +177,9 @@ export function LessonPlayer() {
           />
           <button
             onClick={() => {
-              setResult(scoreAttempt(segment.text, typed))
+              const s = scoreAttempt(segment.text, typed)
+              setResult(s)
+              recordAttempt(s)
               setShowText(true)
             }}
             className="mt-2 w-full rounded-xl bg-emerald-500 p-3 font-bold text-white shadow hover:bg-emerald-600"

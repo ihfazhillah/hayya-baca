@@ -3,6 +3,7 @@ import { Lessons } from './pages/Lessons'
 import { Custom } from './pages/Custom'
 import { LessonPlayer } from './pages/LessonPlayer'
 import { CreateLesson } from './pages/CreateLesson'
+import { Fitness } from './pages/Fitness'
 import { Login } from './pages/Login'
 import { useAuth } from './auth'
 
@@ -19,6 +20,9 @@ export default function App() {
             🇦🇺 English Practice
           </Link>
           <div className="flex items-center gap-3 text-sm">
+            <Link to="/fitness" className="font-semibold hover:underline">
+              🏋️ Fitness
+            </Link>
             <Link to="/custom" className="font-semibold hover:underline">
               Teks Sendiri
             </Link>
@@ -38,6 +42,7 @@ export default function App() {
           <Route path="/" element={<Lessons />} />
           <Route path="/custom" element={<Custom />} />
           <Route path="/create" element={<CreateLesson />} />
+          <Route path="/fitness" element={<Fitness />} />
           <Route path="/lesson/:id" element={<LessonPlayer />} />
         </Routes>
       </main>

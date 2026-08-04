@@ -145,3 +145,21 @@ export const patchLesson = (
 
 export const deleteLesson = (id: number) =>
   request<void>('DELETE', `/api/english/lessons/${id}/`)
+
+// ---------------------------------------------------------------------------
+// Fitness Lidah (Spec 066)
+// ---------------------------------------------------------------------------
+export interface WeakPoint {
+  phoneme: string
+  fail_count: number
+  pass_streak: number
+  total_attempts: number
+  status: 'tracking' | 'active' | 'cleared'
+}
+
+export const fetchWeakpoints = () =>
+  request<WeakPoint[]>('GET', '/api/english/weakpoints/')
+
+export const recordWeakpoints = (
+  deltas: { phoneme: string; pass: number; fail: number }[],
+) => request<WeakPoint[]>('POST', '/api/english/weakpoints/record/', deltas)

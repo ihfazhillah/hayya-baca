@@ -8,6 +8,7 @@ import {
   useEnglishRecorder,
 } from '../speech'
 import { ScoreMarks } from '../components/ScoreMarks'
+import { recordAttempt } from '../fitness/record'
 
 const DEFAULT_TEXT = "G'day! I reckon we should head to the beach this arvo."
 
@@ -28,7 +29,9 @@ export function Custom() {
   // Transkrip datang async setelah upload ke server — nilai saat tiba
   useEffect(() => {
     if (rec.transcript) {
-      setResult(scoreAttempt(text, rec.transcript))
+      const s = scoreAttempt(text, rec.transcript)
+      setResult(s)
+      recordAttempt(s)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rec.transcript])
