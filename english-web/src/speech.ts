@@ -204,6 +204,8 @@ export function useEnglishRecorder(): EnglishRecorder {
             const suspicious = targetWords >= 4 && tw < Math.max(2, targetWords * 0.4)
             Object.assign(ev, r.meta, {
               path: 'device',
+              device_transcript: r.text.slice(0, 240),
+              device_words: tw,
               transcript: r.text.slice(0, 240),
               transcript_words: tw,
               words_count: r.words.length,
