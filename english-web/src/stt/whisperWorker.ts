@@ -23,12 +23,13 @@ async function getTranscriber(device: Device) {
       'whisper-base.en',
       {
         device,
-        // fp16 decoder truncates on WebGPU; the stable combo (per the official
-        // transformers.js whisper-webgpu demo) is fp16 encoder + q4 decoder.
+        // fp16 decoder (higher quality than q4, native on Mac/WebGPU) — q4
+        // collapsed into repetition ("I I") on longer/paused audio. The
+        // long-form generate config (below) handles whole-audio processing.
         dtype:
           device === 'webgpu'
-            ? { encoder_model: 'fp16', decoder_model_merged: 'q4' }
-            : { encoder_model: 'q8', decoder_model_merged: 'q4' },
+            ? { encoder_model: 'fp16', decoder_model_merged: 'fp16' }
+            : { encoder_model: 'q8', decoder_model_merged: 'q8' },
         progress_callback: (p) => self.postMessage({ type: 'progress', data: p }),
       },
     )
@@ -70,6 +71,7 @@ self.onmessage = async (e: MessageEvent) => {
       chunk_length_s: 30,
       stride_length_s: 5,
       return_timestamps: true,
+      no_repeat_ngram_size: 3, // guard against repetition collapse ("I I I…")
     })
     const single = Array.isArray(base) ? base[0] : base
     const text = (single.text ?? '').trim()
