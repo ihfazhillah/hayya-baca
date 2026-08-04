@@ -23,6 +23,7 @@ urlpatterns = router.urls + [
         views.WeakPointRecordView.as_view(),
         name="english-weakpoints-record",
     ),
+    path("english/events/", views.EventIngestView.as_view(), name="english-events"),
     path("english/streak/", views.StreakView.as_view(), name="english-streak"),
     path(
         "english/streak/ping/",

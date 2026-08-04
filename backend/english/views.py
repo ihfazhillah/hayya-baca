@@ -1,3 +1,7 @@
+import json
+import logging
+import sys
+
 from django.conf import settings
 from django.db.models import Count
 from django.http import FileResponse, Http404, HttpResponse
@@ -224,3 +228,32 @@ class StreakPingView(APIView):
             streak.register_practice(timezone.localdate())
             streak.save()
         return Response(EnglishStreakSerializer(streak).data)
+
+
+# --- Wide-event ingest (observability) -------------------------------------
+_event_logger = logging.getLogger("english.events")
+if not _event_logger.handlers:
+    _h = logging.StreamHandler(sys.stderr)
+    _h.setFormatter(logging.Formatter("ENGLISH_EVENT %(message)s"))
+    _event_logger.addHandler(_h)
+    _event_logger.setLevel(logging.INFO)
+    _event_logger.propagate = False
+
+
+class EventIngestView(APIView):
+    """One wide structured event per browser attempt → server logs.
+
+    Read them with: journalctl -u hayyabaca -g ENGLISH_EVENT
+    Debug aid for the STT pipeline (Spec 065); tail-sample later if noisy.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data if isinstance(request.data, dict) else {"raw": request.data}
+        data["user"] = request.user.username
+        try:
+            _event_logger.info(json.dumps(data, default=str)[:6000])
+        except Exception:
+            pass
+        return Response(status=status.HTTP_204_NO_CONTENT)

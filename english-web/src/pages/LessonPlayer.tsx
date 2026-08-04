@@ -208,6 +208,13 @@ export function LessonPlayer() {
               onClick={() => {
                 audioRef.current?.pause()
                 setResult(null)
+                rec.setContext({
+                  mode: 'shadowing',
+                  lesson_id: lesson.id,
+                  segment_index: index,
+                  target: segment.text,
+                  target_words: segment.text.trim().split(/\s+/).length,
+                })
                 void rec.start()
               }}
               className="w-full rounded-xl bg-red-500 p-3 font-bold text-white shadow hover:bg-red-600"

@@ -6,6 +6,7 @@ export type SttStatus = 'idle' | 'downloading' | 'ready' | 'error'
 export interface SttResult {
   text: string
   words: Word[]
+  meta: Record<string, unknown>
 }
 
 export { SttFallback }
@@ -18,7 +19,11 @@ function detectCaps() {
 }
 
 type Pending = {
-  resolve: (r: { text: string; chunks: RawChunk[] }) => void
+  resolve: (r: {
+    text: string
+    chunks: RawChunk[]
+    meta: Record<string, unknown>
+  }) => void
   reject: (e: unknown) => void
 }
 
@@ -67,6 +72,7 @@ class SttManager {
     id?: number
     text?: string
     chunks?: RawChunk[]
+    meta?: Record<string, unknown>
     message?: string
     data?: { progress?: number; status?: string }
   }) {
@@ -77,7 +83,9 @@ class SttManager {
     } else if (msg.type === 'ready') {
       this.emit('ready', 100)
     } else if (msg.type === 'result' && msg.id != null) {
-      this.pending.get(msg.id)?.resolve({ text: msg.text ?? '', chunks: msg.chunks ?? [] })
+      this.pending
+        .get(msg.id)
+        ?.resolve({ text: msg.text ?? '', chunks: msg.chunks ?? [], meta: msg.meta ?? {} })
       this.pending.delete(msg.id)
     } else if (msg.type === 'error' && msg.id != null) {
       this.pending.get(msg.id)?.reject(new Error(msg.message ?? 'STT error'))
@@ -101,14 +109,27 @@ class SttManager {
 
     const worker = this.ensureWorker()
     const id = ++this.seq
-    const raw = await new Promise<{ text: string; chunks: RawChunk[] }>(
-      (resolve, reject) => {
-        this.pending.set(id, { resolve, reject })
-        worker.postMessage({ id, audio, device: this.backend })
-      },
-    )
+    const raw = await new Promise<{
+      text: string
+      chunks: RawChunk[]
+      meta: Record<string, unknown>
+    }>((resolve, reject) => {
+      this.pending.set(id, { resolve, reject })
+      worker.postMessage({ id, audio, device: this.backend })
+    })
     if (this.status !== 'ready') this.emit('ready', 100)
-    return { text: raw.text.trim(), words: normalizeWords(raw.chunks) }
+    return {
+      text: raw.text.trim(),
+      words: normalizeWords(raw.chunks),
+      meta: {
+        backend: this.backend,
+        blob_size: blob.size,
+        blob_type: blob.type,
+        pcm_samples: audio.length,
+        pcm_dur_s: +(audio.length / 16000).toFixed(2),
+        ...raw.meta,
+      },
+    }
   }
 }
 

@@ -11,6 +11,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { getToken } from './api'
 import { stt, type SttStatus } from './stt'
 import type { Word } from './stt/backend'
+import { logEvent } from './log'
 
 // ---------------------------------------------------------------------------
 // TTS
@@ -98,6 +99,8 @@ export interface EnglishRecorder {
   /** 'idle' | 'downloading' | 'ready' | 'error' — device model load progress. */
   sttStatus: SttStatus
   sttProgress: number
+  /** Attach context (lesson/segment/target/mode) for the wide event. */
+  setContext: (ctx: Record<string, unknown>) => void
   start: () => Promise<void>
   /** Stop rekaman; transkrip terisi setelah transkripsi selesai. */
   stop: () => void
@@ -133,6 +136,14 @@ export function useEnglishRecorder(): EnglishRecorder {
   const recorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
   const timerRef = useRef<number | null>(null)
+  const contextRef = useRef<Record<string, unknown>>({})
+  const startedAtRef = useRef<number>(0)
+
+  // Pages attach what's being practiced (lesson/segment/target/mode) so the
+  // wide event captures the full picture (Spec 065 debug).
+  const setContext = useCallback((ctx: Record<string, unknown>) => {
+    contextRef.current = ctx
+  }, [])
 
   const cleanupStream = useCallback(() => {
     recorderRef.current?.stream.getTracks().forEach((t) => t.stop())
@@ -165,6 +176,21 @@ export function useEnglishRecorder(): EnglishRecorder {
     async (blob: Blob) => {
       setIsTranscribing(true)
       setError(null)
+      const ev: Record<string, unknown> = {
+        ...contextRef.current,
+        record_ms: startedAtRef.current
+          ? Math.round(performance.now() - startedAtRef.current)
+          : null,
+        device_available: stt.available,
+        caps: {
+          gpu: typeof navigator !== 'undefined' && 'gpu' in navigator,
+          coi:
+            typeof crossOriginIsolated !== 'undefined'
+              ? crossOriginIsolated
+              : null,
+          wasm: typeof WebAssembly !== 'undefined',
+        },
+      }
       try {
         // Prefer on-device Whisper; any failure (unsupported, decode, worker)
         // falls back to the server so there is never a regression.
@@ -173,17 +199,35 @@ export function useEnglishRecorder(): EnglishRecorder {
             const r = await stt.transcribe(blob)
             setTranscript(r.text)
             setWords(r.words)
+            Object.assign(ev, r.meta, {
+              path: 'device',
+              transcript: r.text.slice(0, 240),
+              transcript_words: r.text ? r.text.trim().split(/\s+/).length : 0,
+              words_count: r.words.length,
+            })
             return
-          } catch {
-            /* fall through to server */
+          } catch (err) {
+            ev.device_error = err instanceof Error ? err.message : String(err)
+            ev.fallback_used = true
           }
+        } else {
+          ev.fallback_used = true
         }
-        setTranscript(await serverTranscribe(blob))
+        const text = await serverTranscribe(blob)
+        setTranscript(text)
         setWords([])
+        Object.assign(ev, {
+          path: 'server',
+          transcript: text.slice(0, 240),
+          transcript_words: text ? text.trim().split(/\s+/).length : 0,
+          words_count: 0,
+        })
       } catch (e) {
+        ev.error = e instanceof Error ? e.message : String(e)
         setError(e instanceof Error ? e.message : 'Gagal transkripsi')
       } finally {
         setIsTranscribing(false)
+        logEvent('stt.attempt', ev)
       }
     },
     [serverTranscribe],
@@ -196,6 +240,7 @@ export function useEnglishRecorder(): EnglishRecorder {
     }
     setError(null)
     setTranscript('')
+    startedAtRef.current = performance.now()
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       const mime = pickMimeType()
@@ -251,6 +296,7 @@ export function useEnglishRecorder(): EnglishRecorder {
     error,
     sttStatus,
     sttProgress,
+    setContext,
     start,
     stop,
     reset,

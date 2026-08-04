@@ -105,6 +105,11 @@ export function Custom() {
           onClick={() => {
             stopSpeaking()
             setResult(null)
+            rec.setContext({
+              mode: 'custom',
+              target: text,
+              target_words: text.trim().split(/\s+/).length,
+            })
             void rec.start()
           }}
           className="w-full rounded-xl bg-red-500 p-3.5 font-bold text-white shadow transition hover:bg-red-600"
