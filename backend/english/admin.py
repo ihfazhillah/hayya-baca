@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.utils import timezone
 
-from .models import EnglishLesson, EnglishSegment
+from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
+
+
+@admin.register(EnglishWeakPoint)
+class EnglishWeakPointAdmin(admin.ModelAdmin):
+    list_display = ("owner", "phoneme", "status", "fail_count", "pass_streak")
+    list_filter = ("status", "phoneme")
+    search_fields = ("owner__username", "phoneme")
 
 
 class EnglishSegmentInline(admin.TabularInline):

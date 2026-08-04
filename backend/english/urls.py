@@ -13,4 +13,14 @@ urlpatterns = router.urls + [
         name="english-segment-audio",
     ),
     path("english/transcribe/", views.TranscribeView.as_view(), name="english-transcribe"),
+    path(
+        "english/weakpoints/",
+        views.WeakPointListView.as_view(),
+        name="english-weakpoints",
+    ),
+    path(
+        "english/weakpoints/record/",
+        views.WeakPointRecordView.as_view(),
+        name="english-weakpoints-record",
+    ),
 ]

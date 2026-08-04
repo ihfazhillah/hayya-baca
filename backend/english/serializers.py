@@ -2,7 +2,7 @@ import re
 
 from rest_framework import serializers
 
-from .models import EnglishLesson, EnglishSegment
+from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
 from .signing import sign_segment
 
 MAX_TEXT_CHARS = 5000
@@ -110,3 +110,9 @@ class EnglishLessonCreateSerializer(serializers.ModelSerializer):
             for i, s in enumerate(self._sentences)
         )
         return lesson
+
+
+class EnglishWeakPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EnglishWeakPoint
+        fields = ["phoneme", "fail_count", "pass_streak", "total_attempts", "status"]

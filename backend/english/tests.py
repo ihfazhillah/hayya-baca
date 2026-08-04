@@ -10,7 +10,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from english.models import EnglishLesson, EnglishSegment
+from english.models import EnglishLesson, EnglishSegment, EnglishWeakPoint
 from english.signing import sign_segment
 
 User = get_user_model()
@@ -260,3 +260,73 @@ class WorkerTest(TestCase):
         self.assertEqual(m.call_count, 1)  # only the missing segment
         self.lesson.refresh_from_db()
         self.assertEqual(self.lesson.audio_status, EnglishLesson.Status.READY)
+
+
+class WeakPointTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.b = User.objects.create_user("bob", password="pw")
+        self.list_url = reverse("english-weakpoints")
+        self.record_url = reverse("english-weakpoints-record")
+
+    def record(self, client, phoneme, *, fail=0, passes=0):
+        return client.post(
+            self.record_url,
+            [{"phoneme": phoneme, "fail": fail, "pass": passes}],
+            format="json",
+        )
+
+    def active_phonemes(self, client):
+        return {w["phoneme"] for w in client.get(self.list_url).json()}
+
+    def test_requires_auth(self):
+        self.assertEqual(APIClient().get(self.list_url).status_code, 401)
+        self.assertEqual(APIClient().post(self.record_url, [], format="json").status_code, 401)
+
+    def test_activates_after_three_fails(self):
+        c = auth(self.a)
+        for _ in range(2):
+            self.record(c, "TH", fail=1)
+        self.assertNotIn("TH", self.active_phonemes(c))  # below threshold
+        self.record(c, "TH", fail=1)  # 3rd fail
+        self.assertIn("TH", self.active_phonemes(c))
+        wp = EnglishWeakPoint.objects.get(owner=self.a, phoneme="TH")
+        self.assertEqual(wp.status, EnglishWeakPoint.Status.ACTIVE)
+
+    def test_clears_after_three_passes(self):
+        c = auth(self.a)
+        for _ in range(3):
+            self.record(c, "R", fail=1)  # activate
+        for _ in range(3):
+            self.record(c, "R", passes=1)  # clear
+        self.assertNotIn("R", self.active_phonemes(c))
+        wp = EnglishWeakPoint.objects.get(owner=self.a, phoneme="R")
+        self.assertEqual(wp.status, EnglishWeakPoint.Status.CLEARED)
+        self.assertEqual(wp.fail_count, 0)
+
+    def test_pass_streak_resets_on_fail(self):
+        c = auth(self.a)
+        for _ in range(3):
+            self.record(c, "V", fail=1)
+        self.record(c, "V", passes=2)
+        self.record(c, "V", fail=1)  # breaks streak
+        wp = EnglishWeakPoint.objects.get(owner=self.a, phoneme="V")
+        self.assertEqual(wp.pass_streak, 0)
+        self.assertEqual(wp.status, EnglishWeakPoint.Status.ACTIVE)
+
+    def test_resurfaces_after_clear(self):
+        c = auth(self.a)
+        for _ in range(3):
+            self.record(c, "L", fail=1)
+        for _ in range(3):
+            self.record(c, "L", passes=1)  # cleared
+        for _ in range(3):
+            self.record(c, "L", fail=1)  # fails again
+        self.assertIn("L", self.active_phonemes(c))
+
+    def test_owner_isolation(self):
+        cb = auth(self.b)
+        for _ in range(3):
+            self.record(cb, "TH", fail=1)
+        self.assertIn("TH", self.active_phonemes(cb))
+        self.assertNotIn("TH", self.active_phonemes(auth(self.a)))

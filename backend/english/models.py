@@ -122,3 +122,39 @@ class EnglishSegment(models.Model):
 
     def __str__(self):
         return f"{self.lesson.slug} #{self.order}"
+
+
+class EnglishWeakPoint(models.Model):
+    """A phoneme a learner keeps getting wrong ("Fitness Lidah", Spec 066).
+
+    Per-user aggregate: the frontend maps mis-said words → target phonemes and
+    posts pass/fail deltas; this model owns the threshold state machine that
+    decides which sounds are ACTIVE (in the drill queue) vs CLEARED.
+    """
+
+    class Status(models.TextChoices):
+        TRACKING = "tracking", "Dipantau"
+        ACTIVE = "active", "Perlu latihan"
+        CLEARED = "cleared", "Lulus"
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="english_weakpoints",
+    )
+    phoneme = models.CharField(max_length=8)  # target id, e.g. "TH", "R", "V"
+    fail_count = models.PositiveIntegerField(default=0)
+    pass_streak = models.PositiveIntegerField(default=0)
+    total_attempts = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=10, choices=Status.choices, default=Status.TRACKING
+    )
+    first_seen = models.DateTimeField(auto_now_add=True)
+    last_seen = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = [("owner", "phoneme")]
+        ordering = ["-fail_count", "phoneme"]
+
+    def __str__(self):
+        return f"{self.owner_id}:{self.phoneme} ({self.status})"

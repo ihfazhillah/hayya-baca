@@ -8,7 +8,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import EnglishLesson, EnglishSegment
+from django.db import transaction
+
+from .models import EnglishLesson, EnglishSegment, EnglishWeakPoint
 from .signing import unsign_segment
 from .transcribe import SttUnavailable, transcribe_bytes
 from .serializers import (
@@ -16,7 +18,13 @@ from .serializers import (
     EnglishLessonDetailSerializer,
     EnglishLessonListSerializer,
     EnglishLessonUpdateSerializer,
+    EnglishWeakPointSerializer,
 )
+
+# Fitness Lidah thresholds (Spec 066): a sound enters the drill queue after
+# WEAKPOINT_ACTIVATE_N fails, and leaves it after WEAKPOINT_CLEAR_M clean passes.
+WEAKPOINT_ACTIVATE_N = 3
+WEAKPOINT_CLEAR_M = 3
 
 
 class EnglishLessonViewSet(viewsets.ModelViewSet):
@@ -125,3 +133,67 @@ class TranscribeView(APIView):
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
         return Response({"transcript": transcript})
+
+
+class WeakPointListView(APIView):
+    """GET → the caller's ACTIVE weak sounds (the Fitness Lidah drill queue)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        qs = EnglishWeakPoint.objects.filter(
+            owner=request.user, status=EnglishWeakPoint.Status.ACTIVE
+        )
+        return Response(EnglishWeakPointSerializer(qs, many=True).data)
+
+
+class WeakPointRecordView(APIView):
+    """POST [{phoneme, fail, pass}] → apply per-attempt deltas + threshold logic.
+
+    The frontend maps mis-said words → target phonemes; the queue lives here so
+    it stays authoritative and per-account.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        deltas = request.data
+        if not isinstance(deltas, list):
+            return Response(
+                {"detail": "Body harus berupa list delta"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        S = EnglishWeakPoint.Status
+        updated = []
+        with transaction.atomic():
+            for d in deltas:
+                if not isinstance(d, dict):
+                    continue
+                phoneme = str(d.get("phoneme", "")).strip()[:8]
+                if not phoneme:
+                    continue
+                try:
+                    fail = max(0, int(d.get("fail", 0) or 0))
+                    passes = max(0, int(d.get("pass", 0) or 0))
+                except (TypeError, ValueError):
+                    continue
+                if fail == 0 and passes == 0:
+                    continue
+                wp, _ = EnglishWeakPoint.objects.get_or_create(
+                    owner=request.user, phoneme=phoneme
+                )
+                if fail > 0:
+                    wp.fail_count += fail
+                    wp.pass_streak = 0
+                elif passes > 0:
+                    wp.pass_streak += passes
+                wp.total_attempts += 1
+                if wp.fail_count >= WEAKPOINT_ACTIVATE_N:
+                    wp.status = S.ACTIVE
+                if wp.status == S.ACTIVE and wp.pass_streak >= WEAKPOINT_CLEAR_M:
+                    wp.status = S.CLEARED
+                    wp.fail_count = 0
+                    wp.pass_streak = 0
+                wp.save()
+                updated.append(wp)
+        return Response(EnglishWeakPointSerializer(updated, many=True).data)
