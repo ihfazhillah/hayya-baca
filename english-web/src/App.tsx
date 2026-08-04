@@ -5,6 +5,7 @@ import { LessonPlayer } from './pages/LessonPlayer'
 import { CreateLesson } from './pages/CreateLesson'
 import { Fitness } from './pages/Fitness'
 import { Login } from './pages/Login'
+import { StreakBadge } from './components/StreakBadge'
 import { useAuth } from './auth'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             🇦🇺 English Practice
           </Link>
           <div className="flex items-center gap-3 text-sm">
+            <StreakBadge />
             <Link to="/fitness" className="font-semibold hover:underline">
               🏋️ Fitness
             </Link>

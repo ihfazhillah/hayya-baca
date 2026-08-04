@@ -1,11 +1,14 @@
 import { recordWeakpoints } from '../api'
 import type { AttemptScore } from '../scoring'
+import { pingStreakOncePerDay } from '../streak'
 import { analyzeAttempt } from './analyze'
 
 /** After a scored attempt, attribute per-word correctness to target phonemes and
  *  persist the deltas (Spec 066). Fire-and-forget — never blocks or breaks the
  *  scoring UX; errors (offline, etc.) are ignored. */
 export function recordAttempt(score: AttemptScore): Promise<void> {
+  // A scored attempt = practice today → bump the daily streak (once/day).
+  pingStreakOncePerDay()
   // Reference words are the 'correct'/'wrong' marks ('extra' = spoken-only).
   const ref = score.marks.filter((m) => m.kind !== 'extra')
   if (!ref.length) return Promise.resolve()

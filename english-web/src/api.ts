@@ -163,3 +163,17 @@ export const fetchWeakpoints = () =>
 export const recordWeakpoints = (
   deltas: { phoneme: string; pass: number; fail: number }[],
 ) => request<WeakPoint[]>('POST', '/api/english/weakpoints/record/', deltas)
+
+// ---------------------------------------------------------------------------
+// Daily streak (Spec 068)
+// ---------------------------------------------------------------------------
+export interface Streak {
+  current_streak: number
+  longest_streak: number
+  last_practice_date: string | null
+  practiced_today: boolean
+}
+
+export const fetchStreak = () => request<Streak>('GET', '/api/english/streak/')
+export const pingStreak = () =>
+  request<Streak>('POST', '/api/english/streak/ping/')
