@@ -117,6 +117,11 @@ export function Custom() {
         </button>
       )}
 
+      {rec.sttStatus === 'downloading' && (
+        <p className="mt-2 text-sm text-[#6C5CE7]">
+          ⏬ Mengunduh model suara (sekali saja)… {rec.sttProgress}%
+        </p>
+      )}
       {rec.transcript && (
         <p className="mt-3 italic text-gray-500">Terdengar: “{rec.transcript}”</p>
       )}

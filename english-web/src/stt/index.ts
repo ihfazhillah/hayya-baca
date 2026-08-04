@@ -1,0 +1,115 @@
+import { blobToPcm16k } from './audio'
+import { normalizeWords, pickBackend, type RawChunk, type Word } from './backend'
+import { SttFallback } from './errors'
+
+export type SttStatus = 'idle' | 'downloading' | 'ready' | 'error'
+export interface SttResult {
+  text: string
+  words: Word[]
+}
+
+export { SttFallback }
+
+function detectCaps() {
+  return {
+    webgpu: typeof navigator !== 'undefined' && 'gpu' in navigator,
+    wasm: typeof WebAssembly !== 'undefined',
+  }
+}
+
+type Pending = {
+  resolve: (r: { text: string; chunks: RawChunk[] }) => void
+  reject: (e: unknown) => void
+}
+
+/** Singleton that owns the Whisper worker and exposes a simple transcribe API
+ *  with progress + graceful fallback (throws SttFallback when unusable). */
+class SttManager {
+  status: SttStatus = 'idle'
+  progress = 0
+  readonly backend = pickBackend(detectCaps())
+
+  private worker: Worker | null = null
+  private seq = 0
+  private pending = new Map<number, Pending>()
+  private listeners = new Set<() => void>()
+
+  /** True when a device backend is usable (else callers should use the server). */
+  get available(): boolean {
+    return this.backend !== 'server'
+  }
+
+  subscribe(fn: () => void): () => void {
+    this.listeners.add(fn)
+    return () => this.listeners.delete(fn)
+  }
+
+  private emit(status?: SttStatus, progress?: number) {
+    if (status) this.status = status
+    if (progress !== undefined) this.progress = progress
+    this.listeners.forEach((fn) => fn())
+  }
+
+  private ensureWorker(): Worker {
+    if (!this.worker) {
+      this.worker = new Worker(new URL('./whisperWorker.ts', import.meta.url), {
+        type: 'module',
+      })
+      this.worker.onmessage = (e) => this.onMessage(e.data)
+      this.worker.onerror = () => this.failAll('worker error')
+      if (this.status === 'idle') this.emit('downloading', 0)
+    }
+    return this.worker
+  }
+
+  private onMessage(msg: {
+    type: string
+    id?: number
+    text?: string
+    chunks?: RawChunk[]
+    message?: string
+    data?: { progress?: number; status?: string }
+  }) {
+    if (msg.type === 'progress') {
+      if (typeof msg.data?.progress === 'number') {
+        this.emit('downloading', Math.round(msg.data.progress))
+      }
+    } else if (msg.type === 'ready') {
+      this.emit('ready', 100)
+    } else if (msg.type === 'result' && msg.id != null) {
+      this.pending.get(msg.id)?.resolve({ text: msg.text ?? '', chunks: msg.chunks ?? [] })
+      this.pending.delete(msg.id)
+    } else if (msg.type === 'error' && msg.id != null) {
+      this.pending.get(msg.id)?.reject(new Error(msg.message ?? 'STT error'))
+      this.pending.delete(msg.id)
+    }
+  }
+
+  private failAll(reason: string) {
+    this.emit('error')
+    this.pending.forEach((p) => p.reject(new SttFallback(reason)))
+    this.pending.clear()
+    this.worker?.terminate()
+    this.worker = null
+  }
+
+  async transcribe(blob: Blob): Promise<SttResult> {
+    if (this.backend === 'server') {
+      throw new SttFallback('device STT tidak didukung')
+    }
+    const audio = await blobToPcm16k(blob) // throws SttFallback on decode failure
+
+    const worker = this.ensureWorker()
+    const id = ++this.seq
+    const raw = await new Promise<{ text: string; chunks: RawChunk[] }>(
+      (resolve, reject) => {
+        this.pending.set(id, { resolve, reject })
+        worker.postMessage({ id, audio, device: this.backend })
+      },
+    )
+    if (this.status !== 'ready') this.emit('ready', 100)
+    return { text: raw.text.trim(), words: normalizeWords(raw.chunks) }
+  }
+}
+
+export const stt = new SttManager()

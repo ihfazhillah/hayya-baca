@@ -9,6 +9,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getToken } from './api'
+import { stt, type SttStatus } from './stt'
+import type { Word } from './stt/backend'
 
 // ---------------------------------------------------------------------------
 // TTS
@@ -88,9 +90,14 @@ export interface EnglishRecorder {
   isRecording: boolean
   isTranscribing: boolean
   transcript: string
+  /** Per-word timestamps when device STT is used (empty on server fallback). */
+  words: Word[]
   error: string | null
+  /** 'idle' | 'downloading' | 'ready' | 'error' — device model load progress. */
+  sttStatus: SttStatus
+  sttProgress: number
   start: () => Promise<void>
-  /** Stop rekaman; transkrip terisi setelah server selesai memproses. */
+  /** Stop rekaman; transkrip terisi setelah transkripsi selesai. */
   stop: () => void
   reset: () => void
 }
@@ -105,7 +112,20 @@ export function useEnglishRecorder(): EnglishRecorder {
   const [isRecording, setIsRecording] = useState(false)
   const [isTranscribing, setIsTranscribing] = useState(false)
   const [transcript, setTranscript] = useState('')
+  const [words, setWords] = useState<Word[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [sttStatus, setSttStatus] = useState<SttStatus>('idle')
+  const [sttProgress, setSttProgress] = useState(0)
+
+  // Mirror the device-STT model status (download progress etc.) for the UI.
+  useEffect(
+    () =>
+      stt.subscribe(() => {
+        setSttStatus(stt.status)
+        setSttProgress(stt.progress)
+      }),
+    [],
+  )
 
   const recorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
@@ -122,27 +142,49 @@ export function useEnglishRecorder(): EnglishRecorder {
 
   useEffect(() => cleanupStream, [cleanupStream])
 
-  const upload = useCallback(async (blob: Blob) => {
-    setIsTranscribing(true)
-    try {
-      const form = new FormData()
-      const ext = blob.type.includes('mp4') ? 'mp4' : 'webm'
-      form.append('audio', blob, `speech.${ext}`)
-      const token = getToken()
-      const res = await fetch('/api/english/transcribe/', {
-        method: 'POST',
-        headers: token ? { Authorization: `Token ${token}` } : undefined,
-        body: form,
-      })
-      const data = (await res.json()) as { transcript?: string; detail?: string }
-      if (!res.ok) throw new Error(data.detail ?? `API error ${res.status}`)
-      setTranscript(data.transcript ?? '')
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Gagal transkripsi')
-    } finally {
-      setIsTranscribing(false)
-    }
+  // Server STT (fallback): upload the clip to faster-whisper on Django.
+  const serverTranscribe = useCallback(async (blob: Blob): Promise<string> => {
+    const form = new FormData()
+    const ext = blob.type.includes('mp4') ? 'mp4' : 'webm'
+    form.append('audio', blob, `speech.${ext}`)
+    const token = getToken()
+    const res = await fetch('/api/english/transcribe/', {
+      method: 'POST',
+      headers: token ? { Authorization: `Token ${token}` } : undefined,
+      body: form,
+    })
+    const data = (await res.json()) as { transcript?: string; detail?: string }
+    if (!res.ok) throw new Error(data.detail ?? `API error ${res.status}`)
+    return data.transcript ?? ''
   }, [])
+
+  const upload = useCallback(
+    async (blob: Blob) => {
+      setIsTranscribing(true)
+      setError(null)
+      try {
+        // Prefer on-device Whisper; any failure (unsupported, decode, worker)
+        // falls back to the server so there is never a regression.
+        if (stt.available) {
+          try {
+            const r = await stt.transcribe(blob)
+            setTranscript(r.text)
+            setWords(r.words)
+            return
+          } catch {
+            /* fall through to server */
+          }
+        }
+        setTranscript(await serverTranscribe(blob))
+        setWords([])
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Gagal transkripsi')
+      } finally {
+        setIsTranscribing(false)
+      }
+    },
+    [serverTranscribe],
+  )
 
   const start = useCallback(async () => {
     if (!supported) {
@@ -182,6 +224,7 @@ export function useEnglishRecorder(): EnglishRecorder {
 
   const reset = useCallback(() => {
     setTranscript('')
+    setWords([])
     setError(null)
   }, [])
 
@@ -190,7 +233,10 @@ export function useEnglishRecorder(): EnglishRecorder {
     isRecording,
     isTranscribing,
     transcript,
+    words,
     error,
+    sttStatus,
+    sttProgress,
     start,
     stop,
     reset,
