@@ -62,10 +62,15 @@ self.onmessage = async (e: MessageEvent) => {
     const t = await getTranscriber(device)
     self.postMessage({ type: 'ready' })
 
-    // Single plain decode — reliable text. (Word timestamps caused truncation
-    // AND a hang, so they're dropped for now; Salis degrades gracefully.)
+    // Official transformers.js long-form config: processes the WHOLE audio
+    // (chunk + stride) and handles timestamp tokens correctly — a plain decode
+    // was stopping generation after ~1 word.
     const t0 = performance.now()
-    const base = await t(audio)
+    const base = await t(audio, {
+      chunk_length_s: 30,
+      stride_length_s: 5,
+      return_timestamps: true,
+    })
     const single = Array.isArray(base) ? base[0] : base
     const text = (single.text ?? '').trim()
     const t1 = performance.now()
@@ -74,11 +79,12 @@ self.onmessage = async (e: MessageEvent) => {
       type: 'result',
       id,
       text,
-      chunks: [],
+      chunks: [], // segment-level timestamps; word-timing skipped for now
       meta: {
         device,
         pass1_ms: Math.round(t1 - t0),
         audio_samples: audio.length,
+        segments: Array.isArray(single.chunks) ? single.chunks.length : 0,
       },
     })
   } catch (err) {
