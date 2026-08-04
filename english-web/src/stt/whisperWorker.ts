@@ -40,17 +40,25 @@ self.onmessage = async (e: MessageEvent) => {
   try {
     const t = await getTranscriber(device)
     self.postMessage({ type: 'ready' })
-    const out = await t(audio, {
-      return_timestamps: 'word',
-      chunk_length_s: 30,
-    })
-    const single = Array.isArray(out) ? out[0] : out
-    self.postMessage({
-      type: 'result',
-      id,
-      text: single.text,
-      chunks: single.chunks ?? [],
-    })
+
+    // Pass 1 — reliable transcript. Plain decode (no timestamps) avoids the
+    // word-timestamp path that can truncate output to the first word.
+    const base = await t(audio)
+    const text = ((Array.isArray(base) ? base[0] : base).text ?? '').trim()
+
+    // Pass 2 — best-effort word timestamps for Salis/pause. Never affects the
+    // transcript: if word output is missing or looks truncated, drop it.
+    let chunks: { text: string; timestamp: [number | null, number | null] }[] = []
+    try {
+      const w = await t(audio, { return_timestamps: 'word' })
+      const wc = (Array.isArray(w) ? w[0] : w).chunks ?? []
+      const words = text ? text.split(/\s+/).length : 0
+      if (wc.length >= Math.max(2, words * 0.6)) chunks = wc
+    } catch {
+      /* keep reliable text, no word timing */
+    }
+
+    self.postMessage({ type: 'result', id, text, chunks })
   } catch (err) {
     self.postMessage({
       type: 'error',
