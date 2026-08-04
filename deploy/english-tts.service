@@ -16,6 +16,11 @@ User=ihfazh
 Group=ihfazh
 WorkingDirectory=/home/ihfazh/hayyabaca/backend
 EnvironmentFile=/home/ihfazh/hayyabaca/backend/.env
+# NLTK (a MeloTTS dep) refuses to import `regex` while the CWD is on sys.path
+# (CVE-2024-39705 shim). PYTHONSAFEPATH drops the CWD; PYTHONPATH re-adds the
+# project dir explicitly so `config`/`english` still import.
+Environment=PYTHONSAFEPATH=1
+Environment=PYTHONPATH=/home/ihfazh/hayyabaca/backend
 ExecStart=/home/ihfazh/hayyabaca/backend/.venv-melo/bin/python manage.py generate_pending_audio --loop
 Restart=always
 RestartSec=5
