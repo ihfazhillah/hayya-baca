@@ -39,15 +39,21 @@ class SttManager {
   private pending = new Map<number, Pending>()
   private listeners = new Set<() => void>()
 
+  /** On-device Whisper is disabled: on this stack WebGPU emits numeric garbage
+   *  and WASM can't load the quantized model, while the server transcribes the
+   *  whole audio correctly in ~1-2s. All the device code is kept for an easy
+   *  re-enable once transformers.js / ONNX Runtime improve. (Spec 065) */
+  private static readonly DEVICE_ENABLED = false
+
   /** True when a device backend is usable (else callers should use the server). */
   get available(): boolean {
-    return this.backend !== 'server'
+    return SttManager.DEVICE_ENABLED && this.backend !== 'server'
   }
 
   /** Preload + compile the model early (fire-and-forget) so the first real
    *  transcription isn't a cold ~20s start. Safe to call repeatedly. */
   warm(): void {
-    if (this.backend === 'server') return
+    if (!this.available) return
     const worker = this.ensureWorker()
     worker.postMessage({ type: 'warm', device: this.backend })
   }
