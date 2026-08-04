@@ -25,6 +25,10 @@ FILES=(
   "onnx/decoder_model_merged_quantized.onnx"
   "onnx/encoder_model_fp16.onnx"
   "onnx/decoder_model_merged_fp16.onnx"
+  # q4 decoder — stable on WebGPU (fp16 decoder truncates). Paired with fp16
+  # encoder (WebGPU) or q8 encoder (WASM). See whisperWorker.ts dtype.
+  "onnx/encoder_model_q4.onnx"
+  "onnx/decoder_model_merged_q4.onnx"
 )
 
 echo "==> Downloading ${REPO} → ${DEST}"

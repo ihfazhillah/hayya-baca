@@ -23,7 +23,12 @@ async function getTranscriber(device: Device) {
       'whisper-base.en',
       {
         device,
-        dtype: device === 'webgpu' ? 'fp16' : 'q8',
+        // fp16 decoder truncates on WebGPU; the stable combo (per the official
+        // transformers.js whisper-webgpu demo) is fp16 encoder + q4 decoder.
+        dtype:
+          device === 'webgpu'
+            ? { encoder_model: 'fp16', decoder_model_merged: 'q4' }
+            : { encoder_model: 'q8', decoder_model_merged: 'q4' },
         progress_callback: (p) => self.postMessage({ type: 'progress', data: p }),
       },
     )
