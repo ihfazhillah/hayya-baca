@@ -177,3 +177,23 @@ export interface Streak {
 export const fetchStreak = () => request<Streak>('GET', '/api/english/streak/')
 export const pingStreak = () =>
   request<Streak>('POST', '/api/english/streak/ping/')
+
+// ---------------------------------------------------------------------------
+// Latihan Baca Kata (Spec 069)
+// ---------------------------------------------------------------------------
+export interface WordPractice {
+  word: string
+  fail_count: number
+  pass_streak: number
+  status: 'tracking' | 'active' | 'cleared'
+  manual: boolean
+}
+
+export const fetchWords = () =>
+  request<WordPractice[]>('GET', '/api/english/words/')
+export const recordWords = (deltas: { word: string; fail?: number; pass?: number }[]) =>
+  request<WordPractice[]>('POST', '/api/english/words/record/', deltas)
+export const addWord = (word: string) =>
+  request<WordPractice>('POST', '/api/english/words/add/', { word })
+export const removeWord = (word: string) =>
+  request<void>('POST', '/api/english/words/remove/', { word })

@@ -4,6 +4,7 @@ import { Custom } from './pages/Custom'
 import { LessonPlayer } from './pages/LessonPlayer'
 import { CreateLesson } from './pages/CreateLesson'
 import { Fitness } from './pages/Fitness'
+import { WordPractice } from './pages/WordPractice'
 import { Login } from './pages/Login'
 import { StreakBadge } from './components/StreakBadge'
 import { useAuth } from './auth'
@@ -22,6 +23,9 @@ export default function App() {
           </Link>
           <div className="flex items-center gap-3 text-sm">
             <StreakBadge />
+            <Link to="/words" className="font-semibold hover:underline">
+              🗣️ Kata
+            </Link>
             <Link to="/fitness" className="font-semibold hover:underline">
               🏋️ Fitness
             </Link>
@@ -45,6 +49,7 @@ export default function App() {
           <Route path="/custom" element={<Custom />} />
           <Route path="/create" element={<CreateLesson />} />
           <Route path="/fitness" element={<Fitness />} />
+          <Route path="/words" element={<WordPractice />} />
           <Route path="/lesson/:id" element={<LessonPlayer />} />
         </Routes>
       </main>
