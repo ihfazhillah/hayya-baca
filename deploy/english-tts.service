@@ -14,14 +14,15 @@ After=network.target postgresql.service
 [Service]
 User=ihfazh
 Group=ihfazh
-WorkingDirectory=/home/ihfazh/hayyabaca/backend
+# Neutral CWD on purpose: NLTK (a MeloTTS dep) blocks importing any module that
+# resolves INSIDE the current working directory (CVE-2024-39705 shim). Since the
+# 3.12/3.10 venv lives under backend/, running from backend/ makes every
+# site-package look "in-CWD" and breaks the import. Run from /tmp instead and
+# point at the project via absolute paths + PYTHONPATH.
+WorkingDirectory=/tmp
 EnvironmentFile=/home/ihfazh/hayyabaca/backend/.env
-# NLTK (a MeloTTS dep) refuses to import `regex` while the CWD is on sys.path
-# (CVE-2024-39705 shim). PYTHONSAFEPATH drops the CWD; PYTHONPATH re-adds the
-# project dir explicitly so `config`/`english` still import.
-Environment=PYTHONSAFEPATH=1
 Environment=PYTHONPATH=/home/ihfazh/hayyabaca/backend
-ExecStart=/home/ihfazh/hayyabaca/backend/.venv-melo/bin/python manage.py generate_pending_audio --loop
+ExecStart=/home/ihfazh/hayyabaca/backend/.venv-melo/bin/python /home/ihfazh/hayyabaca/backend/manage.py generate_pending_audio --loop
 Restart=always
 RestartSec=5
 

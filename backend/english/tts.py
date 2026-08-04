@@ -33,8 +33,8 @@ def _get_model():
                 from melo.api import TTS
             except ImportError as e:  # pragma: no cover - env-specific
                 raise TtsUnavailable(
-                    "MeloTTS belum terinstall. Worker harus jalan di venv "
-                    "Python 3.12 (.venv-melo), bukan venv backend 3.14."
+                    "Gagal import MeloTTS di worker venv (.venv-melo, Python "
+                    f"3.10). Penyebab: {e}"
                 ) from e
             model = TTS(language="EN", device="cpu")
             spk = model.hps.data.spk2id
