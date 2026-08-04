@@ -392,3 +392,67 @@ class StreakTest(TestCase):
         r = auth(self.a).get(self.status_url)
         self.assertEqual(r.json()["current_streak"], 0)
         self.assertFalse(r.json()["practiced_today"])
+
+
+class WordPracticeTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.b = User.objects.create_user("bob", password="pw")
+        self.list_url = reverse("english-words")
+        self.record_url = reverse("english-words-record")
+        self.add_url = reverse("english-words-add")
+        self.remove_url = reverse("english-words-remove")
+
+    def rec(self, client, word, *, fail=0, passes=0):
+        return client.post(
+            self.record_url,
+            [{"word": word, "fail": fail, "pass": passes}],
+            format="json",
+        )
+
+    def active(self, client):
+        return {w["word"] for w in client.get(self.list_url).json()}
+
+    def test_requires_auth(self):
+        self.assertEqual(APIClient().get(self.list_url).status_code, 401)
+        self.assertEqual(APIClient().post(self.add_url, {"word": "x"}, format="json").status_code, 401)
+
+    def test_activates_after_three_fails(self):
+        c = auth(self.a)
+        for _ in range(2):
+            self.rec(c, "Attribution", fail=1)
+        self.assertNotIn("attribution", self.active(c))
+        self.rec(c, "attribution", fail=1)
+        self.assertIn("attribution", self.active(c))  # normalized lowercase
+
+    def test_clears_after_three_passes(self):
+        c = auth(self.a)
+        for _ in range(3):
+            self.rec(c, "nuanced", fail=1)
+        for _ in range(3):
+            self.rec(c, "nuanced", passes=1)
+        self.assertNotIn("nuanced", self.active(c))
+
+    def test_manual_add_is_active_immediately(self):
+        c = auth(self.a)
+        r = c.post(self.add_url, {"word": "We're"}, format="json")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()["word"], "we're")  # keeps apostrophe
+        self.assertTrue(r.json()["manual"])
+        self.assertIn("we're", self.active(c))
+
+    def test_remove(self):
+        c = auth(self.a)
+        c.post(self.add_url, {"word": "issues"}, format="json")
+        c.post(self.remove_url, {"word": "issues"}, format="json")
+        self.assertNotIn("issues", self.active(c))
+
+    def test_empty_add_is_400(self):
+        r = auth(self.a).post(self.add_url, {"word": "  !! "}, format="json")
+        self.assertEqual(r.status_code, 400)
+
+    def test_owner_isolation(self):
+        c = auth(self.b)
+        c.post(self.add_url, {"word": "issues"}, format="json")
+        self.assertIn("issues", self.active(c))
+        self.assertNotIn("issues", self.active(auth(self.a)))

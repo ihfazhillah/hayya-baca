@@ -161,6 +161,42 @@ class EnglishWeakPoint(models.Model):
         return f"{self.owner_id}:{self.phoneme} ({self.status})"
 
 
+class EnglishWordPractice(models.Model):
+    """A specific word/phrase the learner practices pronouncing (Spec 069).
+
+    Word-level counterpart to EnglishWeakPoint (phoneme-level): auto-collected
+    from mis-said words in shadowing, or added manually.
+    """
+
+    class Status(models.TextChoices):
+        TRACKING = "tracking", "Dipantau"
+        ACTIVE = "active", "Perlu latihan"
+        CLEARED = "cleared", "Lulus"
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="english_words",
+    )
+    word = models.CharField(max_length=64)  # lowercased; short phrases allowed
+    fail_count = models.PositiveIntegerField(default=0)
+    pass_streak = models.PositiveIntegerField(default=0)
+    total_attempts = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=10, choices=Status.choices, default=Status.TRACKING
+    )
+    manual = models.BooleanField(default=False)
+    first_seen = models.DateTimeField(auto_now_add=True)
+    last_seen = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = [("owner", "word")]
+        ordering = ["-fail_count", "word"]
+
+    def __str__(self):
+        return f"{self.owner_id}:{self.word} ({self.status})"
+
+
 class EnglishStreak(models.Model):
     """Per-user daily practice streak for the English module (Spec 068).
 

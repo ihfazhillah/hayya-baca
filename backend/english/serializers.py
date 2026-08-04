@@ -2,7 +2,13 @@ import re
 
 from rest_framework import serializers
 
-from .models import EnglishLesson, EnglishSegment, EnglishStreak, EnglishWeakPoint
+from .models import (
+    EnglishLesson,
+    EnglishSegment,
+    EnglishStreak,
+    EnglishWeakPoint,
+    EnglishWordPractice,
+)
 from .signing import sign_segment
 
 MAX_TEXT_CHARS = 5000
@@ -134,3 +140,9 @@ class EnglishStreakSerializer(serializers.ModelSerializer):
         from django.utils import timezone
 
         return obj.last_practice_date == timezone.localdate()
+
+
+class EnglishWordPracticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EnglishWordPractice
+        fields = ["word", "fail_count", "pass_streak", "status", "manual"]

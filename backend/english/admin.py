@@ -6,7 +6,15 @@ from .models import (
     EnglishSegment,
     EnglishStreak,
     EnglishWeakPoint,
+    EnglishWordPractice,
 )
+
+
+@admin.register(EnglishWordPractice)
+class EnglishWordPracticeAdmin(admin.ModelAdmin):
+    list_display = ("owner", "word", "status", "fail_count", "pass_streak", "manual")
+    list_filter = ("status", "manual")
+    search_fields = ("owner__username", "word")
 
 
 @admin.register(EnglishStreak)

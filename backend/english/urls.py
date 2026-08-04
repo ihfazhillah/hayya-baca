@@ -24,6 +24,18 @@ urlpatterns = router.urls + [
         name="english-weakpoints-record",
     ),
     path("english/events/", views.EventIngestView.as_view(), name="english-events"),
+    path("english/words/", views.WordListView.as_view(), name="english-words"),
+    path(
+        "english/words/record/",
+        views.WordRecordView.as_view(),
+        name="english-words-record",
+    ),
+    path("english/words/add/", views.WordAddView.as_view(), name="english-words-add"),
+    path(
+        "english/words/remove/",
+        views.WordRemoveView.as_view(),
+        name="english-words-remove",
+    ),
     path("english/streak/", views.StreakView.as_view(), name="english-streak"),
     path(
         "english/streak/ping/",

@@ -15,7 +15,13 @@ from rest_framework.views import APIView
 from django.db import transaction
 from django.utils import timezone
 
-from .models import EnglishLesson, EnglishSegment, EnglishStreak, EnglishWeakPoint
+from .models import (
+    EnglishLesson,
+    EnglishSegment,
+    EnglishStreak,
+    EnglishWeakPoint,
+    EnglishWordPractice,
+)
 from .signing import unsign_segment
 from .transcribe import SttUnavailable, transcribe_bytes
 from .serializers import (
@@ -25,6 +31,7 @@ from .serializers import (
     EnglishLessonUpdateSerializer,
     EnglishStreakSerializer,
     EnglishWeakPointSerializer,
+    EnglishWordPracticeSerializer,
 )
 
 # Fitness Lidah thresholds (Spec 066): a sound enters the drill queue after
@@ -258,4 +265,105 @@ class EventIngestView(APIView):
             _event_logger.info(json.dumps(data, default=str)[:6000])
         except Exception:
             pass
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# --- Latihan Baca Kata (Spec 069) ------------------------------------------
+import re as _re
+
+
+def _norm_word(w) -> str:
+    """Lowercase, keep letters/digits/apostrophe/space (contractions, phrases)."""
+    return _re.sub(r"[^a-z0-9' ]", "", str(w).lower()).strip()[:64]
+
+
+class WordListView(APIView):
+    """GET → the caller's ACTIVE practice words."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        qs = EnglishWordPractice.objects.filter(
+            owner=request.user, status=EnglishWordPractice.Status.ACTIVE
+        )
+        return Response(EnglishWordPracticeSerializer(qs, many=True).data)
+
+
+class WordRecordView(APIView):
+    """POST [{word, fail, pass}] → apply deltas + thresholds (auto-collect)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        deltas = request.data
+        if not isinstance(deltas, list):
+            return Response(
+                {"detail": "Body harus berupa list delta"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        S = EnglishWordPractice.Status
+        updated = []
+        with transaction.atomic():
+            for d in deltas:
+                if not isinstance(d, dict):
+                    continue
+                word = _norm_word(d.get("word", ""))
+                if not word:
+                    continue
+                try:
+                    fail = max(0, int(d.get("fail", 0) or 0))
+                    passes = max(0, int(d.get("pass", 0) or 0))
+                except (TypeError, ValueError):
+                    continue
+                if fail == 0 and passes == 0:
+                    continue
+                wp, _ = EnglishWordPractice.objects.get_or_create(
+                    owner=request.user, word=word
+                )
+                if fail > 0:
+                    wp.fail_count += fail
+                    wp.pass_streak = 0
+                elif passes > 0:
+                    wp.pass_streak += passes
+                wp.total_attempts += 1
+                if wp.fail_count >= WEAKPOINT_ACTIVATE_N:
+                    wp.status = S.ACTIVE
+                if wp.status == S.ACTIVE and wp.pass_streak >= WEAKPOINT_CLEAR_M:
+                    wp.status = S.CLEARED
+                    wp.fail_count = 0
+                    wp.pass_streak = 0
+                wp.save()
+                updated.append(wp)
+        return Response(EnglishWordPracticeSerializer(updated, many=True).data)
+
+
+class WordAddView(APIView):
+    """POST {word} → add a word to practice manually (ACTIVE)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        word = _norm_word(request.data.get("word", ""))
+        if not word:
+            return Response(
+                {"detail": "Kata tidak boleh kosong"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        wp, _ = EnglishWordPractice.objects.get_or_create(
+            owner=request.user, word=word
+        )
+        wp.manual = True
+        wp.status = EnglishWordPractice.Status.ACTIVE
+        wp.save()
+        return Response(EnglishWordPracticeSerializer(wp).data)
+
+
+class WordRemoveView(APIView):
+    """POST {word} → remove a practice word."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        word = _norm_word(request.data.get("word", ""))
+        EnglishWordPractice.objects.filter(owner=request.user, word=word).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
