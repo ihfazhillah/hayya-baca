@@ -127,3 +127,6 @@ DIARY_USE_X_ACCEL = os.environ.get("DIARY_USE_X_ACCEL", "") == "1"
 DIARY_INTERNAL_MEDIA_LOCATION = os.environ.get(
     "DIARY_INTERNAL_MEDIA_LOCATION", "/protected-media/"
 )
+
+# English segment audio (Spec 064): access-controlled via SegmentAudioView.
+ENGLISH_USE_X_ACCEL = os.environ.get("ENGLISH_USE_X_ACCEL", "") == "1"
