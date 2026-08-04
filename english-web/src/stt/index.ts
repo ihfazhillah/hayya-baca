@@ -131,6 +131,16 @@ class SttManager {
     audio: Float32Array,
     extra: Record<string, unknown>,
   ): Promise<SttResult> {
+    // Peak-normalize: quiet/trailing speech makes the small on-device model stop
+    // early. Boost so the whole utterance is audible (no clipping — target 0.95).
+    let peak = 0
+    for (let i = 0; i < audio.length; i++) {
+      const a = Math.abs(audio[i])
+      if (a > peak) peak = a
+    }
+    const gain = peak > 0.0001 && peak < 0.95 ? 0.95 / peak : 1
+    if (gain !== 1) for (let i = 0; i < audio.length; i++) audio[i] *= gain
+
     // Diagnostic: energy in the first vs second half (spot a silent/garbled tail).
     const rms = (s: number, e: number) => {
       let x = 0
@@ -171,6 +181,8 @@ class SttManager {
         pcm_dur_s: +(audio.length / 16000).toFixed(2),
         rms_head: rmsHead,
         rms_tail: rmsTail,
+        peak: +peak.toFixed(3),
+        gain: +gain.toFixed(2),
         ...extra,
         ...raw.meta,
       },
