@@ -12,9 +12,14 @@ class EnglishSegmentInline(admin.TabularInline):
 
 @admin.register(EnglishLesson)
 class EnglishLessonAdmin(admin.ModelAdmin):
-    list_display = ("title", "source", "level", "is_published", "published_at")
-    list_filter = ("source", "level", "is_published")
-    search_fields = ("title", "slug")
+    list_display = (
+        "title", "owner", "source", "level",
+        "is_public", "audio_status", "is_published",
+    )
+    list_filter = ("source", "level", "is_public", "audio_status", "is_published")
+    search_fields = ("title", "slug", "owner__username")
+    autocomplete_fields = ("owner",)
+    readonly_fields = ("audio_status", "error")
     prepopulated_fields = {"slug": ("title",)}
     inlines = [EnglishSegmentInline]
     actions = ["publish_lessons", "unpublish_lessons"]

@@ -1,0 +1,24 @@
+# MeloTTS worker for user-created English lessons (Spec 064).
+#
+# Runs under the SEPARATE Python 3.12 venv (.venv-melo) — MeloTTS does not
+# support the backend's Python 3.14. Shares the repo, Postgres and MEDIA_ROOT
+# with hayyabaca.service via the same EnvironmentFile (.env).
+#
+# Install:
+#   sudo cp deploy/english-tts.service /etc/systemd/system/english-tts.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now english-tts.service
+[Unit]
+Description=English Practice MeloTTS worker
+After=network.target postgresql.service
+
+[Service]
+User=ihfazh
+Group=ihfazh
+WorkingDirectory=/home/ihfazh/hayyabaca/backend
+EnvironmentFile=/home/ihfazh/hayyabaca/backend/.env
+ExecStart=/home/ihfazh/hayyabaca/backend/.venv-melo/bin/python manage.py generate_pending_audio --loop
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

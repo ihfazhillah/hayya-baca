@@ -1,13 +1,34 @@
+import secrets
+
+from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.utils.text import slugify
+
+
+class EnglishLessonQuerySet(models.QuerySet):
+    def visible_to(self, user):
+        """Lessons an authenticated user may see (Spec 064 visibility rule):
+
+        - their own lessons (any status — includes drafts/processing);
+        - anyone's public lessons that are ready;
+        - legacy admin lessons (no owner) that are published.
+        """
+        return self.filter(
+            Q(owner=user)
+            | Q(is_public=True, audio_status=EnglishLesson.Status.READY)
+            | Q(owner__isnull=True, is_published=True)
+        )
 
 
 class EnglishLesson(models.Model):
     """A listening/speaking practice lesson in Australian-accent English.
 
-    Audio is produced offline by tools/english-pipeline (MeloTTS EN-AU for
-    custom-text lessons, yt-dlp segment cuts for YouTube lessons) and
-    imported via `manage.py import_english_lesson <folder>`.
+    Two origins:
+    - Admin lessons imported offline by tools/english-pipeline via
+      `manage.py import_english_lesson` (owner=None, gated by is_published).
+    - User lessons created from english-web (owner set); their EN-AU audio is
+      generated server-side by the MeloTTS worker (audio_status lifecycle).
     """
 
     class Source(models.TextChoices):
@@ -19,6 +40,12 @@ class EnglishLesson(models.Model):
         INTERMEDIATE = "intermediate", "Menengah"
         ADVANCED = "advanced", "Lanjutan"
 
+    class Status(models.TextChoices):
+        PENDING = "pending", "Menunggu"
+        PROCESSING = "processing", "Diproses"
+        READY = "ready", "Siap"
+        FAILED = "failed", "Gagal"
+
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     source = models.CharField(max_length=10, choices=Source.choices)
@@ -27,19 +54,47 @@ class EnglishLesson(models.Model):
         max_length=15, choices=Level.choices, default=Level.BEGINNER
     )
 
-    # Publishing — same pattern as library.Book
+    # Ownership & visibility (Spec 064). owner=None → admin lesson.
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="english_lessons",
+    )
+    is_public = models.BooleanField(default=False)
+
+    # Server-side audio generation lifecycle (user lessons). Admin-imported
+    # lessons already ship audio → default READY.
+    audio_status = models.CharField(
+        max_length=12, choices=Status.choices, default=Status.READY
+    )
+    error = models.TextField(blank=True)
+
+    # Publishing — same pattern as library.Book (admin lessons).
     is_published = models.BooleanField(default=False)
     published_at = models.DateTimeField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = EnglishLessonQuerySet.as_manager()
+
     class Meta:
         ordering = ["-created_at"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base = slugify(self.title) or "lesson"
+            slug = base
+            # Collision-safe: user lessons can repeat titles across accounts.
+            while (
+                EnglishLesson.objects.filter(slug=slug)
+                .exclude(pk=self.pk)
+                .exists()
+            ):
+                slug = f"{base}-{secrets.token_hex(3)}"
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -47,14 +102,18 @@ class EnglishLesson(models.Model):
 
 
 class EnglishSegment(models.Model):
-    """One practice unit (~a sentence): audio clip + reference text."""
+    """One practice unit (~a sentence): audio clip + reference text.
+
+    For user-created lessons the audio is empty until the MeloTTS worker fills
+    it in, so `audio` is blank-able.
+    """
 
     lesson = models.ForeignKey(
         EnglishLesson, on_delete=models.CASCADE, related_name="segments"
     )
     order = models.PositiveIntegerField()
     text = models.TextField()
-    audio = models.FileField(upload_to="english/segments/")
+    audio = models.FileField(upload_to="english/segments/", blank=True)
     duration_s = models.FloatField(default=0.0)
 
     class Meta:
