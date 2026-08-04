@@ -109,14 +109,29 @@ class SttManager {
     this.worker = null
   }
 
+  /** Transcribe from a recorded Blob (decodes via Web Audio → 16k PCM). */
   async transcribe(blob: Blob): Promise<SttResult> {
     if (this.backend === 'server') {
       throw new SttFallback('device STT tidak didukung')
     }
     const audio = await blobToPcm16k(blob) // throws SttFallback on decode failure
+    return this.run(audio, { source: 'blob', blob_size: blob.size, blob_type: blob.type })
+  }
 
-    // Diagnostic: is the decoded PCM silent after the first bit? (webm decode
-    // corruption would leave the tail near-zero → whisper only sees the start.)
+  /** Transcribe from clean 16 kHz mono PCM captured directly (no webm decode).
+   *  Preferred path — avoids MediaRecorder→decodeAudioData corruption. */
+  async transcribePcm(audio: Float32Array): Promise<SttResult> {
+    if (this.backend === 'server') {
+      throw new SttFallback('device STT tidak didukung')
+    }
+    return this.run(audio, { source: 'pcm' })
+  }
+
+  private async run(
+    audio: Float32Array,
+    extra: Record<string, unknown>,
+  ): Promise<SttResult> {
+    // Diagnostic: energy in the first vs second half (spot a silent/garbled tail).
     const rms = (s: number, e: number) => {
       let x = 0
       for (let i = s; i < e; i++) x += audio[i] * audio[i]
@@ -134,8 +149,6 @@ class SttManager {
       meta: Record<string, unknown>
     }>((resolve, reject) => {
       // A hung model call must never freeze the UI — time out → server fallback.
-      // Generous: the FIRST inference includes WebGPU shader compilation (cold
-      // start can take ~15-25s); warm calls are ~1-2s.
       const timer = setTimeout(() => {
         if (this.pending.delete(id)) {
           reject(new SttFallback('device STT timeout'))
@@ -154,12 +167,11 @@ class SttManager {
       words: normalizeWords(raw.chunks),
       meta: {
         backend: this.backend,
-        blob_size: blob.size,
-        blob_type: blob.type,
         pcm_samples: audio.length,
         pcm_dur_s: +(audio.length / 16000).toFixed(2),
         rms_head: rmsHead,
         rms_tail: rmsTail,
+        ...extra,
         ...raw.meta,
       },
     }

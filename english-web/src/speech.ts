@@ -138,6 +138,13 @@ export function useEnglishRecorder(): EnglishRecorder {
   const timerRef = useRef<number | null>(null)
   const contextRef = useRef<Record<string, unknown>>({})
   const startedAtRef = useRef<number>(0)
+  // Clean-PCM capture via Web Audio (device STT), parallel to MediaRecorder
+  // (server fallback). Avoids MediaRecorder→decodeAudioData corruption.
+  const audioCtxRef = useRef<AudioContext | null>(null)
+  const procRef = useRef<ScriptProcessorNode | null>(null)
+  const srcNodeRef = useRef<MediaStreamAudioSourceNode | null>(null)
+  const pcmChunksRef = useRef<Float32Array[]>([])
+  const pcmRateRef = useRef<number>(0)
 
   // Pages attach what's being practiced (lesson/segment/target/mode) so the
   // wide event captures the full picture (Spec 065 debug).
@@ -148,9 +155,51 @@ export function useEnglishRecorder(): EnglishRecorder {
   const cleanupStream = useCallback(() => {
     recorderRef.current?.stream.getTracks().forEach((t) => t.stop())
     recorderRef.current = null
+    try {
+      procRef.current?.disconnect()
+      srcNodeRef.current?.disconnect()
+      void audioCtxRef.current?.close()
+    } catch {
+      /* ignore */
+    }
+    procRef.current = null
+    srcNodeRef.current = null
+    audioCtxRef.current = null
     if (timerRef.current !== null) {
       window.clearTimeout(timerRef.current)
       timerRef.current = null
+    }
+  }, [])
+
+  // Concatenate captured PCM chunks and resample to 16 kHz mono (clean — no
+  // webm decode). Returns null if nothing was captured.
+  const finalizePcm = useCallback(async (): Promise<Float32Array | null> => {
+    const chunks = pcmChunksRef.current
+    const rate = pcmRateRef.current
+    pcmChunksRef.current = []
+    if (!chunks.length || !rate) return null
+    let total = 0
+    for (const c of chunks) total += c.length
+    const full = new Float32Array(total)
+    let off = 0
+    for (const c of chunks) {
+      full.set(c, off)
+      off += c.length
+    }
+    if (rate === 16000) return full
+    try {
+      const frames = Math.max(1, Math.round((full.length / rate) * 16000))
+      const octx = new OfflineAudioContext(1, frames, 16000)
+      const buf = octx.createBuffer(1, full.length, rate)
+      buf.copyToChannel(full, 0)
+      const s = octx.createBufferSource()
+      s.buffer = buf
+      s.connect(octx.destination)
+      s.start()
+      const rendered = await octx.startRendering()
+      return rendered.getChannelData(0).slice()
+    } catch {
+      return null
     }
   }, [])
 
@@ -173,7 +222,7 @@ export function useEnglishRecorder(): EnglishRecorder {
   }, [])
 
   const upload = useCallback(
-    async (blob: Blob) => {
+    async (blob: Blob, pcm?: Float32Array | null) => {
       setIsTranscribing(true)
       setError(null)
       const ev: Record<string, unknown> = {
@@ -182,6 +231,7 @@ export function useEnglishRecorder(): EnglishRecorder {
           ? Math.round(performance.now() - startedAtRef.current)
           : null,
         device_available: stt.available,
+        pcm_capture: !!pcm,
         caps: {
           gpu: typeof navigator !== 'undefined' && 'gpu' in navigator,
           coi:
@@ -196,7 +246,10 @@ export function useEnglishRecorder(): EnglishRecorder {
         // falls back to the server so there is never a regression.
         if (stt.available) {
           try {
-            const r = await stt.transcribe(blob)
+            // Prefer clean captured PCM; fall back to decoding the webm blob.
+            const r = pcm
+              ? await stt.transcribePcm(pcm)
+              : await stt.transcribe(blob)
             const tw = r.text ? r.text.trim().split(/\s+/).length : 0
             const targetWords = Number(contextRef.current.target_words) || 0
             // Guard the known device bug: a truncated transcript (e.g. "First"
@@ -254,6 +307,37 @@ export function useEnglishRecorder(): EnglishRecorder {
     startedAtRef.current = performance.now()
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+
+      // Clean-PCM capture (device STT) alongside MediaRecorder (server fallback).
+      try {
+        const AC =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext?: typeof AudioContext })
+            .webkitAudioContext
+        if (AC) {
+          const actx = new AC()
+          audioCtxRef.current = actx
+          pcmChunksRef.current = []
+          pcmRateRef.current = actx.sampleRate
+          const src = actx.createMediaStreamSource(stream)
+          const proc = actx.createScriptProcessor(4096, 1, 1)
+          proc.onaudioprocess = (e) => {
+            pcmChunksRef.current.push(
+              new Float32Array(e.inputBuffer.getChannelData(0)),
+            )
+          }
+          const gain = actx.createGain()
+          gain.gain.value = 0 // silent — avoid mic feedback to speakers
+          src.connect(proc)
+          proc.connect(gain)
+          gain.connect(actx.destination)
+          srcNodeRef.current = src
+          procRef.current = proc
+        }
+      } catch {
+        /* PCM capture optional; MediaRecorder still feeds the server fallback */
+      }
+
       const mime = pickMimeType()
       const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined)
       chunksRef.current = []
@@ -265,14 +349,19 @@ export function useEnglishRecorder(): EnglishRecorder {
         const blob = new Blob(chunksRef.current, {
           type: rec.mimeType || 'audio/webm',
         })
-        cleanupStream()
-        if (blob.size > 0) {
-          setLastRecordingUrl((prev) => {
-            if (prev) URL.revokeObjectURL(prev)
-            return URL.createObjectURL(blob)
-          })
-          void upload(blob)
-        }
+        // Finalize clean PCM before tearing down the audio graph.
+        void finalizePcm().then((pcm) => {
+          cleanupStream()
+          if (blob.size > 0 || pcm) {
+            if (blob.size > 0) {
+              setLastRecordingUrl((prev) => {
+                if (prev) URL.revokeObjectURL(prev)
+                return URL.createObjectURL(blob)
+              })
+            }
+            void upload(blob, pcm)
+          }
+        })
       }
       recorderRef.current = rec
       rec.start()
@@ -281,7 +370,7 @@ export function useEnglishRecorder(): EnglishRecorder {
     } catch {
       setError('Izin mikrofon ditolak atau tidak tersedia.')
     }
-  }, [supported, upload, cleanupStream])
+  }, [supported, upload, cleanupStream, finalizePcm])
 
   const stop = useCallback(() => {
     recorderRef.current?.stop()
