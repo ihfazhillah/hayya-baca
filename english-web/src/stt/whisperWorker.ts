@@ -37,6 +37,22 @@ async function getTranscriber(device: Device) {
 }
 
 self.onmessage = async (e: MessageEvent) => {
+  // Warm-up: load + compile the model (1s of silence triggers WebGPU shader
+  // compilation) so the first real transcription is fast, not a cold ~20s.
+  if (e.data?.type === 'warm') {
+    try {
+      const t = await getTranscriber(e.data.device as Device)
+      await t(new Float32Array(16000))
+      self.postMessage({ type: 'ready' })
+    } catch (err) {
+      self.postMessage({
+        type: 'warm_error',
+        message: err instanceof Error ? err.message : String(err),
+      })
+    }
+    return
+  }
+
   const { id, audio, device } = e.data as {
     id: number
     audio: Float32Array

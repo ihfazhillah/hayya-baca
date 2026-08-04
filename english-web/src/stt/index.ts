@@ -44,6 +44,14 @@ class SttManager {
     return this.backend !== 'server'
   }
 
+  /** Preload + compile the model early (fire-and-forget) so the first real
+   *  transcription isn't a cold ~20s start. Safe to call repeatedly. */
+  warm(): void {
+    if (this.backend === 'server') return
+    const worker = this.ensureWorker()
+    worker.postMessage({ type: 'warm', device: this.backend })
+  }
+
   subscribe(fn: () => void): () => void {
     this.listeners.add(fn)
     return () => this.listeners.delete(fn)
@@ -115,11 +123,13 @@ class SttManager {
       meta: Record<string, unknown>
     }>((resolve, reject) => {
       // A hung model call must never freeze the UI — time out → server fallback.
+      // Generous: the FIRST inference includes WebGPU shader compilation (cold
+      // start can take ~15-25s); warm calls are ~1-2s.
       const timer = setTimeout(() => {
         if (this.pending.delete(id)) {
           reject(new SttFallback('device STT timeout'))
         }
-      }, 20_000)
+      }, 45_000)
       const done = <T>(fn: (v: T) => void) => (v: T) => {
         clearTimeout(timer)
         fn(v)

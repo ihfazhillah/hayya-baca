@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { fetchLesson, type LessonDetail } from '../api'
 import { scoreAttempt, type AttemptScore } from '../scoring'
 import { useEnglishRecorder } from '../speech'
+import { stt } from '../stt'
 import { ScoreMarks } from '../components/ScoreMarks'
 import { SalisPanel } from '../components/SalisPanel'
 import { recordAttempt } from '../fitness/record'
@@ -26,6 +27,12 @@ export function LessonPlayer() {
   const [result, setResult] = useState<AttemptScore | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const rec = useEnglishRecorder()
+
+  // Warm the on-device model while the learner reads/plays the segment, so the
+  // first shadowing attempt isn't a cold start.
+  useEffect(() => {
+    stt.warm()
+  }, [])
 
   useEffect(() => {
     if (!id) return
