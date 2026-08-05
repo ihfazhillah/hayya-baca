@@ -146,6 +146,17 @@ export const patchLesson = (
 export const deleteLesson = (id: number) =>
   request<void>('DELETE', `/api/english/lessons/${id}/`)
 
+export interface LessonProgress {
+  done: number[]
+  last_index: number
+}
+export const fetchProgress = (id: string | number) =>
+  request<LessonProgress>('GET', `/api/english/lessons/${id}/progress/`)
+export const saveProgress = (
+  id: string | number,
+  body: { last_index?: number; done_order?: number },
+) => request<LessonProgress>('POST', `/api/english/lessons/${id}/progress/`, body)
+
 // ---------------------------------------------------------------------------
 // Fitness Lidah (Spec 066)
 // ---------------------------------------------------------------------------
