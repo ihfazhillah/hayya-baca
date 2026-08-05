@@ -2,12 +2,19 @@ from django.contrib import admin
 from django.utils import timezone
 
 from .models import (
+    EnglishDictEntry,
     EnglishLesson,
     EnglishSegment,
     EnglishStreak,
     EnglishWeakPoint,
     EnglishWordPractice,
 )
+
+
+@admin.register(EnglishDictEntry)
+class EnglishDictEntryAdmin(admin.ModelAdmin):
+    list_display = ("word", "ipa", "found", "fetched_at")
+    search_fields = ("word",)
 
 
 @admin.register(EnglishWordPractice)

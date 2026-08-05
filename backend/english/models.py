@@ -197,6 +197,22 @@ class EnglishWordPractice(models.Model):
         return f"{self.owner_id}:{self.word} ({self.status})"
 
 
+class EnglishDictEntry(models.Model):
+    """Cached dictionary lookup (IPA + native audio) for a word (Spec 069 v2).
+
+    Populated on demand from api.dictionaryapi.dev; shared across all users.
+    """
+
+    word = models.CharField(max_length=64, unique=True)
+    ipa = models.CharField(max_length=128, blank=True)
+    audio_url = models.URLField(max_length=500, blank=True)
+    found = models.BooleanField(default=False)
+    fetched_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.word} {self.ipa}"
+
+
 class EnglishStreak(models.Model):
     """Per-user daily practice streak for the English module (Spec 068).
 

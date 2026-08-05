@@ -31,6 +31,7 @@ urlpatterns = router.urls + [
         name="english-words-record",
     ),
     path("english/words/add/", views.WordAddView.as_view(), name="english-words-add"),
+    path("english/dict/", views.DictLookupView.as_view(), name="english-dict"),
     path(
         "english/words/remove/",
         views.WordRemoveView.as_view(),

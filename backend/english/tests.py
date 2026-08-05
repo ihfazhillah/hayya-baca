@@ -456,3 +456,25 @@ class WordPracticeTest(TestCase):
         c.post(self.add_url, {"word": "issues"}, format="json")
         self.assertIn("issues", self.active(c))
         self.assertNotIn("issues", self.active(auth(self.a)))
+
+
+class DictLookupTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.url = reverse("english-dict")
+
+    def test_requires_auth(self):
+        self.assertEqual(APIClient().get(self.url, {"word": "the"}).status_code, 401)
+
+    def test_empty_word_is_400(self):
+        self.assertEqual(auth(self.a).get(self.url, {"word": " !! "}).status_code, 400)
+
+    def test_lookup_fetches_then_caches(self):
+        fake = {"ipa": "/wɜːd/", "audio": "https://x/word.mp3", "found": True}
+        with mock.patch("english.views.fetch_dict", return_value=fake) as m:
+            r1 = auth(self.a).get(self.url, {"word": "Word"})
+            r2 = auth(self.a).get(self.url, {"word": "word"})
+        self.assertEqual(r1.status_code, 200)
+        self.assertEqual(r1.json(), {"word": "word", "ipa": "/wɜːd/", "audio": "https://x/word.mp3"})
+        self.assertEqual(r2.json()["ipa"], "/wɜːd/")
+        self.assertEqual(m.call_count, 1)  # second hit served from cache

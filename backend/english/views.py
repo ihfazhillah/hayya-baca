@@ -16,12 +16,14 @@ from django.db import transaction
 from django.utils import timezone
 
 from .models import (
+    EnglishDictEntry,
     EnglishLesson,
     EnglishSegment,
     EnglishStreak,
     EnglishWeakPoint,
     EnglishWordPractice,
 )
+from .dictionary import fetch_dict
 from .signing import unsign_segment
 from .transcribe import SttUnavailable, transcribe_bytes
 from .serializers import (
@@ -367,3 +369,31 @@ class WordRemoveView(APIView):
         word = _norm_word(request.data.get("word", ""))
         EnglishWordPractice.objects.filter(owner=request.user, word=word).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DictLookupView(APIView):
+    """GET ?word=X → {word, ipa, audio} (Spec 069 v2), cached in EnglishDictEntry."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        word = _norm_word(request.query_params.get("word", ""))
+        if not word:
+            return Response(
+                {"detail": "Parameter 'word' wajib"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        entry = EnglishDictEntry.objects.filter(word=word).first()
+        if entry is None:
+            res = fetch_dict(word)
+            entry, _ = EnglishDictEntry.objects.get_or_create(
+                word=word,
+                defaults={
+                    "ipa": res["ipa"],
+                    "audio_url": res["audio"],
+                    "found": res["found"],
+                },
+            )
+        return Response(
+            {"word": word, "ipa": entry.ipa, "audio": entry.audio_url}
+        )
