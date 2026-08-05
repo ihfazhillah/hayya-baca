@@ -275,6 +275,12 @@ function PracticePanel({
         </div>
       )}
 
+      {rec.transcript && (
+        <p className="mt-3 text-sm text-gray-500">
+          Terdengar: <span className="italic">“{rec.transcript}”</span>
+        </p>
+      )}
+
       {result && (
         <SalisPanel
           score={result}
