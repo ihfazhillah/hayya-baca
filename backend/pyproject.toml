@@ -9,6 +9,7 @@ dependencies = [
     "djangorestframework>=3.16.1",
     "drf-spectacular>=0.29.0",
     "pillow>=12.1.1",
+    "eng-to-ipa>=0.0.2",
 ]
 
 [dependency-groups]

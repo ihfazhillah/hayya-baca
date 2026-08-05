@@ -471,7 +471,7 @@ class DictLookupTest(TestCase):
 
     def test_lookup_fetches_then_caches(self):
         fake = {"ipa": "/wɜːd/", "audio": "https://x/word.mp3", "found": True}
-        with mock.patch("english.views.fetch_dict", return_value=fake) as m:
+        with mock.patch("english.views.dict_lookup", return_value=fake) as m:
             r1 = auth(self.a).get(self.url, {"word": "Word"})
             r2 = auth(self.a).get(self.url, {"word": "word"})
         self.assertEqual(r1.status_code, 200)

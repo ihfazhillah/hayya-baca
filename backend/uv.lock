@@ -66,6 +66,7 @@ dependencies = [
     { name = "django" },
     { name = "djangorestframework" },
     { name = "drf-spectacular" },
+    { name = "eng-to-ipa" },
     { name = "pillow" },
 ]
 
@@ -87,6 +88,7 @@ requires-dist = [
     { name = "django", specifier = ">=6.0.3" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "drf-spectacular", specifier = ">=0.29.0" },
+    { name = "eng-to-ipa", specifier = ">=0.0.2" },
     { name = "pillow", specifier = ">=12.1.1" },
 ]
 
@@ -195,6 +197,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/5e/0e/a4f50d83e76cbe797
 wheels = [
     { url = "https://files.pythonhosted.org/packages/32/d9/502c56fc3ca960075d00956283f1c44e8cafe433dada03f9ed2821f3073b/drf_spectacular-0.29.0-py3-none-any.whl", hash = "sha256:d1ee7c9535d89848affb4427347f7c4a22c5d22530b8842ef133d7b72e19b41a", size = 105433, upload-time = "2025-11-02T03:40:24.823Z" },
 ]
+
+[[package]]
+name = "eng-to-ipa"
+version = "0.0.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/62/3d/8656290e2d537ef66e984a04e903d1a0028ea01524e9dd89e45bb165bc7b/eng_to_ipa-0.0.2.tar.gz", hash = "sha256:0e4fac8370b0ffeaf696193e971b3ff9bd3762e4d153c6d0d280147887e008b1", size = 2808070, upload-time = "2020-04-17T05:02:07.852Z" }
 
 [[package]]
 name = "faster-whisper"

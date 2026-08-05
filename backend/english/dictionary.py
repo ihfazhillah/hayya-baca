@@ -12,6 +12,25 @@ import urllib.request
 API = "https://api.dictionaryapi.dev/api/v2/entries/en/{}"
 
 
+def local_ipa(word: str) -> str:
+    """IPA from CMUdict (eng_to_ipa) — offline, covers inflections/rare words.
+    Returns '' when the word is unknown (eng_to_ipa marks it with '*')."""
+    try:
+        import eng_to_ipa
+
+        out = eng_to_ipa.convert(word)
+    except Exception:
+        return ""
+    return "" if not out or "*" in out else out.strip()
+
+
+def lookup(word: str) -> dict:
+    """IPA (local, reliable) + native audio (external, best-effort)."""
+    ext = fetch_dict(word)
+    ipa = local_ipa(word) or ext["ipa"]
+    return {"ipa": ipa, "audio": ext["audio"], "found": bool(ipa or ext["audio"])}
+
+
 def fetch_dict(word: str) -> dict:
     """Return {ipa, audio, found} for `word` from the external API (best-effort)."""
     try:

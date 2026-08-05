@@ -23,7 +23,7 @@ from .models import (
     EnglishWeakPoint,
     EnglishWordPractice,
 )
-from .dictionary import fetch_dict
+from .dictionary import lookup as dict_lookup
 from .signing import unsign_segment
 from .transcribe import SttUnavailable, transcribe_bytes
 from .serializers import (
@@ -385,7 +385,7 @@ class DictLookupView(APIView):
             )
         entry = EnglishDictEntry.objects.filter(word=word).first()
         if entry is None:
-            res = fetch_dict(word)
+            res = dict_lookup(word)
             entry, _ = EnglishDictEntry.objects.get_or_create(
                 word=word,
                 defaults={
