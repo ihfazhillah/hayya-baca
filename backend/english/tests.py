@@ -478,3 +478,37 @@ class DictLookupTest(TestCase):
         self.assertEqual(r1.json(), {"word": "word", "ipa": "/wɜːd/", "audio": "https://x/word.mp3"})
         self.assertEqual(r2.json()["ipa"], "/wɜːd/")
         self.assertEqual(m.call_count, 1)  # second hit served from cache
+
+
+class LessonProgressTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.b = User.objects.create_user("bob", password="pw")
+        self.pub = make_lesson(title="Pub", is_published=True)  # visible to all
+        self.a_priv = make_lesson(title="APriv", owner=self.a, audio_status="ready")
+
+    def url(self, lesson):
+        return reverse("english-lesson-progress", args=[lesson.id])
+
+    def test_requires_auth(self):
+        self.assertEqual(APIClient().get(self.url(self.pub)).status_code, 401)
+
+    def test_default_empty(self):
+        r = auth(self.a).get(self.url(self.pub))
+        self.assertEqual(r.json(), {"done": [], "last_index": 0})
+
+    def test_post_upserts(self):
+        c = auth(self.a)
+        c.post(self.url(self.pub), {"last_index": 3, "done_order": 2}, format="json")
+        c.post(self.url(self.pub), {"done_order": 5}, format="json")
+        r = c.get(self.url(self.pub)).json()
+        self.assertEqual(r["last_index"], 3)
+        self.assertEqual(r["done"], [2, 5])
+
+    def test_hidden_lesson_is_404(self):
+        # bob can't see alice's private lesson → progress 404
+        self.assertEqual(auth(self.b).get(self.url(self.a_priv)).status_code, 404)
+
+    def test_owner_isolation(self):
+        auth(self.a).post(self.url(self.pub), {"last_index": 4}, format="json")
+        self.assertEqual(auth(self.b).get(self.url(self.pub)).json()["last_index"], 0)

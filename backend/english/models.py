@@ -197,6 +197,29 @@ class EnglishWordPractice(models.Model):
         return f"{self.owner_id}:{self.word} ({self.status})"
 
 
+class EnglishLessonProgress(models.Model):
+    """Per-user progress within a lesson (Spec 070): which sentences are
+    practiced + the last active position, so refresh/return resumes there."""
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="english_progress",
+    )
+    lesson = models.ForeignKey(
+        EnglishLesson, on_delete=models.CASCADE, related_name="progress"
+    )
+    done_orders = models.JSONField(default=list)  # segment orders practiced
+    last_index = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = [("owner", "lesson")]
+
+    def __str__(self):
+        return f"{self.owner_id}:{self.lesson_id} @{self.last_index}"
+
+
 class EnglishDictEntry(models.Model):
     """Cached dictionary lookup (IPA + native audio) for a word (Spec 069 v2).
 

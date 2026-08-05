@@ -4,11 +4,18 @@ from django.utils import timezone
 from .models import (
     EnglishDictEntry,
     EnglishLesson,
+    EnglishLessonProgress,
     EnglishSegment,
     EnglishStreak,
     EnglishWeakPoint,
     EnglishWordPractice,
 )
+
+
+@admin.register(EnglishLessonProgress)
+class EnglishLessonProgressAdmin(admin.ModelAdmin):
+    list_display = ("owner", "lesson", "last_index", "updated_at")
+    search_fields = ("owner__username", "lesson__title")
 
 
 @admin.register(EnglishDictEntry)

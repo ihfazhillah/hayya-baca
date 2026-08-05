@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
+from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -18,6 +19,7 @@ from django.utils import timezone
 from .models import (
     EnglishDictEntry,
     EnglishLesson,
+    EnglishLessonProgress,
     EnglishSegment,
     EnglishStreak,
     EnglishWeakPoint,
@@ -75,6 +77,25 @@ class EnglishLessonViewSet(viewsets.ModelViewSet):
         if self.action == "retrieve":
             return EnglishLessonDetailSerializer
         return EnglishLessonListSerializer
+
+    @action(detail=True, methods=["get", "post"])
+    def progress(self, request, pk=None):
+        """GET/POST per-user progress in this lesson (Spec 070). POST body:
+        {last_index?, done_order?} — upserts (adds done_order, sets last_index)."""
+        lesson = self.get_object()  # 404 if not visible to the caller
+        prog, _ = EnglishLessonProgress.objects.get_or_create(
+            owner=request.user, lesson=lesson
+        )
+        if request.method == "POST":
+            data = request.data if isinstance(request.data, dict) else {}
+            li = data.get("last_index")
+            if isinstance(li, int) and li >= 0:
+                prog.last_index = li
+            do = data.get("done_order")
+            if isinstance(do, int) and do >= 0:
+                prog.done_orders = sorted(set(prog.done_orders) | {do})
+            prog.save()
+        return Response({"done": prog.done_orders, "last_index": prog.last_index})
 
 
 class SegmentAudioView(APIView):
