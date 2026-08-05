@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import {
   addWord,
   fetchWords,
+  lookupWord,
   recordWords,
   removeWord,
   type WordPractice as WP,
@@ -11,7 +12,71 @@ import { speakAU, stopSpeaking, useEnglishRecorder } from '../speech'
 import { CONTRACTIONS } from '../words/contractions'
 import { ScoreMarks } from '../components/ScoreMarks'
 
-function WordDrill({ word, onPass }: { word: string; onPass: () => void }) {
+const playUrl = (url: string) => {
+  const a = new Audio(url)
+  void a.play()
+}
+
+function WordRow({
+  w,
+  onChange,
+}: {
+  w: WP
+  onChange: () => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [ipa, setIpa] = useState('')
+  const [audio, setAudio] = useState('')
+
+  useEffect(() => {
+    let alive = true
+    lookupWord(w.word)
+      .then((d) => {
+        if (!alive) return
+        setIpa(d.ipa)
+        setAudio(d.audio)
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [w.word])
+
+  return (
+    <li className="rounded-xl bg-white p-3 shadow-sm">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className="text-left"
+        >
+          <span className="text-lg font-semibold text-gray-800">{w.word}</span>
+          {ipa && <span className="ml-2 text-sm text-gray-400">{ipa}</span>}
+        </button>
+        <div className="flex items-center gap-2 text-xs text-gray-400">
+          <span>{w.pass_streak}/3 lulus</span>
+          <button
+            onClick={() => removeWord(w.word).then(onChange)}
+            className="rounded px-1.5 py-0.5 hover:text-red-500"
+            aria-label="Hapus"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      {open && <WordDrill word={w.word} nativeAudio={audio} onPass={onChange} />}
+    </li>
+  )
+}
+
+function WordDrill({
+  word,
+  nativeAudio,
+  onPass,
+}: {
+  word: string
+  nativeAudio?: string
+  onPass: () => void
+}) {
   const [result, setResult] = useState<AttemptScore | null>(null)
   const rec = useEnglishRecorder()
 
@@ -31,8 +96,16 @@ function WordDrill({ word, onPass }: { word: string; onPass: () => void }) {
           onClick={() => speakAU(word)}
           className="rounded-lg bg-[#6C5CE7] px-3 py-1.5 text-sm font-bold text-white"
         >
-          ▶️ Dengar
+          ▶️ TTS
         </button>
+        {nativeAudio && (
+          <button
+            onClick={() => playUrl(nativeAudio)}
+            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-bold text-white"
+          >
+            🔊 Asli
+          </button>
+        )}
         {!rec.isRecording ? (
           <button
             onClick={() => {
@@ -63,7 +136,6 @@ function WordDrill({ word, onPass }: { word: string; onPass: () => void }) {
 export function WordPractice() {
   const [words, setWords] = useState<WP[] | null>(null)
   const [input, setInput] = useState('')
-  const [open, setOpen] = useState<string | null>(null)
 
   const load = useCallback(() => {
     fetchWords()
@@ -79,11 +151,6 @@ export function WordPractice() {
     if (!w) return
     setInput('')
     await addWord(w).catch(() => {})
-    load()
-  }
-
-  const remove = async (w: string) => {
-    await removeWord(w).catch(() => {})
     load()
   }
 
@@ -117,27 +184,7 @@ export function WordPractice() {
 
       <ul className="space-y-2.5">
         {words?.map((w) => (
-          <li key={w.word} className="rounded-xl bg-white p-3 shadow-sm">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => setOpen(open === w.word ? null : w.word)}
-                className="text-left text-lg font-semibold text-gray-800"
-              >
-                {w.word}
-              </button>
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>{w.pass_streak}/3 lulus</span>
-                <button
-                  onClick={() => remove(w.word)}
-                  className="rounded px-1.5 py-0.5 text-gray-400 hover:text-red-500"
-                  aria-label="Hapus"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-            {open === w.word && <WordDrill word={w.word} onPass={load} />}
-          </li>
+          <WordRow key={w.word} w={w} onChange={load} />
         ))}
       </ul>
 

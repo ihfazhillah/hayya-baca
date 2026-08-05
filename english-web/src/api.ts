@@ -197,3 +197,11 @@ export const addWord = (word: string) =>
   request<WordPractice>('POST', '/api/english/words/add/', { word })
 export const removeWord = (word: string) =>
   request<void>('POST', '/api/english/words/remove/', { word })
+
+export interface DictInfo {
+  word: string
+  ipa: string
+  audio: string
+}
+export const lookupWord = (word: string) =>
+  request<DictInfo>('GET', `/api/english/dict/?word=${encodeURIComponent(word)}`)
