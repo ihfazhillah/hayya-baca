@@ -311,6 +311,20 @@ export function LessonPlayer() {
   const [active, setActive] = useState(0)
   const [done, setDone] = useState<Set<number>>(new Set())
   const [pop, setPop] = useState<PopState | null>(null)
+  const activeRef = useRef<HTMLLIElement | null>(null)
+  const didScroll = useRef(false)
+
+  // When the active sentence changes (Next / resume progress), keep it in view.
+  // Advancing collapses the previous PracticePanel, which shifts layout up and
+  // pushes the new sentence out of the viewport. Skip the very first render so
+  // opening a lesson doesn't scroll past the title.
+  useEffect(() => {
+    if (!didScroll.current) {
+      didScroll.current = true
+      return
+    }
+    activeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [active])
 
   useEffect(() => {
     if (!id) return
@@ -404,6 +418,7 @@ export function LessonPlayer() {
           return (
             <li
               key={seg.id}
+              ref={isActive ? activeRef : undefined}
               className={
                 'overflow-hidden rounded-2xl border bg-white shadow-sm ' +
                 (isActive ? 'border-[#6C5CE7]' : 'border-gray-100')
