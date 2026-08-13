@@ -16,8 +16,13 @@ gunicorn / worker MeloTTS.
 
 1. **Ke Django** — satu **DRF token** akun layanan (`ENGLISH_API_TOKEN`). Semua
    lesson dibuat atas nama akun itu.
-2. **Dari claude.ai ke server MCP** — static bearer (`MCP_BEARER_TOKEN`). Kalau
-   di-set, request tanpa `Authorization: Bearer <token>` ditolak 401.
+2. **Dari claude.ai ke server MCP** — dua cara:
+   - **Secret-URL** *(dipakai untuk claude.ai — kolom "Request headers" belum
+     tersedia di sana)*: server jalan authless, tapi secret ditaruh di **path**
+     (`MCP_PATH=/mcp/<hex-panjang>`). Hanya path itu yang dilayani; path lain
+     → 404. URL lengkapnya jadi kredensial — rahasiakan.
+   - **Header bearer** *(klien yang bisa kirim header)*: set `MCP_BEARER_TOKEN`;
+     request tanpa `Authorization: Bearer <token>` ditolak 401 (StaticTokenVerifier).
 
 ## Setup
 
@@ -53,17 +58,39 @@ ENGLISH_API_TOKEN=dummy uv run pytest -q
 
 Hermetik (backend difake dengan `httpx.MockTransport`), tak butuh backend hidup.
 
-## Deploy ke claude.ai (ringkasan)
+## Deploy ke claude.ai (Secret-URL)
 
-1. Jalankan server sebagai systemd service di host `ksatriamuslim`, bind lokal
-   (mis. `127.0.0.1:8130`), env dari `.env`.
-2. nginx: `location /mcp { proxy_pass http://127.0.0.1:8130; }` di site
-   `english.ihfazh.com` (TLS certbot yang sudah ada). Perlu proxy header +
-   dukung streaming (buffering off).
-3. claude.ai → Settings → Connectors → **Add custom connector** → URL
-   `https://english.ihfazh.com/mcp`. Advanced → **Request headers**:
-   `Authorization: Bearer <MCP_BEARER_TOKEN>`.
-   > Kolom Request headers masih **beta** di claude.ai; kalau belum ada di
-   > akunmu, alternatifnya OAuth 2.1 (belum diimplementasikan di sini).
+1. **Generate secret** (di server, sekali):
+   ```bash
+   python -c "import secrets; print(secrets.token_hex(24))"
+   ```
+2. **`.env`** di server (`tools/english-mcp/.env`, gitignored):
+   ```
+   ENGLISH_API_BASE=https://english.ihfazh.com   # lewat nginx (loopback)
+   ENGLISH_API_TOKEN=<DRF token akun layanan>
+   MCP_PATH=/mcp/<secret dari langkah 1>
+   MCP_HOST=127.0.0.1
+   MCP_PORT=8130
+   # MCP_BEARER_TOKEN dikosongkan (auth = secret path)
+   ```
+3. **systemd** `english-mcp.service` — jalankan `uv run python server.py` dari
+   `WorkingDirectory=.../tools/english-mcp`, `EnvironmentFile=.../.env`, bind
+   `127.0.0.1:8130`.
+4. **nginx** di site `english.ihfazh.com` (TLS certbot yang sudah ada) —
+   proxy path secret ke server MCP, **buffering off** (streaming):
+   ```nginx
+   location /mcp/ {
+       proxy_pass http://127.0.0.1:8130;
+       proxy_http_version 1.1;
+       proxy_set_header Host $host;
+       proxy_set_header X-Forwarded-Proto $scheme;
+       proxy_buffering off;
+       proxy_read_timeout 3600s;
+   }
+   ```
+5. **claude.ai** → Connectors → **Add custom connector** → URL:
+   `https://english.ihfazh.com/mcp/<secret>` ; field OAuth dikosongkan.
 
-Detail langkah deploy diisi saat Fase 3.
+> Kalau claude.ai menolak connect authless, fallback ke **GitHub OAuth**
+> (`fastmcp.server.auth.providers.github.GitHubProvider`) — tools tetap sama,
+> hanya `auth=` di `server.py` yang diganti + daftar OAuth app + allowlist akun.
