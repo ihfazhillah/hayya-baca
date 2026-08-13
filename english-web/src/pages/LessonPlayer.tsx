@@ -364,7 +364,7 @@ export function LessonPlayer() {
         <div className="mt-4 rounded-xl bg-amber-50 p-4 text-amber-700">
           {lesson.audio_status === 'failed'
             ? '⚠️ Gagal membuat audio.'
-            : '⏳ Audio sedang dibuat di server… halaman ini akan otomatis diperbarui.'}
+            : `⏳ Audio sedang dibuat di server… ${lesson.audio_ready_count}/${lesson.segments.length} selesai. Halaman ini akan otomatis diperbarui.`}
         </div>
       </div>
     )

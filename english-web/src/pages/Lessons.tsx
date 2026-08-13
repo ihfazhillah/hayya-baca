@@ -12,7 +12,7 @@ function Badge({ lesson }: { lesson: LessonListItem }) {
   if (lesson.audio_status === 'processing' || lesson.audio_status === 'pending')
     return (
       <span className="whitespace-nowrap rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-        ⏳ Diproses…
+        ⏳ Diproses {lesson.audio_ready_count}/{lesson.segment_count}
       </span>
     )
   if (lesson.audio_status === 'failed')

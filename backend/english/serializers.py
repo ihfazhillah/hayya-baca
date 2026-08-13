@@ -42,13 +42,15 @@ class EnglishSegmentSerializer(serializers.ModelSerializer):
 
 class EnglishLessonListSerializer(serializers.ModelSerializer):
     segment_count = serializers.IntegerField(read_only=True)
+    audio_ready_count = serializers.IntegerField(read_only=True)
     is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = EnglishLesson
         fields = [
             "id", "title", "slug", "source", "level",
-            "segment_count", "is_owner", "is_public", "audio_status",
+            "segment_count", "audio_ready_count",
+            "is_owner", "is_public", "audio_status",
         ]
 
     def get_is_owner(self, obj) -> bool:
@@ -58,13 +60,15 @@ class EnglishLessonListSerializer(serializers.ModelSerializer):
 
 class EnglishLessonDetailSerializer(serializers.ModelSerializer):
     segments = EnglishSegmentSerializer(many=True, read_only=True)
+    audio_ready_count = serializers.IntegerField(read_only=True)
     is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = EnglishLesson
         fields = [
             "id", "title", "slug", "source", "source_url", "level",
-            "is_owner", "is_public", "audio_status", "error", "segments",
+            "is_owner", "is_public", "audio_status", "error",
+            "audio_ready_count", "segments",
         ]
 
     def get_is_owner(self, obj) -> bool:

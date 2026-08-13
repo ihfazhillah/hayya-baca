@@ -143,6 +143,44 @@ class CreateLessonTest(TestCase):
         self.assertEqual(r.status_code, 401)
 
 
+class AudioReadyCountTest(TestCase):
+    """audio_ready_count = number of segments that already have audio, so the
+    UI can show per-item generation progress (x/y) while the worker runs."""
+
+    def setUp(self):
+        self.a = User.objects.create_user("alice", password="pw")
+        self.lesson = make_lesson(
+            title="Progress", owner=self.a,
+            audio_status=EnglishLesson.Status.PROCESSING,
+        )
+        for i in range(3):
+            EnglishSegment.objects.create(
+                lesson=self.lesson, order=i, text=f"Sentence {i}."
+            )
+        # Fill audio on the first 2 of 3 segments.
+        for seg in self.lesson.segments.order_by("order")[:2]:
+            seg.audio.save(
+                f"seg{seg.order}.mp3",
+                SimpleUploadedFile(f"seg{seg.order}.mp3", b"ID3audio"),
+                save=True,
+            )
+
+    def test_list_reports_ready_count(self):
+        row = next(
+            l for l in auth(self.a).get(LIST_URL).json()
+            if l["id"] == self.lesson.id
+        )
+        self.assertEqual(row["segment_count"], 3)
+        self.assertEqual(row["audio_ready_count"], 2)
+
+    def test_detail_reports_ready_count(self):
+        r = auth(self.a).get(
+            reverse("english-lesson-detail", args=[self.lesson.id])
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()["audio_ready_count"], 2)
+
+
 class PatchDeleteTest(TestCase):
     def setUp(self):
         self.a = User.objects.create_user("alice", password="pw")

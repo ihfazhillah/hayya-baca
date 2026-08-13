@@ -3,7 +3,7 @@ import logging
 import sys
 
 from django.conf import settings
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
@@ -56,7 +56,12 @@ class EnglishLessonViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        qs = EnglishLesson.objects.annotate(segment_count=Count("segments"))
+        qs = EnglishLesson.objects.annotate(
+            segment_count=Count("segments"),
+            audio_ready_count=Count(
+                "segments", filter=Q(segments__audio__gt="")
+            ),
+        )
         # Writes only ever touch the caller's own lessons → non-owner gets 404.
         if self.action in ("update", "partial_update", "destroy"):
             return qs.filter(owner=self.request.user)

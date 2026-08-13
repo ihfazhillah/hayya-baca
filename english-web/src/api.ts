@@ -95,6 +95,7 @@ export interface LessonListItem {
   source: 'custom' | 'youtube'
   level: 'beginner' | 'intermediate' | 'advanced'
   segment_count: number
+  audio_ready_count: number
   is_owner: boolean
   is_public: boolean
   audio_status: AudioStatus
@@ -119,6 +120,7 @@ export interface LessonDetail {
   is_public: boolean
   audio_status: AudioStatus
   error: string
+  audio_ready_count: number
   segments: Segment[]
 }
 
