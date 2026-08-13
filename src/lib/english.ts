@@ -69,11 +69,54 @@ export interface AttemptScore {
   marks: WordMark[]; // target words in order (+ extra words interleaved)
 }
 
+// Whisper often expands contractions ("you'll"→"you will") and writes numbers
+// as digits ("three"→"3"). Canonicalize BOTH the reference and the transcript
+// so a correct utterance isn't marked wrong. Possessive 's and ambiguous 'd
+// (he'd = had/would) are left untouched on purpose. Mirror of english-web/src/scoring.ts.
+const CONTRACTIONS: Record<string, string> = {
+  "won't": "will not",
+  "can't": "can not",
+  cannot: "can not",
+  "shan't": "shall not",
+  "let's": "let us",
+  "it's": "it is",
+  "that's": "that is",
+  "he's": "he is",
+  "she's": "she is",
+  "what's": "what is",
+  "who's": "who is",
+  "here's": "here is",
+  "there's": "there is",
+  "i'm": "i am",
+};
+
+const NUMBER_WORDS: Record<string, string> = {
+  zero: "0", one: "1", two: "2", three: "3", four: "4", five: "5", six: "6",
+  seven: "7", eight: "8", nine: "9", ten: "10", eleven: "11", twelve: "12",
+  thirteen: "13", fourteen: "14", fifteen: "15", sixteen: "16", seventeen: "17",
+  eighteen: "18", nineteen: "19", twenty: "20", thirty: "30", forty: "40",
+  fifty: "50", sixty: "60", seventy: "70", eighty: "80", ninety: "90",
+};
+
+/** Expand one token to its canonical form(s). */
+function canonToken(tok: string): string[] {
+  if (CONTRACTIONS[tok]) return CONTRACTIONS[tok].split(" ");
+  if (NUMBER_WORDS[tok]) return [NUMBER_WORDS[tok]];
+  if (tok.length > 3 && tok.endsWith("n't")) return [tok.slice(0, -3), "not"];
+  if (tok.length > 3 && tok.endsWith("'ll")) return [tok.slice(0, -3), "will"];
+  if (tok.length > 3 && tok.endsWith("'re")) return [tok.slice(0, -3), "are"];
+  if (tok.length > 3 && tok.endsWith("'ve")) return [tok.slice(0, -3), "have"];
+  if (tok.length > 2 && tok.endsWith("'m")) return [tok.slice(0, -2), "am"];
+  return [tok];
+}
+
 export function normalizeWords(text: string): string[] {
   return text
     .toLowerCase()
+    .replace(/[‘’]/g, "'") // curly ’ ‘ → straight ' (regex strips others)
     .replace(/[^a-z0-9'\s]/g, " ")
     .split(/\s+/)
+    .flatMap(canonToken)
     .filter(Boolean);
 }
 
