@@ -601,3 +601,77 @@ class TranscribeBackendTest(TestCase):
             out = transcribe.transcribe_bytes(b"audio")
         self.assertEqual(out, sentinel)
         local.assert_called_once()
+
+
+class TtsProvidersTest(TestCase):
+    """Pluggable TTS providers (Spec 071): dispatch + fallback + Edge mapping."""
+
+    def test_speed_to_rate(self):
+        from english.tts_providers.base import speed_to_rate
+        self.assertEqual(speed_to_rate(0.9), "-10%")
+        self.assertEqual(speed_to_rate(1.0), "+0%")
+        self.assertEqual(speed_to_rate(1.1), "+10%")
+
+    def test_active_provider_used(self):
+        from english.tts_providers import registry
+        with mock.patch.dict("os.environ", {"ENGLISH_TTS_PROVIDER": "edge"}), \
+             mock.patch.object(registry.EdgeProvider, "synthesize", return_value=b"AUD"):
+            data, name = registry.synthesize("hi")
+        self.assertEqual((data, name), (b"AUD", "edge"))
+
+    def test_falls_back_to_next_provider(self):
+        from english.tts_providers import registry
+        from english.tts_providers.base import TtsError
+        with mock.patch.dict(
+            "os.environ",
+            {"ENGLISH_TTS_PROVIDER": "edge", "ENGLISH_TTS_FALLBACKS": "melo"},
+        ), mock.patch.object(
+            registry.EdgeProvider, "synthesize", side_effect=TtsError("down")
+        ), mock.patch.object(
+            registry.MeloProvider, "synthesize", return_value=b"WAV"
+        ):
+            data, name = registry.synthesize("hi")
+        self.assertEqual((data, name), (b"WAV", "melo"))
+
+    def test_all_providers_fail_raises(self):
+        from english.tts_providers import registry
+        from english.tts_providers.base import TtsError
+        with mock.patch.dict("os.environ", {"ENGLISH_TTS_PROVIDER": "edge"}), \
+             mock.patch.object(
+                 registry.EdgeProvider, "synthesize", side_effect=TtsError("x")
+             ):
+            with self.assertRaises(TtsError):
+                registry.synthesize("hi")
+
+    def test_edge_provider_maps_voice_rate_and_joins_audio(self):
+        from english.tts_providers.edge import EdgeProvider
+        import edge_tts
+
+        captured = {}
+
+        class FakeCommunicate:
+            def __init__(self, text, voice, rate=None):
+                captured.update(text=text, voice=voice, rate=rate)
+
+            async def stream(self):
+                yield {"type": "WordBoundary"}
+                yield {"type": "audio", "data": b"AB"}
+                yield {"type": "audio", "data": b"CD"}
+
+        with mock.patch.object(edge_tts, "Communicate", FakeCommunicate):
+            out = EdgeProvider(voice="en-AU-NatashaNeural").synthesize("hi", speed=0.9)
+        self.assertEqual(out, b"ABCD")
+        self.assertEqual(captured["voice"], "en-AU-NatashaNeural")
+        self.assertEqual(captured["rate"], "-10%")
+
+    def test_render_mp3_dispatches_then_transcodes(self):
+        from english import tts
+        with mock.patch(
+            "english.tts.synthesize", return_value=(b"raw", "edge")
+        ) as synth, mock.patch(
+            "english.tts._to_mp3", return_value=b"MP3"
+        ) as enc:
+            out = tts.render_mp3("hello")
+        self.assertEqual(out, b"MP3")
+        synth.assert_called_once()
+        enc.assert_called_once_with(b"raw")

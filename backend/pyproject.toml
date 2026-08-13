@@ -16,6 +16,9 @@ dependencies = [
 stt = [
     "faster-whisper>=1.2.1",
 ]
+tts = [
+    "edge-tts>=7.0.0",
+]
 dev = [
     "pytest>=9.0.2",
     "pytest-django>=4.12.0",
