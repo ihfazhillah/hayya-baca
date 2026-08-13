@@ -18,6 +18,7 @@ from english.models import (
     EnglishStreak,
     EnglishWeakPoint,
 )
+from english import transcribe
 from english.signing import sign_segment
 
 User = get_user_model()
@@ -550,3 +551,53 @@ class LessonProgressTest(TestCase):
     def test_owner_isolation(self):
         auth(self.a).post(self.url(self.pub), {"last_index": 4}, format="json")
         self.assertEqual(auth(self.b).get(self.url(self.pub)).json()["last_index"], 0)
+
+
+class TranscribeBackendTest(TestCase):
+    """Groq is the primary STT (fast, off-server); faster-whisper is the
+    fallback. Both must yield the same {text, words} shape."""
+
+    def _groq_payload(self):
+        return {
+            "text": "You will be fine",
+            "words": [
+                {"word": "You", "start": 0.0, "end": 0.2},
+                {"word": "will", "start": 0.2, "end": 0.4},
+                {"word": " ", "start": 0.4, "end": 0.4},
+            ],
+        }
+
+    def test_groq_used_when_key_set_and_maps_words(self):
+        with mock.patch.object(transcribe, "GROQ_API_KEY", "gsk_x"), mock.patch(
+            "english.transcribe._post_multipart", return_value=self._groq_payload()
+        ) as post:
+            out = transcribe.transcribe_bytes(b"audio", filename="speech.webm")
+        self.assertEqual(out["text"], "You will be fine")
+        # blank word dropped, timestamps rounded/coerced
+        self.assertEqual([w["word"] for w in out["words"]], ["You", "will"])
+        # correct model + word granularity + filename passed through
+        args, _ = post.call_args
+        _url, _headers, fields, file = args
+        self.assertEqual(fields["model"], "whisper-large-v3-turbo")
+        self.assertEqual(fields["timestamp_granularities[]"], "word")
+        self.assertEqual(file[1], "speech.webm")
+
+    def test_falls_back_to_local_when_groq_fails(self):
+        sentinel = {"text": "local", "words": []}
+        with mock.patch.object(transcribe, "GROQ_API_KEY", "gsk_x"), mock.patch(
+            "english.transcribe.transcribe_groq", side_effect=RuntimeError("429")
+        ), mock.patch.object(
+            transcribe, "transcribe_local", return_value=sentinel
+        ) as local:
+            out = transcribe.transcribe_bytes(b"audio", filename="speech.webm")
+        self.assertEqual(out, sentinel)
+        local.assert_called_once()
+
+    def test_uses_local_when_no_key(self):
+        sentinel = {"text": "local", "words": []}
+        with mock.patch.object(transcribe, "GROQ_API_KEY", ""), mock.patch.object(
+            transcribe, "transcribe_local", return_value=sentinel
+        ) as local:
+            out = transcribe.transcribe_bytes(b"audio")
+        self.assertEqual(out, sentinel)
+        local.assert_called_once()

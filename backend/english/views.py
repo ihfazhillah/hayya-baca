@@ -163,7 +163,7 @@ class TranscribeView(APIView):
                 status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             )
         try:
-            result = transcribe_bytes(upload.read())
+            result = transcribe_bytes(upload.read(), filename=upload.name or "")
         except SttUnavailable as e:
             return Response(
                 {"detail": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE
