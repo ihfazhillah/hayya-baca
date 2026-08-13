@@ -1,28 +1,25 @@
-# MeloTTS worker for user-created English lessons (Spec 064).
+# English lesson audio worker (Spec 071).
 #
-# Runs under the SEPARATE Python 3.12 venv (.venv-melo) — MeloTTS does not
-# support the backend's Python 3.14. Shares the repo, Postgres and MEDIA_ROOT
-# with hayyabaca.service via the same EnvironmentFile (.env).
+# Runs under the MAIN backend venv (.venv, Python 3.14). Since Spec 071 the
+# default TTS provider is Edge-TTS (free, light, EN-AU) — no MeloTTS/torch load,
+# so the heavy .venv-melo is no longer needed here. Provider is chosen by
+# ENGLISH_TTS_PROVIDER in the shared .env. Shares repo/Postgres/MEDIA_ROOT with
+# hayyabaca.service via the same EnvironmentFile.
 #
+# Requires in .venv:  uv sync --group production --group tts   (edge-tts)
 # Install:
 #   sudo cp deploy/english-tts.service /etc/systemd/system/english-tts.service
-#   sudo systemctl daemon-reload && sudo systemctl enable --now english-tts.service
+#   sudo systemctl daemon-reload && sudo systemctl restart english-tts.service
 [Unit]
-Description=English Practice MeloTTS worker
+Description=English Practice audio worker (Edge-TTS)
 After=network.target postgresql.service
 
 [Service]
 User=ihfazh
 Group=ihfazh
-# Neutral CWD on purpose: NLTK (a MeloTTS dep) blocks importing any module that
-# resolves INSIDE the current working directory (CVE-2024-39705 shim). Since the
-# 3.12/3.10 venv lives under backend/, running from backend/ makes every
-# site-package look "in-CWD" and breaks the import. Run from /tmp instead and
-# point at the project via absolute paths + PYTHONPATH.
-WorkingDirectory=/tmp
+WorkingDirectory=/home/ihfazh/hayyabaca/backend
 EnvironmentFile=/home/ihfazh/hayyabaca/backend/.env
-Environment=PYTHONPATH=/home/ihfazh/hayyabaca/backend
-ExecStart=/home/ihfazh/hayyabaca/backend/.venv-melo/bin/python /home/ihfazh/hayyabaca/backend/manage.py generate_pending_audio --loop
+ExecStart=/home/ihfazh/hayyabaca/backend/.venv/bin/python /home/ihfazh/hayyabaca/backend/manage.py generate_pending_audio --loop
 Restart=always
 RestartSec=5
 
