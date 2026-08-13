@@ -1,0 +1,28 @@
+# MCP server exposing English lesson tools (add/list/status) to Claude.
+#
+# Standalone FastMCP (Streamable HTTP) thin-client over the existing
+# /api/english/ REST API — does NOT touch Django/gunicorn/the MeloTTS worker.
+# Binds loopback only; nginx (english.ihfazh.com) proxies the secret /mcp/ path.
+#
+# Install:
+#   sudo cp deploy/english-mcp.service /etc/systemd/system/english-mcp.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now english-mcp.service
+#
+# Config lives in tools/english-mcp/.env (gitignored): ENGLISH_API_TOKEN (DRF
+# service token for user 'ihfazh'), MCP_PATH=/mcp/<secret>, MCP_HOST/PORT.
+
+[Unit]
+Description=Hayya Baca English MCP server
+After=network.target
+
+[Service]
+User=ihfazh
+Group=ihfazh
+WorkingDirectory=/home/ihfazh/hayyabaca/tools/english-mcp
+EnvironmentFile=/home/ihfazh/hayyabaca/tools/english-mcp/.env
+ExecStart=/home/ihfazh/hayyabaca/tools/english-mcp/.venv/bin/python /home/ihfazh/hayyabaca/tools/english-mcp/server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
