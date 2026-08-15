@@ -118,7 +118,8 @@ Aturan integritas:
   JSON `{pengampu_name, items[]}`; rendering di frontend (halaman print).
   (Tidak perlu PDF server-side — `window.print()` dengan CSS `@page A4`.)
 - **FR7 Login kode pengampu** — `POST auth/login-code/ {code}` (AllowAny,
-  rate-limited via `LoginLockout` yang sudah ada) → `{token, name}`. Kode
+  **tanpa rate-limit** — semua santri sering satu IP; keamanan mengandalkan
+  entropi kode 31⁸ ≈ 8,5×10¹¹; salah → 400 generik + log) → `{token, name}`. Kode
   **permanen** & bisa dipakai berulang; QR-nya dicetak guardian. Frontend:
   `/login?code=` → redeem otomatis; halaman login juga punya input kode.
 

@@ -49,8 +49,8 @@ Pengampu tidak input record untuk dirinya sendiri (dinilai guardian).
 
 **LoginCodeView** (`POST /api/tahsin/auth/login-code/`, AllowAny):
 - lookup `Santri(login_code=code, is_pengampu=True, is_active=True)`; salah → 400 generik.
-- Brute-force guard: reuse `LoginLockout` dengan key `tahsin-ip:<REMOTE_ADDR>` (per IP, bukan
-  per kode — penyerang mengganti-ganti kode). Sukses → reset key.
+- Tanpa rate-limit (keputusan user: semua santri berbagi satu IP). Keamanan = entropi kode
+  (31⁸). Kegagalan di-log (`logger.warning`) saja.
 - Return `{token, name, role:"pengampu"}`.
 
 **Records write**: nested `scores=[{item,value}]`; validasi item milik owner & aktif, value 0..5;
@@ -71,7 +71,7 @@ tombol "Pakai aspek default" saat items kosong.
 **Tests** (`tahsin/tests.py`, gaya english/tests.py):
 - role guardian / pengampu / child-account 403; pengampu tidak lihat santri lain (404) & tidak bisa
   POST record santri lain (403).
-- pengampu auto-user + login-code redeem → token; regenerate mencabut token lama; lockout per IP.
+- pengampu auto-user + login-code redeem → token; regenerate mencabut token lama.
 - record CRUD, scores parsial, bulk atomic (satu error → tidak ada yang tersimpan).
 - summary avg current vs prev, filter pengampu.
 - edit/hapus record: pengampu hanya miliknya; guardian semua.
