@@ -1,6 +1,6 @@
 # Spec 072 — Tahsin Tracker (PWA pencatatan perkembangan tahsin santri)
 
-**Status:** Draft — menunggu approval
+**Status:** Spec approved 2026-08-15 (jawaban §6 dimasukkan) — plan menunggu approval
 **Tanggal:** 2026-08-15
 **Produk:** Aplikasi web terpisah (PWA) `tahsin-web/` + backend app `backend/tahsin/`
 **Pola:** Sama seperti Ruang Cerita (Spec 060) dan English (Spec 064): SPA Vite +
@@ -25,7 +25,7 @@ rekap kertas ke aplikasi di waktu senggang (bukan realtime saat menyimak).
 | Aktor | Akun | Yang bisa dilakukan |
 |---|---|---|
 | **Guardian / ustadz** | Django `User` yang sudah ada (login username + password) | Kelola aspek penilaian, santri, pengampu, assignment pengampu→santri; input/edit **semua** record; dashboard & detail; cetak form A4 |
-| **Pengampu** | Django `User` yang dibuat guardian, ter-link ke `Santri.user` | Login (username+password, atau scan QR kode sekali pakai); lihat santri ampuannya; input/edit record **hanya** untuk santri ampuannya; lihat riwayat santri ampuannya |
+| **Pengampu** | Django `User` yang dibuat **otomatis** saat guardian menandai santri sebagai pengampu (username `tahsin-<id>-<slug>`, password unusable), ter-link ke `Santri.user` | Login dengan **scan QR permanen** (atau ketik kode 8 huruf yang sama) — tanpa username/password; lihat santri ampuannya; input/edit record **hanya** untuk santri ampuannya; lihat riwayat santri ampuannya |
 | **Santri biasa** | tidak punya akun | — (hanya dinilai) |
 
 Catatan:
@@ -67,9 +67,13 @@ TahsinScore       — skor per aspek per record
   (bukan 0). Skor selalu disimpan per-baris (bukan JSON) supaya agregasi
   per pekan/bulan bisa pakai query DB biasa.
 
-LoginCode         — QR login sekali pakai untuk pengampu (opsional, lihat FR-P)
-  santri FK, code (8 char, alfabet non-ambigu — reuse SETUP_CODE_ALPHABET
-  dari accounts), expires_at (24 jam), used_at null, created_by
+Santri.login_code — kode login PERMANEN pengampu (8 char, alfabet non-ambigu —
+  reuse SETUP_CODE_ALPHABET dari accounts), unique, null utk santri biasa.
+  Dibuat saat is_pengampu=True; guardian bisa regenerate (kode lama mati).
+  Di-QR-kan sebagai URL https://tahsin.ihfazh.com/login?code=XXXXXXXX dan
+  dicetak — pengampu boleh scan kapan pun, berkali-kali. Redeem → DRF token
+  user pengampu (Token.get_or_create). Regenerate kode juga menghapus token
+  lama (paksa login ulang).
 ```
 
 Aturan integritas:
@@ -94,10 +98,11 @@ Aturan integritas:
   — daftar final dari user).
 - **FR3 Santri** — CRUD `santri/` (guardian only). Field `pengampu` untuk
   assign; endpoint bantu `POST santri/{id}/assign/ {pengampu: id|null}` agar
-  UI drag/pick cepat. `POST santri/{id}/login/ {username, password}` membuat
-  User + link `Santri.user` (validasi username unik; password min 4 — ini
-  akun anak/remaja, jangan pakai validator default Django yang ketat).
-  `POST santri/{id}/login/reset/ {password}` ganti password.
+  UI drag/pick cepat. Set `is_pengampu=True` (create/PATCH) → server otomatis membuat User
+  + `login_code`. `GET santri/{id}/login-code/` → `{code, url}` (guardian;
+  untuk tampil QR / cetak). `POST santri/{id}/login-code/regenerate/` →
+  kode baru, token lama dicabut. `is_pengampu=False` kembali → login_code
+  di-null-kan + token dicabut (User tetap ada, tidak dihapus).
 - **FR4 Records** — `GET records/?santri=&from=&to=&pengampu=` (guardian:
   semua miliknya; pengampu: hanya santri ampuannya → selain itu 404),
   `POST records/` body `{santri, date, page, page_detail, notes, scores:
@@ -112,11 +117,10 @@ Aturan integritas:
 - **FR6 Print form** — `GET print-form/?pengampu=<id>|blank&rows=25` →
   JSON `{pengampu_name, items[]}`; rendering di frontend (halaman print).
   (Tidak perlu PDF server-side — `window.print()` dengan CSS `@page A4`.)
-- **FR-P (opsional, phase 2) Login QR** — `POST santri/{id}/login-code/`
-  (guardian) → `{code, url}`; `POST auth/login-code/ {code}` (AllowAny)
-  → `{token, username}` sekali pakai. URL yang di-QR-kan:
-  `https://<domain>/login?code=XXXXXXXX` — scan pakai kamera HP → buka app
-  → auto-login tanpa mengetik.
+- **FR7 Login kode pengampu** — `POST auth/login-code/ {code}` (AllowAny,
+  rate-limited via `LoginLockout` yang sudah ada) → `{token, name}`. Kode
+  **permanen** & bisa dipakai berulang; QR-nya dicetak guardian. Frontend:
+  `/login?code=` → redeem otomatis; halaman login juga punya input kode.
 
 Semua endpoint `IsAuthenticated` (kecuali `auth/login-code/`). Object-level:
 `owner == request.user` (guardian) atau lewat relasi pengampu.
@@ -124,8 +128,10 @@ Semua endpoint `IsAuthenticated` (kecuali `auth/login-code/`). Object-level:
 ### Frontend (`tahsin-web/`)
 
 Layar **pengampu** (prioritas kemudahan):
-- **Login** — username + password (token disimpan localStorage, "tetap
-  masuk" sampai logout). Kalau dibuka via `/login?code=` → redeem otomatis.
+- **Login** — dua cara di satu layar: (a) **kode pengampu** 8 huruf
+  (auto-redeem kalau dibuka via `/login?code=` dari QR), (b) username +
+  password (guardian). Token disimpan localStorage, "tetap masuk" sampai
+  logout.
 - **Beranda** — daftar santri ampuan (kartu: nama, terakhir setor tgl X,
   halaman Y). Tombol besar **"Input catatan"**.
 - **Input massal (utama)** — pilih tanggal (default hari ini), lalu **tabel
@@ -146,7 +152,7 @@ Layar **guardian** (semua di atas + ):
   periode sebelumnya.
 - **Detail santri** — grafik garis per aspek sepanjang waktu + tabel record.
 - **Kelola** — tab Aspek (tambah/urutkan/nonaktifkan), Santri (tambah, tandai
-  pengampu, buat login, tampilkan QR login), Assignment (per pengampu: daftar
+  pengampu → tampil QR login + tombol cetak QR + regenerate), Assignment (per pengampu: daftar
   santrinya, pindah santri antar pengampu).
 - **Cetak form A4** — pilih pengampu (atau kosong), jumlah baris. Layout:
   header "Pengampu: ______" (terisi kalau dipilih) + periode kosong;
@@ -165,22 +171,17 @@ PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
 - Notifikasi/reminder pengampu.
 - Kunci perangkat/kiosk (lihat §7 — dilakukan di sisi Android, bukan app).
 
-## 6. Pertanyaan terbuka (perlu jawaban sebelum plan)
+## 6. Keputusan (jawaban 2026-08-15)
 
-1. **Domain**: `tahsin.ihfazh.com`? (nginx + certbot, seperti english/ruangcerita)
-2. **Daftar aspek default** untuk seed (nama + kode)? Contoh yang disebut:
-   Nun sukun/tanwin (ns/t), Mad thobi'i (mt). Kirim daftar lengkapnya, atau
-   cukup dua itu + guardian tambah sendiri lewat UI?
-3. **Akun pengampu**: cukup guardian buat username+password baru? Atau perlu
-   opsi "link ke akun anak Ruang Cerita yang sudah ada" (kalau pengampu =
-   anak sendiri yang sudah punya akun)?
-4. **QR login (FR-P)** masuk v1 atau nanti?
-5. **Skor kosong**: aspek yang tidak dinilai hari itu boleh dikosongkan
-   (asumsi saya: ya), atau wajib semua terisi?
-6. **Edit record**: pengampu boleh edit/hapus record buatannya sendiri
-   kapan saja (asumsi: ya, tanpa batas waktu)?
-7. **Halaman**: cukup `page` (angka) + `page_detail` (teks bebas)? Atau
-   perlu juga sumber (Al-Qur'an / Iqro / Tilawati) sebagai pilihan?
+1. Domain **`tahsin.ihfazh.com`** (sementara).
+2. Aspek default seed: **Nun sukun / tanwin (ns/t)** dan **Mad thobi'i (mt)**
+   saja — untuk test; sisanya guardian tambah lewat UI.
+3. Guardian = **akun yang sudah ada** (yang dipakai app lain). Pengampu tidak
+   perlu username/password: User dibuat otomatis, login lewat kode/QR.
+4. **QR login permanen** (bukan sekali pakai) — dicetak, dipakai kapan pun.
+5. Skor boleh **kosong** = tidak dinilai (tidak semua aspek muncul tiap sesi).
+6. Pengampu boleh **edit/hapus** record buatannya **tanpa batas waktu**.
+7. Halaman = **angka + teks bebas**; sumber selalu Al-Qur'an (tanpa field sumber).
 
 ## 7. Kiosk / kunci perangkat via adb — jawaban singkat
 
