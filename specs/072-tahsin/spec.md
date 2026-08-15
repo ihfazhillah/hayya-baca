@@ -1,6 +1,6 @@
 # Spec 072 — Tahsin Tracker (PWA pencatatan perkembangan tahsin santri)
 
-**Status:** Implemented 2026-08-15 (backend `tahsin` + `tahsin-web`); deploy ke server pending (DNS/certbot + `./deploy-tahsin.sh`). Mockup: artifact "Tahsin Tracker Mockup".
+**Status:** Deployed 2026-08-15 → https://tahsin.ihfazh.com (backend `tahsin` + `tahsin-web`). Mockup: artifact "Tahsin Tracker Mockup".
 **Tanggal:** 2026-08-15
 **Produk:** Aplikasi web terpisah (PWA) `tahsin-web/` + backend app `backend/tahsin/`
 **Pola:** Sama seperti Ruang Cerita (Spec 060) dan English (Spec 064): SPA Vite +

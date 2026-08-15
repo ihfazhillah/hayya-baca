@@ -38,5 +38,5 @@ Tiap fase: test-first, satu commit per fase, minta approval sebelum fase berikut
 
 ## Fase 8 — Deploy
 - [x] deploy/tahsin.nginx.conf, deploy-tahsin.sh, ALLOWED_HOSTS, certbot
-- [ ] deploy + smoke test HP (install PWA, scan QR, input, dashboard, print)
-- [ ] memory: tahsin deploy notes
+- [x] deploy (server: ALLOWED_HOSTS, nginx, certbot, deploy-tahsin.sh) — smoke test HP pending user (install PWA, scan QR, input, dashboard, print)
+- [x] memory: tahsin deploy notes
