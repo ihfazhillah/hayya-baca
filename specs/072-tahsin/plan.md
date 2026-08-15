@@ -65,8 +65,8 @@ PATCH mengganti seluruh set scores (delete+recreate dalam transaction).
   `santri:[{id,name,pengampu_id,sessions,last_date,last_page,last_page_detail,scores:{item_id:avg}}]`.
 - Group-by di Python; data kecil (puluhan santri).
 
-**Seed default items**: `POST items/seed/` (idempotent) membuat ns/t + mt; frontend tawarkan
-tombol "Pakai aspek default" saat items kosong.
+**Seed default items**: `POST items/seed/` (idempotent) membuat **ns/t + mt saja**; frontend
+tawarkan tombol "Pakai aspek default" saat items kosong.
 
 **Tests** (`tahsin/tests.py`, gaya english/tests.py):
 - role guardian / pengampu / child-account 403; pengampu tidak lihat santri lain (404) & tidak bisa
@@ -82,13 +82,24 @@ tombol "Pakai aspek default" saat items kosong.
   "Pekan 33 · 11–17 Agu 2026" / "Agustus 2026". Unit-tested.
 - **draft.ts**: key `tahsin.draft.<date>` → `{[santriId]:{page,page_detail,scores}}`;
   dihapus setelah submit sukses. Unit-tested.
-- **BulkEntry**: baris per santri; nama sticky; ScorePicker = 6 tombol `–,0..5` (– = kosong).
-  Submit hanya baris yang "tersentuh". Duplikat tanggal: cek `records/?from=&to=` → tandai baris
-  "sudah ada catatan hari ini" (peringatan, tidak blokir). Offline → tombol "Simpan draft".
-- **Dashboard**: PeriodNav (Pekan/Bulan, ‹ ›), select pengampu; kartu item avg + ▲▼ vs prev
-  (threshold 0.25); Heatmap santri×item warna 0–5; klik santri → detail.
-- **SantriDetail**: `records/?santri=&from=&to=` (default 3 bulan) → SVG polyline per item,
-  tabel record + edit.
+- **BulkEntry** (sesuai mockup): tanggal + daftar kartu santri dengan centang; kartu tercentang
+  terbuka → input Hal. (angka) + Keterangan (teks) + baris per aspek dengan ScorePicker = 7 tombol
+  `–,0..5` (– = kosong; warna 0–1 merah, 2 oranye, 3 kuning, 4–5 hijau). Submit hanya kartu yang
+  dicentang. Duplikat tanggal: cek `records/?from=&to=` → warnbox di kartu (tidak blokir).
+  Tombol sticky "Simpan N catatan"; offline → "Simpan draft, kirim nanti". Tanpa kolom catatan.
+- **Home pengampu**: kartu santri (terakhir setor + halaman), badge kuning bila > 5 hari.
+- **Nav**: pengampu Beranda·Input·Riwayat; guardian Dashboard·Kelola·Cetak (tanpa input massal —
+  guardian menilai pengampu dari SantriDetail "+ Tambah", page opsional).
+- **Dashboard**: PeriodNav (Pekan/Bulan, ‹ ›), select pengampu; kartu "Perlu perhatian"/"Sudah
+  bagus"; bar avg per aspek (merah <3, kuning <4, hijau ≥4) + prev; Heatmap santri×item warna 0–5
+  **dikelompokkan per pengampu** + grup pengampu sendiri, kolom Sesi & Hal., ▲▼ threshold 0.25,
+  nama sticky (overflow-x); klik santri → detail.
+- **SantriDetail**: `records/?santri=&from=&to=` (default 3 bulan) → SVG polyline avg per pekan
+  per item (toggle), tabel record (+ siapa yang input) + "+ Tambah" / edit / hapus.
+- **Manage**: tab Aspek (list + urutan + aktif/nonaktif + tambah), Santri (tambah cepat, tap →
+  ubah/jadikan pengampu/nonaktif; pengampu → Sheet), Pengampu (assignment pilih-dari-daftar,
+  "Pindahkan"/"Tetapkan"). **PengampuSheet**: QR (qrcode.react) + kode monospace + "Cetak kartu"
+  + "Ganti kode" + daftar santri + status aktif.
 - **PrintForm** `/print?rows=15&days=1|2`: lembar harian generik (tidak terikat pengampu).
   `@page { size: A4 portrait; margin: 12mm }` (landscape bila aspek aktif > 12); header
   "Pengampu: ___ · Hari/Tanggal: ___"; tabel `No | Nama santri | Halaman | kode…` baris 10 mm;

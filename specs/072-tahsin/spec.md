@@ -94,8 +94,8 @@ Aturan integritas:
   semua santri aktif miliknya (+ field `pengampu_id`, `is_pengampu`).
 - **FR2 Items** — `GET/POST items/`, `PATCH/DELETE items/{id}/` (guardian
   only; DELETE = soft). Reorder via `order`. Saat guardian pertama kali
-  membuka app tanpa item → frontend tawarkan seed default (ns/t, mt, dst.
-  — daftar final dari user).
+  membuka app tanpa item → frontend tawarkan seed default (`POST items/seed/`,
+  idempotent): **ns/t** + **mt** saja (keputusan §6.2).
 - **FR3 Santri** — CRUD `santri/` (guardian only). Field `pengampu` untuk
   assign; endpoint bantu `POST santri/{id}/assign/ {pengampu: id|null}` agar
   UI drag/pick cepat. Set `is_pengampu=True` (create/PATCH) → server otomatis membuat User
@@ -135,30 +135,38 @@ Layar **pengampu** (prioritas kemudahan):
   logout.
 - **Beranda** — daftar santri ampuan (kartu: nama, terakhir setor tgl X,
   halaman Y). Tombol besar **"Input catatan"**.
-- **Input massal (utama)** — pilih tanggal (default hari ini), lalu **tabel
-  satu baris per santri**: kolom halaman (angka) + detail (teks) + satu
-  kolom per aspek dengan pemilih skor 0–5 (segmented buttons besar, bukan
-  dropdown). Baris kosong = santri tidak setor hari itu (dilewati). Draft
-  disimpan di localStorage per tanggal (kalau app ketutup, tidak hilang).
-  Submit → `records/bulk/`. Online-required saat submit; kalau offline,
-  tombol berubah "Simpan draft, kirim nanti".
-- **Input satu santri** — form yang sama untuk 1 santri (dari kartu santri).
-- Guardian **tidak** punya layar input massal (nav: Dashboard · Kelola · Cetak).
-  Guardian menilai **pengampu** secara ad-hoc lewat Detail santri → "+ Tambah
-  catatan": tanggal = hari dinilai, `page` boleh kosong (tidak terikat setoran
-  harian).
+- **Input massal (utama)** — pilih tanggal (default hari ini), lalu **daftar
+  kartu santri ampuan dengan kotak centang**. Centang = santri setor hari itu →
+  kartu terbuka: halaman (angka) + keterangan (teks bebas) + **satu baris per
+  aspek** `kode | – 0 1 2 3 4 5` (7 tombol besar; `–` = tidak dinilai). Kartu
+  yang tidak dicentang tidak dikirim. Draft otomatis tersimpan di localStorage
+  per tanggal (badge "Draft tersimpan"). Kalau santri itu sudah punya catatan
+  di tanggal tsb → peringatan kuning di kartu (tidak diblokir). Tombol sticky
+  bawah "Simpan N catatan" → `records/bulk/`; offline → "Simpan draft, kirim
+  nanti". Tidak ada kolom catatan bebas di input massal (catatan hanya di form
+  satu record) — supaya cepat memindahkan lembar harian.
+- **Input satu santri / edit** — form yang sama untuk 1 santri (dari kartu
+  santri atau baris riwayat) + tanggal + catatan opsional + tombol Hapus.
 - **Riwayat santri** — daftar record (tgl, halaman, skor per aspek), edit
   record milik sendiri.
 
-Layar **guardian** (semua di atas + ):
+Layar **guardian** — nav bawah: **Dashboard · Kelola · Cetak** (tidak ada
+input massal; guardian menilai **pengampu** secara ad-hoc lewat Detail santri →
+"+ Tambah catatan": tanggal = hari dinilai, `page` boleh kosong karena tidak
+terikat setoran harian). Guardian tetap bisa edit/hapus semua record.
 - **Dashboard** — filter periode (pekan ISO / bulan, tombol ‹ ›) + filter
   pengampu. Blok "Perlu perhatian" (item avg terendah) & "Sudah bagus"
   (tertinggi), tabel santri × aspek (heatmap warna 0–5), panah tren vs
   periode sebelumnya.
-- **Detail santri** — grafik garis per aspek sepanjang waktu + tabel record.
-- **Kelola** — tab Aspek (tambah/urutkan/nonaktifkan), Santri (tambah, tandai
-  pengampu → tampil QR login + tombol cetak QR + regenerate), Assignment (per pengampu: daftar
-  santrinya, pindah santri antar pengampu).
+- **Detail santri** — grafik garis rata-rata per pekan per aspek (3 bulan
+  terakhir, aspek bisa di-toggle) + tabel semua record (siapa yang input) +
+  "+ Tambah" / edit / hapus.
+- **Kelola** — 3 tab. **Aspek**: nama + kode, urutan (= urutan kolom di input
+  & lembar cetak), nonaktifkan/aktifkan. **Santri**: tambah cepat (nama saja),
+  tap → ubah nama / jadikan pengampu / nonaktifkan; pengampu punya **sheet**:
+  QR login permanen + kode teks, "Cetak kartu", "Ganti kode", daftar santrinya.
+  **Pengampu** (assignment): per pengampu daftar santrinya + "Pindahkan"
+  (pilih dari daftar, bukan drag-drop); bagian "Belum ada pengampu" + "Tetapkan".
 - **Cetak lembar harian A4** (`/print`) — **satu-satunya** form cetak; **tidak
   terikat pengampu/santri** (nama pengampu & tanggal diisi tangan → cetak 1
   master, fotokopi). Header "Pengampu: ____ · Hari/Tanggal: ____"; tabel 15
@@ -179,7 +187,7 @@ PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
   v1 hanya draft lokal + kirim saat online.
 - Sharing data antar guardian; multi-halaqah/kelas.
 - Notifikasi/reminder pengampu.
-- Kunci perangkat/kiosk (lihat §7 — dilakukan di sisi Android, bukan app).
+- Kunci perangkat/kiosk (lihat §8 — dilakukan di sisi Android, bukan app).
 
 ## 6. Keputusan (jawaban 2026-08-15)
 
@@ -198,7 +206,26 @@ PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
    per hari per pengampu, difotokopi. Layout per-santri dibuang.
 10. Aspek bisa >8 (sampai ±12 nyaman di portrait); pengampu 5–15 santri.
 
-## 7. Kiosk / kunci perangkat via adb — jawaban singkat
+## 7. Kesepakatan UI dari mockup (2026-08-15)
+
+Mockup interaktif: artifact "Tahsin Tracker Mockup" (v5). Detail yang disepakati
+dan wajib diikuti implementasi:
+
+| Area | Kesepakatan |
+|---|---|
+| Login | Satu layar: kolom kode 8 huruf (default) + link "Masuk sebagai ustadz" → username/password. Scan QR → auto-redeem tanpa layar login. Token tersimpan sampai Keluar. |
+| Nav pengampu | Beranda · Input · Riwayat |
+| Nav guardian | Dashboard · Kelola · Cetak |
+| Beranda pengampu | Kartu per santri: nama, terakhir setor + halaman; badge kuning bila > 5 hari tidak setor. Tombol besar "Input catatan". |
+| ScorePicker | 7 tombol sejajar `– 0 1 2 3 4 5`; warna 0–1 merah, 2 oranye, 3 kuning, 4–5 hijau; `–` abu. |
+| Halaman | Dua input: angka ("Hal.") + teks bebas ("Keterangan: ayat 1–10 / seperempat kedua"). |
+| Dashboard | PeriodNav Pekan/Bulan + ‹ ›; select pengampu; kartu "Perlu perhatian" (aspek avg terendah) & "Sudah bagus" (tertinggi); bar rata-rata per aspek (merah < 3, kuning < 4, hijau ≥ 4) + angka periode sebelumnya; heatmap santri × aspek **dikelompokkan per pengampu** (+ grup "Pengampu (dinilai ustadz)"), kolom Sesi & Hal. terakhir, ▲▼ bila beda ≥ 0,25 vs periode sebelumnya, sel kosong = tidak dinilai; nama santri sticky saat scroll horizontal. |
+| Ambang | "Jelek" = rata-rata < 3; "bagus" ≥ 4. |
+| Kode login | 8 huruf, alfabet non-ambigu, permanen; ditampilkan monospace + QR; "Ganti kode" mematikan kode & sesi lama. |
+| Lembar harian | Generik (tanpa pengampu), 15 baris, `No | Nama santri | Halaman | aspek…`, baris Catatan, keterangan kode; opsi 1/2 hari per lembar; tanpa kolom paraf. |
+| Kartu QR | Nama pengampu, QR, kode teks, URL `tahsin.ihfazh.com`. |
+
+## 8. Kiosk / kunci perangkat via adb — jawaban singkat
 
 PWA (WebAPK Chrome) **bisa** dikunci dengan **screen pinning** Android
 (Settings → Security → App pinning; keluar butuh PIN) — ini bisa diaktifkan
