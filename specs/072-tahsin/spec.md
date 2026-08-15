@@ -222,7 +222,7 @@ dan wajib diikuti implementasi:
 | Dashboard | PeriodNav Pekan/Bulan + ‹ ›; select pengampu; kartu "Perlu perhatian" (aspek avg terendah) & "Sudah bagus" (tertinggi); bar rata-rata per aspek (merah < 3, kuning < 4, hijau ≥ 4) + angka periode sebelumnya; heatmap santri × aspek **dikelompokkan per pengampu** (+ grup "Pengampu (dinilai ustadz)"), kolom Sesi & Hal. terakhir, ▲▼ bila beda ≥ 0,25 vs periode sebelumnya, sel kosong = tidak dinilai; nama santri sticky saat scroll horizontal. |
 | Ambang | "Jelek" = rata-rata < 3; "bagus" ≥ 4. |
 | Kode login | 8 huruf, alfabet non-ambigu, permanen; ditampilkan monospace + QR; "Ganti kode" mematikan kode & sesi lama. |
-| Lembar cetak | Generik (tanpa pengampu), **bisa dipakai berulang**: kolom `Tanggal | Nama santri | Halaman | aspek…` (tanggal di dalam tabel, bukan header), ~20 baris, baris Catatan, keterangan kode; header hanya Pengampu + Bulan; tanpa kolom paraf. |
+| Lembar cetak | Generik (tanpa pengampu), **bisa dipakai berulang**: kolom `Tanggal | Nama santri | Halaman | aspek…` (tanggal di dalam tabel, bukan header), ~20 baris, keterangan kode; header hanya Pengampu + Bulan; tanpa kolom paraf. |
 | Kartu QR | Nama pengampu, QR, kode teks, URL `tahsin.ihfazh.com`. |
 
 ## 8. Kiosk / kunci perangkat via adb — jawaban singkat

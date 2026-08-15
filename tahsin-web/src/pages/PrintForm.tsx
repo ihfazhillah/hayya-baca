@@ -58,10 +58,6 @@ export function PrintForm() {
           ))}
         </tbody>
       </table>
-      <div style={{ marginTop: 12, fontSize: 11 }}>
-        Catatan:{' '}
-        <span style={{ display: 'inline-block', width: '85%', borderBottom: '1px solid #000' }} />
-      </div>
       <div
         style={{
           marginTop: 14,
