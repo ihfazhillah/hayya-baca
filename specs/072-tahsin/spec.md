@@ -167,15 +167,15 @@ terikat setoran harian). Guardian tetap bisa edit/hapus semua record.
   QR login permanen + kode teks, "Cetak kartu", "Ganti kode", daftar santrinya.
   **Pengampu** (assignment): per pengampu daftar santrinya + "Pindahkan"
   (pilih dari daftar, bukan drag-drop); bagian "Belum ada pengampu" + "Tetapkan".
-- **Cetak lembar harian A4** (`/print`) — **satu-satunya** form cetak; **tidak
-  terikat pengampu/santri** (nama pengampu & tanggal diisi tangan → cetak 1
-  master, fotokopi). Header "Pengampu: ____ · Hari/Tanggal: ____"; tabel 15
-  baris tinggi (±10 mm) `No | Nama santri | Halaman | <kode aspek aktif…>`;
-  baris "Catatan: ____"; footer keterangan `kode = nama aspek` + "skor 0–5,
-  kosong = tidak dinilai". Opsi: jumlah baris (default 15), 1 atau 2 hari per
-  lembar (bolak-balik). Portrait; **landscape otomatis bila aspek aktif > 12**.
-  Alur pemakaian: pengampu bawa 1 lembar/hari → di akhir pekan memindahkan
-  lembar-lembar itu ke app lewat Input massal (pilih tanggal, isi per santri).
+- **Cetak lembar A4** (`/print`) — **satu-satunya** form cetak; **tidak terikat
+  pengampu/santri** dan **bisa dipakai berulang** (kolom Tanggal ada di dalam
+  tabel, bukan di header). Header cukup "Pengampu: ____ · Bulan: ____" (diisi
+  tangan). Tabel baris tinggi (±10 mm) `Tanggal | Nama santri | Halaman |
+  <kode aspek aktif…>`; baris "Catatan: ____"; footer keterangan `kode = nama
+  aspek` + "skor 0–5, kosong = tidak dinilai". Opsi: jumlah baris (default 20 —
+  cukup untuk 3–10 santri × beberapa hari), jumlah lembar. Portrait; **landscape
+  otomatis bila aspek aktif > 12**. Cetak 1 master → fotokopi; satu lembar dipakai
+  beberapa hari, lalu dipindahkan ke app lewat Input massal (pilih tanggal).
 - **Cetak kartu QR** (`/print-qr?santri=<id>`) — nama pengampu, QR, kode teks, URL.
 
 PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
@@ -222,7 +222,7 @@ dan wajib diikuti implementasi:
 | Dashboard | PeriodNav Pekan/Bulan + ‹ ›; select pengampu; kartu "Perlu perhatian" (aspek avg terendah) & "Sudah bagus" (tertinggi); bar rata-rata per aspek (merah < 3, kuning < 4, hijau ≥ 4) + angka periode sebelumnya; heatmap santri × aspek **dikelompokkan per pengampu** (+ grup "Pengampu (dinilai ustadz)"), kolom Sesi & Hal. terakhir, ▲▼ bila beda ≥ 0,25 vs periode sebelumnya, sel kosong = tidak dinilai; nama santri sticky saat scroll horizontal. |
 | Ambang | "Jelek" = rata-rata < 3; "bagus" ≥ 4. |
 | Kode login | 8 huruf, alfabet non-ambigu, permanen; ditampilkan monospace + QR; "Ganti kode" mematikan kode & sesi lama. |
-| Lembar harian | Generik (tanpa pengampu), 15 baris, `No | Nama santri | Halaman | aspek…`, baris Catatan, keterangan kode; opsi 1/2 hari per lembar; tanpa kolom paraf. |
+| Lembar cetak | Generik (tanpa pengampu), **bisa dipakai berulang**: kolom `Tanggal | Nama santri | Halaman | aspek…` (tanggal di dalam tabel, bukan header), ~20 baris, baris Catatan, keterangan kode; header hanya Pengampu + Bulan; tanpa kolom paraf. |
 | Kartu QR | Nama pengampu, QR, kode teks, URL `tahsin.ihfazh.com`. |
 
 ## 8. Kiosk / kunci perangkat via adb — jawaban singkat

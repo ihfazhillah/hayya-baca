@@ -11,7 +11,7 @@ export function PrintForm() {
     () => (me?.items ?? []).filter((i) => i.is_active),
     [me],
   )
-  const [rows, setRows] = useState(15)
+  const [rows, setRows] = useState(20)
   const [days, setDays] = useState(1)
   const landscape = items.length > 12
 
@@ -22,31 +22,22 @@ export function PrintForm() {
       style={{ pageBreakAfter: 'always', padding: '0 0 24px' }}
     >
       <h1 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 6px' }}>
-        Lembar Penilaian Tahsin Harian
+        Lembar Penilaian Tahsin
       </h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: 12,
-          fontSize: 13,
-        }}
-      >
-        <div>
-          Pengampu:{' '}
-          <b style={{ display: 'inline-block', minWidth: 200, borderBottom: '1px solid #000' }} />
-        </div>
-        <div>
-          Hari/Tanggal:{' '}
-          <b style={{ display: 'inline-block', minWidth: 200, borderBottom: '1px solid #000' }} />
-        </div>
+      <div style={{ marginBottom: 12, fontSize: 13 }}>
+        Pengampu:{' '}
+        <b style={{ display: 'inline-block', minWidth: 240, borderBottom: '1px solid #000' }} />
+        <span style={{ marginLeft: 24 }}>
+          Bulan:{' '}
+          <b style={{ display: 'inline-block', minWidth: 140, borderBottom: '1px solid #000' }} />
+        </span>
       </div>
       <table style={{ borderCollapse: 'collapse', width: '100%' }}>
         <thead>
           <tr>
-            <th style={thStyle(26)}>No</th>
-            <th style={thStyle(landscape ? 150 : 200)}>Nama santri</th>
-            <th style={thStyle(landscape ? 95 : 130)}>Halaman</th>
+            <th style={thStyle(70)}>Tanggal</th>
+            <th style={thStyle(landscape ? 140 : 180)}>Nama santri</th>
+            <th style={thStyle(landscape ? 90 : 120)}>Halaman</th>
             {items.map((i) => (
               <th key={i.id} style={thStyle()}>
                 {i.code}
@@ -57,7 +48,7 @@ export function PrintForm() {
         <tbody>
           {Array.from({ length: rows }).map((_, i) => (
             <tr key={i}>
-              <td style={{ ...tdStyle, color: '#666' }}>{i + 1}</td>
+              <td style={tdStyle} />
               <td style={tdStyle} />
               <td style={tdStyle} />
               {items.map((it) => (
@@ -95,17 +86,18 @@ export function PrintForm() {
   return (
     <div>
       <div className="no-print">
-        <Header title="Cetak lembar harian" back="/" />
+        <Header title="Cetak lembar" back="/" />
         <div className="px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-3.5">
             <p className="text-gray-500 text-sm mb-2">
-              Lembar harian umum — tidak terikat pengampu; nama pengampu &
-              tanggal diisi tangan. Cetak 1 lembar, fotokopi.
+              Lembar umum & bisa dipakai berulang — kolom <b>Tanggal</b> di dalam
+              tabel, nama pengampu diisi tangan. Satu lembar menampung beberapa
+              hari; cetak 1 lembar lalu fotokopi.
             </p>
             <div className="flex gap-2.5">
               <div className="flex-1">
                 <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                  Baris (santri)
+                  Baris (isian)
                 </div>
                 <input
                   type="number"
@@ -113,20 +105,20 @@ export function PrintForm() {
                   value={rows}
                   min={1}
                   max={40}
-                  onChange={(e) => setRows(Number(e.target.value) || 15)}
+                  onChange={(e) => setRows(Number(e.target.value) || 20)}
                 />
               </div>
               <div className="flex-1">
                 <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                  Hari per lembar
+                  Jumlah lembar
                 </div>
                 <select
                   className="w-full rounded-xl border border-gray-200 p-2.5 bg-white"
                   value={days}
                   onChange={(e) => setDays(Number(e.target.value))}
                 >
-                  <option value={1}>1 (satu sisi)</option>
-                  <option value={2}>2 (bolak-balik)</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
                 </select>
               </div>
             </div>
