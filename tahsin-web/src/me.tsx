@@ -24,19 +24,27 @@ export function MeProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
 
   const refresh = useCallback(async () => {
-    setLoading(true)
-    setError(null)
+    // Stable (no deps) so the initial effect never re-fires. Updates `me` in
+    // place; later refreshes keep the current screen + its local state (e.g.
+    // the active Kelola tab) instead of blanking to a spinner.
     try {
-      setMe(await getMe())
+      const data = await getMe()
+      setMe(data)
+      setError(null)
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Gagal memuat')
-    } finally {
-      setLoading(false)
+      // On a background failure keep whatever we already show; only surface an
+      // error when there is nothing on screen yet (first load).
+      setMe((cur) => {
+        if (cur === null)
+          setError(e instanceof Error ? e.message : 'Gagal memuat')
+        return cur
+      })
     }
   }, [])
 
   useEffect(() => {
-    void refresh()
+    setLoading(true)
+    void refresh().finally(() => setLoading(false))
   }, [refresh])
 
   return (

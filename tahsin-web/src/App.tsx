@@ -22,7 +22,7 @@ function Shell() {
     location.pathname.startsWith('/cetak') ||
     location.pathname.startsWith('/print')
 
-  if (loading) return <Spinner />
+  if (loading && !me) return <Spinner />
   if (error || !me)
     return (
       <div className="p-8 text-center">
