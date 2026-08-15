@@ -143,6 +143,10 @@ Layar **pengampu** (prioritas kemudahan):
   Submit → `records/bulk/`. Online-required saat submit; kalau offline,
   tombol berubah "Simpan draft, kirim nanti".
 - **Input satu santri** — form yang sama untuk 1 santri (dari kartu santri).
+- Guardian **tidak** punya layar input massal (nav: Dashboard · Kelola · Cetak).
+  Guardian menilai **pengampu** secara ad-hoc lewat Detail santri → "+ Tambah
+  catatan": tanggal = hari dinilai, `page` boleh kosong (tidak terikat setoran
+  harian).
 - **Riwayat santri** — daftar record (tgl, halaman, skor per aspek), edit
   record milik sendiri.
 
