@@ -21,7 +21,7 @@ tahsin-web/                Vite + React 19 + TS + Tailwind 4 + vite-plugin-pwa (
   src/pages/Dashboard.tsx  filter pekan/bulan + pengampu, "perlu perhatian/bagus", heatmap santri×aspek
   src/pages/SantriDetail.tsx   trend per aspek (SVG sederhana) + tabel record
   src/pages/Manage.tsx     tab Aspek | Santri (+QR via qrcode.react) | Assignment
-  src/pages/PrintForm.tsx  form A4 (@media print), route /print ; PrintQR.tsx route /print-qr
+  src/pages/PrintForm.tsx  lembar harian A4 generik (@media print), route /print ; PrintQR.tsx route /print-qr
   src/components/ScorePicker.tsx, Heatmap.tsx, PeriodNav.tsx
   src/*.test.ts(x)         vitest: period helpers, draft store, ScorePicker, buildBulkPayload, ?code= redeem
 deploy/tahsin.nginx.conf   dari ruangcerita.nginx.conf (root /home/ihfazh/tahsin-web/dist)
@@ -89,9 +89,11 @@ tombol "Pakai aspek default" saat items kosong.
   (threshold 0.25); Heatmap santri×item warna 0–5; klik santri → detail.
 - **SantriDetail**: `records/?santri=&from=&to=` (default 3 bulan) → SVG polyline per item,
   tabel record + edit.
-- **PrintForm** `/print?pengampu=<id>&rows=25`: `@page { size: A4 portrait; margin: 12mm }`,
-  `<thead>` berulang tiap halaman; header "Pengampu: ___ / Pekan: ___"; kolom Tanggal | Nama santri |
-  Halaman | kode…; footer keterangan kode + "skor 0–5"; tombol Cetak hidden saat print.
+- **PrintForm** `/print?rows=15&days=1|2`: lembar harian generik (tidak terikat pengampu).
+  `@page { size: A4 portrait; margin: 12mm }` (landscape bila aspek aktif > 12); header
+  "Pengampu: ___ · Hari/Tanggal: ___"; tabel `No | Nama santri | Halaman | kode…` baris 10 mm;
+  baris "Catatan"; footer keterangan kode + "skor 0–5, kosong = tidak dinilai"; days=2 → dua
+  lembar identik (bolak-balik). Tombol Cetak hidden saat print.
 - **PrintQR** `/print-qr?santri=<id>`: kartu QR + kode teks + URL.
 - PWA manifest: name "Tahsin", theme teal `#0f766e`, ikon PNG 192/512/maskable (generate sekali,
   commit hasilnya seperti diary-web/public).

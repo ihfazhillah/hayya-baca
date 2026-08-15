@@ -1,6 +1,6 @@
 # Spec 072 — Tahsin Tracker (PWA pencatatan perkembangan tahsin santri)
 
-**Status:** Spec approved 2026-08-15 (jawaban §6 dimasukkan) — plan menunggu approval
+**Status:** Spec + mockup approved 2026-08-15 (mockup: artifact "Tahsin Tracker Mockup")
 **Tanggal:** 2026-08-15
 **Produk:** Aplikasi web terpisah (PWA) `tahsin-web/` + backend app `backend/tahsin/`
 **Pola:** Sama seperti Ruang Cerita (Spec 060) dan English (Spec 064): SPA Vite +
@@ -114,9 +114,9 @@ Aturan integritas:
   [&santri=][&pengampu=]` → per item: `avg`, `count`, `prev_avg` (periode
   sebelumnya, untuk panah naik/turun); per santri: avg per item + jumlah
   sesi + halaman terakhir. Guardian: semua; pengampu: ampuannya saja.
-- **FR6 Print form** — `GET print-form/?pengampu=<id>|blank&rows=25` →
-  JSON `{pengampu_name, items[]}`; rendering di frontend (halaman print).
-  (Tidak perlu PDF server-side — `window.print()` dengan CSS `@page A4`.)
+- **FR6 Print form** — tidak perlu endpoint khusus: frontend memakai `items[]`
+  aktif dari `GET me/` untuk merender **lembar harian** (halaman `/print`,
+  `window.print()`, CSS `@page A4`). Tidak ada PDF server-side.
 - **FR7 Login kode pengampu** — `POST auth/login-code/ {code}` (AllowAny,
   **tanpa rate-limit** — semua santri sering satu IP; keamanan mengandalkan
   entropi kode 31⁸ ≈ 8,5×10¹¹; salah → 400 generik + log) → `{token, name}`. Kode
@@ -159,11 +159,16 @@ Layar **guardian** (semua di atas + ):
 - **Kelola** — tab Aspek (tambah/urutkan/nonaktifkan), Santri (tambah, tandai
   pengampu → tampil QR login + tombol cetak QR + regenerate), Assignment (per pengampu: daftar
   santrinya, pindah santri antar pengampu).
-- **Cetak form A4** — pilih pengampu (atau kosong), jumlah baris. Layout:
-  header "Pengampu: ______" (terisi kalau dipilih) + periode kosong;
-  tabel kolom `Tanggal | Nama santri | Halaman | <kode aspek…>`; **baris
-  kosong** (santri tidak hardcoded); footer keterangan `kode = nama aspek`
-  + "skor 0–5". `@media print` A4 portrait, header/footer di tiap halaman.
+- **Cetak lembar harian A4** (`/print`) — **satu-satunya** form cetak; **tidak
+  terikat pengampu/santri** (nama pengampu & tanggal diisi tangan → cetak 1
+  master, fotokopi). Header "Pengampu: ____ · Hari/Tanggal: ____"; tabel 15
+  baris tinggi (±10 mm) `No | Nama santri | Halaman | <kode aspek aktif…>`;
+  baris "Catatan: ____"; footer keterangan `kode = nama aspek` + "skor 0–5,
+  kosong = tidak dinilai". Opsi: jumlah baris (default 15), 1 atau 2 hari per
+  lembar (bolak-balik). Portrait; **landscape otomatis bila aspek aktif > 12**.
+  Alur pemakaian: pengampu bawa 1 lembar/hari → di akhir pekan memindahkan
+  lembar-lembar itu ke app lewat Input massal (pilih tanggal, isi per santri).
+- **Cetak kartu QR** (`/print-qr?santri=<id>`) — nama pengampu, QR, kode teks, URL.
 
 PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
 (sama seperti diary-web).
@@ -187,6 +192,11 @@ PWA: `display: standalone`, ikon, app-shell di-cache; `/api/` NetworkOnly
 5. Skor boleh **kosong** = tidak dinilai (tidak semua aspek muncul tiap sesi).
 6. Pengampu boleh **edit/hapus** record buatannya **tanpa batas waktu**.
 7. Halaman = **angka + teks bebas**; sumber selalu Al-Qur'an (tanpa field sumber).
+8. Guardian tidak punya input massal; menilai pengampu ad-hoc dari Detail santri
+   (`page` boleh kosong).
+9. Form cetak = **lembar harian generik** saja (tidak terikat pengampu), 1 lembar
+   per hari per pengampu, difotokopi. Layout per-santri dibuang.
+10. Aspek bisa >8 (sampai ±12 nyaman di portrait); pengampu 5–15 santri.
 
 ## 7. Kiosk / kunci perangkat via adb — jawaban singkat
 

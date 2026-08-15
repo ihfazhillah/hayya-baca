@@ -31,7 +31,7 @@
 - [ ] Dashboard (PeriodNav, kartu item, heatmap), SantriDetail (trend SVG + tabel)
 
 ## Fase 7 — Cetak
-- [ ] PrintForm A4 (`/print`), PrintQR (`/print-qr`)
+- [ ] PrintForm lembar harian A4 generik (`/print`), PrintQR (`/print-qr`)
 
 ## Fase 8 — Deploy
 - [ ] deploy/tahsin.nginx.conf, deploy-tahsin.sh, ALLOWED_HOSTS, certbot
