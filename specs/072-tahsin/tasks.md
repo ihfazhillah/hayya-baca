@@ -9,7 +9,7 @@
 ## Fase 2 — Items, Santri, login kode
 - [ ] ItemViewSet (CRUD soft-delete, `seed/`)
 - [ ] SantriViewSet (CRUD, `assign/`, auto-user + login_code, `login-code/`, `login-code/regenerate/`)
-- [ ] `POST auth/login-code/` + lockout per IP
+- [ ] `POST auth/login-code/` (tanpa rate-limit)
 - [ ] tests
 
 ## Fase 3 — Records + Summary
