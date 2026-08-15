@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'diary',
     'schedule',
     'english',
+    'tahsin',
 ]
 
 MIDDLEWARE = [
