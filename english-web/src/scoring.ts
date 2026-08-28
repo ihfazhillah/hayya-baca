@@ -62,6 +62,7 @@ export function normalizeWords(text: string): string[] {
   return text
     .toLowerCase()
     .replace(/[‘’]/g, "'") // curly ’ ‘ → straight ' (regex strips others)
+    .replace(/%/g, ' percent ') // "80%" ↔ "eighty percent"
     .replace(/[^a-z0-9'\s]/g, ' ')
     .split(/\s+/)
     .flatMap(canonToken)
@@ -81,14 +82,23 @@ export function scoreAttempt(target: string, attempt: string): AttemptScore {
 
   if (n === 0) return { score: 0, correct: 0, total: 0, marks: [] }
 
+  // dp[i][j] = max target tokens matched from tgt[i..], att[j..]. Besides the
+  // single fuzzy match, allow EXACT compound merges (one target token = two
+  // attempt tokens, or vice-versa) so Whisper's spacing of "data set"/"dataset",
+  // "any time"/"anytime", "re run"/"rerun" doesn't wrongly count as a miss.
+  // Merges are exact-only: fuzzy concatenation over-credits unrelated words.
   const dp: number[][] = Array.from({ length: n + 1 }, () =>
     new Array<number>(m + 1).fill(0),
   )
   for (let i = n - 1; i >= 0; i--) {
     for (let j = m - 1; j >= 0; j--) {
-      dp[i][j] = wordsEqual(tgt[i], att[j])
-        ? dp[i + 1][j + 1] + 1
-        : Math.max(dp[i + 1][j], dp[i][j + 1])
+      let best = Math.max(dp[i + 1][j], dp[i][j + 1])
+      if (wordsEqual(tgt[i], att[j])) best = Math.max(best, 1 + dp[i + 1][j + 1])
+      if (j + 1 < m && tgt[i] === att[j] + att[j + 1])
+        best = Math.max(best, 1 + dp[i + 1][j + 2])
+      if (i + 1 < n && tgt[i] + tgt[i + 1] === att[j])
+        best = Math.max(best, 2 + dp[i + 2][j + 1])
+      dp[i][j] = best
     }
   }
 
@@ -97,10 +107,30 @@ export function scoreAttempt(target: string, attempt: string): AttemptScore {
   let j = 0
   let correct = 0
   while (i < n && j < m) {
-    if (wordsEqual(tgt[i], att[j])) {
+    const cur = dp[i][j]
+    if (wordsEqual(tgt[i], att[j]) && cur === 1 + dp[i + 1][j + 1]) {
       marks.push({ kind: 'correct', word: tgt[i] })
       correct++
       i++
+      j++
+    } else if (
+      j + 1 < m &&
+      tgt[i] === att[j] + att[j + 1] &&
+      cur === 1 + dp[i + 1][j + 2]
+    ) {
+      marks.push({ kind: 'correct', word: tgt[i] })
+      correct++
+      i++
+      j += 2
+    } else if (
+      i + 1 < n &&
+      tgt[i] + tgt[i + 1] === att[j] &&
+      cur === 2 + dp[i + 2][j + 1]
+    ) {
+      marks.push({ kind: 'correct', word: tgt[i] })
+      marks.push({ kind: 'correct', word: tgt[i + 1] })
+      correct += 2
+      i += 2
       j++
     } else if (dp[i + 1][j] >= dp[i][j + 1]) {
       marks.push({ kind: 'wrong', word: tgt[i], heard: att[j] })

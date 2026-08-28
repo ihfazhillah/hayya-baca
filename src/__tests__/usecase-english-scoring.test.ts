@@ -34,4 +34,18 @@ describe("english scoring is fair across Whisper normalization", () => {
   it("does not break possessives", () => {
     perfect("This is John's book", "this is John's book");
   });
+
+  // Real prod misses: Whisper writes "%" as a symbol and spaces compound words
+  // differently. A correct reading must still score 100.
+  it("credits % ↔ percent and compound spacing, both directions", () => {
+    perfect("eighty percent alignment", "80% alignment");
+    perfect("a better dataset", "a better data set");
+    perfect("open the data set", "open the dataset");
+    perfect("resync any time you like", "resync anytime you like");
+    perfect("re-run it by clicking", "rerun it by clicking");
+  });
+
+  it("does not over-credit non-compounds via fuzzy concatenation", () => {
+    expect(scoreAttempt("hi everyone", "hey everyone").score).toBeLessThan(100);
+  });
 });
