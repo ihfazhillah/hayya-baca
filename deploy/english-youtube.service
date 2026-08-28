@@ -1,0 +1,30 @@
+# English YouTube ingestion worker (Spec 073).
+#
+# Downloads the original video audio (yt-dlp), transcribes it (YouTube captions,
+# fallback faster-whisper), and cuts one mp3 segment per line (ffmpeg) for
+# shadowing. Runs under the MAIN backend venv (.venv, Python 3.14) — the same
+# venv as english-tts.service: it already has faster-whisper (group stt); the
+# youtube group adds yt-dlp + youtube-transcript-api. Shares
+# repo/Postgres/MEDIA_ROOT with hayyabaca.service via the same EnvironmentFile.
+#
+# Requires in .venv:
+#   uv sync --group production --group tts --group stt --group youtube
+# and the system `ffmpeg` binary (already present for TTS/transcode).
+# Install:
+#   sudo cp deploy/english-youtube.service /etc/systemd/system/english-youtube.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now english-youtube.service
+[Unit]
+Description=English Practice YouTube ingestion worker (yt-dlp + whisper)
+After=network.target postgresql.service
+
+[Service]
+User=ihfazh
+Group=ihfazh
+WorkingDirectory=/home/ihfazh/hayyabaca/backend
+EnvironmentFile=/home/ihfazh/hayyabaca/backend/.env
+ExecStart=/home/ihfazh/hayyabaca/backend/.venv/bin/python /home/ihfazh/hayyabaca/backend/manage.py ingest_pending_youtube --loop
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

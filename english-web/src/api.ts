@@ -125,10 +125,11 @@ export interface LessonDetail {
 }
 
 export interface CreateLessonInput {
-  title: string
+  title?: string // optional for YouTube — server fills from the video title
   level: string
-  text: string
-  is_public: boolean
+  is_public?: boolean
+  text?: string // custom lesson (mutually exclusive with source_url)
+  source_url?: string // YouTube lesson (Spec 073)
 }
 
 export const fetchLessons = () =>

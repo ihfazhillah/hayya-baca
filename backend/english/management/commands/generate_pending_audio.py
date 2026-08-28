@@ -42,8 +42,12 @@ class Command(BaseCommand):
 
     def _process_batch(self) -> int:
         S = EnglishLesson.Status
+        # Only custom (TTS) lessons — YouTube lessons are handled by the separate
+        # ingest_pending_youtube worker and must not be marked READY here while
+        # they still have no segments (Spec 073).
         pending = EnglishLesson.objects.filter(
-            audio_status__in=[S.PENDING, S.PROCESSING]
+            source=EnglishLesson.Source.CUSTOM,
+            audio_status__in=[S.PENDING, S.PROCESSING],
         ).order_by("created_at")
         count = 0
         for lesson in pending:

@@ -1,6 +1,7 @@
 import shutil
 import tempfile
 from datetime import timedelta
+from pathlib import Path
 from unittest import mock
 
 from django.contrib.auth import get_user_model
@@ -675,3 +676,137 @@ class TtsProvidersTest(TestCase):
         self.assertEqual(out, b"MP3")
         synth.assert_called_once()
         enc.assert_called_once_with(b"raw")
+
+
+# ---------------------------------------------------------------------------
+# Spec 073 — YouTube lessons (create + ingest worker)
+# ---------------------------------------------------------------------------
+YT_URL = "https://www.youtube.com/watch?v=abcdefghijk"
+
+
+class YoutubeLessonCreateTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("yt", password="pw")
+
+    def test_create_from_url_sets_youtube_pending_nonpublic_oembed_title(self):
+        with mock.patch("english.youtube.oembed_title", return_value="Cool Video"):
+            r = auth(self.a).post(LIST_URL, {"source_url": YT_URL}, format="json")
+        self.assertEqual(r.status_code, 201, r.content)
+        lesson = EnglishLesson.objects.get(id=r.json()["id"])
+        self.assertEqual(lesson.source, EnglishLesson.Source.YOUTUBE)
+        self.assertEqual(lesson.audio_status, EnglishLesson.Status.PENDING)
+        self.assertEqual(lesson.source_url, YT_URL)
+        self.assertEqual(lesson.title, "Cool Video")
+        self.assertFalse(lesson.is_public)  # copyrighted → non-public default
+        self.assertEqual(lesson.segments.count(), 0)  # worker fills later
+
+    def test_create_invalid_youtube_url_is_400(self):
+        r = auth(self.a).post(
+            LIST_URL, {"source_url": "https://example.com/x"}, format="json"
+        )
+        self.assertEqual(r.status_code, 400)
+
+    def test_create_rejects_both_text_and_url(self):
+        r = auth(self.a).post(
+            LIST_URL,
+            {"title": "x", "text": "Hi there.", "source_url": YT_URL},
+            format="json",
+        )
+        self.assertEqual(r.status_code, 400)
+
+    def test_create_explicit_title_skips_oembed(self):
+        with mock.patch("english.youtube.oembed_title", return_value="Auto") as m:
+            r = auth(self.a).post(
+                LIST_URL, {"title": "Manual", "source_url": YT_URL}, format="json"
+            )
+        self.assertEqual(r.status_code, 201, r.content)
+        lesson = EnglishLesson.objects.get(id=r.json()["id"])
+        self.assertEqual(lesson.title, "Manual")
+        m.assert_not_called()
+
+
+def _fake_to_mp3(src, dst, start=None, end=None):
+    Path(dst).write_bytes(b"ID3fake")
+
+
+class YoutubeWorkerTest(TestCase):
+    def setUp(self):
+        self.a = User.objects.create_user("yt", password="pw")
+        self.lesson = make_lesson(
+            title="V",
+            owner=self.a,
+            source=EnglishLesson.Source.YOUTUBE,
+            source_url=YT_URL,
+            audio_status=EnglishLesson.Status.PENDING,
+        )
+
+    def _entries(self):
+        return [
+            {"start": 0.0, "end": 9.0, "text": "Hello there."},
+            {"start": 9.0, "end": 18.0, "text": "How are you?"},
+        ]
+
+    def test_ingest_creates_segments_from_original_audio(self):
+        with mock.patch(
+            "english.youtube.download_audio", return_value=Path("/tmp/full.wav")
+        ), mock.patch(
+            "english.youtube.fetch_transcript", return_value=self._entries()
+        ), mock.patch("english.youtube.to_mp3", side_effect=_fake_to_mp3):
+            call_command("ingest_pending_youtube")
+        self.lesson.refresh_from_db()
+        self.assertEqual(self.lesson.audio_status, EnglishLesson.Status.READY)
+        segs = list(self.lesson.segments.order_by("order"))
+        self.assertEqual([s.text for s in segs], ["Hello there.", "How are you?"])
+        self.assertTrue(all(s.audio for s in segs))
+
+    def test_ingest_falls_back_to_whisper_without_captions(self):
+        with mock.patch(
+            "english.youtube.download_audio", return_value=Path("/tmp/full.wav")
+        ), mock.patch(
+            "english.youtube.fetch_transcript", return_value=None
+        ), mock.patch(
+            "english.youtube.whisper_transcribe", return_value=self._entries()
+        ) as w, mock.patch("english.youtube.to_mp3", side_effect=_fake_to_mp3):
+            call_command("ingest_pending_youtube")
+        w.assert_called_once()
+        self.lesson.refresh_from_db()
+        self.assertEqual(self.lesson.audio_status, EnglishLesson.Status.READY)
+
+    def test_ingest_no_transcript_marks_failed(self):
+        with mock.patch(
+            "english.youtube.download_audio", return_value=Path("/tmp/full.wav")
+        ), mock.patch(
+            "english.youtube.fetch_transcript", return_value=None
+        ), mock.patch("english.youtube.whisper_transcribe", return_value=[]):
+            call_command("ingest_pending_youtube")
+        self.lesson.refresh_from_db()
+        self.assertEqual(self.lesson.audio_status, EnglishLesson.Status.FAILED)
+
+    def test_ingest_too_many_segments_marks_failed(self):
+        many = [
+            {"start": float(i) * 9, "end": float(i) * 9 + 9, "text": f"Sentence {i}."}
+            for i in range(100)
+        ]
+        with mock.patch(
+            "english.youtube.download_audio", return_value=Path("/tmp/full.wav")
+        ), mock.patch("english.youtube.fetch_transcript", return_value=many):
+            call_command("ingest_pending_youtube")
+        self.lesson.refresh_from_db()
+        self.assertEqual(self.lesson.audio_status, EnglishLesson.Status.FAILED)
+
+
+class TtsWorkerIgnoresYoutubeTest(TestCase):
+    def test_generate_pending_audio_ignores_youtube_lessons(self):
+        a = User.objects.create_user("yt2", password="pw")
+        yt = make_lesson(
+            title="Y",
+            owner=a,
+            source=EnglishLesson.Source.YOUTUBE,
+            source_url=YT_URL,
+            audio_status=EnglishLesson.Status.PENDING,
+        )
+        with mock.patch("english.tts.render_mp3", return_value=b"ID3fake") as m:
+            call_command("generate_pending_audio")
+        yt.refresh_from_db()
+        self.assertEqual(yt.audio_status, EnglishLesson.Status.PENDING)  # untouched
+        m.assert_not_called()

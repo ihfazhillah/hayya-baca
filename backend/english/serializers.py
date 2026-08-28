@@ -83,37 +83,80 @@ class EnglishLessonUpdateSerializer(serializers.ModelSerializer):
 
 
 class EnglishLessonCreateSerializer(serializers.ModelSerializer):
-    text = serializers.CharField(write_only=True)
+    """Create a lesson from EITHER a block of English text (custom → TTS) OR a
+    YouTube URL (Spec 073 → ingested from the original audio by a worker)."""
+
+    text = serializers.CharField(write_only=True, required=False, allow_blank=True)
+    source_url = serializers.CharField(
+        write_only=True, required=False, allow_blank=True
+    )
 
     class Meta:
         model = EnglishLesson
-        fields = ["id", "title", "level", "is_public", "text"]
+        fields = ["id", "title", "level", "is_public", "text", "source_url"]
+        extra_kwargs = {"title": {"required": False}}
 
-    def validate_text(self, value):
+    def _check_text(self, value: str) -> str:
         cleaned = value.strip()
-        if not cleaned:
-            raise serializers.ValidationError("Teks tidak boleh kosong.")
         if len(cleaned) > MAX_TEXT_CHARS:
             raise serializers.ValidationError(
-                f"Teks terlalu panjang (maks {MAX_TEXT_CHARS} karakter)."
+                {"text": f"Teks terlalu panjang (maks {MAX_TEXT_CHARS} karakter)."}
             )
         sentences = split_sentences(cleaned)
         if not sentences:
-            raise serializers.ValidationError("Teks tidak berisi kalimat.")
+            raise serializers.ValidationError({"text": "Teks tidak berisi kalimat."})
         if len(sentences) > MAX_SEGMENTS:
             raise serializers.ValidationError(
-                f"Terlalu banyak kalimat (maks {MAX_SEGMENTS})."
+                {"text": f"Terlalu banyak kalimat (maks {MAX_SEGMENTS})."}
             )
         self._sentences = sentences
         return cleaned
 
+    def validate(self, attrs):
+        from . import youtube
+
+        text = (attrs.get("text") or "").strip()
+        url = (attrs.get("source_url") or "").strip()
+        if bool(text) == bool(url):
+            raise serializers.ValidationError(
+                "Isi salah satu: teks English ATAU URL YouTube (bukan keduanya)."
+            )
+        if url:
+            if not youtube.extract_video_id(url):
+                raise serializers.ValidationError(
+                    {"source_url": "URL YouTube tidak valid."}
+                )
+            attrs["source_url"] = url
+            if not (attrs.get("title") or "").strip():
+                attrs["title"] = youtube.oembed_title(url) or "Video YouTube"
+            self._mode = EnglishLesson.Source.YOUTUBE
+        else:
+            attrs["text"] = self._check_text(text)
+            if not (attrs.get("title") or "").strip():
+                raise serializers.ValidationError({"title": "Judul wajib diisi."})
+            self._mode = EnglishLesson.Source.CUSTOM
+        return attrs
+
     def create(self, validated):
-        validated.pop("text")
+        user = self.context["request"].user
+        common = {
+            "owner": user,
+            "title": validated["title"],
+            "level": validated.get("level", EnglishLesson.Level.BEGINNER),
+            "audio_status": EnglishLesson.Status.PENDING,
+        }
+        if self._mode == EnglishLesson.Source.YOUTUBE:
+            # Copyrighted original audio → non-public by default; owner can toggle.
+            return EnglishLesson.objects.create(
+                source=EnglishLesson.Source.YOUTUBE,
+                source_url=validated["source_url"],
+                is_public=False,
+                **common,
+            )
         lesson = EnglishLesson.objects.create(
-            owner=self.context["request"].user,
             source=EnglishLesson.Source.CUSTOM,
-            audio_status=EnglishLesson.Status.PENDING,
-            **validated,
+            is_public=validated.get("is_public", False),
+            **common,
         )
         EnglishSegment.objects.bulk_create(
             EnglishSegment(lesson=lesson, order=i, text=s)

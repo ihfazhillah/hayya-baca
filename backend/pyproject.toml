@@ -16,6 +16,12 @@ dependencies = [
 stt = [
     "faster-whisper>=1.2.1",
 ]
+youtube = [
+    # Spec 073 — ingest_pending_youtube worker. Synced only into the dedicated
+    # worker venv (uv sync --group youtube --group stt --group production).
+    "yt-dlp>=2025.1.1",
+    "youtube-transcript-api>=0.6.2",
+]
 tts = [
     "edge-tts>=7.0.0",
 ]
