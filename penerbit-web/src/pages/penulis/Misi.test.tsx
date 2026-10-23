@@ -248,6 +248,21 @@ describe('Misi', () => {
     expect(screen.getByRole('button', { name: 'Tandai selesai' })).toBeInTheDocument()
   })
 
+  it('misi rekam yang sudah selesai tetap menampilkan teks dan perekam', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: {
+          ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Rekam suaramu', jenis: 'tandai', tahap: 'bonus', tahap_label: 'Bonus',
+          status: 'selesai', teks_rekam: [{ judul: 'Oren dan ikan', teks: 'Oren sangat suka makan ikan.' }],
+        },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText('Oren sangat suka makan ikan.')).toBeInTheDocument()
+    expect(screen.getByText(/sudah selesai/)).toBeInTheDocument()
+  })
+
   it('misi rekam di perangkat tanpa perekam: arahkan ke aplikasi perekam tablet', async () => {
     vi.stubGlobal('MediaRecorder', undefined)
     pasangFetch({

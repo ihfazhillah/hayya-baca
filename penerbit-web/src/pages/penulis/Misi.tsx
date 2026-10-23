@@ -149,6 +149,10 @@ function Panduan({ misi }: { misi: MisiDetail }) {
 function JawabanTerbuka({ misi }: { misi: MisiDetail }) {
   return (
     <div className="tumpuk">
+      {(misi.jenis === 'tandai' || misi.jenis === 'log') && (
+        <p className="lencana aktif">✓ Misi ini sudah selesai. Kamu boleh mengulanginya kapan saja.</p>
+      )}
+      {misi.teks_rekam && <AreaRekam teks={misi.teks_rekam} />}
       {misi.versi_benar && (
         <div className="callout callout-accent">
           <div className="callout-content">
