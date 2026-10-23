@@ -15,17 +15,19 @@ export function NavPenulis({ titik = [], poin }: {
   return (
     <>
     {me?.sedang_simulasi && <BannerSimulasi />}
-    <nav className={`nav tidak-dicetak${me?.sedang_simulasi ? ' nav-simulasi' : ''}`}>
+    <nav className={`nav nav-penulis tidak-dicetak${me?.sedang_simulasi ? ' nav-simulasi' : ''}`}>
       <div className="nav-inner">
         <div className="nav-title">
           <span className="nav-course-label">Penerbit Rumah</span>
           <Link to="/">Beranda</Link>
         </div>
-        <TitikModul peta={titik} nomor={nomorModul} />
         <div className="nav-links">
           <NavLink to="/naskah">Ruang Penulis</NavLink>
           <span>{me?.penulis?.nama}{poin !== undefined ? ` · ${poin} poin` : ''}</span>
         </div>
+      </div>
+      <div className="nav-baris-modul">
+        <TitikModul peta={titik} nomor={nomorModul} />
       </div>
     </nav>
     </>

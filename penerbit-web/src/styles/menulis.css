@@ -159,18 +159,25 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-/* Titik modul bernomor di nav: anak tahu itu Modul 1, 2, 3… dan mana yang terkunci. */
-.nav-modul { display: flex; align-items: center; gap: 6px; margin: 0 var(--space-4); }
-.nav-modul-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-right: 2px; }
-.nav-modul-titik { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+/* Titik modul bernomor: baris kedua nav, di bawah judul dan tautan, bisa digulir ke samping. */
+.nav-title, .nav-links { white-space: nowrap; }
+.nav.nav-penulis { height: calc(var(--nav-height) + 40px); }
+.nav-penulis .nav-inner { height: var(--nav-height); }
+.nav-penulis ~ .page, .nav-penulis ~ * .page { padding-top: calc(var(--nav-height) + 40px + var(--space-10)); }
+.nav-penulis.nav-simulasi ~ .page, .nav-penulis.nav-simulasi ~ * .page { padding-top: calc(var(--nav-height) + 84px + var(--space-10)); }
+.nav-baris-modul { max-width: var(--content-width); margin: 0 auto; height: 40px; padding: 0 var(--space-6);
+  display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-modul { display: flex; align-items: center; gap: 6px; }
+.nav-modul-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-right: 4px; }
+.nav-modul-titik { flex: none; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700; text-decoration: none; color: var(--color-text-muted);
   background: var(--color-surface); border: 1.5px solid var(--color-border); }
+.nav-modul-titik:hover { text-decoration: none; }
 .nav-modul-titik.selesai { background: var(--color-success); border-color: var(--color-success); color: #fff; }
 .nav-modul-titik.aktif { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
 .nav-modul-titik.terkunci { opacity: .45; border-style: dashed; }
 .nav-modul-titik.di-sini { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-@media (max-width: 1100px) { .nav-modul-label { display: none; } .nav-modul { gap: 4px; } .nav-modul-titik { width: 22px; height: 22px; font-size: 11px; } }
-@media (max-width: 900px) { .nav-modul { display: none; } }
+@media (max-width: 640px) { .nav-baris-modul { padding: 0 var(--space-4); } }
 
 /* Modul sebelumnya / berikutnya */
 .nav-sebelum-berikut { display: flex; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); }
