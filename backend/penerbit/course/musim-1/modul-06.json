@@ -58,8 +58,8 @@
       "kode": "BANK-IDE",
       "judul": "Bank Ide",
       "petunjuk": "Tulis 5 ide cerita, minimal satu dari setiap sumur. Lalu beri bintang dengan Tes 3 Bintang.",
-      "soal": "Sumur: K = Kenangan, B = Bagaimana Kalau, A = Acak\nBintang: ☆ aku senang menulisnya  ☆ ada masalahnya  ☆ aku tahu akhirnya\n\n1. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n2. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n3. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n4. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n5. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n\nIde pilihanku (3 bintang): nomor ___",
-      "baris_tulis": 4,
+      "soal": "Sumur: K = Kenangan, B = Bagaimana Kalau, A = Acak\nBintang: ☆ aku senang menulisnya  ☆ ada masalahnya  ☆ aku tahu akhirnya\n\nIde 1 · Sumur ___  ☆ ☆ ☆  ____________________\nIde 2 · Sumur ___  ☆ ☆ ☆  ____________________\nIde 3 · Sumur ___  ☆ ☆ ☆  ____________________\nIde 4 · Sumur ___  ☆ ☆ ☆  ____________________\nIde 5 · Sumur ___  ☆ ☆ ☆  ____________________\n\nIde pilihanku (3 bintang): nomor ___",
+      "baris_tulis": 0,
       "pertanyaan_bantu": "Kapan kamu tertawa keras? Kapan kamu kehilangan sesuatu? Bagaimana kalau hal biasa di rumahmu tiba-tiba berubah? Dua benda apa yang ada di dekatmu sekarang?",
       "cek_sendiri": [
         "Aku menulis 5 ide.",

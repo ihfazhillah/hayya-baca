@@ -88,8 +88,8 @@
       "kode": "M7-2",
       "judul": "Dua akhir yang berbeda",
       "petunjuk": "Ayah sudah mengisi kotak 1 sampai 3. Kamu mengisi kotak 4 dengan 2 akhir yang berbeda. Keduanya harus masuk akal.",
-      "soal": "1. Siapa? (diisi Ayah) ____________________\n2. Mau apa? (diisi Ayah) ____________________\n3. Ada masalah apa? (diisi Ayah) ____________________\n4. Akhir pertama: ____________________\n4. Akhir kedua: ____________________",
-      "baris_tulis": 4,
+      "soal": "Kotak 1 · Siapa? (diisi Ayah) ____________________\nKotak 2 · Mau apa? (diisi Ayah) ____________________\nKotak 3 · Ada masalah apa? (diisi Ayah) ____________________\n\nKotak 4 · Akhir pertama: ____________________\n____________________\n____________________\n____________________\n\nKotak 4 · Akhir kedua: ____________________\n____________________\n____________________\n____________________",
+      "baris_tulis": 0,
       "pertanyaan_bantu": "Siapa yang bisa menolong tokohnya? Bagaimana kalau tokohnya menyelesaikan masalah sendiri?",
       "cek_sendiri": [
         "Aku menulis 2 akhir yang berbeda.",

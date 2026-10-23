@@ -54,17 +54,17 @@
     {
       "kode": "B1",
       "judul": "Bos Level 1: Cerita Lengkap Si Ceroboh",
-      "petunjuk": "Pakai kelima alatmu sekaligus. Coret dan perbaiki dengan pulpen merah.",
+      "petunjuk": "Pakai kelima alatmu. Coret dan perbaiki dengan pulpen merah.",
       "soal": "oren tidak bisa tidur malam itu. Dia terus terus memikirkan cacing merah itu dan dia bertanya-tanya apakah cacing itu kedinginan di kebun dan apakah cacing itu punya rumah dan apakah cacing itu marah padanya. Lalu Oren bangun. Lalu Oren pergi ke jendela. Oren penasaran. Di luar bulan bersinar terang dan di bawah pohon mangga ada sesuatu yang bergerak-gerak dikebun",
-      "baris_tulis": 10,
-      "pertanyaan_bantu": "Pengeras Suara: di mana kamu tersandung? Gunting: kalimat mana yang terlalu panjang? Detektor Kembar: kata apa yang kembar? Kamera: di mana Si Ceroboh bilang perasaan? Kaca Pembesar: huruf besar dan titiknya?",
+      "baris_tulis": 7,
+      "pertanyaan_bantu": "Pengeras Suara: di mana tersandung? Gunting: kalimat terlalu panjang? Detektor Kembar: kata kembar? Kamera: perasaan disebut? Kaca Pembesar: huruf besar, titik?",
       "cek_sendiri": [
         "Aku sudah memakai kelima alat.",
         "Aku membaca versi baruku keras-keras."
       ],
       "kriteria": "Bandingkan dengan Versi Editor. Yang dinilai: \"terus terus\", kalimat panjang dipotong, \"Lalu\" dikurangi, \"Oren penasaran\" ditunjukkan, huruf besar \"Oren\", \"di kebun\", titik di akhir.",
       "contoh_jawaban": "Oren tidak bisa tidur malam itu. Dia terus memikirkan cacing merah itu. Apakah cacing itu kedinginan di kebun? Apakah dia punya rumah? Apakah dia marah pada Oren? Oren bangun dan berjinjit ke jendela. Hidungnya menempel di kaca. Di luar, bulan bersinar terang. Di bawah pohon mangga, ada sesuatu yang bergerak-gerak di kebun.",
-      "saran_stiker": "Tidak menambah stiker. Teks ini sengaja menggantung: tanyakan apakah dia mau menulis kelanjutannya di Level 2."
+      "saran_stiker": "Tidak menambah stiker. Ceritanya sengaja menggantung: tawarkan menulis lanjutannya di Level 2."
     }
   ],
   "misi": [
