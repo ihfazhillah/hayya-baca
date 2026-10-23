@@ -1,0 +1,95 @@
+{
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]"],
+  "nomor": 3,
+  "musim": 1,
+  "level": 1,
+  "judul": "Detektor Kembar",
+  "alat": "kembar",
+  "emoji": "🔁",
+  "tujuan": "Temukan kata yang diulang terus, lalu ganti atau hapus sebagian.",
+  "kenapa": "Kalau semua lagu di radio sama, kamu pasti bosan. Kalau satu kata diulang terus, pembaca juga bosan.",
+  "langkah": [
+    "Lingkari semua kata \"lalu\".",
+    "Hitung.",
+    "Ganti sebagian dengan kata lain, atau hapus saja.",
+    "Baca lagi."
+  ],
+  "resep": [
+    "Cari kata yang terasa sering muncul.",
+    "Lingkari semuanya dan hitung.",
+    "Biarkan satu, ganti sebagian, hapus sisanya.",
+    "Baca keras untuk memastikan tetap enak."
+  ],
+  "mengapa": "Kata yang diulang-ulang membuat cerita terdengar seperti jalan di tempat. Kata pengganti yang berbeda membuat pembaca merasa ceritanya bergerak.",
+  "kamus": [
+    {"istilah": "kata kembar", "arti": "Kata yang muncul berkali-kali dalam tulisan yang pendek."},
+    {"istilah": "kata pengganti", "arti": "Kata lain yang artinya mirip, misalnya \"tiba-tiba\" atau \"setelah itu\" untuk \"lalu\"."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Bacakan teks Si Ceroboh dan berpikir keras: \"Kok aku bosan ya… 'lalu', 'lalu', 'lalu'. Aku lingkari dulu semuanya, ternyata ada enam!\"",
+  "ujian": [
+    {
+      "soal": "Kata apa yang menjadi kembar di teks ini? \"Oren lalu mengintip dari bawah meja. Lalu dia melihat cacing itu masuk ke dalam rumah. Lalu Oren kaget.\"",
+      "a": "Oren",
+      "b": "lalu",
+      "jawaban": "b",
+      "alasan": "\"lalu\" muncul tiga kali dalam tiga kalimat pendek."
+    },
+    {
+      "soal": "Mana yang tidak punya kata kembar?",
+      "a": "Oren kaget. Dia langsung lari ke dapur.",
+      "b": "Oren kaget. Oren lari. Oren ke dapur.",
+      "jawaban": "a",
+      "alasan": "Di B, \"Oren\" muncul di setiap kalimat. Di A, sebagian diganti \"Dia\"."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Oren makan terus",
+      "tahap": "bersama",
+      "jenis": "kembar",
+      "petunjuk": "Bersama Ayah, klik kata yang muncul paling sering. Lalu cari dua kata penggantinya.",
+      "petunjuk_ortu": "Baca bersama, lalu minta anak mengklik kata yang paling sering muncul. Ajak dia menyebutkan dua kata pengganti.",
+      "teks": "Oren makan terus. Terus Oren minum. Terus Oren tidur.",
+      "kata": ["terus", "oren"],
+      "pengganti": ["setelah itu", "kemudian", "akhirnya"]
+    },
+    {
+      "urutan": 2,
+      "judul": "Pagi Oren",
+      "tahap": "petunjuk",
+      "jenis": "kembar",
+      "petunjuk": "Kata kembarnya nama tokoh. Klik untuk melihat berapa kali dia muncul.",
+      "teks": "Oren bangun pagi. Oren meregangkan badan. Oren menguap lebar. Oren melihat ke jendela.",
+      "kata": ["oren"],
+      "pengganti": ["dia", "si kucing oranye", "atau gabungkan dua kalimat"]
+    },
+    {
+      "urutan": 3,
+      "judul": "Kue Ibu",
+      "tahap": "mandiri",
+      "jenis": "kembar",
+      "petunjuk": "Temukan kata yang paling sering muncul.",
+      "teks": "Ibu membuat kue. Kuenya besar sekali. Kue itu wangi sekali. Oren ingin sekali mencicipi kue itu.",
+      "kata": ["kue", "sekali"],
+      "pengganti": ["hapus \"sekali\" di dua tempat", "ganti \"kue itu\" dengan \"-nya\""]
+    },
+    {
+      "urutan": 4,
+      "judul": "Telinga detektif",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Dengarkan seseorang bercerita.",
+      "pertanyaan": "Kata apa yang paling sering dia ulang?"
+    },
+    {
+      "urutan": 5,
+      "judul": "Lima pengganti \"lalu\"",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "petunjuk": "Tulis 5 pengganti kata \"lalu\" di kertas kecil dan tempel di Kartu Alat."
+    }
+  ]
+}

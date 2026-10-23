@@ -1,0 +1,133 @@
+{
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar"],
+  "nomor": 2,
+  "musim": 1,
+  "level": 1,
+  "judul": "Gunting",
+  "alat": "gunting",
+  "emoji": "✂️",
+  "tujuan": "Potong kalimat yang terlalu panjang supaya pembaca tidak kehabisan napas.",
+  "kenapa": "Kereta yang terlalu panjang susah berbelok. Kalimat yang terlalu panjang susah dipahami.",
+  "langkah": [
+    "Cari kalimat yang membuatmu kehabisan napas.",
+    "Lingkari kata \"dan\", \"lalu\", \"terus\".",
+    "Potong di situ, beri titik.",
+    "Baca lagi."
+  ],
+  "resep": [
+    "Baca kalimatnya dalam satu napas. Kehabisan napas? Itu tandanya.",
+    "Lingkari \"dan\", \"lalu\", \"terus\".",
+    "Ganti dengan titik. Huruf sesudahnya jadi huruf besar.",
+    "Kalau perlu, tambahkan \"Dia\" atau \"Tiba-tiba\" di awal kalimat baru."
+  ],
+  "mengapa": "Pembaca menyimpan satu kalimat di kepalanya sampai bertemu titik. Kalimat yang terlalu panjang membuat kepalanya penuh, jadi dia lupa awal kalimatnya.",
+  "kamus": [
+    {"istilah": "kalimat panjang", "arti": "Kalimat yang terasa tidak selesai-selesai, biasanya disambung banyak \"dan\"."},
+    {"istilah": "memotong", "arti": "Mengganti kata sambung dengan titik, sehingga satu kalimat jadi dua."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Bacakan kalimat panjang Si Ceroboh tanpa berhenti sampai kehabisan napas, lalu berpikir keras: \"Wah, napasku habis. Aku cari 'dan'… di sini aku bisa memotong.\"",
+  "ujian": [
+    {
+      "soal": "Kalimat Si Ceroboh tadi sebaiknya dipotong menjadi berapa?",
+      "a": "1, sudah bagus",
+      "b": "4 sampai 5",
+      "jawaban": "b",
+      "alasan": "Kalimatnya punya banyak \"dan\" dan \"lalu\". Setiap kejadian bisa jadi kalimatnya sendiri."
+    },
+    {
+      "soal": "Mana yang lebih mudah dipahami?",
+      "a": "Oren makan. Dia kenyang. Lalu dia tidur di sofa.",
+      "b": "Oren makan dan dia kenyang dan lalu dia tidur di sofa.",
+      "jawaban": "a",
+      "alasan": "Di A setiap kejadian punya kalimat sendiri, jadi pembaca bisa bernapas."
+    }
+  ],
+  "lembar": [
+    {
+      "kode": "M2-5",
+      "judul": "Hariku dalam 5 kalimat",
+      "petunjuk": "Ceritakan kegiatanmu hari ini dalam 5 kalimat pendek. Kata \"dan\" hanya boleh dipakai sekali.",
+      "soal": "",
+      "baris_tulis": 8,
+      "pertanyaan_bantu": "Apa yang kamu lakukan pagi tadi? Siang? Sore?",
+      "cek_sendiri": [
+        "Aku menulis 5 kalimat, masing-masing diakhiri titik.",
+        "Kata \"dan\" hanya ada satu kali."
+      ],
+      "kriteria": "Lima kalimat pendek, masing-masing satu kejadian. \"dan\" paling banyak sekali.",
+      "contoh_jawaban": "Aku bangun jam lima. Aku sholat subuh dengan Babah. Aku sarapan nasi goreng. Lalu aku membaca buku. Sore ini aku main sepeda dan bertemu Oren.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Titik!",
+      "tahap": "bersama",
+      "jenis": "gunting",
+      "petunjuk": "Ayah membaca pelan-pelan. Setiap kali kamu bilang \"titik!\", klik celah di tempat itu untuk memasang garis potong.",
+      "petunjuk_ortu": "Bacakan kalimat Si Ceroboh pelan-pelan. Berhenti setiap anak berkata \"titik!\" dan biarkan dia memasang garis potong.",
+      "teks": "Setelah hujan berhenti Oren langsung berlari keluar rumah dan melompati genangan air yang besar dan dia melihat cacing merah di tanah dan dia kaget sekali lalu dia lari lagi ke dalam rumah dan bersembunyi di bawah meja makan.",
+      "potong": [
+        {"cari": "rumah dan melompati"},
+        {"cari": "besar dan dia"},
+        {"cari": "tanah dan dia"},
+        {"cari": "sekali lalu dia"}
+      ],
+      "boleh": [
+        {"cari": "rumah dan bersembunyi"},
+        {"cari": "berhenti Oren"}
+      ],
+      "versi_benar": "Setelah hujan berhenti, Oren langsung berlari keluar rumah. Dia melompati genangan air yang besar. Tiba-tiba dia melihat cacing merah di tanah! Oren kaget sekali. Dia lari lagi ke dalam rumah dan bersembunyi di bawah meja makan."
+    },
+    {
+      "urutan": 2,
+      "judul": "Handuk untuk Oren",
+      "tahap": "petunjuk",
+      "jenis": "gunting",
+      "petunjuk": "Potong kalimat ini menjadi 3 kalimat.",
+      "teks": "Ibu membuka pintu dan melihat Oren basah kuyup dan Ibu mengambil handuk lalu mengeringkan bulu Oren.",
+      "potong": [
+        {"cari": "pintu dan melihat"},
+        {"cari": "kuyup dan Ibu"}
+      ],
+      "boleh": [],
+      "versi_benar": "Ibu membuka pintu. Dia melihat Oren basah kuyup. Ibu mengambil handuk lalu mengeringkan bulu Oren."
+    },
+    {
+      "urutan": 3,
+      "judul": "Mimpi ikan besar",
+      "tahap": "mandiri",
+      "jenis": "gunting",
+      "petunjuk": "Potong di tempat yang menurutmu perlu.",
+      "teks": "Malam itu Oren tidur di keranjang dan dia bermimpi tentang ikan besar dan ikan itu bisa bicara dan ikan itu mengajak Oren berenang di laut lalu Oren terbangun karena jatuh dari keranjang.",
+      "potong": [
+        {"cari": "keranjang dan dia"},
+        {"cari": "bicara dan ikan"},
+        {"cari": "laut lalu Oren"}
+      ],
+      "boleh": [
+        {"cari": "besar dan ikan"},
+        {"cari": "terbangun karena"}
+      ],
+      "versi_benar": "Malam itu Oren tidur di keranjang. Dia bermimpi tentang ikan besar yang bisa bicara. Ikan itu mengajak Oren berenang di laut. Tiba-tiba Oren terbangun. Dia jatuh dari keranjang!"
+    },
+    {
+      "urutan": 4,
+      "judul": "Kalimat terpanjang",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Cari kalimat terpanjang di buku pelajaranmu.",
+      "pertanyaan": "Berapa kata panjangnya?"
+    },
+    {
+      "urutan": 5,
+      "judul": "Hariku dalam 5 kalimat",
+      "tahap": "bonus",
+      "jenis": "cetak",
+      "petunjuk": "Ceritakan kegiatanmu hari ini dalam 5 kalimat pendek.",
+      "lembar": "M2-5"
+    }
+  ]
+}

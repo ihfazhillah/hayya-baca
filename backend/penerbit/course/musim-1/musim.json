@@ -1,0 +1,159 @@
+{
+  "musim": {
+    "nomor": 1,
+    "nama": "Musim Pertama",
+    "genre": "Cerita keluarga lucu, dari kejadian di rumah",
+    "deskripsi": "Lima alat dasar editor, dari Detektif Kalimat sampai buku pertama terbit."
+  },
+  "alat": [
+    {
+      "kode": "pengeras",
+      "nama": "Pengeras Suara",
+      "emoji": "🔊",
+      "pertanyaan": "Apakah lidahku tersandung?",
+      "cara_pakai": "Baca keras-keras, beri tanda di tempat kamu tersendat",
+      "contoh_sebelum": "Dia ingin main tapi tapi hujan.",
+      "contoh_sesudah": "Dia ingin main, tapi hujan.",
+      "warna": "--color-actor-1",
+      "pola_cetak": "gelombang",
+      "urutan": 1,
+      "modul_belajar": 1,
+      "syarat": {
+        "perunggu": {"jenis": "misi_tahap_selesai", "tahap": ["bersama", "petunjuk"]},
+        "perak": {"jenis": "skor_beruntun", "min_rasio": 0.8, "kali": 2, "tanpa_petunjuk": true},
+        "emas": {"jenis": "pemeriksa"}
+      },
+      "syarat_teks": {
+        "perunggu": "Menemukan kesalahan bersama Ayah atau Ummah",
+        "perak": "Temukan 4 dari 5 kesalahan di teks baru, 2 kali berturut-turut",
+        "emas": "Membaca keras drafmu sendiri tanpa disuruh, di 2 cerita"
+      }
+    },
+    {
+      "kode": "gunting",
+      "nama": "Gunting",
+      "emoji": "✂️",
+      "pertanyaan": "Apakah kalimat ini butuh lebih dari satu napas?",
+      "cara_pakai": "Potong kalimat panjang di kata \"dan\", \"lalu\", \"terus\"",
+      "contoh_sebelum": "Oren lari keluar dan melompati genangan dan melihat cacing dan kaget.",
+      "contoh_sesudah": "Oren lari keluar. Dia melompati genangan. Tiba-tiba dia melihat cacing!",
+      "warna": "--color-actor-2",
+      "pola_cetak": "putus",
+      "urutan": 2,
+      "modul_belajar": 2,
+      "syarat": {
+        "perunggu": {"jenis": "misi_tahap_selesai", "tahap": ["bersama", "petunjuk"]},
+        "perak": {"jenis": "skor_beruntun", "min_rasio": 1.0, "kali": 2, "tanpa_petunjuk": true},
+        "emas": {"jenis": "jejak_maks", "angka": "kalimat_terpanjang", "maks": 20, "cerita": 2}
+      },
+      "syarat_teks": {
+        "perunggu": "Memotong kalimat bersama Ayah atau Ummah",
+        "perak": "Potong kalimat panjang dengan benar di 2 teks baru",
+        "emas": "Tidak ada kalimat lebih dari 20 kata di Draf Nol 2 cerita berturut-turut"
+      }
+    },
+    {
+      "kode": "kembar",
+      "nama": "Detektor Kembar",
+      "emoji": "🔁",
+      "pertanyaan": "Kata apa yang muncul berkali-kali?",
+      "cara_pakai": "Lingkari kata yang sama, ganti atau hapus sebagian",
+      "contoh_sebelum": "Lalu Oren kaget. Lalu dia lari.",
+      "contoh_sesudah": "Oren kaget. Dia langsung lari.",
+      "warna": "--color-actor-3",
+      "pola_cetak": "lingkaran",
+      "urutan": 3,
+      "modul_belajar": 3,
+      "syarat": {
+        "perunggu": {"jenis": "misi_tahap_selesai", "tahap": ["bersama", "petunjuk"]},
+        "perak": {"jenis": "skor_beruntun", "min_rasio": 1.0, "kali": 2, "tanpa_petunjuk": true},
+        "emas": {"jenis": "jejak_maks", "angka": "kata_kembar_jumlah", "maks": 3, "cerita": 2}
+      },
+      "syarat_teks": {
+        "perunggu": "Menemukan kata kembar bersama Ayah atau Ummah",
+        "perak": "Temukan semua kata kembar di 2 teks baru",
+        "emas": "Tidak ada kata yang muncul lebih dari 3 kali di Draf Nol 2 cerita"
+      }
+    },
+    {
+      "kode": "kamera",
+      "nama": "Kamera",
+      "emoji": "🎥",
+      "pertanyaan": "Bisakah pembaca melihatnya?",
+      "cara_pakai": "Ganti kalimat \"bilang perasaan\" dengan apa yang dilakukan tokoh",
+      "contoh_sebelum": "Rara sedih.",
+      "contoh_sesudah": "Rara menunduk dan memainkan ujung kerudungnya.",
+      "warna": "--color-actor-4",
+      "pola_cetak": "tebal",
+      "urutan": 4,
+      "modul_belajar": 4,
+      "syarat": {
+        "perunggu": {"jenis": "misi_tahap_selesai", "tahap": ["bersama", "petunjuk"]},
+        "perak": {"jenis": "pemeriksa"},
+        "emas": {"jenis": "pemeriksa"}
+      },
+      "syarat_teks": {
+        "perunggu": "Mengubah kalimat bersama Ayah atau Ummah",
+        "perak": "Ubah 2 kalimat \"bilang perasaan\" sendiri, 2 kali",
+        "emas": "Draf Nol-mu sudah memakai kalimat Kamera tanpa diminta, di 2 cerita"
+      }
+    },
+    {
+      "kode": "kaca",
+      "nama": "Kaca Pembesar",
+      "emoji": "🔍",
+      "pertanyaan": "Titik, koma, dan huruf besarnya sudah benar?",
+      "cara_pakai": "Periksa satu kalimat sekali, dari belakang ke depan",
+      "contoh_sebelum": "ibu menaruhnya dikebun .",
+      "contoh_sesudah": "Ibu menaruhnya di kebun.",
+      "warna": "--color-actor-5",
+      "pola_cetak": "titik",
+      "urutan": 5,
+      "modul_belajar": 5,
+      "syarat": {
+        "perunggu": {"jenis": "misi_tahap_selesai", "tahap": ["bersama", "petunjuk"]},
+        "perak": {"jenis": "skor_beruntun", "min_rasio": 0.8, "kali": 2, "tanpa_petunjuk": true},
+        "emas": {"jenis": "pemeriksa"}
+      },
+      "syarat_teks": {
+        "perunggu": "Menemukan kesalahan bersama Ayah atau Ummah",
+        "perak": "Temukan 4 dari 5 kesalahan di teks baru, 2 kali berturut-turut",
+        "emas": "Draf Nol-mu punya paling banyak 3 kesalahan ejaan per 100 kata, di 2 cerita"
+      }
+    }
+  ],
+  "pangkat": [
+    {
+      "kode": "magang",
+      "nama": "Penulis Magang",
+      "urutan": 1,
+      "syarat": {"jenis": "perunggu_semua"},
+      "syarat_teks": "Selesai Level 1: kelima alat punya stiker Perunggu",
+      "hak_istimewa": "Kartu Alat dan Bank Ide sendiri"
+    },
+    {
+      "kode": "penulis",
+      "nama": "Penulis",
+      "urutan": 2,
+      "syarat": {"jenis": "buku_terbit", "jumlah": 1},
+      "syarat_teks": "1 buku terbit",
+      "hak_istimewa": "Kartu nama penulis, boleh memilih genre musim berikutnya"
+    },
+    {
+      "kode": "senior",
+      "nama": "Penulis Senior",
+      "urutan": 3,
+      "syarat": {"jenis": "buku_terbit", "jumlah": 3},
+      "syarat_teks": "3 buku terbit",
+      "hak_istimewa": "Boleh membuat soal Si Ceroboh sendiri untuk keluarga"
+    },
+    {
+      "kode": "editor",
+      "nama": "Editor",
+      "urutan": 4,
+      "syarat": {"jenis": "buku_terbit", "jumlah": 5},
+      "syarat_teks": "5 buku terbit",
+      "hak_istimewa": "Boleh mengedit tulisan Ayah, Ummah, atau kakaknya dengan pulpen merah"
+    }
+  ]
+}

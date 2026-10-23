@@ -1,0 +1,135 @@
+{
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar M4-2", "lembar M4-5"],
+  "nomor": 4,
+  "musim": 1,
+  "level": 1,
+  "judul": "Kamera",
+  "alat": "kamera",
+  "emoji": "🎥",
+  "tujuan": "Tunjukkan perasaan tokoh lewat apa yang dia lakukan, bukan dengan menyebut perasaannya.",
+  "kenapa": "Di film, tidak ada tulisan \"dia takut\" di layar. Kita tahu dia takut karena kita melihatnya gemetar.",
+  "langkah": [
+    "Garis bawahi kalimat yang \"bilang perasaan\".",
+    "Tanya: kalau ini film, apa yang terlihat di kamera?",
+    "Tulis ulang 2 kalimat saja.",
+    "Bandingkan."
+  ],
+  "resep": [
+    "Cari kata perasaan: sedih, senang, kesal, takut, malu, marah.",
+    "Bayangkan kamera merekam tokohnya.",
+    "Tulis apa yang dilakukan tangan, wajah, atau suaranya.",
+    "Cukup 2 kalimat, jangan semuanya."
+  ],
+  "mengapa": "Saat pembaca melihat sendiri tokohnya gemetar, dia ikut merasakan takutnya. Kalau hanya diberi tahu \"dia takut\", pembaca cuma tahu, tidak ikut merasa.",
+  "kamus": [
+    {"istilah": "bilang perasaan", "arti": "Kalimat yang langsung menyebut perasaan, misalnya \"Oren takut.\""},
+    {"istilah": "kalimat Kamera", "arti": "Kalimat yang menunjukkan perasaan lewat gerakan, wajah, atau suara."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Peragakan satu perasaan tanpa bicara, lalu berpikir keras: \"Kalau aku tulis 'Ayah kesal', kamu cuma tahu. Tapi kalau aku tulis 'Ayah menutup pintu keras-keras', kamu bisa melihatnya.\"",
+  "ujian": [
+    {
+      "soal": "Mana yang memakai Kamera?",
+      "a": "Oren malu.",
+      "b": "Oren menutupi wajahnya dengan kedua kaki depannya.",
+      "jawaban": "b",
+      "alasan": "B menunjukkan apa yang dilakukan Oren, jadi pembaca bisa melihat malunya."
+    },
+    {
+      "soal": "Mana yang lebih hidup?",
+      "a": "Ibu menutup mulutnya, tapi bahunya berguncang menahan tawa.",
+      "b": "Ibu senang.",
+      "jawaban": "a",
+      "alasan": "Di A kita bisa membayangkan Ibu menahan tawa."
+    }
+  ],
+  "lembar": [
+    {
+      "kode": "M4-2",
+      "judul": "Oren lapar (dengan petunjuk)",
+      "petunjuk": "Ubah kalimat \"bilang perasaan\" ini menjadi kalimat Kamera.",
+      "soal": "Oren lapar.",
+      "baris_tulis": 4,
+      "pertanyaan_bantu": "Apa yang terdengar dari perutnya? Matanya melihat ke mana?",
+      "cek_sendiri": [
+        "Kalimatku tidak memakai kata \"lapar\".",
+        "Pembaca bisa membayangkan apa yang dilakukan Oren."
+      ],
+      "kriteria": "Benar jika menunjukkan lapar lewat suara perut, tatapan, atau gerakan, dan tidak menyebut kata \"lapar\".",
+      "contoh_jawaban": "Perut Oren berbunyi kruk-kruk. Matanya tidak lepas dari piring ikan di meja.",
+      "saran_stiker": "Bagian dari misi Perunggu (dengan petunjuk)."
+    },
+    {
+      "kode": "M4-3",
+      "judul": "Kamera, tanpa petunjuk",
+      "petunjuk": "Ubah kalimat \"bilang perasaan\" menjadi kalimat Kamera.",
+      "soal": "Ibu marah. ____________________\nOren senang. ____________________",
+      "baris_tulis": 6,
+      "pertanyaan_bantu": "Apa yang dilakukan tangannya? Wajahnya? Suaranya?",
+      "cek_sendiri": [
+        "Kalimatku tidak memakai kata \"marah\" atau \"senang\".",
+        "Pembaca bisa membayangkan gerakannya."
+      ],
+      "kriteria": "Jawaban benar jika menunjukkan perasaan lewat tindakan, wajah, atau suara, dan tidak menyebut kata perasaannya.",
+      "contoh_jawaban": "Ibu meletakkan sapu dengan keras.",
+      "saran_stiker": "Beri Perak kalau kedua kalimat benar tanpa bantuan."
+    },
+    {
+      "kode": "M4-5",
+      "judul": "Tiga cara ngantuk",
+      "petunjuk": "Tulis 3 cara berbeda untuk menunjukkan \"ngantuk\" tanpa memakai kata ngantuk.",
+      "soal": "1. ____________________\n2. ____________________\n3. ____________________",
+      "baris_tulis": 6,
+      "pertanyaan_bantu": "Apa yang terjadi pada matanya? Mulutnya? Kepalanya?",
+      "cek_sendiri": [
+        "Aku tidak memakai kata \"ngantuk\".",
+        "Ketiga caraku berbeda."
+      ],
+      "kriteria": "Tiga kalimat berbeda yang menunjukkan ngantuk lewat tubuh, tanpa kata \"ngantuk\".",
+      "contoh_jawaban": "Matanya tinggal segaris. Dia menguap lebar sampai air matanya keluar. Kepalanya terangguk-angguk di atas buku.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Tebak gaya",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "petunjuk": "Ayah memperagakan marah, ngantuk, dan kaget tanpa bicara. Tebak perasaannya, lalu ceritakan apa yang kamu lihat.",
+      "petunjuk_ortu": "Peragakan marah, ngantuk, dan kaget tanpa bicara. Setelah anak menebak, tanyakan: \"Apa yang kamu lihat sehingga tahu?\""
+    },
+    {
+      "urutan": 2,
+      "judul": "Oren lapar",
+      "tahap": "petunjuk",
+      "jenis": "cetak",
+      "petunjuk": "Ubah \"Oren lapar.\" menjadi kalimat Kamera. Ada pertanyaan bantu di lembarnya.",
+      "lembar": "M4-2"
+    },
+    {
+      "urutan": 3,
+      "judul": "Ibu marah, Oren senang",
+      "tahap": "mandiri",
+      "jenis": "cetak",
+      "petunjuk": "Ubah dua kalimat \"bilang perasaan\" menjadi kalimat Kamera, tanpa petunjuk.",
+      "lembar": "M4-3"
+    },
+    {
+      "urutan": 4,
+      "judul": "Tubuh yang kesal",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Perhatikan adik, kakak, atau temanmu saat kesal.",
+      "pertanyaan": "Apa yang dilakukan tubuhnya?"
+    },
+    {
+      "urutan": 5,
+      "judul": "Tiga cara ngantuk",
+      "tahap": "bonus",
+      "jenis": "cetak",
+      "petunjuk": "Tulis 3 cara berbeda untuk menunjukkan \"ngantuk\".",
+      "lembar": "M4-5"
+    }
+  ]
+}

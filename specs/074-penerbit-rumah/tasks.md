@@ -11,10 +11,10 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_peran
 
 ## Fase 2 — Tokenizer + impor isi
-- [ ] `teks.py`
-- [ ] `course/schema.md`, `impor_course`
-- [ ] JSON alat, pangkat, Modul 1–5
-- [ ] tests: test_impor_course, test_isi_course
+- [x] `teks.py`
+- [x] `course/schema.md`, `impor_course`
+- [x] JSON alat, pangkat, Modul 1–5
+- [x] tests: test_impor_course, test_isi_course
 
 ## Fase 3 — Penilaian
 - [ ] `penilaian.py`, Percobaan, endpoint misi/ujian/bertanya

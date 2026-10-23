@@ -1,0 +1,153 @@
+{
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar B1", "misi 5: teks Si Ceroboh dijadikan misi mandiri", "misi 7: Bos Level 1 sebagai lembar cetak"],
+  "nomor": 5,
+  "musim": 1,
+  "level": 1,
+  "judul": "Kaca Pembesar",
+  "alat": "kaca",
+  "emoji": "🔍",
+  "tujuan": "Periksa huruf besar, titik, koma, dan spasi satu kalimat demi satu kalimat.",
+  "kenapa": "Detektif memakai kaca pembesar untuk menemukan jejak kecil yang tidak terlihat orang lain.",
+  "langkah": [
+    "Tutup semua kalimat dengan kertas kecuali satu.",
+    "Cek huruf besar di awal dan nama.",
+    "Cek titik, koma, dan spasi.",
+    "Cek \"di\" dan \"ke\": dipisah kalau tempat, disambung kalau kata kerja."
+  ],
+  "resep": [
+    "Satu kalimat sekali, mulai dari kalimat terakhir.",
+    "Huruf besar: awal kalimat dan nama.",
+    "Titik di akhir, spasi sesudah titik dan koma, tidak ada spasi sebelum titik.",
+    "\"di kebun\" dipisah, \"ditaruh\" disambung."
+  ],
+  "mengapa": "Saat membaca seluruh cerita, mata sibuk mengikuti ceritanya dan melewatkan titik yang hilang. Membaca satu kalimat sekali membuat mata hanya mengurus hal kecil.",
+  "kamus": [
+    {"istilah": "huruf besar", "arti": "Huruf kapital, dipakai di awal kalimat dan untuk nama."},
+    {"istilah": "di/ke tempat", "arti": "\"di\" dan \"ke\" sebelum nama tempat ditulis terpisah: di kebun, ke pasar."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Tutup semua kalimat dengan kertas kecuali satu, lalu berpikir keras: \"Huruf pertamanya besar? Belum. Titik di akhir? Ada. 'dikebun'… itu tempat, jadi harus dipisah.\"",
+  "ujian": [
+    {
+      "soal": "Mana yang benar?",
+      "a": "Oren pergi kesekolah.",
+      "b": "Oren pergi ke sekolah.",
+      "jawaban": "b",
+      "alasan": "Sekolah adalah tempat, jadi \"ke\" ditulis terpisah."
+    },
+    {
+      "soal": "Mana yang benar?",
+      "a": "Ibu menaruh cacing itu di kebun.",
+      "b": "ibu menaruh cacing itu di kebun .",
+      "jawaban": "a",
+      "alasan": "Kalimat diawali huruf besar dan tidak ada spasi sebelum titik."
+    }
+  ],
+  "lembar": [
+    {
+      "kode": "B1",
+      "judul": "Bos Level 1: Cerita Lengkap Si Ceroboh",
+      "petunjuk": "Pakai kelima alatmu sekaligus. Coret dan perbaiki dengan pulpen merah.",
+      "soal": "oren tidak bisa tidur malam itu. Dia terus terus memikirkan cacing merah itu dan dia bertanya-tanya apakah cacing itu kedinginan di kebun dan apakah cacing itu punya rumah dan apakah cacing itu marah padanya. Lalu Oren bangun. Lalu Oren pergi ke jendela. Oren penasaran. Di luar bulan bersinar terang dan di bawah pohon mangga ada sesuatu yang bergerak-gerak dikebun",
+      "baris_tulis": 10,
+      "pertanyaan_bantu": "Pengeras Suara: di mana kamu tersandung? Gunting: kalimat mana yang terlalu panjang? Detektor Kembar: kata apa yang kembar? Kamera: di mana Si Ceroboh bilang perasaan? Kaca Pembesar: huruf besar dan titiknya?",
+      "cek_sendiri": [
+        "Aku sudah memakai kelima alat.",
+        "Aku membaca versi baruku keras-keras."
+      ],
+      "kriteria": "Bandingkan dengan Versi Editor. Yang dinilai: \"terus terus\", kalimat panjang dipotong, \"Lalu\" dikurangi, \"Oren penasaran\" ditunjukkan, huruf besar \"Oren\", \"di kebun\", titik di akhir.",
+      "contoh_jawaban": "Oren tidak bisa tidur malam itu. Dia terus memikirkan cacing merah itu. Apakah cacing itu kedinginan di kebun? Apakah dia punya rumah? Apakah dia marah pada Oren? Oren bangun dan berjinjit ke jendela. Hidungnya menempel di kaca. Di luar, bulan bersinar terang. Di bawah pohon mangga, ada sesuatu yang bergerak-gerak di kebun.",
+      "saran_stiker": "Tidak menambah stiker. Teks ini sengaja menggantung: tanyakan apakah dia mau menulis kelanjutannya di Level 2."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Tiga kalimat Ayah",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "petunjuk": "Ayah menulis 3 kalimat, masing-masing dengan 1 kesalahan, dan menyebut jenis kesalahannya. Temukan dan betulkan.",
+      "petunjuk_ortu": "Tulis 3 kalimat di kertas, masing-masing dengan satu kesalahan (huruf besar, titik, atau di/ke), dan sebutkan jenisnya sebelum anak mencari."
+    },
+    {
+      "urutan": 2,
+      "judul": "Ke pasar bersama Ibu",
+      "tahap": "petunjuk",
+      "jenis": "klik",
+      "celah": true,
+      "petunjuk": "Ada 5 kesalahan: huruf besar, di/ke, dan titik. Titik yang hilang bisa diklik di celahnya.",
+      "teks": "kemarin oren pergi kepasar bersama ibu",
+      "jumlah": 5,
+      "kesalahan": [
+        {"cari": "kemarin"},
+        {"cari": "oren"},
+        {"cari": "kepasar"},
+        {"cari": "ibu"},
+        {"cari": "ibu|"}
+      ],
+      "versi_benar": "Kemarin Oren pergi ke pasar bersama Ibu."
+    },
+    {
+      "urutan": 3,
+      "judul": "Ikan kembung",
+      "tahap": "mandiri",
+      "jenis": "klik",
+      "celah": true,
+      "petunjuk": "Periksa satu kalimat sekali. Spasi yang hilang dan titik yang hilang bisa diklik di celahnya.",
+      "teks": "Di pasar Oren melihat ikan tongkol,ikan kembung dan udang . dia di belikan seekor ikan kembung",
+      "jumlah": 5,
+      "kesalahan": [
+        {"cari": ",|ikan"},
+        {"cari": " ."},
+        {"cari": "dia"},
+        {"cari": "di belikan"},
+        {"cari": "kembung|", "ke": 2}
+      ],
+      "versi_benar": "Di pasar Oren melihat ikan tongkol, ikan kembung dan udang. Dia dibelikan seekor ikan kembung."
+    },
+    {
+      "urutan": 4,
+      "judul": "Spanduk yang salah",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Cari satu kesalahan ejaan di spanduk, papan pengumuman, atau menu warung.",
+      "pertanyaan": "Kesalahannya apa?"
+    },
+    {
+      "urutan": 5,
+      "judul": "Teks Si Ceroboh: cacing di kebun",
+      "tahap": "mandiri",
+      "jenis": "klik",
+      "celah": true,
+      "petunjuk": "Teks Si Ceroboh lengkap. Ada 8 kesalahan kecil yang bersembunyi.",
+      "teks": "ibu mengambil cacing itu dengan daun lalu membawanya keluar.cacing itu di taruh dikebun dekat pohon mangga . oren mengikuti dari belakang dan bertanya apakah cacing itu jahat",
+      "jumlah": 8,
+      "kesalahan": [
+        {"cari": "ibu"},
+        {"cari": "cacing", "ke": 2},
+        {"cari": ".|cacing"},
+        {"cari": "di taruh"},
+        {"cari": "dikebun"},
+        {"cari": " ."},
+        {"cari": "oren"},
+        {"cari": "jahat|"}
+      ],
+      "versi_benar": "Ibu mengambil cacing itu dengan daun lalu membawanya keluar. Cacing itu ditaruh di kebun dekat pohon mangga. Oren mengikuti dari belakang dan bertanya apakah cacing itu jahat."
+    },
+    {
+      "urutan": 6,
+      "judul": "Peran dibalik",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "petunjuk": "Buat 3 kalimat yang sengaja dibuat salah untuk dikoreksi Ayah."
+    },
+    {
+      "urutan": 7,
+      "judul": "Bos Level 1",
+      "tahap": "bonus",
+      "jenis": "cetak",
+      "petunjuk": "Semua alat sekaligus pada satu teks. Cetak, koreksi dengan pulpen merah, lalu bandingkan dengan Versi Editor.",
+      "lembar": "B1"
+    }
+  ]
+}

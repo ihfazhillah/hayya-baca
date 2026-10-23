@@ -1,0 +1,110 @@
+{
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar"],
+  "nomor": 1,
+  "musim": 1,
+  "level": 1,
+  "judul": "Pengeras Suara",
+  "alat": "pengeras",
+  "emoji": "🔊",
+  "tujuan": "Baca keras-keras untuk menemukan kalimat yang membuat lidah tersandung.",
+  "kenapa": "Penjual bakso tahu kuahnya enak dengan mencicipinya. Penulis tahu kalimatnya enak dengan membacanya keras-keras.",
+  "langkah": [
+    "Baca teks Si Ceroboh keras-keras.",
+    "Beri tanda di setiap tempat lidahmu tersandung.",
+    "Coret bagian yang membuat tersandung.",
+    "Baca lagi, rasakan bedanya."
+  ],
+  "resep": [
+    "Baca keras-keras, jangan dalam hati.",
+    "Berhenti di tempat lidahmu tersandung, beri tanda.",
+    "Coret kata yang dobel atau tidak perlu.",
+    "Baca sekali lagi dari awal."
+  ],
+  "mengapa": "Mata suka melompati kesalahan karena otak sudah tahu maksudnya. Telinga lebih jujur: kalau ada kata dobel, lidahmu tersandung dan telingamu mendengarnya.",
+  "kamus": [
+    {"istilah": "tersandung", "arti": "Saat membaca keras, lidahmu tiba-tiba berhenti atau mengulang karena kalimatnya aneh."},
+    {"istilah": "kata ganda", "arti": "Kata yang tertulis dua kali tanpa sengaja, misalnya \"di di\"."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Sebelum anak mulai, bacakan satu kalimat Si Ceroboh dengan keras sambil berpikir keras: \"Aku baca keras… nah, di sini aku tersandung, karena ada 'di di'. Aku beri tanda di sini.\" Lalu biarkan dia mencoba sendiri.",
+  "ujian": [
+    {
+      "soal": "Mana yang lebih enak dibaca?",
+      "a": "Dia ingin main ke taman, tapi tapi hujan.",
+      "b": "Dia ingin main ke taman, tapi hujan.",
+      "jawaban": "b",
+      "alasan": "Di A ada \"tapi tapi\". Coba baca keras: lidahmu tersandung di situ."
+    },
+    {
+      "soal": "Mana yang lebih enak dibaca?",
+      "a": "Oren duduk di dekat jendela.",
+      "b": "Oren duduk di di dekat jendela.",
+      "jawaban": "a",
+      "alasan": "Di B ada \"di di\". Kalau dibaca keras, terdengar seperti tersandung."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Angkat tangan saat Ayah tersandung",
+      "tahap": "bersama",
+      "jenis": "klik",
+      "petunjuk": "Ayah membaca teks ini keras-keras. Setiap kali Ayah tersandung, klik kata yang membuatnya tersandung.",
+      "petunjuk_ortu": "Bacakan teks Si Ceroboh keras-keras dan sengaja tersendat di setiap kesalahan. Anak mengangkat tangan lalu mengklik katanya.",
+      "teks": "Pagi itu hujan turun deras sekali sekali. Oren si kucing duduk di di dekat jendela sambil melihat ke luar. Dia ingin main ke taman, tapi tapi hujan. Ibu Oren bilang tunggu hujan berhenti dulu ya, nanti kamu basah kuyup dan bisa sakit nanti.",
+      "jumlah": 4,
+      "kesalahan": [
+        {"cari": "sekali sekali"},
+        {"cari": "di di"},
+        {"cari": "tapi tapi"},
+        {"pilihan": [{"cari": "nanti"}, {"cari": "nanti", "ke": 2}]}
+      ],
+      "versi_benar": "Pagi itu hujan turun deras sekali. Oren si kucing duduk di dekat jendela sambil melihat ke luar. Dia ingin main ke taman, tapi hujan. Ibu Oren bilang, tunggu hujan berhenti dulu ya, nanti kamu basah kuyup dan bisa sakit."
+    },
+    {
+      "urutan": 2,
+      "judul": "Oren dan ikan",
+      "tahap": "petunjuk",
+      "jenis": "klik",
+      "petunjuk": "Ada 3 kesalahan. Baca keras-keras, lalu klik kata yang membuatmu tersandung.",
+      "teks": "Oren sangat sangat suka makan ikan. Setiap pagi dia menunggu di di dapur. Kalau ikannya belum datang, Oren mengeong dengan keras sekali sekali.",
+      "jumlah": 3,
+      "kesalahan": [
+        {"cari": "sangat sangat"},
+        {"cari": "di di"},
+        {"cari": "sekali sekali"}
+      ],
+      "versi_benar": "Oren sangat suka makan ikan. Setiap pagi dia menunggu di dapur. Kalau ikannya belum datang, Oren mengeong dengan keras sekali."
+    },
+    {
+      "urutan": 3,
+      "judul": "Lantai yang licin",
+      "tahap": "mandiri",
+      "jenis": "klik",
+      "petunjuk": "Kali ini tanpa petunjuk. Baca keras-keras dan temukan sendiri.",
+      "teks": "Ibu memanggil dari dapur, \"Oren, ikannya sudah sudah siap!\" Oren langsung berlari, tapi dia terpeleset karena lantainya licin karena basah karena hujan tadi.",
+      "jumlah": 2,
+      "kesalahan": [
+        {"cari": "sudah sudah"},
+        {"pilihan": [{"cari": "karena"}, {"cari": "karena", "ke": 2}, {"cari": "karena", "ke": 3}]}
+      ],
+      "versi_benar": "Ibu memanggil dari dapur, \"Oren, ikannya sudah siap!\" Oren langsung berlari, tapi dia terpeleset. Lantainya licin, basah kena hujan tadi."
+    },
+    {
+      "urutan": 4,
+      "judul": "Buku favoritmu",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Baca keras-keras satu halaman buku favoritmu.",
+      "pertanyaan": "Apakah penulisnya membuatmu tersandung? Di mana?"
+    },
+    {
+      "urutan": 5,
+      "judul": "Rekam suaramu",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "petunjuk": "Rekam suaramu membaca teks Si Ceroboh yang sudah dibetulkan, lalu dengarkan. Enak didengar, kan?"
+    }
+  ]
+}
