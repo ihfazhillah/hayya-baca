@@ -37,7 +37,7 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_ortu, test_tamu
 
 ## Fase 8 — Perjalanan penuh
-- [ ] test_perjalanan
+- [x] test_perjalanan
 
 ## Fase 9 — Frontend skeleton
 ## Fase 10 — Komponen latihan
