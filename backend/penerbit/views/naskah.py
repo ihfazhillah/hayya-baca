@@ -13,6 +13,7 @@ from ..models import (
     LAPIS_STEMPEL, DrafKerja, Ide, Jejak, Naskah, Stempel, Versi,
 )
 from .base import PenulisView
+from .sampul import url_sampul
 
 LACI_JAM = 48
 LAPIS_REVISI = ["peta", "kamera", "gunting", "kaca"]
@@ -114,7 +115,7 @@ def naskah_detail(n):
                     "oleh": u.penulis.first_name or u.penulis.username, "tanggal": u.tanggal}
                    for u in n.ulasan.select_related("penulis", "versi")],
         "paragraf_favorit": n.paragraf_favorit,
-        "sampul": n.sampul.url if n.sampul else None,
+        "sampul": url_sampul(n),
         "tentang_penulis": n.tentang_penulis,
     }
 

@@ -13,6 +13,7 @@ from ..models import (
 from ..peran import profil_diperiksa, profil_penulis, profil_untuk_pemeriksa
 from ..progres import modul_selesai, modul_terbuka, pesan_terkunci, status_misi
 from .base import PenulisView
+from .sampul import url_sampul
 
 
 def alat_json(alat, profil, stiker=None, terbuka=None):
@@ -251,7 +252,7 @@ def profil_rak(request):
 
 def buku_json(n):
     return {"id": n.id, "judul": n.judul, "nomor_terbitan": n.nomor_terbitan,
-            "sampul": n.sampul.url if n.sampul else None, "tanggal_terbit": n.tanggal_terbit}
+            "sampul": url_sampul(n), "tanggal_terbit": n.tanggal_terbit}
 
 
 class RakView(APIView):

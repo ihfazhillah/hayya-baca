@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from accounts.models import Child, ChildAccess
@@ -20,6 +20,7 @@ def auth(user):
     return c
 
 
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp(prefix="penerbit-test-media-"))
 class Keluarga(TestCase):
     def setUp(self):
         super().setUp()

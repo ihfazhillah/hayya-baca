@@ -44,3 +44,48 @@ class TestEditorTamu(Keluarga):
     def test_tamu_tidak_bisa_masuk_area_ortu_atau_penulis(self):
         assert self.tamu.get("/api/penerbit/ortu/dasbor/").status_code == 403
         assert self.tamu.get(f"/api/penerbit/naskah/{self.n.id}/").status_code == 403
+
+
+class TestSampulTerlindungi(Keluarga):
+    """Sampul buku hanya untuk penulisnya, Pemeriksa keluarga itu, dan Editor Tamu yang dibagikan."""
+
+    def setUp(self):
+        super().setUp()
+        from django.core.files.base import ContentFile
+
+        self.n = Naskah.objects.create(profil=self.profil, judul="Sandal", tahap="terbit")
+        self.n.sampul.save("sampul.png", ContentFile(b"\x89PNG gambar"), save=True)
+        self.url = f"/api/penerbit/sampul/{self.n.id}/"
+
+    def tearDown(self):
+        self.n.sampul.delete(save=False)
+        super().tearDown()
+
+    def test_penulis_dan_pemeriksa_boleh(self):
+        r = self.anak.get(self.url)
+        assert r.status_code == 200
+        assert b"".join(r.streaming_content) == b"\x89PNG gambar"
+        assert self.ortu.get(self.url).status_code == 200
+
+    def test_keluarga_lain_dan_tamu_tanpa_bagi_404(self):
+        assert auth(self.ayah_lain).get(self.url).status_code == 404
+        assert auth(self.kakak).get(self.url).status_code == 404
+
+    def test_detail_memberi_url_bertanda_tangan_untuk_img(self):
+        from rest_framework.test import APIClient
+
+        d = self.anak.get(f"/api/penerbit/naskah/{self.n.id}/").data
+        assert d["sampul"].startswith(self.url + "?t=")
+        # <img> tidak mengirim header Authorization: tanda tangan di URL yang membuka aksesnya.
+        assert APIClient().get(d["sampul"]).status_code == 200
+        assert APIClient().get(self.url + "?t=palsu").status_code == 404
+        lain = Naskah.objects.create(profil=self.profil, judul="Lain")
+        t = d["sampul"].split("?t=")[1]
+        assert APIClient().get(f"/api/penerbit/sampul/{lain.id}/?t={t}").status_code == 404
+
+    def test_produksi_memakai_x_accel(self):
+        from django.test import override_settings
+
+        with override_settings(PENERBIT_USE_X_ACCEL=True):
+            r = self.anak.get(self.url)
+        assert r["X-Accel-Redirect"].startswith("/protected-penerbit-media/penerbit/sampul/")

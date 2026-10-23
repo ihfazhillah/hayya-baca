@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import latihan, misi, naskah, ortu, penulis, tamu, umum
+from .views import latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
@@ -14,6 +14,7 @@ urlpatterns = [
     path("rak/", penulis.RakView.as_view()),
     path("rak/<int:pk>/", penulis.BukuView.as_view()),
     path("cetak/<str:kode>/", penulis.CetakLembarView.as_view()),
+    path("sampul/<int:pk>/", sampul.SampulView.as_view()),
     path("misi/<int:pk>/", misi.MisiView.as_view()),
     path("misi/<int:pk>/klik/", misi.KlikView.as_view()),
     path("misi/<int:pk>/petunjuk/", misi.PetunjukView.as_view()),

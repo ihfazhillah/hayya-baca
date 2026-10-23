@@ -132,3 +132,5 @@ DIARY_INTERNAL_MEDIA_LOCATION = os.environ.get(
 
 # English segment audio (Spec 064): access-controlled via SegmentAudioView.
 ENGLISH_USE_X_ACCEL = os.environ.get("ENGLISH_USE_X_ACCEL", "") == "1"
+# Penerbit Rumah (Spec 074): sampul buku lewat nginx internal /protected-penerbit-media/.
+PENERBIT_USE_X_ACCEL = os.environ.get("PENERBIT_USE_X_ACCEL", "") == "1"
