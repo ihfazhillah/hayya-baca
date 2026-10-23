@@ -20,6 +20,31 @@ kurikulumnya (3 babak, modul 0–10, 3 Boss, bonus). Yang belum ada: tempat menj
 - Hosting: `nadzom.ihfazh.com` di server yang sama, situs statis. DNS diurus pemilik.
 - Kode di repo ini (`nadzom-web/`) untuk sementara; boleh dipindah ke repo sendiri nanti.
 
+## Hasil akhir dan bentuk sesi (keputusan pemilik)
+
+- **Hasil akhir course:** pemilik bisa menyusun sendiri nadzom/syair pendek, minimal **4 bait**
+  yang wazannya tidak pincang, tentang tema yang ia pilih.
+- **Hands-on, bukan tontonan.** Setiap sesi (20–30 menit) punya:
+  1. **Patokan praktik**: satu target yang jelas dan bisa dicek sendiri (mis. "taqthi' 2 bait model
+     sampai cocok dengan kunci", "isi template rajaz dengan 2 kata sendiri, 0 taf'ilah patah").
+  2. **Hasil**: sesuatu yang benar-benar dibuat dan bisa disalin ke Diwan (bait taqthi'an, bait
+     template, bait sendiri, versi perbaikan).
+  3. **Cek sendiri**: checker memberi tahu lulus/belum; tidak ada penilai lain.
+- Materi penjelasan dan video hanya pengantar singkat sebelum praktik, bukan inti sesi.
+- Satu modul = 1–3 sesi; tiap sesi ditulis sebagai kartu sesi (patokan, langkah, hasil) di JSON modul.
+
+### Sumber belajar (kandidat, belum ditonton; dipilih saat menulis tiap modul)
+
+| Sumber | Bahasa | Untuk |
+|---|---|---|
+| [KH Marzuqi Mustamar, Panduan Menyusun Syair Arab](https://www.youtube.com/watch?v=Y7pWQdsIsDA) | Indonesia | Menyusun syair, cocok dengan tujuan course |
+| [Lil Jamik, Cara Mentaqthi' Bait Syiir](https://www.youtube.com/watch?v=o8jPrFeortE) | Indonesia | Langkah taqthi' |
+| [Lil Jamik, Belajar mudah Ilmu Arudh (1 jam)](https://www.youtube.com/watch?v=AGXZ-sgr3i4) | Indonesia | Gambaran utuh |
+| [Khalil Ibrahim, سلسلة تعلم العروض ١](https://www.youtube.com/watch?v=8n6xp89caZ4) | Arab | Kitabah 'arudhiyyah, seri |
+| [Muhannad Halimah, تعلم العروض للمبتدئين ١](https://www.youtube.com/watch?v=pbIF4R449wg) | Arab | Huruf yang ditambah dalam kitabah 'arudhiyyah |
+| [Abu Qudamah, التلخيصات الشافية درس 11: الرجز](https://abuqudamah.com/talkheesat_shafeyah_11) | Arab (tulisan) | Langkah taqthi' bertahap + latihan mandiri, seri 11 pelajaran |
+| [Terjemah al-Mukhtashar asy-Syafi](https://archive.org/download/terjemah-mukhtashor-syafi-ilmu-arudh-qawafi-mktbhazzaen/Terjemah%20Mukhtashor%20Syafi%20(Ilmu%20'Arudh%20&%20Qawafi).pdf) | Indonesia | Rujukan kaidah |
+
 ## Kebutuhan
 
 ### K1. Peta course
