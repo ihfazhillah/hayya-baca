@@ -28,7 +28,7 @@
           "bahr": "thawil",
           "makna": "Kecerdasan, semangat, kesabaran, dan bekal yang cukup; lalu bimbingan guru, dan waktu yang panjang.",
           "sumber": "Az-Zarnuji, Ta'lim al-Muta'allim, lanjutan bait sebelumnya. Dicocokkan dengan NU Online (Khutbah Jumat: Syarat Mencari Ilmu).",
-          "catatan": "Enam syarat berderet sebagai mudhaf ilaih dari بِسِتَّةٍ (badal, majrur). Daftar seperti ini sangat cocok untuk thawil yang panjang."
+          "catatan": "Enam syarat berderet sebagai badal dari بِسِتَّةٍ, karena itu semuanya majrur. Daftar seperti ini sangat cocok untuk thawil yang panjang."
         },
         {
           "bait": [
@@ -86,7 +86,7 @@
       },
       "qaidah": [
         "**فَعُولُنْ** = watad majmu' + sabab khafif = 110 10 = **11010**. Contoh kata: أَلَا لَا، كَرِيمٌ.",
-        "**مَفَاعِيلُنْ** = watad + sabab + sabab = 110 10 10 = **1101010**. Contoh: تَنَالُ الْعِلْ، سَأُنْبِيكَ.",
+        "**مَفَاعِيلُنْ** = watad + sabab + sabab = 110 10 10 = **1101010**. Contoh: تَنَالُلْعِلْ (dari تَنَالُ الْعِلْمَ), دِأُسْتَاذِنْ (dari وَإِرْشَادِ أُسْتَاذٍ).",
         "**Thawil** = فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِيلُنْ dalam satu syathr. Rajaz dibuka sabab, thawil dibuka watad: ta-TAM.",
         "Hafalkan kuncinya: طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ. Lagukan bersama bait Ta'lim sampai iramanya menempel."
       ],
@@ -397,7 +397,7 @@
         }
       },
       "qaidah": [
-        "**Daftar dalam thawil**: setiap taf'ilah bisa memuat satu benda. Pola yang mudah: فَعُولُنْ = كَرِيمٍ / ذَكَاءٍ / وَحِرْصٍ; مَفَاعِيلُنْ = وَإِرْشَادِ أُسْ / سَأُنْبِيكَ.",
+        "**Daftar dalam thawil**: setiap taf'ilah bisa memuat satu benda. Pola yang mudah: فَعُولُنْ = كَرِيمٍ / ذَكَاءٍ / وَحِرْصٍ; مَفَاعِيلُنْ = وَحِرْصِنْ وَصْ / دِأُسْتَاذِنْ.",
         "**Pembuka thawil selalu watad** (11...). Kata yang dibuka dua sabab (تَكْرَارِ، أُسْتَاذِ) tidak bisa di awal syathr. Pakai kata yang dibuka dua huruf hidup: دَوَامِ، ذَكَاءٍ، وَتَرْكِ، كَبِيرٌ.",
         "**Satu qafiyah** untuk qashidah: ujung setiap bait mengikuti bait pertama, sama rawiy, harakat, dan ridf-nya. Bentuk dharb juga sama: kalau bait pertama berakhir فَعُولُنْ (بَيَانِ), bait berikutnya juga.",
         "Laci qafiyah ـانِ dari Babak 2 (kamil) bisa dipakai lagi di sini: زَمَانِ، بَيَانِ، لِسَانِ، أَمَانِ، تَوَانِ. Polanya 11010 di ujung thawil."
@@ -447,7 +447,7 @@
   "laci": [
     { "teks": "أَلَا", "arti": "ketahuilah", "laci": "hasyw", "catatan": "Huruf tanbih, pola 110: watad pembuka thawil.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "لَا تَنَالُ", "arti": "tidak akan kau raih", "laci": "hasyw", "dari": "Ta'lim al-Muta'allim" },
-    { "teks": "سَأُنْبِيكَ", "arti": "akan kuberitahukan kepadamu", "laci": "hasyw", "catatan": "Pola 1101010, satu مَفَاعِيلُنْ penuh. Asalnya سَأُنْبِئُكَ, hamzah diringankan.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "سَأُنْبِيكَ", "arti": "akan kuberitahukan kepadamu", "laci": "hasyw", "catatan": "Di awal syathr: سَأُنْبِي = 11010 (فَعُولُنْ), lalu كَ membuka مَفَاعِيلُنْ. Asalnya سَأُنْبِئُكَ, hamzah diringankan.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "بِبَيَانِ", "arti": "dengan jelas", "laci": "qafiyah", "catatan": "Qafiyah ـانِ, dharb فَعُولُنْ. Pasangan: زَمَانِ، أَمَانِ، لِسَانِ.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "زَمَانِ", "arti": "waktu, masa", "laci": "qafiyah", "catatan": "Pasangan بِبَيَانِ. Wazan فَعَالٍ.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "ذَكَاءٍ", "arti": "kecerdasan", "laci": "wazan", "catatan": "Wazan فَعَالٍ bertanwin = 11010, satu فَعُولُنْ. Sekelompok: بَيَانٍ، ثَبَاتٍ، صَلَاحٍ.", "dari": "Ta'lim al-Muta'allim" },
@@ -455,7 +455,7 @@
     { "teks": "وَاصْطِبَارٍ", "arti": "dan kesabaran", "laci": "wazan", "catatan": "Mashdar اِفْتِعَال setelah وَ: وَصْطِبَارِنْ = 1011010. Bisa diganti وَاجْتِهَادٍ.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "وَاجْتِهَادٍ", "arti": "dan kesungguhan", "laci": "wazan", "catatan": "Pola sama dengan وَاصْطِبَارٍ.", "dari": "Riwayat Fath al-Majid" },
     { "teks": "وَبُلْغَةٍ", "arti": "dan bekal yang mencukupi", "laci": "hasyw", "dari": "Ta'lim al-Muta'allim" },
-    { "teks": "وَإِرْشَادِ أُسْتَاذٍ", "arti": "dan bimbingan guru", "laci": "hasyw", "catatan": "Satu مَفَاعِيلُنْ ditambah awal فَعُولُنْ berikutnya.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَإِرْشَادِ أُسْتَاذٍ", "arti": "dan bimbingan guru", "laci": "hasyw", "catatan": "وَإِرْشَا = فَعُولُنْ, lalu دِأُسْتَاذِنْ = مَفَاعِيلُنْ penuh.", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "وَطُولِ زَمَانِ", "arti": "dan waktu yang panjang", "laci": "qafiyah", "catatan": "Penutup bait thawil: وَطُو لِ (فَعُولُ) + زَمَانِ (فَعُولُنْ).", "dari": "Ta'lim al-Muta'allim" },
     { "teks": "تَعَلَّمْ", "arti": "belajarlah", "laci": "hasyw", "catatan": "Pola 11010: pembuka thawil yang pas.", "dari": "asy-Syafi'i" },
     { "teks": "أَخُو عِلْمٍ", "arti": "orang berilmu", "laci": "hasyw", "dari": "asy-Syafi'i" },

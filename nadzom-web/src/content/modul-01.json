@@ -27,7 +27,7 @@
           ],
           "bahr": "rajaz",
           "makna": "Demi Allah, kalau bukan karena Allah, kami tidak akan mendapat petunjuk, tidak akan bersedekah, dan tidak akan shalat.",
-          "sumber": "Rajaz yang dilantunkan Nabi ﷺ sambil mengangkut tanah saat menggali Khandaq, dari kata-kata 'Abdullah bin Rawahah. Shahih al-Bukhari no. 4104 dan 6620 (dari al-Bara').",
+          "sumber": "Rajaz yang dilantunkan Nabi ﷺ sambil mengangkut tanah saat menggali Khandaq, dari kata-kata 'Abdullah bin Rawahah. Shahih al-Bukhari no. 4104 dan 6620 (dari al-Bara'); penisbatan kepada Ibnu Rawahah ada di riwayat al-Bara' no. 4106 (يَرْتَجِزُ بِكَلِمَاتِ ابْنِ رَوَاحَةَ, dengan lafal اللَّهُمَّ لَوْلَا أَنْتَ).",
           "catatan": "Ujung kedua syathr sama-sama ـيْنَا. Dengarkan bagaimana مَا اهْتَدَيْنَا dibaca مَهْتَدَيْنَا: suku-sukunya tetap mengalir."
         },
         {
@@ -404,7 +404,7 @@
             "وَرَاجِعْ مَا مَضَى"
           ],
           "jawaban": 2,
-          "alasan": "وَرَاجِعْ مَا مَضَى = 1010110, utuh, dan ujungnya ـضَى. كُلَّ يَوْمٍ menambah terlalu banyak suku; وَأَعِدْهُ membuat empat huruf hidup berturut-turut. Keduanya tetap patah, dan ujungnya tidak sebunyi."
+          "alasan": "Dengan وَرَاجِعْ مَا مَضَى, taf'ilah kedua دَرْسِ وَرَا = 101110 (thayy, sah) dan taf'ilah ketiga جِعْ مَا مَضَى = 1010110 (utuh); ujungnya ـضَى. كُلَّ يَوْمٍ menambah terlalu banyak suku; وَأَعِدْهُ membuat empat huruf hidup berturut-turut. Keduanya tetap patah, dan ujungnya tidak sebunyi."
         },
         {
           "jenis": "irama",
@@ -461,7 +461,7 @@
       "teks": "وَأَسْتَعِينُ اللَّهَ",
       "arti": "dan aku memohon pertolongan Allah",
       "laci": "hasyw",
-      "catatan": "Pembuka permohonan. Huruf mad di فِي، عَلَى sebelumnya akan gugur bila disambung.",
+      "catatan": "Pembuka permohonan. Hamzah washal اللَّهَ gugur, sehingga نُ menjadi suku panjang نُلْ: وَأَسْتَعِينُلْلَاهَ.",
       "dari": "Alfiyah bait 3"
     },
     {
