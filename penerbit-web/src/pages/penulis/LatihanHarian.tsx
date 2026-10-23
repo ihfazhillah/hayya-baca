@@ -14,6 +14,13 @@ import '../../styles/penulis-halaman.css'
 
 type Hasil = { kartu: number; alat: AlatRingkas | null; betul: boolean }
 
+/** Cara mengerjakan per jenis kartu, supaya anak tahu apa yang harus diklik. */
+const CARA: Partial<Record<KartuLatihan['jenis'], string>> = {
+  klik: 'Klik kata yang salah.',
+  gunting: 'Klik celah di antara kata untuk memotong kalimatnya, lalu tekan Periksa.',
+  kembar: 'Klik kata yang paling sering muncul.',
+}
+
 export default function LatihanHarian() {
   const [kartu, setKartu] = useState<KartuLatihan[] | null>(null)
   const [pesan, setPesan] = useState<string | null>(null)
@@ -105,7 +112,14 @@ function Sesi({ kartu }: { kartu: KartuLatihan[] }) {
   const k = sisa[i]
   return (
     <>
-      <TimerKecil />
+      <div className="ph-antara">
+        <TimerKecil />
+      </div>
+      <ol className="ph-langkah-kartu" aria-label={`Kartu ${i + 1} dari ${sisa.length}`}>
+        {sisa.map((x, n) => (
+          <li key={x.id} className={n < i ? 'selesai' : n === i ? 'sekarang' : undefined} />
+        ))}
+      </ol>
       <KartuSatu key={k.id} kartu={k} nomor={i + 1} jumlah={sisa.length}
         onSelesai={(h) => setHasil((s) => [...s, h])}
         onLanjut={() => setI((x) => x + 1)} terakhir={i + 1 >= sisa.length} />
@@ -163,12 +177,13 @@ function KartuSatu({ kartu: k, nomor, jumlah, onSelesai, onLanjut, terakhir }: {
   const tokens = k.tokens ?? []
 
   return (
-    <section className="tumpuk" aria-label={`Kartu ${nomor} dari ${jumlah}`}>
+    <section className="kartu tumpuk ph-kartu-latihan" aria-label={`Kartu ${nomor} dari ${jumlah}`}>
       <div>
-        <p className="kecil" style={{ fontWeight: 600 }}>
+        <p className="ph-label-kecil ph-ungu">
           Kartu {nomor} dari {jumlah} · {alat ? `${alat.emoji} ${alat.nama}` : 'Latihan campuran'}
         </p>
         {alat?.pertanyaan && <p className="ph-sub">“{alat.pertanyaan}”</p>}
+        {alat && !selesai && CARA[k.jenis] && <p className="kecil">{CARA[k.jenis]}</p>}
       </div>
 
       {!alat ? (

@@ -6,7 +6,7 @@ import {
 import type { HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci } from '../../types'
 import { Galat, Memuat, PerayaanHadiah } from '../../components/ui'
 import { useNavPenulis } from '../../components/LayoutPenulis'
-import TeksKlik from '../../components/TeksKlik'
+import TeksKlik, { type AwalKlik } from '../../components/TeksKlik'
 import Gunting from '../../components/Gunting'
 import DetektorKembar from '../../components/DetektorKembar'
 import '../../styles/penulis-halaman.css'
@@ -153,7 +153,7 @@ function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor 
     case 'klik':
       return (
         <TeksKlik tokens={tokens} celah={misi.celah} jumlah={misi.jumlah}
-          awal={misi.percobaan ? { diklik: misi.percobaan.diklik, meleset: misi.percobaan.meleset } : undefined}
+          awal={misi.percobaan ? awalKlik(misi.percobaan) : undefined}
           onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
           onSelesai={onSelesai} />
       )
@@ -168,6 +168,25 @@ function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor 
     case 'cetak':
       return <MisiCetak misi={misi} onSegarkan={onSegarkan} urutanBerikut={urutanBerikut} nomor={nomor} />
   }
+}
+
+/** Percobaan yang tersimpan; `ditemukan`/`celah` dipakai bila server mengirimnya. */
+function awalKlik(p: NonNullable<MisiDetail['percobaan']>): AwalKlik {
+  const x = p as typeof p & { ditemukan?: number; celah?: number[] }
+  return { diklik: p.diklik, meleset: p.meleset, ditemukan: x.ditemukan, celah: x.celah }
+}
+
+/** Tautan misi: halaman di dalam aplikasi dibuka di tab yang sama. */
+function TautanMisi({ href }: { href: string }) {
+  if (href.startsWith('/')) {
+    const ke = href.startsWith('/naskah/baru') ? 'Buat naskah baru' : href.startsWith('/naskah') ? 'Buka Ruang Penulis' : 'Buka halamannya'
+    return <Link className="btn-besar sekunder ph-tautan-tombol" to={href}>{ke} →</Link>
+  }
+  return (
+    <a className="btn-besar sekunder ph-tautan-tombol" href={href} target="_blank" rel="noopener noreferrer">
+      Buka tautannya ↗
+    </a>
+  )
 }
 
 function MisiTandai({ misi, selesai, onSelesai }: {
@@ -194,13 +213,7 @@ function MisiTandai({ misi, selesai, onSelesai }: {
           <p>{misi.petunjuk_ortu}</p>
         </details>
       )}
-      {misi.tautan && (
-        <p>
-          <a className="btn-besar sekunder ph-tautan-tombol" href={misi.tautan} target="_blank" rel="noopener noreferrer">
-            Buka tautannya ↗
-          </a>
-        </p>
-      )}
+      {misi.tautan && <p><TautanMisi href={misi.tautan} /></p>}
       <Galat pesan={galat} />
       {!selesai && (
         <button type="button" className="btn-besar" onClick={tandai} disabled={sibuk}>Tandai selesai</button>
@@ -248,12 +261,20 @@ function MisiCetak({ misi, onSegarkan, urutanBerikut, nomor }: {
   misi: MisiDetail; onSegarkan: () => void; urutanBerikut: number | undefined; nomor: number
 }) {
   const [status, setStatus] = useState(misi.status)
+  const [dicetak, setDicetak] = useState(false)
+  const [sibuk, setSibuk] = useState(false)
   const [galat, setGalat] = useState<string | null>(null)
   const kode = misi.lembar?.kode
 
-  async function cetak() {
+  function cetak() {
     if (!kode) return
     window.open(`/cetak/${encodeURIComponent(kode)}`, '_blank', 'noopener')
+    setDicetak(true)
+  }
+
+  /** Langkah kedua (Rancangan: "Sudah aku kerjakan, serahkan ke Ayah atau Ummah"). */
+  async function serahkan() {
+    setSibuk(true)
     setGalat(null)
     try {
       await cetakMisi(misi.id)
@@ -261,6 +282,8 @@ function MisiCetak({ misi, onSegarkan, urutanBerikut, nomor }: {
       onSegarkan()
     } catch (e) {
       setGalat(e instanceof Error ? e.message : 'Belum tersimpan. Coba lagi, ya.')
+    } finally {
+      setSibuk(false)
     }
   }
 
@@ -277,17 +300,23 @@ function MisiCetak({ misi, onSegarkan, urutanBerikut, nomor }: {
       {status === 'menunggu' ? (
         <div className="tumpuk" aria-live="polite">
           <p><span className="lencana">menunggu diperiksa Ayah atau Ummah</span></p>
-          <p>Kerjakan lembarnya, lalu serahkan ke Ayah atau Ummah. Kamu boleh lanjut sekarang.</p>
+          <p>Lembarmu sudah diserahkan. Kamu boleh lanjut sekarang.</p>
           <div className="baris">
             {urutanBerikut !== undefined && (
               <Link className="btn-besar ph-tautan-tombol" to={`/modul/${nomor}/misi/${urutanBerikut}`}>Misi berikutnya</Link>
             )}
-            <Link className="btn-besar sekunder ph-tautan-tombol" to={`/modul/${nomor}`}>Kembali ke modul</Link>
+            <Link className={`btn-besar ph-tautan-tombol${urutanBerikut !== undefined ? ' sekunder' : ''}`} to={`/modul/${nomor}`}>Kembali ke modul</Link>
             <button type="button" className="btn btn-ghost" onClick={cetak}>Cetak lagi</button>
           </div>
         </div>
       ) : (
-        <button type="button" className="btn-besar" onClick={cetak}>🖨️ Cetak lembar ini</button>
+        <div className="baris">
+          <button type="button" className={`btn-besar${dicetak ? ' sekunder' : ''}`} onClick={cetak}>🖨️ Cetak lembar ini</button>
+          {/* Selalu ada: lembar bisa saja sudah dicetak Ayah atau Ummah dari Pojok Orang Tua. */}
+          <button type="button" className={`btn-besar${dicetak ? '' : ' sekunder'}`} onClick={serahkan} disabled={sibuk}>
+            Sudah aku kerjakan, serahkan ke Ayah atau Ummah
+          </button>
+        </div>
       )}
     </div>
   )

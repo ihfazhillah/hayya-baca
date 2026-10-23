@@ -81,6 +81,8 @@ export function NavOrtu() {
         <div className="nav-links">
           <NavLink to="/ortu/lembar">Pemeriksaan</NavLink>
           <NavLink to="/ortu/naskah">Naskah</NavLink>
+          <NavLink to="/ortu/stiker">Stiker</NavLink>
+          <NavLink to="/ortu/prompt">Prompt</NavLink>
           <NavLink to="/ortu/hadiah">Hadiah</NavLink>
           <NavLink to="/ortu/cetak">Cetak</NavLink>
           {penulis.length > 1 && (

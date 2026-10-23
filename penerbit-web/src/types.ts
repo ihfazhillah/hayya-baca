@@ -282,6 +282,8 @@ export interface NaskahRingkas {
   stempel: string[]
   nomor_terbitan: string
   stempel_diminta: string
+  jumlah_versi: number
+  jumlah_kata: number
   created_at: string
 }
 

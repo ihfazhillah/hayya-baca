@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
-  getAlat, getModul, getNaskah, getVersi, mintaStempel, simpanVersi, sorotanSistem, tandaiMisi,
+  getAlat, getModul, getNaskah, getVersi, mintaStempel, simpanVersi, sorotanSistem, sorotVersi, tandaiMisi,
 } from '../../api'
 import type { Alat, Delta, HadiahBaru, ModulDetail, ModulTerkunci, NaskahDetail, Sorotan } from '../../types'
 import { Galat, KepalaHalaman, Memuat, PerayaanHadiah } from '../../components/ui'
@@ -214,6 +214,11 @@ export default function Revisi() {
     try {
       catat({ isi: d.isi, teks: d.teks, sorotan: d.sorotan, lapis })
       const st = await simpan.simpanSekarang()
+      // Sorotan Langkah 1 juga disimpan di versi yang disorot, supaya Sebelum dan Sesudah
+      // bisa menampilkannya di kolom versi lama.
+      if (terakhir) {
+        sorotVersi(nid, terakhir.nomor, d.sorotan.filter((s) => s.sumber === 'anak')).catch(() => {})
+      }
       let sistem: Sorotan[] = []
       if (st === 'tersimpan') {
         try {

@@ -59,7 +59,7 @@ export default function KotakPrompt({ modul, mentor }: { modul: number; mentor: 
       {tahap === 'isian' && <p>Bagian 1 dan 3 sudah diisi. Lengkapi bagian 2 dan 4 dengan kata-katamu sendiri.</p>}
       {tahap === 'mandiri' && <p>Susun pertanyaanmu sendiri dengan Rumus Bertanya.</p>}
 
-      <details className="ph-lipat" style={{ background: '#fff' }}>
+      <details className="ph-lipat ph-lipat-putih">
         <summary>Aturan untuk AI (ikut tersalin)</summary>
         <p>{mentor.pembuka}</p>
       </details>
@@ -68,7 +68,7 @@ export default function KotakPrompt({ modul, mentor }: { modul: number; mentor: 
         <div className="ph-rumus">
           {RUMUS.map((r, i) => (
             <div key={i}>
-              <label htmlFor={`${id}-b${i}`}>
+              <label htmlFor={`${id}-b${i}`} className={`b${i + 1}`}>
                 {r.label}
                 <span className="tanya">{r.tanya}</span>
               </label>
@@ -92,9 +92,20 @@ export default function KotakPrompt({ modul, mentor }: { modul: number; mentor: 
       )}
 
       <div className="ai-prompt" aria-live="polite">
-        {isi || <em>Isi keempat kotak dulu. Prompt-mu akan muncul di sini.</em>}
+        {tahap === 'contoh'
+          ? isi
+          : isi
+            ? bagian.map((b, i) => b.trim() && (
+              <span key={i}><span className={`ph-bagian b${i + 1}`}>{b.trim()}</span>{' '}</span>
+            ))
+            : <em>Isi keempat kotak dulu. Prompt-mu akan muncul di sini.</em>}
         <TombolSalin ambilTeks={ambilTeks} disabled={!bolehSalin} />
       </div>
+      {tahap !== 'contoh' && (
+        <p className="ph-bagian-baris" aria-hidden="true">
+          {RUMUS.map((r, i) => <span key={i} className={`ph-bagian b${i + 1}`}>{r.label.slice(3)}</span>)}
+        </p>
+      )}
       {tahap !== 'contoh' && !bolehSalin && (
         <p className="ai-tip">
           {lengkap ? 'Centang ketiga cek dulu, ya.' : 'Tombol salin aktif setelah keempat kotak terisi.'}

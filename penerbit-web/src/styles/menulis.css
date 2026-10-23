@@ -21,6 +21,13 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 .nav-links { align-items: center; }
 .nav-links .btn, .nav-links select { min-height: 36px; padding: var(--space-1) var(--space-4); font-size: var(--text-sm); }
 
+/* Nav di layar sempit: titik modul disembunyikan, tautan boleh digulir ke samping. */
+@media (max-width: 640px) {
+  .nav-dots { display: none; }
+  .nav-inner { gap: var(--space-3); padding: 0 var(--space-4); }
+  .nav-links { overflow-x: auto; gap: var(--space-3); white-space: nowrap; }
+}
+
 /* Mode simulasi orang tua: pita tetap di atas nav, nav turun setinggi pita. */
 .banner-simulasi { position: fixed; top: 0; left: 0; right: 0; z-index: 1001; height: 44px;
   display: flex; align-items: center; justify-content: center; gap: var(--space-3); flex-wrap: wrap;
@@ -48,21 +55,40 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
   border-radius: 4px; border-bottom: 3px solid transparent; vertical-align: baseline; }
 .kata::after { content: ''; position: absolute; left: -4px; right: -4px; top: 50%; height: 44px;
   transform: translateY(-50%); }
-.kata.tanda::after { left: -2px; right: -2px; }
+.kata.tanda { z-index: 2; }
+/* Spasi yang bisa diklik (mode celah): isinya satu spasi, jangan sampai runtuh jadi lebar nol. */
+.kata.spasi { white-space: pre; }
+.kata.tanda::after { left: -3px; right: -3px; }
 .kata:hover { background: var(--color-accent-light); }
 .kata.ditemukan { background: var(--color-success-light); border-bottom-color: var(--color-success); }
 .kata.meleset { animation: goyang 300ms var(--ease-out); }
 .kata.nyala { background: color-mix(in srgb, var(--color-actor-3) 22%, transparent); }
 .kalimat-petunjuk { background: var(--color-warning-light); border-radius: 6px; }
-.celah { display: inline-block; width: 14px; min-height: 44px; vertical-align: baseline; border: 0;
-  background: none; cursor: pointer; position: relative; }
-.celah::after { content: ''; position: absolute; left: 6px; top: 25%; bottom: 25%; width: 2px;
-  background: var(--color-border); border-radius: 2px; }
-.celah:hover::after { background: var(--color-accent); }
-.celah.ditemukan::after { background: var(--color-success); width: 4px; left: 5px; }
-.celah.potong::after { background: var(--color-accent); width: 4px; left: 5px; top: 10%; bottom: 10%; }
+/* Celah: lebar nol supaya tidak ada spasi palsu di teks (penting untuk Kaca Pembesar dan
+   tinggi baris tetap rata). Area sentuh 16 × 44px lewat ::before, garis penanda lewat ::after.
+   Tanda baca di atas celah (z-index) supaya koma atau titik tetap bisa diklik. */
+.celah { display: inline-block; position: relative; width: 0; height: 1em; min-height: 0; padding: 0; margin: 0;
+  border: 0; background: none; cursor: pointer; vertical-align: -0.15em; z-index: 1; }
+.celah::before { content: ''; position: absolute; left: -8px; width: 16px; top: 50%; height: 44px;
+  transform: translateY(-50%); }
+.celah::after { content: ''; position: absolute; left: -1px; top: -10%; bottom: -10%; width: 2px;
+  background: var(--color-accent-muted); border-radius: 2px; opacity: 0.45; }
+.celah:hover::after, .celah:focus-visible::after { background: var(--color-accent); opacity: 1; }
+.celah:disabled { cursor: default; }
+.celah:disabled:not(.ditemukan):not(.potong):not(.terlewat)::after { opacity: 0; }
+.celah.ditemukan::after { background: var(--color-success); width: 4px; left: -2px; opacity: 1; }
+.celah.potong::after { background: var(--color-accent); width: 4px; left: -2px; top: -25%; bottom: -25%; opacity: 1; }
 .celah.tepat::after { background: var(--color-success); }
 .celah.tidak-perlu::after { background: var(--color-text-muted); }
+.celah.terlewat::after { background: none; border-left: 3px dashed var(--color-accent); width: 0; left: -2px;
+  top: -25%; bottom: -25%; opacity: 1; }
+.celah.meleset { animation: goyang 300ms var(--ease-out); }
+/* Gunting: celah menggantikan spasi, jadi tetap selebar spasi; garis di tengahnya. */
+.celah.spasi { width: 0.45em; }
+.celah.spasi::before { left: calc(50% - 10px); width: 20px; }
+.celah.spasi::after { left: calc(50% - 1px); }
+.celah.spasi.potong::after, .celah.spasi.ditemukan::after { left: calc(50% - 2px); }
+.celah.spasi.terlewat::after { left: calc(50% - 1px); }
 @keyframes goyang { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
 
 /* Penghitung kesalahan */
@@ -91,7 +117,9 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 .ai-prompt { position: relative; }
 .salin-prompt { position: absolute; top: var(--space-2); right: var(--space-2); border-radius: var(--radius-full);
   border: 1px solid var(--color-accent); background: var(--color-surface); color: var(--color-accent);
-  font-size: var(--text-xs); padding: var(--space-1) var(--space-3); cursor: pointer; min-height: 32px; }
+  font: inherit; font-family: var(--font-body); font-weight: 600; font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-4); cursor: pointer; min-height: 44px; }
+.salin-prompt:hover:not(:disabled) { background: var(--color-accent-light); }
 
 /* Timer */
 .timer { font-family: var(--font-display); font-size: var(--text-5xl); font-weight: 800; color: var(--color-accent);

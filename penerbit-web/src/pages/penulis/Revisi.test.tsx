@@ -65,6 +65,7 @@ describe('Revisi per lapis', () => {
         return { status: 201, body: { nomor: 4, lapis: 'gunting', hadiah_baru: [] } }
       },
       [`POST ${P}/naskah/5/minta-stempel/`]: { body: { stempel_diminta: 'gunting' } },
+      [`PATCH ${P}/naskah/5/versi/3/`]: { body: { nomor: 3, sorotan: [] } },
     })
     const u = userEvent.setup()
     tampil()
@@ -90,6 +91,9 @@ describe('Revisi per lapis', () => {
     const sistem = calls.find((c) => c.url.includes('sorotan-sistem'))
     expect(sistem?.url).toContain('alat=kembar,gunting')
     expect(calls.find((c) => c.url === `${P}/naskah/5/simpan/`)?.body).toMatchObject({ lapis: 'gunting', teks: TEKS_V1 })
+    // sorotan Langkah 1 juga disimpan di versi yang disorot (untuk Sebelum dan Sesudah)
+    const sorot = calls.find((c) => c.method === 'PATCH' && c.url === `${P}/naskah/5/versi/3/`)
+    expect((sorot?.body as { sorotan: { sumber: string }[] }).sorotan.every((x) => x.sumber === 'anak')).toBe(true)
 
     expect(screen.getByRole('button', { name: 'Minta stempel ke Ayah atau Ummah' })).toBeDisabled()
     await u.click(screen.getByRole('button', { name: 'ketik palsu' }))

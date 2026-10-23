@@ -53,7 +53,11 @@ function KartuNaskah({ n }: { n: NaskahRingkas }) {
     <article className={`kartu-naskah${n.tahap === 'revisi' ? ' sedang' : ''}`}>
       <div className="kartu-naskah-isi">
         <h3>{n.judul}</h3>
-        <p className="kecil">{labelTahap(n)}{n.nomor_terbitan ? ` · ${n.nomor_terbitan}` : ''}</p>
+        <p className="kecil">
+          {labelTahap(n)}
+          {n.jumlah_versi > 0 ? ` · Versi ${n.jumlah_versi} · ${n.jumlah_kata} kata` : ''}
+          {n.nomor_terbitan ? ` · ${n.nomor_terbitan}` : ''}
+        </p>
         {tampilStempel && (
           <div className="stempel-mini" aria-label="Stempel">
             {URUTAN_STEMPEL.map((l) => {

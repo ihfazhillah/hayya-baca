@@ -81,4 +81,22 @@ describe('Beranda', () => {
     expect(screen.queryByText('Pemanasan hari ini')).toBeNull()
     expect(screen.queryByText('Kabar dari Ayah dan Ummah')).toBeNull()
   })
+
+  it('pemanasan menyebut alat dengan rapi; alat yang belum dipelajari tampil samar', async () => {
+    pasangFetch({
+      'GET /api/penerbit/beranda/': {
+        body: beranda({ pemanasan: { alat: ['Pengeras Suara', 'Gunting', 'Kamera'], ada: true } }),
+      },
+      'GET /api/penerbit/alat/': {
+        body: { alat: [
+          { kode: 'pengeras', terbuka: true, modul_belajar: 1 },
+          { kode: 'gunting', terbuka: false, modul_belajar: 2 },
+        ] },
+      },
+    })
+    tampil()
+    expect(await screen.findByText('3 kalimat dari alat lama: Pengeras Suara, Gunting, dan Kamera')).toBeInTheDocument()
+    expect(await screen.findByText('terbuka di Modul 2')).toBeInTheDocument()
+    expect(screen.getByText('terbuka di Modul 2').closest('a')).toHaveClass('samar')
+  })
 })

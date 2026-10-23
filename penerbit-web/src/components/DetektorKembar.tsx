@@ -11,6 +11,7 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
   const [pilih, setPilih] = useState<string | null>(null)
   const [pesan, setPesan] = useState<string | null>(null)
   const [hasil, setHasil] = useState<HasilKembar | null>(null)
+  const [sibuk, setSibuk] = useState(false)
   const umum = useMemo(() => new Set(kataUmum), [kataUmum])
   const hitung = useMemo(() => {
     const m = new Map<string, number>()
@@ -19,15 +20,24 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
   }, [tokens])
 
   async function periksa() {
-    if (!pilih) return
-    const r = await onPeriksa(pilih)
-    if (r.hasil === 'benar') {
-      setHasil(r)
-      onSelesai?.(r)
-    } else {
-      setPesan('Hmm, ada kata lain yang lebih sering muncul. Coba klik kata lain.')
+    if (!pilih || sibuk) return
+    setSibuk(true)
+    try {
+      const r = await onPeriksa(pilih)
+      if (r.hasil === 'benar') {
+        setHasil(r)
+        onSelesai?.(r)
+      } else {
+        setPesan('Hmm, ada kata lain yang lebih sering muncul. Coba klik kata lain.')
+      }
+    } catch {
+      setPesan('Belum tersambung. Coba tekan lagi, ya.')
+    } finally {
+      setSibuk(false)
     }
   }
+
+  const kataKembar = hasil?.kata?.length ? hasil.kata : pilih ? [pilih] : []
 
   return (
     <div className="tumpuk">
@@ -45,20 +55,21 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
         )}
       </div>
       {pilih && !hasil && (
-        <p role="status">
+        <p role="status" className="ph-pesan">
           {umum.has(pilih)
             ? `"${pilih}" kata umum, tidak dihitung.`
             : `"${pilih}" muncul ${hitung.get(pilih)} kali.`}
         </p>
       )}
-      {pesan && <p role="status">{pesan}</p>}
+      {pesan && <p role="status" className="ph-pesan">{pesan}</p>}
       {!hasil ? (
-        <button type="button" className="btn-besar" onClick={periksa} disabled={!pilih || umum.has(pilih ?? '')}>
+        <button type="button" className="btn-besar" onClick={periksa} disabled={!pilih || umum.has(pilih ?? '') || sibuk}>
           Ini kata kembarnya!
         </button>
       ) : (
         <div className="callout callout-accent"><div className="callout-content">
           <span className="callout-title">Ketemu kata kembarnya!</span>
+          {kataKembar.length > 0 && <p>Kata kembarnya: <strong>{kataKembar.join(', ')}</strong>.</p>}
           {hasil.pengganti && hasil.pengganti.length > 0 && <p>Pengganti yang bisa dipakai: {hasil.pengganti.join(', ')}.</p>}
         </div></div>
       )}

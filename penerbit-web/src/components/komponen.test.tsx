@@ -5,6 +5,7 @@ import TeksKlik from './TeksKlik'
 import Gunting from './Gunting'
 import DetektorKembar from './DetektorKembar'
 import TombolSalin from './TombolSalin'
+import UjianAB from './UjianAB'
 import { useTimer } from './Timer'
 import type { HasilKlik, Token } from '../types'
 
@@ -58,6 +59,20 @@ describe('TeksKlik', () => {
     expect(onSelesai).toHaveBeenCalled()
   })
 
+  it('melanjutkan percobaan: celah yang sudah ketemu tetap hijau dan dihitung', () => {
+    const t = tokens('keluar.cacing')
+    render(<TeksKlik tokens={t} celah jumlah={2} awal={{ diklik: [], meleset: 0, celah: [2] }} onKlik={vi.fn()} />)
+    expect(screen.getByRole('button', { name: 'celah sebelum cacing' })).toHaveClass('ditemukan')
+    expect(screen.getByText('1 dari 2 kesalahan ditemukan')).toBeInTheDocument()
+  })
+
+  it('klik gagal tersambung memberi pesan ramah, tidak diam', async () => {
+    const onKlik = vi.fn().mockRejectedValue(new Error('offline'))
+    render(<TeksKlik tokens={T} onKlik={onKlik} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Oren' }))
+    expect(screen.getByRole('status')).toHaveTextContent('Belum tersambung')
+  })
+
   it('mode celah: celah antar token bisa diklik', async () => {
     const onKlik = vi.fn().mockResolvedValue(hasil({ hasil: 'ketemu', ditemukan: 1 }))
     const t = tokens('keluar.cacing')
@@ -83,6 +98,19 @@ describe('Gunting', () => {
     expect(onPeriksa).toHaveBeenCalledWith([5])
     expect(screen.getByText('Oren makan. Dia tidur.')).toBeInTheDocument()
   })
+
+  it('setelah periksa, potongan yang terlewat ditunjukkan', async () => {
+    const T = tokens('Oren makan dan dia tidur lalu dia mandi.')
+    const onPeriksa = vi.fn().mockResolvedValue({
+      tepat: [5], tidak_perlu: [], kurang: 1, benar: 1, total: 2, selesai: true, hadiah_baru: [],
+      potong: [[5], [11]], versi_benar: 'Oren makan. Dia tidur. Lalu dia mandi.',
+    })
+    render(<Gunting tokens={T} onPeriksa={onPeriksa} />)
+    await userEvent.click(screen.getAllByRole('button', { name: 'pasang garis potong di sini' })[2])
+    await userEvent.click(screen.getByRole('button', { name: 'Periksa' }))
+    expect(screen.getByRole('button', { name: 'potongan yang terlewat' })).toHaveClass('terlewat')
+    expect(screen.getByRole('status')).toHaveTextContent('yang terlewat')
+  })
 })
 
 describe('DetektorKembar', () => {
@@ -97,6 +125,7 @@ describe('DetektorKembar', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Ini kata kembarnya!' }))
     expect(onPeriksa).toHaveBeenCalledWith('lalu')
     expect(screen.getByText(/tiba-tiba/)).toBeInTheDocument()
+    expect(screen.getByText('lalu', { selector: 'strong' })).toBeInTheDocument()
   })
 
   it('kata umum tidak dihitung', async () => {
@@ -104,6 +133,21 @@ describe('DetektorKembar', () => {
     await userEvent.click(screen.getByRole('button', { name: 'dia' }))
     expect(screen.getByRole('status')).toHaveTextContent('kata umum')
     expect(screen.getByRole('button', { name: 'Ini kata kembarnya!' })).toBeDisabled()
+  })
+})
+
+describe('UjianAB', () => {
+  it('penjelasan benar-benar tampil setelah memilih, tanpa warna merah', async () => {
+    const jawab = vi.fn().mockResolvedValue({ benar: false, jawaban: 'b', alasan: 'Satu "tapi" sudah cukup.' })
+    render(<UjianAB soal={[{ id: 1, soal: 'Mana yang lebih enak dibaca?', a: 'tapi tapi', b: 'tapi' }]} jawab={jawab} />)
+    await userEvent.click(screen.getByRole('button', { name: /^A\./ }))
+    const umpan = screen.getByRole('status')
+    expect(umpan).toHaveTextContent('Belum, jawabannya B. Satu "tapi" sudah cukup.')
+    // shared.css menyembunyikan .quiz-feedback tanpa .show
+    expect(umpan).toHaveClass('show')
+    expect(umpan).not.toHaveClass('error')
+    expect(screen.getByRole('button', { name: /^B\./ })).toHaveClass('correct')
+    expect(screen.getByRole('button', { name: /^A\./ })).not.toHaveClass('incorrect')
   })
 })
 
@@ -115,6 +159,15 @@ describe('TombolSalin', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Salin prompt' }))
     expect(writeText).toHaveBeenCalledWith('halo')
     expect(screen.getByRole('button', { name: 'Tersalin ✓' })).toBeInTheDocument()
+  })
+
+  it('gagal menyalin memberi tahu anak', async () => {
+    const writeText = vi.fn().mockRejectedValue(new Error('ditolak'))
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    Object.defineProperty(document, 'execCommand', { value: () => false, configurable: true })
+    render(<TombolSalin ambilTeks={() => 'halo'} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Salin prompt' }))
+    expect(screen.getByRole('button', { name: 'Belum tersalin, coba lagi' })).toBeInTheDocument()
   })
 })
 
@@ -128,4 +181,5 @@ describe('useTimer', () => {
     expect(result.current.selesai).toBe(true)
     vi.useRealTimers()
   })
+
 })

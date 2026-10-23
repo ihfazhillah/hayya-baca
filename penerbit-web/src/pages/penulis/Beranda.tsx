@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getBeranda, getModul } from '../../api'
-import type { Beranda as DataBeranda, Tingkat } from '../../types'
+import { getAlat, getBeranda, getModul } from '../../api'
+import type { Alat, Beranda as DataBeranda, Tingkat } from '../../types'
 import { EMOJI_TINGKAT, Galat, Memuat, warnaCss } from '../../components/ui'
 import '../../styles/penulis-halaman.css'
 
@@ -9,12 +9,21 @@ const NAMA_LEVEL: Record<number, string> = { 1: 'Detektif Kalimat', 2: 'Penulis 
 const TINGKAT: Tingkat[] = ['perunggu', 'perak', 'emas']
 const NAMA_TINGKAT: Record<Tingkat, string> = { perunggu: 'Perunggu', perak: 'Perak', emas: 'Emas' }
 
+/** "A", "A dan B", "A, B, dan C". */
+function daftarKata(x: string[]): string {
+  if (x.length <= 2) return x.join(' dan ')
+  return `${x.slice(0, -1).join(', ')}, dan ${x[x.length - 1]}`
+}
+
 export default function Beranda() {
   const [data, setData] = useState<DataBeranda | null>(null)
   const [galat, setGalat] = useState<string | null>(null)
+  // Status buka/kunci tiap alat (Kartu Alat ringkas). Tambahan saja: kalau gagal, Beranda tetap tampil.
+  const [statusAlat, setStatusAlat] = useState<Alat[] | null>(null)
 
   useEffect(() => {
     getBeranda().then(setData).catch((e: Error) => setGalat(e.message))
+    getAlat().then((r) => setStatusAlat(r.alat)).catch(() => setStatusAlat(null))
   }, [])
 
   return (
@@ -22,12 +31,12 @@ export default function Beranda() {
       <h1 className="sr-only">Beranda</h1>
       <Galat pesan={galat} />
       {!data && !galat && <Memuat />}
-      {data && <IsiBeranda data={data} />}
+      {data && <IsiBeranda data={data} statusAlat={statusAlat} />}
     </main>
   )
 }
 
-function IsiBeranda({ data }: { data: DataBeranda }) {
+function IsiBeranda({ data, statusAlat }: { data: DataBeranda; statusAlat: Alat[] | null }) {
   const l = data.lanjutkan
   const navigate = useNavigate()
   const [sibuk, setSibuk] = useState<number | null>(null)
@@ -47,6 +56,7 @@ function IsiBeranda({ data }: { data: DataBeranda }) {
   const level = new Map<number, DataBeranda['peta']>()
   for (const p of data.peta) level.set(p.level, [...(level.get(p.level) ?? []), p])
 
+  const modulAktif = data.peta.find((p) => p.status === 'aktif')?.nomor
   const adaKabar = data.kabar.length > 0 || data.coba_lagi.length > 0 || data.menunggu > 0
 
   return (
@@ -63,30 +73,30 @@ function IsiBeranda({ data }: { data: DataBeranda }) {
       </header>
 
       {l ? (
-        <section className="kartu-lanjutkan" aria-label="Lanjutkan">
-          <span className="ph-label-kecil">Lanjutkan</span>
-          <h2>
-            {l.pertama_kali
-              ? `Mulai petualangan: Modul ${l.modul.nomor}, ${l.modul.judul}`
-              : `${l.modul.emoji} Modul ${l.modul.nomor} · ${l.modul.judul}`}
-          </h2>
-          <p>
-            {l.misi ? `Misi ${l.misi.urutan}: ${l.misi.judul} · ` : ''}sekitar {l.perkiraan_menit} menit
-          </p>
-          <div style={{ marginTop: 'var(--space-5)' }}>
-            <Link className="btn-besar ph-tautan-tombol"
-              to={l.misi ? `/modul/${l.modul.nomor}/misi/${l.misi.urutan}` : `/modul/${l.modul.nomor}`}>
-              Mulai
-            </Link>
+        <section className="kartu-lanjutkan ph-lanjutkan" aria-label="Lanjutkan">
+          <div className="ph-lanjutkan-isi">
+            <span className="ph-label-kecil">Lanjutkan</span>
+            <h2>
+              {l.pertama_kali
+                ? `Mulai petualangan: Modul ${l.modul.nomor}, ${l.modul.judul}`
+                : `${l.modul.emoji} Modul ${l.modul.nomor} · ${l.modul.judul}`}
+            </h2>
+            <p>
+              {l.misi ? `Misi ${l.misi.urutan}: ${l.misi.judul} · ` : ''}sekitar {l.perkiraan_menit} menit
+            </p>
           </div>
+          <Link className="btn-besar ph-tautan-tombol"
+            to={l.misi ? `/modul/${l.modul.nomor}/misi/${l.misi.urutan}` : `/modul/${l.modul.nomor}`}>
+            Mulai
+          </Link>
         </section>
       ) : (
-        <section className="kartu-lanjutkan" aria-label="Lanjutkan">
-          <h2>Saatnya menulis cerita sendiri</h2>
-          <p>Pakai alat-alatmu di Ruang Penulis.</p>
-          <div style={{ marginTop: 'var(--space-5)' }}>
-            <Link className="btn-besar ph-tautan-tombol" to="/naskah">Ke Ruang Penulis</Link>
+        <section className="kartu-lanjutkan ph-lanjutkan" aria-label="Lanjutkan">
+          <div className="ph-lanjutkan-isi">
+            <h2>Saatnya menulis cerita sendiri</h2>
+            <p>Pakai alat-alatmu di Ruang Penulis.</p>
           </div>
+          <Link className="btn-besar ph-tautan-tombol" to="/naskah">Ke Ruang Penulis</Link>
         </section>
       )}
 
@@ -94,7 +104,7 @@ function IsiBeranda({ data }: { data: DataBeranda }) {
         <section className="kartu ph-antara" aria-label="Pemanasan hari ini">
           <div>
             <h2 className="ph-judul-bagian" style={{ fontSize: 'var(--text-lg)', marginBottom: 0 }}>Pemanasan hari ini</h2>
-            <p className="kecil">3 kalimat dari alat lama: {data.pemanasan.alat.join(' dan ')}</p>
+            <p className="kecil">3 kalimat dari alat lama: {daftarKata(data.pemanasan.alat)}</p>
           </div>
           <Link className="btn-besar sekunder ph-tautan-tombol" to="/latihan">Mulai pemanasan</Link>
         </section>
@@ -172,19 +182,28 @@ function IsiBeranda({ data }: { data: DataBeranda }) {
         <ul className="ph-alat-ringkas">
           {data.alat.map((a) => {
             const punya = TINGKAT.filter((t) => a.stiker.includes(t))
+            const st = statusAlat?.find((x) => x.kode === a.kode)
+            const terkunci = st ? !st.terbuka : false
+            const dipelajari = !!st && st.terbuka && st.modul_belajar === modulAktif
             return (
               <li key={a.kode}>
-                <Link to="/alat" style={{ ['--warna-alat' as string]: warnaCss(a.warna) }}>
+                <Link to="/alat" className={terkunci ? 'samar' : dipelajari ? 'sekarang' : undefined}
+                  style={{ ['--warna-alat' as string]: warnaCss(a.warna) }}>
                   <span className="emoji" aria-hidden="true">{a.emoji}</span>
                   <span className="nama">{a.nama}</span>
-                  <span className="ph-stiker-baris"
+                  {terkunci ? (
+                    <span className="ph-alat-status">terbuka di Modul {st!.modul_belajar}</span>
+                  ) : dipelajari && !punya.length ? (
+                    <span className="ph-alat-status aktif">sedang dipelajari</span>
+                  ) : null}
+                  {!terkunci && <span className="ph-stiker-baris"
                     aria-label={punya.length ? `Stiker: ${punya.map((t) => NAMA_TINGKAT[t]).join(', ')}` : 'Belum ada stiker'}>
                     {TINGKAT.map((t) => (
                       <span key={t} className={a.stiker.includes(t) ? undefined : 'ph-samar'} aria-hidden="true">
                         {EMOJI_TINGKAT[t]}
                       </span>
                     ))}
-                  </span>
+                  </span>}
                 </Link>
               </li>
             )
@@ -195,9 +214,7 @@ function IsiBeranda({ data }: { data: DataBeranda }) {
       <section className="kartu ph-antara" aria-label="Pangkat dan poin">
         <div>
           <span className="kecil">Pangkat</span>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', fontWeight: 700 }}>
-            {data.pangkat ?? 'Pangkat pertamamu sedang menunggu'}
-          </p>
+          <p className="ph-pangkat">{data.pangkat ?? 'Pangkat pertamamu sedang menunggu'}</p>
           <Link to="/jejak" className="kecil">Lihat Jejak Keterampilan</Link>
         </div>
         <div className="baris">

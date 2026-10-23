@@ -47,6 +47,8 @@ function Terkunci({ m }: { m: ModulTerkunci }) {
 }
 
 function IsiModul({ m }: { m: ModulDetail }) {
+  // Misi berikutnya yang belum dikerjakan: satu-satunya tombol Buka yang menonjol.
+  const sekarang = m.misi.find((x) => x.tahap !== 'bonus' && !x.status) ?? m.misi.find((x) => !x.status)
   return (
     <>
       <KepalaHalaman nomor={m.nomor} judul={`${m.emoji} ${m.judul}`} sub={m.tujuan} />
@@ -85,7 +87,7 @@ function IsiModul({ m }: { m: ModulDetail }) {
 
       <section aria-labelledby="judul-misi" className="ph-misi">
         <h2 id="judul-misi" className="ph-judul-bagian">Misi</h2>
-        {m.misi.map((x) => <BarisMisi key={x.id} nomor={m.nomor} x={x} />)}
+        {m.misi.map((x) => <BarisMisi key={x.id} nomor={m.nomor} x={x} sekarang={x.id === sekarang?.id} />)}
       </section>
 
       <TabBelajar m={m} />
@@ -108,11 +110,11 @@ const STATUS: Record<string, { teks: string; kelas: string }> = {
   coba_lagi: { teks: 'Coba lagi', kelas: 'lencana aktif' },
 }
 
-function BarisMisi({ nomor, x }: { nomor: number; x: MisiRingkas }) {
+function BarisMisi({ nomor, x, sekarang }: { nomor: number; x: MisiRingkas; sekarang: boolean }) {
   const st = x.status ? STATUS[x.status] : null
   const bonus = x.tahap === 'bonus'
   return (
-    <div className={`checklist-step${x.status === 'selesai' ? ' done' : ''}`}>
+    <div className={`checklist-step${x.status === 'selesai' ? ' done' : ''}${sekarang ? ' ph-sekarang' : ''}`}>
       <span className="checklist-num" aria-hidden="true">{x.status === 'selesai' ? '✓' : bonus ? '+' : x.urutan}</span>
       <div className="checklist-label">
         <strong>Misi {x.urutan} · {x.tahap_label}</strong>
@@ -121,7 +123,7 @@ function BarisMisi({ nomor, x }: { nomor: number; x: MisiRingkas }) {
         {st && <> <span className={st.kelas}>{st.teks}</span></>}
         {!st && bonus && <> <span className="lencana">Pilihan</span></>}
       </div>
-      <Link className="checklist-btn" to={`/modul/${nomor}/misi/${x.urutan}`} aria-label={`Buka misi ${x.urutan}: ${x.judul}`}>
+      <Link className={`checklist-btn${sekarang ? ' ph-utama' : ''}`} to={`/modul/${nomor}/misi/${x.urutan}`} aria-label={`Buka misi ${x.urutan}: ${x.judul}`}>
         Buka
       </Link>
     </div>

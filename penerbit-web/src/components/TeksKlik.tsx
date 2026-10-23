@@ -1,14 +1,23 @@
 import { Fragment, useMemo, useState } from 'react'
 import type { HasilKlik, Jawaban, Target, Token } from '../types'
 
+/** Keadaan percobaan yang dilanjutkan setelah halaman dimuat ulang.
+ *  `ditemukan` dan `celah` opsional: server lama hanya mengirim token yang diklik. */
+export interface AwalKlik {
+  diklik: number[]
+  meleset: number
+  ditemukan?: number
+  celah?: number[]
+}
+
 /** Klik Kesalahan (Pengeras Suara, Kaca Pembesar, Kamera di latihan).
  *  Penilaian di server: komponen hanya mengirim indeks token/celah yang diklik. */
 export interface TeksKlikProps {
   tokens: Token[]
   celah?: boolean
-  /** "Ada 3 kesalahan" (hanya tahap petunjuk). */
+  /** Jumlah kesalahan (hanya tahap petunjuk); dipakai penghitung sejak awal. */
   jumlah?: number
-  awal?: { diklik: number[]; meleset: number }
+  awal?: AwalKlik
   onKlik: (target: { token?: number; celah?: number }) => Promise<HasilKlik>
   onPetunjuk?: () => Promise<{ kalimat: [number, number][] }>
   onBerhenti?: () => Promise<Jawaban & { selesai: true }>
@@ -16,11 +25,13 @@ export interface TeksKlikProps {
 }
 
 const PESAN_MELESET = 'Bukan yang ini. Coba baca keras-keras sekali lagi.'
+const PESAN_GAGAL = 'Belum tersambung. Coba klik lagi, ya.'
 
 export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, onPetunjuk, onBerhenti, onSelesai }: TeksKlikProps) {
   const [diklik, setDiklik] = useState<Set<number>>(() => new Set(awal?.diklik ?? []))
-  const [celahKetemu, setCelahKetemu] = useState<Set<number>>(() => new Set())
-  const [ditemukan, setDitemukan] = useState(awal?.diklik.length ?? 0)
+  const [celahKetemu, setCelahKetemu] = useState<Set<number>>(() => new Set(awal?.celah ?? []))
+  const [ditemukan, setDitemukan] = useState(
+    () => awal?.ditemukan ?? (awal ? awal.diklik.length + (awal.celah?.length ?? 0) : 0))
   const [total, setTotal] = useState<number | undefined>(jumlah)
   const [meleset, setMeleset] = useState(awal?.meleset ?? 0)
   const [goyang, setGoyang] = useState<number | null>(null)
@@ -62,6 +73,8 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
         setSelesai({ ...r, selesai: true })
         onSelesai?.(r)
       }
+    } catch {
+      setPesan(PESAN_GAGAL)
     } finally {
       setSibuk(false)
     }
@@ -69,74 +82,97 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
 
   async function mintaPetunjuk() {
     if (!onPetunjuk) return
-    const r = await onPetunjuk()
-    setPetunjuk(r.kalimat)
-    setPesan('Ada kesalahan di kalimat yang kuning.')
+    try {
+      const r = await onPetunjuk()
+      setPetunjuk(r.kalimat)
+      setPesan('Ada kesalahan di kalimat yang kuning.')
+    } catch (e) {
+      setPesan(e instanceof Error ? e.message : PESAN_GAGAL)
+    }
   }
 
   async function berhenti() {
-    if (!onBerhenti) return
-    const r = await onBerhenti()
-    setSelesai(r)
-    onSelesai?.(r)
+    if (!onBerhenti || sibuk) return
+    setSibuk(true)
+    try {
+      const r = await onBerhenti()
+      setSelesai(r)
+      onSelesai?.(r)
+    } catch {
+      setPesan(PESAN_GAGAL)
+    } finally {
+      setSibuk(false)
+    }
   }
 
   const diPetunjuk = (i: number) => petunjuk.some(([a, b]) => i >= a && i <= b)
+  const kelasPetunjuk = (i: number) => (diPetunjuk(i) ? 'kalimat-petunjuk' : undefined)
 
   return (
     <div className="tumpuk">
-      {jumlah !== undefined && !selesai && <p className="kecil">Ada {jumlah} kesalahan.</p>}
       <div className="teks-latihan" aria-label="Teks latihan">
         {tokens.map((t) => {
           const tombolCelah = celah && t.i > 0 && t.j !== 'spasi' && tokens[t.i - 1].j !== 'spasi'
+          let isi
+          if (t.j === 'spasi') {
+            // Spasi hanya bisa diklik di mode celah (Kaca Pembesar: spasi berlebih).
+            isi = celah ? (
+              <button type="button" className={`kata tanda spasi${diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? ' ditemukan' : ''}${diPetunjuk(t.i) ? ' kalimat-petunjuk' : ''}${goyang === t.i ? ' meleset' : ''}`}
+                aria-label="spasi" onClick={() => klik({ token: t.i })} disabled={!!selesai}>{' '}</button>
+            ) : (
+              <span className={kelasPetunjuk(t.i)}>{t.t}</span>
+            )
+          } else if (t.j === 'tanda' && !celah) {
+            // Tanda baca tidak dinilai di luar mode celah: tampil sebagai teks biasa.
+            isi = <span className={kelasPetunjuk(t.i)}>{t.t}</span>
+          } else {
+            isi = (
+              <button
+                type="button"
+                className={[
+                  'kata',
+                  t.j === 'tanda' ? 'tanda' : '',
+                  diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? 'ditemukan' : '',
+                  goyang === t.i ? 'meleset' : '',
+                  diPetunjuk(t.i) ? 'kalimat-petunjuk' : '',
+                ].filter(Boolean).join(' ')}
+                onClick={() => klik({ token: t.i })}
+                disabled={!!selesai}
+              >
+                {t.t}
+              </button>
+            )
+          }
           return (
             <Fragment key={t.i}>
               {tombolCelah && (
                 <button
                   type="button"
-                  className={`celah${celahKetemu.has(t.i) || kunciTerbuka.celah.has(t.i) ? ' ditemukan' : ''}`}
+                  className={`celah${celahKetemu.has(t.i) || kunciTerbuka.celah.has(t.i) ? ' ditemukan' : ''}${goyang === -1 - t.i ? ' meleset' : ''}`}
                   aria-label={`celah sebelum ${t.t}`}
                   onClick={() => klik({ celah: t.i })}
+                  disabled={!!selesai}
                 />
               )}
-              {t.j === 'spasi' ? (
-                celah ? (
-                  <button type="button" className={`kata tanda${diklik.has(t.i) ? ' ditemukan' : ''}${diPetunjuk(t.i) ? ' kalimat-petunjuk' : ''}`}
-                    aria-label="spasi" onClick={() => klik({ token: t.i })}>{' '}</button>
-                ) : (
-                  <span className={diPetunjuk(t.i) ? 'kalimat-petunjuk' : undefined}>{t.t}</span>
-                )
-              ) : (
-                <button
-                  type="button"
-                  className={[
-                    'kata',
-                    t.j === 'tanda' ? 'tanda' : '',
-                    diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? 'ditemukan' : '',
-                    goyang === t.i ? 'meleset' : '',
-                    diPetunjuk(t.i) ? 'kalimat-petunjuk' : '',
-                  ].filter(Boolean).join(' ')}
-                  onClick={() => (t.j === 'kata' || celah ? klik({ token: t.i }) : undefined)}
-                  disabled={!!selesai}
-                >
-                  {t.t}
-                </button>
-              )}
+              {isi}
             </Fragment>
           )
         })}
         {celah && (
           <button type="button" className={`celah${celahKetemu.has(tokens.length) || kunciTerbuka.celah.has(tokens.length) ? ' ditemukan' : ''}`}
-            aria-label="celah di akhir" onClick={() => klik({ celah: tokens.length })} />
+            aria-label="celah di akhir" onClick={() => klik({ celah: tokens.length })} disabled={!!selesai} />
         )}
       </div>
-      {total !== undefined && (
+      {total !== undefined ? (
         <div className="penghitung" aria-live="polite">
           {ditemukan} dari {total} kesalahan ditemukan
           <div className="batang"><span style={{ width: `${total ? (ditemukan / total) * 100 : 0}%` }} /></div>
         </div>
+      ) : ditemukan > 0 && (
+        // Tahap tanpa petunjuk: jumlah kesalahan dirahasiakan sampai klik pertama berikutnya.
+        <div className="penghitung" aria-live="polite">{ditemukan} kesalahan ditemukan</div>
       )}
-      {pesan && !selesai && <p role="status">{pesan}</p>}
+      {pesan && !selesai && <p role="status" className="ph-pesan">{pesan}</p>}
       {selesai?.versi_benar && (
         <div className="callout callout-accent">
           <div className="callout-content">
@@ -152,7 +188,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
             <button type="button" className="btn-besar sekunder" onClick={mintaPetunjuk}>Minta petunjuk</button>
           )}
           {onBerhenti && (
-            <button type="button" className="btn btn-ghost" onClick={berhenti}>Aku sudah selesai mencari</button>
+            <button type="button" className="btn btn-ghost" onClick={berhenti} disabled={sibuk}>Aku sudah selesai mencari</button>
           )}
         </div>
       )}

@@ -191,6 +191,9 @@ export const simpanNaskah = (id: number, body: IsiSimpan) =>
 export const simpanVersi = (id: number, lapis?: string) =>
   request<{ nomor: number; lapis: string; jejak?: Record<string, number | string>; hadiah_baru: HadiahBaru[] }>(
     'POST', `${P}/naskah/${id}/versi/`, lapis ? { lapis } : {})
+/** Sorotan stabilo di versi lama (teks versi tetap tidak bisa diubah). */
+export const sorotVersi = (id: number, nomor: number, sorotan: Sorotan[]) =>
+  request<{ nomor: number; sorotan: Sorotan[] }>('PATCH', `${P}/naskah/${id}/versi/${nomor}/`, { sorotan })
 export const getVersi = (id: number, nomor: number) =>
   request<VersiDetail>('GET', `${P}/naskah/${id}/versi/${nomor}/`)
 export const bukaLaci = (id: number) =>

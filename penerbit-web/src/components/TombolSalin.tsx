@@ -31,17 +31,16 @@ export default function TombolSalin({ ambilTeks, disabled, label = 'Salin prompt
   disabled?: boolean
   label?: string
 }) {
-  const [tersalin, setTersalin] = useState(false)
+  const [keadaan, setKeadaan] = useState<'diam' | 'tersalin' | 'gagal'>('diam')
   async function klik() {
     const ok = await salinTeks(await ambilTeks())
-    if (ok) {
-      setTersalin(true)
-      setTimeout(() => setTersalin(false), 1500)
-    }
+    // Gagal menyalin (izin clipboard ditolak): beri tahu, jangan diam saja.
+    setKeadaan(ok ? 'tersalin' : 'gagal')
+    setTimeout(() => setKeadaan('diam'), ok ? 1500 : 3000)
   }
   return (
     <button type="button" className="salin-prompt" onClick={klik} disabled={disabled}>
-      {tersalin ? 'Tersalin ✓' : label}
+      {keadaan === 'tersalin' ? 'Tersalin ✓' : keadaan === 'gagal' ? 'Belum tersalin, coba lagi' : label}
     </button>
   )
 }
