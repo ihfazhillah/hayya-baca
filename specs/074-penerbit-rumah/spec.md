@@ -137,10 +137,10 @@ Latihan Bertanya. Modul 1–9 diambil dari Roadmap; isi yang belum ada di dokume
 4. **Emas yang tidak bisa dihitung mesin** (Pengeras Suara, Kamera, Kaca Pembesar):
    Pemeriksa yang memberikan, dengan tampilan kemajuan sebagai bantuan.
 5. **"Berani Hapus" (10 poin)**: diberikan Pemeriksa secara manual dari halaman naskah.
-6. **Membuat akun Editor Tamu**: Pemeriksa mengetik username User yang sudah ada,
-   atau membuatkan akun baru?
-7. **Akun Penulis**: memakai akun anak yang sudah ada di Ruang Cerita (kalau ada),
-   atau akun baru khusus Penerbit Rumah?
+6. ~~Membuat akun Editor Tamu~~ — **diputuskan 2026-10-23**: hanya User yang sudah
+   ada; Pemeriksa membagikan naskah dengan mengetik username. Tidak ada pembuatan akun dari app ini.
+7. ~~Akun Penulis~~ — **diputuskan 2026-10-23**: memakai akun anak yang sudah ada
+   (`Child.user`, login lewat `child-login`). `ProfilPenulis` dibuat untuk Child itu.
 
 ## 7. Kriteria selesai
 
