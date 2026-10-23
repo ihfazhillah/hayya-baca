@@ -67,6 +67,6 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 ## Fase 19 — Deploy
 - [x] backend `.env`: host + PENERBIT_USE_X_ACCEL=1 (backup `.env.bak-20261023084533`)
 - [x] nginx site `penerbit` aktif (HTTP), `deploy-penerbit.sh` sukses 2026-10-23 (migrasi 0001–0002, impor_course)
-- [ ] DNS A record `penerbit.ihfazh.com` → 103.186.0.202 (pemilik)
-- [ ] certbot `--nginx -d penerbit.ihfazh.com` setelah DNS aktif
+- [x] DNS A record `penerbit.ihfazh.com` → 103.186.0.202 (DNS only, Cloudflare)
+- [x] certbot + redirect HTTPS (sertifikat sampai 2027-01-21, perpanjangan otomatis)
 - [ ] aktifkan akun anak sebagai penulis dari /ortu, uji manual di tablet (spec §7)
