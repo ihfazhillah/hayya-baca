@@ -3,7 +3,7 @@
  *  A 401 clears the token and notifies the app (→ login screen).
  */
 import type {
-  Alat, Beranda, Buku, Dasbor, HadiahBaru, HadiahItem, HasilGunting, HasilKembar, HasilKlik,
+  Alat, Bantuan, Beranda, Buku, Dasbor, HadiahBaru, HadiahItem, HasilGunting, HasilKembar, HasilKlik, HasilPerasaan,
   Ide, Jawaban, JejakCerita, KartuLatihan, Lembar, Me, MisiDetail, ModulDetail, ModulTerkunci,
   NaskahDetail, NaskahOrtu, NaskahRingkas, PemeriksaanDetail, PemeriksaanRingkas, PenukaranItem,
   Peta4, PromptAnak, Sorotan, Delta, StempelSlot, TokohNaskah, VersiDetail, AlatRingkas,
@@ -142,8 +142,13 @@ export const berhentiMisi = (id: number) =>
     'POST', `${P}/misi/${id}/berhenti/`)
 export const periksaGunting = (id: number, potong: number[]) =>
   request<HasilGunting>('POST', `${P}/misi/${id}/periksa/`, { potong })
+/** Bantuan memudar Gunting untuk garis potong saat ini (tidak menilai). */
+export const bantuanGunting = (id: number, potong: number[]) =>
+  request<{ bantuan: Bantuan }>('POST', `${P}/misi/${id}/bantuan/`, { potong })
 export const periksaKembar = (id: number, kata: string) =>
   request<HasilKembar>('POST', `${P}/misi/${id}/periksa/`, { kata })
+export const kirimPerasaan = (id: number, body: { soal: number; perasaan?: string; token?: number }) =>
+  request<HasilPerasaan>('POST', `${P}/misi/${id}/perasaan/`, body)
 export const tandaiMisi = (id: number, log?: string) =>
   request<{ selesai: true; hadiah_baru: HadiahBaru[] }>('POST', `${P}/misi/${id}/tandai/`, { log })
 export const cetakMisi = (id: number) =>

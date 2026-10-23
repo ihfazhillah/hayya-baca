@@ -37,6 +37,16 @@ class TestPerjalananPenuh(Keluarga):
         elif misi.jenis == "kembar":
             r = self.anak.post(url + "periksa/", {"kata": d["kata"][0]}, format="json")
             assert r.data["hasil"] == "benar"
+        elif misi.jenis == "perasaan":
+            for i, s in enumerate(d["soal"]):
+                if i == 0 and d.get("contoh"):
+                    continue  # soal Oren
+                self.anak.post(url + "perasaan/", {"soal": i, "perasaan": s["jawaban"]},
+                               format="json")
+                for g in s["bukti"]:
+                    r = self.anak.post(url + "perasaan/", {"soal": i, "token": g[0]},
+                                       format="json")
+            assert r.data["selesai"] is True, misi
         elif misi.jenis == "log":
             assert self.anak.post(url + "tandai/", {"log": "Aku memakai alat ini karena..."},
                                   format="json").status_code == 200

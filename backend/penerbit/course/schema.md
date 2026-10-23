@@ -97,6 +97,44 @@ dihitung. Potongan di `boleh` tidak wajib dan tidak dianggap salah.
 {"jenis": "kembar", "teks": "...", "kata": ["lalu"], "pengganti": ["tiba-tiba", "..."]}
 ```
 Misi selesai saat anak memilih salah satu `kata` (huruf besar/kecil diabaikan).
+`versi_benar` (opsional, disarankan) = teks setelah kata kembarnya diganti; dibuka setelah
+misi selesai dan dipakai Kartu Pamer.
+
+Gunting dan Kembar juga bisa memakai `contoh`, `bantuan_memudar`, dan `suara`
+(lihat "Contoh dari Oren dan bantuan memudar" di bawah).
+
+**`perasaan`** — Kamera: pilih perasaan + klik bukti (spec 075 K1)
+```json
+{"jenis": "perasaan", "tahap": "bersama", "bantuan_memudar": true,
+ "contoh": [{"sorot": [{"cari": "Bahunya turun"}], "pikir": "Bahunya turun. Badannya lemas."},
+            {"pilih": "sedih", "pikir": "Aku pilih sedih."},
+            {"pikir": "Sekarang giliranmu."}],
+ "soal": [
+   {"teks": "Oren pulang dari taman. Bahunya turun. Dia menendang kerikil pelan-pelan.",
+    "pilihan": ["senang", "sedih", "kaget"], "jawaban": "sedih",
+    "bukti": [{"cari": "Bahunya turun"}, {"cari": "menendang kerikil pelan-pelan"}],
+    "alasan": "Bahu turun dan menendang pelan-pelan. Itu tanda sedih."},
+   {"teks": "...", "pilihan": ["..."], "jawaban": "...", "bukti": [...], "alasan": "..."}
+ ]}
+```
+- Tiap `soal`: anak membaca `teks` (apa yang dilakukan tokoh, tanpa kata perasaan), memilih
+  satu dari `pilihan` (2–4, `jawaban` wajib salah satunya), lalu mengklik kata di setiap
+  `bukti` (ditulis seperti `cari` di `klik`, boleh `ke`). Satu klik pada kata mana pun di dalam
+  satu bukti menemukan bukti itu; soal selesai bila semua bukti ditemukan. Kata di luar bukti
+  dihitung meleset, jadi jangan menaruh petunjuk perasaan di luar `bukti`.
+- Soal dikerjakan berurutan dan dinilai server per jawaban (`POST misi/<id>/perasaan/`
+  dengan `{"soal", "perasaan"}` lalu `{"soal", "token"}`). `jawaban`, `bukti`, `alasan` satu
+  soal baru dikirim setelah soal itu selesai.
+- `contoh` (opsional): Oren mengerjakan **soal pertama** sambil berpikir keras. `sorot` dicari di
+  teks soal pertama; `pilih` (opsional) = perasaan yang dipilih Oren di langkah itu, wajib sama
+  dengan `jawaban` soal pertama. Soal pertama lalu dikirim lengkap dan tidak dinilai, jadi
+  dengan `contoh` butuh minimal 2 soal. Label tahapnya "Contoh dari Oren".
+- `bantuan_memudar: true` (setiap soal wajib punya `alasan`): soal anak ke-1 → semua kata bukti
+  disorot (perasaannya tetap ditebak sendiri), ke-2 → kalimat bukti yang belum ditemukan,
+  sesudahnya → tanpa bantuan. `alasan` selalu tampil setelah satu soal selesai.
+- Hasil misi: `benar` = soal yang perasaannya tepat pada pilihan pertama, `total` = soal anak
+  (tanpa soal Oren). Misi ini tidak masuk Kartu Pamer "sebelum/sesudah" (tidak ada teks yang
+  dibetulkan).
 
 **`cetak`** — `{"jenis": "cetak", "lembar": "M4-3"}`
 
@@ -136,7 +174,8 @@ menulis umur tertentu (misalnya "umur 10 tahun") di isi course.
 
 ## Contoh dari Oren dan bantuan memudar (spec 075 K1)
 
-Untuk misi `klik` (Fase A: Modul 1; jenis lain menyusul di Fase B):
+Untuk misi `klik` (Fase A: Modul 1; Modul 5 juga memakai `celah: true`). Misi `perasaan`
+(Kamera) punya `contoh` dan `bantuan_memudar` versinya sendiri, lihat di atas:
 
 ```json
 {"jenis": "klik", "tahap": "bersama", "suara": true, "bantuan_memudar": true,
@@ -160,6 +199,50 @@ Untuk misi `klik` (Fase A: Modul 1; jenis lain menyusul di Fase B):
   yang ditemukan, letak tokennya dan `alasan`-nya dikirim; setelah satu ditemukan, hanya
   kalimatnya; setelah dua, tidak ada bantuan. `alasan` tidak pernah dikirim selain lewat
   bantuan itu.
+- Label "Contoh dari Oren" berlaku untuk misi `klik`, `gunting`, dan `kembar` yang punya `contoh`.
+
+### Gunting (Fase B)
+
+```json
+{"jenis": "gunting", "tahap": "bersama", "suara": true, "bantuan_memudar": true,
+ "contoh": [
+   {"sorot": [{"cari": "rumah dan melompati"}], "pikir": "Di sini ada kata \"dan\"."},
+   {"sorot": [{"cari": "rumah dan", "spasi": true}], "pikir": "Aku potong di sini."},
+   {"pikir": "Sekarang giliranmu!"}
+ ],
+ "potong": [{"cari": "rumah dan melompati", "alasan": "Kalimatnya terlalu panjang."},
+            {"cari": "besar dan dia"}]}
+```
+
+- `sorot` boleh memakai `"spasi": true`: hanya spasi di dalam `cari` yang disorot, tampil
+  sebagai garis potong Oren (✂). Pola tanpa spasi menggagalkan impor.
+- `bantuan_memudar: true`: `potong` pertama wajib punya `alasan` (yang lain boleh). Bantuan
+  dihitung server dari garis potong anak saat itu (`POST misi/<id>/bantuan/` dengan
+  `{"potong": [..]}`, tidak menilai dan tidak menyimpan apa pun): potongan pertama belum kena →
+  spasinya ditunjukkan + `alasan`; sudah kena → hanya bagian kalimat (±3 kata di kiri-kanan)
+  potongan kedua; keduanya kena → tidak ada bantuan. Potongan ketiga dan seterusnya tidak pernah
+  diperiksa lewat bantuan, jadi tidak bisa ditebak. Penilaian tetap lewat Periksa.
+
+### Detektor Kembar (Fase B)
+
+```json
+{"jenis": "kembar", "tahap": "bersama", "bantuan_memudar": true,
+ "contoh": [{"sorot": [{"cari": "terus"}, {"cari": "Terus"}], "pikir": "Kata ini muncul lagi."}],
+ "alasan": "Kata \"terus\" muncul tiga kali. Klik salah satunya.",
+ "kata": ["terus", "oren"], "versi_benar": "..."}
+```
+
+Kembar hanya punya satu sasaran, jadi bantuannya memudar antarmisi, mengikuti `tahap`:
+- tahap `bersama` + `bantuan_memudar` → semua kemunculan `kata` pertama disorot + `alasan`
+  (wajib, string). Pakai di misi Contoh dari Oren.
+- tahap lain + `bantuan_memudar` → hanya hitungannya ("Ada kata yang muncul 4 kali."), tanpa
+  letak. Pakai di misi tahap `petunjuk`.
+- tanpa `bantuan_memudar` (misi `mandiri`) → tidak ada bantuan.
+Bantuan tidak dikirim lagi setelah misi selesai. `alasan`, `kata`, `versi_benar` tetap rahasia
+sampai selesai.
+
+### Suara
+
 - `suara: true`: tampilkan tombol 🔊 yang membacakan teks dengan suara perangkat (bahasa
   Indonesia), dan pilihan "Dengarkan dulu, lalu teksnya muncul". Tanpa suara Indonesia di
   perangkat, tombol disembunyikan dan teks langsung tampil.

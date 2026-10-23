@@ -92,7 +92,17 @@ class MisiView(PenulisView):
                 "pakai_petunjuk": p.pakai_petunjuk if p else False,
             }
             if misi.data.get("bantuan_memudar") and status != HasilMisi.Status.SELESAI:
-                out["bantuan"] = penilaian.bantuan(misi.data, p.ditemukan if p else [])
+                if misi.jenis == Misi.Jenis.GUNTING:
+                    out["bantuan"] = penilaian.bantuan_gunting(misi.data, [])
+                elif misi.jenis == Misi.Jenis.KEMBAR:
+                    out["bantuan"] = penilaian.bantuan_kembar(misi.data, misi.tahap)
+                else:
+                    out["bantuan"] = penilaian.bantuan(misi.data, p.ditemukan if p else [])
+        if misi.jenis == Misi.Jenis.PERASAAN:
+            p = Percobaan.objects.filter(profil=request.profil, misi=misi, selesai=False).last()
+            out["percobaan"] = percobaan_perasaan(misi.data, p)
+            if misi.data.get("bantuan_memudar") and status != HasilMisi.Status.SELESAI:
+                out["bantuan"] = penilaian.bantuan_perasaan(misi.data, p.butir if p else {})
         if status == HasilMisi.Status.SELESAI:
             out.update(penilaian.jawaban(misi.data, misi.jenis))
         return Response(out)
@@ -171,6 +181,73 @@ class BerhentiView(PenulisView):
         return Response(selesai_respons(misi, p, baru))
 
 
+def percobaan_perasaan(data, p):
+    """Keadaan misi perasaan untuk dilanjutkan: soal sekarang, perasaan yang sudah tepat, kata
+    bukti yang sudah diklik, dan kunci soal yang SUDAH selesai saja."""
+    butir = p.butir if p else {}
+    i = penilaian.soal_sekarang(data, butir)
+    b = (butir.get(str(i)) or penilaian.butir_kosong()) if i is not None else None
+    selesai = [
+        {"soal": j, **penilaian.kunci_perasaan(data["soal"][j]),
+         "salah": butir.get(str(j), {}).get("salah", 0)}
+        for j in range(penilaian.soal_awal(data), i if i is not None else len(data["soal"]))
+    ]
+    return {"soal": i, "perasaan": b["perasaan"] if b else None,
+            "diklik": b["diklik"] if b else [], "ditemukan": len(b["ditemukan"]) if b else 0,
+            "meleset": p.meleset if p else 0, "selesai_soal": selesai}
+
+
+class PerasaanView(PenulisView):
+    """Kamera (spec 075 K1): {"soal": i, "perasaan": ".."} lalu {"soal": i, "token": n} per
+    kata bukti. Soal dikerjakan berurutan; kunci soal dibuka setelah soal itu selesai."""
+
+    @transaction.atomic
+    def post(self, request, pk):
+        misi = ambil_misi(request, pk)
+        if misi.jenis != Misi.Jenis.PERASAAN:
+            raise ValidationError("Misi ini bukan Pilih Perasaan.")
+        data = misi.data
+        p = percobaan_aktif(request.profil, misi)
+        i = penilaian.soal_sekarang(data, p.butir)
+        if request.data.get("soal") != i:
+            raise ValidationError("Kerjakan soal yang sedang tampil, ya.")
+        s = data["soal"][i]
+        b = p.butir.get(str(i)) or penilaian.butir_kosong()
+        perasaan, token = request.data.get("perasaan"), request.data.get("token")
+        if perasaan is not None:
+            if perasaan not in s["pilihan"]:
+                raise ValidationError("Pilih salah satu perasaan yang ada.")
+            hasil = penilaian.nilai_perasaan(s, b, perasaan)
+            if hasil == "belum":
+                p.meleset += 1
+        elif token is not None:
+            if b["perasaan"] is None:
+                raise ValidationError("Pilih perasaannya dulu, ya.")
+            hasil = penilaian.nilai_bukti(s, b, token)
+            if hasil == "meleset":
+                p.meleset += 1
+        else:
+            raise ValidationError("Kirim perasaan atau token.")
+        p.butir = {**p.butir, str(i): b}
+        butir_selesai = len(b["ditemukan"]) == len(s["bukti"])
+        berikut = penilaian.soal_sekarang(data, p.butir)
+        p.selesai = berikut is None
+        p.save()
+        out = {"hasil": hasil, "soal": berikut, "ditemukan": len(b["ditemukan"]),
+               "total": len(s["bukti"]), "meleset": p.meleset, "butir_selesai": butir_selesai,
+               "selesai": False}
+        if butir_selesai:
+            out.update(penilaian.kunci_perasaan(s))
+        if data.get("bantuan_memudar"):
+            out["bantuan"] = penilaian.bantuan_perasaan(data, p.butir)
+        if p.selesai:
+            benar, total = penilaian.hasil_perasaan(data, p.butir)
+            baru = catat_hasil(request.profil, misi, status=HasilMisi.Status.SELESAI,
+                               benar=benar, total=total, meleset=p.meleset)
+            out.update(selesai_respons(misi, None, baru), ditemukan=len(b["ditemukan"]))
+        return Response(out)
+
+
 class PeriksaView(PenulisView):
     """Gunting (daftar potongan) dan Detektor Kembar (kata pilihan)."""
 
@@ -198,6 +275,20 @@ class PeriksaView(PenulisView):
                                benar=1 if p.meleset == 0 else 0, total=1, meleset=p.meleset)
             return Response({"hasil": "benar", **selesai_respons(misi, p, baru)})
         raise ValidationError("Misi ini tidak diperiksa dengan cara ini.")
+
+
+class BantuanGuntingView(PenulisView):
+    """Bantuan memudar Gunting untuk garis potong anak saat ini. Tidak menilai dan tidak
+    menyimpan apa pun: penilaian tetap lewat Periksa."""
+
+    def post(self, request, pk):
+        misi = ambil_misi(request, pk)
+        if misi.jenis != Misi.Jenis.GUNTING or not misi.data.get("bantuan_memudar"):
+            raise ValidationError("Misi ini tidak memakai bantuan Oren.")
+        potong = request.data.get("potong")
+        if not isinstance(potong, list) or not all(isinstance(i, int) for i in potong):
+            raise ValidationError("Kirim daftar potong.")
+        return Response({"bantuan": penilaian.bantuan_gunting(misi.data, potong)})
 
 
 class TandaiView(PenulisView):

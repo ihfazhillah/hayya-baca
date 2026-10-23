@@ -48,7 +48,7 @@
     "b": "Aku sedang belajar memotong kalimat panjang. Kalimat ketigaku terasa terlalu panjang. Tunjukkan di mana sebaiknya aku potong, tapi jangan tulis ulang.",
     "jawaban": "b",
     "bagian": [1, 2, 3],
-    "penjelasan": "B menyebut sedang apa (belajar memotong kalimat panjang), bagian yang membingungkan (kalimat ketiga terlalu panjang), dan bantuan yang diminta (tunjukkan tempat memotong, jangan tulis ulang). A meminta orang lain yang memperbaiki."
+    "penjelasan": "B menyebut sedang apa: belajar memotong kalimat panjang. B menyebut bagian yang membingungkan: kalimat ketiga terlalu panjang. B juga menyebut bantuan yang diminta: tunjukkan tempatnya, jangan tulis ulang. A meminta orang lain yang memperbaiki."
   },
   "lembar": [
     {
@@ -73,11 +73,22 @@
       "judul": "Titik!",
       "tahap": "bersama",
       "jenis": "gunting",
-      "petunjuk": "Ayah membaca pelan-pelan. Setiap kali kamu bilang \"titik!\", klik celah di tempat itu untuk memasang garis potong.",
-      "petunjuk_ortu": "Bacakan kalimat Si Ceroboh pelan-pelan. Berhenti setiap anak berkata \"titik!\" dan biarkan dia memasang garis potong.",
+      "petunjuk": "Lihat cara Oren memotong. Tekan Lanjut. Lalu kamu potong sisanya.",
+      "petunjuk_ortu": "Tujuannya: anak melihat cara memakai Gunting, lalu mencoba sendiri. Oren membaca dalam satu napas, berhenti di kata \"dan\", lalu memotong. Potongan pertama ditunjukkan, potongan kedua diberi bagian kalimatnya, sisanya dia cari sendiri. Kalau dia bertanya kenapa harus dipotong, jawab: pembaca butuh titik untuk bernapas. Kalau dia bingung mencari sisanya, minta dia membaca keras sampai napasnya habis.",
+      "suara": true,
+      "bantuan_memudar": true,
+      "contoh": [
+        {"sorot": [{"cari": "Setelah hujan berhenti Oren langsung berlari keluar rumah dan melompati genangan air"}],
+         "pikir": "Aku baca dalam satu napas, ya."},
+        {"sorot": [{"cari": "rumah dan melompati"}],
+         "pikir": "Napasku mulai habis. Di sini ada kata \"dan\"."},
+        {"sorot": [{"cari": "rumah dan", "spasi": true}],
+         "pikir": "Aku potong di sini. Satu kalimat jadi dua."},
+        {"pikir": "Masih ada tiga tempat lagi. Sekarang giliranmu!"}
+      ],
       "teks": "Setelah hujan berhenti Oren langsung berlari keluar rumah dan melompati genangan air yang besar dan dia melihat cacing merah di tanah dan dia kaget sekali lalu dia lari lagi ke dalam rumah dan bersembunyi di bawah meja makan.",
       "potong": [
-        {"cari": "rumah dan melompati"},
+        {"cari": "rumah dan melompati", "alasan": "Kalimatnya terlalu panjang. Potong di dekat kata \"dan\"."},
         {"cari": "besar dan dia"},
         {"cari": "tanah dan dia"},
         {"cari": "sekali lalu dia"}
@@ -93,6 +104,7 @@
       "judul": "Handuk untuk Oren",
       "tahap": "petunjuk",
       "jenis": "gunting",
+      "suara": true,
       "petunjuk": "Potong kalimat ini menjadi 3 kalimat.",
       "teks": "Ibu membuka pintu dan melihat Oren basah kuyup dan Ibu mengambil handuk lalu mengeringkan bulu Oren.",
       "potong": [
@@ -107,6 +119,7 @@
       "judul": "Mimpi ikan besar",
       "tahap": "mandiri",
       "jenis": "gunting",
+      "suara": true,
       "petunjuk": "Potong di tempat yang menurutmu perlu.",
       "teks": "Malam itu Oren tidur di keranjang dan dia bermimpi tentang ikan besar dan ikan itu bisa bicara dan ikan itu mengajak Oren berenang di laut lalu Oren terbangun karena jatuh dari keranjang.",
       "potong": [

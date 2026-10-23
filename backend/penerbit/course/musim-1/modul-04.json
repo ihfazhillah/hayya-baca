@@ -6,21 +6,21 @@
   "judul": "Kamera",
   "alat": "kamera",
   "emoji": "🎥",
-  "tujuan": "Tunjukkan perasaan tokoh lewat apa yang dia lakukan, bukan dengan menyebut perasaannya.",
-  "kenapa": "Di film, tidak ada tulisan \"dia takut\" di layar. Kita tahu dia takut karena kita melihatnya gemetar.",
+  "tujuan": "Tunjukkan perasaan tokoh lewat apa yang dia lakukan. Jangan sebut nama perasaannya.",
+  "kenapa": "Di film, tidak ada tulisan \"dia takut\" di layar. Kita tahu dia takut karena dia gemetar.",
   "langkah": [
     "Garis bawahi kalimat yang \"bilang perasaan\".",
-    "Tanya: kalau ini film, apa yang terlihat di kamera?",
+    "Tanya dirimu: kalau ini film, apa yang terlihat di kamera?",
     "Tulis ulang 2 kalimat saja.",
-    "Bandingkan."
+    "Bandingkan kalimat lama dan kalimat baru."
   ],
   "resep": [
     "Cari kata perasaan: sedih, senang, kesal, takut, malu, marah.",
     "Bayangkan kamera merekam tokohnya.",
     "Tulis apa yang dilakukan tangan, wajah, atau suaranya.",
-    "Cukup 2 kalimat, jangan semuanya."
+    "Cukup 2 kalimat. Jangan semuanya."
   ],
-  "mengapa": "Saat pembaca melihat sendiri tokohnya gemetar, dia ikut merasakan takutnya. Kalau hanya diberi tahu \"dia takut\", pembaca cuma tahu, tidak ikut merasa.",
+  "mengapa": "Pembaca melihat sendiri tokohnya gemetar. Jadi pembaca ikut merasa takut. Kalau hanya ditulis \"dia takut\", pembaca cuma tahu. Pembaca tidak ikut merasa.",
   "kamus": [
     {"istilah": "bilang perasaan", "arti": "Kalimat yang langsung menyebut perasaan, misalnya \"Oren takut.\""},
     {"istilah": "kalimat Kamera", "arti": "Kalimat yang menunjukkan perasaan lewat gerakan, wajah, atau suara."}
@@ -33,7 +33,7 @@
       "a": "Oren malu.",
       "b": "Oren menutupi wajahnya dengan kedua kaki depannya.",
       "jawaban": "b",
-      "alasan": "B menunjukkan apa yang dilakukan Oren, jadi pembaca bisa melihat malunya."
+      "alasan": "B menunjukkan apa yang dilakukan Oren. Jadi pembaca bisa melihat malunya."
     },
     {
       "soal": "Mana yang lebih hidup?",
@@ -48,7 +48,7 @@
     "b": "Aku sedang belajar Kamera. Aku tidak tahu cara menunjukkan \"Oren takut\" tanpa bilang takut. Tolong beri aku 2 pertanyaan, jangan tulis kalimatnya untukku. Setelah itu aku akan menulis kalimatnya di kertas.",
     "jawaban": "b",
     "bagian": [1, 2, 3, 4],
-    "penjelasan": "B punya keempat bagian Rumus Bertanya: aku sedang (belajar Kamera), aku bingung (cara menunjukkan takut), tolong… jangan… (beri pertanyaan, jangan tulis kalimatnya), dan setelah itu aku akan (menulis sendiri di kertas). A meminta orang lain menuliskan kalimatnya."
+    "penjelasan": "B punya keempat bagian Rumus Bertanya. Aku sedang: belajar Kamera. Aku bingung: cara menunjukkan takut. Tolong… jangan…: beri pertanyaan, jangan tulis kalimatnya. Setelah itu aku akan: menulis sendiri di kertas. A meminta orang lain menulis kalimatnya."
   },
   "lembar": [
     {
@@ -100,18 +100,49 @@
   "misi": [
     {
       "urutan": 1,
-      "judul": "Tebak gaya",
+      "judul": "Oren menebak perasaan",
       "tahap": "bersama",
-      "jenis": "tandai",
-      "petunjuk": "Ayah memperagakan marah, ngantuk, dan kaget tanpa bicara. Tebak perasaannya, lalu ceritakan apa yang kamu lihat.",
-      "petunjuk_ortu": "Tujuannya: anak belajar bahwa perasaan bisa dilihat dari gerakan. Peragakan marah, ngantuk, dan kaget tanpa bicara. Setelah anak menebak, tanyakan: \"Apa yang kamu lihat sehingga tahu?\"",
-      "kenapa": "Kamera artinya menunjukkan perasaan lewat apa yang terlihat. Kamu berlatih melihatnya dulu di wajah dan tubuh Ayah.",
-      "langkah": [
-        "Duduk berhadapan dengan Ayah atau Ummah.",
-        "Ayah memperagakan satu perasaan tanpa bicara.",
-        "Tebak perasaannya.",
-        "Ceritakan apa yang kamu lihat: tangannya, wajahnya, matanya.",
-        "Ulangi untuk marah, ngantuk, dan kaget, lalu tekan Tandai selesai."
+      "jenis": "perasaan",
+      "petunjuk": "Baca apa yang dilakukan tokohnya. Pilih perasaannya. Lalu klik kata yang membuatmu tahu.",
+      "petunjuk_ortu": "Tujuannya: anak belajar membaca perasaan dari gerakan, tanpa kata perasaan. Oren mengerjakan soal pertama sambil berpikir keras. Di soal berikutnya, kata buktinya ditunjukkan dulu, lalu hanya kalimatnya, lalu dia mencari sendiri. Kalau dia bertanya kenapa tidak ditulis saja \"dia sedih\", jawab: kalau kita melihat gerakannya, kita ikut merasakannya.",
+      "bantuan_memudar": true,
+      "contoh": [
+        {"sorot": [{"cari": "Oren pulang dari taman."}], "pikir": "Aku baca dulu apa yang Oren lakukan."},
+        {"sorot": [{"cari": "Bahunya turun"}], "pikir": "Bahunya turun. Badannya lemas."},
+        {"sorot": [{"cari": "menendang kerikil pelan-pelan"}], "pikir": "Dia menendang kerikil pelan-pelan. Dia tidak bersemangat."},
+        {"pilih": "sedih", "pikir": "Lemas dan tidak bersemangat. Aku pilih sedih."},
+        {"sorot": [{"cari": "Bahunya turun"}, {"cari": "menendang kerikil pelan-pelan"}], "pikir": "Kata-kata ini yang membuatku tahu. Aku klik semuanya."},
+        {"pikir": "Tidak ada kata \"sedih\" di sini. Tapi kita tahu! Sekarang giliranmu."}
+      ],
+      "soal": [
+        {
+          "teks": "Oren pulang dari taman. Bahunya turun. Dia menendang kerikil pelan-pelan.",
+          "pilihan": ["senang", "sedih", "kaget"],
+          "jawaban": "sedih",
+          "bukti": [{"cari": "Bahunya turun"}, {"cari": "menendang kerikil pelan-pelan"}],
+          "alasan": "Bahu turun dan menendang pelan-pelan. Itu tanda sedih."
+        },
+        {
+          "teks": "Ibu masuk ke dapur. Tangannya mengepal. Dia menutup pintu keras-keras.",
+          "pilihan": ["senang", "marah", "ngantuk"],
+          "jawaban": "marah",
+          "bukti": [{"cari": "Tangannya mengepal"}, {"cari": "menutup pintu keras-keras"}],
+          "alasan": "Tangan mengepal dan pintu ditutup keras. Itu tanda marah."
+        },
+        {
+          "teks": "Adik duduk di depan buku. Dia menguap lebar. Kepalanya terangguk-angguk.",
+          "pilihan": ["ngantuk", "kaget", "marah"],
+          "jawaban": "ngantuk",
+          "bukti": [{"cari": "menguap lebar"}, {"cari": "Kepalanya terangguk-angguk"}],
+          "alasan": "Menguap dan kepala terangguk-angguk. Itu tanda ngantuk."
+        },
+        {
+          "teks": "Malam itu Oren di ruang tamu. Dia bersembunyi di kolong meja. Badannya gemetar.",
+          "pilihan": ["senang", "sedih", "takut"],
+          "jawaban": "takut",
+          "bukti": [{"cari": "bersembunyi di kolong meja"}, {"cari": "Badannya gemetar"}],
+          "alasan": "Bersembunyi dan gemetar. Itu tanda takut."
+        }
       ]
     },
     {
@@ -143,10 +174,11 @@
         "Hari ini, perhatikan adik, kakak, atau temanmu saat dia kesal.",
         "Lihat tubuhnya: tangan, wajah, kaki, dan suaranya.",
         "Jangan ditertawakan, cukup diingat.",
-        "Kembali ke sini dan tulis apa yang kamu lihat, tanpa memakai kata \"kesal\"."
+        "Kembali ke sini.",
+        "Tulis apa yang kamu lihat. Jangan pakai kata \"kesal\"."
       ],
       "contoh": "Adik melipat tangan, bibirnya maju, lalu dia menghentakkan kaki.",
-      "petunjuk_ortu": "Tujuannya: anak mengumpulkan kalimat Kamera dari pengamatan nyata. Misi ini boleh diselesaikan besok; tunggu sampai ada momen yang pas. Jawaban yang baik menyebut gerakan, bukan nama perasaannya."
+      "petunjuk_ortu": "Tujuannya: anak mengumpulkan kalimat Kamera dari pengamatan nyata. Misi ini boleh diselesaikan besok; tunggu sampai ada momen yang pas. Kalau dia bertanya apa yang harus ditulis, jawab: gerakannya saja, bukan nama perasaannya."
     },
     {
       "urutan": 5,
@@ -155,6 +187,23 @@
       "jenis": "cetak",
       "petunjuk": "Tulis 3 cara berbeda untuk menunjukkan \"ngantuk\".",
       "lembar": "M4-5"
+    },
+    {
+      "urutan": 6,
+      "judul": "Tebak gaya",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "petunjuk": "Ayah atau Ummah memperagakan perasaan tanpa bicara. Kamu menebak perasaannya.",
+      "petunjuk_ortu": "Tujuannya: anak melihat sendiri bahwa perasaan terlihat dari gerakan. Ini misi bonus; kerjakan kalau ada waktu. Peragakan marah, ngantuk, dan kaget tanpa bicara. Setelah dia menebak, tanya: \"Apa yang kamu lihat sehingga tahu?\" Kalau dia bertanya kenapa tidak boleh bicara, jawab: di cerita, pembaca juga hanya melihat gerakannya.",
+      "kenapa": "Perasaan bisa dilihat dari gerakan. Kamu berlatih melihatnya di wajah dan tubuh Ayah.",
+      "langkah": [
+        "Ajak Ayah atau Ummah duduk berhadapan.",
+        "Ayah memperagakan satu perasaan tanpa bicara.",
+        "Tebak perasaannya.",
+        "Ceritakan apa yang kamu lihat: tangan, wajah, dan mata.",
+        "Ulangi untuk marah, ngantuk, dan kaget.",
+        "Tekan Tandai selesai."
+      ]
     }
   ]
 }

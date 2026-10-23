@@ -195,6 +195,11 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 .celah.bantuan-tunjuk::after { background: var(--color-warning); opacity: 1; width: 4px; left: -2px; }
 @keyframes bersinar { from { box-shadow: 0 0 0 0 transparent; } to { box-shadow: 0 0 0 4px var(--color-warning-light); } }
 @media (prefers-reduced-motion: reduce) { .kata.bantuan-tunjuk { animation: none; } }
+.celah.spasi.bantuan-tunjuk::after { left: calc(50% - 2px); }
+.sorot-celah { display: inline-block; position: relative; width: 1em; white-space: pre; }
+.sorot-celah::after { content: '✂'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  color: var(--color-accent); font-size: .9em; line-height: 1; padding: 0 1px;
+  border-left: 3px dashed var(--color-accent); }
 .gelembung-oren, .bantuan-oren { display: flex; gap: var(--space-3); align-items: flex-start;
   background: var(--color-surface); border: 2px solid var(--color-border); border-radius: var(--radius-lg);
   padding: var(--space-4); font-size: var(--text-lg); }
@@ -203,3 +208,14 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 .dengar { align-items: center; }
 .dengar-pilihan { display: inline-flex; gap: var(--space-2); align-items: center; min-height: 44px; }
 .dengar-pilihan input { width: 22px; height: 22px; }
+
+/* Kamera: pilih perasaan + klik bukti (spec 075 K1, Fase B) */
+.pilih-perasaan .teks-latihan span.bantuan-tunjuk { background: var(--color-warning-light);
+  border-bottom: 3px solid var(--color-warning); border-radius: 4px; }
+.pilih-perasaan .teks-latihan span.ditemukan { background: var(--color-success-light);
+  border-bottom: 3px solid var(--color-success); border-radius: 4px; }
+.pilihan-perasaan { display: inline-block; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md);
+  border: 2px solid var(--color-border); background: var(--color-surface); }
+.btn-besar.pilihan-perasaan.aktif { border-color: var(--color-success); background: var(--color-success-light); color: var(--color-text); }
+.btn-besar.pilihan-perasaan.salah { text-decoration: line-through; opacity: .55; }
+.pilihan-oren { border-color: var(--color-warning); background: var(--color-warning-light); font-weight: 600; }

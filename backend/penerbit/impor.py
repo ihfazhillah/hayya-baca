@@ -47,6 +47,8 @@ def _spasi(tokens, item):
 def ubah_data_soal(jenis, sumber):
     """JSON penulis → data yang disimpan (token + kunci berbentuk indeks)."""
     data = {k: v for k, v in sumber.items() if k not in _KOLOM_MISI}
+    if jenis == "perasaan":
+        return _perasaan(data)
     if jenis in ("klik", "gunting", "kembar"):
         tokens = tokenize(sumber["teks"])
         data["tokens"] = [t.json() for t in tokens]
@@ -72,15 +74,23 @@ def ubah_data_soal(jenis, sumber):
         # Alasan per kesalahan (sejajar dengan kunci): rahasia, dikirim lewat bantuan saja.
         if any(k.get("alasan") for k in kesalahan):
             data["alasan"] = [k.get("alasan", "") for k in kesalahan]
-        if "contoh" in sumber:
-            data["contoh"] = _contoh(tokens, sumber["contoh"])
-    elif data.get("bantuan_memudar"):
-        raise _Gagal("bantuan_memudar baru tersedia untuk misi klik")
+    elif data.get("bantuan_memudar") and jenis not in ("gunting", "kembar"):
+        raise _Gagal("bantuan_memudar belum tersedia untuk jenis ini")
+    if jenis in ("klik", "gunting", "kembar") and "contoh" in sumber:
+        data["contoh"] = _contoh(tokens, sumber["contoh"])
     if jenis == "gunting":
         data["potong"] = [_spasi(tokens, p) for p in sumber.get("potong") or []]
         data["boleh"] = [_spasi(tokens, p) for p in sumber.get("boleh") or []]
         if not data["potong"]:
             raise _Gagal("gunting tanpa potong")
+        # Alasan per potongan (sejajar dengan potong): rahasia, hanya yang pertama dikirim lewat
+        # bantuan memudar.
+        if any(p.get("alasan") for p in sumber["potong"]):
+            data["alasan"] = [p.get("alasan", "") for p in sumber["potong"]]
+        if data.get("bantuan_memudar"):
+            if not sumber["potong"][0].get("alasan"):
+                raise _Gagal("bantuan_memudar: potong pertama butuh \"alasan\"")
+            data["bantuan_memudar"] = True
         data.pop("kesalahan", None)
     elif jenis == "kembar":
         ada = {t.teks.lower() for t in tokens if t.jenis == "kata"}
@@ -97,6 +107,11 @@ def ubah_data_soal(jenis, sumber):
             if kurang:
                 raise _Gagal(f"kata terbanyak {kurang} ({paling} kali) harus ada di \"kata\"")
         data["kata"] = kata
+        if data.get("bantuan_memudar"):
+            # Tahap bersama: kata kembar ditunjukkan dengan alasan; tahap lain: hitungannya saja.
+            if sumber.get("tahap") == "bersama" and not sumber.get("alasan"):
+                raise _Gagal("bantuan_memudar tahap bersama butuh \"alasan\"")
+            data["bantuan_memudar"] = True
     return data
 
 
@@ -114,9 +129,64 @@ def _contoh(tokens, langkah):
                 temuan = cari(tokens, s["cari"], s.get("ke", 1))
             except KunciTidakDitemukan as e:
                 raise _Gagal(f"contoh langkah {n}: sorot {e}") from e
-            sorot += [i for i in temuan.token if i not in sorot]
+            ambil = temuan.token
+            if s.get("spasi"):  # Gunting: sorot celah tempat memotong saja
+                ambil = [i for i in ambil if tokens[i].jenis == "spasi"]
+                if not ambil:
+                    raise _Gagal(f"contoh langkah {n}: sorot {s['cari']!r} tanpa spasi")
+            sorot += [i for i in ambil if i not in sorot]
         out.append({"sorot": sorted(sorot), "pikir": x["pikir"]})
     return out
+
+
+def _perasaan(data):
+    """Kamera: pilih perasaan + klik bukti (spec 075 K1). Tiap soal → token, pilihan, jawaban,
+    bukti (indeks token kata per bukti), alasan. Dengan `contoh`, soal pertama milik Oren."""
+    soal = data.get("soal")
+    if not isinstance(soal, list) or not soal:
+        raise _Gagal("perasaan tanpa soal")
+    out = []
+    for n, s in enumerate(soal, start=1):
+        label = f"soal {n}"
+        tokens = tokenize(s["teks"])
+        pilihan = list(s.get("pilihan") or [])
+        if len(pilihan) < 2 or len(set(pilihan)) != len(pilihan):
+            raise _Gagal(f"{label}: pilihan minimal 2 dan tidak boleh kembar")
+        if s.get("jawaban") not in pilihan:
+            raise _Gagal(f"{label}: jawaban {s.get('jawaban')!r} tidak ada di pilihan")
+        if not s.get("bukti"):
+            raise _Gagal(f"{label}: tanpa bukti")
+        bukti = []
+        for b in s["bukti"]:
+            try:
+                temuan = cari(tokens, b["cari"], b.get("ke", 1))
+            except KunciTidakDitemukan as e:
+                raise _Gagal(f"{label}: bukti {e}") from e
+            kata_ = [i for i in temuan.token if tokens[i].jenis == "kata"]
+            if not kata_:
+                raise _Gagal(f"{label}: bukti {b['cari']!r} tanpa kata untuk diklik")
+            if any(i in g for g in bukti for i in kata_):
+                raise _Gagal(f"{label}: bukti {b['cari']!r} tumpang tindih")
+            bukti.append(kata_)
+        if data.get("bantuan_memudar") and not s.get("alasan"):
+            raise _Gagal(f"{label}: bantuan_memudar butuh \"alasan\"")
+        out.append({"tokens": [t.json() for t in tokens], "pilihan": pilihan,
+                    "jawaban": s["jawaban"], "bukti": bukti, "alasan": s.get("alasan", "")})
+    data["soal"] = out
+    if data.get("bantuan_memudar"):
+        data["bantuan_memudar"] = True
+    if "contoh" in data:
+        if len(out) < 2:
+            raise _Gagal("contoh memakai soal pertama: butuh soal lain untuk anak")
+        tokens = tokenize(soal[0]["teks"])
+        langkah = _contoh(tokens, data["contoh"])
+        for x, sumber in zip(langkah, data["contoh"]):
+            x["pilih"] = sumber.get("pilih")
+            if x["pilih"] is not None and x["pilih"] != out[0]["jawaban"]:
+                raise _Gagal(f"contoh: Oren memilih {x['pilih']!r}, jawaban soal 1"
+                             f" {out[0]['jawaban']!r}")
+        data["contoh"] = langkah
+    return data
 
 
 def _bisa_diklik(tokens, target, mode_celah):

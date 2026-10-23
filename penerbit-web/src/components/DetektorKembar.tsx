@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react'
-import type { HasilKembar, Token } from '../types'
+import type { Bantuan, HasilKembar, Token } from '../types'
 
-/** Detektor Kembar: klik satu kata, semua kata yang sama ikut menyala. */
-export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai }: {
+/** Detektor Kembar: klik satu kata, semua kata yang sama ikut menyala.
+ *  `bantuan` (spec 075 Fase B): "tunjuk" = kata kembar bersinar + alasan; "hitung" = jumlahnya saja. */
+export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai, bantuan }: {
   tokens: Token[]
   kataUmum: string[]
   onPeriksa: (kata: string) => Promise<HasilKembar>
   onSelesai?: (h: HasilKembar) => void
+  bantuan?: Bantuan
 }) {
   const [pilih, setPilih] = useState<string | null>(null)
   const [pesan, setPesan] = useState<string | null>(null)
@@ -38,6 +40,8 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
   }
 
   const kataKembar = hasil?.kata?.length ? hasil.kata : pilih ? [pilih] : []
+  const tunjuk = !hasil && bantuan?.tingkat === 'tunjuk' ? bantuan : null
+  const hitungan = !hasil && bantuan?.tingkat === 'hitung' ? bantuan : null
 
   return (
     <div className="tumpuk">
@@ -45,7 +49,7 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
         {tokens.map((t) =>
           t.j === 'kata' ? (
             <button key={t.i} type="button"
-              className={`kata${pilih && t.t.toLowerCase() === pilih ? ' nyala' : ''}`}
+              className={`kata${pilih && t.t.toLowerCase() === pilih ? ' nyala' : ''}${tunjuk?.token.includes(t.i) ? ' bantuan-tunjuk' : ''}`}
               onClick={() => { setPilih(t.t.toLowerCase()); setPesan(null) }} disabled={!!hasil}>
               {t.t}
             </button>
@@ -54,6 +58,15 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
           ),
         )}
       </div>
+      {(tunjuk || hitungan) && (
+        <div role="note" aria-label="Bantuan Oren" className="bantuan-oren">
+          <span aria-hidden="true">🐱</span>
+          <p>
+            {tunjuk ? <>Lihat kata yang bersinar. {tunjuk.alasan}</>
+              : <>Ada kata yang muncul {hitungan!.jumlah} kali. Klik kata-kata untuk menghitungnya.</>}
+          </p>
+        </div>
+      )}
       {pilih && !hasil && (
         <p role="status" className="ph-pesan">
           {umum.has(pilih)
@@ -71,6 +84,12 @@ export default function DetektorKembar({ tokens, kataUmum, onPeriksa, onSelesai 
           <span className="callout-title">Ketemu kata kembarnya!</span>
           {kataKembar.length > 0 && <p>Kata kembarnya: <strong>{kataKembar.join(', ')}</strong>.</p>}
           {hasil.pengganti && hasil.pengganti.length > 0 && <p>Pengganti yang bisa dipakai: {hasil.pengganti.join(', ')}.</p>}
+          {hasil.versi_benar && (
+            <>
+              <p>Setelah kata kembarnya diganti:</p>
+              <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text)' }}>{hasil.versi_benar}</p>
+            </>
+          )}
         </div></div>
       )}
     </div>

@@ -143,8 +143,19 @@ class TestKartuPamer(Dasar):
         selesaikan_modul(self.profil, 1)
         selesaikan_modul(self.profil, 2)
         selesaikan_modul(self.profil, 3)
+        for m in Misi.objects.filter(modul__nomor=3):
+            m.data.pop("versi_benar", None)
+            m.save()
         d = self.anak.get(self.url(3)).data
         assert d["tersedia"] is True and d["hasil"] is None
+
+    def test_detektor_kembar_juga_punya_sebelum_sesudah(self):
+        selesaikan_modul(self.profil, 1)
+        selesaikan_modul(self.profil, 2)
+        selesaikan_modul(self.profil, 3)
+        d = self.anak.get(self.url(3)).data
+        assert d["hasil"]["sesudah"]
+        assert d["hasil"]["sebelum"] != d["hasil"]["sesudah"]
 
     def test_orang_tua_memberi_reaksi_dan_stiker_lalu_muncul_di_beranda(self):
         selesaikan_modul(self.profil, 1)

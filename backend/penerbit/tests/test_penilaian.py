@@ -162,6 +162,163 @@ class TestBantuanMemudar(Dasar):
         assert "bantuan" not in self.klik(m, token=tok(m, "sangat")).data
 
 
+class TestKacaContohOren(Dasar):
+    """Fase B: Modul 5 misi 1 = Contoh dari Oren (klik, mode celah) + bantuan memudar."""
+
+    def setUp(self):
+        super().setUp()
+        for n in (1, 2, 3, 4):
+            selesaikan_modul(self.profil, n)
+
+    def test_huruf_besar_ditunjuk_di_ke_letaknya_titik_sendiri(self):
+        m = self.misi(5, 1)
+        d = self.anak.get(f"/api/penerbit/misi/{m.id}/").data
+        assert d["tahap_label"] == "Contoh dari Oren"
+        assert d["celah"] is True and "kunci" not in d
+        assert d["bantuan"]["tingkat"] == "tunjuk"
+        assert d["bantuan"]["token"] == [tok(m, "oren")]
+        assert "huruf besar" in d["bantuan"]["alasan"]
+        r = self.klik(m, token=tok(m, "oren"))
+        assert r.data["bantuan"]["tingkat"] == "letak"
+        awal, akhir = r.data["bantuan"]["kalimat"]
+        assert awal <= tok(m, "kesekolah") <= akhir
+        r = self.klik(m, token=tok(m, "kesekolah"))
+        assert r.data["bantuan"] is None
+        r = self.klik(m, celah=len(m.data["tokens"]))  # titik hilang di akhir
+        assert r.data["selesai"] is True
+        assert r.data["versi_benar"].startswith("Oren tidur")
+
+
+class TestPilihPerasaan(Dasar):
+    """Fase B: Modul 4 misi 1 = pilih perasaan + klik bukti, dinilai di server per jawaban."""
+
+    def setUp(self):
+        super().setUp()
+        for n in (1, 2, 3):
+            selesaikan_modul(self.profil, n)
+        self.m = self.misi(4, 1)
+        self.url = f"/api/penerbit/misi/{self.m.id}/perasaan/"
+
+    def get(self):
+        return self.anak.get(f"/api/penerbit/misi/{self.m.id}/").data
+
+    def kirim(self, soal, **kw):
+        return self.anak.post(self.url, {"soal": soal, **kw}, format="json")
+
+    def salah_satu_yang_salah(self, i):
+        s = self.m.data["soal"][i]
+        return next(p for p in s["pilihan"] if p != s["jawaban"])
+
+    def kata_bukan_bukti(self, i):
+        s = self.m.data["soal"][i]
+        bukti = {t for g in s["bukti"] for t in g}
+        return next(t["i"] for t in s["tokens"] if t["j"] == "kata" and t["i"] not in bukti)
+
+    def jawab_benar(self, i):
+        s = self.m.data["soal"][i]
+        assert self.kirim(i, perasaan=s["jawaban"]).data["hasil"] == "benar"
+        r = None
+        for g in s["bukti"]:
+            r = self.kirim(i, token=g[-1])
+        return r
+
+    def test_kunci_tidak_dikirim_kecuali_soal_contoh_oren(self):
+        d = self.get()
+        assert (d["jenis"], d["tahap_label"]) == ("perasaan", "Contoh dari Oren")
+        contoh, *latihan = d["soal"]
+        assert contoh["contoh"] is True
+        assert contoh["jawaban"] == self.m.data["soal"][0]["jawaban"] and contoh["bukti"]
+        for s in latihan:
+            assert s["tokens"] and len(s["pilihan"]) >= 2 and s["jumlah_bukti"] >= 1
+            for rahasia in ("jawaban", "bukti", "alasan"):
+                assert rahasia not in s
+        assert d["percobaan"]["soal"] == 1
+        assert d["contoh"][0]["pikir"]
+
+    def test_pilih_perasaan_dulu_lalu_klik_bukti(self):
+        s = self.m.data["soal"][1]
+        assert self.kirim(1, token=s["bukti"][0][0]).status_code == 400
+        r = self.kirim(1, perasaan=self.salah_satu_yang_salah(1))
+        assert (r.data["hasil"], r.data["meleset"]) == ("belum", 1)
+        assert "jawaban" not in r.data
+        r = self.kirim(1, perasaan=s["jawaban"])
+        assert r.data["hasil"] == "benar"
+        r = self.kirim(1, token=self.kata_bukan_bukti(1))
+        assert (r.data["hasil"], r.data["meleset"]) == ("meleset", 2)
+        r = self.kirim(1, token=s["bukti"][0][0])
+        assert (r.data["hasil"], r.data["ditemukan"], r.data["total"]) == ("ketemu", 1, len(s["bukti"]))
+        assert self.kirim(1, token=s["bukti"][0][-1]).data["hasil"] == "sudah"
+        for g in s["bukti"][1:]:
+            r = self.kirim(1, token=g[0])
+        assert r.data["butir_selesai"] is True
+        assert (r.data["jawaban"], r.data["bukti"], r.data["alasan"]) == (
+            s["jawaban"], s["bukti"], s["alasan"])
+        assert r.data["soal"] == 2 and r.data["selesai"] is False
+
+    def test_soal_dikerjakan_berurutan_dan_contoh_tidak_dinilai(self):
+        jawab = self.m.data["soal"][2]["jawaban"]
+        assert self.kirim(2, perasaan=jawab).status_code == 400
+        assert self.kirim(0, perasaan=self.m.data["soal"][0]["jawaban"]).status_code == 400
+        assert self.kirim(1, perasaan="bukan pilihan").status_code == 400
+
+    def test_dimuat_ulang_melanjutkan_soal_yang_sama(self):
+        s = self.m.data["soal"][1]
+        self.kirim(1, perasaan=s["jawaban"])
+        self.kirim(1, token=s["bukti"][0][0])
+        p = self.get()["percobaan"]
+        assert p["soal"] == 1
+        assert p["perasaan"] == s["jawaban"]
+        assert p["diklik"] == [s["bukti"][0][0]]
+        assert p["ditemukan"] == 1
+
+    def test_semua_soal_selesai_tercatat_dan_kunci_terbuka(self):
+        n = len(self.m.data["soal"])
+        self.kirim(1, perasaan=self.salah_satu_yang_salah(1))
+        for i in range(1, n):
+            r = self.jawab_benar(i)
+        assert r.data["selesai"] is True
+        assert [x["jawaban"] for x in r.data["soal_jawaban"]] == [
+            s["jawaban"] for s in self.m.data["soal"]]
+        h = HasilMisi.objects.get(profil=self.profil, misi=self.m)
+        # Benar = soal yang perasaannya tepat pada pilihan pertama; soal contoh tidak dihitung.
+        assert (h.status, h.benar, h.total, h.meleset) == ("selesai", n - 2, n - 1, 1)
+        d = self.get()
+        assert d["status"] == "selesai" and d["soal_jawaban"]
+        assert self.kirim(1, perasaan=self.m.data["soal"][1]["jawaban"]).status_code == 200  # ulang
+
+    def test_bantuan_memudar_ditunjuk_lalu_letaknya_lalu_sendiri(self):
+        s1, s2 = self.m.data["soal"][1:3]
+        b = self.get()["bantuan"]
+        assert (b["tingkat"], b["soal"]) == ("tunjuk", 1)
+        assert b["token"] == sorted(t for g in s1["bukti"] for t in g)
+        assert "alasan" not in b  # perasaannya tetap ditebak sendiri
+        r = self.jawab_benar(1)
+        b = r.data["bantuan"]
+        assert set(b) == {"tingkat", "soal", "kalimat"} and b["tingkat"] == "letak"
+        awal, akhir = b["kalimat"]
+        assert awal <= s2["bukti"][0][0] <= akhir
+        r = self.jawab_benar(2)
+        assert r.data["bantuan"] is None
+
+    def test_perunggu_kamera_dari_misi_perasaan_dan_lembar(self):
+        from penerbit.models import Stiker
+
+        for i in range(1, len(self.m.data["soal"])):
+            self.jawab_benar(i)
+        assert not Stiker.objects.filter(profil=self.profil, alat__kode="kamera").exists()
+        HasilMisi.objects.create(profil=self.profil, misi=self.misi(4, 2), status="selesai")
+        from penerbit import hadiah
+        hadiah.evaluasi(self.profil)
+        assert Stiker.objects.filter(profil=self.profil, alat__kode="kamera",
+                                     tingkat="perunggu").exists()
+
+    def test_bukan_misi_perasaan_ditolak(self):
+        m = self.misi(4, 4)
+        r = self.anak.post(f"/api/penerbit/misi/{m.id}/perasaan/", {"soal": 0, "perasaan": "x"},
+                           format="json")
+        assert r.status_code == 400
+
+
 class TestGuntingKembar(Dasar):
     def setUp(self):
         super().setUp()
@@ -206,6 +363,87 @@ class TestGuntingKembar(Dasar):
         assert r.data["hasil"] == "benar"
         h = HasilMisi.objects.filter(misi=m).first()
         assert (h.benar, h.total, h.meleset) == (0, 1, 1)
+
+
+class TestBantuanGuntingKembar(Dasar):
+    """Spec 075 Fase B: Contoh dari Oren + bantuan memudar untuk Gunting dan Detektor Kembar."""
+
+    RAHASIA = ("potong", "boleh", "kata", "pengganti", "alasan", "versi_benar", "kunci")
+
+    def setUp(self):
+        super().setUp()
+        selesaikan_modul(self.profil, 1)
+
+    def get(self, m):
+        return self.anak.get(f"/api/penerbit/misi/{m.id}/").data
+
+    def bantuan(self, m, potong):
+        return self.anak.post(f"/api/penerbit/misi/{m.id}/bantuan/", {"potong": potong},
+                              format="json")
+
+    def test_gunting_contoh_dari_oren_dengan_suara(self):
+        d = self.get(self.misi(2, 1))
+        assert (d["tahap"], d["tahap_label"]) == ("bersama", "Contoh dari Oren")
+        assert d["suara"] is True
+        assert d["contoh"][0]["pikir"]
+        for rahasia in self.RAHASIA:
+            assert rahasia not in d
+
+    def test_gunting_potongan_pertama_ditunjukkan_kedua_bagiannya_sisanya_sendiri(self):
+        m = self.misi(2, 1)
+        potong = m.data["potong"]
+        b = self.get(m)["bantuan"]
+        assert b["tingkat"] == "tunjuk"
+        assert b["token"] == potong[0]
+        assert b["alasan"] == m.data["alasan"][0]
+
+        # Potongan yang salah tidak mengubah bantuan (tidak membocorkan apa pun).
+        salah = m.data["tokens"][1]["i"]
+        assert self.bantuan(m, [salah]).data["bantuan"]["tingkat"] == "tunjuk"
+
+        r = self.bantuan(m, [potong[0][0], salah])
+        assert r.status_code == 200
+        b = r.data["bantuan"]
+        assert set(b) == {"tingkat", "kalimat"}  # hanya bagiannya, tanpa letak spasi
+        assert b["tingkat"] == "letak"
+        awal, akhir = b["kalimat"]
+        assert all(awal <= i <= akhir for i in potong[1])
+        assert not any(awal <= i <= akhir for g in (potong[0], potong[2], potong[3]) for i in g)
+
+        assert self.bantuan(m, [potong[0][0], potong[1][-1]]).data["bantuan"] is None
+        # Bantuan tidak menyelesaikan misi; penilaian tetap lewat Periksa.
+        assert not HasilMisi.objects.filter(misi=m).exists()
+
+    def test_bantuan_gunting_hanya_untuk_misi_yang_memakainya(self):
+        m = self.misi(2, 2)
+        assert "bantuan" not in self.get(m)
+        assert self.bantuan(m, []).status_code == 400
+        assert self.bantuan(self.misi(2, 1), "x").status_code == 400
+
+    def test_kembar_contoh_kata_kembar_ditunjukkan_dengan_alasan(self):
+        selesaikan_modul(self.profil, 2)
+        m = self.misi(3, 1)
+        d = self.get(m)
+        assert (d["tahap"], d["tahap_label"]) == ("bersama", "Contoh dari Oren")
+        for rahasia in self.RAHASIA:
+            assert rahasia not in d
+        b = d["bantuan"]
+        assert b["tingkat"] == "tunjuk"
+        kata0 = m.data["kata"][0]
+        assert b["token"] == [t["i"] for t in m.data["tokens"] if t["t"].lower() == kata0]
+        assert b["alasan"] == m.data["alasan"]
+
+        r = self.anak.post(f"/api/penerbit/misi/{m.id}/periksa/", {"kata": kata0}, format="json")
+        assert r.data["hasil"] == "benar"
+        assert r.data["versi_benar"] == m.data["versi_benar"]
+        assert "bantuan" not in self.get(m)
+
+    def test_kembar_tahap_petunjuk_hanya_hitungan_tahap_mandiri_tanpa_bantuan(self):
+        selesaikan_modul(self.profil, 2)
+        b = self.get(self.misi(3, 2))["bantuan"]
+        assert b == {"tingkat": "hitung", "jumlah": 4}  # "Oren" 4 kali, tanpa letak
+        assert "bantuan" not in self.get(self.misi(3, 3))
+        assert "versi_benar" not in self.get(self.misi(3, 3))
 
 
 class TestMisiLain(Dasar):

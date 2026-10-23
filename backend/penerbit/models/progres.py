@@ -45,6 +45,9 @@ class Percobaan(models.Model):
     celah = models.JSONField(default=list)  # indeks celah yang sudah ditemukan (mode Kaca Pembesar)
     meleset = models.PositiveSmallIntegerField(default=0)
     pakai_petunjuk = models.BooleanField(default=False)
+    # Misi perasaan (Kamera): keadaan per soal {"<i>": {"perasaan": str|None, "salah": n,
+    # "ditemukan": [grup], "diklik": [token]}}.
+    butir = models.JSONField(default=dict, blank=True)
     selesai = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

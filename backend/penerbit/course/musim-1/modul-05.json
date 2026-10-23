@@ -6,21 +6,21 @@
   "judul": "Kaca Pembesar",
   "alat": "kaca",
   "emoji": "🔍",
-  "tujuan": "Periksa huruf besar, titik, koma, dan spasi satu kalimat demi satu kalimat.",
-  "kenapa": "Detektif memakai kaca pembesar untuk menemukan jejak kecil yang tidak terlihat orang lain.",
+  "tujuan": "Periksa huruf besar, titik, koma, dan spasi. Satu kalimat sekali.",
+  "kenapa": "Detektif memakai kaca pembesar. Dia mencari jejak kecil yang tidak terlihat orang lain.",
   "langkah": [
-    "Tutup semua kalimat dengan kertas kecuali satu.",
-    "Cek huruf besar di awal dan nama.",
+    "Tutup semua kalimat dengan kertas, kecuali satu.",
+    "Cek huruf besar di awal kalimat dan di nama.",
     "Cek titik, koma, dan spasi.",
-    "Cek \"di\" dan \"ke\": dipisah kalau tempat, disambung kalau kata kerja."
+    "Cek \"di\" dan \"ke\". Dipisah kalau tempat, disambung kalau kata kerja."
   ],
   "resep": [
-    "Satu kalimat sekali, mulai dari kalimat terakhir.",
+    "Periksa satu kalimat sekali. Mulai dari kalimat terakhir.",
     "Huruf besar: awal kalimat dan nama.",
-    "Titik di akhir, spasi sesudah titik dan koma, tidak ada spasi sebelum titik.",
+    "Titik di akhir kalimat. Spasi sesudah titik dan koma. Tidak ada spasi sebelum titik.",
     "\"di kebun\" dipisah, \"ditaruh\" disambung."
   ],
-  "mengapa": "Saat membaca seluruh cerita, mata sibuk mengikuti ceritanya dan melewatkan titik yang hilang. Membaca satu kalimat sekali membuat mata hanya mengurus hal kecil.",
+  "mengapa": "Saat membaca seluruh cerita, mata sibuk mengikuti ceritanya. Titik yang hilang jadi terlewat. Kalau membaca satu kalimat saja, mata bisa mengurus hal kecil.",
   "kamus": [
     {"istilah": "huruf besar", "arti": "Huruf kapital, dipakai di awal kalimat dan untuk nama."},
     {"istilah": "di/ke tempat", "arti": "\"di\" dan \"ke\" sebelum nama tempat ditulis terpisah: di kebun, ke pasar."}
@@ -48,7 +48,7 @@
     "b": "Apa saja yang salah di ceritaku?",
     "jawaban": "a",
     "bagian": [1, 2, 3],
-    "penjelasan": "A menyebut sedang apa (memeriksa ejaan), bagian yang membingungkan (\"di\" dipisah atau disambung), dan bantuan yang diminta (jelaskan dengan contoh lain, jangan periksa ceritaku). B meminta orang lain menemukan semua kesalahanmu."
+    "penjelasan": "A menyebut sedang apa: memeriksa ejaan. A menyebut yang membingungkan: \"di\" dipisah atau disambung. A menyebut bantuan yang diminta: contoh lain, jangan periksa ceritaku. B meminta orang lain menemukan semua kesalahanmu."
   },
   "lembar": [
     {
@@ -70,19 +70,28 @@
   "misi": [
     {
       "urutan": 1,
-      "judul": "Tiga kalimat Ayah",
+      "judul": "Oren memeriksa tiga kalimat",
       "tahap": "bersama",
-      "jenis": "tandai",
-      "petunjuk": "Ayah menulis 3 kalimat, masing-masing dengan 1 kesalahan, dan menyebut jenis kesalahannya. Temukan dan betulkan.",
-      "petunjuk_ortu": "Tujuannya: anak berlatih mencari satu jenis kesalahan dengan bantuan. Tulis 3 kalimat di kertas, masing-masing dengan satu kesalahan (huruf besar, titik, atau di/ke), dan sebutkan jenisnya sebelum anak mencari. Contoh: \"oren tidur di kasur.\" (huruf besar).",
-      "kenapa": "Kaca Pembesar mencari kesalahan kecil satu per satu. Kalau tahu jenis kesalahannya, kamu tahu harus melihat ke mana.",
-      "langkah": [
-        "Duduk bersama Ayah atau Ummah dengan kertas dan pulpen merah.",
-        "Ayah menulis 3 kalimat dan menyebut jenis kesalahannya.",
-        "Periksa satu kalimat saja dulu, dari belakang ke depan.",
-        "Lingkari kesalahannya dan tulis yang benar.",
-        "Setelah ketiganya selesai, tekan Tandai selesai."
-      ]
+      "jenis": "klik",
+      "celah": true,
+      "petunjuk": "Lihat cara Oren memeriksa satu kalimat. Tekan Lanjut. Lalu kamu cari sisanya.",
+      "petunjuk_ortu": "Tujuannya: anak melihat cara memakai Kaca Pembesar, satu kalimat sekali. Oren memberi contoh kesalahan huruf besar dan menyebut jenisnya. Kesalahan pertama ditunjukkan, kedua diberi letaknya, ketiga dia cari sendiri. Kalau dia bertanya kapan \"ke\" dipisah, jawab: dipisah kalau sesudahnya tempat, misalnya \"ke sekolah\". Kalau dia bingung cara mengklik titik yang hilang, tunjukkan celah kecil di ujung kalimat.",
+      "bantuan_memudar": true,
+      "contoh": [
+        {"sorot": [{"cari": "oren tidur di kasur."}], "pikir": "Aku periksa satu kalimat dulu. Yang lain aku tutup."},
+        {"sorot": [{"cari": "oren"}], "pikir": "Huruf pertamanya kecil. Ini kesalahan huruf besar!"},
+        {"sorot": [{"cari": "oren"}], "pikir": "Awal kalimat dan nama pakai huruf besar. Jadi \"Oren\"."},
+        {"sorot": [{"cari": "Kakak pergi kesekolah."}, {"cari": "Ibu memasak ikan di dapur"}], "pikir": "Masih ada dua kalimat. Cek \"di\" dan \"ke\". Cek titiknya juga."},
+        {"pikir": "Sekarang giliranmu. Klik juga kesalahan yang Oren temukan."}
+      ],
+      "teks": "oren tidur di kasur. Kakak pergi kesekolah. Ibu memasak ikan di dapur",
+      "jumlah": 3,
+      "kesalahan": [
+        {"cari": "oren", "alasan": "Ini kesalahan huruf besar. Awal kalimat dan nama pakai huruf besar."},
+        {"cari": "kesekolah", "alasan": "Ini kesalahan di/ke. Sekolah itu tempat, jadi \"ke\" dipisah."},
+        {"cari": "dapur|", "alasan": "Ini kesalahan titik. Kalimat terakhir belum punya titik."}
+      ],
+      "versi_benar": "Oren tidur di kasur. Kakak pergi ke sekolah. Ibu memasak ikan di dapur."
     },
     {
       "urutan": 2,
@@ -129,14 +138,14 @@
       "pertanyaan": "Kesalahannya apa?",
       "kenapa": "Kesalahan ejaan ada di mana-mana, bahkan di tulisan orang dewasa. Mata detektifmu bisa menemukannya.",
       "langkah": [
-        "Misi ini dikerjakan saat kamu keluar rumah, jadi tablet tidak perlu dibawa.",
+        "Kerjakan misi ini saat kamu keluar rumah. Tablet tidak perlu dibawa.",
         "Saat di jalan, baca spanduk, papan pengumuman, atau menu warung.",
         "Cari satu kesalahan: huruf besar, titik, spasi, atau di/ke.",
         "Ingat tulisannya, atau minta Ayah atau Ummah memotretnya.",
         "Kembali ke sini dan tulis kesalahannya beserta yang benar."
       ],
       "contoh": "Di warung tertulis \"di jual es teh\". Yang benar \"dijual es teh\".",
-      "petunjuk_ortu": "Tujuannya: anak memakai Kaca Pembesar di dunia nyata. Misi ini boleh menunggu sampai kalian keluar rumah. Ajarkan untuk tidak mengoreksi pemilik warung secara langsung; cukup dicatat."
+      "petunjuk_ortu": "Tujuannya: anak memakai Kaca Pembesar di dunia nyata. Misi ini boleh menunggu sampai kalian keluar rumah. Ajarkan untuk tidak mengoreksi pemilik warung secara langsung; cukup dicatat. Kalau dia bertanya apakah tulisan itu pasti salah, ajak dia mengecek bersama di kamus."
     },
     {
       "urutan": 5,
@@ -165,15 +174,16 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "petunjuk": "Buat 3 kalimat yang sengaja dibuat salah untuk dikoreksi Ayah.",
-      "kenapa": "Membuat kesalahan dengan sengaja lebih sulit daripada mencarinya. Kalau kamu bisa, berarti kamu sudah paham.",
+      "kenapa": "Membuat kesalahan dengan sengaja itu lebih sulit. Kalau kamu bisa, berarti kamu sudah paham.",
       "langkah": [
         "Ambil kertas dan pensil.",
         "Tulis 3 kalimat, masing-masing dengan satu kesalahan yang kamu sengaja.",
         "Di balik kertas, tulis kunci jawabannya.",
-        "Berikan ke Ayah atau Ummah untuk dikoreksi, lalu periksa jawabannya.",
+        "Berikan ke Ayah atau Ummah untuk dikoreksi.",
+        "Periksa jawaban Ayah atau Ummah dengan kuncimu.",
         "Kembali ke sini dan tekan Tandai selesai."
       ],
-      "petunjuk_ortu": "Tujuannya: anak mengajar balik, tanda dia paham jenis-jenis kesalahan. Sesekali lewatkan satu kesalahan dengan sengaja, lalu biarkan dia yang menemukannya."
+      "petunjuk_ortu": "Tujuannya: anak mengajar balik, tanda dia paham jenis-jenis kesalahan. Sesekali lewatkan satu kesalahan dengan sengaja, lalu biarkan dia yang menemukannya. Kalau dia bertanya kesalahan apa yang boleh dibuat, jawab: huruf besar, titik, spasi, atau di/ke."
     },
     {
       "urutan": 7,

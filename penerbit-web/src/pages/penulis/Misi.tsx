@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useId, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useId, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
-  berhentiMisi, cetakMisi, getMisi, getModul, klikMisi, periksaGunting, periksaKembar, petunjukMisi, tandaiMisi,
+  bantuanGunting, berhentiMisi, cetakMisi, getMisi, getModul, kirimPerasaan, klikMisi, periksaGunting, periksaKembar, petunjukMisi, tandaiMisi,
 } from '../../api'
-import type { HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci } from '../../types'
+import type {
+  BantuanPerasaan, HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci, PercobaanPerasaan,
+} from '../../types'
 import { Galat, Memuat, PerayaanHadiah } from '../../components/ui'
 import { useNavPenulis } from '../../components/LayoutPenulis'
 import TeksKlik, { type AwalKlik } from '../../components/TeksKlik'
@@ -12,6 +14,7 @@ import DetektorKembar from '../../components/DetektorKembar'
 import Perekam from '../../components/Perekam'
 import TanyaAyah from '../../components/TanyaAyah'
 import ContohOren from '../../components/ContohOren'
+import PilihPerasaan from '../../components/PilihPerasaan'
 import Dengar from '../../components/Dengar'
 import '../../styles/penulis-halaman.css'
 
@@ -80,6 +83,8 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
     ? modul.misi.find((x) => x.id === misi.berikutnya)?.urutan
     : undefined
   const [ulang, setUlang] = useState(false)
+  // "Kerjakan lagi" langsung ke pekerjaan; "Lihat contoh Oren lagi" mulai dari contoh.
+  const [lewatiContoh, setLewatiContoh] = useState(false)
   const dariAwal = misi.status === 'selesai' && !ulang
 
   return (
@@ -112,9 +117,9 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
       <Panduan misi={misi} />
 
       {dariAwal ? (
-        <JawabanTerbuka misi={misi} onUlang={() => { setSelesai(null); setUlang(true) }} />
+        <JawabanTerbuka misi={misi} onUlang={(contoh) => { setSelesai(null); setUlang(true); setLewatiContoh(!contoh) }} />
       ) : (
-        <AreaKerja misi={misi} selesai={!!selesai} onSelesai={selesaikan} onSegarkan={segarkan} urutanBerikut={urutanBerikut} nomor={modul.nomor} />
+        <AreaKerja misi={misi} selesai={!!selesai} onSelesai={selesaikan} onSegarkan={segarkan} urutanBerikut={urutanBerikut} nomor={modul.nomor} lewatiContoh={lewatiContoh} />
       )}
 
       <TanyaAyah misi={misi.id} />
@@ -163,15 +168,15 @@ function Panduan({ misi }: { misi: MisiDetail }) {
 }
 
 /** Misi yang sudah selesai sebelumnya: tampilkan jawabannya. */
-function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: () => void }) {
-  const adaContoh = misi.jenis === 'klik' && Array.isArray(misi.contoh) && misi.contoh.length > 0
-  const bisaUlang = misi.jenis === 'klik' || misi.jenis === 'gunting' || misi.jenis === 'kembar'
+function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: (contoh: boolean) => void }) {
+  const bisaUlang = misi.jenis === 'klik' || misi.jenis === 'gunting' || misi.jenis === 'kembar' || misi.jenis === 'perasaan'
+  const adaContoh = bisaUlang && Array.isArray(misi.contoh) && misi.contoh.length > 0
   return (
     <div className="tumpuk">
       {bisaUlang && (
         <div className="baris">
-          {adaContoh && <button type="button" className="btn btn-ghost" onClick={onUlang}>🐱 Lihat contoh Oren lagi</button>}
-          <button type="button" className="btn btn-ghost" onClick={onUlang}>🔁 Kerjakan lagi</button>
+          {adaContoh && <button type="button" className="btn btn-ghost" onClick={() => onUlang(true)}>🐱 Lihat contoh Oren lagi</button>}
+          <button type="button" className="btn btn-ghost" onClick={() => onUlang(false)}>🔁 Kerjakan lagi</button>
         </div>
       )}
       {(misi.jenis === 'tandai' || misi.jenis === 'log') && (
@@ -186,6 +191,7 @@ function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: () => vo
           </div>
         </div>
       )}
+      {misi.jenis === 'perasaan' && misi.soal_jawaban && <JawabanPerasaan misi={misi} />}
       {misi.jenis === 'kembar' && misi.kata && misi.kata.length > 0 && (
         <p>Kata kembarnya: <strong>{misi.kata.join(', ')}</strong>
           {misi.pengganti && misi.pengganti.length > 0 && <>. Pengganti yang bisa dipakai: {misi.pengganti.join(', ')}.</>}
@@ -195,59 +201,113 @@ function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: () => vo
   )
 }
 
-function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor }: {
+/** Misi perasaan yang sudah selesai: tiap soal dengan perasaan dan alasannya (soal Oren dilewati). */
+function JawabanPerasaan({ misi }: { misi: MisiDetail }) {
+  const mulai = Array.isArray(misi.contoh) && misi.contoh.length > 0 ? 1 : 0
+  const soal = misi.soal ?? []
+  return (
+    <ol className="tumpuk ph-langkah" aria-label="Jawaban tiap soal">
+      {(misi.soal_jawaban ?? []).slice(mulai).map((k, n) => (
+        <li key={n}>
+          <p>{soal[n + mulai]?.tokens.map((t) => t.t).join('')}</p>
+          <p><strong>Dia {k.jawaban}.</strong></p>
+          <p>{k.alasan}</p>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor, lewatiContoh = false }: {
   misi: MisiDetail
   selesai: boolean
   onSelesai: (h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => void
   onSegarkan: () => void
   urutanBerikut: number | undefined
   nomor: number
+  /** "Kerjakan lagi" pada misi yang sudah selesai: contoh Oren tidak diputar dulu. */
+  lewatiContoh?: boolean
 }) {
   const id = misi.id
   const tokens = misi.tokens ?? []
   switch (misi.jenis) {
     case 'klik':
-      return <KerjaKlik misi={misi} onSelesai={onSelesai} />
+      return <KerjaKlik misi={misi} onSelesai={onSelesai} lewatiContoh={lewatiContoh} />
     case 'gunting':
-      return <Gunting tokens={tokens} onPeriksa={(p) => periksaGunting(id, p)} onSelesai={onSelesai} />
+      return (
+        <DenganContoh misi={misi} lewati={lewatiContoh} potong>
+          <Gunting tokens={tokens} onPeriksa={(p) => periksaGunting(id, p)} onSelesai={onSelesai}
+            bantuan={misi.bantuan_memudar ? (misi.bantuan ?? null) : undefined}
+            onBantuan={(p) => bantuanGunting(id, p)} />
+        </DenganContoh>
+      )
     case 'kembar':
-      return <DetektorKembar tokens={tokens} kataUmum={misi.kata_umum ?? []} onPeriksa={(k) => periksaKembar(id, k)} onSelesai={onSelesai} />
+      return (
+        <DenganContoh misi={misi} lewati={lewatiContoh || (misi.percobaan?.meleset ?? 0) > 0}>
+          <DetektorKembar tokens={tokens} kataUmum={misi.kata_umum ?? []} onPeriksa={(k) => periksaKembar(id, k)}
+            onSelesai={onSelesai} bantuan={misi.bantuan_memudar ? (misi.bantuan ?? null) : undefined} />
+        </DenganContoh>
+      )
     case 'tandai':
       return <MisiTandai misi={misi} selesai={selesai} onSelesai={onSelesai} />
     case 'log':
       return <MisiLog misi={misi} selesai={selesai} onSelesai={onSelesai} />
+    case 'perasaan':
+      return (
+        <PilihPerasaan soal={misi.soal ?? []} contoh={Array.isArray(misi.contoh) ? misi.contoh : []}
+          awal={misi.percobaan as PercobaanPerasaan | undefined}
+          bantuan={misi.bantuan_memudar ? ((misi.bantuan ?? null) as unknown as BantuanPerasaan) : undefined}
+          onKirim={(b) => kirimPerasaan(id, b)} onSelesai={onSelesai} />
+      )
     case 'cetak':
       return <MisiCetak misi={misi} onSegarkan={onSegarkan} urutanBerikut={urutanBerikut} nomor={nomor} />
   }
 }
 
-/** Klik Kesalahan, dengan Contoh dari Oren lebih dulu, bantuan memudar, dan tombol 🔊 bila
- *  misinya memakainya (spec 075 K1). TeksKlik tetap terpasang selama contoh supaya keadaannya tidak hilang. */
-function KerjaKlik({ misi, onSelesai }: {
+/** Contoh dari Oren lebih dulu (bila misinya punya `contoh`) dan tombol 🔊 (bila `suara`), untuk
+ *  misi klik, gunting, dan kembar (spec 075 K1). Pekerjaan anak tetap terpasang selama contoh
+ *  supaya keadaannya tidak hilang. `lewati`: anak sudah mulai, atau memilih "Kerjakan lagi". */
+function DenganContoh({ misi, lewati, potong = false, children }: {
   misi: MisiDetail
-  onSelesai: (h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => void
+  lewati: boolean
+  /** Gunting: spasi yang disorot contoh tampil sebagai garis potong. */
+  potong?: boolean
+  children: ReactNode
 }) {
-  const id = misi.id
   const tokens = misi.tokens ?? []
   const langkah = Array.isArray(misi.contoh) ? misi.contoh : []
-  const p = misi.percobaan ? awalKlik(misi.percobaan) : undefined
-  const sudahMulai = !!p && ((p.ditemukan ?? 0) > 0 || p.diklik.length > 0 || p.meleset > 0)
-  const [lihatContoh, setLihatContoh] = useState(langkah.length > 0 && !sudahMulai)
+  const [lihatContoh, setLihatContoh] = useState(langkah.length > 0 && !lewati)
   const kerja = (
     <>
-      {lihatContoh && <ContohOren tokens={tokens} langkah={langkah} onSelesai={() => setLihatContoh(false)} />}
+      {lihatContoh && <ContohOren tokens={tokens} langkah={langkah} potong={potong} onSelesai={() => setLihatContoh(false)} />}
       <div className="tumpuk" hidden={lihatContoh}>
         {langkah.length > 0 && (
           <p><button type="button" className="btn btn-ghost" onClick={() => setLihatContoh(true)}>🐱 Lihat contoh Oren lagi</button></p>
         )}
-        <TeksKlik tokens={tokens} celah={misi.celah} jumlah={misi.jumlah} awal={p}
-          bantuan={misi.bantuan_memudar ? (misi.bantuan ?? null) : undefined}
-          onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
-          onSelesai={onSelesai} />
+        {children}
       </div>
     </>
   )
   return misi.suara ? <Dengar teks={tokens.map((t) => t.t).join('')}>{kerja}</Dengar> : kerja
+}
+
+/** Klik Kesalahan dengan bantuan memudar bila misinya memakainya. */
+function KerjaKlik({ misi, onSelesai, lewatiContoh }: {
+  misi: MisiDetail
+  onSelesai: (h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => void
+  lewatiContoh: boolean
+}) {
+  const id = misi.id
+  const p = misi.percobaan ? awalKlik(misi.percobaan) : undefined
+  const sudahMulai = !!p && ((p.ditemukan ?? 0) > 0 || p.diklik.length > 0 || p.meleset > 0)
+  return (
+    <DenganContoh misi={misi} lewati={lewatiContoh || sudahMulai}>
+      <TeksKlik tokens={misi.tokens ?? []} celah={misi.celah} jumlah={misi.jumlah} awal={p}
+        bantuan={misi.bantuan_memudar ? (misi.bantuan ?? null) : undefined}
+        onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
+        onSelesai={onSelesai} />
+    </DenganContoh>
+  )
 }
 
 /** Percobaan yang tersimpan; `ditemukan`/`celah` dipakai bila server mengirimnya. */

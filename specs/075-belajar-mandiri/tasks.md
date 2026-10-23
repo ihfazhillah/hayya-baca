@@ -12,9 +12,9 @@
 - [ ] A9 Deploy, pemilik mencoba Modul 1
 
 ## Fase B · Modul 2–5
-- [ ] B1 Contoh + bantuan memudar Gunting dan Kembar
-- [ ] B2 Jenis misi Kamera "pilih perasaan + klik bukti"; Tebak gaya jadi bonus
-- [ ] B3 Isi Modul 2–5 (bahasa 8 tahun), deploy, pemilik mencoba
+- [x] B1 Contoh + bantuan memudar Gunting dan Kembar
+- [x] B2 Jenis misi Kamera "pilih perasaan + klik bukti"; Tebak gaya jadi bonus
+- [x] B3 Isi Modul 2–5 (bahasa 8 tahun), deploy, pemilik mencoba
 
 ## Fase C · Jelajah
 - [ ] C1 Ruang Latihan per alat + "Latih alat ini"

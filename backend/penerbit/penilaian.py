@@ -76,6 +76,53 @@ def bantuan(data, ditemukan):
     return {"tingkat": "letak", "kalimat": _kalimat_grup(tokens, kalimat(tokens), grup)}
 
 
+LEBAR_BAGIAN = 3  # kata di kiri dan kanan potongan yang dibantu "letak"-nya
+
+
+def _bagian(tokens, grup):
+    """Rentang [awal, akhir] beberapa kata di sekitar satu grup spasi potongan Gunting.
+    Teks Gunting biasanya satu kalimat panjang, jadi "letak" = bagian kalimat, bukan kalimat."""
+    awal, akhir = min(grup), max(grup)
+    n = 0
+    while awal > 0 and n < LEBAR_BAGIAN:
+        awal -= 1
+        n += tokens[awal].jenis == "kata"
+    n = 0
+    while akhir < len(tokens) - 1 and n < LEBAR_BAGIAN:
+        akhir += 1
+        n += tokens[akhir].jenis == "kata"
+    return [awal, akhir]
+
+
+def bantuan_gunting(data, potong):
+    """Bantuan memudar Gunting (spec 075 Fase B), dihitung dari garis potong anak saat ini.
+
+    Potongan pertama (urutan `potong`) belum kena → "tunjuk" (spasinya + alasan); sudah kena →
+    "letak" potongan kedua (bagian kalimatnya saja); keduanya kena → None. Hanya dua potongan
+    pertama yang pernah diperiksa di sini, jadi potongan lain tidak bisa ditebak lewat bantuan.
+    """
+    wajib = data["potong"]
+    potong = set(potong)
+    kena = [bool(potong & set(g)) for g in wajib[:2]]
+    if not kena[0]:
+        return {"tingkat": "tunjuk", "token": wajib[0], "celah": None,
+                "alasan": (data.get("alasan") or [""])[0]}
+    if len(kena) > 1 and not kena[1]:
+        return {"tingkat": "letak", "kalimat": _bagian(_tokens(data), wajib[1])}
+    return None
+
+
+def bantuan_kembar(data, tahap):
+    """Bantuan Detektor Kembar (satu sasaran, jadi memudar antarmisi): tahap `bersama` →
+    semua kemunculan kata kembar pertama + alasan; tahap lain → hitungannya saja."""
+    kata0 = data["kata"][0]
+    letak = [t["i"] for t in data["tokens"] if t["j"] == "kata" and t["t"].lower() == kata0]
+    if tahap == "bersama":
+        return {"tingkat": "tunjuk", "token": letak, "celah": None,
+                "alasan": data.get("alasan", "")}
+    return {"tingkat": "hitung", "jumlah": len(letak)}
+
+
 def nilai_gunting(data, potong):
     """Potongan anak (indeks spasi) → tepat, tidak perlu, dan jumlah yang kurang."""
     potong = sorted(set(potong))
@@ -110,6 +157,8 @@ def nilai_kembar(data, kata):
 
 def data_publik(data, jenis):
     """Data soal yang aman dikirim ke browser sebelum misi selesai."""
+    if jenis == "perasaan":
+        return perasaan_publik(data)
     rahasia = {"kunci", "versi_benar", "potong", "boleh", "kata", "pengganti", "kesalahan",
                "teks", "alasan"}
     out = {k: v for k, v in data.items() if k not in rahasia}
@@ -121,6 +170,8 @@ def data_publik(data, jenis):
 def jawaban(data, jenis):
     """Data yang dibuka setelah misi selesai."""
     out = {"versi_benar": data.get("versi_benar", "")}
+    if jenis == "perasaan":
+        out["soal_jawaban"] = [kunci_perasaan(s) for s in data["soal"]]
     if jenis == "klik":
         out["kunci"] = data["kunci"]
     elif jenis == "gunting":
@@ -129,3 +180,93 @@ def jawaban(data, jenis):
         out["kata"] = data["kata"]
         out["pengganti"] = data.get("pengganti", [])
     return out
+
+
+# ---- Kamera: pilih perasaan + klik bukti (spec 075 K1, Fase B) ------------------
+#
+# Keadaan per soal disimpan di Percobaan.butir["<i>"]:
+#   {"perasaan": pilihan yang benar | None, "salah": n, "ditemukan": [grup], "diklik": [token]}
+# Dengan `contoh`, soal 0 milik Oren: dikirim lengkap dan tidak dinilai.
+
+def soal_awal(data):
+    """Indeks soal pertama yang dikerjakan anak."""
+    return 1 if data.get("contoh") else 0
+
+
+def kunci_perasaan(s):
+    return {"jawaban": s["jawaban"], "bukti": s["bukti"], "alasan": s.get("alasan", "")}
+
+
+def perasaan_publik(data):
+    rahasia = {"soal", "alasan", "kunci"}
+    out = {k: v for k, v in data.items() if k not in rahasia}
+    awal = soal_awal(data)
+    out["soal"] = []
+    for i, s in enumerate(data["soal"]):
+        x = {"tokens": s["tokens"], "pilihan": s["pilihan"], "jumlah_bukti": len(s["bukti"])}
+        if i < awal:
+            x.update(kunci_perasaan(s), contoh=True)
+        out["soal"].append(x)
+    return out
+
+
+def butir_kosong():
+    return {"perasaan": None, "salah": 0, "ditemukan": [], "diklik": []}
+
+
+def soal_sekarang(data, butir):
+    """Soal pertama yang belum selesai, atau None bila semuanya selesai."""
+    for i in range(soal_awal(data), len(data["soal"])):
+        b = butir.get(str(i))
+        if not b or len(b["ditemukan"]) < len(data["soal"][i]["bukti"]):
+            return i
+    return None
+
+
+def nilai_perasaan(s, b, perasaan):
+    """Pilih perasaan untuk satu soal. Mengubah `b`. Kembalikan "benar" | "sudah" | "belum"."""
+    if b["perasaan"] is not None:
+        return "sudah"
+    if perasaan == s["jawaban"]:
+        b["perasaan"] = perasaan
+        return "benar"
+    b["salah"] += 1
+    return "belum"
+
+
+def nilai_bukti(s, b, token):
+    """Klik satu kata bukti. Mengubah `b`. Kembalikan "ketemu" | "sudah" | "meleset"."""
+    for gi, grup in enumerate(s["bukti"]):
+        if token in grup:
+            if gi in b["ditemukan"]:
+                return "sudah"
+            b["ditemukan"].append(gi)
+            b["diklik"].append(token)
+            return "ketemu"
+    return "meleset"
+
+
+def bantuan_perasaan(data, butir):
+    """Bantuan memudar per soal anak: soal ke-1 → bukti ditunjukkan (perasaannya tetap ditebak
+    sendiri), ke-2 → kalimat bukti yang belum ditemukan, sesudahnya → None."""
+    i = soal_sekarang(data, butir)
+    if i is None:
+        return None
+    ke = i - soal_awal(data)
+    s = data["soal"][i]
+    if ke == 0:
+        return {"tingkat": "tunjuk", "soal": i, "token": sorted(t for g in s["bukti"] for t in g)}
+    if ke == 1:
+        b = butir.get(str(i)) or butir_kosong()
+        grup = next(g for gi, g in enumerate(s["bukti"]) if gi not in b["ditemukan"])
+        tokens = _tokens({"tokens": s["tokens"]})
+        rentang = next(([a, z] for a, z in kalimat(tokens) if a <= grup[0] <= z), None)
+        return {"tingkat": "letak", "soal": i, "kalimat": rentang}
+    return None
+
+
+def hasil_perasaan(data, butir):
+    """(benar, total) untuk HasilMisi: benar = soal yang perasaannya tepat pada pilihan pertama."""
+    soal = range(soal_awal(data), len(data["soal"]))
+    benar = sum(1 for i in soal if butir.get(str(i), {}).get("salah", 0) == 0)
+    return benar, len(soal)

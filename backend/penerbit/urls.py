@@ -21,6 +21,8 @@ urlpatterns = [
     path("misi/<int:pk>/petunjuk/", misi.PetunjukView.as_view()),
     path("misi/<int:pk>/berhenti/", misi.BerhentiView.as_view()),
     path("misi/<int:pk>/periksa/", misi.PeriksaView.as_view()),
+    path("misi/<int:pk>/bantuan/", misi.BantuanGuntingView.as_view()),
+    path("misi/<int:pk>/perasaan/", misi.PerasaanView.as_view()),
     path("misi/<int:pk>/tandai/", misi.TandaiView.as_view()),
     path("misi/<int:pk>/cetak/", misi.CetakMisiView.as_view()),
     path("ujian/<int:pk>/jawab/", misi.UjianJawabView.as_view()),

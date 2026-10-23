@@ -3,7 +3,7 @@
 export type Peran = 'penulis' | 'pemeriksa' | 'tamu'
 export type Tingkat = 'perunggu' | 'perak' | 'emas'
 export type TahapMisi = 'bersama' | 'petunjuk' | 'mandiri' | 'dunia_nyata' | 'bonus'
-export type JenisMisi = 'tandai' | 'klik' | 'gunting' | 'kembar' | 'cetak' | 'log'
+export type JenisMisi = 'tandai' | 'klik' | 'gunting' | 'kembar' | 'cetak' | 'log' | 'perasaan'
 export type StatusMisi = 'selesai' | 'menunggu' | 'coba_lagi' | null
 export type TahapMentor = 'tanpa' | 'contoh' | 'isian' | 'mandiri'
 export type TahapNaskah = 'peta' | 'draf_nol' | 'laci' | 'revisi' | 'terbit'
@@ -162,6 +162,8 @@ export interface Percobaan {
 /** Jawaban yang dibuka setelah selesai. */
 export interface Jawaban {
   versi_benar?: string
+  /** Misi perasaan: kunci semua soal setelah selesai. */
+  soal_jawaban?: KunciPerasaan[]
   kunci?: Target[][]
   potong?: number[][]
   kata?: string[]
@@ -172,12 +174,61 @@ export interface Jawaban {
 export interface LangkahContoh {
   sorot: number[]
   pikir: string
+  /** Misi perasaan: perasaan yang dipilih Oren di langkah ini. */
+  pilih?: string | null
+}
+
+/** Kamera (spec 075 Fase B): satu soal "pilih perasaan + klik bukti". Kunci hanya ada di soal
+ *  contoh Oren (`contoh: true`); soal lain dibuka server setelah selesai. */
+export interface SoalPerasaan {
+  tokens: Token[]
+  pilihan: string[]
+  jumlah_bukti: number
+  contoh?: boolean
+  jawaban?: string
+  bukti?: number[][]
+  alasan?: string
+}
+
+export interface KunciPerasaan {
+  jawaban: string
+  bukti: number[][]
+  alasan: string
+}
+
+export type BantuanPerasaan =
+  | { tingkat: 'tunjuk'; soal: number; token: number[] }
+  | { tingkat: 'letak'; soal: number; kalimat: [number, number] | null }
+  | null
+
+export interface PercobaanPerasaan {
+  /** Soal yang sedang dikerjakan; null bila semua selesai. */
+  soal: number | null
+  perasaan: string | null
+  diklik: number[]
+  ditemukan: number
+  meleset: number
+  selesai_soal: (KunciPerasaan & { soal: number; salah: number })[]
+}
+
+export interface HasilPerasaan extends Jawaban, Partial<KunciPerasaan> {
+  hasil: 'benar' | 'belum' | 'sudah' | 'ketemu' | 'meleset'
+  soal: number | null
+  ditemukan: number
+  total: number
+  meleset: number
+  butir_selesai: boolean
+  selesai: boolean
+  bantuan?: BantuanPerasaan
+  hadiah_baru?: HadiahBaru[]
 }
 
 /** Bantuan memudar dari server: kesalahan pertama ditunjukkan, kedua letaknya, sisanya tidak ada. */
 export type Bantuan =
   | { tingkat: 'tunjuk'; token: number[]; celah: number | null; alasan: string }
   | { tingkat: 'letak'; kalimat: [number, number] }
+  /** Detektor Kembar tahap petunjuk: hanya berapa kali kata kembarnya muncul. */
+  | { tingkat: 'hitung'; jumlah: number }
   | null
 
 export interface MisiDetail extends Jawaban {
@@ -204,7 +255,10 @@ export interface MisiDetail extends Jawaban {
   /** Misi LOG: contoh jawaban. Misi klik: langkah Contoh dari Oren. */
   contoh?: string | LangkahContoh[]
   bantuan_memudar?: boolean
+  /** Misi perasaan: bentuknya BantuanPerasaan (lihat PilihPerasaan). */
   bantuan?: Bantuan
+  /** Misi perasaan (Kamera): soal pilih perasaan + klik bukti. */
+  soal?: SoalPerasaan[]
   /** Tampilkan tombol 🔊 (suara perangkat). */
   suara?: boolean
   /** Hanya untuk misi rekam: versi benar misi Si Ceroboh yang sudah selesai. */

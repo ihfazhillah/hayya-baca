@@ -48,7 +48,7 @@
     "b": "Betulkan kalimatku.",
     "jawaban": "a",
     "bagian": [1, 2, 3],
-    "penjelasan": "A menyebut sedang apa (belajar membaca keras-keras), bagian yang membingungkan (tersandung di kalimat kedua), dan bantuan yang diminta (tunjukkan katanya, jangan perbaiki). B tidak menyebut apa-apa, jadi penjawab akan membetulkan semuanya untukmu dan kamu tidak belajar."
+    "penjelasan": "A bilang kamu sedang belajar membaca keras. A bilang bagian yang membingungkan. A minta ditunjukkan saja, bukan diperbaiki. B tidak bilang apa-apa. Jadi semuanya dibetulkan, dan kamu tidak belajar."
   },
   "lembar": [],
   "misi": [

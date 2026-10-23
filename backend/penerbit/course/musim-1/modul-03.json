@@ -44,11 +44,11 @@
     }
   ],
   "bertanya": {
-    "a": "Aku sedang mencari kata kembar. Ceritaku terasa membosankan, tapi aku tidak tahu kata mana yang terlalu sering muncul. Tolong sebutkan katanya saja, jangan beri gantinya. Setelah itu aku akan mencari penggantinya sendiri.",
+    "a": "Aku sedang mencari kata kembar. Ceritaku terasa membosankan. Aku tidak tahu kata mana yang terlalu sering muncul. Tolong sebutkan katanya saja, jangan beri gantinya. Setelah itu aku akan mencari penggantinya sendiri.",
     "b": "Ganti kata-kata yang sama di ceritaku.",
     "jawaban": "a",
     "bagian": [1, 2, 3, 4],
-    "penjelasan": "A punya keempat bagian Rumus Bertanya: aku sedang (mencari kata kembar), aku bingung (kata mana yang terlalu sering muncul), tolong… jangan… (sebutkan katanya, jangan beri gantinya), dan setelah itu aku akan (mencari penggantinya sendiri). B meminta orang lain yang mengganti."
+    "penjelasan": "A punya keempat bagian Rumus Bertanya. Aku sedang: mencari kata kembar. Aku bingung: kata mana yang terlalu sering muncul. Tolong, jangan: sebutkan katanya, jangan beri gantinya. Setelah itu aku akan: mencari penggantinya sendiri. B meminta orang lain yang mengganti."
   },
   "lembar": [],
   "misi": [
@@ -57,21 +57,36 @@
       "judul": "Oren makan terus",
       "tahap": "bersama",
       "jenis": "kembar",
-      "petunjuk": "Bersama Ayah, klik kata yang muncul paling sering. Lalu cari dua kata penggantinya.",
-      "petunjuk_ortu": "Baca bersama, lalu minta anak mengklik kata yang paling sering muncul. Ajak dia menyebutkan dua kata pengganti.",
+      "petunjuk": "Lihat cara Oren mencari kata kembar. Tekan Lanjut. Lalu giliranmu.",
+      "petunjuk_ortu": "Tujuannya: anak melihat cara memakai Detektor Kembar, lalu mencoba sendiri. Oren membaca, menghitung kata yang muncul lagi dan lagi, lalu memikirkan penggantinya. Kata kembarnya ditunjukkan, jadi anak cukup mengklik dan menekan tombolnya. Kalau dia bertanya kenapa harus diganti, jawab: kata yang sama terus-menerus membuat pembaca bosan. Kalau dia mau, ajak dia menyebut satu kata pengganti lain secara lisan, tidak perlu ditulis.",
+      "bantuan_memudar": true,
+      "contoh": [
+        {"sorot": [{"cari": "Oren makan terus. Terus Oren minum. Terus Oren tidur."}],
+         "pikir": "Aku baca pelan-pelan, ya."},
+        {"sorot": [{"cari": "terus"}, {"cari": "Terus"}, {"cari": "Terus", "ke": 2}],
+         "pikir": "Eh, kata \"terus\" muncul lagi dan lagi."},
+        {"sorot": [{"cari": "terus"}, {"cari": "Terus"}, {"cari": "Terus", "ke": 2}],
+         "pikir": "Aku hitung. Satu, dua, tiga. Tiga kali!"},
+        {"pikir": "Aku bisa menggantinya dengan \"setelah itu\" atau \"akhirnya\"."},
+        {"pikir": "Sekarang giliranmu. Klik kata kembarnya, lalu tekan tombolnya."}
+      ],
+      "alasan": "Kata \"terus\" muncul tiga kali. Klik salah satunya.",
       "teks": "Oren makan terus. Terus Oren minum. Terus Oren tidur.",
       "kata": ["terus", "oren"],
-      "pengganti": ["setelah itu", "kemudian", "akhirnya"]
+      "pengganti": ["setelah itu", "kemudian", "akhirnya"],
+      "versi_benar": "Oren makan. Setelah itu dia minum. Akhirnya Oren tidur."
     },
     {
       "urutan": 2,
       "judul": "Pagi Oren",
       "tahap": "petunjuk",
       "jenis": "kembar",
-      "petunjuk": "Kata kembarnya nama tokoh. Klik untuk melihat berapa kali dia muncul.",
+      "petunjuk": "Klik kata-kata. Cari kata yang paling sering muncul.",
+      "bantuan_memudar": true,
       "teks": "Oren bangun pagi. Oren meregangkan badan. Oren menguap lebar. Oren melihat ke jendela.",
       "kata": ["oren"],
-      "pengganti": ["dia", "si kucing oranye", "atau gabungkan dua kalimat"]
+      "pengganti": ["dia", "si kucing oranye", "atau gabungkan dua kalimat"],
+      "versi_benar": "Oren bangun pagi. Dia meregangkan badan, lalu menguap lebar. Si kucing oranye melihat ke jendela."
     },
     {
       "urutan": 3,
@@ -81,7 +96,8 @@
       "petunjuk": "Temukan kata yang paling sering muncul.",
       "teks": "Ibu membuat kue. Kuenya besar sekali. Kue itu wangi sekali. Oren ingin sekali mencicipi kue itu.",
       "kata": ["kue", "sekali"],
-      "pengganti": ["hapus \"sekali\" di dua tempat", "ganti \"kue itu\" dengan \"-nya\""]
+      "pengganti": ["hapus \"sekali\" di dua tempat", "ganti \"kue itu\" dengan \"-nya\""],
+      "versi_benar": "Ibu membuat kue. Kuenya besar sekali. Baunya wangi. Oren ingin mencicipinya."
     },
     {
       "urutan": 4,
@@ -106,8 +122,8 @@
       "judul": "Lima pengganti \"lalu\"",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Tulis 5 pengganti kata \"lalu\" di kertas kecil dan tempel di Kartu Alat.",
-      "kenapa": "Kalau kamu sudah punya daftar pengganti, kamu tidak perlu berpikir lama saat menemukan kata kembar di ceritamu.",
+      "petunjuk": "Tulis 5 pengganti kata \"lalu\". Tempel di Kartu Alat.",
+      "kenapa": "Daftar pengganti membuatmu cepat. Saat menemukan kata kembar, kamu tinggal memilih penggantinya.",
       "langkah": [
         "Ambil kertas kecil dan pensil.",
         "Tulis 5 kata yang bisa menggantikan \"lalu\". Contohnya: setelah itu.",
