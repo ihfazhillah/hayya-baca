@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { kitabahBait } from './kitabah'
 import { latinKeHuruf } from './latin'
-import { timbangBait, tebakBahr } from './timbang'
+import { slotSyathr, timbangBait, tebakBahr } from './timbang'
 import { BAHR } from './bahr'
 import type { Huruf } from './jenis'
 
@@ -305,6 +305,12 @@ describe('bahr Babak 2–3 dan bonus: bait model ditimbang lurus dan ditebak ben
     for (const kode of ['kamil', 'basith', 'thawil', 'wafir', 'mujtats'] as const) {
       expect(timbangBait(kitabahOk(BAHR[kode].kunci), BAHR[kode]).patah, kode).toBe(0)
     }
+  })
+
+  it('basith: \'arudh tanpa tasri\' hanya فَعِلُنْ; dharb فَعِلُنْ atau فَعْلُنْ, bukan فَاعِلُنْ', () => {
+    const s = kitabahOk(['زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])
+    expect(slotSyathr(BAHR.basith, s, 0).at(-1)!.map((b) => b.bit)).toEqual(['1110'])
+    expect(slotSyathr(BAHR.basith, s, 1).at(-1)!.map((b) => b.bit)).toEqual(['1110', '1010'])
   })
 
   it('rajaz tetap ditebak rajaz walaupun polanya sama dengan kamil mudhmar', () => {

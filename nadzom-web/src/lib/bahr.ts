@@ -56,7 +56,9 @@ const KAMIL_DHARB = [
 
 /** Basith: فاعلن di hasyw; 'arudh makhbunah; dharb makhbun atau maqthu'. */
 const FAILUN_ASLI = [b('فَاعِلُنْ', '10110'), b('فَعِلُنْ', '1110', 'khabn', { nilai: 'hasan' })]
-const BASITH_DHARB = [...FAILUN_ASLI, b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ' })]
+/** 'Arudh tam selalu makhbunah; فَاعِلُنْ di ujung syathr pertama hanya lewat tasri'. */
+const BASITH_ARUDH = [FAILUN_ASLI[1]]
+const BASITH_DHARB = [FAILUN_ASLI[1], b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ' })]
 
 /** Thawil: 'arudh selalu maqbudhah; dharb shahih, maqbudh, atau mahdzuf. */
 const FAULUN = [b('فَعُولُنْ', '11010'), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan' })]
@@ -140,7 +142,7 @@ export const BAHR = {
     kunci: ['إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ', 'مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ'],
     kunciMakna: 'Bahr basith: di sanalah harapan dibentangkan lebar.',
     slot: [
-      [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, FAILUN_ASLI],
+      [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, BASITH_ARUDH],
       [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, BASITH_DHARB],
     ],
   },
