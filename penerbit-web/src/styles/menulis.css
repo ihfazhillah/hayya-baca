@@ -17,6 +17,10 @@
 .btn-besar.sekunder { background: var(--color-surface); color: var(--color-accent); border: 2px solid var(--color-accent); }
 button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 
+/* Nav: tautan, nama, dan tombol sejajar di tengah */
+.nav-links { align-items: center; }
+.nav-links .btn, .nav-links select { min-height: 36px; padding: var(--space-1) var(--space-4); font-size: var(--text-sm); }
+
 /* Kartu umum */
 .kartu { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md);
   padding: var(--space-5); }
