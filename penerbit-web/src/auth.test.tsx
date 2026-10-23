@@ -82,7 +82,7 @@ describe('Masuk', () => {
     const u = userEvent.setup()
     await u.click(await screen.findByRole('button', { name: 'Lihat sebagai anak' }))
     expect(await screen.findByRole('heading', { name: 'Beranda' })).toBeInTheDocument()
-    expect(screen.getByRole('status')).toHaveTextContent('Mode simulasi')
+    expect(screen.getByText(/Mode simulasi/)).toBeInTheDocument()
     expect(localStorage.getItem('penerbit.simulasi')).toBe('1')
     await u.click(screen.getByRole('button', { name: 'Kembali ke Pojok Orang Tua' }))
     expect(await screen.findByRole('heading', { name: 'Dasbor' })).toBeInTheDocument()

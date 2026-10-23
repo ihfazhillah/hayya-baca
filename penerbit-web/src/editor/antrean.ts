@@ -142,7 +142,9 @@ export function useSimpanOtomatis(id: number | null, opsi: OpsiSimpan = {}) {
     hidup.current = true
     if (id === null || !aktif) return
     const t = setInterval(() => {
-      if (tertunda.current) void simpanSekarang()
+      // isi baru, atau antrean di perangkat yang belum terkirim (server sempat mati
+      // tanpa event `online`)
+      if (tertunda.current || ambilLokal(id)) void simpanSekarang()
     }, jeda)
     const online = () => void simpanSekarang()
     const pergi = () => {

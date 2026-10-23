@@ -1,6 +1,6 @@
 /** Editor tulisan: satu editor Quill 2 untuk semua tempat anak menulis
  *  (Rancangan Situs §Editor tulisan). Mode: draf_nol, stabilo, revisi, baca. */
-import { useCallback, useEffect, useImperativeHandle, useRef, useState, type Ref } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState, type Ref } from 'react'
 import Quill, { Delta as QDelta, type Op } from 'quill'
 import 'quill/dist/quill.core.css'
 import './editor.css'
@@ -11,7 +11,7 @@ import {
 } from './modes'
 import { geserSorotan, hapusRentang, tambahSorotan, teksPenghitung, type OpUbah } from './sorotan'
 import { cssWarna, daftarkanStabilo, gambarSorotan, sisipanBerstabilo, tanpaStabilo, type WarnaAlat } from './stabilo'
-import { warnaStabilo } from '../components/ui'
+import { warnaCss, warnaStabilo } from '../components/ui'
 
 export interface AlatStabilo extends WarnaAlat {
   nama: string
@@ -44,7 +44,11 @@ export interface EditorProps {
   /** true = belum boleh mengetik (mis. Draf Nol sebelum Mulai) */
   nonaktif?: boolean
   label?: string
+  /** teks samar saat editor kosong */
+  placeholder?: string
   statusSimpan?: string
+  /** kode status simpan (tersimpan, menyimpan, antre, kalah, galat) untuk warnanya */
+  statusKode?: string
   onUbah?: (d: DataEditor) => void
   ref?: Ref<EditorApi>
 }
@@ -52,9 +56,14 @@ export interface EditorProps {
 interface Pilihan {
   index: number
   length: number
+  /** atas dan bawah pilihan, relatif terhadap .editor-wadah */
   top: number
+  bottom: number
   left: number
 }
+
+/** Jarak bilah stabilo dari pilihan. */
+const JARAK_BILAH = 8
 
 /** Teks polos tanpa baris baru penutup milik Quill. */
 function teksDari(q: Quill): string {
@@ -62,7 +71,7 @@ function teksDari(q: Quill): string {
 }
 
 export default function Editor(props: EditorProps) {
-  const { mode, alat = [], timerBerjalan = false, nonaktif = false, label = 'Tulisanmu', statusSimpan } = props
+  const { mode, alat = [], timerBerjalan = false, nonaktif = false, label = 'Tulisanmu', statusSimpan, statusKode } = props
   const wadah = useRef<HTMLDivElement>(null)
   const tempat = useRef<HTMLDivElement>(null)
   const quillRef = useRef<Quill | null>(null)
@@ -79,6 +88,9 @@ export default function Editor(props: EditorProps) {
   const gambarTunda = useRef(false)
   const riwayat = useRef<{ lalu: Sorotan[][]; maju: Sorotan[][] }>({ lalu: [], maju: [] })
   const awal = useRef({ isi: props.isi, teks: props.teks })
+  const placeholderAwal = useRef(props.placeholder)
+  const bilahRef = useRef<HTMLDivElement>(null)
+  const [posBilah, setPosBilah] = useState<{ top: number; left: number } | null>(null)
 
   // nilai terbaru untuk handler Quill (dipasang sekali)
   const modeRef = useRef(mode)
@@ -149,7 +161,14 @@ export default function Editor(props: EditorProps) {
     () => ({
       ambil,
       aturSorotan: (d: Sorotan[]) => terapkan(d, false),
-      fokus: () => quillRef.current?.focus(),
+      fokus: () => {
+        const q = quillRef.current
+        if (!q) return
+        // Lanjut menulis di akhir naskah; tanpa ini kursor jatuh di awal teks.
+        const r = q.getSelection()
+        if (r) q.focus()
+        else q.setSelection(Math.max(0, q.getLength() - 1), 0, 'user')
+      },
     }),
     [ambil, terapkan],
   )
@@ -168,6 +187,7 @@ export default function Editor(props: EditorProps) {
       return
     }
     let top = 0
+    let bottom = 0
     let left = 0
     try {
       const b = q.getBounds(r.index, r.length)
@@ -175,12 +195,13 @@ export default function Editor(props: EditorProps) {
       const rc = q.container.getBoundingClientRect()
       if (b) {
         top = rc.top - rw.top + b.top
+        bottom = rc.top - rw.top + b.top + b.height
         left = rc.left - rw.left + b.left + b.width / 2
       }
     } catch {
       /* jsdom / tata letak belum siap */
     }
-    const p = { index: r.index, length: r.length, top, left }
+    const p = { index: r.index, length: r.length, top, bottom, left }
     pilihanRef.current = p
     setPilihan(p)
   }, [])
@@ -203,6 +224,7 @@ export default function Editor(props: EditorProps) {
     const semuaModifier = { altKey: null, ctrlKey: null, metaKey: null, shiftKey: null }
 
     const q = new Quill(el, {
+      placeholder: placeholderAwal.current,
       formats: ['stabilo', 'sistem', 'header', 'blockquote'],
       modules: {
         history: { userOnly: true, delay: 800 },
@@ -253,6 +275,8 @@ export default function Editor(props: EditorProps) {
       setSorotan(baru)
       setJumlahKata(hitungKata(teksDari(q)))
       kabari()
+      // mengetik menutup pilihan; Quill tidak selalu mengirim selection-change
+      if (pilihanRef.current) setTimeout(perbaruiPilihan, 0)
     })
     q.on('selection-change', () => perbaruiPilihan())
 
@@ -356,6 +380,31 @@ export default function Editor(props: EditorProps) {
     }
   }, [mode, timerBerjalan, nonaktif])
 
+  // Teks samar bisa berganti (mis. sebelum dan sesudah Mulai).
+  useEffect(() => {
+    const q = quillRef.current
+    if (q && props.placeholder !== undefined) q.root.setAttribute('data-placeholder', props.placeholder)
+  }, [props.placeholder])
+
+  // Bilah stabilo: di atas pilihan; kalau tidak muat (baris pertama), di bawahnya.
+  // Digeser supaya tidak keluar dari tepi editor (layar tablet sempit).
+  useLayoutEffect(() => {
+    if (!pilihan) {
+      setPosBilah(null)
+      return
+    }
+    const bilah = bilahRef.current
+    const luar = wadah.current
+    const lebarBilah = bilah?.offsetWidth ?? 0
+    const tinggiBilah = bilah?.offsetHeight ?? 52
+    const lebarWadah = luar?.clientWidth ?? 0
+    let top = pilihan.top - tinggiBilah - JARAK_BILAH
+    if (top < 0) top = pilihan.bottom + JARAK_BILAH
+    let left = pilihan.left - lebarBilah / 2
+    if (lebarWadah > 0) left = Math.min(Math.max(0, left), Math.max(0, lebarWadah - lebarBilah))
+    setPosBilah({ top, left })
+  }, [pilihan])
+
   // Timer Draf Nol selesai: riwayat dibersihkan supaya Urungkan tidak menghapus ketikan
   // yang tadi dijaga.
   const timerLalu = useRef(timerBerjalan)
@@ -424,56 +473,68 @@ export default function Editor(props: EditorProps) {
   const warnaSemua = props.warna ?? alat
   const adaSorotan = sorotan.some((s) => s.length > 0 || s.diperbaiki)
   const tampilkanBilah = k.format || mode !== 'baca'
+  const tampilkanPenghitung = adaSorotan && mode !== 'draf_nol'
 
   return (
-    <div className={`editor-tulis mode-${mode}`} data-mode={mode}>
+    <div className={`editor-tulis mode-${mode}${nonaktif ? ' nonaktif' : ''}`} data-mode={mode}>
       {warnaSemua.length > 0 && <style>{cssWarna(warnaSemua)}</style>}
-      {tampilkanBilah && (
-        <div className="editor-bilah" role="toolbar" aria-label="Alat menulis">
-          {k.format && (
-            <>
-              <button type="button" aria-pressed={formatBaris.judul} onMouseDown={(e) => e.preventDefault()}
-                onClick={() => formatBarisIni('header', 2)}>Judul bab</button>
-              <button type="button" aria-pressed={formatBaris.dialog} onMouseDown={(e) => e.preventDefault()}
-                onClick={() => formatBarisIni('blockquote', true)}>Dialog</button>
-            </>
-          )}
-          <button type="button" className="editor-urung" aria-label="Urungkan" title="Urungkan"
-            disabled={!k.urungkan || nonaktif} onMouseDown={(e) => e.preventDefault()} onClick={urungkan}>↶</button>
-          <button type="button" className="editor-urung" aria-label="Ulangi" title="Ulangi"
-            disabled={!k.urungkan || nonaktif} onMouseDown={(e) => e.preventDefault()} onClick={ulangi}>↷</button>
-        </div>
-      )}
-      {adaSorotan && mode !== 'draf_nol' && (
-        <p className="editor-penghitung" aria-live="polite">{teksPenghitung(sorotan)}</p>
-      )}
-      <p className="editor-pesan" role="status" aria-live="polite">{pesan ?? ''}</p>
-      <div className="editor-wadah" ref={wadah}>
-        <div ref={tempat} className="editor-quill" />
-        {pilihan && k.stabilo && (
-          <div className="bilah-stabilo" role="toolbar" aria-label="Stabilo"
-            style={{ top: Math.max(0, pilihan.top - 60), left: pilihan.left }}
-            onMouseDown={(e) => e.preventDefault()}>
-            {alat.map((a) => (
-              <button key={a.kode} type="button" style={{ background: warnaStabilo(a.warna, 40) }}
-                onClick={() => pakaiAlat(a.kode)} aria-label={`Stabilo ${a.nama}`}>
-                <span aria-hidden="true">{a.emoji}</span> {a.nama}
-              </button>
-            ))}
-            <button type="button" className="hapus-sorotan" onClick={hapusSorotan}>Hapus sorotan</button>
+      <div className="editor-kartu">
+        {(tampilkanBilah || tampilkanPenghitung) && (
+          <div className="editor-atas">
+            {tampilkanBilah && (
+              <div className="editor-bilah" role="toolbar" aria-label="Alat menulis">
+                {k.format && (
+                  <>
+                    <button type="button" aria-pressed={formatBaris.judul} onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => formatBarisIni('header', 2)}>Judul bab</button>
+                    <button type="button" aria-pressed={formatBaris.dialog} onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => formatBarisIni('blockquote', true)}>Dialog</button>
+                  </>
+                )}
+                <button type="button" className="editor-urung" aria-label="Urungkan" title="Urungkan"
+                  disabled={!k.urungkan || nonaktif} onMouseDown={(e) => e.preventDefault()} onClick={urungkan}>↶</button>
+                <button type="button" className="editor-urung" aria-label="Ulangi" title="Ulangi"
+                  disabled={!k.urungkan || nonaktif} onMouseDown={(e) => e.preventDefault()} onClick={ulangi}>↷</button>
+              </div>
+            )}
+            {tampilkanPenghitung && (
+              <p className="editor-penghitung" aria-live="polite">{teksPenghitung(sorotan)}</p>
+            )}
           </div>
         )}
-      </div>
-      {adaSorotan && (
-        <p className="editor-legenda kecil" aria-hidden="true">
-          <span className="contoh blok">blok sorotanku</span>
-          <span className="contoh garis">garis dari sistem</span>
-          <span className="contoh pudar">pudar ✓ sudah diperbaiki</span>
-        </p>
-      )}
-      <div className="editor-kaki">
-        {statusSimpan && <span className="editor-status" role="status">{statusSimpan}</span>}
-        <span className="editor-kata" aria-label={`${jumlahKata} kata`}>{jumlahKata}</span>
+        <div className="editor-wadah" ref={wadah}>
+          <div ref={tempat} className="editor-quill" />
+          {pilihan && k.stabilo && (
+            <div ref={bilahRef} className="bilah-stabilo" role="toolbar" aria-label="Stabilo"
+              style={{ top: posBilah?.top ?? Math.max(0, pilihan.top - 60), left: posBilah?.left ?? pilihan.left,
+                visibility: posBilah ? 'visible' : 'hidden' }}
+              onMouseDown={(e) => e.preventDefault()}>
+              {alat.map((a) => (
+                <button key={a.kode} type="button" style={{ background: warnaStabilo(a.warna, 40), borderColor: warnaCss(a.warna) }}
+                  onClick={() => pakaiAlat(a.kode)} aria-label={`Stabilo ${a.nama}`} title={a.nama}>
+                  <span aria-hidden="true">{a.emoji}</span>
+                </button>
+              ))}
+              <button type="button" className="hapus-sorotan" onClick={hapusSorotan} aria-label="Hapus sorotan">hapus</button>
+            </div>
+          )}
+        </div>
+        <p className="editor-pesan" role="status" aria-live="polite">{pesan ?? ''}</p>
+        <div className="editor-kaki">
+          {adaSorotan ? (
+            <p className="editor-legenda" aria-hidden="true">
+              {sorotan.some((x) => x.sumber === 'anak') && <span><span className="contoh blok">blok</span> sorotanku</span>}
+              {sorotan.some((x) => x.sumber === 'sistem') && <span><span className="contoh garis">garis</span> dari sistem</span>}
+              {sorotan.some((x) => x.diperbaiki) && <span><span className="contoh pudar">pudar ✓</span> sudah diperbaiki</span>}
+            </p>
+          ) : <span />}
+          <span className="editor-kaki-kanan">
+            <span className="editor-kata" aria-label={`${jumlahKata} kata`}>{jumlahKata} kata</span>
+            {statusSimpan && (
+              <span className="editor-status" role="status" data-status={statusKode}>{statusSimpan}</span>
+            )}
+          </span>
+        </div>
       </div>
     </div>
   )

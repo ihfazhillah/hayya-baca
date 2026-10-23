@@ -45,7 +45,8 @@ describe('Draf Nol', () => {
     expect(screen.getByTestId('editor')).toHaveAttribute('data-timer', 'true')
     expect(screen.getByTestId('editor')).toHaveAttribute('data-nonaktif', 'false')
     expect(screen.getByRole('timer')).toHaveTextContent('15:00')
-    expect(screen.queryByRole('button', { name: /Simpan sebagai Versi 1/ })).toBeNull()
+    expect(screen.getByRole('button', { name: /Simpan sebagai Versi 1/ })).toBeDisabled()
+    expect(localStorage.getItem('penerbit.timer.5')).not.toBeNull()
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15 * 60 * 1000 + 500)
@@ -63,6 +64,7 @@ describe('Draf Nol', () => {
     expect(simpan?.body).toMatchObject({ teks: 'Sore itu hujan. tambah', menulis_tambahan_dari: 'Sore itu hujan.'.length })
     expect(calls.find((c) => c.method === 'PATCH')?.body).toEqual({ kartu_tebakan: 'Bagian lampu mati' })
     expect(calls.some((c) => c.url === `${P}/naskah/5/versi/`)).toBe(true)
+    expect(localStorage.getItem('penerbit.timer.5')).toBeNull()
   })
 
   it('isi yang belum terkirim di perangkat dipakai bila lebih baru', async () => {
@@ -73,6 +75,34 @@ describe('Draf Nol', () => {
     })
     tampil()
     expect(await screen.findByText('Dari perangkat.')).toBeInTheDocument()
+  })
+
+  it('muat ulang di tengah timer: timer lanjut, tidak mulai dari 15:00 dan Simpan belum muncul', async () => {
+    localStorage.setItem('penerbit.timer.5', String(Date.now() + 10 * 60 * 1000))
+    pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: naskah({ tahap: 'draf_nol', versi: [], draf: DRAF }) },
+      [`POST ${P}/naskah/5/simpan/`]: { body: { tersimpan: '', waktu_klien: 1 } },
+    })
+    tampil()
+    const editor = await screen.findByTestId('editor')
+    expect(editor).toHaveAttribute('data-timer', 'true')
+    expect(editor).toHaveAttribute('data-nonaktif', 'false')
+    expect(screen.getByRole('timer')).toHaveTextContent('10:00')
+    expect(screen.queryByRole('button', { name: /Mulai/ })).toBeNull()
+    expect(screen.getByRole('button', { name: /Simpan sebagai Versi 1/ })).toBeDisabled()
+  })
+
+  it('muat ulang setelah timer habis: boleh menghapus dan langsung bisa simpan Versi 1', async () => {
+    localStorage.setItem('penerbit.timer.5', String(Date.now() - 1000))
+    pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: naskah({ tahap: 'draf_nol', versi: [], draf: DRAF }) },
+    })
+    tampil()
+    const editor = await screen.findByTestId('editor')
+    expect(editor).toHaveAttribute('data-timer', 'false')
+    expect(editor).toHaveAttribute('data-nonaktif', 'false')
+    expect(screen.queryByRole('button', { name: /Mulai/ })).toBeNull()
+    expect(screen.getByRole('button', { name: /Simpan sebagai Versi 1/ })).toBeEnabled()
   })
 
   it('naskah yang sudah lewat Draf Nol tidak bisa ditulis lagi', async () => {

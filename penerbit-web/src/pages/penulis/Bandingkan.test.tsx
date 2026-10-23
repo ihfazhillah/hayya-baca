@@ -41,7 +41,7 @@ describe('Sebelum dan Sesudah', () => {
     expect(kanan.querySelector('.sorot-kamera.sorot-ok')).toHaveTextContent('Mata Fatih mulai panas.')
     // paragraf pertama sama, paragraf kedua berubah
     expect(kanan.querySelectorAll('.paragraf.berubah')).toHaveLength(1)
-    expect(screen.getByText(/1 dari 1 sorotan sudah diperbaiki/)).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: 'Perubahanmu' })).toHaveTextContent(/1 dari 1\s*sorotan sudah diperbaiki/)
 
     await u.click(screen.getByRole('button', { name: /Jadikan paragraf favorit/ }))
     expect(await screen.findByText('⭐ Paragraf favoritmu')).toBeInTheDocument()

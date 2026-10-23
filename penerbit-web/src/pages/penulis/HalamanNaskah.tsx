@@ -7,25 +7,31 @@ import Editor from '../../editor/Editor'
 import { LAPIS, NAMA_STEMPEL, URUTAN_STEMPEL, adalahLapis, formatSisa, namaLapis, tanggalPendek } from '../../editor/naskah'
 import '../../editor/editor.css'
 
+const EMOJI_STEMPEL: Record<string, string> = { peta: '🗺️', kamera: '🎥', gunting: '✂️', kaca: '🔍', pembaca: '📖' }
+
 function JalurStempel({ n }: { n: NaskahDetail }) {
   const terbit = n.tahap === 'terbit'
-  const sekarang = terbit ? null : (n.lapis_berikutnya ?? 'terbit')
+  // "sekarang" hanya saat naskah sedang direvisi (bukan saat Draf Nol atau di laci)
+  const sekarang = n.tahap === 'revisi' ? (n.lapis_berikutnya ?? 'terbit') : null
   return (
-    <section aria-labelledby="judul-jalur">
-      <h2 id="judul-jalur" className="langkah-judul">Jalur stempel</h2>
-      <ol className="jalur-stempel" style={{ listStyle: 'none' }}>
+    <section className="kartu jalur-kartu" aria-labelledby="judul-jalur">
+      <h2 id="judul-jalur" className="sub-judul">Jalur stempel</h2>
+      <ol className="jalur-naskah">
         {URUTAN_STEMPEL.map((l) => {
           const s = n.stempel.find((x) => x.lapis === l)
           const kelas = s?.punya ? 'punya' : sekarang === l ? 'sekarang' : ''
           return (
-            <li key={l} className={`stempel ${kelas}`} title={s?.catatan || undefined}
+            <li key={l} className={`jalur-titik ${kelas}`} title={s?.catatan || undefined}
               aria-label={`${NAMA_STEMPEL[l]}${s?.punya ? ', sudah' : sekarang === l ? ', sekarang' : ''}`}>
-              {s?.punya ? '✓ ' : ''}{NAMA_STEMPEL[l]}{sekarang === l ? <><br />sekarang</> : null}
+              <span className="lingkar" aria-hidden="true">{s?.punya ? '✓' : sekarang === l ? EMOJI_STEMPEL[l] : ''}</span>
+              <span className="nama">{NAMA_STEMPEL[l]}{sekarang === l ? ' · sekarang' : ''}</span>
             </li>
           )
         })}
-        <li className={`stempel ${terbit ? 'punya' : sekarang === 'terbit' ? 'sekarang' : ''}`}>
-          TERBIT{n.nomor_terbitan ? <><br />{n.nomor_terbitan}</> : null}
+        <li className={`jalur-titik terbit ${terbit ? 'punya' : sekarang === 'terbit' ? 'sekarang' : ''}`}
+          aria-label={`Terbit${terbit ? ', sudah' : sekarang === 'terbit' ? ', sekarang' : ''}`}>
+          <span className="lingkar" aria-hidden="true">TERBIT</span>
+          <span className="nama">{n.nomor_terbitan || 'Terbit'}</span>
         </li>
       </ol>
     </section>
@@ -56,8 +62,8 @@ function Laci({ n, onBuka }: { n: NaskahDetail; onBuka: (kartu: string) => void 
   }
 
   return (
-    <section className="kartu tumpuk" aria-labelledby="judul-laci">
-      <h2 id="judul-laci" className="langkah-judul">🔒 Laci Rahasia</h2>
+    <section className="kartu laci-kartu tumpuk" aria-labelledby="judul-laci">
+      <h2 id="judul-laci" className="sub-judul">🔒 Laci Rahasia</h2>
       {terkunci ? (
         <>
           <p>Buka dalam <strong>{formatSisa(sisa)}</strong>.</p>
@@ -112,6 +118,7 @@ export default function HalamanNaskah() {
   ].filter(Boolean).join(' · ')
   const lapis = n.lapis_berikutnya
   const bolehRevisi = n.tahap === 'revisi' && adalahLapis(lapis)
+  const catatanStempel = n.stempel.filter((s) => s.punya && s.catatan)
 
   return (
     <main className="page">
@@ -143,33 +150,21 @@ export default function HalamanNaskah() {
           <p className="lencana aktif">Menunggu stempel {NAMA_STEMPEL[n.stempel_diminta] ?? n.stempel_diminta} dari Ayah atau Ummah</p>
         )}
 
-        <div className="baris">
-          {n.tahap === 'draf_nol' && <Link className="btn-besar" to={`/naskah/${nid}/draf-nol`}>Lanjut menulis Draf Nol</Link>}
-          {bolehRevisi && (
-            <Link className="btn-besar" to={`/naskah/${nid}/revisi/${lapis}`}>Lanjut ke Revisi Lapis {LAPIS[lapis].nomor}</Link>
-          )}
-          {n.tahap === 'revisi' && lapis === 'pembaca' && (
-            <p>Semua lapis revisi sudah distempel. Sekarang giliran pembaca!</p>
-          )}
-          {n.versi.length >= 2 && <Link className="btn-besar sekunder" to={`/naskah/${nid}/bandingkan`}>Lihat Sebelum dan Sesudah</Link>}
-        </div>
-
         <section aria-labelledby="judul-versi">
-          <h2 id="judul-versi" className="langkah-judul">Versi</h2>
+          <h2 id="judul-versi" className="sub-judul">Versi</h2>
           {n.versi.length === 0 && <p className="kecil">Belum ada versi. Versi 1 tersimpan setelah Draf Nol selesai.</p>}
           <ul className="daftar-versi">
             {[...n.versi].reverse().map((v) => (
               <li key={v.nomor}>
-                <span className="isi">
-                  <strong>Versi {v.nomor}</strong> · {namaLapis(v.lapis)} · {tanggalPendek(v.tanggal)}
-                  <span className="kecil"> · {v.jumlah_kata} kata</span>
-                </span>
+                <strong>Versi {v.nomor}</strong>
+                <span className="isi">{namaLapis(v.lapis)}{v.tanggal ? ` · ${tanggalPendek(v.tanggal)}` : ''}</span>
+                <span className="kecil">{v.jumlah_kata} kata</span>
                 <button type="button" className="tombol-kecil" aria-expanded={baca?.nomor === v.nomor}
                   onClick={() => bacaVersi(v.nomor)}>{baca?.nomor === v.nomor ? 'Tutup' : `Baca Versi ${v.nomor}`}</button>
               </li>
             ))}
           </ul>
-          {n.versi.length > 0 && <p className="kecil" style={{ marginTop: 8 }}>Versi lama hanya bisa dibaca dan diberi stabilo, tidak bisa diubah.</p>}
+          {n.versi.length > 0 && <p className="kecil" style={{ marginTop: 'var(--space-3)' }}>Versi lama hanya bisa dibaca dan diberi stabilo, tidak bisa diubah.</p>}
           {baca && (
             <div style={{ marginTop: 'var(--space-4)' }}>
               <Editor key={baca.nomor} mode="baca" isi={baca.isi} teks={baca.teks} sorotan={baca.sorotan}
@@ -178,29 +173,42 @@ export default function HalamanNaskah() {
           )}
         </section>
 
-        {(n.catatan.length > 0 || n.ulasan.length > 0) && (
-          <section aria-labelledby="judul-pembaca" className="tumpuk">
-            <h2 id="judul-pembaca" className="langkah-judul">Dari pembaca</h2>
-            {n.stempel.filter((s) => s.punya && s.catatan).map((s) => (
-              <div key={s.lapis} className="kartu">
-                <p className="kecil">Stempel {s.nama} · {tanggalPendek(s.tanggal)}</p>
+        <div className="baris tombol-naskah">
+          {n.tahap === 'draf_nol' && <Link className="btn-besar tautan-tombol" to={`/naskah/${nid}/draf-nol`}>Lanjut menulis Draf Nol</Link>}
+          {bolehRevisi && (
+            <Link className="btn-besar tautan-tombol" to={`/naskah/${nid}/revisi/${lapis}`}>Lanjut ke Revisi Lapis {LAPIS[lapis].nomor}</Link>
+          )}
+          {n.tahap === 'revisi' && lapis === 'pembaca' && (
+            <p>Semua lapis revisi sudah distempel. Sekarang giliran pembaca!</p>
+          )}
+          {n.versi.length >= 2 && <Link className="btn-besar sekunder tautan-tombol" to={`/naskah/${nid}/bandingkan`}>Lihat Sebelum dan Sesudah</Link>}
+        </div>
+
+        {(catatanStempel.length > 0 || n.catatan.length > 0 || n.ulasan.length > 0) && (
+          <section aria-labelledby="judul-pembaca" className="daftar-pembaca">
+            <h2 id="judul-pembaca" className="sub-judul">Dari pembaca</h2>
+            {catatanStempel.map((s) => (
+              <div key={s.lapis} className="catatan-pembaca">
+                <strong>Stempel {s.nama}{s.tanggal ? ` · ${tanggalPendek(s.tanggal)}` : ''}</strong>
                 <p>{s.catatan}</p>
               </div>
             ))}
             {n.catatan.map((c, i) => (
-              <div key={`c${i}`} className="kartu">
-                <p className="kecil">{c.oleh} · {tanggalPendek(c.tanggal)}</p>
+              <div key={`c${i}`} className="catatan-pembaca">
+                <strong>{c.oleh} · {tanggalPendek(c.tanggal)}</strong>
                 <p>{c.teks}</p>
               </div>
             ))}
             {n.ulasan.map((u, i) => (
-              <div key={`u${i}`} className="kartu">
-                <p className="kecil">Kartu Ulasan dari {u.oleh} · Versi {u.versi} · {tanggalPendek(u.tanggal)}</p>
-                <dl className="tumpuk" style={{ marginTop: 8 }}>
-                  <div><dt><strong>Bagian favoritku</strong></dt><dd>{u.favorit}</dd></div>
-                  <div><dt><strong>Yang membuatku bingung</strong></dt><dd>{u.membingungkan}</dd></div>
-                  <div><dt><strong>Pertanyaanku</strong></dt><dd>{u.pertanyaan}</dd></div>
+              <div key={`u${i}`}>
+                <dl className="kartu kartu-ulasan">
+                  <div><dt>Bagian favoritku</dt><dd>{u.favorit}</dd></div>
+                  <div><dt>Yang membuatku bingung</dt><dd>{u.membingungkan}</dd></div>
+                  <div><dt>Pertanyaanku</dt><dd>{u.pertanyaan}</dd></div>
                 </dl>
+                <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>
+                  Kartu Ulasan dari {u.oleh} · Versi {u.versi} · {tanggalPendek(u.tanggal)}
+                </p>
               </div>
             ))}
           </section>

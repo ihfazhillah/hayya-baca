@@ -82,6 +82,22 @@ describe('useSimpanOtomatis', () => {
     expect(result.current.label).toBe('Tersimpan')
   })
 
+  it('server sempat mati tanpa event online: antrean dicoba lagi pada putaran berikutnya', async () => {
+    const kirim = vi.fn().mockRejectedValueOnce(new ApiError(502, 'Bad gateway')).mockResolvedValue({})
+    const { result } = renderHook(() => useSimpanOtomatis(3, { kirim }))
+    act(() => result.current.catat({ isi: { ops: [] }, teks: 'Halo', sorotan: [] }))
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10_000)
+    })
+    expect(result.current.status).toBe('antre')
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10_000)
+    })
+    expect(kirim).toHaveBeenCalledTimes(2)
+    expect(ambilLokal(3)).toBeNull()
+    expect(result.current.label).toBe('Tersimpan')
+  })
+
   it('pindah halaman: isi yang belum terkirim ikut dikirim', () => {
     const kirim = vi.fn().mockResolvedValue({})
     const { result, unmount } = renderHook(() => useSimpanOtomatis(3, { kirim }))

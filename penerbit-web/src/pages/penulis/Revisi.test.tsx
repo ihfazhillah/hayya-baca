@@ -68,7 +68,7 @@ describe('Revisi per lapis', () => {
     })
     const u = userEvent.setup()
     tampil()
-    expect(await screen.findByRole('heading', { name: 'Revisi Lapis 3' })).toBeInTheDocument()
+    expect(await screen.findByText('Revisi Lapis 3')).toBeInTheDocument()
 
     // misi kecil Level 3 untuk lapis ini
     expect(await screen.findByText('Lingkari kata kembar')).toBeInTheDocument()
@@ -95,6 +95,8 @@ describe('Revisi per lapis', () => {
     await u.click(screen.getByRole('button', { name: 'ketik palsu' }))
     await u.click(screen.getByRole('button', { name: 'Simpan sebagai Versi 4' }))
     expect(await screen.findByText('Versi 4 tersimpan ✓')).toBeInTheDocument()
+    // tanpa perubahan baru tidak bisa menyimpan versi kembar
+    expect(screen.getByRole('button', { name: 'Simpan sebagai Versi 5' })).toBeDisabled()
     expect(calls.find((c) => c.url === `${P}/naskah/5/versi/`)?.body).toEqual({ lapis: 'gunting' })
     const simpanTerakhir = calls.filter((c) => c.url === `${P}/naskah/5/simpan/`).at(-1)
     expect(simpanTerakhir?.body).toMatchObject({ teks: `${TEKS_V1} tambah`, lapis: 'gunting' })
@@ -116,6 +118,27 @@ describe('Revisi per lapis', () => {
     expect(ed).toHaveTextContent('Draf lanjutan.')
   })
 
+  it('sorotan Langkah 1 tersimpan otomatis; muat ulang kembali ke Langkah 1 dengan sorotannya', async () => {
+    const sorotanAnak: Sorotan[] = [{ alat: 'gunting', index: 0, length: 5, sumber: 'anak', diperbaiki: false }]
+    const calls = pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: n3({ draf: { isi: { ops: [{ insert: TEKS_V1 + '\n' }] }, teks: TEKS_V1, sorotan: sorotanAnak, lapis: 'gunting', waktu_klien: 5, menulis_tambahan_dari: null } }) },
+      [`GET ${P}/alat/`]: { body: { alat: ALAT } },
+      [`GET ${P}/modul/12/`]: { body: MODUL_12 },
+      [`GET ${P}/naskah/5/versi/3/`]: { body: versi(3, TEKS_V1, { lapis: 'kamera', sorotan: SOROTAN_V3 }) },
+      [`POST ${P}/naskah/5/simpan/`]: { body: { tersimpan: '', waktu_klien: 6 } },
+    })
+    const u = userEvent.setup()
+    tampil()
+    const ed = await screen.findByTestId('editor')
+    expect(ed).toHaveAttribute('data-mode', 'stabilo')
+    expect(ed).toHaveAttribute('data-sorotan', '1')
+    // perubahan di Langkah 1 ikut disimpan otomatis
+    await u.click(screen.getByRole('button', { name: 'ketik palsu' }))
+    expect(screen.getByText('Menyimpan…')).toBeInTheDocument()
+    await u.click(screen.getByRole('button', { name: /Selesai menyorot/ }))
+    expect(calls.find((c) => c.url === `${P}/naskah/5/simpan/`)?.body).toMatchObject({ lapis: 'gunting', sorotan: sorotanAnak })
+  })
+
   it('Cetak versi terakhir: sorotan dicetak dengan pola hitam putih', async () => {
     const print = vi.fn()
     vi.stubGlobal('print', print)
@@ -134,6 +157,26 @@ describe('Revisi per lapis', () => {
     const pola = lembar.querySelector('.cetak-naskah .pola-putus')
     expect(pola).toHaveTextContent('Fatih')
     await vi.waitFor(() => expect(print).toHaveBeenCalled())
+  })
+
+  it('kembali dari tampilan cetak tidak membuang ketikan Langkah 2', async () => {
+    vi.stubGlobal('print', vi.fn())
+    pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: n3({ draf: { isi: { ops: [] }, teks: 'Draf lanjutan.', sorotan: [], lapis: 'gunting', waktu_klien: 5, menulis_tambahan_dari: null } }) },
+      [`GET ${P}/alat/`]: { body: { alat: ALAT } },
+      [`GET ${P}/modul/12/`]: { body: MODUL_12 },
+      [`GET ${P}/naskah/5/versi/3/`]: { body: versi(3, TEKS_V1) },
+      [`POST ${P}/naskah/5/simpan/`]: { body: { tersimpan: '', waktu_klien: 6 } },
+    })
+    const u = userEvent.setup()
+    tampil()
+    await screen.findByText('Draf lanjutan.')
+    await u.click(screen.getByRole('button', { name: 'ketik palsu' }))
+    await u.click(screen.getByRole('button', { name: /Cetak Versi 3/ }))
+    await u.click(await screen.findByRole('button', { name: /Kembali ke revisi/ }))
+    const ed = await screen.findByTestId('editor')
+    expect(ed).toHaveAttribute('data-mode', 'revisi')
+    expect(ed).toHaveTextContent('Draf lanjutan. tambah')
   })
 
   it('kotak Mentor AI lapis ini tampil di halaman revisi', async () => {

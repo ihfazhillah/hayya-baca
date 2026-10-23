@@ -47,27 +47,34 @@ function KartuNaskah({ n }: { n: NaskahRingkas }) {
   }, [terkunci])
   const berikut = lapisBerikutnya(n.stempel)
   const lanjut = tautanLanjut(n)
+  const aktif = n.tahap === 'revisi' || n.tahap === 'draf_nol' || n.tahap === 'peta' || (n.tahap === 'laci' && !terkunci)
+  const tampilStempel = n.tahap === 'revisi' || n.tahap === 'terbit'
   return (
-    <article className="kartu kartu-naskah">
-      <h3>{n.judul}</h3>
-      <p className="kecil">{labelTahap(n)}{n.nomor_terbitan ? ` · ${n.nomor_terbitan}` : ''}</p>
-      <div className="stempel-mini" aria-label="Stempel">
-        {URUTAN_STEMPEL.map((l) => {
-          const punya = n.stempel.includes(l)
-          const sekarang = !punya && l === berikut && n.tahap === 'revisi'
-          return (
-            <span key={l} className={punya ? 'punya' : sekarang ? 'sekarang' : ''}>
-              {NAMA_STEMPEL[l]}{punya ? ' ✓' : sekarang ? ' · sekarang' : ''}
-            </span>
-          )
-        })}
+    <article className={`kartu-naskah${n.tahap === 'revisi' ? ' sedang' : ''}`}>
+      <div className="kartu-naskah-isi">
+        <h3>{n.judul}</h3>
+        <p className="kecil">{labelTahap(n)}{n.nomor_terbitan ? ` · ${n.nomor_terbitan}` : ''}</p>
+        {tampilStempel && (
+          <div className="stempel-mini" aria-label="Stempel">
+            {URUTAN_STEMPEL.map((l) => {
+              const punya = n.stempel.includes(l)
+              const sekarang = !punya && l === berikut && n.tahap === 'revisi'
+              return (
+                <span key={l} className={punya ? 'punya' : sekarang ? 'sekarang' : ''}>
+                  {NAMA_STEMPEL[l]}{punya ? ' ✓' : sekarang ? ' · sekarang' : ''}
+                </span>
+              )
+            })}
+          </div>
+        )}
+        {n.stempel_diminta && (
+          <p className="lencana aktif">Menunggu stempel {NAMA_STEMPEL[n.stempel_diminta] ?? n.stempel_diminta} dari Ayah atau Ummah</p>
+        )}
+        {terkunci && (
+          <p className="gembok"><span aria-hidden="true">🔒</span> Buka dalam {formatSisa(sisa)}</p>
+        )}
       </div>
-      {terkunci && (
-        <p className="gembok"><span aria-hidden="true">🔒</span> Buka dalam {formatSisa(sisa)}</p>
-      )}
-      <div>
-        <Link className="btn" to={lanjut.ke}>{terkunci ? 'Lihat naskah' : lanjut.label} →</Link>
-      </div>
+      <Link className={`btn-besar tautan-tombol${aktif ? '' : ' sekunder'}`} to={lanjut.ke}>{terkunci ? 'Lihat naskah' : lanjut.label}</Link>
     </article>
   )
 }
@@ -114,37 +121,38 @@ function BankIde() {
   }
 
   return (
-    <section className="kartu" aria-labelledby="judul-bank-ide">
-      <h2 id="judul-bank-ide" className="langkah-judul">Bank Ide</h2>
-      <p className="kecil">{ide ? `${ide.length} ide · ` : ''}Tes 3 Bintang: {BINTANG.join(', ').toLowerCase()}.</p>
+    <section className="bank-ide" aria-labelledby="judul-bank-ide">
+      <div className="bagian-kepala">
+        <h2 id="judul-bank-ide" className="sub-judul">Bank Ide</h2>
+        <span className="kecil">{ide ? `${ide.length} ide · ` : ''}Tes 3 Bintang</span>
+      </div>
       <Galat pesan={galat} />
-      <form onSubmit={tambah} className="tumpuk" style={{ marginTop: 'var(--space-3)' }}>
+      <form onSubmit={tambah} className="ide-form">
         <label className="sr-only" htmlFor="ide-baru">Ide baru</label>
-        <input id="ide-baru" className="isian" placeholder="Ide baru…" value={teks} maxLength={300}
-          onChange={(e) => setTeks(e.target.value)} />
-        <div className="baris">
-          <label className="sr-only" htmlFor="ide-sumur">Sumur</label>
-          <select id="ide-sumur" className="isian" style={{ width: 'auto' }} value={sumur}
-            onChange={(e) => setSumur(e.target.value as Ide['sumur'])}>
-            {SUMUR.map((s) => <option key={s.nilai} value={s.nilai}>{s.label}</option>)}
-          </select>
-          <button type="submit" className="btn-besar sekunder" disabled={!teks.trim()}>Simpan ide</button>
-        </div>
+        <input id="ide-baru" className="isian" placeholder="Tulis ide baru di sini…" value={teks} maxLength={300}
+          spellCheck={false} onChange={(e) => setTeks(e.target.value)} />
+        <label className="sr-only" htmlFor="ide-sumur">Sumur</label>
+        <select id="ide-sumur" className="isian" value={sumur}
+          onChange={(e) => setSumur(e.target.value as Ide['sumur'])}>
+          {SUMUR.map((s) => <option key={s.nilai} value={s.nilai}>{s.label}</option>)}
+        </select>
+        <button type="submit" className="btn-besar" disabled={!teks.trim()}>Simpan ide</button>
       </form>
+      <p className="kecil">Bintang: {BINTANG.join(' · ').toLowerCase()}.</p>
       {!ide && !galat && <Memuat />}
       {ide?.length === 0 && <p className="kecil">Belum ada ide. Tulis satu di atas, sekecil apa pun.</p>}
-      <ul style={{ listStyle: 'none', marginTop: 'var(--space-4)' }}>
-        {ide?.map((i) => (
-          <li key={i.id} className="ide-baris">
-            <span className="teks">
-              {i.teks}
-              {i.sumur && <span className="lencana" style={{ marginLeft: 8 }}>{SUMUR.find((s) => s.nilai === i.sumur)?.label}</span>}
-            </span>
-            <BintangIde ide={i} onUbah={(b) => beriBintang(i, b)} />
-            <button type="button" className="tombol-kecil" onClick={() => buang(i)} aria-label={`Buang ide ${i.teks}`}>Buang</button>
-          </li>
-        ))}
-      </ul>
+      {!!ide?.length && (
+        <ul className="ide-daftar">
+          {ide.map((i) => (
+            <li key={i.id} className="ide-baris">
+              <span className="teks">{i.teks}</span>
+              {i.sumur && <span className="kecil">{SUMUR.find((s) => s.nilai === i.sumur)?.label}</span>}
+              <BintangIde ide={i} onUbah={(b) => beriBintang(i, b)} />
+              <button type="button" className="tombol-kecil" onClick={() => buang(i)} aria-label={`Buang ide ${i.teks}`}>Buang</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }
@@ -159,19 +167,19 @@ export default function RuangPenulis() {
 
   return (
     <main className="page">
-      <div className="layar tumpuk">
-        <KepalaHalaman judul="Ruang Penulis" sub="Semua ide dan naskahmu ada di sini." />
-        <Link to="/naskah/baru" className="btn-besar">✏️ Tulis cerita baru</Link>
-        <div className="rp-grid dua">
-          <section aria-labelledby="judul-naskahku" className="tumpuk">
-            <h2 id="judul-naskahku" className="langkah-judul">Naskahku</h2>
-            <Galat pesan={galat} />
-            {!naskah && !galat && <Memuat />}
-            {naskah?.length === 0 && <p className="kecil">Belum ada naskah. Mulai dari satu ide di Bank Ide, yuk.</p>}
-            {naskah?.map((n) => <KartuNaskah key={n.id} n={n} />)}
-          </section>
-          <BankIde />
+      <div className="layar ruang-penulis">
+        <div className="bagian-kepala rp-kepala">
+          <KepalaHalaman judul="Ruang Penulis" sub="Semua ide dan naskahmu ada di sini." />
+          <Link to="/naskah/baru" className="btn-besar tautan-tombol">✏️ Tulis cerita baru</Link>
         </div>
+        <section aria-labelledby="judul-naskahku" className="naskahku">
+          <h2 id="judul-naskahku" className="sub-judul">Naskahku</h2>
+          <Galat pesan={galat} />
+          {!naskah && !galat && <Memuat />}
+          {naskah?.length === 0 && <p className="kecil">Belum ada naskah. Mulai dari satu ide di Bank Ide, yuk.</p>}
+          {naskah?.map((n) => <KartuNaskah key={n.id} n={n} />)}
+        </section>
+        <BankIde />
       </div>
     </main>
   )

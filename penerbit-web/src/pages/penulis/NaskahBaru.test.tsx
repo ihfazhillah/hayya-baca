@@ -14,6 +14,7 @@ function tampil() {
       <Routes>
         <Route path="/naskah/baru" element={<NaskahBaru />} />
         <Route path="/naskah/:id/draf-nol" element={<h1>Halaman Draf Nol</h1>} />
+        <Route path="/naskah" element={<h1>Ruang Penulis</h1>} />
       </Routes>
     </MemoryRouter>,
   )
@@ -61,5 +62,29 @@ describe('Naskah baru', () => {
     await screen.findByRole('heading', { name: 'Halaman Draf Nol' })
     const naskahPost = calls.find((c) => c.url === `${P}/naskah/`)
     expect(naskahPost?.body).toMatchObject({ judul: 'Ayam', ide: 33, peta: {} })
+  })
+
+  it('Simpan dulu, nanti lanjut: naskah dibuat lalu kembali ke Ruang Penulis; gagal tidak membuat ide kembar', async () => {
+    let gagal = true
+    const calls = pasangFetch({
+      [`GET ${P}/ide/`]: { body: [] },
+      [`POST ${P}/ide/`]: { status: 201, body: { id: 33, teks: 'Ayam tetangga', sumur: '', bintang: [], tanggal: '' } },
+      [`POST ${P}/naskah/`]: () => {
+        if (gagal) {
+          gagal = false
+          return { status: 400, body: { detail: 'Coba lagi.' } }
+        }
+        return { status: 201, body: naskah({ id: 13, tahap: 'draf_nol' }) }
+      },
+    })
+    const u = userEvent.setup()
+    tampil()
+    await u.type(await screen.findByLabelText('Ide baru'), 'Ayam tetangga')
+    await u.type(screen.getByLabelText('Judul sementara'), 'Ayam')
+    await u.click(screen.getByRole('button', { name: 'Simpan dulu, nanti lanjut' }))
+    expect(await screen.findByText('Coba lagi.')).toBeInTheDocument()
+    await u.click(screen.getByRole('button', { name: 'Simpan dulu, nanti lanjut' }))
+    expect(await screen.findByRole('heading', { name: 'Ruang Penulis' })).toBeInTheDocument()
+    expect(calls.filter((c) => c.url === `${P}/ide/` && c.method === 'POST')).toHaveLength(1)
   })
 })

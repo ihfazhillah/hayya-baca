@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react'
 import { createRef } from 'react'
 import { describe, expect, it } from 'vitest'
-import Quill from 'quill'
+import Quill, { Delta } from 'quill'
 import Editor, { type EditorApi } from './Editor'
 import { PESAN_TEMPEL } from './modes'
 
@@ -79,5 +79,35 @@ describe('Editor (Quill di jsdom)', () => {
     expect(screen.getByText('1 sorotan, 1 sudah diperbaiki')).toBeInTheDocument()
     const s = ref.current!.ambil().sorotan[0]
     expect(ref.current!.ambil().teks.slice(s.index, s.index + s.length)).toBe('Fatih menunduk.')
+  })
+
+  it('fokus() pada draf yang sudah ada menaruh kursor di akhir, bukan di awal', () => {
+    // jsdom tidak punya tata letak untuk Range
+    Range.prototype.getBoundingClientRect ??= () => new DOMRect()
+    Range.prototype.getClientRects ??= () => [] as unknown as DOMRectList
+    const ref = createRef<EditorApi>()
+    render(<Editor ref={ref} mode="draf_nol" teks="Sore itu hujan." />)
+    const q = Quill.find(document.querySelector('.ql-container')!) as Quill
+    act(() => ref.current?.fokus())
+    expect(q.getSelection()?.index).toBe('Sore itu hujan.'.length)
+  })
+
+  it('bilah stabilo hilang setelah anak mengetik menggantikan pilihan', async () => {
+    Range.prototype.getBoundingClientRect ??= () => new DOMRect()
+    Range.prototype.getClientRects ??= () => [] as unknown as DOMRectList
+    render(<Editor mode="revisi" teks="Fatih sedih." alat={[{ ...ALAT[0] }]} warna={ALAT} />)
+    const q = Quill.find(document.querySelector('.ql-container')!) as Quill
+    act(() => {
+      q.setSelection(6, 5, 'user')
+    })
+    expect(await screen.findByRole('toolbar', { name: 'Stabilo' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Stabilo Kamera' })).toBeInTheDocument()
+    await act(async () => {
+      q.updateContents(new Delta().retain(6).delete(5).insert('murung'), 'user')
+      // seperti mengetik sungguhan: kursor menyempit tanpa event selection-change
+      q.setSelection(12, 0, 'silent')
+      await new Promise((r) => setTimeout(r, 10))
+    })
+    expect(screen.queryByRole('toolbar', { name: 'Stabilo' })).toBeNull()
   })
 })

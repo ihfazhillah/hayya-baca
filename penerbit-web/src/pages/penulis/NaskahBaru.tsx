@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { listIde, naskahBaru, tambahIde } from '../../api'
 import type { Ide, Peta4 } from '../../types'
@@ -34,20 +34,28 @@ export default function NaskahBaru() {
       .catch((e: Error) => setGalat(e.message))
   }, [])
 
-  const mulai = async () => {
+  // ide baru yang sudah masuk Bank Ide (supaya mencoba lagi tidak membuat ide kembar)
+  const ideTersimpan = useRef<{ teks: string; id: number } | null>(null)
+
+  const mulai = async (keDraf = true) => {
     if (!judul.trim()) return
     setMengirim(true)
     setGalat(null)
     try {
       let ideId: number | null = null
       if (pilih === IDE_BARU) {
-        if (ideBaru.trim()) ideId = (await tambahIde(ideBaru.trim(), '')).id
+        const t = ideBaru.trim()
+        if (t && ideTersimpan.current?.teks === t) ideId = ideTersimpan.current.id
+        else if (t) {
+          ideId = (await tambahIde(t, '')).id
+          ideTersimpan.current = { teks: t, id: ideId }
+        }
       } else if (pilih) ideId = Number(pilih)
       const isiPeta = Object.fromEntries(
         Object.entries(peta).map(([k, v]) => [k, (v ?? '').trim()]).filter(([, v]) => v),
       ) as Peta4
       const n = await naskahBaru({ judul: judul.trim(), ide: ideId, peta: isiPeta })
-      nav(`/naskah/${n.id}/draf-nol`)
+      nav(keDraf ? `/naskah/${n.id}/draf-nol` : '/naskah')
     } catch (e) {
       setGalat((e as Error).message)
       setMengirim(false)
@@ -62,7 +70,7 @@ export default function NaskahBaru() {
         <KepalaHalaman judul="Cerita baru" sub="Tiga langkah kecil sebelum mulai menulis." />
 
         <section aria-labelledby="langkah-1">
-          <h2 id="langkah-1" className="langkah-judul">1. Pilih ide</h2>
+          <h2 id="langkah-1" className="langkah-judul"><span className="nomor-langkah">1.</span> Pilih ide</h2>
           {!ide && !galat && <Memuat />}
           <div role="radiogroup" aria-labelledby="langkah-1">
             {ide?.map((i) => (
@@ -90,8 +98,8 @@ export default function NaskahBaru() {
 
         <section aria-labelledby="langkah-2">
           <div className="baris" style={{ justifyContent: 'space-between' }}>
-            <h2 id="langkah-2" className="langkah-judul">2. Peta 4 Kotak</h2>
-            <a href="/cetak/PETA-4-KOTAK" target="_blank" rel="noopener">🖨️ Lebih suka di kertas? Cetak petanya</a>
+            <h2 id="langkah-2" className="langkah-judul"><span className="nomor-langkah">2.</span> Peta 4 Kotak</h2>
+            <a className="tautan-cetak" href="/cetak/PETA-4-KOTAK" target="_blank" rel="noopener">🖨️ Lebih suka di kertas? Cetak petanya</a>
           </div>
           <p className="kecil" style={{ marginBottom: 'var(--space-3)' }}>Satu kalimat saja di setiap kotak.</p>
           <div className="peta4">
@@ -108,17 +116,22 @@ export default function NaskahBaru() {
         </section>
 
         <section aria-labelledby="langkah-3">
-          <h2 id="langkah-3" className="langkah-judul">3. Judul sementara</h2>
+          <h2 id="langkah-3" className="langkah-judul"><span className="nomor-langkah">3.</span> Judul sementara</h2>
           <label className="sr-only" htmlFor="judul-sementara">Judul sementara</label>
-          <input id="judul-sementara" className="isian" placeholder="Judul sementara" value={judul} maxLength={150}
+          <input id="judul-sementara" className="isian isian-judul" placeholder="Judul sementara" value={judul} maxLength={150}
             spellCheck={false} onChange={(e) => setJudul(e.target.value)} />
           <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>Judul boleh diganti kapan saja, nanti saat mau terbit.</p>
         </section>
 
         <Galat pesan={galat} />
-        <button type="button" className="btn-besar" disabled={!judul.trim() || mengirim} onClick={mulai}>
-          {mengirim ? 'Menyiapkan…' : 'Mulai Draf Nol'}
-        </button>
+        <div className="baris">
+          <button type="button" className="btn-besar" disabled={!judul.trim() || mengirim} onClick={() => mulai()}>
+            {mengirim ? 'Menyiapkan…' : 'Mulai Draf Nol'}
+          </button>
+          <button type="button" className="tombol-teks" disabled={!judul.trim() || mengirim} onClick={() => mulai(false)}>
+            Simpan dulu, nanti lanjut
+          </button>
+        </div>
       </div>
     </main>
   )

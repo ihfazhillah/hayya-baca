@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
-  getAlat, getModul, getNaskah, getVersi, mintaStempel, simpanNaskah, simpanVersi, sorotanSistem, tandaiMisi,
+  getAlat, getModul, getNaskah, getVersi, mintaStempel, simpanVersi, sorotanSistem, tandaiMisi,
 } from '../../api'
 import type { Alat, Delta, HadiahBaru, ModulDetail, ModulTerkunci, NaskahDetail, Sorotan } from '../../types'
 import { Galat, KepalaHalaman, Memuat, PerayaanHadiah } from '../../components/ui'
@@ -90,6 +90,7 @@ export default function Revisi() {
   const [n, setN] = useState<NaskahDetail | null>(null)
   const [alat, setAlat] = useState<Alat[]>([])
   const [modul, setModul] = useState<ModulDetail | ModulTerkunci | null>(null)
+  const [modulGagal, setModulGagal] = useState(false)
   const [langkah, setLangkah] = useState<'stabilo' | 'revisi' | null>(null)
   const [isi, setIsi] = useState<Isi | null>(null)
   const [galat, setGalat] = useState<string | null>(null)
@@ -97,10 +98,13 @@ export default function Revisi() {
   const [cetak, setCetak] = useState<Cetak | null>(null)
   const [hadiah, setHadiah] = useState<HadiahBaru[]>([])
   const [versiBaru, setVersiBaru] = useState<number | null>(null)
+  /** false sesudah versi disimpan dan belum ada perubahan: cegah versi kembar */
+  const [berubah, setBerubah] = useState(true)
   const editor = useRef<EditorApi>(null)
   const lapis = (adalahLapis(lapisParam) ? lapisParam : 'peta') as LapisRevisi
   const info = LAPIS[lapis]
-  const simpan = useSimpanOtomatis(langkah === 'revisi' ? nid : null)
+  // simpan otomatis di kedua langkah: sorotan Langkah 1 juga pekerjaan anak
+  const simpan = useSimpanOtomatis(langkah ? nid : null)
   const { catat } = simpan
 
   useEffect(() => {
@@ -112,13 +116,24 @@ export default function Revisi() {
         if (batal) return
         setN(naskah)
         setAlat(daftarAlat.alat)
-        getModul(LAPIS[lapisParam].modul).then((m) => !batal && setModul(m)).catch(() => {})
+        getModul(LAPIS[lapisParam].modul).then((m) => !batal && setModul(m)).catch(() => !batal && setModulGagal(true))
         if (naskah.tahap !== 'revisi') return
         const d = pilihTerbaru(naskah.draf, nid)
         const terakhir = naskah.versi[naskah.versi.length - 1]
         if (d && d.lapis === lapisParam && d.teks.trim()) {
+          // Teks belum diubah dari versi terakhir = anak masih di Langkah 1 (menyorot).
+          let masihStabilo = false
+          if (terakhir) {
+            try {
+              const v = await getVersi(nid, terakhir.nomor)
+              masihStabilo = v.teks === d.teks
+            } catch {
+              /* tidak bisa membandingkan: lanjut di Langkah 2 */
+            }
+          }
+          if (batal) return
           setIsi({ isi: d.isi, teks: d.teks, sorotan: d.sorotan })
-          setLangkah('revisi')
+          setLangkah(masihStabilo ? 'stabilo' : 'revisi')
         } else if (terakhir) {
           const v = await getVersi(nid, terakhir.nomor)
           if (batal) return
@@ -136,7 +151,10 @@ export default function Revisi() {
 
   const tutupHadiah = useCallback(() => setHadiah([]), [])
   const ubah = useCallback(
-    (d: DataEditor) => catat({ isi: d.isi, teks: d.teks, sorotan: d.sorotan, lapis }),
+    (d: DataEditor) => {
+      setBerubah(true)
+      catat({ isi: d.isi, teks: d.teks, sorotan: d.sorotan, lapis })
+    },
     [catat, lapis],
   )
 
@@ -176,7 +194,10 @@ export default function Revisi() {
     if (!terakhir) return
     try {
       const v = await getVersi(nid, terakhir.nomor)
-      const s = langkah === 'stabilo' ? (editor.current?.ambil().sorotan ?? v.sorotan) : v.sorotan
+      const d = editor.current?.ambil()
+      const s = langkah === 'stabilo' ? (d?.sorotan ?? v.sorotan) : v.sorotan
+      // Tampilan cetak melepas editor; simpan isi terbarunya supaya kembali utuh.
+      if (d) setIsi({ isi: d.isi, teks: d.teks, sorotan: d.sorotan })
       setCetak({ nomor: v.nomor, teks: v.teks, sorotan: s })
     } catch (e) {
       setGalat((e as Error).message)
@@ -191,12 +212,20 @@ export default function Revisi() {
     setSibuk(true)
     setGalat(null)
     try {
-      await simpanNaskah(nid, { isi: d.isi, teks: d.teks, sorotan: d.sorotan, lapis, waktu_klien: Date.now() })
-      const sistem = await ambilSistem()
+      catat({ isi: d.isi, teks: d.teks, sorotan: d.sorotan, lapis })
+      const st = await simpan.simpanSekarang()
+      let sistem: Sorotan[] = []
+      if (st === 'tersimpan') {
+        try {
+          sistem = await ambilSistem()
+        } catch {
+          setGalat('Tanda sistem belum bisa dimuat. Tekan "Periksa ulang tanda sistem" nanti, ya.')
+        }
+      } else if (info.sistem.length) {
+        setGalat('Belum tersambung ke server, jadi tanda sistem belum muncul. Tulisanmu aman di perangkat ini.')
+      }
       setIsi({ isi: d.isi, teks: d.teks, sorotan: gantiSorotanSistem(d.sorotan, sistem) })
       setLangkah('revisi')
-    } catch (e) {
-      setGalat((e as Error).message)
     } finally {
       setSibuk(false)
     }
@@ -228,6 +257,7 @@ export default function Revisi() {
       }
       const r = await simpanVersi(nid, lapis)
       setVersiBaru(r.nomor)
+      setBerubah(false)
       if (r.hadiah_baru.length) setHadiah(r.hadiah_baru)
       setN(await getNaskah(nid))
       segarkan()
@@ -256,11 +286,19 @@ export default function Revisi() {
   return (
     <main className="page">
       <div className="layar tumpuk">
-        <Link to={`/naskah/${nid}`}>← {n.judul}</Link>
-        <KepalaHalaman judul={`Revisi Lapis ${info.nomor}`} sub={sub} />
-        <p style={{ fontSize: 'var(--text-xl)', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
-          {alatLapis.map((a) => `${a.emoji} ${a.nama}`).join(' + ') || NAMA_STEMPEL[lapis]} · {judulLapis}
-        </p>
+        <Link to={`/naskah/${nid}`} className="tautan-kembali">← {n.judul}</Link>
+        <header className="revisi-kepala">
+          <div>
+            <p className="alis">Revisi Lapis {info.nomor}</p>
+            <h1 className="revisi-judul">{alatLapis.map((a) => `${a.emoji} ${a.nama}`).join(' + ') || NAMA_STEMPEL[lapis]}</h1>
+            <p className="kecil">{judulLapis} · {sub}</p>
+          </div>
+          {n.tahap === 'revisi' && (
+            <button type="button" className="btn-besar sekunder" onClick={siapkanCetak} disabled={!terakhir}>
+              🖨️ Cetak Versi {terakhir?.nomor ?? ''} untuk dicoret
+            </button>
+          )}
+        </header>
 
         {n.tahap !== 'revisi' ? (
           <div className="callout callout-info">
@@ -274,20 +312,21 @@ export default function Revisi() {
           <>
             <section aria-labelledby="judul-misi">
               <h2 id="judul-misi" className="langkah-judul">Misi kecil lapis ini</h2>
-              {!modul && <Memuat />}
+              {!modul && !modulGagal && <Memuat />}
+              {modulGagal && !modul && <p className="kecil">Misi lapis ini belum bisa dimuat. Kamu tetap bisa merevisi.</p>}
               {modul?.terkunci && <p className="kecil">{modul.pesan}</p>}
               {modul && !modul.terkunci && (
-                <ul style={{ listStyle: 'none' }}>
-                  {modul.misi.map((m, i) => {
+                <ul className="misi-daftar">
+                  {modul.misi.map((m) => {
                     const done = m.status === 'selesai'
                     return (
-                      <li key={m.id} className={`checklist-step ${done ? 'done' : ''}`}>
-                        <span className="checklist-num">{i + 1}</span>
-                        <label className="checklist-label misi-cek">
+                      <li key={m.id} className={done ? 'selesai' : ''}>
+                        <label className="misi-cek">
                           <input type="checkbox" checked={done} disabled={done} onChange={() => tandai(m.id)} />
-                          <strong>{m.judul}</strong>
+                          <span>{m.judul}</span>
                         </label>
-                        <Link className="checklist-btn" to={`/modul/${modul.nomor}/misi/${m.urutan}`}>Buka</Link>
+                        <Link className="tautan-misi" to={`/modul/${modul.nomor}/misi/${m.urutan}`}
+                          aria-label={`Buka misi ${m.judul}`}>Buka</Link>
                       </li>
                     )
                   })}
@@ -299,12 +338,6 @@ export default function Revisi() {
               <KotakPrompt modul={modul.nomor} mentor={modul.mentor} />
             )}
 
-            <div className="baris">
-              <button type="button" className="tombol-kecil" onClick={siapkanCetak} disabled={!terakhir}>
-                🖨️ Cetak Versi {terakhir?.nomor ?? ''} untuk dicoret
-              </button>
-            </div>
-
             {!isi && !galat && <Memuat />}
             {isi && langkah === 'stabilo' && (
               <section aria-labelledby="judul-langkah" className="tumpuk">
@@ -314,7 +347,8 @@ export default function Revisi() {
                   {alatLapis.length ? ` ${alatLapis.map((a) => a.nama).join(' atau ')}` : ''}. Teksnya belum bisa diubah.
                 </p>
                 <Editor key="stabilo" ref={editor} mode="stabilo" isi={isi.isi} teks={isi.teks} sorotan={isi.sorotan}
-                  alat={bilah} warna={alat} label={`Versi ${terakhir?.nomor ?? ''} untuk distabilo`} />
+                  alat={bilah} warna={alat} label={`Versi ${terakhir?.nomor ?? ''} untuk distabilo`}
+                  statusSimpan={simpan.label} statusKode={simpan.status} onUbah={ubah} />
                 <div>
                   <button type="button" className="btn-besar" onClick={mulaiRevisi} disabled={sibuk}>
                     Selesai menyorot, mulai merevisi →
@@ -333,13 +367,15 @@ export default function Revisi() {
                   <div><button type="button" className="tombol-kecil" onClick={periksaUlang}>Periksa ulang tanda sistem</button></div>
                 )}
                 <Editor key="revisi" ref={editor} mode="revisi" isi={isi.isi} teks={isi.teks} sorotan={isi.sorotan}
-                  alat={bilah} warna={alat} label={`Revisi Lapis ${info.nomor}`} statusSimpan={simpan.label} onUbah={ubah} />
+                  alat={bilah} warna={alat} label={`Revisi Lapis ${info.nomor}`} statusSimpan={simpan.label}
+                  statusKode={simpan.status} onUbah={ubah} />
                 <p className="kecil">
                   Pemeriksa ejaan dan koreksi otomatis tablet dimatikan. Menempel teks dari luar tidak bisa: “Tulisanmu harus kamu ketik sendiri, ya.”
                 </p>
                 {versiBaru && <p className="lencana selesai" role="status">Versi {versiBaru} tersimpan ✓</p>}
                 <div className="baris">
-                  <button type="button" className="btn-besar" onClick={simpanBaru} disabled={sibuk}>
+                  <button type="button" className="btn-besar" onClick={simpanBaru} disabled={sibuk || !berubah}
+                    title={berubah ? undefined : 'Ubah tulisannya dulu untuk versi berikutnya'}>
                     Simpan sebagai Versi {nomorBaru}
                   </button>
                   {stempelAda ? (
