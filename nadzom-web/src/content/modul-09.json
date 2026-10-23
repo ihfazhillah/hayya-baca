@@ -1,0 +1,471 @@
+{
+  "nomor": 9,
+  "judul": "Thawil",
+  "tujuan": "Mengenal thawil lewat dua bait syarat menuntut ilmu dari Ta'lim al-Muta'allim. Hasilnya: satu baris dengan kata yang Anda ganti sendiri, lalu dua bait thawil berisi daftar syarat versi Anda.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "judul": "Kunci thawil",
+      "ringkas": "Watad dulu, baru sabab: فَعُولُنْ مَفَاعِيلُنْ dua kali dalam satu syathr.",
+      "menit": 25,
+      "analogi": "Bait «أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ» sudah Anda dengar sejak di pesantren, mungkin sudah hafal. Yang baru hanya satu: sekarang Anda tahu timbangannya. Seperti tasrif yang dulu dihafal dulu, baru belakangan dipahami polanya.",
+      "amtsilah": [
+        {
+          "bait": [
+            "أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ",
+            "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Ketahuilah, ilmu tidak akan kau raih kecuali dengan enam perkara. Akan kuberitahukan semuanya kepadamu dengan jelas.",
+          "sumber": "Az-Zarnuji, Ta'lim al-Muta'allim, fasal tentang niat dan syarat belajar; dinisbatkan kepada Sayyidina 'Ali bin Abi Thalib. Teks dicocokkan dengan kutipan NU Online (Khutbah Jumat: Syarat Mencari Ilmu).",
+          "catatan": "Penisbatan kepada 'Ali masyhur di kitab-kitab adab, tetapi tanpa sanad. Riwayat lain membuka dengan أَخِي لَنْ تَنَالَ dan dinisbatkan kepada asy-Syafi'i (lihat Pelajaran 2)."
+        },
+        {
+          "bait": [
+            "ذَكَاءٍ وَحِرْصٍ وَاصْطِبَارٍ وَبُلْغَةٍ",
+            "وَإِرْشَادِ أُسْتَاذٍ وَطُولِ زَمَانِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Kecerdasan, semangat, kesabaran, dan bekal yang cukup; lalu bimbingan guru, dan waktu yang panjang.",
+          "sumber": "Az-Zarnuji, Ta'lim al-Muta'allim, lanjutan bait sebelumnya. Dicocokkan dengan NU Online (Khutbah Jumat: Syarat Mencari Ilmu).",
+          "catatan": "Enam syarat berderet sebagai mudhaf ilaih dari بِسِتَّةٍ (badal, majrur). Daftar seperti ini sangat cocok untuk thawil yang panjang."
+        },
+        {
+          "bait": [
+            "طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ",
+            "فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Thawil punya keutamaan yang tidak dimiliki bahr lain. (Baris kedua adalah timbangannya.)",
+          "sumber": "Kunci bahr thawil (miftah al-buhur) yang masyhur.",
+          "catatan": "Perhatikan taf'ilah terakhir kunci ini: مَفَاعِلُ, bukan مَفَاعِيلُنْ. Itu akan dijelaskan di Pelajaran 2."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ",
+          "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+        ],
+        "bahr": "thawil",
+        "makna": "Ketahuilah, ilmu tidak akan kau raih kecuali dengan enam perkara. Akan kuberitahukan semuanya kepadamu dengan jelas.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait ini pasti tidak asing. Rajaz, kamil, dan basith sudah Anda lewati. Sekarang bahr yang paling banyak dipakai dalam syair Arab klasik: **thawil**."
+          },
+          {
+            "tampil": "irama",
+            "kata": "Dengar dulu. Rasakan bedanya dengan rajaz: thawil dibuka dengan ketukan **pendek lalu panjang**, ta-TAM, seperti langkah orang yang mulai berjalan."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "Kitabah 'arudhiyyah. تَنَالُ الْعِلْمَ: hamzah washal gugur, lam qamariyah tetap, jadi لُلْعِلْ. إِلَّا: syaddah menjadi dua huruf, إِلْلَا. بِسِتَّةٍ: syaddah dan tanwin, بِسِتْتَتِنْ."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0 seperti biasa. Lihat awalnya: أَلَا = 1 1 0. Dua huruf hidup dulu, baru yang mati."
+          },
+          {
+            "tampil": "kelompok",
+            "kata": "Itu sebabnya thawil terasa lain. Rajaz mulai dengan **sabab** (10). Thawil mulai dengan **watad** (110). أَلَا = watad, لَا = sabab."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "أَلَا لَا = 110 10 = **فَعُولُنْ**. تَنَا لُلْ عِلْ = 110 10 10 = **مَفَاعِيلُنْ**. مَإِلْ لَا = فَعُولُنْ lagi. بِسِتْ تَتِنْ = 110 1 10 = مَفَاعِلُنْ, bentuk berubah yang dibahas di pelajaran berikutnya."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "فَعُولُنْ مَفَاعِيلُنْ, dua kali dalam satu syathr: **thawil**. Delapan taf'ilah dalam satu bait, karena itu namanya thawil, yang panjang."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. سَأُنْبِيكَ dibaca sa'unbīka, hamzah di tengah kata tetap dihitung. بِبَيَانِ di ujung bait: kasrahnya dipanjangkan (isyba'), بِبَيَانِي."
+        }
+      },
+      "qaidah": [
+        "**فَعُولُنْ** = watad majmu' + sabab khafif = 110 10 = **11010**. Contoh kata: أَلَا لَا، كَرِيمٌ.",
+        "**مَفَاعِيلُنْ** = watad + sabab + sabab = 110 10 10 = **1101010**. Contoh: تَنَالُ الْعِلْ، سَأُنْبِيكَ.",
+        "**Thawil** = فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِيلُنْ dalam satu syathr. Rajaz dibuka sabab, thawil dibuka watad: ta-TAM.",
+        "Hafalkan kuncinya: طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ. Lagukan bersama bait Ta'lim sampai iramanya menempel."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Taf'ilah pembuka thawil, فَعُولُنْ, timbangannya?",
+          "pilihan": [
+            "1010",
+            "11010",
+            "10110",
+            "1101010"
+          ],
+          "jawaban": 1,
+          "alasan": "فَعُو = 110 (watad majmu'), لُنْ = 10 (sabab khafif). 10110 adalah فَاعِلُنْ, urutannya terbalik: sabab dulu baru watad."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar dua bait Ta'lim berturut-turut. Lagukan bersamanya tiga kali, lalu sekali tanpa melihat layar sambil mengetuk meja: ketuk ringan untuk suku pendek, ketuk kuat untuk suku panjang.",
+          "bait": [
+            "ذَكَاءٍ وَحِرْصٍ وَاصْطِبَارٍ وَبُلْغَةٍ",
+            "وَإِرْشَادِ أُسْتَاذٍ وَطُولِ زَمَانِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Kecerdasan, semangat, kesabaran, dan bekal yang cukup; lalu bimbingan guru, dan waktu yang panjang."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang **kunci thawil** sendiri. Perhatikan لَهُ: ha dhamir setelah huruf hidup boleh dipanjangkan (لَهُو) bila wazan memerlukannya.",
+          "bait": [
+            "طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ",
+            "فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Thawil punya keutamaan yang tidak dimiliki bahr lain. (Baris kedua adalah timbangannya.)"
+        }
+      ],
+      "patokan": "Syathr kedua bait Ta'lim dan kunci thawil ditandai sendiri sampai benar, dan dua bait Ta'lim bisa Anda lagukan tanpa melihat layar.",
+      "dengar": [
+        {
+          "judul": "Muhammad Dalki, cara menimbang thawil dengan lagu (Dandanat 'Arudhiyyah)",
+          "url": "https://www.youtube.com/watch?v=uKk0MO-iTKQ",
+          "catatan": "Bahasa Arab. Thawil dilagukan, cocok untuk melatih telinga."
+        },
+        {
+          "judul": "Bahr thawil, 'arudh dan dharb-nya, dengan latihan",
+          "url": "https://www.youtube.com/watch?v=b36finbORas",
+          "catatan": "Bahasa Arab, kanal Kaifa Tutqin al-Lughah al-'Arabiyyah."
+        }
+      ]
+    },
+    {
+      "nomor": 2,
+      "judul": "Qabdh dan ganti satu kata",
+      "ringkas": "فَعُولُ dan مَفَاعِلُنْ: bentuk berubah yang paling sering. Lalu الْعِلْمَ diganti الْحِفْظَ.",
+      "menit": 25,
+      "analogi": "Dalam sharaf ada i'lal: قَوَلَ menjadi قَالَ, bentuknya berubah tetapi tetap fi'il yang sama. Dalam 'arudh, taf'ilah juga boleh berubah sedikit tanpa menjadi pincang. Di thawil, perubahan yang paling sering bernama **qabdh**.",
+      "amtsilah": [
+        {
+          "bait": [
+            "تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا",
+            "وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Belajarlah, sebab tidak ada orang yang lahir sudah berilmu. Dan orang yang berilmu tidak sama dengan orang yang tidak tahu.",
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i (Diwan asy-Syafi'i, Wikisource: تعلم فليس المرء يولد عالما). Juga dikutip tanpa nama penyair dalam al-Jahizh, al-Bayan wa at-Tabyin, dan Ibnu 'Abdil Barr, Jami' Bayan al-'Ilm.",
+          "catatan": "Hitung berapa kali فَعُولُ (1101) muncul di bait ini: tiga kali. Dharb-nya مَفَاعِلُنْ, jadi qafiyahnya ـاهِلُ."
+        },
+        {
+          "bait": [
+            "أَخِي لَنْ تَنَالَ الْعِلْمَ إِلَّا بِسِتَّةٍ",
+            "سَأُنْبِيكَ عَنْ تَفْصِيلِهَا بِبَيَانِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Saudaraku, ilmu tidak akan kau raih kecuali dengan enam perkara. Akan kuterangkan rinciannya kepadamu dengan jelas.",
+          "sumber": "Riwayat lain bait Ta'lim, dikutip dalam 'Abdurrahman bin Hasan Alu asy-Syaikh, Fath al-Majid (Wikisource, bagian 11), \"ذكرها بعضهم في قوله\". Situs al-Diwan menisbatkannya kepada asy-Syafi'i.",
+          "catatan": "Bandingkan dengan riwayat Ta'lim: أَلَا لَا ↔ أَخِي لَنْ, مَجْمُوعِهَا ↔ تَفْصِيلِهَا. Kata berganti, polanya sama, bait tetap lurus. Para perawi pun 'mengganti satu kata'."
+        },
+        {
+          "bait": [
+            "سَتُبْدِي لَكَ الْأَيَّامُ مَا كُنْتَ جَاهِلًا",
+            "وَيَأْتِيكَ بِالْأَخْبَارِ مَنْ لَمْ تُزَوِّدِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Hari-hari akan menampakkan kepadamu apa yang dulu tidak kau ketahui. Kabar akan datang kepadamu dibawa orang yang tidak kau beri bekal.",
+          "sumber": "Tharafah bin al-'Abd, Mu'allaqah (Wikisource: معلقة طرفة بن العبد); syahid thawil dharb maqbudh dalam Ibnu 'Abdi Rabbih, al-'Iqd al-Farid, juz 5, bab 'arudh.",
+          "catatan": "Bait thawil paling masyhur. Kedua syathr-nya berakhir مَفَاعِلُنْ: 'arudh selalu maqbudhah, dan dharb di sini juga maqbudh."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا",
+          "وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ"
+        ],
+        "bahr": "thawil",
+        "makna": "Belajarlah, sebab tidak ada orang yang lahir sudah berilmu. Dan orang yang berilmu tidak sama dengan orang yang tidak tahu.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait asy-Syafi'i ini sering ditempel di dinding kelas. Kita timbang syathr pertama dan cari taf'ilah yang tidak utuh."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "تَعَلَّمْ: syaddah jadi dua huruf, تَعَلْلَمْ. فَلَيْسَ الْمَرْءُ: hamzah washal gugur, سَلْمَرْءُ. عَالِمًا: tanwin jadi نْ, alifnya tidak dibaca."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda. Perhatikan يُولَدُ: يُو = 10, لَ = 1, دُ = 1. Dua huruf hidup berurutan."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "تَعَلْ لَمْ = 11010, فَعُولُنْ utuh. فَلَيْ سَلْ مَرْ = 1101010, مَفَاعِيلُنْ utuh. ءُيُو لَ = **1101**: huruf kelimanya, nun sakin, hilang. Itu **فَعُولُ**. دُعَا لِمَنْ = **110110**: مَفَاعِيلُنْ yang kehilangan ya sakin, menjadi **مَفَاعِلُنْ**."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Membuang **huruf kelima yang sakin** disebut **qabdh**. Di thawil qabdh dinilai hasan, sering sekali dipakai. Di 'arudh (ujung syathr pertama) bahkan wajib: selalu مَفَاعِلُنْ.",
+            "papan": "فَعُولُنْ 11010 → فَعُولُ 1101\nمَفَاعِيلُنْ 1101010 → مَفَاعِلُنْ 110110"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Sekarang ganti satu kata di bait Ta'lim. الْعِلْمَ → الْحِفْظَ. لُلْ عِلْ dan لُلْ حِفْ sama-sama 10 10. Timbang: tetap lurus.",
+            "bait": [
+              "أَلَا لَا تَنَالُ الْحِفْظَ إِلَّا بِسِتَّةٍ"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bagaimana kalau الْعُلُومَ? Maknanya dekat, tetapi لُلْ عُ لُو مَ = 10 1 10 1. Taf'ilah kedua jadi kelebihan satu huruf: patah.",
+            "bait": [
+              "أَلَا لَا تَنَالُ الْعُلُومَ إِلَّا بِسِتَّةٍ"
+            ],
+            "patah": 1
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. Cari sendiri di mana فَعُولُ muncul. أَخُو عِلْمٍ: waw mad tetap 0, tanwin jadi نْ. جَاهِلُ di ujung bait dibaca جَاهِلُو."
+        }
+      },
+      "qaidah": [
+        "**Qabdh** = membuang huruf kelima yang sakin. فَعُولُنْ → **فَعُولُ** (1101), مَفَاعِيلُنْ → **مَفَاعِلُنْ** (110110). Hasan, sangat sering.",
+        "**'Arudh thawil selalu مَفَاعِلُنْ** (maqbudhah). Dharb boleh مَفَاعِيلُنْ, مَفَاعِلُنْ, atau فَعُولُنْ (mahdzuf, seperti بِبَيَانِ). Dalam satu qashidah dharb-nya tetap satu bentuk.",
+        "**Ganti satu kata**: kata pengganti yang polanya sama dengan kata asli menjaga baris tetap lurus. الْعِلْمَ = الْحِفْظَ = الْفِقْهَ = الْفَهْمَ (sama-sama 101 setelah الْ).",
+        "Pola sama itu dihitung **dalam bacaan bersambung**, bukan kata lepas. الْعِلْمَ dan الْعُلُومَ maknanya dekat, tetapi polanya berbeda. Timbang lagi setiap kali mengganti."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "مَفَاعِلُنْ (110110) muncul di ujung syathr pertama bait thawil. Itu?",
+          "pilihan": [
+            "Patah: kurang satu huruf",
+            "Sah: qabdh, dan di 'arudh thawil memang selalu begitu",
+            "Tanda bahrnya basith"
+          ],
+          "jawaban": 1,
+          "alasan": "مَفَاعِيلُنْ yang kehilangan huruf kelima (ya sakin) menjadi مَفَاعِلُنْ. Di 'arudh thawil bentuk ini wajib; bait Ta'lim, asy-Syafi'i, dan Tharafah semuanya begitu."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Mana pengganti الْعِلْمَ yang menjaga «أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ» tetap lurus?",
+          "pilihan": [
+            "الْعُلُومَ",
+            "الْفِقْهَ",
+            "الْمَعَارِفَ",
+            "الْإِتْقَانَ"
+          ],
+          "jawaban": 1,
+          "alasan": "لُلْ فِقْ = 10 10, sama dengan لُلْ عِلْ. Tiga pilihan lain menambah huruf hidup atau mati sehingga مَفَاعِيلُنْ jadi patah."
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Ganti **satu kata**: isi kotak dengan kata setelah الْ, lengkap dengan harakat. Buat **tiga baris berbeda**; setiap baris harus lurus. Lalu tulis maknanya: ilmu apa yang butuh enam syarat itu?",
+          "cetakan": "أَلَا لَا تَنَالُ الْ{1} إِلَّا بِسِتَّةٍ",
+          "kotak": [
+            {
+              "petunjuk": "Kata setelah الْ, pola 101 dan berakhir fathah (maf'ul bih). Pakai huruf qamariyah, mis. حِفْظَ، فِقْهَ",
+              "pola": "101",
+              "contoh": [
+                "حِفْظَ",
+                "فِقْهَ",
+                "فَهْمَ",
+                "عِلْمَ",
+                "خَيْرَ"
+              ]
+            }
+          ],
+          "bahr": "thawil",
+          "jumlah": 3
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Sekarang ubah jumlah syaratnya. Isi kotak dengan bilangan yang diawali بِ. Buat **dua baris**.",
+          "cetakan": "أَلَا لَا تَنَالُ الْحِفْظَ إِلَّا {1}",
+          "kotak": [
+            {
+              "petunjuk": "بِ + bilangan bertanwin kasrah, pola 11011 sebelum tanwin, mis. بِأَرْبَعٍ، بِخَمْسَةٍ",
+              "pola": "110110",
+              "contoh": [
+                "بِأَرْبَعٍ",
+                "بِخَمْسَةٍ",
+                "بِسَبْعَةٍ",
+                "بِسِتَّةٍ"
+              ]
+            }
+          ],
+          "bahr": "thawil",
+          "jumlah": 2
+        }
+      ],
+      "patokan": "Tiga baris الْ{…} dan dua baris bilangan, semuanya 0 patah, tersalin di Diwan beserta maknanya.",
+      "dengar": [
+        {
+          "judul": "Mubarak Zaid al-Khair, membacakan bait-bait asy-Syafi'i",
+          "url": "https://www.youtube.com/watch?v=-UnJiaglnlA",
+          "catatan": "Bacaan bait «شكوت إلى وكيع», bekal untuk Modul 10. Dengarkan cara penyair memanjangkan ujung bait."
+        }
+      ]
+    },
+    {
+      "nomor": 3,
+      "judul": "Enam syarat versi Anda",
+      "ringkas": "Ganti daftar syarat dengan daftar sendiri: dua bait thawil, satu qafiyah.",
+      "menit": 30,
+      "analogi": "Bait kedua Ta'lim adalah daftar belanja yang rapi: enam benda, dua per taf'ilah. Anda bisa membuat daftar sendiri, misalnya syarat menghafal, syarat bisa membaca kitab, atau syarat menulis nadzom. Kerangkanya sudah ada; yang Anda ganti isinya.",
+      "amtsilah": [
+        {
+          "bait": [
+            "ذَكَاءٍ وَحِرْصٍ وَاجْتِهَادٍ وَبُلْغَةٍ",
+            "وَإِرْشَادِ أُسْتَاذٍ وَطُولِ زَمَانِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Kecerdasan, semangat, kesungguhan, dan bekal yang cukup; lalu bimbingan guru, dan waktu yang panjang.",
+          "sumber": "Riwayat Fath al-Majid ('Abdurrahman bin Hasan Alu asy-Syaikh, Wikisource, bagian 11) untuk bait kedua Ta'lim.",
+          "catatan": "وَاجْتِهَادٍ menggantikan وَاصْطِبَارٍ: وَجْ تِ هَا دِنْ = وَصْ طِ بَا رِنْ = 10 1 10 10. Satu syarat diganti, wazan tetap."
+        },
+        {
+          "bait": [
+            "وَإِنَّ صَغِيرَ الْقَوْمِ إِنْ كَانَ عَالِمًا",
+            "كَبِيرٌ إِذَا رُدَّتْ إِلَيْهِ الْمَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang kecil di tengah kaumnya, bila ia berilmu, menjadi besar ketika majelis-majelis merujuk kepadanya.",
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i, bait ketiga «تعلم فليس المرء يولد عالما» (Wikisource, Diwan asy-Syafi'i).",
+          "catatan": "Qafiyah ـافِلُ (الْمَحَافِلُ) berpasangan dengan ـاهِلُ (جَاهِلُ): rawiy lam dhammah, tanpa ridf. Bentuk jamak مَفَاعِلُ pas sekali untuk dharb مَفَاعِلُنْ."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "دَوَامِ دُرُوسٍ ثُمَّ فَهْمٍ مُحَقَّقٍ",
+          "وَتَرْكِ الْمَعَاصِي ثُمَّ تَرْكِ التَّوَانِي"
+        ],
+        "bahr": "thawil",
+        "makna": "Terus-menerus mengulang pelajaran, lalu pemahaman yang matang; meninggalkan maksiat, lalu meninggalkan sikap menunda-nunda.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "teks",
+            "kata": "Saya buat contoh dulu. Ini bait latihan susunan saya, bukan kutipan. Tahap 1, **makna**: syarat menghafal ada empat.",
+            "papan": "Hafalan tidak diraih kecuali dengan empat: mengulang, paham, tinggalkan maksiat, jangan menunda."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bait pembuka cukup memakai cetakan tadi: الْحِفْظَ dan بِأَرْبَعٍ. Syathr kedua dipinjam utuh dari Ta'lim. Qafiyahnya ـانِ (rawiy nun kasrah, ridf alif).",
+            "bait": [
+              "أَلَا لَا تَنَالُ الْحِفْظَ إِلَّا بِأَرْبَعٍ",
+              "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tahap 2, **qafiyah** bait kedua harus mengikuti بَيَانِ: ـانِ, dan dharb-nya فَعُولُنْ (11010) seperti زَمَانِ. Saya pilih التَّوَانِي (sikap menunda).",
+            "papan": "بَيَانِ · زَمَانِ · التَّوَانِي\nrawiy ن · kasrah · ridf ا"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Tahap 3 sampai 5: draf, lagukan, timbang. Saya mulai dengan تَكْرَارِ. Taf'ilah pertama patah: تَكْ رَا = 10 10, padahal thawil harus dibuka watad (110).",
+            "bait": [
+              "تَكْرَارِ دَرْسٍ ثُمَّ فَهْمٍ مُحَقَّقٍ",
+              "وَتَرْكِ الْمَعَاصِي ثُمَّ تَرْكِ التَّوَانِي"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Tahap 6, **perbaiki**: cari kata bermakna sama yang dibuka watad. دَوَامِ دُرُوسٍ (terus-menerus belajar): دَوَا مِ = 1101, فَعُولُ yang sah. Timbang lagi: lurus.",
+            "bait": [
+              "دَوَامِ دُرُوسٍ ثُمَّ فَهْمٍ مُحَقَّقٍ",
+              "وَتَرْكِ الْمَعَاصِي ثُمَّ تَرْكِ التَّوَانِي"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Lihat syathr pertama: دَوَا مِ (فَعُولُ) دُرُو سِنْ ثُمْ (مَفَاعِيلُنْ) مَفَهْ مِنْ (فَعُولُنْ) مُحَقْ قَقِنْ (مَفَاعِلُنْ). Empat syarat terbagi rapi, dua per syathr."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tahap 7, **Diwan**: catat kedua bait dan semua versinya. Sekarang giliran Anda membuat daftar sendiri.",
+            "papan": "Thawil · bait 2 v1 · patah 1\nThawil · bait 2 v2 · patah 0"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**. تَرْكِ الْمَعَاصِي dibaca تَرْكِلْمَعَاصِي. تَرْكِ التَّوَانِي: lam syamsiyah lebur, تَرْكِتْتَوَانِي."
+        }
+      },
+      "qaidah": [
+        "**Daftar dalam thawil**: setiap taf'ilah bisa memuat satu benda. Pola yang mudah: فَعُولُنْ = كَرِيمٍ / ذَكَاءٍ / وَحِرْصٍ; مَفَاعِيلُنْ = وَإِرْشَادِ أُسْ / سَأُنْبِيكَ.",
+        "**Pembuka thawil selalu watad** (11...). Kata yang dibuka dua sabab (تَكْرَارِ، أُسْتَاذِ) tidak bisa di awal syathr. Pakai kata yang dibuka dua huruf hidup: دَوَامِ، ذَكَاءٍ، وَتَرْكِ، كَبِيرٌ.",
+        "**Satu qafiyah** untuk qashidah: ujung setiap bait mengikuti bait pertama, sama rawiy, harakat, dan ridf-nya. Bentuk dharb juga sama: kalau bait pertama berakhir فَعُولُنْ (بَيَانِ), bait berikutnya juga.",
+        "Laci qafiyah ـانِ dari Babak 2 (kamil) bisa dipakai lagi di sini: زَمَانِ، بَيَانِ، لِسَانِ، أَمَانِ، تَوَانِ. Polanya 11010 di ujung thawil."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Mana yang bisa membuka syathr thawil?",
+          "pilihan": [
+            "أُسْتَاذٍ",
+            "تَكْرَارِ",
+            "ذَكَاءٍ",
+            "الْعِلْمَ"
+          ],
+          "jawaban": 2,
+          "alasan": "ذَ كَا ئِنْ = 11010, persis فَعُولُنْ. أُسْتَاذٍ dan تَكْرَارِ dibuka 10 10. الْعِلْمَ di awal kalam dibaca اَلْعِلْ = 10 10, juga dibuka sabab."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Bait pertama Anda berakhir بِبَيَانِ. Mana ujung bait kedua yang sah dalam satu qafiyah?",
+          "pilihan": [
+            "وَطُولِ زَمَانِ",
+            "كَمَنْ هُوَ جَاهِلُ",
+            "إِلَيْهِ الْمَحَافِلُ"
+          ],
+          "jawaban": 0,
+          "alasan": "زَمَانِ: rawiy nun kasrah, ridf alif, dharb فَعُولُنْ. Dua pilihan lain berawiy lam dhammah dan dharb-nya مَفَاعِلُنْ, cocok untuk qashidah lain."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Susun **dua bait thawil** dengan satu qafiyah. Bait 1 boleh memakai cetakan pelajaran tadi (ganti ilmunya dan jumlah syaratnya). Bait 2 adalah daftar syarat versi Anda, berakhir ـانِ seperti زَمَانِ. Timbang, perbaiki, lalu salin keduanya ke Diwan.",
+          "bahr": "thawil",
+          "makna": "Usul makna: syarat menghafal Al-Qur'an, syarat bisa membaca kitab gundul, atau syarat menulis nadzom. Boleh tema lain.",
+          "bankKata": true,
+          "jumlah": 2,
+          "qafiyah": "satu",
+          "rancangan": [
+            "Pembuka: ilmu (atau keahlian) itu tidak diraih kecuali dengan sekian perkara",
+            "Daftar perkaranya, satu atau dua per taf'ilah"
+          ],
+          "judulDiwan": "Syarat versi saya"
+        }
+      ],
+      "patokan": "Dua bait thawil dengan satu qafiyah, keduanya 0 patah, tersimpan di Diwan bersama versi-versi sebelumnya."
+    }
+  ],
+  "laci": [
+    { "teks": "أَلَا", "arti": "ketahuilah", "laci": "hasyw", "catatan": "Huruf tanbih, pola 110: watad pembuka thawil.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "لَا تَنَالُ", "arti": "tidak akan kau raih", "laci": "hasyw", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "سَأُنْبِيكَ", "arti": "akan kuberitahukan kepadamu", "laci": "hasyw", "catatan": "Pola 1101010, satu مَفَاعِيلُنْ penuh. Asalnya سَأُنْبِئُكَ, hamzah diringankan.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "بِبَيَانِ", "arti": "dengan jelas", "laci": "qafiyah", "catatan": "Qafiyah ـانِ, dharb فَعُولُنْ. Pasangan: زَمَانِ، أَمَانِ، لِسَانِ.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "زَمَانِ", "arti": "waktu, masa", "laci": "qafiyah", "catatan": "Pasangan بِبَيَانِ. Wazan فَعَالٍ.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "ذَكَاءٍ", "arti": "kecerdasan", "laci": "wazan", "catatan": "Wazan فَعَالٍ bertanwin = 11010, satu فَعُولُنْ. Sekelompok: بَيَانٍ، ثَبَاتٍ، صَلَاحٍ.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَحِرْصٍ", "arti": "dan semangat (keinginan kuat)", "laci": "wazan", "catatan": "وَ + فِعْلٍ = 11010. Sekelompok: وَصَبْرٍ، وَفَهْمٍ، وَعِلْمٍ.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَاصْطِبَارٍ", "arti": "dan kesabaran", "laci": "wazan", "catatan": "Mashdar اِفْتِعَال setelah وَ: وَصْطِبَارِنْ = 1011010. Bisa diganti وَاجْتِهَادٍ.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَاجْتِهَادٍ", "arti": "dan kesungguhan", "laci": "wazan", "catatan": "Pola sama dengan وَاصْطِبَارٍ.", "dari": "Riwayat Fath al-Majid" },
+    { "teks": "وَبُلْغَةٍ", "arti": "dan bekal yang mencukupi", "laci": "hasyw", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَإِرْشَادِ أُسْتَاذٍ", "arti": "dan bimbingan guru", "laci": "hasyw", "catatan": "Satu مَفَاعِيلُنْ ditambah awal فَعُولُنْ berikutnya.", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "وَطُولِ زَمَانِ", "arti": "dan waktu yang panjang", "laci": "qafiyah", "catatan": "Penutup bait thawil: وَطُو لِ (فَعُولُ) + زَمَانِ (فَعُولُنْ).", "dari": "Ta'lim al-Muta'allim" },
+    { "teks": "تَعَلَّمْ", "arti": "belajarlah", "laci": "hasyw", "catatan": "Pola 11010: pembuka thawil yang pas.", "dari": "asy-Syafi'i" },
+    { "teks": "أَخُو عِلْمٍ", "arti": "orang berilmu", "laci": "hasyw", "dari": "asy-Syafi'i" },
+    { "teks": "جَاهِلُ", "arti": "orang yang tidak tahu", "laci": "qafiyah", "catatan": "Qafiyah ـاهِلُ / ـافِلُ: rawiy lam dhammah, dharb مَفَاعِلُنْ.", "dari": "asy-Syafi'i" },
+    { "teks": "الْمَحَافِلُ", "arti": "majelis-majelis", "laci": "qafiyah", "catatan": "Jamak مَفَاعِلُ; pasangan جَاهِلُ، عَاقِلُ، فَضَائِلُ.", "dari": "asy-Syafi'i" },
+    { "teks": "فَضَائِلُ", "arti": "keutamaan-keutamaan", "laci": "qafiyah", "catatan": "Jamak فَعَائِلُ, ujung kunci thawil.", "dari": "Kunci thawil" },
+    { "teks": "سَتُبْدِي لَكَ الْأَيَّامُ", "arti": "hari-hari akan menampakkan kepadamu", "laci": "hasyw", "dari": "Tharafah, Mu'allaqah" },
+    { "teks": "دَوَامِ دُرُوسٍ", "arti": "terus-menerus mengulang pelajaran", "laci": "hasyw", "catatan": "Pengganti تَكْرَارِ yang dibuka watad.", "dari": "Bait latihan Modul 9" },
+    { "teks": "التَّوَانِي", "arti": "sikap menunda-nunda", "laci": "qafiyah", "catatan": "Pasangan ـانِ: بَيَانِ، زَمَانِ.", "dari": "Bait latihan Modul 9" },
+    { "teks": "الْحِفْظَ", "arti": "hafalan", "laci": "wazan", "catatan": "Pengganti الْعِلْمَ: sama-sama 101 setelah الْ. Sekelompok: الْفِقْهَ، الْفَهْمَ.", "dari": "Cetakan Modul 9" },
+    { "teks": "بِأَرْبَعٍ", "arti": "dengan empat perkara", "laci": "wazan", "catatan": "Pola sama dengan بِسِتَّةٍ، بِخَمْسَةٍ، بِسَبْعَةٍ.", "dari": "Cetakan Modul 9" }
+  ]
+}

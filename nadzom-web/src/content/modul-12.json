@@ -13,23 +13,23 @@
       "amtsilah": [
         {
           "bait": [
-            "أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ",
-            "مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ"
+            "أَضْحَى التَّنَائِي بَدِيلًا مِنْ تَدَانِينَا",
+            "وَنَابَ عَنْ طِيبِ لُقْيَانَا تَجَافِينَا"
           ],
           "bahr": "basith",
-          "makna": "Apakah karena teringat para tetangga di Dzi Salam, air mata yang mengalir dari kelopakmu bercampur darah?",
-          "sumber": "Al-Bushiri (w. 696 H), al-Burdah, bait 1. Teks: Wikisource ar, أمن تذكر جيران بذي سلم. Harakat dilengkapi penyusun.",
-          "catatan": "Qashidah asal: basith, rawiy mim, majra kasrah (ـمِ)."
+          "makna": "Kini jauh telah menggantikan dekat kita; yang datang sebagai ganti manisnya pertemuan hanyalah saling menjauh.",
+          "sumber": "Ibnu Zaidun (w. 463 H), Nuniyah, bait 1. Teks: Wikisource ar, أضحى التنائي بديلا من تدانينا. Harakat dilengkapi penyusun.",
+          "catatan": "Qashidah asal: basith, rawiy nun, ujung ـِينَا (alif setelah rawiy adalah wasl)."
         },
         {
           "bait": [
-            "رِيمٌ عَلَى الْقَاعِ بَيْنَ الْبَانِ وَالْعَلَمِ",
-            "أَحَلَّ سَفْكَ دَمِي فِي الْأَشْهُرِ الْحُرُمِ"
+            "يَا نَائِحَ الطَّلْحِ أَشْبَاهٌ عَوَادِينَا",
+            "نَشْجَى لِوَادِيكَ أَمْ نَأْسَى لِوَادِينَا"
           ],
           "bahr": "basith",
-          "makna": "Seekor kijang di dataran, di antara pohon ban dan bukit 'Alam, menghalalkan darahku di bulan-bulan haram.",
-          "sumber": "Ahmad Syauqi (w. 1932), Nahj al-Burdah, bait 1. Teks: Wikisource ar, ريم على القاع. Harakat dilengkapi penyusun.",
-          "catatan": "Mu'aradhah: basith, rawiy mim, majra kasrah, sama dengan al-Burdah. Frasa الْبَانِ وَالْعَلَمِ pun dipungut dari bait kelima al-Burdah (لِذِكْرِ الْبَانِ وَالْعَلَمِ)."
+          "makna": "Wahai burung yang meratap di lembah Thalh, nasib kita serupa: kami bersedih untuk lembahmu, atau berduka untuk lembah kami sendiri?",
+          "sumber": "Ahmad Syauqi (w. 1932), Andalusiyyah, bait 1, ditulis di pengasingan di Andalus. Teks: Majalah ar-Risalah no. 173, \"Baina Syauqi wa Ibni Zaidun\" (Wikisource ar), yang menyebut Syauqi \"yu'aridhu Ibna Zaidun\". Harakat dilengkapi penyusun.",
+          "catatan": "Mu'aradhah: basith, rawiy nun, ujung ـِينَا, sama dengan Nuniyah Ibnu Zaidun. Temanya dekat (rindu dan perpisahan), baitnya baru."
         },
         {
           "bait": [
@@ -80,7 +80,7 @@
       },
       "qaidah": [
         "**Mu'aradhah**: menyusun qashidah baru dengan bahr, rawiy, dan majra qashidah terdahulu, biasanya dengan tema yang dekat. Ia penghormatan sekaligus latihan.",
-        "Contoh masyhur: Ahmad Syauqi menulis **Nahj al-Burdah** (menempuh jalan al-Burdah) mengikuti al-Burdah al-Bushiri: sama-sama basith, rawiy mim, majra kasrah.",
+        "Contoh masyhur: Ahmad Syauqi menulis nuniyah Andalusiyyah mengikuti **Nuniyah Ibnu Zaidun**: sama-sama basith, rawiy nun, ujung ـِينَا.",
         "Mu'aradhah bukan menyalin. Yang dipinjam hanya wadahnya; bait, susunan, dan maknanya harus milik Anda.",
         "Wadah Boss ini: Nuniyah Ibnul Qayyim. Kamil, rawiy ن, majra kasrah, ridf alif, ujung bait 1010 (ـَانِي)."
       ],
@@ -99,14 +99,14 @@
         },
         {
           "jenis": "pilih",
-          "soal": "Nahj al-Burdah Syauqi ditulis dalam bahr apa?",
+          "soal": "Nuniyah Andalusiyyah Syauqi, mu'aradhah atas Ibnu Zaidun, ditulis dalam bahr apa?",
           "pilihan": [
             "Kamil",
             "Basith",
             "Rajaz"
           ],
           "jawaban": 1,
-          "alasan": "Ia mengikuti al-Burdah, dan al-Burdah ditulis dalam basith: مُسْتَفْعِلُنْ فَاعِلُنْ dua kali per syathr."
+          "alasan": "Ia mengikuti Nuniyah Ibnu Zaidun, yang ditulis dalam basith: مُسْتَفْعِلُنْ فَاعِلُنْ dua kali per syathr. Timbang sendiri bait pertamanya di contoh."
         },
         {
           "jenis": "irama",
@@ -319,11 +319,24 @@
       "dari": "Nuniyah Ibnul Qayyim bait 351, 433"
     },
     {
-      "teks": "الْبَانِ وَالْعَلَمِ",
-      "arti": "pohon ban dan bukit 'Alam",
-      "laci": "umum",
-      "catatan": "Frasa al-Burdah yang dipungut Syauqi: contoh mu'aradhah.",
-      "dari": "al-Burdah bait 5; Nahj al-Burdah bait 1"
+      "teks": "تَدَانِينَا",
+      "arti": "saling mendekat kita",
+      "laci": "qafiyah",
+      "catatan": "Wazan تَفَاعُل + نَا; ujung ـِينَا (rawiy nun, wasl alif).",
+      "dari": "Nuniyah Ibnu Zaidun bait 1"
+    },
+    {
+      "teks": "تَجَافِينَا",
+      "arti": "saling menjauh kita",
+      "laci": "qafiyah",
+      "catatan": "Sewazan dengan تَدَانِينَا: pasangan qafiyah ـِينَا.",
+      "dari": "Nuniyah Ibnu Zaidun bait 1"
+    },
+    {
+      "teks": "لِوَادِينَا",
+      "arti": "untuk lembah kami",
+      "laci": "qafiyah",
+      "dari": "Andalusiyyah Syauqi bait 1"
     }
   ]
 }

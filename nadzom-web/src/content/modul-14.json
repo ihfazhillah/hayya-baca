@@ -1,0 +1,322 @@
+{
+  "nomor": 14,
+  "label": "Bonus",
+  "judul": "Ramal Majzu'",
+  "tujuan": "Kembali ke irama bait pertama Anda, ramal majzu', dengan alat baru: tiga wajah qafiyah. Hasilnya empat bait ramal majzu' satu qafiyah.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "judul": "Tiga wajah qafiyah",
+      "ringkas": "Rawiy yang dipanjangkan (muthlaqah), rawiy yang disukunkan (muqayyadah), dan ridf و/ي yang boleh bergantian.",
+      "menit": 30,
+      "analogi": "Dalam tajwid, cara berhenti di ujung ayat memengaruhi bacaan: ada waqf dengan sukun, ada yang dibaca panjang. Ujung bait juga begitu. Yang membedakan di sini: penyair memilih satu cara di bait pertama, lalu wajib setia sampai bait terakhir.",
+      "amtsilah": [
+        {
+          "bait": [
+            "إِنَّمَا الدُّنْيَا فَنَاءٌ",
+            "لَيْسَ لِلدُّنْيَا ثُبُوتُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Dunia ini hanyalah kefanaan. Tidak ada yang tetap di dunia.",
+          "sumber": "Diwan yang dinisbatkan kepada Sayyidina 'Ali bin Abi Thalib (Wikisource: إنما الدنيا فناء). Dikutip tanpa nama penyair (\"ولله در القائل\") dalam Tafsir al-Maraghi, surah asy-Syura.",
+          "catatan": "Qafiyah **muthlaqah**: rawiy ت berharakat dhammah lalu dipanjangkan, ثُبُوتُو. Ridf-nya waw."
+        },
+        {
+          "bait": [
+            "إِنَّمَا الدُّنْيَا كَبَيْتٍ",
+            "نَسَجَتْهُ الْعَنْكَبُوتُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Dunia ini hanyalah seperti rumah yang ditenun laba-laba.",
+          "sumber": "Bait kedua qashidah yang sama (Wikisource, dinisbatkan kepada 'Ali bin Abi Thalib; dikutip dalam Tafsir al-Maraghi).",
+          "catatan": "Menggemakan QS al-'Ankabut: 41. نَسَجَتْ هُلْ = 111010, فَعِلَاتُنْ (khabn), bentuk berubah yang hasan."
+        },
+        {
+          "bait": [
+            "مُقْفِرَاتٌ دَارِسَاتٌ",
+            "مِثْلَ آيَاتِ الزَّبُورِ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Rumah-rumah itu sepi dan hampir terhapus, bekasnya seperti baris-baris tulisan lama yang samar.",
+          "sumber": "Syahid ramal majzu' dharb sahih dalam kitab 'arudh; Ibnu 'Abdi Rabbih, al-'Iqd al-Farid, juz 5, bab 'arudh (Wikisource, bagian 3 dan 4).",
+          "catatan": "Di al-'Iqd, syahid ini menutup bait-bait Ibnu 'Abdi Rabbih yang berqafiyah حَرِيرِ، أَمِيرِ، النَّضِيرِ. Ridf ya dan ridf waw (الزَّبُورِ) bergantian dalam satu qashidah."
+        },
+        {
+          "bait": [
+            "يَا هِلَالًا قَدْ تَجَلَّى",
+            "فِي ثِيَابٍ مِنْ حَرِيرِ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Wahai bulan sabit yang tampak terang, berbalut pakaian sutra.",
+          "sumber": "Ibnu 'Abdi Rabbih, al-'Iqd al-Farid, juz 5, bab 'arudh, contoh ramal majzu' dharb sahih (Wikisource, bagian 3).",
+          "catatan": "حَرِيرِ (ridf ya) satu qashidah dengan الزَّبُورِ (ridf waw). Keduanya sah. Yang tidak boleh: mencampur ridf alif dengan ya/waw."
+        },
+        {
+          "bait": [
+            "طَالِبَ الْعِلْمِ تَأَدَّبْ",
+            "كُنْ صَبُورًا فِي الطَّلَبْ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Wahai penuntut ilmu, beradablah. Bersabarlah dalam mencari ilmu.",
+          "sumber": "Bait latihan, bukan kutipan.",
+          "catatan": "Qafiyah **muqayyadah** tanpa ridf: rawiy ب sukun. Taf'ilah terakhir menjadi فَاعِلُنْ (فِطْطَلَبْ = 10110), dharb mahdzuf."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "إِنَّمَا الدُّنْيَا فَنَاءٌ",
+          "لَيْسَ لِلدُّنْيَا ثُبُوتُ"
+        ],
+        "bahr": "ramalMajzu",
+        "makna": "Dunia ini hanyalah kefanaan. Tidak ada yang tetap di dunia.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Ingat Modul 0? Cetakan لَمْ يَزَلْ فِي الْقَلْبِ نُورٌ memakai irama ini. Sekarang kita lihat bait klasiknya, lalu fokus ke **ujung bait**."
+          },
+          {
+            "tampil": "irama",
+            "kata": "Dengar dan lagukan. Irama ini mungkin sudah akrab dari nasyid: TAM-ta-TAM-TAM, dua kali per syathr."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "إِنَّمَا: syaddah jadi dua huruf, إِنْنَمَا. الدُّنْيَا: hamzah washal gugur, lam syamsiyah lebur: إِنْنَمَدْدُنْيَا. فَنَاءٌ: tanwin → نْ."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "إِنْ نَمَدْ دُنْ = 1011010, فَاعِلَاتُنْ. يَافَنَا ءُنْ = 1011010, فَاعِلَاتُنْ. Utuh semua, seperti kunci ramal."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Sekarang ujung bait: ثُبُوتُ. Rawiy-nya ت, berharakat dhammah, lalu dipanjangkan: ثُبُوتُو. Qafiyah yang rawiy-nya hidup dan dipanjangkan disebut **muthlaqah**. Panjangnya bisa و, ي, atau ا, mengikuti harakat rawiy.",
+            "papan": "ثُبُوتُو · الْعَنْكَبُوتُو · قُوتُو · يَمُوتُو\nrawiy ت · dhammah · ridf و"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bagaimana kalau kita berhenti dengan sukun, ثُبُوتْ? Taf'ilah terakhir menjadi يَاثُبُوتْ = 101100, فَاعِلَانْ. Bentuk ini milik ramal tam, bukan ramal majzu'. Jadi qafiyah muthlaqah jangan disukunkan.",
+            "bait": [
+              "لَيْسَ لِلدُّنْيَا ثُبُوتْ"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "teks",
+            "kata": "Qafiyah **muqayyadah** (rawiy sukun) tetap bisa di ramal majzu', asal taf'ilahnya cocok. Ada dua jalan. Tanpa ridf: ujungnya فَاعِلُنْ, seperti فِطْطَلَبْ. Dengan ridf: tambah satu huruf mati, فَاعِلَاتَانْ, seperti syahid kitab 'arudh di papan.",
+            "papan": "يَا خَلِيلَيَّ ارْبَعَا فَاسْـ / ـتَنْطِقَا رَسْمًا بِعُسْفَانْ\nمَنْ بِعُسْفَانْ = 10110100 = فَاعِلَاتَانْ (tasbigh)\n(Lisan al-'Arab, bahasan al-musabbagh; al-'Iqd al-Farid)"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Contoh latihan dengan tasbigh: رِضْوَانْ, ridf alif lalu nun sukun. Ujungnya 10110100: sah.",
+            "bait": [
+              "طَالِبَ الْعِلْمِ تَصَبَّرْ",
+              "إِنَّ عُقْبَى الصَّبْرِ رِضْوَانْ"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Tetapi ثِمَارْ di tempat yang sama: رِثِمَارْ = 11100, patah. Kalau rawiy sukun, hitung ulang taf'ilah terakhir: harus فَاعِلُنْ atau فَاعِلَاتَانْ.",
+            "bait": [
+              "طَالِبَ الْعِلْمِ تَصَبَّرْ",
+              "إِنَّ لِلصَّبْرِ ثِمَارْ"
+            ],
+            "patah": 1
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**, لَيْسَ لِلدُّنْيَا ثُبُوتُ. لِلدُّنْيَا: lam syamsiyah lebur, لِدْدُنْيَا. Ujungnya dipanjangkan, ثُبُوتُو."
+        }
+      },
+      "qaidah": [
+        "**Muthlaqah**: rawiy berharakat lalu dipanjangkan. Fathah → ا (دَهْرَا), kasrah → ي (الزَّبُورِي), dhammah → و (ثُبُوتُو). Di ramal majzu' ujungnya biasanya فَاعِلَاتُنْ.",
+        "**Muqayyadah**: rawiy sukun. Di ramal majzu' hanya dua bentuk: **فَاعِلُنْ** tanpa ridf (فِطْطَلَبْ) atau **فَاعِلَاتَانْ** dengan ridf (بِعُسْفَانْ، رِضْوَانْ). فَاعِلَانْ (ثُبُوتْ، لِلْكِبَارْ) tidak termasuk.",
+        "**Ridf** = huruf mad tepat sebelum rawiy. Ridf **و dan ي boleh bergantian** dalam satu qashidah (حَرِيرِ / الزَّبُورِ). Ridf **ا** harus tetap ا.",
+        "Pilih wajah qafiyah di bait pertama, lalu setia sampai akhir: rawiy, harakat (atau sukun), dan jenis ridf-nya sama."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Bait pertama Anda berakhir الزَّبُورِ. Mana yang sah sebagai ujung bait kedua?",
+          "pilihan": [
+            "الْكَبِيرِ",
+            "الْكِبَارِ",
+            "الْكَبِيرْ",
+            "الْكَبِيرُ"
+          ],
+          "jawaban": 0,
+          "alasan": "الْكَبِيرِ: rawiy ر kasrah, ridf ي yang boleh menggantikan و. الْكِبَارِ ridf-nya alif. الْكَبِيرْ disukunkan, padahal الزَّبُورِ muthlaqah. الْكَبِيرُ harakatnya dhammah."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "«وَتَوَاضَعْ لِلْكِبَارْ» sebagai syathr kedua ramal majzu': lurus atau patah?",
+          "pilihan": [
+            "Lurus: rawiy sukun selalu boleh",
+            "Patah: لِلْكِبَارْ menjadi فَاعِلَانْ, yang bukan dharb ramal majzu'",
+            "Lurus asal ridf-nya alif"
+          ],
+          "jawaban": 1,
+          "alasan": "لِلْ كِ بَارْ = 10 1 100 = فَاعِلَانْ. Ramal majzu' hanya menerima فَاعِلَاتُنْ, فَاعِلَاتَانْ, atau فَاعِلُنْ di dharb. Bacalah muthlaqah (لِلْكِبَارِ) atau ganti katanya."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait ini, lagukan bersamanya. Perhatikan ujung يَمُوتُو: suara dhammah dipanjangkan, bukan diputus.",
+          "bait": [
+            "وَلَعَمْرِي عَنْ قَلِيلٍ",
+            "كُلُّ مَنْ فِيهَا يَمُوتُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Demi hidupku, tidak lama lagi semua yang ada di dunia akan mati."
+        }
+      ],
+      "patokan": "Syathr kedua bait 'Ali ditandai sendiri; dua soal qafiyah dijawab benar; dan Anda bisa menyebut wajah qafiyah dari lima contoh di atas.",
+      "dengar": [
+        {
+          "judul": "Muhammad al-Ma'sarani, bahr ramal majzu' (al-'Arudh wa al-Qawafi, pelajaran 14)",
+          "url": "https://www.youtube.com/watch?v=vYI-JTs7Tvk",
+          "catatan": "Bahasa Arab. Bentuk-bentuk dharb ramal majzu'."
+        }
+      ]
+    },
+    {
+      "nomor": 2,
+      "judul": "Empat bait satu qafiyah",
+      "ringkas": "Pilih satu wajah qafiyah, lalu susun empat bait ramal majzu'.",
+      "menit": 30,
+      "analogi": "Ramal majzu' pendek: dua taf'ilah per syathr. Ruangnya sempit, jadi setiap kata harus bekerja. Seperti menulis syi'ar di spanduk: sedikit kata, mudah dilagukan, mudah diingat.",
+      "amtsilah": [
+        {
+          "bait": [
+            "وَلَقَدْ يَكْفِيكَ مِنْهَا",
+            "أَيُّهَا الطَّالِبُ قُوتُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Wahai pencari dunia, sebenarnya cukup bagimu darinya sekadar makanan untuk hidup.",
+          "sumber": "Bait ketiga «إنما الدنيا فناء», dinisbatkan kepada 'Ali bin Abi Thalib (Wikisource).",
+          "catatan": "وَلَقَدْ يَكْ = 111010, فَعِلَاتُنْ. قُوتُ: kata pendek pun bisa menjadi qafiyah, asal rawiy dan ridf-nya sama (ـوتُ)."
+        },
+        {
+          "bait": [
+            "وَلَعَمْرِي عَنْ قَلِيلٍ",
+            "كُلُّ مَنْ فِيهَا يَمُوتُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Demi hidupku, tidak lama lagi semua yang ada di dunia akan mati.",
+          "sumber": "Bait keempat qashidah yang sama (Wikisource, dinisbatkan kepada 'Ali bin Abi Thalib).",
+          "catatan": "Empat bait, satu qafiyah: ثُبُوتُ، الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ. Model untuk tugas pelajaran ini."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+          "وَاجْعَلِ الْإِخْلَاصَ ذُخْرَا"
+        ],
+        "bahr": "ramalMajzu",
+        "makna": "Bersegeralah kepada kebaikan sepanjang masa, dan jadikan keikhlasan sebagai simpananmu.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "teks",
+            "kata": "Kita susun satu bait dengan qafiyah muthlaqah alif. Ini bait latihan susunan saya, bukan kutipan.",
+            "papan": "Makna: bersegeralah berbuat baik, jadikan ikhlas sebagai bekal.\nQafiyah: ـرَا (rawiy ر fathah + alif, tanpa ridf)"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Draf pertama: وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا. Taf'ilah kedua jadi لَاصَلَكَذُخْرَا = 101111010: kelebihan dua huruf hidup dari لَكَ.",
+            "bait": [
+              "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+              "وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Buang لَكَ. Makna \"untukmu\" sudah tersirat dari perintah. Timbang lagi: lurus.",
+            "bait": [
+              "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+              "وَاجْعَلِ الْإِخْلَاصَ ذُخْرَا"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "Periksa syathr pertama. سَارِعِ الْخَيْرَاتِ: kasrah penyambung, lalu hamzah washal gugur: سَارِعِلْخَيْ. دَهْرَا di ujung syathr: alif dibaca karena qafiyah muthlaqah."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "سَارِعِلْ خَيْ = 1011010. رَاتِدَهْ رَا = 1011010. Dua فَاعِلَاتُنْ utuh."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**. وَاجْعَلِ الْإِخْلَاصَ: hamzah washal di وَاجْ dan di الْإِخْ sama-sama gugur, وَجْعَلِلْإِخْ."
+        }
+      },
+      "qaidah": [
+        "**Sebelum menyusun, putuskan wajah qafiyah**: muthlaqah (alif, ya, atau waw) atau muqayyadah. Muthlaqah paling mudah untuk ramal majzu'.",
+        "Ruang ramal majzu' sempit. Kata seperti لَكَ، قَدْ، فِي sering membuat kelebihan huruf. **Buang dulu**, baru cari pengganti.",
+        "Kata pendek yang pas untuk ujung فَاعِلَاتُنْ: فَعْلَا (دَهْرَا، ذُخْرَا، صَبْرَا), atau فُعُولُ setelah satu suku panjang (يَا ثُبُوتُ، فِيهَا يَمُوتُ).",
+        "Nasyid berirama ramal majzu' boleh didengar untuk melatih telinga. Liriknya tidak disalin; yang ditiru hanya iramanya."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Qafiyah ـرَا (دَهْرَا). Mana yang sah untuk bait berikutnya?",
+          "pilihan": [
+            "صَبْرَا",
+            "صَبْرِي",
+            "الصَّبْرْ",
+            "نَارَا"
+          ],
+          "jawaban": 0,
+          "alasan": "صَبْرَا: rawiy ر fathah, tanpa ridf. صَبْرِي harakatnya kasrah. الصَّبْرْ disukunkan. نَارَا punya ridf alif, padahal دَهْرَا tanpa ridf."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Susun **4 bait ramal majzu'** dengan satu qafiyah. Tentukan wajah qafiyah di bait 1, lalu setia. Timbang setiap bait; periksa qafiyahnya; salin keempatnya ke Diwan.",
+          "bahr": "ramalMajzu",
+          "makna": "Usul tema: dunia sebentar, ilmu dan amal yang kekal. Usul qafiyah: ـرَا (دَهْرَا، ذُخْرَا، صَبْرَا، أَجْرَا) atau ـوتُ / ـيتُ.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "rancangan": [
+            "Ajakan: bersegera kepada kebaikan",
+            "Dunia itu sebentar",
+            "Bekal yang kekal: ilmu dan ikhlas",
+            "Doa penutup"
+          ],
+          "judulDiwan": "Empat bait ramal majzu'"
+        }
+      ],
+      "patokan": "Empat bait ramal majzu', satu qafiyah, semuanya 0 patah, tersimpan di Diwan. Tulis di catatan wajah qafiyah yang Anda pilih.",
+      "dengar": [
+        {
+          "judul": "Nasyid «Ma laha al-arwah asra», Musa al-'Umairah",
+          "url": "https://www.youtube.com/watch?v=_Lxx0h4plx4",
+          "catatan": "Irama ramal majzu', sama dengan cetakan Modul 0. Dengarkan iramanya saja; liriknya tidak disalin di sini."
+        }
+      ]
+    }
+  ],
+  "laci": [
+    { "teks": "إِنَّمَا الدُّنْيَا", "arti": "dunia ini hanyalah", "laci": "hasyw", "catatan": "Satu فَاعِلَاتُنْ penuh: إِنْنَمَدْدُنْ.", "dari": "Diwan 'Ali" },
+    { "teks": "فَنَاءٌ", "arti": "kefanaan", "laci": "umum", "dari": "Diwan 'Ali" },
+    { "teks": "ثُبُوتُ", "arti": "ketetapan, keabadian", "laci": "qafiyah", "catatan": "Qafiyah ـوتُ muthlaqah. Pasangan: الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ.", "dari": "Diwan 'Ali" },
+    { "teks": "الْعَنْكَبُوتُ", "arti": "laba-laba", "laci": "qafiyah", "dari": "Diwan 'Ali" },
+    { "teks": "قُوتُ", "arti": "makanan pokok, bekal hidup", "laci": "qafiyah", "dari": "Diwan 'Ali" },
+    { "teks": "يَمُوتُ", "arti": "akan mati", "laci": "qafiyah", "dari": "Diwan 'Ali" },
+    { "teks": "وَلَعَمْرِي", "arti": "demi hidupku", "laci": "hasyw", "catatan": "Pola 111010, فَعِلَاتُنْ: pembuka syathr ramal.", "dari": "Diwan 'Ali" },
+    { "teks": "عَنْ قَلِيلٍ", "arti": "tidak lama lagi", "laci": "hasyw", "dari": "Diwan 'Ali" },
+    { "teks": "أَيُّهَا الطَّالِبُ", "arti": "wahai pencari", "laci": "hasyw", "dari": "Diwan 'Ali" },
+    { "teks": "الزَّبُورِ", "arti": "kitab, tulisan", "laci": "qafiyah", "catatan": "Ridf و; boleh berpasangan dengan حَرِيرِ، أَمِيرِ (ridf ي).", "dari": "Syahid al-'Iqd al-Farid" },
+    { "teks": "حَرِيرِ", "arti": "sutra", "laci": "qafiyah", "catatan": "Ridf ي; pasangan الزَّبُورِ.", "dari": "al-'Iqd al-Farid" },
+    { "teks": "دَارِسَاتٌ", "arti": "yang hampir terhapus", "laci": "wazan", "catatan": "Jamak فَاعِلَاتٌ: tepat satu فَاعِلَاتُنْ.", "dari": "Syahid al-'Iqd al-Farid" },
+    { "teks": "طَالِبَ الْعِلْمِ", "arti": "wahai penuntut ilmu", "laci": "hasyw", "catatan": "Munada mudhaf, satu فَاعِلَاتُنْ.", "dari": "Bait latihan Bonus ramal" },
+    { "teks": "فِي الطَّلَبْ", "arti": "dalam mencari (ilmu)", "laci": "qafiyah", "catatan": "Muqayyadah tanpa ridf: ujung فَاعِلُنْ.", "dari": "Bait latihan Bonus ramal" },
+    { "teks": "رِضْوَانْ", "arti": "keridaan", "laci": "qafiyah", "catatan": "Muqayyadah dengan ridf alif: ujung فَاعِلَاتَانْ.", "dari": "Bait latihan Bonus ramal" },
+    { "teks": "دَهْرَا", "arti": "sepanjang masa", "laci": "qafiyah", "catatan": "Muthlaqah alif. Pasangan: ذُخْرَا، صَبْرَا، أَجْرَا.", "dari": "Bait latihan Bonus ramal" },
+    { "teks": "ذُخْرَا", "arti": "simpanan, bekal", "laci": "qafiyah", "dari": "Bait latihan Bonus ramal" },
+    { "teks": "سَارِعِ الْخَيْرَاتِ", "arti": "bersegeralah kepada kebaikan", "laci": "hasyw", "dari": "Bait latihan Bonus ramal" }
+  ]
+}
