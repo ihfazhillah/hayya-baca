@@ -15,7 +15,7 @@
 .btn-besar:hover { background: var(--color-accent-hover); }
 .btn-besar:disabled { opacity: 0.5; cursor: default; }
 .btn-besar.sekunder { background: var(--color-surface); color: var(--color-accent); border: 2px solid var(--color-accent); }
-button, a.btn, .btn { min-height: 44px; }
+button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 
 /* Kartu umum */
 .kartu { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md);
@@ -28,11 +28,15 @@ button, a.btn, .btn { min-height: 44px; }
 .teks-latihan { background: var(--color-surface); border: 1px solid var(--color-border);
   border-left: 5px solid var(--color-accent); border-radius: var(--radius-md); padding: var(--space-6);
   font-size: var(--text-xl); line-height: 2; }
-.kata { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px;
-  padding: 0 2px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer;
-  border-radius: 6px; border-bottom: 3px solid transparent; vertical-align: baseline; }
+/* Lebar tombol mengikuti teks supaya tidak muncul spasi palsu sebelum tanda baca
+   (penting untuk Kaca Pembesar). Area sentuh 44px dibuat lewat ::after tanpa menggeser teks. */
+.kata { display: inline-block; position: relative; min-height: 0; padding: 0; margin: 0; border: 0;
+  background: none; font: inherit; color: inherit; cursor: pointer; line-height: inherit;
+  border-radius: 4px; border-bottom: 3px solid transparent; vertical-align: baseline; }
+.kata::after { content: ''; position: absolute; left: -4px; right: -4px; top: 50%; height: 44px;
+  transform: translateY(-50%); }
+.kata.tanda::after { left: -2px; right: -2px; }
 .kata:hover { background: var(--color-accent-light); }
-.kata.tanda { min-width: 28px; }
 .kata.ditemukan { background: var(--color-success-light); border-bottom-color: var(--color-success); }
 .kata.meleset { animation: goyang 300ms var(--ease-out); }
 .kata.nyala { background: color-mix(in srgb, var(--color-actor-3) 22%, transparent); }
