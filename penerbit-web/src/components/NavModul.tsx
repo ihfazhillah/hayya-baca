@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
-type TitikPeta = { nomor: number; judul: string; status: 'selesai' | 'aktif' | 'terkunci' }
+type TitikPeta = { nomor: number; judul: string; status: 'selesai' | 'aktif' | 'terbuka' | 'terkunci' }
 
-const STATUS = { selesai: 'selesai', aktif: 'sedang dikerjakan', terkunci: 'terkunci' } as const
+const STATUS = { selesai: 'selesai', aktif: 'sedang dikerjakan', terbuka: 'terbuka', terkunci: 'terkunci' } as const
 
 /** Titik modul bernomor di nav. Modul terkunci tampil dengan gembok dan tidak bisa diklik. */
 export function TitikModul({ peta, nomor }: { peta: TitikPeta[]; nomor?: number }) {

@@ -93,7 +93,7 @@ export interface Beranda {
     perkiraan_menit: number
   } | null
   pemanasan: { alat: string[]; ada: boolean }
-  peta: { nomor: number; judul: string; level: number; emoji: string; status: 'selesai' | 'aktif' | 'terkunci' }[]
+  peta: { nomor: number; judul: string; level: number; emoji: string; status: 'selesai' | 'aktif' | 'terbuka' | 'terkunci' }[]
   alat: { kode: string; nama: string; emoji: string; warna: string; stiker: Tingkat[] }[]
   pangkat: string | null
   poin: number

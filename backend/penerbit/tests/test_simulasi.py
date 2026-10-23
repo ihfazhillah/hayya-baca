@@ -39,6 +39,10 @@ class TestSimulasi(Keluarga):
         m = Misi.objects.get(modul__nomor=5, urutan=2)
         assert self.ortu.get(f"/api/penerbit/misi/{m.id}/", **SIM).status_code == 200
 
+    def test_peta_simulasi_tidak_menampilkan_gembok(self):
+        peta = self.ortu.get("/api/penerbit/beranda/", **SIM).data["peta"]
+        assert [p["status"] for p in peta] == ["aktif"] + ["terbuka"] * 4
+
     def test_mulai_ulang_menghapus_progres_simulasi_saja(self):
         m = Misi.objects.get(modul__nomor=1, urutan=4)
         self.ortu.post(f"/api/penerbit/misi/{m.id}/tandai/", {"log": "coba"}, format="json", **SIM)

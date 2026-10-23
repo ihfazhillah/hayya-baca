@@ -155,7 +155,7 @@ function IsiBeranda({ data, statusAlat }: { data: DataBeranda; statusAlat: Alat[
               <span className="ph-peta-nama">Level {lv}{NAMA_LEVEL[lv] ? ` · ${NAMA_LEVEL[lv]}` : ''}</span>
               <ul className="ph-titik-daftar">
                 {modul.map((m) => {
-                  const label = `Modul ${m.nomor}, ${m.judul}, ${m.status === 'selesai' ? 'selesai' : m.status === 'aktif' ? 'sedang dikerjakan' : 'terkunci'}`
+                  const label = `Modul ${m.nomor}, ${m.judul}, ${m.status === 'selesai' ? 'selesai' : m.status === 'aktif' ? 'sedang dikerjakan' : m.status === 'terbuka' ? 'terbuka' : 'terkunci'}`
                   return (
                     <li key={m.nomor}>
                       {m.status === 'terkunci' ? (

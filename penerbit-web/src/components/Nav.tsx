@@ -6,7 +6,7 @@ import { TitikModul } from './NavModul'
 
 /** Nav area Penulis: judul course, titik modul, nama penulis + poin. */
 export function NavPenulis({ titik = [], poin }: {
-  titik?: { nomor: number; judul: string; status: 'selesai' | 'aktif' | 'terkunci' }[]
+  titik?: { nomor: number; judul: string; status: 'selesai' | 'aktif' | 'terbuka' | 'terkunci' }[]
   poin?: number
 }) {
   const { me } = useMe()
@@ -49,7 +49,7 @@ function BannerSimulasi() {
   }
   return (
     <div className="banner-simulasi tidak-dicetak" role="status">
-      <span>Mode simulasi: progres di sini terpisah dari anak. Semua modul terbuka.</span>
+      <span className="banner-teks">Mode simulasi<span className="banner-rinci">: progres di sini terpisah dari anak. Semua modul terbuka.</span></span>
       <button type="button" className="btn btn-ghost" onClick={ulang}>Mulai ulang simulasi</button>
       <button type="button" className="btn btn-ghost" onClick={keluar}>Kembali ke Pojok Orang Tua</button>
     </div>

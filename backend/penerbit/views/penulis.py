@@ -59,6 +59,8 @@ def peta_perjalanan(profil):
             s = "selesai"
         elif not aktif_ditemukan and modul_terbuka(profil, m):
             s, aktif_ditemukan = "aktif", True
+        elif modul_terbuka(profil, m):
+            s = "terbuka"  # simulasi orang tua: semua modul terbuka
         else:
             s = "terkunci"
         peta.append({"nomor": m.nomor, "judul": m.judul, "level": m.level, "emoji": m.emoji,
