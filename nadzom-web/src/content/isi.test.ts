@@ -29,7 +29,7 @@ for (const modul of MODUL) {
         it('bait peragaan lurus, dan setiap langkah timbang sesuai harapannya', () => {
           expect(timbang(p.bahts.bait, p.bahts.bahr).patah).toBe(0)
           for (const l of p.bahts.langkah) {
-            if (l.tampil === 'timbang') expect(timbang(l.bait!, p.bahts.bahr).patah, l.bait!.join(' / ')).toBe(l.patah ?? 0)
+            if (l.tampil === 'timbang') expect(timbang(l.bait ?? p.bahts.bait, p.bahts.bahr).patah, (l.bait ?? p.bahts.bait).join(' / ')).toBe(l.patah ?? 0)
             if (l.tampil === 'teks') expect(l.papan).toBeTruthy()
           }
           expect(p.bahts.giliran.syathr).toBeLessThan(p.bahts.bait.length)
