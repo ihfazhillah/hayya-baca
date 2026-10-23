@@ -1,6 +1,6 @@
 # 076 · Course Nadzom & Syair untuk Orang 'Ajam
 
-Status: draf revisi 2, menunggu persetujuan pemilik.
+Status: draf revisi 3, menunggu persetujuan pemilik.
 Blueprint isi: https://claude.ai/artifact/6njYwBmekyV5PRu492tvbo (Claude Docs, 2026-10-21).
 
 ## Masalah
@@ -52,17 +52,26 @@ kurikulumnya (3 babak, modul 0–10, 3 Boss, bonus). Yang belum ada: tempat menj
 - Tandai modul selesai (checkbox manual). Disimpan di localStorage perangkat itu saja; hilang pun
   tidak masalah.
 
-### K2. Halaman modul (satu template, isi dari JSON)
-Urutan tetap mengikuti blueprint:
-1. Analogi pembuka
-2. Dengar: bait model (teks Arab berharakat, RTL) + tautan YouTube ke menitnya
-3. Kunci bahr (teks + pola)
-4. Langkah-langkah dengan centang
-5. Mengapa ini bekerja
-6. Ujian: pilihan ganda ("mana yang pincang?", "taf'ilah mana yang patah?"), umpan balik langsung
-7. Misi mini: instruksi + checker tertanam
+### K2. Halaman modul: pola an-Nahwul Wadhih
+Setiap pelajaran mengikuti alur *an-Nahwul Wadhih* (pilihan pemilik), yang sudah akrab bagi pelajar
+bahasa Arab: contoh dulu, lalu pembahasan, kaidah, dan latihan bertingkat.
 
-Isi modul adalah data (`content/modul-NN.json`), bukan kode per modul.
+1. **الأمثلة**: 2–4 bait model berharakat (RTL), masing-masing dengan tautan ke menit
+   nasyid/video bila ada. Pembukanya satu kalimat analogi.
+2. **البحث**: pembahasan terpandu berupa pertanyaan yang **dikerjakan**, bukan dibaca: "tulis
+   kitabah 'arudhiyyah bait 1", "tandai mutaharrik dan sakin", "potong per taf'ilah". Checker
+   memeriksa tiap langkah (lihat K3, mode bertahap). Setelah dikerjakan, jawabannya dibuka dan
+   dibahas.
+3. **القاعدة**: kaidah dalam kotak, singkat, dengan istilah Arab dan jembatan ke ilmu yang sudah
+   dikenal.
+4. **التمرينات**: latihan bertingkat, dari mengenali sampai membuat:
+   - تمرين ١, kenali: mana bait yang wazannya rajaz, mana yang pincang (pilihan ganda).
+   - تمرين ٢, taqthi': kerjakan bait baru dengan langkah bertahap.
+   - تمرين ٣, isi: lengkapi template bait dengan kata sendiri.
+   - تمرين ٤, susun: bait sendiri. Ini **hasil sesi**, disalin ke Diwan.
+
+Setiap sesi ditutup dengan **patokan**: target yang dicek checker. Isi modul adalah data
+(`content/modul-NN.json`), bukan kode per modul. Satu modul bisa berisi 1–3 pelajaran (= sesi).
 
 ### K3. Checker wazan
 - Masukan: teks Arab berharakat (utama) atau suku kata Latin (`ma-la-hal-ar-waa`), satu syathr per
@@ -73,6 +82,11 @@ Isi modul adalah data (`content/modul-NN.json`), bukan kode per modul.
   **patah**. Ringkasan: jumlah taf'ilah patah.
 - Versi bertahap mengikuti blueprint: v1 (Modul 0: rajaz + ramal), v2 (Modul 3: zihaf rajaz),
   v3 (Babak 2–3: ketujuh bahr kunci).
+- **Mode bertahap** (bawaan untuk pemula; metode Abu Qudamah): pengguna mengerjakan sendiri
+  (1) kitabah 'arudhiyyah, (2) tanda mutaharrik/sakin, (3) sabab/watad, (4) taf'ilah, (5) bahr.
+  Checker memeriksa tiap langkah dan menunjukkan letak salahnya, tanpa langsung memberi jawaban.
+  Tombol "lihat jawaban" tersedia setelah mencoba.
+- **Mode cepat**: langsung menampilkan hasil lengkap, untuk dipakai setelah mahir.
 - Juga tersedia sebagai halaman tersendiri (`/checker`) untuk dipakai di luar modul.
 - Deterministik, tanpa AI. Diuji dengan bait-bait model dari blueprint.
 
@@ -107,10 +121,16 @@ Isi modul adalah data (`content/modul-NN.json`), bukan kode per modul.
 - Taf'ilah dikenalkan dulu dalam bentuk **utuh** (salim), seperti belajar wazan sharaf dari
   bentuk asalnya sebelum i'lal dan ibdal. Perubahan (zihaf, 'illah) baru dibahas setelah telinga
   dan mata terbiasa dengan bentuk utuh.
-- Bait model pertama Modul 0 harus rajaz yang **seluruh taf'ilahnya utuh**. Kandidat: syahid
-  rajaz tam di kitab 'arudh, دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ / قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ
-  (perlu dicek ulang dengan kitab sebelum dipakai). Rajaz Khandaq (*Nahnu alladzina*) tetap
-  diperdengarkan, tetapi dibedah sebagai contoh utama di Modul 3.
+- Bait model pertama Modul 0 adalah syahid rajaz tam dengan 'arudh shahihah dan dharb shahih:
+
+  > دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ ... قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ
+
+  Dikutip Ibnu ad-Damamini, *al-'Uyun al-Ghamizah 'ala Khabaya ar-Ramizah* (hlm. 138–146), juga
+  as-Sakkaki, *Miftah al-'Ulum*, bab rajaz. Kitab itu menyebut "ما جارتن" ('arudh) dan "مثل ززبر"
+  (dharb) sama-sama مستفعلن. Hitungan kita: keenam taf'ilah `– – ب –`, utuh semua. Riwayat lain
+  memakai "قفرًا"; wazannya sama.
+  Rajaz Khandaq (*Nahnu alladzina*) tetap diperdengarkan, tetapi dibedah sebagai contoh utama di
+  Modul 3.
 - Checker v1 menilai terhadap bentuk utuh. Taf'ilah yang tidak utuh tapi cocok dengan zihaf yang
   dikenal **tidak** ditandai patah; ditandai "berubah, dibahas di Modul 3". Hanya yang tidak cocok
   dengan apa pun yang ditandai patah. Jadi bait Khandaq tidak dicap pincang, padahal sah.
