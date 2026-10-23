@@ -128,7 +128,8 @@ function timbangDenganPilihan(huruf: Huruf[], slot: Bentuk[][]): HasilSyathr {
     const buang = new Set(opsional.filter((_, k) => !(mask & (1 << k))))
     const pakai = huruf.filter((_, i) => !buang.has(i)).map(({ opsional: _o, ...h }) => h)
     const r = timbangSyathr(pakai, slot)
-    const skor = r.patah * 10 + r.potongan.filter((x) => x.status === 'berubah').length + buang.size * 0.001
+    const berubah = r.potongan.filter((x) => x.status === 'berubah')
+    const skor = r.patah * 10 + berubah.length + berubah.filter((x) => x.bentuk.nilai === 'qabih').length * 0.5 + buang.size * 0.001
     if (skor < skorTerbaik) {
       skorTerbaik = skor
       const dipakai = opsional.filter((i) => !buang.has(i)).map((i) => `isyba' setelah ${huruf[i - 1]?.h ?? ''}`)

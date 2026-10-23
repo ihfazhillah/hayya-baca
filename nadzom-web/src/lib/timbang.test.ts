@@ -193,6 +193,19 @@ describe('review \'arudh (2026-10-23)', () => {
     expect(timbangBait(k.syathr, BAHR.rajaz).patah).toBe(0)
   })
 
+  it('hamzah washal sebelum huruf bersyaddah setelah وَ/فَ (وَاتَّخِذْ → وَتْتَخِذْ)', () => {
+    const k = kitabahBait(['وَاتَّخِذْ لِلْعِلْمِ دَارَا'], { tanpaAkhir: true })
+    if (!k.ok) throw new Error(k.galat)
+    expect(tampil(k.syathr[0].slice(0, 5))).toBe('وَتْتَخِذْ')
+  })
+
+  it('isyba\' ha dhamir setelah huruf mati boleh dipakai bila meluruskan wazan (وَجَاوِزْهُو, \'Amr bin Ma\'dikarib)', () => {
+    const h = timbangBait(kitabahOk(['إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ', 'وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ']), BAHR.wafir)
+    expect(h.patah).toBe(0)
+    expect(h.syathr[1].potongan[0].bit).toBe('1101010')
+    expect(h.syathr[1].potongan[0].bentuk.zihaf).toBe("'ashb")
+  })
+
   it('alif khanjariyah pada kata berakhiran dhamir atau ber-ال', () => {
     expect(bitLepas('لَكِنَّهُ')).toBe('101011')
     expect(bitLepas('إِلَهَكَ')).toBe('11011')

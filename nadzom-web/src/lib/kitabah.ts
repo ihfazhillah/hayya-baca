@@ -87,7 +87,8 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
       isAlif && u.harakat === null && !u.syaddah && !akhirKata &&
       (u.pos === 0 ||
         (prev.kata === u.kata && prev.harakat !== null && prev.harakat !== 'sukun' &&
-          ((u.pos === 1 && 'وفبكل'.includes(prev.dasar) && lamTarif) || sebelumSukunDalamKata)))
+          ((u.pos === 1 && 'وفبكل'.includes(prev.dasar) && lamTarif) || sebelumSukunDalamKata ||
+            (u.pos === 1 && 'وف'.includes(prev.dasar) && next?.syaddah && next.kata === u.kata))))
     if (washal) {
       sebelumnyaWashal = true
       if (mati.has('hamzahWashal')) {
@@ -162,7 +163,8 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
     const berikutHidup = kataBerikut && kataBerikut.harakat !== null && kataBerikut.harakat !== 'sukun'
     if (akhirKata && berikutHidup && !u.tanwin && (harakat === 'u' || harakat === 'i')) {
       const sebelumHidup = out.at(-2)?.bit === 1
-      const haDhamir = u.dasar === 'ه' && sebelumHidup && u.panjang > 1
+      // Setelah huruf mati (وَجَاوِزْهُ) isyba' jarang tetapi dipakai penyair; tetap pilihan.
+      const haDhamir = u.dasar === 'ه' && u.panjang > 1 && (sebelumHidup || out.at(-2)?.bit === 0)
       const mimJamaah = u.dasar === 'م' && harakat === 'u' && /(هم|كم|تم)$/.test(u.kerangkaKata)
       if (haDhamir || mimJamaah) {
         out.push({ h: MAD_DARI[harakat], bit: 0, kata: u.kata, tambahan: 'isyba', opsional: true })
