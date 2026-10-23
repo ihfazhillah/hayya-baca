@@ -1,6 +1,8 @@
 """Pemanasan Alat Lama (Roadmap: 1 hari, 3 hari, 1 minggu, 2 minggu, lalu sesekali)."""
-from datetime import timedelta
+from datetime import datetime, time, timedelta
+from zoneinfo import ZoneInfo
 
+from django.conf import settings
 from django.db.models import Count, Q
 from django.utils import timezone
 
@@ -12,8 +14,18 @@ KARTU_PER_HARI = 3
 MIN_ALAT_CAMPURAN = 2
 
 
+def zona():
+    """Zona waktu keluarga. Server memakai UTC; "hari ini" anak mengikuti jam rumah (WIB)."""
+    return ZoneInfo(getattr(settings, "PENERBIT_TIME_ZONE", "Asia/Jakarta"))
+
+
 def hari_ini():
-    return timezone.localdate()
+    return timezone.localdate(timezone=zona())
+
+
+def awal_hari(tanggal=None):
+    """Pukul 00.00 waktu rumah, sebagai datetime aware (untuk filter tanggal di database)."""
+    return datetime.combine(tanggal or hari_ini(), time.min, tzinfo=zona())
 
 
 def mulai_jadwal(profil, alat):
@@ -45,21 +57,21 @@ def alat_jatuh_tempo(profil):
     return [
         j.alat for j in JadwalUlang.objects.filter(profil=profil)
         .filter(Q(jatuh_tempo__lte=hari_ini()) | Q(terakhir=hari_ini()))
-        .select_related("alat").order_by("jatuh_tempo", "alat__urutan")
+        # Urut per alat saja: jatuh_tempo berubah setelah kartu pertama dikerjakan, dan urutan
+        # kartu (serta kartu mana yang "campuran") harus tetap sepanjang hari.
+        .select_related("alat").order_by("alat__urutan", "alat_id")
     ]
 
 
 def kartu_hari_ini(profil):
     """Sampai 3 kalimat, bergiliran antar alat jatuh tempo. Stabil sepanjang hari."""
-    awal_hari = timezone.make_aware(
-        timezone.datetime.combine(hari_ini(), timezone.datetime.min.time())
-    )
+    awal = awal_hari()
     antrean = []
     for alat in alat_jatuh_tempo(profil):
         qs = (
             KalimatLatihan.objects.filter(alat=alat)
             .annotate(n=Count("hasillatihan", filter=Q(
-                hasillatihan__profil=profil, hasillatihan__tanggal__lt=awal_hari)))
+                hasillatihan__profil=profil, hasillatihan__tanggal__lt=awal)))
             .order_by("n", "kode")
         )
         antrean.append(list(qs))

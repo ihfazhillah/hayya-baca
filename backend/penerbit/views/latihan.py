@@ -17,7 +17,9 @@ def alat_ringkas(alat):
 
 
 def percobaan_latihan(profil, kalimat):
-    p = Percobaan.objects.filter(profil=profil, kalimat=kalimat, selesai=False).last()
+    """Lihat percobaan_aktif: dikunci, panggil di dalam transaction.atomic."""
+    p = Percobaan.objects.select_for_update().filter(
+        profil=profil, kalimat=kalimat, selesai=False).order_by("id").last()
     return p or Percobaan.objects.create(profil=profil, kalimat=kalimat)
 
 
@@ -44,12 +46,14 @@ class LatihanView(PenulisView):
         dipelajari = list(jadwal.alat_dipelajari(profil))
         campuran = len(dipelajari) >= jadwal.MIN_ALAT_CAMPURAN
         selesai_hari_ini = set(
-            HasilLatihan.objects.filter(profil=profil, tanggal__date=jadwal.hari_ini())
+            HasilLatihan.objects.filter(profil=profil, tanggal__gte=jadwal.awal_hari())
             .values_list("kalimat_id", flat=True)
         )
         kartu = []
         for i, k in enumerate(jadwal.kartu_hari_ini(profil)):
-            p = Percobaan.objects.filter(profil=profil, kalimat=k).last()
+            # Hanya percobaan hari ini: tebakan alat kemarin tidak membuka alat hari ini.
+            p = Percobaan.objects.filter(profil=profil, kalimat=k,
+                                         created_at__gte=jadwal.awal_hari()).last()
             sembunyikan = campuran and i >= 1 and not (p and p.alat_benar)
             kartu.append({
                 "id": k.id,
@@ -69,6 +73,7 @@ class LatihanView(PenulisView):
 class LatihanAlatView(PenulisView):
     """Latihan campuran: anak memilih alat dulu."""
 
+    @transaction.atomic
     def post(self, request, pk):
         k = ambil_kalimat(request, pk)
         alat = Alat.objects.filter(kode=request.data.get("alat")).first()
@@ -123,7 +128,7 @@ class LatihanPeriksaView(PenulisView):
             hasil = penilaian.nilai_gunting(k.data, potong)
             p.selesai = True
             p.save()
-            return Response({**hasil, **selesaikan(request, k, p, hasil["benar"], hasil["total"])})
+            return Response({**hasil, **selesaikan(request, k, p, hasil["skor"], hasil["total"])})
         if k.jenis == Misi.Jenis.KEMBAR:
             if not penilaian.nilai_kembar(k.data, request.data.get("kata")):
                 p.meleset += 1

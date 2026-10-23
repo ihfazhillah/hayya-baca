@@ -119,7 +119,19 @@ class TestGuntingKembar(Dasar):
         assert r.data["kurang"] == 0
         assert "versi_benar" in r.data
         h = HasilMisi.objects.filter(misi=m).first()  # terbaru
-        assert (h.benar, h.total) == (2, 2)
+        # Potongan yang tidak perlu mengurangi skor untuk syarat Perak (respons tetap 2 dari 2).
+        assert r.data["benar"] == 2
+        assert (h.benar, h.total) == (1, 2)
+
+    def test_gunting_potong_semua_spasi_bukan_skor_penuh(self):
+        m = self.misi(2, 2)
+        semua = [t["i"] for t in m.data["tokens"] if t["j"] == "spasi"]
+        r = self.anak.post(f"/api/penerbit/misi/{m.id}/periksa/", {"potong": semua},
+                           format="json")
+        assert r.data["kurang"] == 0
+        assert r.data["tidak_perlu"]
+        h = HasilMisi.objects.filter(misi=m).first()
+        assert h.benar < h.total
 
     def test_kembar_salah_lalu_benar(self):
         m = self.misi(3, 3)
@@ -155,6 +167,13 @@ class TestMisiLain(Dasar):
         r = self.anak.post(f"/api/penerbit/ujian/{s.id}/jawab/", {"pilihan": "a"}, format="json")
         assert r.data["benar"] is False
         assert "tapi tapi" in r.data["alasan"]
+
+    def test_latihan_bertanya_modul_terkunci_tidak_membuka_jawaban(self):
+        r = self.anak.post("/api/penerbit/bertanya/2/jawab/", {"pilihan": "a"}, format="json")
+        assert r.status_code == 403
+        selesaikan_modul(self.profil, 1)
+        r = self.anak.post("/api/penerbit/bertanya/2/jawab/", {"pilihan": "a"}, format="json")
+        assert r.status_code == 200
 
     def test_modul_terkunci_sebelum_modul_sebelumnya_selesai(self):
         m = self.misi(2, 1)

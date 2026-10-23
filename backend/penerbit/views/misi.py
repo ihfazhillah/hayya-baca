@@ -21,7 +21,10 @@ def ambil_misi(request, pk):
 
 
 def percobaan_aktif(profil, misi):
-    p = Percobaan.objects.filter(profil=profil, misi=misi, selesai=False).last()
+    """Percobaan berjalan, dikunci sampai transaksi selesai: dua klik yang datang bersamaan
+    tidak saling menimpa `ditemukan` (Postgres). Panggil di dalam transaction.atomic."""
+    p = Percobaan.objects.select_for_update().filter(
+        profil=profil, misi=misi, selesai=False).order_by("id").last()
     return p or Percobaan.objects.create(profil=profil, misi=misi)
 
 
@@ -116,6 +119,7 @@ class KlikView(PenulisView):
 
 
 class PetunjukView(PenulisView):
+    @transaction.atomic
     def post(self, request, pk):
         misi = ambil_misi(request, pk)
         if misi.jenis != Misi.Jenis.KLIK:
@@ -157,7 +161,8 @@ class PeriksaView(PenulisView):
                 raise ValidationError("Kirim daftar potong.")
             hasil = penilaian.nilai_gunting(misi.data, potong)
             baru = catat_hasil(request.profil, misi, status=HasilMisi.Status.SELESAI,
-                               benar=hasil["benar"], total=hasil["total"])
+                               benar=hasil["skor"], total=hasil["total"],
+                               meleset=len(hasil["tidak_perlu"]))
             return Response({**hasil, **selesai_respons(misi, None, baru)})
         if misi.jenis == Misi.Jenis.KEMBAR:
             p = percobaan_aktif(request.profil, misi)
@@ -219,6 +224,8 @@ class UjianJawabView(PenulisView):
 class BertanyaJawabView(PenulisView):
     def post(self, request, nomor):
         modul = get_object_or_404(Modul, nomor=nomor)
+        if not modul_terbuka(request.profil, modul):
+            raise PermissionDenied(pesan_terkunci(modul))
         soal = getattr(modul, "bertanya", None)
         if soal is None:
             raise ValidationError("Modul ini tidak punya Latihan Bertanya.")

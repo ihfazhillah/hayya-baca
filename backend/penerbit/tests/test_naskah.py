@@ -128,6 +128,19 @@ class TestRevisi(Dasar):
         assert r.data["teks"] == "Mata Fatih panas."
         assert r.data["lapis"] == "kamera"
 
+    def test_simpan_versi_dua_kali_tanpa_perubahan_tidak_menggandakan(self):
+        # Tombol "Simpan sebagai Versi n" ditekan dua kali (atau dikirim ulang setelah timeout).
+        nid = self.naskah_baru()
+        self.ke_revisi(nid)
+        self.simpan(nid, "Mata Fatih panas.", waktu=3000, lapis="kamera")
+        r1 = self.versi(nid, lapis="kamera")
+        r2 = self.versi(nid, lapis="kamera")
+        assert r1.data["nomor"] == r2.data["nomor"] == 2
+        assert r2.status_code == 200
+        assert Versi.objects.filter(naskah_id=nid).count() == 2
+        self.simpan(nid, "Mata Fatih panas sekali.", waktu=4000, lapis="kamera")
+        assert self.versi(nid, lapis="kamera").data["nomor"] == 3
+
     def test_versi_revisi_butuh_lapis_yang_dikenal(self):
         nid = self.naskah_baru()
         self.ke_revisi(nid)

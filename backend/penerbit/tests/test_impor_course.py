@@ -76,7 +76,7 @@ class TestImpor(TestCase):
 
     def test_celah_tepi_hanya_celah_celah_tengah_terima_tanda(self):
         impor_folder(tulis(self.tmp, modul(
-            teks="keluar.cacing itu jahat",
+            teks="keluar.cacing itu jahat", celah=True,
             kesalahan=[{"cari": ".|cacing"}, {"cari": "jahat|"}],
         )))
         kunci = Misi.objects.get(modul__nomor=91, urutan=1).data["kunci"]
@@ -96,6 +96,22 @@ class TestImpor(TestCase):
         m["misi"][1]["lembar"] = "X-9"
         with pytest.raises(CommandError, match="X-9"):
             impor_folder(tulis(self.tmp, m))
+
+    def test_kesalahan_tanpa_kata_butuh_mode_celah(self):
+        # Tanpa celah: spasi tidak bisa diklik dan tanda baca tidak bisa diklik → misi mustahil.
+        data = modul(teks="Dia di rumah .", kesalahan=[{"cari": " ."}], versi_benar="Dia di rumah.")
+        with pytest.raises(CommandError, match="tidak bisa diklik"):
+            impor_folder(tulis(self.tmp, data))
+        data = modul(teks="Dia di rumah .", kesalahan=[{"cari": " ."}], celah=True,
+                     versi_benar="Dia di rumah.")
+        impor_folder(tulis(self.tmp, data))
+
+    def test_kembar_kata_terbanyak_harus_diterima(self):
+        data = modul(jenis="kembar", teks="Oren makan. Oren minum. Lalu Oren tidur. Lalu pulang.",
+                     kata=["lalu"])
+        data["misi"][0].pop("kesalahan")
+        with pytest.raises(CommandError, match="oren"):
+            impor_folder(tulis(self.tmp, data))
 
     def test_perintah_manage(self):
         call_command("impor_course", str(tulis(self.tmp, modul())))

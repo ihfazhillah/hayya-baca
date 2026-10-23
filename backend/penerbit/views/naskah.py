@@ -192,11 +192,19 @@ class SimpanView(PenulisView):
 class VersiBaruView(PenulisView):
     @transaction.atomic
     def post(self, request, pk):
-        n = ambil_naskah(request, pk)
+        # Kunci baris naskah: dua permintaan bersamaan tidak membuat nomor versi yang sama.
+        n = Naskah.objects.select_for_update().get(pk=ambil_naskah(request, pk).pk)
         draf = getattr(n, "draf", None)
         if draf is None or not draf.teks.strip():
             raise ValidationError("Belum ada tulisan untuk disimpan.")
-        nomor = n.versi.count() + 1
+        terakhir = n.versi.order_by("-nomor").first()
+        if (n.tahap == Naskah.Tahap.REVISI and terakhir is not None
+                and terakhir.lapis == (request.data.get("lapis") or "")
+                and (terakhir.teks, terakhir.isi, terakhir.sorotan)
+                == (draf.teks, draf.isi, draf.sorotan)):
+            # Tombol ditekan dua kali / dikirim ulang: draf sama persis dengan versi terakhir.
+            return Response({"nomor": terakhir.nomor, "lapis": terakhir.lapis, "hadiah_baru": []})
+        nomor = (terakhir.nomor if terakhir else 0) + 1
         if n.tahap == Naskah.Tahap.DRAF_NOL:
             lapis = ""
         elif n.tahap == Naskah.Tahap.REVISI and n.laci_dibuka:

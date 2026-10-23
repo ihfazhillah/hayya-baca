@@ -12,7 +12,7 @@ from rest_framework.response import Response
 
 from accounts.models import is_child_account
 
-from .. import hadiah
+from .. import hadiah, jadwal
 from ..models import (
     LAPIS_STEMPEL, Alat, BagiNaskah, CatatanNaskah, Hadiah, HasilLatihan, HasilMisi, Jejak,
     KartuUlasan, Modul, Naskah, PemeriksaanLembar, Penukaran, Poin, Prompt, Stempel,
@@ -35,9 +35,9 @@ def nama(user):
 
 
 def awal_minggu():
-    hari = timezone.localdate()
-    senin = hari - timedelta(days=hari.weekday())
-    return timezone.make_aware(timezone.datetime.combine(senin, timezone.datetime.min.time()))
+    """Senin 00.00 waktu rumah (WIB), bukan UTC."""
+    hari = jadwal.hari_ini()
+    return jadwal.awal_hari(hari - timedelta(days=hari.weekday()))
 
 
 def modul_berikutnya(profil):
@@ -67,9 +67,10 @@ class DasborView(OrtuView):
     def get(self, request):
         profil = self.profil(request)
         sejak = awal_minggu()
-        hari_misi = HasilMisi.objects.filter(profil=profil, tanggal__gte=sejak).dates("tanggal", "day")
-        hari_latihan = HasilLatihan.objects.filter(profil=profil, tanggal__gte=sejak).dates(
-            "tanggal", "day")
+        hari_misi = HasilMisi.objects.filter(profil=profil, tanggal__gte=sejak).datetimes(
+            "tanggal", "day", tzinfo=jadwal.zona())
+        hari_latihan = HasilLatihan.objects.filter(profil=profil, tanggal__gte=sejak).datetimes(
+            "tanggal", "day", tzinfo=jadwal.zona())
         kata = sum(len(v.teks.split()) for v in
                    Versi.objects.filter(naskah__profil=profil, tanggal__gte=sejak, nomor=1))
         berikut = modul_berikutnya(profil)
@@ -270,10 +271,24 @@ class BagikanView(OrtuView):
                         status=status.HTTP_201_CREATED)
 
 
+EKSTENSI_SAMPUL = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
+
+
+def sampul_aman(berkas):
+    """Hanya gambar raster: sampul disajikan dari origin yang sama dengan token login, jadi
+    HTML/SVG yang diunggah bisa menjalankan skrip."""
+    ext = ("." + berkas.name.rsplit(".", 1)[-1].lower()) if "." in berkas.name else ""
+    jenis = (getattr(berkas, "content_type", "") or "").lower()
+    if ext not in EKSTENSI_SAMPUL or not jenis.startswith("image/") or "svg" in jenis:
+        raise ValidationError("Sampul harus berupa gambar PNG, JPG, WEBP, atau GIF.")
+    return berkas
+
+
 class TerbitkanView(OrtuView):
     @transaction.atomic
     def post(self, request, pk):
-        n = ambil_naskah_ortu(request, pk)
+        # Kunci baris: tombol Terbitkan yang ditekan dua kali tidak menerbitkan dua kali.
+        n = Naskah.objects.select_for_update().get(pk=ambil_naskah_ortu(request, pk).pk)
         ada = set(n.stempel.values_list("lapis", flat=True))
         if not set(LAPIS_STEMPEL) <= ada:
             raise ValidationError("Cerita bisa terbit setelah 5 stempel lengkap.")
@@ -287,7 +302,7 @@ class TerbitkanView(OrtuView):
         if request.data.get("judul"):
             n.judul = request.data["judul"][:150]
         if request.FILES.get("sampul"):
-            n.sampul = request.FILES["sampul"]
+            n.sampul = sampul_aman(request.FILES["sampul"])
         n.save()
         baru = hadiah.evaluasi(n.profil)
         return Response({"nomor_terbitan": n.nomor_terbitan, "hadiah_baru": baru})
@@ -312,7 +327,15 @@ class EjaanJejakView(OrtuView):
         n = ambil_naskah_ortu(request, pk)
         j = get_object_or_404(Jejak, versi__naskah=n, versi__nomor=1)
         nilai = request.data.get("kesalahan_ejaan")
-        j.kesalahan_ejaan_ortu = None if nilai in (None, "") else int(nilai)
+        if nilai in (None, ""):
+            j.kesalahan_ejaan_ortu = None
+        else:
+            try:
+                j.kesalahan_ejaan_ortu = int(nilai)
+            except (TypeError, ValueError):
+                raise ValidationError("Kesalahan ejaan berupa angka.")
+            if j.kesalahan_ejaan_ortu < 0:
+                raise ValidationError("Kesalahan ejaan tidak boleh negatif.")
         j.save()
         hadiah.evaluasi(n.profil)
         return Response({"kesalahan_ejaan": j.ejaan})
@@ -362,7 +385,7 @@ class HadiahOrtuView(OrtuView):
         profil = self.profil(request)
         minggu = {}
         for p in Poin.objects.filter(profil=profil):
-            tahun, no, _ = timezone.localtime(p.tanggal).isocalendar()
+            tahun, no, _ = timezone.localtime(p.tanggal, jadwal.zona()).isocalendar()
             kunci = f"{tahun}-W{no:02d}"
             m = minggu.setdefault(kunci, {"minggu": kunci, "total": 0, "baris": []})
             m["total"] += p.jumlah
@@ -388,12 +411,28 @@ class HadiahOrtuView(OrtuView):
         return Response(hadiah_json(h), status=status.HTTP_201_CREATED)
 
 
+def _bool(nilai):
+    if isinstance(nilai, str):
+        return nilai.strip().lower() in ("1", "true", "ya", "on")
+    return bool(nilai)
+
+
 class HadiahItemOrtuView(OrtuView):
     def patch(self, request, pk):
         h = get_object_or_404(Hadiah, pk=pk, profil__in=profil_diperiksa(request.user))
-        for f in ("nama", "harga", "aktif"):
-            if f in request.data:
-                setattr(h, f, request.data[f])
+        if "nama" in request.data:
+            h.nama = str(request.data["nama"] or "").strip()[:120]
+            if not h.nama:
+                raise ValidationError("Isi nama hadiah.")
+        if "harga" in request.data:
+            try:
+                h.harga = int(request.data["harga"])
+            except (TypeError, ValueError):
+                raise ValidationError("Harga berupa angka poin.")
+            if h.harga <= 0:
+                raise ValidationError("Harga minimal 1 poin.")
+        if "aktif" in request.data:
+            h.aktif = _bool(request.data["aktif"])
         h.save()
         return Response(hadiah_json(h))
 

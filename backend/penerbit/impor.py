@@ -1,5 +1,6 @@
 """Impor isi course dari JSON (format: course/schema.md)."""
 import json
+from collections import Counter
 from pathlib import Path
 
 from django.core.management import CommandError
@@ -8,6 +9,7 @@ from django.db import transaction
 from .models import (
     Alat, KalimatLatihan, Lembar, Misi, Modul, Musim, Pangkat, SoalBertanya, SoalUjian,
 )
+from .kata_umum import KATA_UMUM
 from .teks import KunciTidakDitemukan, cari, tokenize
 
 JENIS_SYARAT = {"misi_tahap_selesai", "skor_beruntun", "jejak_maks", "pemeriksa"}
@@ -59,6 +61,10 @@ def ubah_data_soal(jenis, sumber):
         data.pop("kesalahan", None)
         data["kunci"] = kunci
         data["celah"] = bool(sumber.get("celah", False))
+        for k, grup in zip(kesalahan, kunci):
+            if not any(_bisa_diklik(tokens, t, data["celah"]) for t in grup):
+                raise _Gagal(f"kesalahan {k.get('cari') or k.get('pilihan')!r} tidak bisa diklik"
+                             " (tambahkan \"celah\": true)")
     elif jenis == "gunting":
         data["potong"] = [_spasi(tokens, p) for p in sumber.get("potong") or []]
         data["boleh"] = [_spasi(tokens, p) for p in sumber.get("boleh") or []]
@@ -71,8 +77,31 @@ def ubah_data_soal(jenis, sumber):
         hilang = [k for k in kata if k not in ada]
         if hilang:
             raise _Gagal(f"kata kembar {hilang} tidak ada di teks")
+        hitung = Counter(t.teks.lower() for t in tokens
+                         if t.jenis == "kata" and t.teks.lower() not in KATA_UMUM)
+        if hitung:
+            paling = max(hitung.values())
+            terbanyak = sorted(w for w, n in hitung.items() if n == paling)
+            kurang = [w for w in terbanyak if w not in kata]
+            if kurang:
+                raise _Gagal(f"kata terbanyak {kurang} ({paling} kali) harus ada di \"kata\"")
         data["kata"] = kata
     return data
+
+
+def _bisa_diklik(tokens, target, mode_celah):
+    """Sama dengan aturan tampilan TeksKlik: tanpa mode celah hanya kata yang bisa diklik;
+    dengan mode celah, spasi/tanda juga, dan celah hanya di antara dua token bukan spasi atau
+    di akhir teks."""
+    if any(tokens[i].jenis == "kata" for i in target["token"]):
+        return True
+    if not mode_celah:
+        return False
+    if target["token"]:
+        return True
+    c = target["celah"]
+    return c == len(tokens) or (
+        0 < c < len(tokens) and tokens[c].jenis != "spasi" and tokens[c - 1].jenis != "spasi")
 
 
 _KOLOM_MISI = {"urutan", "judul", "tahap", "jenis", "petunjuk", "lembar"}

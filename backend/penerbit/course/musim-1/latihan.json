@@ -123,7 +123,7 @@
      "kesalahan": [{"cari": "kemasjid"}], "versi_benar": "Fatih pergi ke masjid bersama Babah."},
     {"kode": "kaca-03", "alat": "kaca", "jenis": "klik", "teks": "Ummah menaruh ikan dimeja.",
      "kesalahan": [{"cari": "dimeja"}], "versi_benar": "Ummah menaruh ikan di meja."},
-    {"kode": "kaca-04", "alat": "kaca", "jenis": "klik", "teks": "Kakek Darto memakai sandal hijau .",
+    {"kode": "kaca-04", "alat": "kaca", "jenis": "klik", "celah": true, "teks": "Kakek Darto memakai sandal hijau .",
      "kesalahan": [{"cari": " ."}], "versi_benar": "Kakek Darto memakai sandal hijau."},
     {"kode": "kaca-05", "alat": "kaca", "jenis": "klik", "celah": true, "teks": "Oren lari ke dapur.Dia mencari ikan.",
      "kesalahan": [{"cari": ".|Dia"}], "versi_benar": "Oren lari ke dapur. Dia mencari ikan."},

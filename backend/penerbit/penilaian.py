@@ -69,6 +69,9 @@ def nilai_gunting(data, potong):
         "kurang": len(wajib) - len(grup_kena),
         "benar": len(grup_kena),
         "total": len(wajib),
+        # Skor yang disimpan untuk syarat stiker: potongan yang tidak perlu mengurangi,
+        # supaya memotong di semua spasi tidak dihitung sempurna.
+        "skor": max(0, len(grup_kena) - len(tidak_perlu)),
     }
 
 

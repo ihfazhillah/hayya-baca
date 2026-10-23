@@ -47,6 +47,23 @@ class TestDasbor(Dasar):
         assert r.data["aktivitas"]
 
 
+    def test_minggu_ini_menurut_wib(self):
+        from datetime import datetime, timezone as tz
+        from unittest import mock
+
+        m = Misi.objects.get(modul__nomor=1, urutan=1)
+        # Minggu 25 Okt 17.00 WIB = 10.00 UTC: masih minggu lalu.
+        with mock.patch("django.utils.timezone.now",
+                        return_value=datetime(2026, 10, 25, 10, 0, tzinfo=tz.utc)):
+            HasilMisi.objects.create(profil=self.profil, misi=m, status="selesai")
+        # Senin 26 Okt 01.00 WIB = Minggu 25 Okt 18.00 UTC.
+        with mock.patch("django.utils.timezone.now",
+                        return_value=datetime(2026, 10, 25, 18, 0, tzinfo=tz.utc)):
+            r = self.ortu.get("/api/penerbit/ortu/dasbor/" + self.q)
+        assert r.data["minggu_ini"]["misi_selesai"] == 0
+        assert r.data["minggu_ini"]["sesi"] == 0
+
+
 class TestPemeriksaanLembar(Dasar):
     def setUp(self):
         super().setUp()
@@ -134,6 +151,18 @@ class TestNaskahPemeriksa(Dasar):
         self.profil.refresh_from_db()
         assert self.profil.pangkat.kode == "penulis"
 
+    def test_sampul_harus_gambar(self):
+        n = self.naskah()
+        for lapis in LAPIS_STEMPEL:
+            Stempel.objects.create(naskah=n, lapis=lapis)
+        html = SimpleUploadedFile("sampul.html", b"<script>alert(1)</script>",
+                                  content_type="text/html")
+        r = self.ortu.post(f"/api/penerbit/ortu/naskah/{n.id}/terbitkan/",
+                           {"sampul": html}, format="multipart")
+        assert r.status_code == 400
+        n.refresh_from_db()
+        assert n.tahap == "revisi"
+
     def test_bagikan_ke_editor_tamu_yang_sudah_ada(self):
         n = self.naskah()
         url = f"/api/penerbit/ortu/naskah/{n.id}/bagikan/"
@@ -151,6 +180,10 @@ class TestNaskahPemeriksa(Dasar):
         self.ortu.post(url + "berani-hapus/", {}, format="json")
         assert total_poin(self.profil) == 20
         self.ortu.patch(url + "ejaan/", {"kesalahan_ejaan": 4}, format="json")
+        assert Jejak.objects.get(versi=v).ejaan == 4
+        for salah in (-1, "abc"):
+            r = self.ortu.patch(url + "ejaan/", {"kesalahan_ejaan": salah}, format="json")
+            assert r.status_code == 400, salah
         assert Jejak.objects.get(versi=v).ejaan == 4
 
     def test_daftar_naskah_menunjukkan_stempel_diminta(self):
@@ -187,6 +220,16 @@ class TestStikerHadiahPoin(Dasar):
         assert total_poin(self.profil) == 5
         riwayat = self.ortu.get("/api/penerbit/ortu/hadiah/" + self.q).data["riwayat_poin"]
         assert riwayat[0]["minggu"]
+
+    def test_ubah_hadiah_divalidasi(self):
+        h = Hadiah.objects.create(profil=self.profil, nama="Buku baru", harga=100)
+        url = f"/api/penerbit/ortu/hadiah/{h.id}/"
+        for body in ({"harga": -5}, {"harga": "abc"}, {"harga": 0}, {"nama": " "}):
+            assert self.ortu.patch(url, body, format="json").status_code == 400, body
+        r = self.ortu.patch(url, {"harga": "120", "aktif": False}, format="json")
+        assert r.status_code == 200
+        assert (r.data["harga"], r.data["aktif"]) == (120, False)
+        assert self.ortu.patch(url, {"aktif": "false"}, format="json").data["aktif"] is False
 
     def test_penukaran_tanpa_poin_cukup_ditolak(self):
         h = Hadiah.objects.create(profil=self.profil, nama="Buku baru", harga=100)

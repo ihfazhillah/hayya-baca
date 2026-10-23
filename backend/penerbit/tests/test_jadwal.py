@@ -5,13 +5,10 @@ from django.utils import timezone
 
 from penerbit import hadiah
 from penerbit.impor import ubah_data_soal
+from penerbit.jadwal import hari_ini  # tanggal rumah (WIB), bukan UTC
 from penerbit.models import Alat, HasilLatihan, JadwalUlang, KalimatLatihan
 
 from .base import Keluarga, impor_modul_1_5
-
-
-def hari_ini():
-    return timezone.localdate()
 
 
 class Dasar(Keluarga):
@@ -115,3 +112,44 @@ class TestCampuran(Dasar):
         r = self.anak.post(url, {"alat": k.alat.kode}, format="json")
         assert r.data["benar"] is True
         assert r.data["alat"]["kode"] == k.alat.kode
+
+    def test_kartu_tetap_sama_sepanjang_hari_setelah_satu_dikerjakan(self):
+        sebelum = [k["id"] for k in self.latihan()["kartu"]]
+        pertama = KalimatLatihan.objects.get(id=sebelum[0])
+        assert pertama.alat == self.pengeras
+        self.jawab_klik_benar({"id": pertama.id})
+        sesudah = self.latihan()["kartu"]
+        assert [k["id"] for k in sesudah] == sebelum
+        assert sesudah[0]["selesai"] is True
+
+    def test_alat_tebakan_kemarin_tidak_membuka_alat_hari_ini(self):
+        from penerbit.models import Percobaan
+
+        kartu = next(k for k in self.latihan()["kartu"] if k["alat"] is None)
+        k = KalimatLatihan.objects.get(id=kartu["id"])
+        p = Percobaan.objects.create(profil=self.profil, kalimat=k, alat_dipilih=k.alat,
+                                     alat_benar=True, selesai=True)
+        Percobaan.objects.filter(id=p.id).update(
+            created_at=timezone.now() - timedelta(days=1))
+        kartu = next(x for x in self.latihan()["kartu"] if x["id"] == k.id)
+        assert kartu["alat"] is None
+
+
+class TestZonaWaktu(Dasar):
+    """Keluarga di WIB: hari baru mulai pukul 00.00 WIB (17.00 UTC), bukan 00.00 UTC."""
+
+    def test_pemanasan_jatuh_tempo_menurut_tanggal_wib(self):
+        from datetime import date, datetime, timezone as tz
+        from unittest import mock
+
+        hadiah.beri_stiker(self.profil, self.pengeras, "perunggu", oleh=self.ayah)
+        JadwalUlang.objects.filter(profil=self.profil).update(jatuh_tempo=date(2026, 10, 24))
+        # 24 Okt 01.00 WIB = 23 Okt 18.00 UTC.
+        with mock.patch("django.utils.timezone.now",
+                        return_value=datetime(2026, 10, 23, 18, 0, tzinfo=tz.utc)):
+            kartu = self.latihan()["kartu"]
+            assert len(kartu) == 3
+            self.jawab_klik_benar(kartu[0])
+            j = JadwalUlang.objects.get(profil=self.profil, alat=self.pengeras)
+            assert j.terakhir == date(2026, 10, 24)
+            assert self.latihan()["kartu"][0]["selesai"] is True
