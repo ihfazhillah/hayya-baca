@@ -21,8 +21,8 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_penilaian
 
 ## Fase 4 — Hadiah
-- [ ] `hadiah.py` (poin ledger, stiker dari syarat data, pangkat)
-- [ ] tests: test_hadiah, test_musim_data
+- [x] `hadiah.py` (poin ledger, stiker dari syarat data, pangkat)
+- [x] tests: test_hadiah, test_musim_data
 
 ## Fase 5 — Latihan Harian
 - [ ] `jadwal.py`, endpoint latihan

@@ -6,6 +6,7 @@ urlpatterns = [
     path("me/", umum.MeView.as_view()),
     # Penulis
     path("beranda/", penulis.BerandaView.as_view()),
+    path("alat/", penulis.KartuAlatView.as_view()),
     path("misi/<int:pk>/", misi.MisiView.as_view()),
     path("misi/<int:pk>/klik/", misi.KlikView.as_view()),
     path("misi/<int:pk>/petunjuk/", misi.PetunjukView.as_view()),
