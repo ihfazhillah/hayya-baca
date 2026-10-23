@@ -1,9 +1,14 @@
 """Data dasar untuk test Penerbit Rumah: satu keluarga + satu keluarga lain."""
+import shutil
+import tempfile
+from pathlib import Path
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from rest_framework.test import APIClient
 
 from accounts.models import Child, ChildAccess
+from penerbit.impor import impor_folder
 from penerbit.models import ProfilPenulis
 
 User = get_user_model()
@@ -43,3 +48,21 @@ class Keluarga(TestCase):
 
         self.anak = auth(self.akun_anak)
         self.ortu = auth(self.ayah)
+
+
+ISI_MUSIM_1 = Path(__file__).resolve().parent.parent / "course" / "musim-1"
+
+
+def impor_modul_1_5():
+    """Impor musim.json + modul 1–5 (salinan), terpisah dari file isi yang sedang disusun."""
+    with tempfile.TemporaryDirectory() as tmp:
+        for nama in ["musim.json"] + [f"modul-0{i}.json" for i in range(1, 6)]:
+            shutil.copy(ISI_MUSIM_1 / nama, Path(tmp) / nama)
+        impor_folder(tmp)
+
+
+def selesaikan_modul(profil, nomor):
+    from penerbit.models import HasilMisi, Misi
+
+    for m in Misi.objects.filter(modul__nomor=nomor):
+        HasilMisi.objects.create(profil=profil, misi=m, status="selesai")

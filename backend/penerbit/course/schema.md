@@ -102,4 +102,19 @@ Misi selesai saat anak memilih salah satu `kata` (huruf besar/kecil diabaikan).
 
 **`log`** — `{"jenis": "log", "pertanyaan": "..."}`
 
-**`tandai`** — tandai selesai sendiri; opsional `teks` untuk ditampilkan.
+**`tandai`** — tandai selesai sendiri; opsional `teks` untuk ditampilkan, dan opsional
+`tautan` (path halaman situs, mis. `"/naskah/baru/"`) yang dibuka tombol misi. Misi
+Level 2 dan 3 yang dikerjakan di Ruang Penulis memakai `tandai` + `tautan`.
+
+## latihan.json
+
+```json
+{"kalimat": [
+  {"kode": "pengeras-01", "alat": "pengeras", "jenis": "klik", "teks": "...",
+   "kesalahan": [...], "versi_benar": "..."},
+  {"kode": "gunting-01", "alat": "gunting", "jenis": "gunting", "teks": "...", "potong": [...]},
+  {"kode": "kembar-01", "alat": "kembar", "jenis": "kembar", "teks": "...", "kata": ["..."]}
+]}
+```
+Satu kalimat (atau dua-tiga kalimat pendek), satu alat. Untuk Kamera: `klik` dengan
+kesalahan = kalimat yang "bilang perasaan".

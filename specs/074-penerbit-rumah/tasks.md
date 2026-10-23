@@ -17,8 +17,8 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_impor_course, test_isi_course
 
 ## Fase 3 — Penilaian
-- [ ] `penilaian.py`, Percobaan, endpoint misi/ujian/bertanya
-- [ ] tests: test_penilaian
+- [x] `penilaian.py`, Percobaan, endpoint misi/ujian/bertanya
+- [x] tests: test_penilaian
 
 ## Fase 4 — Hadiah
 - [ ] `hadiah.py` (poin ledger, stiker dari syarat data, pangkat)
