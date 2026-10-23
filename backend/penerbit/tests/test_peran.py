@@ -29,7 +29,7 @@ class TestMe(Keluarga):
         assert APIClient().get("/api/penerbit/me/").status_code == 401
 
     def test_akun_anak_tanpa_profil_bukan_penulis(self):
-        u = User.objects.create_user("adik", password="pw")
+        u = User.objects.create_user("adik")
         Child.objects.create(name="Adik", created_by=self.ayah, user=u)
         r = auth(u).get("/api/penerbit/me/")
         assert r.data["peran"] == []
@@ -37,7 +37,7 @@ class TestMe(Keluarga):
 
 class TestAktifkanPenulis(Keluarga):
     def test_ayah_mengaktifkan_anak_lain_miliknya(self):
-        u = User.objects.create_user("adik", password="pw")
+        u = User.objects.create_user("adik")
         adik = Child.objects.create(name="Adik", created_by=self.ayah, user=u)
         ChildAccess.objects.create(user=self.ayah, child=adik, role="parent")
 
@@ -50,7 +50,7 @@ class TestAktifkanPenulis(Keluarga):
         assert auth(u).get("/api/penerbit/me/").data["peran"] == ["penulis"]
 
     def test_tidak_bisa_mengaktifkan_anak_keluarga_lain(self):
-        u = User.objects.create_user("x", password="pw")
+        u = User.objects.create_user("x")
         anak_orang = Child.objects.create(name="X", created_by=self.ayah_lain, user=u)
         ChildAccess.objects.create(user=self.ayah_lain, child=anak_orang, role="parent")
         r = self.ortu.post(

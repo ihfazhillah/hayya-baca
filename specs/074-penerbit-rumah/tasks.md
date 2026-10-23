@@ -33,8 +33,8 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_jejak, test_naskah
 
 ## Fase 7 — Pemeriksa + Editor Tamu (backend)
-- [ ] endpoint `ortu/…`, `ulasan/…`
-- [ ] tests: test_ortu, test_tamu
+- [x] endpoint `ortu/…`, `ulasan/…`
+- [x] tests: test_ortu, test_tamu
 
 ## Fase 8 — Perjalanan penuh
 - [ ] test_perjalanan

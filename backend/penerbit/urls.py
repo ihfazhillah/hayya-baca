@@ -1,12 +1,19 @@
 from django.urls import path
 
-from .views import latihan, misi, naskah, ortu, penulis, umum
+from .views import latihan, misi, naskah, ortu, penulis, tamu, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
     # Penulis
     path("beranda/", penulis.BerandaView.as_view()),
     path("alat/", penulis.KartuAlatView.as_view()),
+    path("modul/<int:nomor>/", penulis.ModulView.as_view()),
+    path("prompt/", penulis.PromptListView.as_view()),
+    path("prompt/<int:pk>/", penulis.PromptView.as_view()),
+    path("penukaran/", penulis.PenukaranView.as_view()),
+    path("rak/", penulis.RakView.as_view()),
+    path("rak/<int:pk>/", penulis.BukuView.as_view()),
+    path("cetak/<str:kode>/", penulis.CetakLembarView.as_view()),
     path("misi/<int:pk>/", misi.MisiView.as_view()),
     path("misi/<int:pk>/klik/", misi.KlikView.as_view()),
     path("misi/<int:pk>/petunjuk/", misi.PetunjukView.as_view()),
@@ -36,4 +43,27 @@ urlpatterns = [
     # Pemeriksa
     path("ortu/penulis/", umum.AktifkanPenulisView.as_view()),
     path("ortu/dasbor/", ortu.DasborView.as_view()),
+    path("ortu/lembar/", ortu.LembarListView.as_view()),
+    path("ortu/lembar/<int:pk>/", ortu.LembarView.as_view()),
+    path("ortu/naskah/", ortu.NaskahListView.as_view()),
+    path("ortu/naskah/<int:pk>/", ortu.NaskahView.as_view()),
+    path("ortu/naskah/<int:pk>/stempel/", ortu.StempelView.as_view()),
+    path("ortu/naskah/<int:pk>/catatan/", ortu.CatatanView.as_view()),
+    path("ortu/naskah/<int:pk>/ulasan/", ortu.UlasanOrtuView.as_view()),
+    path("ortu/naskah/<int:pk>/buka-laci/", ortu.BukaLaciOrtuView.as_view()),
+    path("ortu/naskah/<int:pk>/bagikan/", ortu.BagikanView.as_view()),
+    path("ortu/naskah/<int:pk>/terbitkan/", ortu.TerbitkanView.as_view()),
+    path("ortu/naskah/<int:pk>/berani-hapus/", ortu.PoinManualView.as_view(jenis="berani_hapus")),
+    path("ortu/naskah/<int:pk>/log-bagus/", ortu.PoinManualView.as_view(jenis="log")),
+    path("ortu/naskah/<int:pk>/ejaan/", ortu.EjaanJejakView.as_view()),
+    path("ortu/stiker/", ortu.StikerOrtuView.as_view()),
+    path("ortu/hadiah/", ortu.HadiahOrtuView.as_view()),
+    path("ortu/hadiah/<int:pk>/", ortu.HadiahItemOrtuView.as_view()),
+    path("ortu/penukaran/<int:pk>/", ortu.PenukaranOrtuView.as_view()),
+    path("ortu/cetak/", ortu.CetakOrtuView.as_view()),
+    path("ortu/prompt/", ortu.PromptOrtuView.as_view()),
+    path("ortu/prompt/<int:pk>/", ortu.PromptItemOrtuView.as_view()),
+    # Editor Tamu
+    path("ulasan/", tamu.UlasanListView.as_view()),
+    path("ulasan/<int:pk>/", tamu.UlasanView.as_view()),
 ]

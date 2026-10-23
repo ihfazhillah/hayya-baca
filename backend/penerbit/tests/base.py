@@ -23,9 +23,9 @@ def auth(user):
 class Keluarga(TestCase):
     def setUp(self):
         super().setUp()
-        self.ayah = User.objects.create_user("ayah", password="pw")
-        self.ummah = User.objects.create_user("ummah", password="pw")
-        self.akun_anak = User.objects.create_user("fatih", password="pw")
+        self.ayah = User.objects.create_user("ayah")
+        self.ummah = User.objects.create_user("ummah")
+        self.akun_anak = User.objects.create_user("fatih")
         self.child = Child.objects.create(
             name="Fatih", created_by=self.ayah, user=self.akun_anak
         )
@@ -34,8 +34,8 @@ class Keluarga(TestCase):
         self.profil = ProfilPenulis.objects.create(child=self.child, nama_panggilan="Fatih")
 
         # Keluarga lain, tidak boleh saling melihat.
-        self.ayah_lain = User.objects.create_user("ayahlain", password="pw")
-        self.akun_anak_lain = User.objects.create_user("rara", password="pw")
+        self.ayah_lain = User.objects.create_user("ayahlain")
+        self.akun_anak_lain = User.objects.create_user("rara")
         self.child_lain = Child.objects.create(
             name="Rara", created_by=self.ayah_lain, user=self.akun_anak_lain
         )
@@ -44,7 +44,7 @@ class Keluarga(TestCase):
             child=self.child_lain, nama_panggilan="Rara"
         )
 
-        self.kakak = User.objects.create_user("kakak", password="pw")
+        self.kakak = User.objects.create_user("kakak")
 
         self.anak = auth(self.akun_anak)
         self.ortu = auth(self.ayah)
