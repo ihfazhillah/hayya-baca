@@ -44,10 +44,17 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 ## Fase 10 — Komponen latihan
 - [x] TeksKlik, Gunting, DetektorKembar, UjianAB, LatihanBertanya, TombolSalin, Timer, LayoutPenulis + vitest
 ## Fase 11 — Halaman Penulis
+- [x] Beranda, Kartu Alat, Modul, Misi, Latihan Harian, Jejak, Tukar + vitest
 ## Fase 12 — Editor + halaman naskah
+- [x] Quill 4 mode, stabilo, sorotan, antrean offline, 6 halaman naskah + vitest
+- [ ] uji di tablet sungguhan (keyboard virtual, seleksi jari)
 ## Fase 13 — Kotak prompt
+- [x] KotakPrompt 3 tahap + refleksi (Modul dan Revisi)
 ## Fase 14 — Area Pemeriksa + Editor Tamu + Rak Buku
+- [x] 9 halaman /ortu/, Editor Tamu, Rak Buku + vitest
 ## Fase 15 — Halaman cetak
+- [x] Lembar A4, cetak per modul, cetak versi hitam putih, buku A5
+- [ ] dicetak sungguhan di printer rumah
 ## Fase 16 — Isi Modul 6–9
 - [x] draf JSON (terimpor, kunci valid)
 - [ ] review pemilik

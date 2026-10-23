@@ -6,6 +6,7 @@ import {
 import type { Alat, Delta, HadiahBaru, ModulDetail, ModulTerkunci, NaskahDetail, Sorotan } from '../../types'
 import { Galat, KepalaHalaman, Memuat, PerayaanHadiah } from '../../components/ui'
 import { useNavPenulis } from '../../components/LayoutPenulis'
+import KotakPrompt from '../../components/KotakPrompt'
 import Editor, { type AlatStabilo, type DataEditor, type EditorApi } from '../../editor/Editor'
 import { pilihTerbaru, useSimpanOtomatis } from '../../editor/antrean'
 import { LAPIS, NAMA_STEMPEL, adalahLapis, alatDipelajari, type LapisRevisi } from '../../editor/naskah'
@@ -293,6 +294,10 @@ export default function Revisi() {
                 </ul>
               )}
             </section>
+
+            {modul && !modul.terkunci && modul.mentor && modul.mentor.tahap !== 'tanpa' && (
+              <KotakPrompt modul={modul.nomor} mentor={modul.mentor} />
+            )}
 
             <div className="baris">
               <button type="button" className="tombol-kecil" onClick={siapkanCetak} disabled={!terakhir}>

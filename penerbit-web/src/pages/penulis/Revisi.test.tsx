@@ -11,6 +11,8 @@ vi.mock('../../editor/Editor', async () => await import('../../editor/EditorPals
 
 const MODUL_12 = {
   nomor: 12, judul: 'Lapis 3: Kalimat', emoji: '✂️', level: 3, terkunci: false,
+  mentor: { tahap: 'isian', kartu_prompt: 'Aku sedang di Revisi Lapis 3.', pembuka: 'Kamu editor.',
+    isian_awal: ['Aku sedang di Lapis 3.', '', 'Tolong beri 2 pertanyaan.', ''] },
   misi: [
     { id: 121, urutan: 1, judul: 'Lingkari kata kembar', tahap: 'mandiri', tahap_label: '', jenis: 'tandai', jenis_label: '', status: null, tautan: null },
     { id: 122, urutan: 2, judul: 'Ganti atau hapus', tahap: 'mandiri', tahap_label: '', jenis: 'tandai', jenis_label: '', status: 'selesai', tautan: null },
@@ -132,6 +134,17 @@ describe('Revisi per lapis', () => {
     const pola = lembar.querySelector('.cetak-naskah .pola-putus')
     expect(pola).toHaveTextContent('Fatih')
     await vi.waitFor(() => expect(print).toHaveBeenCalled())
+  })
+
+  it('kotak Mentor AI lapis ini tampil di halaman revisi', async () => {
+    pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: n3() },
+      [`GET ${P}/alat/`]: { body: { alat: ALAT } },
+      [`GET ${P}/modul/12/`]: { body: MODUL_12 },
+      [`GET ${P}/naskah/5/versi/3/`]: { body: versi(3, TEKS_V1, { lapis: 'kamera', sorotan: SOROTAN_V3 }) },
+    })
+    tampil()
+    expect(await screen.findByRole('region', { name: 'Mentor AI' })).toHaveTextContent('Isian')
   })
 
   it('naskah yang masih di laci belum bisa direvisi', async () => {
