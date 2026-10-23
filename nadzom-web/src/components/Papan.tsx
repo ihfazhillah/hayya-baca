@@ -104,10 +104,17 @@ export default function Papan({
                 ))}
               </div>
             )}
-            {mizan && k.bentuk && <div className="mizan" lang="ar">{k.bentuk.nama}</div>}
+            {mizan && k.bentuk && (
+              <div className="mizan" lang="ar">
+                {k.bentuk.nama}
+                {k.bentuk.namaLain && k.status !== 'patah' && <span className="mizan-lain">{k.bentuk.namaLain}</span>}
+              </div>
+            )}
             {status && k.status && (
-              <span className={`status-kaki ${k.status}`}>
-                {LABEL_STATUS[k.status]}{k.status === 'berubah' && k.bentuk?.zihaf ? ` · ${k.bentuk.zihaf}` : ''}
+              <span className={`status-kaki ${k.status}${k.bentuk?.nilai === 'qabih' && k.status === 'berubah' ? ' qabih' : ''}`}>
+                {LABEL_STATUS[k.status]}
+                {k.status === 'berubah' && k.bentuk?.zihaf ? ` · ${k.bentuk.illah ? "'illah " : ''}${k.bentuk.zihaf}` : ''}
+                {k.status === 'berubah' && k.bentuk?.nilai === 'qabih' ? ' (kurang baik)' : ''}
               </span>
             )}
           </div>

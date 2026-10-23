@@ -53,6 +53,32 @@ export default function Rujukan() {
         })}
       </section>
 
+      <section className="bagian" aria-label="Bentuk taf'ilah">
+        <div className="bagian-judul"><h2>Bentuk yang diizinkan</h2></div>
+        <p className="redup">Zihaf boleh dipakai di mana saja dan tidak mengikat. 'Illah hanya di ujung syathr dan, sekali dipakai, harus tetap.</p>
+        {DAFTAR_BAHR.filter((b) => b.kode !== 'ramal').map((b) => {
+          const semua = [...b.slot[0], ...b.slot[1]].flat()
+          const unik = semua.filter((x, i) => semua.findIndex((y) => y.bit === x.bit) === i)
+          return (
+            <div className="tabel-wrap" key={b.kode}>
+              <table>
+                <thead><tr><th>{b.nama}</th><th>Pola</th><th>Nama di kitab</th><th>Perubahan</th></tr></thead>
+                <tbody>
+                  {unik.map((x) => (
+                    <tr key={x.bit}>
+                      <td className="ar" lang="ar">{x.nama}</td>
+                      <td className="bit">{x.bit}</td>
+                      <td className="ar" lang="ar">{x.namaLain ?? x.nama}</td>
+                      <td>{x.zihaf ? `${x.illah ? "'illah" : 'zihaf'} ${x.zihaf}${x.nilai ? ` · ${x.nilai}` : ''}` : 'utuh'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        })}
+      </section>
+
       <section className="bagian" aria-label="Istilah">
         <div className="bagian-judul"><h2>Istilah dan jembatannya</h2></div>
         <div className="tabel-wrap">

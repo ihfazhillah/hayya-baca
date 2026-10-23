@@ -44,7 +44,7 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
         </ul>
       )}
       {berubah > 0 && hasil.patah === 0 && (
-        <p className="redup kecil">Taf'ilah "berubah" adalah zihaf yang sah, bukan pincang. Dibahas di Modul 3.</p>
+        <p className="redup kecil">Taf'ilah "berubah" adalah zihaf atau 'illah yang sah, bukan pincang. Dibahas di Modul 3.</p>
       )}
       {pilihan.length > 0 && <p className="redup kecil">Dibaca dengan {pilihan.join(', ')} agar wazannya lurus.</p>}
       {salin && <SalinDiwan bait={bait} hasil={hasil} judulAwal={judulDiwan} />}

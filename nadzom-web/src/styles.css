@@ -242,11 +242,13 @@ button.sel-b.terisi { border-style: solid; border-color: var(--ink-2); }
 .juz-item.sabab { background: var(--sabab-bg); color: var(--sabab); }
 .juz-item.watad { background: var(--watad-bg); color: var(--watad); }
 .juz-item.tunggal { background: var(--surface-2); color: var(--muted); }
-.mizan { font-family: var(--font-ar); font-size: 20px; text-align: center; color: var(--heading); line-height: 1.4; }
+.mizan { font-family: var(--font-ar); font-size: 20px; text-align: center; color: var(--heading); line-height: 1.4; display: flex; flex-direction: column; align-items: center; }
+.mizan-lain { font-size: 15px; color: var(--muted); }
 .status-kaki { font-size: 12px; font-weight: 600; text-align: center; direction: ltr; border-radius: 999px; padding: 2px 8px; align-self: center; }
 .status-kaki.utuh { color: var(--ok); background: var(--ok-bg); }
 .status-kaki.berubah { color: var(--watad); background: var(--watad-bg); }
 .status-kaki.patah { color: var(--err); background: var(--err-bg); }
+.status-kaki.qabih { outline: 1px dashed var(--watad); }
 .kaki.patah .kaki-sel { background: var(--err-bg); border-radius: 6px; }
 
 /* ---------- Hudhud ---------- */

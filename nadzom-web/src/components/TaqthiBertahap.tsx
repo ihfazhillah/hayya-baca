@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import type { Bahr } from '@/lib/jenis'
 import { kitabahBait } from '@/lib/kitabah'
 import { DAFTAR_BAHR } from '@/lib/bahr'
-import { tebakBahr, timbangBait } from '@/lib/timbang'
+import { slotSyathr, tebakBahr, timbangBait } from '@/lib/timbang'
 import { periksaPotong, pilihanKitabah } from '@/lib/latihan'
 import Pilihan from './Pilihan'
 import TandaiBit from './TandaiBit'
@@ -41,7 +41,7 @@ export default function TaqthiBertahap({ bait, bahr, judulDiwan }: Props) {
   const hasil = bahr ? timbangBait(kitabah.syathr, bahr) : tebakBahr(kitabah.syathr)
   const sasaran = hasil.bahr
   const huruf = kitabah.syathr[syathr]
-  const slot = sasaran.slot[syathr === bait.length - 1 && bait.length > 1 ? 1 : 0]
+  const slot = slotSyathr(sasaran, kitabah.syathr, syathr)
   const semuaSyathrSelesai = syathr === bait.length - 1 && selesaiSyathr
   const t = TAHAP[tahap]
 
