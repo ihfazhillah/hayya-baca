@@ -281,3 +281,8 @@ details.ph-lipat.ph-lipat-putih { background: #fff; margin: var(--space-3) 0; }
 .ph-pamer-dua figure + figure { background: var(--color-success-light); border-color: var(--color-success); }
 .ph-pamer-dua figcaption { font-weight: 600; font-size: var(--text-sm); color: var(--color-text-secondary); }
 .ph-pamer-tunjuk { font-size: var(--text-lg); border: 2px solid var(--color-success); }
+
+/* Kartu Pamer: kata yang dibuang dan kata baru */
+.beda-buang { text-decoration: line-through; text-decoration-color: var(--color-error, #c0392b); text-decoration-thickness: 2px;
+  background: rgba(192, 57, 43, .10); border-radius: 3px; }
+.beda-baru { text-decoration: none; background: rgba(39, 174, 96, .18); border-radius: 3px; }

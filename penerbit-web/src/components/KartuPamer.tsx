@@ -3,6 +3,7 @@ import { getKartuPamer, simpanKartuPamer } from '../api'
 import type { KartuPamerModul } from '../types'
 import Perekam from './Perekam'
 import { Galat } from './ui'
+import { BedaKata } from './bedaKata'
 
 /** Kartu Pamer di akhir halaman modul (Spec 075 K3). Tidak mengunci modul berikutnya.
  *  Rekaman suara memakai Perekam: hanya ada di tablet, tidak dikirim ke mana pun. */
@@ -57,18 +58,18 @@ export default function KartuPamer({ modul }: { modul: number }) {
             <div className="ph-pamer-dua">
               <figure>
                 <figcaption>Sebelum</figcaption>
-                <p>{data.hasil.sebelum}</p>
+                <p><BedaKata teks={data.hasil.sebelum} banding={data.hasil.sesudah} jenis="sebelum" /></p>
               </figure>
               <figure>
                 <figcaption>Sesudah kamu betulkan</figcaption>
-                <p>{data.hasil.sesudah}</p>
+                <p><BedaKata teks={data.hasil.sesudah} banding={data.hasil.sebelum} jenis="sesudah" /></p>
               </figure>
             </div>
           )}
           <form onSubmit={simpan} className="tumpuk">
-            <label htmlFor={`${id}-pelajaran`}>Yang aku pelajari</label>
-            <input id={`${id}-pelajaran`} type="text" value={pelajaran} maxLength={300}
-              placeholder="Tulis satu kalimat." onChange={(e) => setPelajaran(e.target.value)} />
+            <label htmlFor={`${id}-pelajaran`} style={{ fontWeight: 600, display: 'block', marginBottom: 'var(--space-2)' }}>Yang aku pelajari</label>
+            <input id={`${id}-pelajaran`} className="ph-isian" type="text" value={pelajaran} maxLength={300}
+              placeholder="Contoh: Aku tahu kata yang dobel dari lidahku yang tersandung." onChange={(e) => setPelajaran(e.target.value)} />
             <div className="baris">
               <button type="submit" className="btn btn-primary" disabled={sibuk || !pelajaran.trim() || !berubah}>
                 Simpan kartu

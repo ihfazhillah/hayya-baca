@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import '../../styles/penulis-halaman.css'
 import { beriStiker, listKartuPamerAnak, reaksiKartuPamer } from '../../api'
 import { PilihSimulasi } from './PertanyaanAnak'
+import { BedaKata } from '../../components/bedaKata'
 import { Galat, Memuat } from '../../components/ui'
 import { useMe } from '../../me'
 import type { KartuPamerOrtu } from '../../types'
@@ -47,11 +49,11 @@ function KartuAnak({ k, emoji }: { k: KartuPamerOrtu; emoji: string[] }) {
         <div className="baris" style={{ alignItems: 'stretch' }}>
           <blockquote className="teks-naskah" style={{ flex: 1, margin: 0 }}>
             <b className="kecil">Sebelum</b>
-            <p>{k.hasil.sebelum}</p>
+            <p><BedaKata teks={k.hasil.sebelum} banding={k.hasil.sesudah} jenis="sebelum" /></p>
           </blockquote>
           <blockquote className="teks-naskah" style={{ flex: 1, margin: 0 }}>
             <b className="kecil">Sesudah</b>
-            <p>{k.hasil.sesudah}</p>
+            <p><BedaKata teks={k.hasil.sesudah} banding={k.hasil.sebelum} jenis="sesudah" /></p>
           </blockquote>
         </div>
       )}
