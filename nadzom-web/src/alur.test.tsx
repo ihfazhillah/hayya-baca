@@ -6,6 +6,10 @@ import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import { MODUL } from './content'
 import { kitabahBait } from './lib/kitabah'
+import { timbangBait } from './lib/timbang'
+import { BAHR } from './lib/bahr'
+import Susun from './components/Susun'
+import Irama from './components/Irama'
 
 function buka(path: string) {
   return render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>)
@@ -100,5 +104,37 @@ describe('alat timbang', () => {
     await user.type(teks, 'دار لِسَلْمَى')
     await user.click(screen.getByRole('button', { name: 'Timbang' }))
     expect(screen.getByText(/Beri harakat pada kata «دار»/)).toBeInTheDocument()
+  })
+})
+
+describe('susun banyak bait (Muzdawij, Boss)', () => {
+  const t = { jenis: 'susun' as const, petunjuk: 'Susun dua bait.', bahr: 'rajaz' as const, makna: 'Bebas.', bankKata: true, jumlah: 2, qafiyah: 'muzdawij' as const }
+
+  it('setiap bait ditimbang dan dicek qafiyahnya; laci bisa dibuka', async () => {
+    const user = userEvent.setup()
+    render(<Susun t={t} />)
+    const isian = screen.getByLabelText(/Bait-bait Anda/)
+    await user.type(isian, 'قَالَ مُحَمَّدٌ هُوَ ابْنُ مَالِكِ | أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ\nوَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ | قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.getByText('2 dari 2 bait')).toBeInTheDocument()
+    expect(screen.getByText('qafiyah pas')).toBeInTheDocument()
+    expect(screen.getByText('qafiyah lain')).toBeInTheDocument()
+    expect(screen.getByText(/Bait 2: Dua syathr tidak berpasangan/)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Buka laci kata' }))
+    expect(screen.getByRole('button', { name: /Laci qafiyah/ })).toBeInTheDocument()
+  })
+})
+
+describe('irama', () => {
+  it('suku pendek dan panjang ditampilkan; tombol putar tidak gagal tanpa audio', async () => {
+    const user = userEvent.setup()
+    const k = kitabahBait(BAHR.rajaz.kunci)
+    if (!k.ok) throw new Error(k.galat)
+    render(<Irama hasil={timbangBait(k.syathr, BAHR.rajaz)} />)
+    const baris = screen.getByLabelText('Irama syathr 1')
+    // مُسْتَفْعِلُنْ = مُسْ تَفْ عِ لُنْ: tiga panjang, satu pendek; tiga kali.
+    expect(baris.querySelectorAll('.suku.panjang')).toHaveLength(9)
+    expect(baris.querySelectorAll('.suku:not(.panjang)')).toHaveLength(3)
+    await user.click(screen.getByRole('button', { name: 'Putar irama' }))
   })
 })

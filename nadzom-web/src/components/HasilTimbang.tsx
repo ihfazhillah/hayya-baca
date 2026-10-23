@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import type { HasilBait } from '@/lib/jenis'
 import { teksKitabah } from '@/lib/latihan'
 import Papan from './Papan'
 import SalinDiwan from './SalinDiwan'
+import Irama from './Irama'
 
 interface Props {
   hasil: HasilBait
@@ -17,6 +19,7 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
     s.potongan.filter((p) => p.status === 'patah').map((p) => ({ si, teks: p.catatan, kata: teksKitabah(s.huruf.slice(p.mulai, p.akhir)) })),
   )
   const pilihan = hasil.syathr.flatMap((s) => s.bacaanPilihan)
+  const [dengar, setDengar] = useState(false)
 
   return (
     <div className="tumpuk">
@@ -24,7 +27,11 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
         <span className="chip">{hasil.bahr.nama}</span>
         <span className={`chip ${hasil.patah === 0 ? 'ok' : 'salah'}`}>Patah: {hasil.patah}</span>
         {berubah > 0 && <span className="chip">Berubah (sah): {berubah}</span>}
+        <button type="button" className="tombol kecil" onClick={() => setDengar(!dengar)} aria-expanded={dengar}>
+          {dengar ? 'Tutup irama' : 'Dengar irama'}
+        </button>
       </div>
+      {dengar && <Irama hasil={hasil} />}
       <div className="papan">
         {hasil.syathr.map((s, i) => (
           <div className="tumpuk-kecil" key={i} style={{ alignItems: 'center', width: '100%' }}>
