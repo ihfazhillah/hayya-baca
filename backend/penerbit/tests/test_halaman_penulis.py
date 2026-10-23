@@ -87,8 +87,16 @@ class TestPrompt(Dasar):
     def test_contoh_memakai_kartu_dengan_pembuka(self):
         r = self.anak.post("/api/penerbit/prompt/", {"modul": 4}, format="json")
         assert r.status_code == 201
-        assert r.data["teks"].startswith("Kamu editor untuk penulis anak umur 10 tahun.")
+        assert r.data["teks"].startswith("Kamu editor untuk penulis anak usia SD.")
         assert r.data["teks"].endswith("Kartu contoh.")
+
+    def test_pembuka_memakai_umur_anak_bila_ada(self):
+        self.child.age = 8
+        self.child.save()
+        r = self.anak.post("/api/penerbit/prompt/", {"modul": 4}, format="json")
+        assert r.data["teks"].startswith("Kamu editor untuk penulis anak umur 8 tahun.")
+        assert self.anak.get("/api/penerbit/modul/4/").data["mentor"]["pembuka"].startswith(
+            "Kamu editor untuk penulis anak umur 8 tahun.")
 
     def test_isian_butuh_empat_bagian_lalu_refleksi(self):
         url = "/api/penerbit/prompt/"

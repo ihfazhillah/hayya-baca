@@ -136,4 +136,5 @@ class TestPerjalananPenuh(Keluarga):
         assert all(m["status"] == "selesai" for m in beranda["peta"])
         assert beranda["poin"] > 50
         dasbor = self.ortu.get("/api/penerbit/ortu/dasbor/").data
-        assert dasbor["perlu_tindakan"] == {"lembar": 0, "stempel": 0, "penukaran": 0}
+        assert dasbor["perlu_tindakan"] == {"lembar": 0, "stempel": 0, "penukaran": 0, "pertanyaan": 0,
+                                            "kartu_pamer": 0}

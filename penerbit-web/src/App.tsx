@@ -30,6 +30,8 @@ import StikerStempel from './pages/ortu/StikerStempel'
 import HadiahPoin from './pages/ortu/HadiahPoin'
 import CetakModul from './pages/ortu/CetakModul'
 import PromptAnak from './pages/ortu/PromptAnak'
+import PertanyaanAnak from './pages/ortu/PertanyaanAnak'
+import KartuPamerAnak from './pages/ortu/KartuPamerAnak'
 import DaftarUlasan from './pages/tamu/DaftarUlasan'
 import Ulasan from './pages/tamu/Ulasan'
 import type { Peran } from './types'
@@ -104,6 +106,8 @@ function Rute() {
           <Route path="/ortu/hadiah" element={<HadiahPoin />} />
           <Route path="/ortu/cetak" element={<CetakModul />} />
           <Route path="/ortu/prompt" element={<PromptAnak />} />
+          <Route path="/ortu/pertanyaan" element={<PertanyaanAnak />} />
+          <Route path="/ortu/kartu-pamer" element={<KartuPamerAnak />} />
         </Route>
       </Route>
       <Route element={<Butuh peran="tamu" />}>

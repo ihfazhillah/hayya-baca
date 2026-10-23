@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
+from .views import belajar, latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
@@ -25,6 +25,8 @@ urlpatterns = [
     path("misi/<int:pk>/cetak/", misi.CetakMisiView.as_view()),
     path("ujian/<int:pk>/jawab/", misi.UjianJawabView.as_view()),
     path("bertanya/<int:nomor>/jawab/", misi.BertanyaJawabView.as_view()),
+    path("pertanyaan/", belajar.PertanyaanView.as_view()),
+    path("modul/<int:nomor>/kartu-pamer/", belajar.KartuPamerView.as_view()),
     path("ide/", naskah.IdeListView.as_view()),
     path("ide/<int:pk>/", naskah.IdeView.as_view()),
     path("naskah/", naskah.NaskahListView.as_view()),
@@ -66,6 +68,10 @@ urlpatterns = [
     path("ortu/cetak/", ortu.CetakOrtuView.as_view()),
     path("ortu/prompt/", ortu.PromptOrtuView.as_view()),
     path("ortu/prompt/<int:pk>/", ortu.PromptItemOrtuView.as_view()),
+    path("ortu/pertanyaan/", belajar.PertanyaanOrtuView.as_view()),
+    path("ortu/pertanyaan/<int:pk>/dijawab/", belajar.PertanyaanDijawabView.as_view()),
+    path("ortu/kartu-pamer/", belajar.KartuPamerOrtuView.as_view()),
+    path("ortu/kartu-pamer/<int:pk>/reaksi/", belajar.ReaksiKartuView.as_view()),
     # Editor Tamu
     path("ulasan/", tamu.UlasanListView.as_view()),
     path("ulasan/<int:pk>/", tamu.UlasanView.as_view()),

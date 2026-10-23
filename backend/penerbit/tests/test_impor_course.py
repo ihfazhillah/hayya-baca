@@ -122,6 +122,30 @@ class TestImpor(TestCase):
         with pytest.raises(CommandError, match="oren"):
             impor_folder(tulis(self.tmp, data))
 
+    def test_contoh_oren_sorotan_jadi_indeks_token_dan_alasan_tersimpan(self):
+        impor_folder(tulis(self.tmp, modul(
+            bantuan_memudar=True,
+            kesalahan=[{"cari": "di di", "alasan": "Kata \"di\" ada dua."}],
+            contoh=[{"sorot": [{"cari": "di di"}], "pikir": "Lidahku tersandung di sini."},
+                    {"pikir": "Sekarang giliranmu."}],
+        )))
+        data = Misi.objects.get(modul__nomor=91, urutan=1).data
+        assert data["contoh"] == [{"sorot": [2, 3, 4], "pikir": "Lidahku tersandung di sini."},
+                                  {"sorot": [], "pikir": "Sekarang giliranmu."}]
+        assert data["bantuan_memudar"] is True
+        assert data["alasan"] == ["Kata \"di\" ada dua."]
+
+    def test_sorotan_contoh_harus_ada_di_teks(self):
+        with pytest.raises(CommandError, match="misi 1: contoh"):
+            impor_folder(tulis(self.tmp, modul(
+                contoh=[{"sorot": [{"cari": "tidak ada"}], "pikir": "Hmm."}])))
+        with pytest.raises(CommandError, match="pikir"):
+            impor_folder(tulis(self.tmp, modul(contoh=[{"sorot": [{"cari": "di di"}]}])))
+
+    def test_bantuan_memudar_butuh_alasan_di_setiap_kesalahan(self):
+        with pytest.raises(CommandError, match="alasan"):
+            impor_folder(tulis(self.tmp, modul(bantuan_memudar=True)))
+
     def test_perintah_manage(self):
         call_command("impor_course", str(tulis(self.tmp, modul())))
         assert Modul.objects.filter(nomor=91).exists()
@@ -168,3 +192,17 @@ class TestIsiCourseMusim1(TestCase):
     def test_misi_cetak_selalu_punya_lembar(self):
         for m in Misi.objects.filter(jenis="cetak"):
             assert m.lembar_id, m
+
+    def test_modul_1_misi_1_contoh_dari_oren_tanpa_ayah(self):
+        m = Misi.objects.get(modul__nomor=1, urutan=1)
+        assert m.tahap == "bersama"  # stiker Perunggu tetap dari misi 1 + 2
+        assert m.data["bantuan_memudar"] is True
+        assert len(m.data["contoh"]) >= 2
+        assert any(langkah["sorot"] for langkah in m.data["contoh"])
+        assert len(m.data["alasan"]) == len(m.data["kunci"]) and all(m.data["alasan"])
+        assert "Ayah" not in m.petunjuk and "Ayah" not in m.judul
+        # Bahasa untuk anak 8 tahun: kalimat pendek.
+        from penerbit.teks import kalimat_teks
+        for teks in [x["pikir"] for x in m.data["contoh"]] + m.data["alasan"] + [m.petunjuk]:
+            for k in kalimat_teks(teks):
+                assert len(k.split()) <= 12, k

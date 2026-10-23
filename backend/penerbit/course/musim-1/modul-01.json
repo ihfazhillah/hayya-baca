@@ -26,7 +26,7 @@
     {"istilah": "kata ganda", "arti": "Kata yang tertulis dua kali tanpa sengaja, misalnya \"di di\"."}
   ],
   "tahap_mentor": "tanpa",
-  "petunjuk_lihat": "Sebelum anak mulai, bacakan satu kalimat Si Ceroboh dengan keras sambil berpikir keras: \"Aku baca keras… nah, di sini aku tersandung, karena ada 'di di'. Aku beri tanda di sini.\" Lalu biarkan dia mencoba sendiri.",
+  "petunjuk_lihat": "Oren memberi contoh di Misi 1, jadi anak bisa mulai sendiri. Kalau dia mau, baca satu kalimat Si Ceroboh bersamanya dengan suara keras.",
   "ujian": [
     {
       "soal": "Mana yang lebih enak dibaca?",
@@ -54,18 +54,26 @@
   "misi": [
     {
       "urutan": 1,
-      "judul": "Angkat tangan saat Ayah tersandung",
+      "judul": "Oren tersandung saat membaca",
       "tahap": "bersama",
       "jenis": "klik",
-      "petunjuk": "Ayah membaca teks ini keras-keras. Setiap kali Ayah tersandung, klik kata yang membuatnya tersandung.",
-      "petunjuk_ortu": "Bacakan teks Si Ceroboh keras-keras dan sengaja tersendat di setiap kesalahan. Anak mengangkat tangan lalu mengklik katanya.",
+      "petunjuk": "Lihat cara Oren membaca keras-keras. Tekan Lanjut. Lalu kamu cari sisanya.",
+      "petunjuk_ortu": "Tujuannya: anak melihat cara memakai Pengeras Suara, lalu mencoba sendiri. Oren memberi contoh. Kesalahan pertama ditunjukkan, kedua diberi letaknya, sisanya dia cari sendiri. Kalau dia bertanya kenapa harus dibaca keras, jawab: telinga lebih jujur daripada mata. Kata yang dobel terdengar seperti tersandung.",
+      "suara": true,
+      "bantuan_memudar": true,
+      "contoh": [
+        {"sorot": [{"cari": "Pagi itu hujan turun deras sekali sekali."}], "pikir": "Aku baca kalimat pertama keras-keras, ya."},
+        {"sorot": [{"cari": "sekali sekali"}], "pikir": "Eh, lidahku tersandung di sini!"},
+        {"sorot": [{"cari": "sekali sekali"}], "pikir": "Kata \"sekali\" ada dua. Satu saja cukup."},
+        {"pikir": "Masih ada tiga kesalahan lagi. Sekarang giliranmu. Baca keras-keras, ya."}
+      ],
       "teks": "Pagi itu hujan turun deras sekali sekali. Oren si kucing duduk di di dekat jendela sambil melihat ke luar. Dia ingin main ke taman, tapi tapi hujan. Ibu Oren bilang tunggu hujan berhenti dulu ya, nanti kamu basah kuyup dan bisa sakit nanti.",
       "jumlah": 4,
       "kesalahan": [
-        {"cari": "sekali sekali"},
-        {"cari": "di di"},
-        {"cari": "tapi tapi"},
-        {"pilihan": [{"cari": "nanti"}, {"cari": "nanti", "ke": 2}]}
+        {"cari": "sekali sekali", "alasan": "Kata \"sekali\" ada dua. Satu saja cukup."},
+        {"cari": "di di", "alasan": "Kata \"di\" ditulis dua kali. Lidahmu jadi tersandung."},
+        {"cari": "tapi tapi", "alasan": "Kata \"tapi\" ditulis dua kali. Hapus satu."},
+        {"pilihan": [{"cari": "nanti"}, {"cari": "nanti", "ke": 2}], "alasan": "Kata \"nanti\" muncul dua kali dalam satu kalimat."}
       ],
       "versi_benar": "Pagi itu hujan turun deras sekali. Oren si kucing duduk di dekat jendela sambil melihat ke luar. Dia ingin main ke taman, tapi hujan. Ibu Oren bilang, tunggu hujan berhenti dulu ya, nanti kamu basah kuyup dan bisa sakit."
     },
@@ -74,6 +82,7 @@
       "judul": "Oren dan ikan",
       "tahap": "petunjuk",
       "jenis": "klik",
+      "suara": true,
       "petunjuk": "Ada 3 kesalahan. Baca keras-keras, lalu klik kata yang membuatmu tersandung.",
       "teks": "Oren sangat sangat suka makan ikan. Setiap pagi dia menunggu di di dapur. Kalau ikannya belum datang, Oren mengeong dengan keras sekali sekali.",
       "jumlah": 3,
@@ -89,6 +98,7 @@
       "judul": "Lantai yang licin",
       "tahap": "mandiri",
       "jenis": "klik",
+      "suara": true,
       "petunjuk": "Kali ini tanpa petunjuk. Baca keras-keras dan temukan sendiri.",
       "teks": "Ibu memanggil dari dapur, \"Oren, ikannya sudah sudah siap!\" Oren langsung berlari, tapi dia terpeleset karena lantainya licin karena basah karena hujan tadi.",
       "jumlah": 2,
@@ -121,10 +131,10 @@
       "judul": "Rekam suaramu",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Rekam suaramu membaca teks Si Ceroboh yang sudah kamu betulkan, langsung di halaman ini. Lalu dengarkan. Enak didengar, kan?",
-      "kenapa": "Saat mendengar rekamanmu sendiri, kamu bisa merasakan bedanya kalimat yang lancar dengan kalimat yang membuat tersandung.",
+      "petunjuk": "Rekam suaramu di halaman ini. Bacakan teks Si Ceroboh yang sudah kamu betulkan. Lalu dengarkan. Enak didengar, kan?",
+      "kenapa": "Dengarkan suaramu sendiri. Kamu akan tahu mana kalimat yang lancar. Kamu juga tahu mana yang membuat tersandung.",
       "langkah": [
-        "Gulir ke bawah sedikit. Di kotak itu ada teks Si Ceroboh yang sudah kamu betulkan, dan tombol Rekam di bawahnya.",
+        "Gulir ke bawah sedikit. Di sana ada teks yang sudah kamu betulkan. Tombol Rekam ada di bawahnya.",
         "Tekan Rekam, lalu baca teks itu keras-keras.",
         "Tekan Berhenti, lalu tekan Dengarkan.",
         "Masih ada bagian yang membuatmu tersandung? Kalau sudah lancar, tekan Tandai selesai."

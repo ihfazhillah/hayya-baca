@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -291,5 +291,147 @@ describe('Misi', () => {
     })
     tampil('/modul/1/misi/1')
     expect(await screen.findByText(/aplikasi perekam suara/)).toBeInTheDocument()
+  })
+})
+
+describe('Misi: Contoh dari Oren, bantuan memudar, dan suara (spec 075 K1)', () => {
+  // "Hujan deras sekali sekali. Oren di di rumah. Dia tapi tapi tidur."
+  // sekali = 4, 6 · kalimat 2 = 9..16 · di = 11, 13 · tapi = 22, 24
+  const TEKS = 'Hujan deras sekali sekali. Oren di di rumah. Dia tapi tapi tidur.'
+  const misiContoh = {
+    ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Oren tersandung', jenis: 'klik',
+    tahap: 'bersama', tahap_label: 'Contoh dari Oren', tokens: tokens(TEKS),
+    percobaan: { diklik: [], meleset: 0, ditemukan: 0, pakai_petunjuk: false },
+    contoh: [
+      { sorot: [4, 5, 6], pikir: 'Eh, lidahku tersandung di sini!' },
+      { sorot: [], pikir: 'Sekarang giliranmu.' },
+    ],
+    bantuan_memudar: true,
+    bantuan: { tingkat: 'tunjuk', token: [4, 5, 6], celah: null, alasan: 'Kata "sekali" ada dua.' },
+  }
+  const klikJawab = (bantuan: unknown, ditemukan: number) => ({
+    body: { hasil: 'ketemu', ditemukan, total: 3, meleset: 0, boleh_petunjuk: false, selesai: false, bantuan },
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    localStorage.clear()
+  })
+
+  it('contoh langkah demi langkah, lalu giliranmu: bantuan ditunjukkan, lalu letaknya, lalu sendiri', async () => {
+    let n = 0
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': { body: misiContoh },
+      'POST /api/penerbit/misi/10/klik/': () => (++n === 1
+        ? klikJawab({ tingkat: 'letak', kalimat: [9, 16] }, 1)
+        : klikJawab(null, 2)),
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText('🔊 Pengeras Suara · Contoh dari Oren')).toBeInTheDocument()
+    const contoh = screen.getByRole('region', { name: 'Contoh dari Oren' })
+    expect(within(contoh).getByText('Eh, lidahku tersandung di sini!')).toBeInTheDocument()
+    expect(within(contoh).getByText('Langkah 1 dari 2')).toBeInTheDocument()
+    expect(within(contoh).getAllByText('sekali').every((el) => el.classList.contains('sorot-oren'))).toBe(true)
+    expect(within(contoh).getByText('Hujan')).not.toHaveClass('sorot-oren')
+    // Selama contoh, kata belum bisa diklik.
+    expect(screen.queryByRole('button', { name: 'sekali' })).toBeNull()
+
+    await userEvent.click(within(contoh).getByRole('button', { name: 'Lanjut' }))
+    expect(within(contoh).getByText('Sekarang giliranmu.')).toBeInTheDocument()
+    await userEvent.click(within(contoh).getByRole('button', { name: 'Giliranku!' }))
+    expect(screen.queryByRole('region', { name: 'Contoh dari Oren' })).toBeNull()
+
+    // Bantuan 1: kesalahan pertama ditunjukkan dan dijelaskan.
+    const bantuan = screen.getByRole('note', { name: 'Bantuan Oren' })
+    expect(bantuan).toHaveTextContent('Kata "sekali" ada dua.')
+    screen.getAllByRole('button', { name: 'sekali' }).forEach((b) => expect(b).toHaveClass('bantuan-tunjuk'))
+
+    // Bantuan 2: hanya kalimatnya.
+    await userEvent.click(screen.getAllByRole('button', { name: 'sekali' })[0])
+    expect(await screen.findByText(/kalimat yang kuning/)).toBeInTheDocument()
+    screen.getAllByRole('button', { name: 'di' }).forEach((b) => expect(b).toHaveClass('kalimat-petunjuk'))
+    expect(screen.getAllByRole('button', { name: 'di' })[0]).not.toHaveClass('bantuan-tunjuk')
+    expect(screen.getAllByRole('button', { name: 'tapi' })[0]).not.toHaveClass('kalimat-petunjuk')
+
+    // Sisanya dicari sendiri.
+    await userEvent.click(screen.getAllByRole('button', { name: 'di' })[0])
+    expect(await screen.findByText(/Sekarang cari sendiri/)).toBeInTheDocument()
+    expect(document.querySelector('.kalimat-petunjuk, .bantuan-tunjuk')).toBeNull()
+  })
+
+  it('contoh dilewati bila anak sudah mulai mencari', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: {
+          ...misiContoh, percobaan: { diklik: [4], meleset: 0, ditemukan: 1, pakai_petunjuk: false },
+          bantuan: { tingkat: 'letak', kalimat: [9, 16] },
+        },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText(/kalimat yang kuning/)).toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: 'Contoh dari Oren' })).toBeNull()
+    expect(screen.getByRole('button', { name: /Lihat contoh Oren lagi/ })).toBeInTheDocument()
+  })
+
+  function pasangSuara(suara: { lang: string; name: string }[]) {
+    const diucapkan: { text: string; lang: string; voice: unknown; onend: (() => void) | null }[] = []
+    class Ucapan {
+      lang = ''
+      voice: unknown = null
+      onend: (() => void) | null = null
+      onerror: (() => void) | null = null
+      text: string
+      constructor(text: string) { this.text = text }
+    }
+    vi.stubGlobal('SpeechSynthesisUtterance', Ucapan)
+    vi.stubGlobal('speechSynthesis', {
+      getVoices: () => suara,
+      speak: vi.fn((u: (typeof diucapkan)[number]) => { diucapkan.push(u) }),
+      cancel: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })
+    return diucapkan
+  }
+  const misiSuara = {
+    ...dasarMisi, id: 11, urutan: 2, berikutnya: 12, judul: 'Oren dan ikan', jenis: 'klik', suara: true,
+    tokens: tokens('Oren di di dapur.'), jumlah: 1, percobaan: { diklik: [], meleset: 0, pakai_petunjuk: false },
+  }
+
+  it('tombol 🔊 membacakan teks dengan suara Indonesia; "dengarkan dulu" menyembunyikan teks sampai selesai', async () => {
+    const diucapkan = pasangSuara([{ lang: 'en-US', name: 'Samantha' }, { lang: 'id-ID', name: 'Damayanti' }])
+    pasangFetch({ 'GET /api/penerbit/modul/1/': { body: MODUL }, 'GET /api/penerbit/misi/11/': { body: misiSuara } })
+    tampil('/modul/1/misi/2')
+    await userEvent.click(await screen.findByRole('button', { name: /🔊 Dengarkan/ }))
+    expect(diucapkan[0].text).toBe('Oren di di dapur.')
+    expect(diucapkan[0].lang).toBe('id-ID')
+    expect(diucapkan[0].voice).toEqual({ lang: 'id-ID', name: 'Damayanti' })
+
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Dengarkan dulu, lalu teksnya muncul' }))
+    expect(screen.queryByRole('button', { name: 'di' })).toBeNull()
+    expect(screen.getByText(/Teksnya muncul setelah kamu mendengarnya/)).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /🔊 Dengarkan/ }))
+    expect(screen.queryByRole('button', { name: 'di' })).toBeNull()
+    act(() => diucapkan[1].onend?.())
+    expect(screen.getAllByRole('button', { name: 'di' })).toHaveLength(2)
+  })
+
+  it('tanpa suara Indonesia atau tanpa speechSynthesis: tombol 🔊 tidak ada, teks langsung tampil', async () => {
+    localStorage.setItem('penerbit-dengar-dulu', '1')
+    pasangSuara([{ lang: 'en-US', name: 'Samantha' }])
+    pasangFetch({ 'GET /api/penerbit/modul/1/': { body: MODUL }, 'GET /api/penerbit/misi/11/': { body: misiSuara } })
+    const { unmount } = tampil('/modul/1/misi/2')
+    expect(await screen.findAllByRole('button', { name: 'di' })).toHaveLength(2)
+    expect(screen.queryByRole('button', { name: /🔊 Dengarkan/ })).toBeNull()
+    unmount()
+
+    vi.unstubAllGlobals()
+    pasangFetch({ 'GET /api/penerbit/modul/1/': { body: MODUL }, 'GET /api/penerbit/misi/11/': { body: misiSuara } })
+    tampil('/modul/1/misi/2')
+    expect(await screen.findAllByRole('button', { name: 'di' })).toHaveLength(2)
+    expect(screen.queryByRole('button', { name: /🔊 Dengarkan/ })).toBeNull()
   })
 })

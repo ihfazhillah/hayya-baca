@@ -7,6 +7,7 @@ import type {
   Ide, Jawaban, JejakCerita, KartuLatihan, Lembar, Me, MisiDetail, ModulDetail, ModulTerkunci,
   NaskahDetail, NaskahOrtu, NaskahRingkas, PemeriksaanDetail, PemeriksaanRingkas, PenukaranItem,
   Peta4, PromptAnak, Sorotan, Delta, StempelSlot, TokohNaskah, VersiDetail, AlatRingkas,
+  KartuPamer, KartuPamerModul, KartuPamerOrtu, Pertanyaan,
 } from './types'
 
 const TOKEN_KEY = 'penerbit.token'
@@ -215,6 +216,16 @@ export const buatPrompt = (modul: number, bagian?: string[]) =>
 export const refleksiPrompt = (id: number, refleksi_bantu: string, refleksi_ubah: string) =>
   request<{ id: number }>('PATCH', `${P}/prompt/${id}/`, { refleksi_bantu, refleksi_ubah })
 
+// Tanya Ayah atau Ummah + Kartu Pamer (Spec 075)
+export const listPertanyaanSaya = (misi?: number) =>
+  request<Pertanyaan[]>('GET', misi ? `${P}/pertanyaan/?misi=${misi}` : `${P}/pertanyaan/`)
+export const kirimPertanyaan = (teks: string, misi: number) =>
+  request<Pertanyaan & { pesan: string }>('POST', `${P}/pertanyaan/`, { teks, misi })
+export const getKartuPamer = (modul: number) =>
+  request<KartuPamerModul>('GET', `${P}/modul/${modul}/kartu-pamer/`)
+export const simpanKartuPamer = (modul: number, pelajaran: string) =>
+  request<KartuPamer>('POST', `${P}/modul/${modul}/kartu-pamer/`, { pelajaran })
+
 export const getPenukaran = () =>
   request<{ total: number; hadiah: HadiahItem[]; penukaran: PenukaranItem[] }>('GET', `${P}/penukaran/`)
 export const ajukanPenukaran = (hadiah: number) =>
@@ -275,6 +286,15 @@ export const getCetakModul = (modul: number) =>
 export const listPromptAnak = () => request<PromptAnak[]>('GET', q(`${P}/ortu/prompt/`))
 export const catatanPrompt = (id: number, catatan_ortu: string) =>
   request<PromptAnak>('PATCH', `${P}/ortu/prompt/${id}/`, { catatan_ortu })
+
+export const listPertanyaanAnak = (simulasi = false) =>
+  request<Pertanyaan[]>('GET', q(`${P}/ortu/pertanyaan/`, { simulasi: simulasi ? 1 : undefined }))
+export const tandaiDijawab = (id: number, catatan: string) =>
+  request<Pertanyaan>('POST', `${P}/ortu/pertanyaan/${id}/dijawab/`, { catatan })
+export const listKartuPamerAnak = (simulasi = false) =>
+  request<{ emoji: string[]; kartu: KartuPamerOrtu[] }>('GET', q(`${P}/ortu/kartu-pamer/`, { simulasi: simulasi ? 1 : undefined }))
+export const reaksiKartuPamer = (id: number, emoji: string, kalimat: string) =>
+  request<KartuPamer>('POST', `${P}/ortu/kartu-pamer/${id}/reaksi/`, { emoji, kalimat })
 
 // ---- Editor Tamu ----
 export const listUlasan = () =>

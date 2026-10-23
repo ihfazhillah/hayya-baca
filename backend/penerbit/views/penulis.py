@@ -13,6 +13,7 @@ from ..models import (
 from ..peran import profil_diperiksa, profil_untuk_pemeriksa, profil_untuk_request
 from ..progres import modul_selesai, modul_terbuka, pesan_terkunci, status_misi
 from .base import PenulisView
+from .belajar import kabar_belajar
 from .sampul import url_sampul
 
 
@@ -100,6 +101,7 @@ def kabar(profil, batas=5):
                     "catatan": st.catatan,
                     "oleh": (st.diberikan_oleh.first_name or st.diberikan_oleh.username)
                     if st.diberikan_oleh else None})
+    out += kabar_belajar(profil, batas)
     out.sort(key=lambda k: k["tanggal"], reverse=True)
     return out[:batas]
 
@@ -141,15 +143,22 @@ class BerandaView(PenulisView):
         })
 
 
-PEMBUKA_PROMPT = (
-    "Kamu editor untuk penulis anak umur 10 tahun. Aturanmu: jangan pernah menulis ulang "
-    "kalimatku dan jangan memberi contoh kalimat pengganti. Kamu hanya boleh bertanya atau "
-    "menunjuk bagian yang perlu diperbaiki. Pakai bahasa yang mudah dan singkat."
+ATURAN_PROMPT = (
+    "Aturanmu: jangan pernah menulis ulang kalimatku dan jangan memberi contoh kalimat "
+    "pengganti. Kamu hanya boleh bertanya atau menunjuk bagian yang perlu diperbaiki. "
+    "Pakai bahasa yang mudah dan singkat."
 )
 
 
-def mentor_json(m):
-    out = {"tahap": m.tahap_mentor, "kartu_prompt": m.kartu_prompt, "pembuka": PEMBUKA_PROMPT}
+def pembuka_prompt(profil):
+    """Umur dari profil anak bila diisi; profil simulasi atau umur kosong → usia SD."""
+    umur = profil.child.age if profil.child_id else None
+    siapa = f"penulis anak umur {umur} tahun" if umur else "penulis anak usia SD"
+    return f"Kamu editor untuk {siapa}. {ATURAN_PROMPT}"
+
+
+def mentor_json(m, profil):
+    out = {"tahap": m.tahap_mentor, "kartu_prompt": m.kartu_prompt, "pembuka": pembuka_prompt(profil)}
     if m.tahap_mentor == TahapMentor.ISIAN:
         out["isian_awal"] = [
             f"Aku sedang di {m.judul}" + (f" (alat {m.alat.nama})." if m.alat else "."),
@@ -174,10 +183,10 @@ class ModulView(PenulisView):
             **dasar, "terkunci": False, "tujuan": m.tujuan, "kenapa": m.kenapa,
             "langkah": m.langkah, "resep": m.resep, "mengapa": m.mengapa, "kamus": m.kamus,
             "lapis": m.lapis, "petunjuk_lihat": m.petunjuk_lihat,
-            "mentor": mentor_json(m),
+            "mentor": mentor_json(m, profil),
             "bertanya": {"a": bertanya.pilihan_a, "b": bertanya.pilihan_b} if bertanya else None,
             "misi": [{"id": x.id, "urutan": x.urutan, "judul": x.judul, "tahap": x.tahap,
-                      "tahap_label": x.get_tahap_display(), "jenis": x.jenis,
+                      "tahap_label": x.label_tahap(), "jenis": x.jenis,
                       "jenis_label": x.get_jenis_display(), "status": status.get(x.id),
                       "tautan": x.data.get("tautan")} for x in m.misi.all()],
             "ujian": [{"id": u.id, "soal": u.soal, "a": u.pilihan_a, "b": u.pilihan_b}
@@ -189,12 +198,12 @@ class ModulView(PenulisView):
 
 # ---- Prompt ----------------------------------------------------------------
 
-def teks_prompt(m, bagian):
+def teks_prompt(m, bagian, profil):
     if m.tahap_mentor == TahapMentor.CONTOH or not bagian:
         isi = m.kartu_prompt
     else:
         isi = " ".join(b.strip() for b in bagian)
-    return f"{PEMBUKA_PROMPT}\n\n{isi}"
+    return f"{pembuka_prompt(profil)}\n\n{isi}"
 
 
 class PromptListView(PenulisView):
@@ -207,7 +216,7 @@ class PromptListView(PenulisView):
             if len(bagian) != 4 or not all(str(b).strip() for b in bagian):
                 raise ValidationError("Isi keempat bagian Rumus Bertanya dulu.")
         p = Prompt.objects.create(profil=request.profil, modul=m, tahap=m.tahap_mentor,
-                                  bagian=[str(b) for b in bagian], teks=teks_prompt(m, bagian))
+                                  bagian=[str(b) for b in bagian], teks=teks_prompt(m, bagian, request.profil))
         return Response({"id": p.id, "teks": p.teks}, status=status.HTTP_201_CREATED)
 
 

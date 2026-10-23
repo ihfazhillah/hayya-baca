@@ -118,3 +118,48 @@ Level 2 dan 3 yang dikerjakan di Ruang Penulis memakai `tandai` + `tautan`.
 ```
 Satu kalimat (atau dua-tiga kalimat pendek), satu alat. Untuk Kamera: `klik` dengan
 kesalahan = kalimat yang "bilang perasaan".
+
+## Panduan bahasa untuk anak (spec 075 K5)
+
+Semua kalimat yang dibaca anak (judul, petunjuk, `kenapa`, `langkah`, gelembung Oren, alasan, ujian)
+harus bisa dipahami anak **8 tahun** tanpa bantuan. Course dipakai anak 8 tahun ke atas, jadi jangan
+menulis umur tertentu (misalnya "umur 10 tahun") di isi course.
+
+- Kalimat pendek: sekitar 12 kata, paling banyak 15.
+- Satu gagasan per kalimat. Pecah kalimat yang memakai "dan … lalu … sehingga".
+- Kata sehari-hari. Hindari istilah sekolah tinggi ("repetisi", "sudut pandang"); pakai nama alat
+  ("kata kembar", "Kamera").
+- Sapa dengan "kamu". Sebut langkah berikutnya dengan kata kerja: "Klik", "Baca", "Tekan".
+- Contoh jawaban ditulis seperti tulisan anak, bukan tulisan orang dewasa.
+- Catatan untuk orang tua (`petunjuk_ortu`) boleh lebih panjang, tapi mulai dengan "Tujuannya: …"
+  dan tulis sebagai "kalau dia bertanya, …", bukan sebagai tugas wajib (anak belajar mandiri).
+
+## Contoh dari Oren dan bantuan memudar (spec 075 K1)
+
+Untuk misi `klik` (Fase A: Modul 1; jenis lain menyusul di Fase B):
+
+```json
+{"jenis": "klik", "tahap": "bersama", "suara": true, "bantuan_memudar": true,
+ "contoh": [
+   {"sorot": [{"cari": "deras sekali sekali."}], "pikir": "Aku baca keras-keras, ya."},
+   {"sorot": [{"cari": "sekali sekali"}], "pikir": "Eh, lidahku tersandung di sini!"},
+   {"pikir": "Sekarang giliranmu."}
+ ],
+ "kesalahan": [{"cari": "sekali sekali", "alasan": "Kata \"sekali\" ada dua. Satu saja cukup."}]}
+```
+
+- `contoh`: langkah demonstrasi berurutan. `pikir` (wajib) = gelembung pikiran Oren yang
+  berpikir keras. `sorot` (opsional) = teks yang disorot, ditulis seperti `cari` di
+  `kesalahan` (boleh `ke`); saat impor diubah menjadi indeks token. Teks yang tidak ada
+  menggagalkan impor. Anak menekan **Lanjut** per langkah, lalu mengerjakan sisanya sendiri.
+  Misi klik yang punya `contoh` tampil dengan label tahap "Contoh dari Oren" (nilai `tahap`
+  tetap, jadi syarat stiker tidak berubah). Sorotan contoh terlihat oleh anak, jadi jangan
+  menyorot kesalahan yang mau dicari sendiri.
+- `bantuan_memudar: true`: setiap `kesalahan` wajib punya `alasan` (satu-dua kalimat pendek).
+  Server memilih kesalahan pertama (urutan `kesalahan`) yang belum ditemukan: bila belum ada
+  yang ditemukan, letak tokennya dan `alasan`-nya dikirim; setelah satu ditemukan, hanya
+  kalimatnya; setelah dua, tidak ada bantuan. `alasan` tidak pernah dikirim selain lewat
+  bantuan itu.
+- `suara: true`: tampilkan tombol 🔊 yang membacakan teks dengan suara perangkat (bahasa
+  Indonesia), dan pilihan "Dengarkan dulu, lalu teksnya muncul". Tanpa suara Indonesia di
+  perangkat, tombol disembunyikan dan teks langsung tampil.

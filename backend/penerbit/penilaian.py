@@ -28,23 +28,52 @@ def nilai_klik(data, ditemukan, token=None, celah=None):
     return "meleset", None
 
 
+def _kalimat_grup(tokens, rentang, grup):
+    """Rentang [awal, akhir] kalimat tempat satu grup kunci berada."""
+    t = grup[0]
+    posisi = t["token"][0] if t["token"] else min(t["celah"], len(tokens) - 1)
+    for awal, akhir in rentang:
+        # Celah tepat setelah titik akhir kalimat ikut kalimat sebelumnya.
+        if awal <= posisi <= akhir or (t["celah"] is not None and posisi == akhir + 1):
+            return [awal, akhir]
+    return None
+
+
+def _tokens(data):
+    return [Token(t["i"], t["t"], t["j"], 0, 0) for t in data["tokens"]]
+
+
 def kalimat_petunjuk(data, ditemukan):
     """Rentang token [awal, akhir] kalimat yang masih berisi kesalahan belum ditemukan."""
-    tokens = [Token(t["i"], t["t"], t["j"], 0, 0) for t in data["tokens"]]
+    tokens = _tokens(data)
     rentang = kalimat(tokens)
     hasil = []
     for gi, grup in enumerate(data["kunci"]):
         if gi in ditemukan:
             continue
-        t = grup[0]
-        posisi = t["token"][0] if t["token"] else min(t["celah"], len(tokens) - 1)
-        for awal, akhir in rentang:
-            # Celah tepat setelah titik akhir kalimat ikut kalimat sebelumnya.
-            if awal <= posisi <= akhir or (t["celah"] is not None and posisi == akhir + 1):
-                if [awal, akhir] not in hasil:
-                    hasil.append([awal, akhir])
-                break
+        r = _kalimat_grup(tokens, rentang, grup)
+        if r is not None and r not in hasil:
+            hasil.append(r)
     return sorted(hasil)
+
+
+def bantuan(data, ditemukan):
+    """Bantuan memudar (spec 075 K1) untuk kesalahan pertama yang belum ditemukan.
+
+    Belum ada yang ditemukan → "tunjuk" (letak token + alasan); satu ditemukan → "letak"
+    (kalimatnya saja); dua atau lebih → None (anak mencari sendiri). Hanya kesalahan yang
+    sedang dibantu yang dikirim, kunci lainnya tetap di server.
+    """
+    sisa = [gi for gi in range(len(data["kunci"])) if gi not in ditemukan]
+    if not sisa or len(ditemukan) >= 2:
+        return None
+    grup = data["kunci"][sisa[0]]
+    if not ditemukan:
+        t = grup[0]
+        return {"tingkat": "tunjuk", "token": t["token"], "celah": t["celah"],
+                "alasan": data.get("alasan", [""] * len(data["kunci"]))[sisa[0]]}
+    tokens = _tokens(data)
+    return {"tingkat": "letak", "kalimat": _kalimat_grup(tokens, kalimat(tokens), grup)}
 
 
 def nilai_gunting(data, potong):
@@ -82,7 +111,7 @@ def nilai_kembar(data, kata):
 def data_publik(data, jenis):
     """Data soal yang aman dikirim ke browser sebelum misi selesai."""
     rahasia = {"kunci", "versi_benar", "potong", "boleh", "kata", "pengganti", "kesalahan",
-               "teks"}
+               "teks", "alasan"}
     out = {k: v for k, v in data.items() if k not in rahasia}
     if jenis == "klik":
         out["jumlah"] = len(data["kunci"])

@@ -22,6 +22,7 @@ from ..models import (
 from ..peran import profil_diperiksa
 from ..progres import modul_selesai, modul_terbuka
 from .base import OrtuView
+from .belajar import jumlah_kartu_tanpa_reaksi, jumlah_pertanyaan_terbuka
 from .naskah import naskah_detail, naskah_ringkas, stempel_json
 from .penulis import alat_json
 
@@ -83,6 +84,8 @@ class DasborView(OrtuView):
                 "stempel": Naskah.objects.filter(profil=profil).exclude(stempel_diminta="").count(),
                 "penukaran": Penukaran.objects.filter(
                     profil=profil, status=Penukaran.Status.DIAJUKAN).count(),
+                "pertanyaan": jumlah_pertanyaan_terbuka(profil),
+                "kartu_pamer": jumlah_kartu_tanpa_reaksi(profil),
             },
             "minggu_ini": {
                 "sesi": len(set(hari_misi) | set(hari_latihan)),

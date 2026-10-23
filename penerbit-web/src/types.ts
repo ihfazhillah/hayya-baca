@@ -168,6 +168,18 @@ export interface Jawaban {
   pengganti?: string[]
 }
 
+/** Satu langkah Contoh dari Oren: token yang disorot + gelembung pikiran (spec 075 K1). */
+export interface LangkahContoh {
+  sorot: number[]
+  pikir: string
+}
+
+/** Bantuan memudar dari server: kesalahan pertama ditunjukkan, kedua letaknya, sisanya tidak ada. */
+export type Bantuan =
+  | { tingkat: 'tunjuk'; token: number[]; celah: number | null; alasan: string }
+  | { tingkat: 'letak'; kalimat: [number, number] }
+  | null
+
 export interface MisiDetail extends Jawaban {
   id: number
   modul: { nomor: number; judul: string; alat: string | null }
@@ -189,7 +201,12 @@ export interface MisiDetail extends Jawaban {
   tautan?: string
   kenapa?: string
   langkah?: string[]
-  contoh?: string
+  /** Misi LOG: contoh jawaban. Misi klik: langkah Contoh dari Oren. */
+  contoh?: string | LangkahContoh[]
+  bantuan_memudar?: boolean
+  bantuan?: Bantuan
+  /** Tampilkan tombol 🔊 (suara perangkat). */
+  suara?: boolean
   /** Hanya untuk misi rekam: versi benar misi Si Ceroboh yang sudah selesai. */
   teks_rekam?: { judul: string; teks: string }[]
   lembar?: { kode: string; judul: string }
@@ -204,6 +221,8 @@ export interface HasilKlik extends Jawaban {
   boleh_petunjuk: boolean
   selesai: boolean
   hadiah_baru?: HadiahBaru[]
+  /** Hanya di misi bantuan_memudar. */
+  bantuan?: Bantuan
 }
 
 export interface HasilGunting extends Jawaban {
@@ -384,7 +403,7 @@ export interface Buku {
 
 export interface Dasbor {
   penulis: ProfilRingkas
-  perlu_tindakan: { lembar: number; stempel: number; penukaran: number }
+  perlu_tindakan: { lembar: number; stempel: number; penukaran: number; pertanyaan?: number; kartu_pamer?: number }
   minggu_ini: { sesi: number; misi_selesai: number; kata_draf_nol: number; alat: string | null }
   persiapan: { modul: { nomor: number; judul: string; petunjuk_lihat: string; lembar: string[] } | null }
   aktivitas: { tanggal: string; teks: string }[]
@@ -438,4 +457,39 @@ export interface PromptAnak {
   refleksi_ubah: string
   catatan_ortu: string
   tanggal: string
+}
+
+// ---- Belajar mandiri (Spec 075 K2, K3) ----
+export interface Pertanyaan {
+  id: number
+  teks: string
+  dibuat?: string
+  modul?: { nomor: number; judul: string } | null
+  misi?: { id: number; urutan: number; judul: string } | null
+  dijawab: boolean
+  dijawab_pada?: string | null
+  dijawab_oleh?: string | null
+  catatan: string
+}
+
+/** Sebelum/sesudah teks Si Ceroboh yang sudah dibetulkan anak (dihitung server). */
+export interface HasilPamer { misi: number; judul: string; sebelum: string; sesudah: string }
+
+export interface KartuPamer {
+  id: number
+  pelajaran: string
+  reaksi_emoji: string
+  reaksi: string
+  reaksi_oleh: string | null
+  reaksi_pada?: string | null
+}
+
+export interface KartuPamerModul { tersedia: boolean; hasil: HasilPamer | null; kartu: KartuPamer | null }
+
+export interface KartuPamerOrtu extends KartuPamer {
+  dibuat: string
+  diubah: string
+  modul: { nomor: number; judul: string; emoji: string }
+  hasil: HasilPamer | null
+  alat: { kode: string; nama: string; emoji: string; stiker: Tingkat[] } | null
 }

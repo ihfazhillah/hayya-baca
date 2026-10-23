@@ -10,3 +10,4 @@ from .progres import (  # noqa: F401
     Hadiah, HasilLatihan, HasilMisi, HasilUjian, JadwalUlang, PemeriksaanLembar, Penukaran,
     Percobaan, Poin, ProfilPenulis, Prompt, Stiker,
 )
+from .belajar import BATAS_PERTANYAAN, KartuPamer, Pertanyaan  # noqa: F401

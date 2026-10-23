@@ -41,7 +41,8 @@ class TestDasbor(Dasar):
                                  hadiah=Hadiah.objects.create(profil=self.profil, nama="Es krim",
                                                               harga=10))
         r = self.ortu.get("/api/penerbit/ortu/dasbor/" + self.q)
-        assert r.data["perlu_tindakan"] == {"lembar": 1, "stempel": 1, "penukaran": 1}
+        assert r.data["perlu_tindakan"] == {"lembar": 1, "stempel": 1, "penukaran": 1, "pertanyaan": 0,
+                                            "kartu_pamer": 0}
         assert r.data["minggu_ini"]["misi_selesai"] == 5
         assert r.data["persiapan"]["modul"]["nomor"] == 2
         assert r.data["aktivitas"]

@@ -67,7 +67,7 @@ class MisiView(PenulisView):
             "berikutnya": semua[semua.index(misi.id) + 1] if misi.id != semua[-1] else None,
             "judul": misi.judul,
             "tahap": misi.tahap,
-            "tahap_label": misi.get_tahap_display(),
+            "tahap_label": misi.label_tahap(),
             "jenis": misi.jenis,
             "petunjuk": misi.petunjuk,
             "status": status,
@@ -91,6 +91,8 @@ class MisiView(PenulisView):
                 "meleset": p.meleset if p else 0,
                 "pakai_petunjuk": p.pakai_petunjuk if p else False,
             }
+            if misi.data.get("bantuan_memudar") and status != HasilMisi.Status.SELESAI:
+                out["bantuan"] = penilaian.bantuan(misi.data, p.ditemukan if p else [])
         if status == HasilMisi.Status.SELESAI:
             out.update(penilaian.jawaban(misi.data, misi.jenis))
         return Response(out)
@@ -113,10 +115,13 @@ def proses_klik(p, data, request):
     total = len(data["kunci"])
     p.selesai = len(p.ditemukan) == total
     p.save()
-    return {"hasil": hasil, "ditemukan": len(p.ditemukan), "total": total,
-            "meleset": p.meleset,
-            "boleh_petunjuk": p.meleset >= penilaian.BATAS_MELESET_PETUNJUK,
-            "selesai": False}
+    out = {"hasil": hasil, "ditemukan": len(p.ditemukan), "total": total,
+           "meleset": p.meleset,
+           "boleh_petunjuk": p.meleset >= penilaian.BATAS_MELESET_PETUNJUK,
+           "selesai": False}
+    if data.get("bantuan_memudar"):
+        out["bantuan"] = penilaian.bantuan(data, p.ditemukan)
+    return out
 
 
 class KlikView(PenulisView):

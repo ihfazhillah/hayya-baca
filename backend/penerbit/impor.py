@@ -65,7 +65,18 @@ def ubah_data_soal(jenis, sumber):
             if not any(_bisa_diklik(tokens, t, data["celah"]) for t in grup):
                 raise _Gagal(f"kesalahan {k.get('cari') or k.get('pilihan')!r} tidak bisa diklik"
                              " (tambahkan \"celah\": true)")
-    elif jenis == "gunting":
+        if data.get("bantuan_memudar"):
+            if not all(k.get("alasan") for k in kesalahan):
+                raise _Gagal("bantuan_memudar: setiap kesalahan butuh \"alasan\"")
+            data["bantuan_memudar"] = True
+        # Alasan per kesalahan (sejajar dengan kunci): rahasia, dikirim lewat bantuan saja.
+        if any(k.get("alasan") for k in kesalahan):
+            data["alasan"] = [k.get("alasan", "") for k in kesalahan]
+        if "contoh" in sumber:
+            data["contoh"] = _contoh(tokens, sumber["contoh"])
+    elif data.get("bantuan_memudar"):
+        raise _Gagal("bantuan_memudar baru tersedia untuk misi klik")
+    if jenis == "gunting":
         data["potong"] = [_spasi(tokens, p) for p in sumber.get("potong") or []]
         data["boleh"] = [_spasi(tokens, p) for p in sumber.get("boleh") or []]
         if not data["potong"]:
@@ -87,6 +98,25 @@ def ubah_data_soal(jenis, sumber):
                 raise _Gagal(f"kata terbanyak {kurang} ({paling} kali) harus ada di \"kata\"")
         data["kata"] = kata
     return data
+
+
+def _contoh(tokens, langkah):
+    """Contoh dari Oren: [{"sorot": [{"cari": ..}], "pikir": ".."}] → sorot jadi indeks token."""
+    if not isinstance(langkah, list) or not langkah:
+        raise _Gagal("contoh harus daftar langkah")
+    out = []
+    for n, x in enumerate(langkah, start=1):
+        if not x.get("pikir"):
+            raise _Gagal(f"contoh langkah {n}: tanpa \"pikir\"")
+        sorot = []
+        for s in x.get("sorot") or []:
+            try:
+                temuan = cari(tokens, s["cari"], s.get("ke", 1))
+            except KunciTidakDitemukan as e:
+                raise _Gagal(f"contoh langkah {n}: sorot {e}") from e
+            sorot += [i for i in temuan.token if i not in sorot]
+        out.append({"sorot": sorted(sorot), "pikir": x["pikir"]})
+    return out
 
 
 def _bisa_diklik(tokens, target, mode_celah):

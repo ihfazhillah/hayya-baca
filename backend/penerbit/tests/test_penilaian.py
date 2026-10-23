@@ -107,6 +107,61 @@ class TestKlikKesalahan(Dasar):
         assert tok(m, "sangat") in r.data["percobaan"]["diklik"]
 
 
+class TestBantuanMemudar(Dasar):
+    """Spec 075 K1: misi 1 Modul 1 = Contoh dari Oren + bantuan yang memudar."""
+
+    def get(self, m):
+        return self.anak.get(f"/api/penerbit/misi/{m.id}/").data
+
+    def test_label_tahap_contoh_dari_oren_tanpa_mengubah_tahap(self):
+        m = self.misi(1, 1)
+        d = self.get(m)
+        assert (d["tahap"], d["tahap_label"]) == ("bersama", "Contoh dari Oren")
+        daftar = self.anak.get("/api/penerbit/modul/1/").data["misi"]
+        assert daftar[0]["tahap_label"] == "Contoh dari Oren"
+        assert daftar[1]["tahap_label"] == "Dengan petunjuk"
+
+    def test_contoh_dikirim_dengan_sorotan_dan_gelembung(self):
+        d = self.get(self.misi(1, 1))
+        assert d["contoh"][0]["pikir"]
+        assert all(isinstance(i, int) for x in d["contoh"] for i in x["sorot"])
+
+    def test_kesalahan_pertama_ditunjukkan_kedua_letaknya_sisanya_sendiri(self):
+        m = self.misi(1, 1)
+        d = self.get(m)
+        for rahasia in ("kunci", "alasan", "versi_benar", "kesalahan"):
+            assert rahasia not in d
+        b = d["bantuan"]
+        assert b["tingkat"] == "tunjuk"
+        assert b["token"] == [tok(m, "sekali"), tok(m, "sekali") + 1, tok(m, "sekali", 2)]
+        assert "sekali" in b["alasan"]
+
+        r = self.klik(m, token=tok(m, "sekali"))
+        assert r.data["hasil"] == "ketemu"
+        b = r.data["bantuan"]
+        assert b["tingkat"] == "letak"
+        assert set(b) == {"tingkat", "kalimat"}  # tidak ada token kunci
+        awal, akhir = b["kalimat"]
+        assert awal <= tok(m, "di") <= akhir
+        assert akhir < tok(m, "tapi")  # hanya kalimat kedua
+
+        r = self.klik(m, token=tok(m, "di"))
+        assert r.data["bantuan"] is None
+        assert self.get(m)["bantuan"] is None  # tetap sesudah dimuat ulang
+
+    def test_bantuan_mengikuti_kesalahan_yang_belum_ditemukan(self):
+        m = self.misi(1, 1)
+        # Anak langsung menemukan kesalahan ketiga: yang ditunjuk sesudahnya letak kesalahan pertama.
+        r = self.klik(m, token=tok(m, "tapi"))
+        awal, akhir = r.data["bantuan"]["kalimat"]
+        assert awal <= tok(m, "sekali") <= akhir
+
+    def test_misi_tanpa_bantuan_memudar_tidak_mengirim_bantuan(self):
+        m = self.misi(1, 2)
+        assert "bantuan" not in self.get(m)
+        assert "bantuan" not in self.klik(m, token=tok(m, "sangat")).data
+
+
 class TestGuntingKembar(Dasar):
     def setUp(self):
         super().setUp()

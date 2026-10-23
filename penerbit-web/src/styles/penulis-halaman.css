@@ -268,3 +268,16 @@ details.ph-lipat.ph-lipat-putih { background: #fff; margin: var(--space-3) 0; }
   font-weight: 700; text-decoration: none; color: var(--color-text); background: var(--color-surface); border: 2px solid var(--color-border); }
 .ph-deret-titik.selesai { background: var(--color-success); border-color: var(--color-success); color: #fff; }
 .ph-deret-titik.di-sini { border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-muted); }
+
+/* Tanya Ayah atau Ummah + Kartu Pamer (Spec 075) */
+.ph-tanya { display: grid; gap: var(--space-3); justify-items: start; margin-top: var(--space-6); }
+.ph-tanya-form { display: grid; gap: var(--space-2); width: 100%; }
+.ph-tanya-form input { flex: 1; min-width: 0; }
+.ph-tanya-daftar { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); width: 100%; }
+.ph-tanya-daftar li { border-left: 3px solid var(--color-border); padding-left: var(--space-3); }
+.ph-pamer { display: grid; gap: var(--space-4); margin-top: var(--space-6); }
+.ph-pamer-dua { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.ph-pamer-dua figure { margin: 0; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.ph-pamer-dua figure + figure { background: var(--color-success-light); border-color: var(--color-success); }
+.ph-pamer-dua figcaption { font-weight: 600; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.ph-pamer-tunjuk { font-size: var(--text-lg); border: 2px solid var(--color-success); }

@@ -8,6 +8,7 @@ import LatihanBertanya from '../../components/LatihanBertanya'
 import UjianAB from '../../components/UjianAB'
 import { SebelumBerikut } from '../../components/NavModul'
 import { useNavPenulis } from '../../components/LayoutPenulis'
+import KartuPamer from '../../components/KartuPamer'
 import '../../styles/penulis-halaman.css'
 
 export default function Modul() {
@@ -104,6 +105,8 @@ function IsiModul({ m }: { m: ModulDetail }) {
       )}
 
       {m.alat && <KartuStiker alat={m.alat} />}
+
+      <KartuPamer modul={m.nomor} />
     </>
   )
 }

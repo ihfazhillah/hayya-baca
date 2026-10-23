@@ -47,6 +47,8 @@ function IsiDasbor() {
     { n: t.lembar, teks: 'lembar menunggu diperiksa', ke: '/ortu/lembar?status=menunggu' },
     { n: t.stempel, teks: 'naskah minta stempel', ke: '/ortu/naskah' },
     { n: t.penukaran, teks: 'penukaran poin diajukan', ke: '/ortu/hadiah' },
+    { n: t.pertanyaan ?? 0, teks: 'pertanyaan dari anak', ke: '/ortu/pertanyaan' },
+    { n: t.kartu_pamer ?? 0, teks: 'Kartu Pamer belum diberi reaksi', ke: '/ortu/kartu-pamer' },
   ]
   return (
     <>

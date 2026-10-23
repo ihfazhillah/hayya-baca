@@ -10,6 +10,9 @@ import TeksKlik, { type AwalKlik } from '../../components/TeksKlik'
 import Gunting from '../../components/Gunting'
 import DetektorKembar from '../../components/DetektorKembar'
 import Perekam from '../../components/Perekam'
+import TanyaAyah from '../../components/TanyaAyah'
+import ContohOren from '../../components/ContohOren'
+import Dengar from '../../components/Dengar'
 import '../../styles/penulis-halaman.css'
 
 type Muat = { kunci: string; modul: ModulDetail | ModulTerkunci; misi: MisiDetail | null }
@@ -113,6 +116,8 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
         <AreaKerja misi={misi} selesai={!!selesai} onSelesai={selesaikan} onSegarkan={segarkan} urutanBerikut={urutanBerikut} nomor={modul.nomor} />
       )}
 
+      <TanyaAyah misi={misi.id} />
+
       {selesai && (
         <section className="ph-selesai" aria-live="polite">
           <h2>Misi {misi.urutan} selesai!</h2>
@@ -193,12 +198,7 @@ function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor 
   const tokens = misi.tokens ?? []
   switch (misi.jenis) {
     case 'klik':
-      return (
-        <TeksKlik tokens={tokens} celah={misi.celah} jumlah={misi.jumlah}
-          awal={misi.percobaan ? awalKlik(misi.percobaan) : undefined}
-          onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
-          onSelesai={onSelesai} />
-      )
+      return <KerjaKlik misi={misi} onSelesai={onSelesai} />
     case 'gunting':
       return <Gunting tokens={tokens} onPeriksa={(p) => periksaGunting(id, p)} onSelesai={onSelesai} />
     case 'kembar':
@@ -210,6 +210,35 @@ function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor 
     case 'cetak':
       return <MisiCetak misi={misi} onSegarkan={onSegarkan} urutanBerikut={urutanBerikut} nomor={nomor} />
   }
+}
+
+/** Klik Kesalahan, dengan Contoh dari Oren lebih dulu, bantuan memudar, dan tombol 🔊 bila
+ *  misinya memakainya (spec 075 K1). TeksKlik tetap terpasang selama contoh supaya keadaannya tidak hilang. */
+function KerjaKlik({ misi, onSelesai }: {
+  misi: MisiDetail
+  onSelesai: (h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => void
+}) {
+  const id = misi.id
+  const tokens = misi.tokens ?? []
+  const langkah = Array.isArray(misi.contoh) ? misi.contoh : []
+  const p = misi.percobaan ? awalKlik(misi.percobaan) : undefined
+  const sudahMulai = !!p && ((p.ditemukan ?? 0) > 0 || p.diklik.length > 0 || p.meleset > 0)
+  const [lihatContoh, setLihatContoh] = useState(langkah.length > 0 && !sudahMulai)
+  const kerja = (
+    <>
+      {lihatContoh && <ContohOren tokens={tokens} langkah={langkah} onSelesai={() => setLihatContoh(false)} />}
+      <div className="tumpuk" hidden={lihatContoh}>
+        {langkah.length > 0 && (
+          <p><button type="button" className="btn btn-ghost" onClick={() => setLihatContoh(true)}>🐱 Lihat contoh Oren lagi</button></p>
+        )}
+        <TeksKlik tokens={tokens} celah={misi.celah} jumlah={misi.jumlah} awal={p}
+          bantuan={misi.bantuan_memudar ? (misi.bantuan ?? null) : undefined}
+          onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
+          onSelesai={onSelesai} />
+      </div>
+    </>
+  )
+  return misi.suara ? <Dengar teks={tokens.map((t) => t.t).join('')}>{kerja}</Dengar> : kerja
 }
 
 /** Percobaan yang tersimpan; `ditemukan`/`celah` dipakai bila server mengirimnya. */
@@ -316,7 +345,7 @@ function MisiLog({ misi, selesai, onSelesai }: {
         </label>
         <input id={`${id}-log`} className="ph-isian" value={log} onChange={(e) => setLog(e.target.value)}
           disabled={selesai} maxLength={300} />
-        {misi.contoh && <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>Contoh: “{misi.contoh}”</p>}
+        {typeof misi.contoh === 'string' && misi.contoh && <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>Contoh: “{misi.contoh}”</p>}
       </div>
       <Galat pesan={galat} />
       {!selesai && <button type="submit" className="btn-besar" disabled={!log.trim() || sibuk}>Simpan LOG</button>}

@@ -1,14 +1,14 @@
 # 075 · Tasks
 
 ## Fase A · Modul 1 percontohan
-- [ ] A1 Data `contoh` + `bantuan_memudar` di schema dan impor (test impor gagal dulu)
-- [ ] A2 Server: petunjuk per tingkat bantuan tanpa bocor kunci (test penilaian)
-- [ ] A3 `ContohOren` + bantuan memudar di TeksKlik (test Misi)
-- [ ] A4 Tombol 🔊 + sembunyikan teks, fallback tanpa suara (test Misi)
-- [ ] A5 Pertanyaan: model, API, tombol di misi, daftar di Pojok Orang Tua, angka di dasbor
-- [ ] A6 Kartu Pamer: model, API, UI anak, UI pemeriksa, reaksi di Beranda
-- [ ] A7 Prompt AI memakai umur anak
-- [ ] A8 Panduan bahasa 8 tahun + tulis ulang isi Modul 1
+- [x] A1 Data `contoh` + `bantuan_memudar` di schema dan impor (test impor gagal dulu)
+- [x] A2 Server: petunjuk per tingkat bantuan tanpa bocor kunci (test penilaian)
+- [x] A3 `ContohOren` + bantuan memudar di TeksKlik (test Misi)
+- [x] A4 Tombol 🔊 + sembunyikan teks, fallback tanpa suara (test Misi)
+- [x] A5 Pertanyaan: model, API, tombol di misi, daftar di Pojok Orang Tua, angka di dasbor
+- [x] A6 Kartu Pamer: model, API, UI anak, UI pemeriksa, reaksi di Beranda
+- [x] A7 Prompt AI memakai umur anak
+- [x] A8 Panduan bahasa 8 tahun + tulis ulang isi Modul 1
 - [ ] A9 Deploy, pemilik mencoba Modul 1
 
 ## Fase B · Modul 2–5

@@ -186,3 +186,20 @@ button:not(.kata):not(.celah), a.btn, .btn { min-height: 44px; }
 /* Modul sebelumnya / berikutnya */
 .nav-sebelum-berikut { display: flex; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); }
 .nav-sebelum-berikut .terkunci { opacity: .55; cursor: not-allowed; }
+
+/* Contoh dari Oren dan bantuan memudar (spec 075 K1) */
+.sorot-oren { background: var(--color-warning-light); border-bottom: 3px solid var(--color-warning);
+  border-radius: 4px; }
+.kata.bantuan-tunjuk { background: var(--color-warning-light); border-bottom-color: var(--color-warning);
+  animation: bersinar 1.6s var(--ease-out) infinite alternate; }
+.celah.bantuan-tunjuk::after { background: var(--color-warning); opacity: 1; width: 4px; left: -2px; }
+@keyframes bersinar { from { box-shadow: 0 0 0 0 transparent; } to { box-shadow: 0 0 0 4px var(--color-warning-light); } }
+@media (prefers-reduced-motion: reduce) { .kata.bantuan-tunjuk { animation: none; } }
+.gelembung-oren, .bantuan-oren { display: flex; gap: var(--space-3); align-items: flex-start;
+  background: var(--color-surface); border: 2px solid var(--color-border); border-radius: var(--radius-lg);
+  padding: var(--space-4); font-size: var(--text-lg); }
+.gelembung-oren > span, .bantuan-oren > span { font-size: var(--text-2xl); line-height: 1; }
+.gelembung-oren p, .bantuan-oren p { margin: 0; }
+.dengar { align-items: center; }
+.dengar-pilihan { display: inline-flex; gap: var(--space-2); align-items: center; min-height: 44px; }
+.dengar-pilihan input { width: 22px; height: 22px; }

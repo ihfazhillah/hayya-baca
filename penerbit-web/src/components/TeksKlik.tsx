@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState } from 'react'
-import type { HasilKlik, Jawaban, Target, Token } from '../types'
+import type { Bantuan, HasilKlik, Jawaban, Target, Token } from '../types'
 
 /** Keadaan percobaan yang dilanjutkan setelah halaman dimuat ulang.
  *  `ditemukan` dan `celah` opsional: server lama hanya mengirim token yang diklik. */
@@ -22,12 +22,14 @@ export interface TeksKlikProps {
   onPetunjuk?: () => Promise<{ kalimat: [number, number][] }>
   onBerhenti?: () => Promise<Jawaban & { selesai: true }>
   onSelesai?: (hasil: Jawaban & { hadiah_baru?: HasilKlik['hadiah_baru'] }) => void
+  /** Bantuan memudar (spec 075): diisi hanya di misi yang memakainya; server memperbaruinya per klik. */
+  bantuan?: Bantuan
 }
 
 const PESAN_MELESET = 'Bukan yang ini. Coba baca keras-keras sekali lagi.'
 const PESAN_GAGAL = 'Belum tersambung. Coba klik lagi, ya.'
 
-export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, onPetunjuk, onBerhenti, onSelesai }: TeksKlikProps) {
+export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, onPetunjuk, onBerhenti, onSelesai, bantuan: bantuanAwal }: TeksKlikProps) {
   const [diklik, setDiklik] = useState<Set<number>>(() => new Set(awal?.diklik ?? []))
   const [celahKetemu, setCelahKetemu] = useState<Set<number>>(() => new Set(awal?.celah ?? []))
   const [ditemukan, setDitemukan] = useState(
@@ -39,6 +41,8 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
   const [petunjuk, setPetunjuk] = useState<[number, number][]>([])
   const [selesai, setSelesai] = useState<(Jawaban & { selesai: true }) | null>(null)
   const [sibuk, setSibuk] = useState(false)
+  const memudar = bantuanAwal !== undefined
+  const [bantuan, setBantuan] = useState<Bantuan>(bantuanAwal ?? null)
 
   const kunciTerbuka = useMemo(() => {
     const s = new Set<number>()
@@ -57,6 +61,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
       const r = await onKlik(target)
       setTotal(r.total)
       setMeleset(r.meleset)
+      if (r.bantuan !== undefined) setBantuan(r.bantuan)
       if (r.hasil === 'ketemu') {
         if (target.token !== undefined) setDiklik((s) => new Set(s).add(target.token!))
         if (target.celah !== undefined) setCelahKetemu((s) => new Set(s).add(target.celah!))
@@ -105,7 +110,10 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
     }
   }
 
-  const diPetunjuk = (i: number) => petunjuk.some(([a, b]) => i >= a && i <= b)
+  const letak = !selesai && bantuan?.tingkat === 'letak' ? [bantuan.kalimat] : []
+  const tunjuk = !selesai && bantuan?.tingkat === 'tunjuk' ? bantuan : null
+  const diTunjuk = (i: number) => !!tunjuk?.token.includes(i)
+  const diPetunjuk = (i: number) => [...petunjuk, ...letak].some(([a, b]) => i >= a && i <= b)
   const kelasPetunjuk = (i: number) => (diPetunjuk(i) ? 'kalimat-petunjuk' : undefined)
 
   return (
@@ -117,7 +125,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
           if (t.j === 'spasi') {
             // Spasi hanya bisa diklik di mode celah (Kaca Pembesar: spasi berlebih).
             isi = celah ? (
-              <button type="button" className={`kata tanda spasi${diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? ' ditemukan' : ''}${diPetunjuk(t.i) ? ' kalimat-petunjuk' : ''}${goyang === t.i ? ' meleset' : ''}`}
+              <button type="button" className={`kata tanda spasi${diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? ' ditemukan' : ''}${diPetunjuk(t.i) ? ' kalimat-petunjuk' : ''}${diTunjuk(t.i) ? ' bantuan-tunjuk' : ''}${goyang === t.i ? ' meleset' : ''}`}
                 aria-label="spasi" onClick={() => klik({ token: t.i })} disabled={!!selesai}>{' '}</button>
             ) : (
               <span className={kelasPetunjuk(t.i)}>{t.t}</span>
@@ -135,6 +143,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
                   diklik.has(t.i) || kunciTerbuka.token.has(t.i) ? 'ditemukan' : '',
                   goyang === t.i ? 'meleset' : '',
                   diPetunjuk(t.i) ? 'kalimat-petunjuk' : '',
+                  diTunjuk(t.i) ? 'bantuan-tunjuk' : '',
                 ].filter(Boolean).join(' ')}
                 onClick={() => klik({ token: t.i })}
                 disabled={!!selesai}
@@ -148,7 +157,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
               {tombolCelah && (
                 <button
                   type="button"
-                  className={`celah${celahKetemu.has(t.i) || kunciTerbuka.celah.has(t.i) ? ' ditemukan' : ''}${goyang === -1 - t.i ? ' meleset' : ''}`}
+                  className={`celah${celahKetemu.has(t.i) || kunciTerbuka.celah.has(t.i) ? ' ditemukan' : ''}${tunjuk?.celah === t.i ? ' bantuan-tunjuk' : ''}${goyang === -1 - t.i ? ' meleset' : ''}`}
                   aria-label={`celah sebelum ${t.t}`}
                   onClick={() => klik({ celah: t.i })}
                   disabled={!!selesai}
@@ -159,7 +168,7 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
           )
         })}
         {celah && (
-          <button type="button" className={`celah${celahKetemu.has(tokens.length) || kunciTerbuka.celah.has(tokens.length) ? ' ditemukan' : ''}`}
+          <button type="button" className={`celah${celahKetemu.has(tokens.length) || kunciTerbuka.celah.has(tokens.length) ? ' ditemukan' : ''}${tunjuk?.celah === tokens.length ? ' bantuan-tunjuk' : ''}`}
             aria-label="celah di akhir" onClick={() => klik({ celah: tokens.length })} disabled={!!selesai} />
         )}
       </div>
@@ -171,6 +180,16 @@ export default function TeksKlik({ tokens, celah = false, jumlah, awal, onKlik, 
       ) : ditemukan > 0 && (
         // Tahap tanpa petunjuk: jumlah kesalahan dirahasiakan sampai klik pertama berikutnya.
         <div className="penghitung" aria-live="polite">{ditemukan} kesalahan ditemukan</div>
+      )}
+      {memudar && !selesai && (
+        <div role="note" aria-label="Bantuan Oren" className="bantuan-oren">
+          <span aria-hidden="true">🐱</span>
+          <p>
+            {tunjuk ? <>Lihat yang bersinar. {tunjuk.alasan} Klik di situ.</>
+              : letak.length ? 'Ada kesalahan di kalimat yang kuning. Coba cari, ya.'
+                : 'Sekarang cari sendiri, ya. Kamu pasti bisa!'}
+          </p>
+        </div>
       )}
       {pesan && !selesai && <p role="status" className="ph-pesan">{pesan}</p>}
       {selesai?.versi_benar && (

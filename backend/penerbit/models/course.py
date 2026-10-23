@@ -146,6 +146,13 @@ class Misi(models.Model):
     def __str__(self):
         return f"{self.modul.nomor}.{self.urutan} {self.judul}"
 
+    def label_tahap(self):
+        """Label tahap untuk anak. Misi dengan Contoh dari Oren (spec 075) tetap bertahap
+        `bersama` (syarat stiker), tetapi anak mengerjakannya tanpa orang tua."""
+        if self.jenis == self.Jenis.KLIK and self.data.get("contoh"):
+            return "Contoh dari Oren"
+        return self.get_tahap_display()
+
 
 class SoalUjian(models.Model):
     modul = models.ForeignKey(Modul, on_delete=models.CASCADE, related_name="ujian")
