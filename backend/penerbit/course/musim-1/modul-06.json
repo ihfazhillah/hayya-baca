@@ -1,0 +1,140 @@
+{
+  "_draf": ["tujuan", "resep", "mengapa", "kamus (Tes 3 Bintang, Bank Ide)", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M6-2", "lembar BANK-IDE", "misi 4: Tes 3 Bintang sebagai misi tersendiri"],
+  "nomor": 6,
+  "musim": 1,
+  "level": 2,
+  "judul": "Tambang Ide",
+  "alat": "",
+  "emoji": "⛏️",
+  "tujuan": "Gali ide cerita dari tiga sumur, lalu pilih satu ide yang mendapat 3 bintang.",
+  "kenapa": "Penambang tidak menunggu emas jatuh dari langit. Dia menggali di tempat yang tepat.",
+  "langkah": [
+    "Isi Bank Ide dengan 5 ide, minimal satu dari setiap sumur.",
+    "Uji setiap ide dengan Tes 3 Bintang: aku senang menulisnya, ada masalahnya, aku tahu akhirnya.",
+    "Pilih satu ide yang mendapat 3 bintang."
+  ],
+  "resep": [
+    "Sumur Kenangan: apa yang pernah terjadi padaku?",
+    "Sumur Bagaimana Kalau: ambil hal biasa, tanya \"bagaimana kalau…\".",
+    "Sumur Acak: ambil dua benda acak, gabungkan.",
+    "Beri bintang: senang menulisnya, ada masalahnya, tahu akhirnya.",
+    "Pilih ide yang bintangnya tiga."
+  ],
+  "mengapa": "Ide jarang datang sendiri saat kita menunggu. Pertanyaan dari tiga sumur membuat otak mulai menggali. Tes 3 Bintang memastikan ide yang dipilih punya masalah dan akhir, jadi ceritanya tidak macet di tengah jalan.",
+  "kamus": [
+    {"istilah": "Sumur Kenangan", "arti": "Sesuatu yang pernah terjadi padaku. Contoh: sandal hilang di masjid."},
+    {"istilah": "Sumur Bagaimana Kalau", "arti": "Ambil hal biasa, lalu tanya \"bagaimana kalau…\". Contoh: bagaimana kalau sandalku tertukar dengan sandal orang lain?"},
+    {"istilah": "Sumur Acak", "arti": "Ambil dua benda acak di rumah, lalu gabungkan. Contoh: payung dan ayam."},
+    {"istilah": "Tes 3 Bintang", "arti": "Tiga pertanyaan untuk menguji ide: aku senang menulisnya? Ada masalahnya? Aku tahu akhirnya?"},
+    {"istilah": "Bank Ide", "arti": "Tempat menyimpan semua idemu, supaya tidak hilang dan bisa dipakai kapan saja."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Gali satu ide dari ingatan Ayah sendiri sambil berpikir keras: \"Kapan ya Ayah kehilangan sesuatu… oh, kunci motor yang ternyata masih tergantung di pintu! Ada masalahnya? Ada. Ayah tahu akhirnya? Tahu. Senang menulisnya? Senang. Tiga bintang!\"",
+  "ujian": [
+    {
+      "soal": "Mana ide yang lolos bintang \"ada masalahnya\"?",
+      "a": "Fatih pergi ke masjid, lalu pulang.",
+      "b": "Sandal Fatih hilang dari rak masjid saat dia buru-buru pulang.",
+      "jawaban": "b",
+      "alasan": "Di B ada yang menghalangi Fatih: sandalnya hilang. Di A tidak terjadi apa-apa."
+    },
+    {
+      "soal": "\"Aku pernah tertinggal bus sekolah.\" Ide ini dari sumur mana?",
+      "a": "Sumur Kenangan",
+      "b": "Sumur Acak",
+      "jawaban": "a",
+      "alasan": "Ide ini sesuatu yang pernah terjadi padamu, jadi dari Sumur Kenangan."
+    }
+  ],
+  "bertanya": {
+    "a": "Kasih aku ide cerita.",
+    "b": "Aku sedang mengisi Bank Ide dari Sumur Acak: payung dan ayam. Aku bingung karena ideku belum ada masalahnya. Tolong beri aku 2 pertanyaan, jangan beri idenya. Setelah itu aku akan menulis masalahnya sendiri.",
+    "jawaban": "b",
+    "bagian": [1, 2, 3, 4],
+    "penjelasan": "B punya keempat bagian Rumus Bertanya: aku sedang (mengisi Bank Ide), aku bingung (belum ada masalahnya), tolong… jangan… (beri pertanyaan, jangan beri idenya), dan setelah itu aku akan (menulis sendiri). A meminta orang lain yang mencari idenya."
+  },
+  "lembar": [
+    {
+      "kode": "BANK-IDE",
+      "judul": "Bank Ide",
+      "petunjuk": "Tulis 5 ide cerita, minimal satu dari setiap sumur. Lalu beri bintang dengan Tes 3 Bintang.",
+      "soal": "Sumur: K = Kenangan, B = Bagaimana Kalau, A = Acak\nBintang: ☆ aku senang menulisnya  ☆ ada masalahnya  ☆ aku tahu akhirnya\n\n1. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n2. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n3. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n4. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n5. Sumur ___  Ide: ____________________  ☆ ☆ ☆\n\nIde pilihanku (3 bintang): nomor ___",
+      "baris_tulis": 4,
+      "pertanyaan_bantu": "Kapan kamu tertawa keras? Kapan kamu kehilangan sesuatu? Bagaimana kalau hal biasa di rumahmu tiba-tiba berubah? Dua benda apa yang ada di dekatmu sekarang?",
+      "cek_sendiri": [
+        "Aku menulis 5 ide.",
+        "Setiap sumur aku pakai minimal sekali.",
+        "Aku memilih satu ide yang mendapat 3 bintang."
+      ],
+      "kriteria": "Lima ide, ketiga sumur terpakai, satu ide dipilih. Ide boleh lucu atau aneh, asal masuk akal dan punya masalah. Jangan menilai bagus atau jelek idenya.",
+      "contoh_jawaban": "1. K: Sandal hijauku hilang di masjid. ☆☆☆\n2. B: Bagaimana kalau sandalku tertukar dengan sandal orang lain? ☆☆\n3. A: Payung dan ayam: ayam tetangga berteduh di bawah payungku. ☆☆",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus. Lembar ini boleh dicetak berkali-kali."
+    },
+    {
+      "kode": "M6-2",
+      "judul": "Bagaimana kalau…",
+      "petunjuk": "Lengkapi 3 kalimat ini supaya menjadi ide cerita yang masuk akal.",
+      "soal": "Bagaimana kalau kucing tetangga setiap hari masuk ke kamarku… ____________________\nBagaimana kalau listrik padam saat… ____________________\nBagaimana kalau aku salah naik angkot dan… ____________________",
+      "baris_tulis": 6,
+      "pertanyaan_bantu": "Apa yang terjadi selanjutnya? Siapa yang kaget? Apa masalahnya?",
+      "cek_sendiri": [
+        "Ketiga kalimatku sudah selesai.",
+        "Ideku bisa terjadi sungguhan, tidak pakai sihir."
+      ],
+      "kriteria": "Tiga kalimat lengkap. Setiap kalimat berisi kejadian yang bisa menjadi masalah cerita, dan masuk akal.",
+      "contoh_jawaban": "Bagaimana kalau listrik padam saat Ummah sedang membuat kue, dan kuenya harus dipanggang besok pagi untuk acara di masjid?",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Tiga pertanyaan Sumur Kenangan",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Ayah bertanya 3 pertanyaan Sumur Kenangan. Jawab masing-masing dengan satu kalimat, lalu simpan di Bank Ide.",
+      "petunjuk_ortu": "Tanyakan: Kapan terakhir kamu tertawa keras? Kapan kamu kehilangan sesuatu? Kapan seekor kucing membuatmu kaget? Minta dia menjawab masing-masing dengan satu kalimat."
+    },
+    {
+      "urutan": 2,
+      "judul": "Bagaimana kalau…",
+      "tahap": "petunjuk",
+      "jenis": "cetak",
+      "petunjuk": "Lengkapi 3 kalimat \"bagaimana kalau…\" supaya masuk akal.",
+      "lembar": "M6-2"
+    },
+    {
+      "urutan": 3,
+      "judul": "Dua benda acak",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Ambil 2 benda acak di rumah sambil menutup mata. Tulis satu ide cerita yang masuk akal dari keduanya di Bank Ide."
+    },
+    {
+      "urutan": 4,
+      "judul": "Tes 3 Bintang",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Beri bintang setiap ide di Bank Ide: aku senang menulisnya, ada masalahnya, aku tahu akhirnya. Pilih satu ide yang mendapat 3 bintang."
+    },
+    {
+      "urutan": 5,
+      "judul": "Detektif Novel",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Dari novel atau kisah nyata yang sedang kamu baca, tebak ide ceritanya berasal dari sumur yang mana.",
+      "pertanyaan": "Dari sumur mana idenya, dan kenapa kamu menebak begitu?"
+    },
+    {
+      "urutan": 6,
+      "judul": "Satu ide sehari",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tambahkan 1 ide baru ke Bank Ide setiap hari selama seminggu."
+    }
+  ]
+}

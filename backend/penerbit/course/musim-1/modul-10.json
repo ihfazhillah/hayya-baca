@@ -1,0 +1,78 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]"],
+  "nomor": 10,
+  "musim": 1,
+  "level": 3,
+  "judul": "Lapis 1: Cerita Besar",
+  "alat": "pengeras",
+  "emoji": "🔊",
+  "lapis": "peta",
+  "tujuan": "Pastikan ceritamu lengkap dan sama dengan Peta 4 Kotak, sebelum memperbaiki kalimat.",
+  "kenapa": "Sebelum mengecat rumah, tukang memeriksa dulu apakah dindingnya lengkap. Sebelum memperbaiki kata, editor memeriksa dulu apakah ceritanya lengkap.",
+  "langkah": [
+    "Baca keras-keras seluruh Versi 1, dengan Peta 4 Kotak di samping.",
+    "Centang setiap kotak yang sudah muncul di draf.",
+    "Isi semua tanda [???].",
+    "Perbaiki 1 bagian yang membingungkan, lalu simpan sebagai Versi 2."
+  ],
+  "resep": [
+    "Peta 4 Kotak di samping, baca keras-keras.",
+    "Kotak mana yang belum muncul?",
+    "Isi semua [???].",
+    "Satu bagian membingungkan, perbaiki.",
+    "Simpan sebagai versi baru. Versi lama tidak ditimpa."
+  ],
+  "mengapa": "Kalimat yang rapi tidak ada gunanya kalau ceritanya bolong. Dengan memeriksa cerita besar dulu, kamu tidak membuang tenaga memperbaiki kalimat yang nanti mungkin dihapus.",
+  "kamus": [
+    {"istilah": "lapis", "arti": "Satu putaran revisi yang hanya mencari satu jenis masalah."},
+    {"istilah": "bagian yang hilang", "arti": "Kejadian yang ada di Peta 4 Kotak atau di kepalamu, tapi belum tertulis di draf."},
+    {"istilah": "Versi 2", "arti": "Draf setelah revisi pertama. Versi 1 tetap disimpan utuh."}
+  ],
+  "tahap_mentor": "contoh",
+  "kartu_prompt": "Aku sedang di Revisi Lapis 1. Ini ceritaku: [tempel]. Sebutkan 2 bagian yang membuatmu bingung sebagai pembaca. Jangan perbaiki.",
+  "petunjuk_lihat": "Baca keras-keras satu cerita pendek Ayah sendiri dengan Peta 4 Kotak di samping, sambil berpikir keras: \"Kotak 1 ada. Kotak 2 ada. Kotak 3… lho, masalahnya belum Ayah tulis! Ayah beri tanda dulu.\"",
+  "ujian": [
+    {
+      "soal": "Di Versi 1 tertulis \"[???] kakek Darto minta maaf.\" Apa yang dilakukan di Lapis 1?",
+      "a": "Biarkan saja, pembaca pasti mengerti.",
+      "b": "Isi bagian yang hilang, misalnya dengan dialog Fatih dan Kakek.",
+      "jawaban": "b",
+      "alasan": "Tanda [???] berarti ada bagian yang belum ditulis. Lapis 1 tugasnya mengisi bagian yang hilang."
+    },
+    {
+      "soal": "Mana pertanyaan untuk Lapis 1?",
+      "a": "Apakah ceritaku sama dengan Peta 4 Kotak?",
+      "b": "Apakah titik dan komaku sudah benar?",
+      "jawaban": "a",
+      "alasan": "Lapis 1 memeriksa cerita besar. Titik dan koma diperiksa nanti di Lapis 4."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Centang Peta 4 Kotak",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Centang setiap kotak Peta 4 Kotak yang sudah muncul di draf.",
+      "petunjuk_ortu": "Baca draf bersama dengan Peta 4 Kotak di samping. Tanyakan \"Kotak 3 ada di kalimat mana?\" dan biarkan dia yang menunjuk."
+    },
+    {
+      "urutan": 2,
+      "judul": "Isi semua [???]",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Isi semua tanda [???]."
+    },
+    {
+      "urutan": 3,
+      "judul": "Satu bagian yang membingungkan",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pakai kartu prompt Lapis 1, perbaiki 1 bagian yang membingungkan."
+    }
+  ]
+}

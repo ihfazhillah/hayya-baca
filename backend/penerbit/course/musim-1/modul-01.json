@@ -1,5 +1,5 @@
 {
-  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar"],
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar", "bertanya"],
   "nomor": 1,
   "musim": 1,
   "level": 1,
@@ -43,6 +43,13 @@
       "alasan": "Di B ada \"di di\". Kalau dibaca keras, terdengar seperti tersandung."
     }
   ],
+  "bertanya": {
+    "a": "Aku sedang belajar membaca keras-keras. Lidahku tersandung di kalimat kedua, tapi aku tidak tahu kenapa. Tolong tunjukkan kata yang membuatku tersandung, jangan perbaiki kalimatnya.",
+    "b": "Betulkan kalimatku.",
+    "jawaban": "a",
+    "bagian": [1, 2, 3],
+    "penjelasan": "A menyebut sedang apa (belajar membaca keras-keras), bagian yang membingungkan (tersandung di kalimat kedua), dan bantuan yang diminta (tunjukkan katanya, jangan perbaiki). B tidak menyebut apa-apa, jadi penjawab akan membetulkan semuanya untukmu dan kamu tidak belajar."
+  },
   "lembar": [],
   "misi": [
     {

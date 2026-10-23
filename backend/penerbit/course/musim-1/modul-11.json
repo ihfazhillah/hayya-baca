@@ -1,0 +1,76 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "nomor": 11,
+  "musim": 1,
+  "level": 3,
+  "judul": "Lapis 2: Adegan",
+  "alat": "kamera",
+  "emoji": "🎥",
+  "lapis": "kamera",
+  "tujuan": "Ubah 2 kalimat \"bilang perasaan\" di ceritamu menjadi adegan yang bisa dilihat pembaca.",
+  "kenapa": "Juru kamera tidak merekam semuanya dari dekat. Dia memilih adegan yang paling penting. Kamu juga cukup memilih 2 tempat.",
+  "langkah": [
+    "Garis bawahi semua kata perasaan: sedih, senang, kesal, takut, malu.",
+    "Pilih 2 saja.",
+    "Tanya: kalau ini film, apa yang terlihat?",
+    "Tulis ulang 2 kalimat itu dengan Kamera, lalu simpan sebagai versi baru."
+  ],
+  "resep": [
+    "Cari kata perasaan, garis bawahi.",
+    "Pilih 2 tempat yang paling penting.",
+    "Bayangkan kamera: tangan, wajah, suara.",
+    "Tulis ulang 2 kalimat itu saja."
+  ],
+  "mengapa": "Kalau semua perasaan diubah menjadi adegan panjang, ceritamu jadi lambat. Memilih 2 tempat yang paling penting membuat pembaca berhenti dan ikut merasakan di bagian yang memang penting.",
+  "kamus": [
+    {"istilah": "adegan", "arti": "Satu bagian cerita yang bisa dibayangkan seperti potongan film."},
+    {"istilah": "kata perasaan", "arti": "Kata yang langsung menyebut perasaan: sedih, senang, kesal, takut, malu."}
+  ],
+  "tahap_mentor": "contoh",
+  "kartu_prompt": "Aku sedang di Revisi Lapis 2 (Kamera). Tunjukkan 2 kalimat di mana aku langsung bilang perasaan tokoh. Untuk setiap kalimat, beri aku 1 pertanyaan supaya aku bisa menunjukkannya sendiri.",
+  "petunjuk_lihat": "Ambil satu kalimat \"bilang perasaan\" dari tulisan Ayah sendiri dan berpikir keras: \"'Ayah kesal.' Kalau ini film, kamera melihat apa? Ayah menutup laptop keras-keras. Nah, itu yang Ayah tulis.\"",
+  "ujian": [
+    {
+      "soal": "Mana yang memakai Kamera?",
+      "a": "Fatih sedih. Fatih kesal.",
+      "b": "Mata Fatih mulai panas. Dia menendang tiang masjid pelan-pelan.",
+      "jawaban": "b",
+      "alasan": "B menunjukkan apa yang terlihat di kamera, jadi pembaca ikut merasakan sedih dan kesalnya Fatih."
+    },
+    {
+      "soal": "Ceritamu punya 6 kalimat \"bilang perasaan\". Berapa yang diubah di Lapis 2?",
+      "a": "2 saja, yang paling penting.",
+      "b": "Semuanya, supaya sempurna.",
+      "jawaban": "a",
+      "alasan": "Satu lapis tidak pernah berarti \"perbaiki semuanya\". Dua tempat yang dipilih dengan baik sudah membuat cerita lebih hidup."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Garis bawahi kata perasaan",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Garis bawahi semua kata perasaan: sedih, senang, kesal, takut, malu.",
+      "petunjuk_ortu": "Duduk di samping, tapi biarkan dia yang memegang stabilo Kamera. Kalau ada yang terlewat, tanyakan \"Di paragraf ini ada perasaan?\""
+    },
+    {
+      "urutan": 2,
+      "judul": "Kalau ini film",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pilih 2, tanya \"kalau ini film, apa yang terlihat?\""
+    },
+    {
+      "urutan": 3,
+      "judul": "Tulis ulang dengan Kamera",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tulis ulang 2 kalimat itu dengan Kamera."
+    }
+  ]
+}

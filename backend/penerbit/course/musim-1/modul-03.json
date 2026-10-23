@@ -1,5 +1,5 @@
 {
-  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]"],
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "bertanya"],
   "nomor": 3,
   "musim": 1,
   "level": 1,
@@ -43,6 +43,13 @@
       "alasan": "Di B, \"Oren\" muncul di setiap kalimat. Di A, sebagian diganti \"Dia\"."
     }
   ],
+  "bertanya": {
+    "a": "Aku sedang mencari kata kembar. Ceritaku terasa membosankan, tapi aku tidak tahu kata mana yang terlalu sering muncul. Tolong sebutkan katanya saja, jangan beri gantinya. Setelah itu aku akan mencari penggantinya sendiri.",
+    "b": "Ganti kata-kata yang sama di ceritaku.",
+    "jawaban": "a",
+    "bagian": [1, 2, 3, 4],
+    "penjelasan": "A punya keempat bagian Rumus Bertanya: aku sedang (mencari kata kembar), aku bingung (kata mana yang terlalu sering muncul), tolong… jangan… (sebutkan katanya, jangan beri gantinya), dan setelah itu aku akan (mencari penggantinya sendiri). B meminta orang lain yang mengganti."
+  },
   "lembar": [],
   "misi": [
     {

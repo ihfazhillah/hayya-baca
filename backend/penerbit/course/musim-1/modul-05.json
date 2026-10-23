@@ -1,5 +1,5 @@
 {
-  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar B1", "misi 5: teks Si Ceroboh dijadikan misi mandiri", "misi 7: Bos Level 1 sebagai lembar cetak"],
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar B1", "misi 5: teks Si Ceroboh dijadikan misi mandiri", "misi 7: Bos Level 1 sebagai lembar cetak", "bertanya"],
   "nomor": 5,
   "musim": 1,
   "level": 1,
@@ -43,6 +43,13 @@
       "alasan": "Kalimat diawali huruf besar dan tidak ada spasi sebelum titik."
     }
   ],
+  "bertanya": {
+    "a": "Aku sedang memeriksa ejaan dengan Kaca Pembesar. Aku bingung kapan \"di\" ditulis terpisah dan kapan disambung. Tolong jelaskan dengan contoh lain, jangan periksa ceritaku.",
+    "b": "Apa saja yang salah di ceritaku?",
+    "jawaban": "a",
+    "bagian": [1, 2, 3],
+    "penjelasan": "A menyebut sedang apa (memeriksa ejaan), bagian yang membingungkan (\"di\" dipisah atau disambung), dan bantuan yang diminta (jelaskan dengan contoh lain, jangan periksa ceritaku). B meminta orang lain menemukan semua kesalahanmu."
+  },
   "lembar": [
     {
       "kode": "B1",

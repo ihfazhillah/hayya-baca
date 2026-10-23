@@ -47,6 +47,12 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 ## Fase 14 — Area Pemeriksa + Editor Tamu + Rak Buku
 ## Fase 15 — Halaman cetak
 ## Fase 16 — Isi Modul 6–9
+- [x] draf JSON (terimpor, kunci valid)
+- [ ] review pemilik
 ## Fase 17 — Isi Modul 10–16
+- [x] draf JSON (terimpor, kunci valid)
+- [ ] review pemilik
 ## Fase 18 — Bank Latihan Harian + Latihan Bertanya
+- [x] draf `latihan.json` (60 kalimat) + `bertanya` modul 1–9
+- [ ] review pemilik
 ## Fase 19 — Deploy

@@ -1,0 +1,84 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "nomor": 12,
+  "musim": 1,
+  "level": 3,
+  "judul": "Lapis 3: Kalimat",
+  "alat": "gunting",
+  "emoji": "✂️",
+  "lapis": "gunting",
+  "tujuan": "Pakai Detektor Kembar dan Gunting pada ceritamu sendiri: kurangi kata kembar dan potong kalimat terpanjang.",
+  "kenapa": "Tukang kebun memangkas ranting yang terlalu panjang supaya pohonnya rapi dan sehat. Editor memangkas kalimat yang terlalu panjang dan kata yang terlalu sering muncul.",
+  "langkah": [
+    "Lingkari kata yang muncul lebih dari 3 kali.",
+    "Ganti atau hapus sebagian kata kembar.",
+    "Gunting 2 kalimat terpanjang.",
+    "Baca keras seluruh cerita, lalu simpan sebagai versi baru."
+  ],
+  "resep": [
+    "Lingkari kata yang muncul lebih dari 3 kali.",
+    "Biarkan satu, ganti sebagian, hapus sisanya.",
+    "Cari 2 kalimat terpanjang, potong di \"dan\", \"lalu\", \"terus\".",
+    "Baca keras dari awal sampai akhir."
+  ],
+  "mengapa": "Di tulisan sendiri, kata kembar dan kalimat panjang sulit terlihat karena kamu sudah hafal ceritanya. Mencari satu jenis masalah saja membuat matamu fokus, dan membaca keras di akhir memastikan kalimat barumu tetap enak didengar.",
+  "kamus": [
+    {"istilah": "kalimat terpanjang", "arti": "Kalimat dengan kata paling banyak di ceritamu. Jejak Keterampilan menghitungnya untukmu."},
+    {"istilah": "memangkas", "arti": "Membuang atau memotong bagian yang terlalu banyak, supaya sisanya lebih jelas."}
+  ],
+  "tahap_mentor": "isian",
+  "kartu_prompt": "Aku sedang di Revisi Lapis 3. Sebutkan kata yang aku ulang lebih dari 3 kali dan kalimatku yang paling panjang. Jangan beri gantinya.",
+  "petunjuk_lihat": "Di tulisan Ayah sendiri, lingkari satu kata yang sering muncul sambil berpikir keras: \"'Terus', 'terus', 'terus'… lima kali! Yang ini Ayah hapus, yang ini Ayah ganti 'setelah itu'. Satu biar saja.\"",
+  "ujian": [
+    {
+      "soal": "Mana yang sudah digunting?",
+      "a": "Hari itu Fatih sholat ashar di masjid dan dia buru buru karena mau nonton lomba di tv dan lombanya mulai jam 4.",
+      "b": "Sore itu Fatih sholat asar di masjid. Dia buru-buru, karena lomba balap sepeda di TV mulai jam empat.",
+      "jawaban": "b",
+      "alasan": "A satu kalimat panjang dengan dua \"dan\". B dipotong menjadi dua kalimat pendek."
+    },
+    {
+      "soal": "Mana yang \"Lalu\"-nya tinggal satu?",
+      "a": "Lalu Fatih melihat Kakek Darto. Lalu Fatih melihat kaki Kakek Darto.",
+      "b": "Lalu Fatih melihat Kakek Darto berjalan pelan-pelan. Kakinya memakai sandal hijau.",
+      "jawaban": "b",
+      "alasan": "Di B, \"Lalu\" kedua dihapus dan kalimatnya diubah, jadi tidak terdengar berulang."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Lingkari kata kembar",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Lingkari kata yang muncul lebih dari 3 kali.",
+      "petunjuk_ortu": "Bantu menghitung, tapi biarkan dia yang menemukan katanya. Jejak Keterampilan di halaman naskah juga menunjukkan kata kembar terbanyak."
+    },
+    {
+      "urutan": 2,
+      "judul": "Ganti atau hapus",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Ganti atau hapus sebagian kata kembar."
+    },
+    {
+      "urutan": 3,
+      "judul": "Gunting 2 kalimat",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Gunting 2 kalimat terpanjang."
+    },
+    {
+      "urutan": 4,
+      "judul": "Baca keras",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Baca keras seluruh cerita."
+    }
+  ]
+}

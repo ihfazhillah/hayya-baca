@@ -1,0 +1,92 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "lembar KARTU-ULASAN", "misi 3: log, bukan tandai, supaya alasannya tersimpan"],
+  "nomor": 14,
+  "musim": 1,
+  "level": 3,
+  "judul": "Pembaca Pertama",
+  "emoji": "📖",
+  "lapis": "pembaca",
+  "tujuan": "Bacakan ceritamu ke satu pembaca, dengarkan ulasannya, lalu putuskan sendiri masukan mana yang dipakai.",
+  "kenapa": "Koki mencicipi masakannya sendiri, tapi dia tetap ingin tahu pendapat orang yang memakannya. Penulis juga butuh pembaca pertama.",
+  "langkah": [
+    "Bacakan cerita ke satu pembaca.",
+    "Minta pembaca mengisi Kartu Ulasan: bagian favoritku, bagian yang membuatku bingung, satu pertanyaan untuk penulis.",
+    "Pilih 1 masukan.",
+    "Tulis alasannya, lalu pakai masukan itu di versi baru."
+  ],
+  "resep": [
+    "Satu pembaca, satu kali membaca.",
+    "Kartu Ulasan: favorit, bingung, satu pertanyaan.",
+    "Kamu yang memutuskan masukan mana yang dipakai.",
+    "Boleh menolak, asal bisa menjelaskan alasannya."
+  ],
+  "mengapa": "Kamu tahu isi kepalamu sendiri, jadi ceritamu selalu terasa jelas bagimu. Pembaca hanya punya kertasnya. Pertanyaan pembaca menunjukkan bagian yang ada di kepalamu tapi belum ada di kertas.",
+  "kamus": [
+    {"istilah": "Pembaca Pertama", "arti": "Orang pertama yang mendengar atau membaca ceritamu sebelum terbit."},
+    {"istilah": "Kartu Ulasan", "arti": "Kartu tiga baris: bagian favoritku, bagian yang membuatku bingung, satu pertanyaan untuk penulis."},
+    {"istilah": "masukan", "arti": "Saran atau pertanyaan dari pembaca. Penulis yang memutuskan mau dipakai atau tidak."}
+  ],
+  "tahap_mentor": "mandiri",
+  "kartu_prompt": "",
+  "petunjuk_lihat": "Jadilah pembaca pertama yang baik: dengarkan sampai selesai tanpa memotong, lalu isi Kartu Ulasan dengan jujur. Mulai dari bagian favorit yang spesifik, misalnya: \"Bagian Kakek melihat kakinya lama sekali itu bikin aku tertawa.\"",
+  "ujian": [
+    {
+      "soal": "Pembaca bertanya, \"Bagaimana Fatih tahu itu sandalnya?\" Apa yang dilakukan penulis?",
+      "a": "Menambah ciri sandalnya: tali dengan bekas gigitan kucing.",
+      "b": "Kesal karena pembaca tidak mengerti.",
+      "jawaban": "a",
+      "alasan": "Pertanyaan pembaca menunjukkan bagian yang belum jelas. Dengan ciri itu, pembaca percaya itu sandal Fatih."
+    },
+    {
+      "soal": "Kamu tidak setuju dengan satu masukan. Apa yang boleh kamu lakukan?",
+      "a": "Semua masukan wajib dipakai.",
+      "b": "Menolaknya, asal bisa menjelaskan alasannya.",
+      "jawaban": "b",
+      "alasan": "Penulis yang memutuskan. Menjelaskan alasan menunjukkan kamu sudah memikirkannya."
+    }
+  ],
+  "lembar": [
+    {
+      "kode": "KARTU-ULASAN",
+      "judul": "Kartu Ulasan",
+      "petunjuk": "Untuk pembaca: dengarkan atau baca cerita sampai selesai, lalu isi tiga baris ini.",
+      "soal": "Judul cerita: ____________________\nPembaca: ____________________\n\n1. Bagian favoritku: ____________________\n\n2. Bagian yang membuatku bingung: ____________________\n\n3. Satu pertanyaan untuk penulis: ____________________",
+      "baris_tulis": 0,
+      "pertanyaan_bantu": "Bagian mana yang membuatmu tersenyum? Di bagian mana kamu bertanya-tanya \"kok bisa?\"",
+      "cek_sendiri": [
+        "Ketiga baris sudah terisi.",
+        "Ulasanku menyebut bagian yang spesifik, bukan cuma \"bagus\"."
+      ],
+      "kriteria": "Bukan untuk dinilai. Pastikan bagian favorit dan bagian yang membingungkan menyebut tempat yang spesifik di cerita.",
+      "contoh_jawaban": "1. Bagian Kakek melihat kakinya lama sekali.\n2. Aku bingung kenapa Fatih yakin itu sandalnya.\n3. Bagaimana Fatih tahu itu sandalnya?",
+      "saran_stiker": "Tidak menambah stiker. Kartu ini untuk pembaca yang tidak punya akun; pembaca yang punya akun mengisinya di halaman Ulasan."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Bacakan ceritamu",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Bacakan cerita ke satu pembaca.",
+      "petunjuk_ortu": "Bantu memilih pembaca dan waktunya. Ingatkan pembaca untuk mendengarkan sampai selesai tanpa mengoreksi."
+    },
+    {
+      "urutan": 2,
+      "judul": "Kartu Ulasan",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "petunjuk": "Pembaca mengisi Kartu Ulasan: bagian favoritku, bagian yang membuatku bingung, satu pertanyaan untuk penulis.",
+      "petunjuk_ortu": "Pembaca yang punya akun mengisi Kartu Ulasan di situs. Pembaca lain boleh memakai lembar cetak KARTU-ULASAN."
+    },
+    {
+      "urutan": 3,
+      "judul": "Pilih satu masukan",
+      "tahap": "mandiri",
+      "jenis": "log",
+      "petunjuk": "Pilih 1 masukan dan tulis alasannya.",
+      "pertanyaan": "Masukan mana yang kamu pilih, dan kenapa?"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar"],
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar", "bertanya"],
   "nomor": 2,
   "musim": 1,
   "level": 1,
@@ -43,6 +43,13 @@
       "alasan": "Di A setiap kejadian punya kalimat sendiri, jadi pembaca bisa bernapas."
     }
   ],
+  "bertanya": {
+    "a": "Betulkan ceritaku.",
+    "b": "Aku sedang belajar memotong kalimat panjang. Kalimat ketigaku terasa terlalu panjang. Tunjukkan di mana sebaiknya aku potong, tapi jangan tulis ulang.",
+    "jawaban": "b",
+    "bagian": [1, 2, 3],
+    "penjelasan": "B menyebut sedang apa (belajar memotong kalimat panjang), bagian yang membingungkan (kalimat ketiga terlalu panjang), dan bantuan yang diminta (tunjukkan tempat memotong, jangan tulis ulang). A meminta orang lain yang memperbaiki."
+  },
   "lembar": [
     {
       "kode": "M2-5",

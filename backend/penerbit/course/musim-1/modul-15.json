@@ -1,0 +1,75 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]"],
+  "nomor": 15,
+  "musim": 1,
+  "level": 3,
+  "judul": "Bengkel Cerita Lama",
+  "emoji": "🔧",
+  "lapis": "bengkel",
+  "tujuan": "Upgrade satu bab cerita lamamu dengan satu alat, tanpa menimpa versi aslinya.",
+  "kenapa": "Sepeda lama bisa seperti baru lagi kalau dibawa ke bengkel. Montirnya tidak mengganti semuanya sekaligus, tapi satu bagian demi satu bagian.",
+  "langkah": [
+    "Pilih 1 bab cerita lama.",
+    "Pilih 1 alat.",
+    "Pakai kartu prompt Bengkel untuk menemukan 2 tempat alat itu bisa dipakai.",
+    "Pakai alat itu, simpan sebagai Versi 2 bab tersebut."
+  ],
+  "resep": [
+    "Satu bab, satu alat, satu sesi.",
+    "Versi asli disimpan utuh sebagai Versi 1.",
+    "Pakai alatnya, simpan sebagai versi baru.",
+    "Sesi berikutnya boleh pilih alat lain."
+  ],
+  "mengapa": "Cerita lamamu ditulis sebelum kamu punya kelima alat. Memperbaikinya dengan satu alat sekaligus menunjukkan seberapa jauh kamu sudah berkembang, dan melatih alat itu di tulisan yang sudah kamu kenal baik.",
+  "kamus": [
+    {"istilah": "bab", "arti": "Satu bagian dari cerita yang panjang."},
+    {"istilah": "upgrade", "arti": "Membuat sesuatu menjadi lebih bagus dari sebelumnya."}
+  ],
+  "tahap_mentor": "mandiri",
+  "kartu_prompt": "Aku sedang mengupgrade cerita lamaku dengan alat [nama alat]. Ini satu babnya: [tempel]. Tunjukkan 2 tempat di mana alat ini bisa dipakai. Jangan tulis ulang.",
+  "petunjuk_lihat": "Buka satu tulisan lama Ayah, misalnya pesan panjang atau catatan lama, dan berpikir keras: \"Hari ini Ayah cuma pakai Gunting. Kalimat ini panjang sekali… potong di sini. Yang lain biar dulu, itu untuk sesi lain.\"",
+  "ujian": [
+    {
+      "soal": "Saat Bengkel, apa yang terjadi pada versi asli bab itu?",
+      "a": "Ditimpa dengan versi baru.",
+      "b": "Disimpan utuh sebagai Versi 1.",
+      "jawaban": "b",
+      "alasan": "Versi lama tidak pernah ditimpa, supaya kamu bisa melihat bedanya."
+    },
+    {
+      "soal": "Berapa alat yang dipakai dalam satu sesi Bengkel?",
+      "a": "Satu alat.",
+      "b": "Kelima alat sekaligus.",
+      "jawaban": "a",
+      "alasan": "Satu sesi, satu alat. Revisi tidak pernah berarti \"perbaiki semuanya\"."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Pilih 1 bab",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pilih 1 bab cerita lama.",
+      "petunjuk_ortu": "Bantu mencari cerita lama dan memilih bab yang pendek. Jangan memilihkan babnya."
+    },
+    {
+      "urutan": 2,
+      "judul": "Pilih 1 alat",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pilih 1 alat."
+    },
+    {
+      "urutan": 3,
+      "judul": "Pakai alatnya",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pakai alat itu, simpan sebagai Versi 2 bab tersebut."
+    }
+  ]
+}

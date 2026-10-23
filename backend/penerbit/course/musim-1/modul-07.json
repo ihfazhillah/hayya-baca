@@ -1,0 +1,148 @@
+{
+  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1].alasan", "ujian[2]", "bertanya", "lembar PETA-4-KOTAK", "lembar M7-1", "lembar M7-2"],
+  "nomor": 7,
+  "musim": 1,
+  "level": 2,
+  "judul": "Peta 4 Kotak",
+  "alat": "",
+  "emoji": "🗺️",
+  "tujuan": "Rencanakan ceritamu dalam 4 kotak, satu kalimat di setiap kotak, sebelum mulai menulis.",
+  "kenapa": "Sebelum naik gunung, pendaki melihat peta dulu supaya tidak tersesat.",
+  "langkah": [
+    "Kotak 1, Siapa? Siapa tokoh utamanya?",
+    "Kotak 2, Mau apa? Apa yang dia inginkan?",
+    "Kotak 3, Ada masalah apa? Apa yang menghalanginya?",
+    "Kotak 4, Bagaimana akhirnya? Bagaimana masalahnya selesai? Isi setiap kotak dengan satu kalimat saja."
+  ],
+  "resep": [
+    "Siapa tokohnya?",
+    "Dia mau apa?",
+    "Apa yang menghalanginya?",
+    "Bagaimana akhirnya?",
+    "Satu kalimat per kotak, tidak lebih."
+  ],
+  "mengapa": "Cerita yang seru selalu punya tokoh yang menginginkan sesuatu dan masalah yang menghalanginya. Kalau keempat kotak sudah terisi, kamu tahu ke mana ceritamu pergi, jadi saat Draf Nol kamu bisa menulis terus tanpa bingung.",
+  "kamus": [
+    {"istilah": "tokoh utama", "arti": "Orang atau hewan yang ceritanya paling banyak kita ikuti."},
+    {"istilah": "masalah", "arti": "Hal yang menghalangi tokoh mendapatkan yang dia mau. Inilah yang membuat cerita seru."},
+    {"istilah": "akhir", "arti": "Bagian saat masalahnya selesai, entah dengan cara yang lucu, sedih, atau mengejutkan."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Isi Peta 4 Kotak dari cerita yang dia sudah kenal, misalnya Kancil dan Buaya, sambil berpikir keras: \"Siapa? Kancil. Mau apa? Menyeberang sungai. Masalahnya? Sungainya penuh buaya. Akhirnya? Kancil pura-pura menghitung buaya sambil melompati punggung mereka. Empat kalimat, ceritanya sudah kelihatan.\"",
+  "ujian": [
+    {
+      "soal": "Kotak mana yang membuat cerita jadi seru?",
+      "a": "Siapa",
+      "b": "Ada masalah apa",
+      "jawaban": "b",
+      "alasan": "Tanpa masalah, tokohnya langsung dapat yang dia mau dan cerita selesai. Masalah membuat pembaca penasaran."
+    },
+    {
+      "soal": "Mana isi kotak 2 (Mau apa?) yang jelas?",
+      "a": "Fatih mau pulang dari masjid secepatnya karena mau menonton lomba di TV.",
+      "b": "Fatih anak kelas 4.",
+      "jawaban": "a",
+      "alasan": "B menjawab \"siapa\", bukan \"mau apa\". A menyebut apa yang diinginkan Fatih."
+    }
+  ],
+  "bertanya": {
+    "a": "Aku sedang mengisi Peta 4 Kotak. Kotak 3 masih kosong karena aku belum menemukan masalahnya. Tolong beri aku 2 pertanyaan untuk menemukan masalahnya, jangan beri masalahnya.",
+    "b": "Buatkan Peta 4 Kotak untukku.",
+    "jawaban": "a",
+    "bagian": [1, 2, 3],
+    "penjelasan": "A menyebut sedang apa (mengisi Peta 4 Kotak), bagian yang membingungkan (kotak 3, masalahnya), dan bantuan yang diminta (pertanyaan, jangan beri masalahnya). B meminta orang lain yang mengisi petanya."
+  },
+  "lembar": [
+    {
+      "kode": "PETA-4-KOTAK",
+      "judul": "Peta 4 Kotak",
+      "petunjuk": "Isi setiap kotak dengan satu kalimat saja.",
+      "soal": "Judul sementara: ____________________\n\n1. Siapa? Siapa tokoh utamanya?\n____________________\n\n2. Mau apa? Apa yang dia inginkan?\n____________________\n\n3. Ada masalah apa? Apa yang menghalanginya?\n____________________\n\n4. Bagaimana akhirnya? Bagaimana masalahnya selesai?\n____________________",
+      "baris_tulis": 0,
+      "pertanyaan_bantu": "Kalau kotak 3 kosong, tanya: apa yang paling tidak diinginkan tokohku terjadi?",
+      "cek_sendiri": [
+        "Keempat kotak terisi.",
+        "Setiap kotak hanya satu kalimat.",
+        "Kotak 3 punya masalah yang menghalangi kotak 2."
+      ],
+      "kriteria": "Empat kalimat, satu per kotak. Kotak 3 benar-benar menghalangi keinginan di kotak 2, dan kotak 4 menyelesaikan masalah di kotak 3.",
+      "contoh_jawaban": "1. Fatih, anak kelas 4 yang punya sandal jepit hijau kesayangan.\n2. Pulang dari masjid secepatnya karena mau menonton lomba di TV.\n3. Sandal hijaunya hilang dari rak masjid.\n4. Ternyata sandalnya dipakai kakek tetangga yang matanya kurang jelas, dan Fatih malah diajak makan pisang goreng.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus. Lembar ini boleh dicetak untuk setiap cerita baru."
+    },
+    {
+      "kode": "M7-1",
+      "judul": "Peta 4 Kotak: Oren dan Tamu Tak Diundang",
+      "petunjuk": "Bersama Ayah, isi Peta 4 Kotak untuk cerita Si Ceroboh yang sudah kamu koreksi di Level 1.",
+      "soal": "1. Siapa? ____________________\n2. Mau apa? ____________________\n3. Ada masalah apa? ____________________\n4. Bagaimana akhirnya? ____________________",
+      "baris_tulis": 4,
+      "pertanyaan_bantu": "Ingat lagi: Oren ingin apa saat hujan berhenti? Siapa tamu tak diundangnya?",
+      "cek_sendiri": [
+        "Keempat kotak terisi, satu kalimat per kotak.",
+        "Kotak 3 menyebut tamu tak diundangnya."
+      ],
+      "kriteria": "Siapa: Oren. Mau apa: main di luar setelah hujan. Masalah: cacing merah yang membuatnya kaget. Akhir: boleh berbeda, karena cerita Si Ceroboh menggantung.",
+      "contoh_jawaban": "1. Oren, kucing oranye yang tidak suka hujan.\n2. Main di luar setelah hujan berhenti.\n3. Ada cacing merah di tanah yang membuatnya kaget dan lari bersembunyi.\n4. Ibu memindahkan cacing itu ke kebun, tapi malamnya Oren melihat sesuatu bergerak di bawah pohon mangga.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    },
+    {
+      "kode": "M7-2",
+      "judul": "Dua akhir yang berbeda",
+      "petunjuk": "Ayah sudah mengisi kotak 1 sampai 3. Kamu mengisi kotak 4 dengan 2 akhir yang berbeda. Keduanya harus masuk akal.",
+      "soal": "1. Siapa? (diisi Ayah) ____________________\n2. Mau apa? (diisi Ayah) ____________________\n3. Ada masalah apa? (diisi Ayah) ____________________\n4. Akhir pertama: ____________________\n4. Akhir kedua: ____________________",
+      "baris_tulis": 4,
+      "pertanyaan_bantu": "Siapa yang bisa menolong tokohnya? Bagaimana kalau tokohnya menyelesaikan masalah sendiri?",
+      "cek_sendiri": [
+        "Aku menulis 2 akhir yang berbeda.",
+        "Kedua akhir menyelesaikan masalah di kotak 3.",
+        "Keduanya bisa terjadi sungguhan."
+      ],
+      "kriteria": "Dua akhir yang benar-benar berbeda caranya, keduanya menyelesaikan masalah di kotak 3, dan masuk akal.",
+      "contoh_jawaban": "Masalah: layangan Fatih tersangkut di pohon tetangga. Akhir 1: Pak RT membantu memakai galah panjang. Akhir 2: angin bertiup kencang, layangan lepas sendiri, dan jatuh di atap masjid.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Peta cerita Oren",
+      "tahap": "bersama",
+      "jenis": "cetak",
+      "petunjuk": "Bersama Ayah, isi Peta 4 Kotak untuk cerita Si Ceroboh, Oren dan Tamu Tak Diundang.",
+      "petunjuk_ortu": "Biarkan dia yang memegang pensil. Kalau dia ragu, tanyakan pertanyaan kotaknya, bukan jawabannya.",
+      "lembar": "M7-1"
+    },
+    {
+      "urutan": 2,
+      "judul": "Dua akhir yang berbeda",
+      "tahap": "petunjuk",
+      "jenis": "cetak",
+      "petunjuk": "Ayah mengisi kotak 1 sampai 3 dari ide Ayah sendiri. Kamu mengisi kotak 4 dengan 2 akhir yang berbeda, dan keduanya harus masuk akal.",
+      "petunjuk_ortu": "Isi kotak 1 sampai 3 di lembar dengan ide Ayah sendiri sebelum memberikannya.",
+      "lembar": "M7-2"
+    },
+    {
+      "urutan": 3,
+      "judul": "Detektif Novel",
+      "tahap": "dunia_nyata",
+      "jenis": "log",
+      "petunjuk": "Isi Peta 4 Kotak untuk novel atau kisah nyata yang sedang kamu baca.",
+      "pertanyaan": "Siapa tokohnya, dia mau apa, apa masalahnya, dan bagaimana akhirnya?"
+    },
+    {
+      "urutan": 4,
+      "judul": "Peta ceritaku",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/baru/",
+      "petunjuk": "Isi Peta 4 Kotak untuk ide pilihanmu dari Bank Ide."
+    },
+    {
+      "urutan": 5,
+      "judul": "Cerita 1 menit",
+      "tahap": "bonus",
+      "jenis": "log",
+      "petunjuk": "Ceritakan petamu ke kakak dalam 1 menit.",
+      "pertanyaan": "Kalau dia bingung, kotak mana yang perlu diperjelas?"
+    }
+  ]
+}

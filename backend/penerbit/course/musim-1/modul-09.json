@@ -1,0 +1,107 @@
+{
+  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar KARTU-TEBAKAN"],
+  "nomor": 9,
+  "musim": 1,
+  "level": 2,
+  "judul": "Laci Rahasia",
+  "alat": "",
+  "emoji": "✉️",
+  "tujuan": "Simpan Versi 1 selama 2 hari, supaya kamu bisa membacanya lagi dengan mata pembaca.",
+  "kenapa": "Roti harus didiamkan dulu supaya mengembang. Cerita juga.",
+  "langkah": [
+    "Cetak Versi 1, masukkan ke amplop, tulis tanggal buka 2 hari lagi.",
+    "Sebelum ditutup, tulis di Kartu Tebakan satu kalimat yang menurutmu paling bagus.",
+    "Jangan dibaca selama 2 hari.",
+    "Saat dibuka, cek: apakah kamu masih setuju dengan Kartu Tebakanmu?"
+  ],
+  "resep": [
+    "Cetak Versi 1.",
+    "Tulis kalimat terbaikmu di Kartu Tebakan.",
+    "Masukkan ke amplop, tulis tanggal buka.",
+    "Tunggu 2 hari.",
+    "Buka, baca keras, beri tanda. Belum diperbaiki."
+  ],
+  "mengapa": "Tepat setelah menulis, kepalamu masih ingat maksud setiap kalimat, jadi kesalahan tidak terlihat. Setelah 2 hari, kamu sedikit lupa. Kamu membaca seperti pembaca baru, dan bagian yang aneh tiba-tiba kelihatan.",
+  "kamus": [
+    {"istilah": "Laci Rahasia", "arti": "Tempat menyimpan Versi 1 supaya tidak dibaca dulu selama 2 hari."},
+    {"istilah": "Kartu Tebakan", "arti": "Kartu berisi satu kalimat yang menurutmu paling bagus, ditulis sebelum amplop ditutup."},
+    {"istilah": "mata pembaca", "arti": "Cara membaca seolah-olah ini cerita orang lain yang baru pertama kamu lihat."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Ceritakan pengalaman membaca lagi tulisan lama, misalnya pesan atau catatan Ayah sendiri: \"Waktu Ayah tulis, rasanya sudah jelas. Dua hari kemudian Ayah baca lagi, eh, Ayah sendiri bingung maksudnya apa.\" Lalu simpan amplop di tempat yang dia pilih.",
+  "ujian": [
+    {
+      "soal": "Kenapa Versi 1 disimpan di amplop selama 2 hari?",
+      "a": "Supaya saat dibaca lagi, kamu membacanya seperti pembaca baru.",
+      "b": "Supaya kertasnya tidak hilang.",
+      "jawaban": "a",
+      "alasan": "Setelah 2 hari kamu sedikit lupa, jadi bagian yang membingungkan lebih mudah terlihat."
+    },
+    {
+      "soal": "Saat amplop dibuka, kamu tersandung di satu kalimat. Apa yang kamu lakukan?",
+      "a": "Langsung perbaiki semuanya.",
+      "b": "Beri tanda saja. Memperbaikinya tugas Level 3.",
+      "jawaban": "b",
+      "alasan": "Di Level 3 kamu memperbaiki satu lapis demi satu lapis, dengan alat yang tepat."
+    }
+  ],
+  "bertanya": {
+    "a": "Aku baru membuka amplop Versi 1. Aku tersandung di kalimat keempat, tapi tidak tahu kenapa. Tolong tunjukkan kata yang membuatku tersandung, jangan perbaiki kalimatnya.",
+    "b": "Ceritaku bagus tidak?",
+    "jawaban": "a",
+    "bagian": [1, 2, 3],
+    "penjelasan": "A menyebut sedang apa (membuka amplop Versi 1), bagian yang membingungkan (tersandung di kalimat keempat), dan bantuan yang diminta (tunjukkan katanya, jangan perbaiki). B terlalu umum, jadi jawabannya tidak membantumu belajar."
+  },
+  "lembar": [
+    {
+      "kode": "KARTU-TEBAKAN",
+      "judul": "Kartu Tebakan",
+      "petunjuk": "Sebelum Versi 1 masuk amplop, salin satu kalimat yang menurutmu paling bagus.",
+      "soal": "Judul ceritaku: ____________________\nTanggal masuk amplop: __________   Tanggal buka: __________\n\nKalimat terbaikku:",
+      "baris_tulis": 4,
+      "pertanyaan_bantu": "Kalimat mana yang membuatmu tersenyum waktu menulisnya? Saat dibuka nanti: apakah kamu masih setuju?",
+      "cek_sendiri": [
+        "Aku menyalin kalimatnya persis seperti di Versi 1.",
+        "Aku menulis tanggal buka 2 hari lagi."
+      ],
+      "kriteria": "Tidak ada jawaban salah. Saat amplop dibuka, tanyakan apakah dia masih setuju dengan pilihannya, dan kenapa.",
+      "contoh_jawaban": "Ternyata kakek Darto pakai sandal hijau Fatih!",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Kartu Tebakan",
+      "tahap": "mandiri",
+      "jenis": "cetak",
+      "petunjuk": "Tulis satu kalimat yang menurutmu paling bagus di Versi 1.",
+      "lembar": "KARTU-TEBAKAN"
+    },
+    {
+      "urutan": 2,
+      "judul": "Amplop",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Cetak Versi 1, masukkan ke amplop bersama Kartu Tebakan, lalu tulis tanggal buka 2 hari lagi.",
+      "petunjuk_ortu": "Bantu mencetak Versi 1. Simpan amplop di tempat yang dia pilih, dan ingatkan tanggal bukanya."
+    },
+    {
+      "urutan": 3,
+      "judul": "Selama menunggu",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tambahkan ide baru ke Bank Ide, atau baca novelmu."
+    },
+    {
+      "urutan": 4,
+      "judul": "Saat dibuka",
+      "tahap": "mandiri",
+      "jenis": "log",
+      "petunjuk": "Baca keras-keras dan beri tanda di 3 tempat kamu tersandung. Jangan diperbaiki dulu, itu tugas Level 3.",
+      "pertanyaan": "Apakah kamu masih setuju dengan Kartu Tebakanmu? Kenapa?"
+    }
+  ]
+}

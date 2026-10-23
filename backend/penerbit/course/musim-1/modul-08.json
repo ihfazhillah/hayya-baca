@@ -1,0 +1,123 @@
+{
+  "_draf": ["tujuan", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M8-1", "lembar M8-2", "misi 3: contoh Draf Nol Fatih ditampilkan sebagai teks"],
+  "nomor": 8,
+  "musim": 1,
+  "level": 2,
+  "judul": "Draf Nol",
+  "alat": "",
+  "emoji": "✍️",
+  "tujuan": "Tulis ceritamu dari awal sampai akhir dalam 15 menit, tanpa menghapus.",
+  "kenapa": "Pematung memulai dari bongkahan tanah liat yang jelek. Bentuk yang bagus datang belakangan.",
+  "langkah": [
+    "Taruh Peta 4 Kotak di samping.",
+    "Nyalakan timer.",
+    "Tulis terus sampai timer berbunyi.",
+    "Beri nama file \"Versi 1\"."
+  ],
+  "resep": [
+    "Timer 15 menit.",
+    "Dilarang menghapus.",
+    "Dilarang memeriksa ejaan.",
+    "Kalau bingung, tulis [???] lalu lanjut."
+  ],
+  "mengapa": "Menulis dan memperbaiki memakai dua bagian otak yang berbeda. Kalau kamu memperbaiki sambil menulis, ceritamu sering berhenti di tengah. Dengan Draf Nol, ceritanya selesai dulu. Memperbaikinya nanti, di Level 3, dengan alat-alatmu.",
+  "kamus": [
+    {"istilah": "Draf Nol", "arti": "Tulisan pertama yang ditulis cepat dan boleh jelek. Yang penting selesai."},
+    {"istilah": "[???]", "arti": "Tanda untuk bagian yang belum kamu tahu. Tulis saja lalu lanjut, nanti diisi saat revisi."},
+    {"istilah": "Versi 1", "arti": "Nama Draf Nol-mu setelah selesai. Versi ini disimpan dan tidak pernah ditimpa."}
+  ],
+  "tahap_mentor": "tanpa",
+  "petunjuk_lihat": "Nyalakan timer 2 menit dan tulis di depannya tentang kegiatan Ayah hari ini, sambil berpikir keras: \"Ups, salah ketik… biarkan. Nama tokonya apa ya? Aku tulis [???] saja, lanjut.\" Jangan menghapus apa pun, biar dia lihat tulisan Ayah juga berantakan.",
+  "ujian": [
+    {
+      "soal": "Saat Draf Nol, kamu lupa nama tempat di ceritamu. Apa yang kamu lakukan?",
+      "a": "Berhenti dulu dan cari tahu namanya.",
+      "b": "Tulis [???] lalu lanjut.",
+      "jawaban": "b",
+      "alasan": "Draf Nol harus selesai dulu. Nama tempatnya bisa dicari nanti, saat revisi."
+    },
+    {
+      "soal": "Kamu salah ketik saat Draf Nol. Apa yang kamu lakukan?",
+      "a": "Biarkan saja, diperbaiki nanti dengan Kaca Pembesar.",
+      "b": "Hapus dan ketik ulang sampai benar.",
+      "jawaban": "a",
+      "alasan": "Saat Draf Nol, menghapus dilarang. Kesalahan ejaan diperiksa di Lapis 4."
+    }
+  ],
+  "bertanya": {
+    "a": "Lanjutkan ceritaku.",
+    "b": "Aku sedang menulis Draf Nol. Aku macet di bagian Fatih mencari sandal. Tolong beri aku 1 pertanyaan supaya aku ingat lagi, jangan tulis ceritanya. Setelah itu aku akan menulis terus sampai timer berbunyi.",
+    "jawaban": "b",
+    "bagian": [1, 2, 3, 4],
+    "penjelasan": "B punya keempat bagian Rumus Bertanya: aku sedang (menulis Draf Nol), aku bingung (macet di bagian Fatih mencari sandal), tolong… jangan… (beri pertanyaan, jangan tulis ceritanya), dan setelah itu aku akan (menulis terus). A meminta orang lain menulis ceritamu."
+  },
+  "lembar": [
+    {
+      "kode": "M8-1",
+      "judul": "Pemanasan: sarapanku",
+      "petunjuk": "Tulis tentang sarapanmu tadi pagi selama 3 menit tanpa berhenti. Jangan menghapus.",
+      "soal": "Tadi pagi aku sarapan…",
+      "baris_tulis": 8,
+      "pertanyaan_bantu": "Apa yang kamu makan? Siapa yang memasak? Bagaimana rasanya? Siapa yang duduk di sebelahmu?",
+      "cek_sendiri": [
+        "Aku menulis terus sampai 3 menit habis.",
+        "Aku tidak menghapus apa pun."
+      ],
+      "kriteria": "Isinya tidak dinilai. Yang dilihat hanya: dia menulis terus dan tidak ada bekas hapusan.",
+      "contoh_jawaban": "Tadi pagi aku sarapan nasi goreng buatan Ummah. Ada telur ceploknya tapi kuningnya pecah. Adik minta kerupuk aku kasih satu. Oren mengeong di bawah meja minta [???] ikan teri.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    },
+    {
+      "kode": "M8-2",
+      "judul": "Kucing tetangga",
+      "petunjuk": "Lanjutkan kalimat ini selama 5 menit. Tidak boleh menghapus.",
+      "soal": "Kucing tetangga itu masuk lagi lewat jendela dapur…",
+      "baris_tulis": 10,
+      "pertanyaan_bantu": "Apa yang dicari kucing itu? Siapa yang melihatnya? Apa yang terjadi kemudian?",
+      "cek_sendiri": [
+        "Aku menulis terus sampai 5 menit habis.",
+        "Kalau bingung, aku menulis [???] lalu lanjut."
+      ],
+      "kriteria": "Isinya tidak dinilai. Yang dilihat: dia menulis terus, tidak menghapus, dan memakai [???] kalau macet.",
+      "contoh_jawaban": "Kucing tetangga itu masuk lagi lewat jendela dapur. Dia langsung naik ke meja dan mencium-cium tudung saji. Ummah sedang di kamar mandi jadi tidak ada yang tahu. Lalu dia [???] dan ikan goreng di piring hilang satu.",
+      "saran_stiker": "Tidak menambah stiker; cukup tandai sudah bagus."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Pemanasan 3 menit",
+      "tahap": "bersama",
+      "jenis": "cetak",
+      "petunjuk": "Tulis tentang sarapanmu tadi pagi tanpa berhenti.",
+      "petunjuk_ortu": "Pegang timer 3 menit. Kalau dia berhenti, bisikkan pertanyaan bantu dari lembar.",
+      "lembar": "M8-1"
+    },
+    {
+      "urutan": 2,
+      "judul": "Latihan 5 menit tanpa menghapus",
+      "tahap": "petunjuk",
+      "jenis": "cetak",
+      "petunjuk": "Lanjutkan kalimat \"Kucing tetangga itu masuk lagi lewat jendela dapur…\"",
+      "lembar": "M8-2"
+    },
+    {
+      "urutan": 3,
+      "judul": "Draf Nol utama",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tulis ceritamu selama 15 menit dengan Peta 4 Kotak di samping. Draf Nol boleh berantakan seperti contoh Draf Nol Fatih di bawah.",
+      "petunjuk_ortu": "Jangan membaca layarnya selama timer berjalan. Setelah selesai, isi Jejak Keterampilan bersama dia.",
+      "teks": "Fatih punya sandal jepit hijau. Sandal itu sandal kesayangan Fatih karena dibeliin Babah waktu ke pasar. Hari itu Fatih sholat ashar di masjid dan dia buru buru karena mau nonton lomba di tv dan lombanya mulai jam 4. Setelah sholat Fatih langsung lari ke rak sandal. Tapi sandalnya tidak ada. Fatih sedih. Fatih mencari sandal di rak atas, di rak bawah, di bawah tangga. Tetap tidak ada. Fatih kesal. Lalu Fatih melihat kakek Darto jalan pelan pelan. Lalu Fatih melihat kaki kakek Darto. Ternyata kakek Darto pakai sandal hijau Fatih! [???] kakek Darto minta maaf karena matanya sudah tidak jelas. Lalu kakek Darto mengajak Fatih ke rumahnya makan pisang goreng. Fatih senang. Fatih lupa sama lomba di tv."
+    },
+    {
+      "urutan": 4,
+      "judul": "Hitung kata",
+      "tahap": "mandiri",
+      "jenis": "log",
+      "petunjuk": "Hitung kata Draf Nol-mu. Berapa pun jumlahnya, Draf Nol sudah selesai.",
+      "pertanyaan": "Berapa jumlah kata Draf Nol-mu?"
+    }
+  ]
+}

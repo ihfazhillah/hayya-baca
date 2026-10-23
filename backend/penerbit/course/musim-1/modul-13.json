@@ -1,0 +1,85 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "nomor": 13,
+  "musim": 1,
+  "level": 3,
+  "judul": "Lapis 4: Ejaan",
+  "alat": "kaca",
+  "emoji": "🔍",
+  "lapis": "kaca",
+  "tujuan": "Periksa huruf besar, titik, koma, di/ke, dan kata ulang di ceritamu, satu jenis sekali.",
+  "kenapa": "Sebelum tamu datang, Ummah menyapu sudut-sudut rumah yang kecil. Lapis 4 adalah menyapu sudut-sudut cerita: titik, koma, dan huruf besar.",
+  "langkah": [
+    "Cek huruf besar saja.",
+    "Cek titik dan koma saja.",
+    "Cek di/ke dan kata ulang saja.",
+    "Pakai kartu prompt Lapis 4 untuk pemeriksaan terakhir, lalu simpan sebagai versi baru."
+  ],
+  "resep": [
+    "Satu putaran, satu jenis kesalahan.",
+    "Huruf besar: awal kalimat dan nama.",
+    "Titik dan koma: di akhir kalimat, tidak ada spasi sebelumnya.",
+    "\"di masjid\" dipisah, \"dipakai\" disambung; kata ulang pakai tanda hubung: buru-buru.",
+    "Terakhir, minta nomor kalimat dari kartu prompt."
+  ],
+  "mengapa": "Kalau mencari semua jenis kesalahan sekaligus, mata cepat lelah dan banyak yang terlewat. Tiga putaran pendek, masing-masing satu jenis, lebih cepat dan lebih teliti daripada satu putaran panjang.",
+  "kamus": [
+    {"istilah": "kata ulang", "arti": "Kata yang diulang dan ditulis dengan tanda hubung, misalnya buru-buru, pelan-pelan."},
+    {"istilah": "ejaan", "arti": "Aturan menulis: huruf besar, titik, koma, dan cara menulis kata."}
+  ],
+  "tahap_mentor": "isian",
+  "kartu_prompt": "Aku sedang di Revisi Lapis 4 (ejaan). Beri nomor kalimat yang ada kesalahan ejaan atau tanda baca. Jangan beri tahu kesalahannya apa. Kalau aku menyerah, aku akan minta petunjuk.",
+  "petunjuk_lihat": "Periksa satu paragraf tulisan Ayah sendiri hanya untuk huruf besar, sambil berpikir keras: \"Putaran ini Ayah cuma cari huruf besar. Titik? Nanti dulu. 'kakek Darto'… Kakek di sini sebutan nama, jadi huruf besar.\"",
+  "ujian": [
+    {
+      "soal": "Mana yang ejaannya benar?",
+      "a": "buru buru, ashar, tv, kakek Darto",
+      "b": "buru-buru, asar, TV, Kakek Darto",
+      "jawaban": "b",
+      "alasan": "Kata ulang memakai tanda hubung, TV ditulis huruf besar, dan Kakek Darto adalah sebutan nama."
+    },
+    {
+      "soal": "Cara memeriksa yang mana yang dipakai di Lapis 4?",
+      "a": "Cek huruf besar dulu, lalu titik dan koma, lalu di/ke.",
+      "b": "Cek semuanya sekaligus sambil membaca cerita.",
+      "jawaban": "a",
+      "alasan": "Satu jenis kesalahan per putaran membuat mata fokus dan tidak ada yang terlewat."
+    }
+  ],
+  "lembar": [],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Huruf besar saja",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Cek huruf besar saja.",
+      "petunjuk_ortu": "Bacakan kalimat satu per satu dari belakang. Untuk setiap kalimat, tanyakan hanya \"Huruf besarnya sudah benar?\""
+    },
+    {
+      "urutan": 2,
+      "judul": "Titik dan koma saja",
+      "tahap": "petunjuk",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Cek titik dan koma saja."
+    },
+    {
+      "urutan": 3,
+      "judul": "Di/ke dan kata ulang saja",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Cek di/ke dan kata ulang saja."
+    },
+    {
+      "urutan": 4,
+      "judul": "Pemeriksaan terakhir",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Pakai kartu prompt Lapis 4 untuk pemeriksaan terakhir."
+    }
+  ]
+}

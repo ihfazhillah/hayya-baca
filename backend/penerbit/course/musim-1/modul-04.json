@@ -1,5 +1,5 @@
 {
-  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar M4-2", "lembar M4-5"],
+  "_draf": ["resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[2]", "lembar M4-2", "lembar M4-5", "bertanya"],
   "nomor": 4,
   "musim": 1,
   "level": 1,
@@ -43,6 +43,13 @@
       "alasan": "Di A kita bisa membayangkan Ibu menahan tawa."
     }
   ],
+  "bertanya": {
+    "a": "Tulis kalimat yang bagus untuk \"Oren takut\".",
+    "b": "Aku sedang belajar Kamera. Aku tidak tahu cara menunjukkan \"Oren takut\" tanpa bilang takut. Tolong beri aku 2 pertanyaan, jangan tulis kalimatnya untukku. Setelah itu aku akan menulis kalimatnya di kertas.",
+    "jawaban": "b",
+    "bagian": [1, 2, 3, 4],
+    "penjelasan": "B punya keempat bagian Rumus Bertanya: aku sedang (belajar Kamera), aku bingung (cara menunjukkan takut), tolong… jangan… (beri pertanyaan, jangan tulis kalimatnya), dan setelah itu aku akan (menulis sendiri di kertas). A meminta orang lain menuliskan kalimatnya."
+  },
   "lembar": [
     {
       "kode": "M4-2",

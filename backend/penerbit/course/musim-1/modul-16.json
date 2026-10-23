@@ -1,0 +1,102 @@
+{
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "lembar M16-2"],
+  "nomor": 16,
+  "musim": 1,
+  "level": 3,
+  "judul": "Terbit!",
+  "emoji": "📚",
+  "lapis": "terbit",
+  "tujuan": "Beri ceritamu judul, sampul, dan halaman Tentang Penulis, lalu bacakan di acara keluarga.",
+  "kenapa": "Petani menunggu berbulan-bulan, menyiram dan merawat tanamannya. Lalu tiba hari panen. Hari ini hari panenmu.",
+  "langkah": [
+    "Tulis 3 pilihan judul, keluarga memilih.",
+    "Gambar sampul.",
+    "Tulis Tentang Penulis dalam 3 kalimat.",
+    "Cetak, jilid, beri nomor terbitan, lalu bacakan di acara keluarga."
+  ],
+  "resep": [
+    "Tiga pilihan judul, keluarga memilih satu.",
+    "Sampul: judul, gambar, nama penulis.",
+    "Tentang Penulis: 3 kalimat.",
+    "Cetak, jilid, beri nomor terbitan (PR-001).",
+    "Bacakan di acara keluarga."
+  ],
+  "mengapa": "Cerita yang dibacakan di depan orang lain terasa sungguhan. Melihat buku sendiri di rak, dengan nomor terbitan, menjadi bukti bahwa semua revisi tadi membuat sesuatu yang nyata.",
+  "kamus": [
+    {"istilah": "terbit", "arti": "Cerita dicetak, dijilid, diberi nomor, dan siap dibaca orang lain."},
+    {"istilah": "nomor terbitan", "arti": "Nomor urut buku Penerbit Rumah, misalnya PR-001 untuk buku pertama."},
+    {"istilah": "Tentang Penulis", "arti": "Halaman pendek yang mengenalkan penulisnya kepada pembaca."}
+  ],
+  "tahap_mentor": "mandiri",
+  "kartu_prompt": "",
+  "petunjuk_lihat": "Tunjukkan halaman Tentang Penulis di satu buku yang dia suka, lalu baca keras-keras dan berpikir keras: \"Tiga kalimat: siapa dia, apa yang dia suka, dan buku ini tentang apa. Pendek, tapi kita jadi kenal penulisnya.\"",
+  "ujian": [
+    {
+      "soal": "Kapan cerita boleh terbit?",
+      "a": "Setelah Draf Nol selesai.",
+      "b": "Setelah empat stempel revisi dan stempel Pembaca Pertama terkumpul.",
+      "jawaban": "b",
+      "alasan": "Cerita tidak bisa terbit sebelum semua stempel revisi terkumpul. Yang meminta revisi adalah sistemnya."
+    },
+    {
+      "soal": "Mana Tentang Penulis yang pas?",
+      "a": "Fatih berumur 10 tahun. Dia suka kucing dan pisang goreng. Ini buku pertamanya.",
+      "b": "Fatih.",
+      "jawaban": "a",
+      "alasan": "A punya 3 kalimat yang membuat pembaca kenal penulisnya. B terlalu pendek."
+    }
+  ],
+  "lembar": [
+    {
+      "kode": "M16-2",
+      "judul": "Sampul bukuku",
+      "petunjuk": "Gambar sampul bukumu di ruang kosong. Tulis judul dan namamu di sampul.",
+      "soal": "Judul: ____________________\nPenulis: ____________________\nNomor terbitan: PR-____",
+      "baris_tulis": 0,
+      "pertanyaan_bantu": "Adegan mana yang paling seru untuk digambar? Benda apa yang membuat pembaca penasaran?",
+      "cek_sendiri": [
+        "Ada judul dan namaku di sampul.",
+        "Gambarku dari adegan di ceritaku."
+      ],
+      "kriteria": "Tidak dinilai bagus atau jelek. Pastikan ada judul, nama penulis, dan gambar dari isi cerita.",
+      "contoh_jawaban": "Judul: Sandal Jepit yang Hilang. Gambar: sandal hijau dengan bekas gigitan kucing di depan rak masjid.",
+      "saran_stiker": "Tidak menambah stiker; stempel TERBIT diberikan setelah buku dibacakan."
+    }
+  ],
+  "misi": [
+    {
+      "urutan": 1,
+      "judul": "Tiga pilihan judul",
+      "tahap": "bersama",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tulis 3 pilihan judul, keluarga memilih.",
+      "petunjuk_ortu": "Kumpulkan keluarga sebentar untuk memilih. Kalau suara seri, penulis yang memutuskan."
+    },
+    {
+      "urutan": 2,
+      "judul": "Gambar sampul",
+      "tahap": "petunjuk",
+      "jenis": "cetak",
+      "petunjuk": "Gambar sampul bukumu.",
+      "lembar": "M16-2"
+    },
+    {
+      "urutan": 3,
+      "judul": "Tentang Penulis",
+      "tahap": "mandiri",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Tulis Tentang Penulis dalam 3 kalimat."
+    },
+    {
+      "urutan": 4,
+      "judul": "Bacakan di acara keluarga",
+      "tahap": "bonus",
+      "jenis": "tandai",
+      "tautan": "/naskah/",
+      "petunjuk": "Bacakan di acara keluarga.",
+      "petunjuk_ortu": "Cetak dan jilid sederhana, beri nomor terbitan (misalnya PR-001), lalu siapkan acaranya."
+    }
+  ]
+}
