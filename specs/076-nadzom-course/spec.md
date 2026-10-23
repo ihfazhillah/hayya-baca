@@ -1,6 +1,6 @@
 # 076 · Course Nadzom & Syair untuk Orang 'Ajam
 
-Status: draf, menunggu persetujuan pemilik.
+Status: draf revisi 2, menunggu persetujuan pemilik.
 Blueprint isi: https://claude.ai/artifact/6njYwBmekyV5PRu492tvbo (Claude Docs, 2026-10-21).
 
 ## Masalah
@@ -40,8 +40,9 @@ Urutan tetap mengikuti blueprint:
 Isi modul adalah data (`content/modul-NN.json`), bukan kode per modul.
 
 ### K3. Checker wazan
-- Masukan: suku kata Latin (`ma-la-hal-ar-waa`) **atau** teks Arab berharakat, satu syathr per baris
-  atau dipisah `|`.
+- Masukan: teks Arab berharakat (utama) atau suku kata Latin (`ma-la-hal-ar-waa`), satu syathr per
+  baris atau dipisah `|`. Checker menampilkan juga kitabah 'arudhiyyah-nya, supaya terlihat huruf
+  mana yang dihitung.
 - Keluaran: pola `–` (panjang) / `ب` (pendek) per suku kata, dipotong per taf'ilah, dicocokkan ke bahr
   sasaran. Tiap taf'ilah berstatus **utuh**, **zihaf yang dikenal** (dengan nama zihafnya), atau
   **patah**. Ringkasan: jumlah taf'ilah patah.
@@ -73,16 +74,44 @@ Isi modul adalah data (`content/modul-NN.json`), bukan kode per modul.
 | 9 | Mim jama' (عليهم) | Default sukun; harakat bila wazan menuntut → tampilkan dua kemungkinan |
 | 10 | Teks Arab tanpa harakat lengkap | Ditolak dengan pesan "beri harakat atau pakai suku kata Latin" (tidak menebak) |
 | 11 | Ya/waw sebagai diftong (بَيْت، يَوْم) | Sukun → menutup suku kata (CVC = panjang), bukan vokal panjang |
-| 12 | Model rajaz Modul 0 sudah memakai zihaf (*Nahnu alladzina*: ب – ب –) | Lihat pertanyaan terbuka 1 |
+| 12 | Taf'ilah tidak utuh tapi cocok zihaf yang dikenal | "Berubah, dibahas di Modul 3", bukan patah |
 
-## Pertanyaan terbuka
+## Keputusan pemilik (2026-10-23, lanjutan)
 
-1. Rajaz Khandaq di Modul 0 sudah memakai *khabn* (مُتَفْعِلُنْ). Kalau checker v1 hanya mengenal
-   مستفعلن utuh, bait model itu sendiri akan ditandai patah. Usul: v1 sudah mengenal zihaf rajaz
-   yang paling umum (khabn, thayy) sebagai "zihaf yang dikenal", dan Modul 3 menjelaskannya.
-2. Isi materi tiap modul (analogi, langkah, ujian) belum ditulis di blueprint, hanya kerangkanya.
-   Usul: modul ditulis bertahap mengikuti tracer bullet. Fase pertama = situs + checker v1 +
-   Modul 0 lengkap, langsung di-deploy; modul berikutnya menyusul satu per satu.
+### Urutan: dari yang utuh, baru ke potongan-potongannya
+- Taf'ilah dikenalkan dulu dalam bentuk **utuh** (salim), seperti belajar wazan sharaf dari
+  bentuk asalnya sebelum i'lal dan ibdal. Perubahan (zihaf, 'illah) baru dibahas setelah telinga
+  dan mata terbiasa dengan bentuk utuh.
+- Bait model pertama Modul 0 harus rajaz yang **seluruh taf'ilahnya utuh**. Kandidat: syahid
+  rajaz tam di kitab 'arudh, دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ / قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ
+  (perlu dicek ulang dengan kitab sebelum dipakai). Rajaz Khandaq (*Nahnu alladzina*) tetap
+  diperdengarkan, tetapi dibedah sebagai contoh utama di Modul 3.
+- Checker v1 menilai terhadap bentuk utuh. Taf'ilah yang tidak utuh tapi cocok dengan zihaf yang
+  dikenal **tidak** ditandai patah; ditandai "berubah, dibahas di Modul 3". Hanya yang tidak cocok
+  dengan apa pun yang ditandai patah. Jadi bait Khandaq tidak dicap pincang, padahal sah.
+- Tracer bullet tetap: setiap modul menghasilkan bait utuh, walaupun kasar.
+
+### Fase pertama
+Situs + checker v1 + Modul 0 lengkap, lalu deploy. Modul berikutnya menyusul satu per satu.
+
+### Bahasa: untuk pelajar ilmu syar'i dan bahasa Arab
+- Pembaca sudah lama belajar bahasa Arab (nahwu, sharaf, tajwid), tetapi belum belajar 'arudh,
+  qawafi, bayan, atau manthiq. Course **tidak mengandaikan** bayan atau manthiq.
+- Istilah 'arudh selalu dijembatani dengan ilmu yang sudah dikenal:
+
+| Istilah 'arudh | Jembatan |
+|---|---|
+| Taf'ilah (مستفعلن) | Seperti mizan sharaf (فَعَلَ): timbangan, bukan kata |
+| Bahr | Seperti bab dalam tashrif: satu pola yang diulang |
+| Mutaharrik / sakin | Huruf berharakat / huruf sukun, sama seperti di nahwu |
+| Kitabah 'arudhiyyah | Yang diucapkan ditulis, yang tidak diucapkan tidak ditulis; seperti membaca dengan tajwid |
+| Zihaf | Seperti i'lal: bentuk asal berubah karena sebab yang diatur, tetap sah |
+| Syathr, 'arudh, dharb | Paruh bait, taf'ilah akhir paruh pertama, taf'ilah akhir paruh kedua |
+
+- Masukan utama checker adalah **teks Arab berharakat**. Suku kata Latin tetap ada sebagai jalan pintas.
+- Penjelasan aturan taqthi' memakai istilah tajwid yang sudah dikenal: hamzah washal, lam syamsiyah
+  (idgham), mad thabi'i, tanwin = nun sakinah, waqf.
+- Kalimat pendek, langsung ke contoh, tidak bertele-tele. Istilah Arab ditulis dengan huruf Arab.
 
 ## Di luar cakupan
 
