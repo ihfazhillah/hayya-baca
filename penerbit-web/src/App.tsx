@@ -3,6 +3,7 @@ import { useAuth } from './auth'
 import { MeProvider, rumahUntuk, useMe } from './me'
 import { Galat, Memuat } from './components/ui'
 import { NavOrtu } from './components/Nav'
+import LayoutPenulis from './components/LayoutPenulis'
 import Masuk from './pages/Masuk'
 import Beranda from './pages/penulis/Beranda'
 import KartuAlat from './pages/penulis/KartuAlat'
@@ -73,6 +74,7 @@ function Rute() {
       <Route path="/masuk" element={<Navigate to={rumahUntuk(me)} replace />} />
       <Route path="/tanpa-peran" element={<TanpaPeran />} />
       <Route element={<Butuh peran="penulis" />}>
+        <Route element={<LayoutPenulis />}>
         <Route path="/" element={<Beranda />} />
         <Route path="/alat" element={<KartuAlat />} />
         <Route path="/modul/:nomor" element={<Modul />} />
@@ -86,6 +88,7 @@ function Rute() {
         <Route path="/naskah/:id/draf-nol" element={<DrafNol />} />
         <Route path="/naskah/:id/revisi/:lapis" element={<Revisi />} />
         <Route path="/naskah/:id/bandingkan" element={<Bandingkan />} />
+        </Route>
       </Route>
       <Route path="/rak" element={<RakBuku />} />
       <Route path="/rak/:id" element={<Buku />} />

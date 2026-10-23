@@ -42,6 +42,7 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 ## Fase 9 — Frontend skeleton
 - [x] Vite + React, shared.css, api.ts (semua endpoint), auth + peran, routing, Masuk, vitest
 ## Fase 10 — Komponen latihan
+- [x] TeksKlik, Gunting, DetektorKembar, UjianAB, LatihanBertanya, TombolSalin, Timer, LayoutPenulis + vitest
 ## Fase 11 — Halaman Penulis
 ## Fase 12 — Editor + halaman naskah
 ## Fase 13 — Kotak prompt
