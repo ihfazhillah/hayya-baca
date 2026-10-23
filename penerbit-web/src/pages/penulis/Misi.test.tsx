@@ -318,6 +318,20 @@ describe('Misi: Contoh dari Oren, bantuan memudar, dan suara (spec 075 K1)', () 
     localStorage.clear()
   })
 
+  it('misi yang sudah selesai: contoh Oren bisa dilihat lagi dan misinya dikerjakan lagi', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: { ...misiContoh, status: 'selesai', percobaan: undefined, bantuan: null, versi_benar: 'Hujan deras sekali.' },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText('Hujan deras sekali.')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /Lihat contoh Oren lagi/ }))
+    const contoh = screen.getByRole('region', { name: 'Contoh dari Oren' })
+    expect(within(contoh).getByText('Eh, lidahku tersandung di sini!')).toBeInTheDocument()
+  })
+
   it('contoh langkah demi langkah, lalu giliranmu: bantuan ditunjukkan, lalu letaknya, lalu sendiri', async () => {
     let n = 0
     pasangFetch({

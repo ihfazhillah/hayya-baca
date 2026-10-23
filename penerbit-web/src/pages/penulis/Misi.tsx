@@ -79,7 +79,8 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
   const urutanBerikut = misi.berikutnya !== null
     ? modul.misi.find((x) => x.id === misi.berikutnya)?.urutan
     : undefined
-  const dariAwal = misi.status === 'selesai'
+  const [ulang, setUlang] = useState(false)
+  const dariAwal = misi.status === 'selesai' && !ulang
 
   return (
     <>
@@ -111,7 +112,7 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
       <Panduan misi={misi} />
 
       {dariAwal ? (
-        <JawabanTerbuka misi={misi} />
+        <JawabanTerbuka misi={misi} onUlang={() => { setSelesai(null); setUlang(true) }} />
       ) : (
         <AreaKerja misi={misi} selesai={!!selesai} onSelesai={selesaikan} onSegarkan={segarkan} urutanBerikut={urutanBerikut} nomor={modul.nomor} />
       )}
@@ -162,9 +163,17 @@ function Panduan({ misi }: { misi: MisiDetail }) {
 }
 
 /** Misi yang sudah selesai sebelumnya: tampilkan jawabannya. */
-function JawabanTerbuka({ misi }: { misi: MisiDetail }) {
+function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: () => void }) {
+  const adaContoh = misi.jenis === 'klik' && Array.isArray(misi.contoh) && misi.contoh.length > 0
+  const bisaUlang = misi.jenis === 'klik' || misi.jenis === 'gunting' || misi.jenis === 'kembar'
   return (
     <div className="tumpuk">
+      {bisaUlang && (
+        <div className="baris">
+          {adaContoh && <button type="button" className="btn btn-ghost" onClick={onUlang}>🐱 Lihat contoh Oren lagi</button>}
+          <button type="button" className="btn btn-ghost" onClick={onUlang}>🔁 Kerjakan lagi</button>
+        </div>
+      )}
       {(misi.jenis === 'tandai' || misi.jenis === 'log') && (
         <p className="lencana aktif">✓ Misi ini sudah selesai. Kamu boleh mengulanginya kapan saja.</p>
       )}
