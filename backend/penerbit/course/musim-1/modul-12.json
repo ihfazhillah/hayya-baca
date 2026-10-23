@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "misi.langkah"],
   "nomor": 12,
   "musim": 1,
   "level": 3,
@@ -53,8 +53,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Lingkari kata yang muncul lebih dari 3 kali.",
-      "petunjuk_ortu": "Bantu menghitung, tapi biarkan dia yang menemukan katanya. Jejak Keterampilan di halaman naskah juga menunjukkan kata kembar terbanyak."
+      "petunjuk": "Cari kata yang muncul lebih dari 3 kali di ceritamu, lalu tandai dengan stabilo Detektor Kembar.",
+      "petunjuk_ortu": "Tujuannya: anak menemukan sendiri kata yang terlalu sering dia pakai. Bantu menghitung, tapi biarkan dia yang menemukan katanya. Halaman Jejak Keterampilan (dari Beranda) juga menunjukkan kata kembar terbanyak di Draf Nol, dan di Langkah 2 sistem menandainya dengan garis putus-putus.",
+      "kenapa": "Di cerita sendiri, kata kembar sulit terlihat karena kamu sudah hafal ceritanya. Menandainya dulu membuat matamu fokus.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Duduk bersama Ayah atau Ummah dan baca ceritamu.",
+        "Kata apa yang sering muncul? Misalnya \"lalu\" atau \"terus\". Hitung bersama.",
+        "Kalau lebih dari 3 kali, pilih kata itu lalu tekan stabilo Detektor Kembar.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -62,7 +70,16 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Ganti atau hapus sebagian kata kembar."
+      "petunjuk": "Ganti atau hapus sebagian kata kembar. Biarkan satu, ganti sebagian, hapus sisanya.",
+      "kenapa": "Tidak semua kata kembar harus hilang. Kalau dibiarkan satu dan diganti sebagian, ceritamu lebih enak dibaca.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Tekan Selesai menyorot, mulai merevisi. Kata kembar diberi garis putus-putus.",
+        "Biarkan satu. Ganti sebagian dengan kata lain, misalnya \"setelah itu\". Hapus sisanya kalau tidak perlu.",
+        "Baca lagi kalimatnya. Masih masuk akal?",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memakai Detektor Kembar di tulisannya sendiri dan memilih sendiri kata penggantinya. Kalau dia butuh bantuan, ingatkan daftar pengganti yang dia buat di Modul 3. Jangan memilihkan kata penggantinya."
     },
     {
       "urutan": 3,
@@ -70,7 +87,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Gunting 2 kalimat terpanjang."
+      "petunjuk": "Cari 2 kalimat terpanjang di ceritamu, lalu potong masing-masing menjadi dua. Potong di \"dan\", \"lalu\", atau \"terus\".",
+      "kenapa": "Kalimat yang terlalu panjang membuat pembaca kehabisan napas. Memotongnya membuat ceritamu lebih mudah diikuti.",
+      "langkah": [
+        "Di halaman revisi, cari kalimat dengan garis putus-putus. Itu kalimat yang lebih dari 20 kata.",
+        "Pilih 2 yang paling panjang.",
+        "Potong di \"dan\", \"lalu\", atau \"terus\". Beri titik, lalu mulai kalimat baru dengan huruf besar.",
+        "Tekan Simpan sebagai Versi baru. Mau mengerjakan misi bonus Baca keras? Kerjakan dulu sebelum minta stempel.",
+        "Tekan Minta stempel ke Ayah atau Ummah, lalu kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memakai Gunting di kalimatnya sendiri. Cukup 2 kalimat. Setelah dipotong, minta dia membaca keras kedua kalimat baru itu: masih masuk akal? Setelah dia meminta stempel, beri stempel Gunting di Pojok Orang Tua, menu Naskah."
     },
     {
       "urutan": 4,
@@ -78,7 +104,15 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Baca keras seluruh cerita."
+      "petunjuk": "Baca keras seluruh ceritamu dari awal sampai akhir.",
+      "kenapa": "Setelah banyak kata diganti dan kalimat dipotong, telingamu memastikan ceritanya tetap enak didengar.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis, lalu buka naskahmu.",
+        "Baca keras-keras ceritamu dari awal sampai akhir.",
+        "Ada yang membuat lidahmu tersandung? Perbaiki di halaman revisi, lalu simpan lagi sebagai versi baru.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memastikan kalimat-kalimat barunya tetap lancar dibaca. Ini misi bonus. Dengarkan dari jauh; kalau dia tersandung, cukup tanyakan \"Bagian itu enak dibaca?\""
     }
   ]
 }

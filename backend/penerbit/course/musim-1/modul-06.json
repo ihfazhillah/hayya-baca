@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "resep", "mengapa", "kamus (Tes 3 Bintang, Bank Ide)", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M6-2", "lembar BANK-IDE", "misi 4: Tes 3 Bintang sebagai misi tersendiri"],
+  "_draf": ["tujuan", "resep", "mengapa", "kamus (Tes 3 Bintang, Bank Ide)", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M6-2", "lembar BANK-IDE", "misi 4: Tes 3 Bintang sebagai misi tersendiri", "misi.langkah"],
   "nomor": 6,
   "musim": 1,
   "level": 2,
@@ -93,8 +93,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Ayah bertanya 3 pertanyaan Sumur Kenangan. Jawab masing-masing dengan satu kalimat, lalu simpan di Bank Ide.",
-      "petunjuk_ortu": "Tanyakan: Kapan terakhir kamu tertawa keras? Kapan kamu kehilangan sesuatu? Kapan seekor kucing membuatmu kaget? Minta dia menjawab masing-masing dengan satu kalimat."
+      "petunjuk": "Ayah atau Ummah bertanya 3 pertanyaan Sumur Kenangan. Jawab masing-masing dengan satu kalimat, lalu simpan jawabanmu di Bank Ide.",
+      "petunjuk_ortu": "Tujuannya: anak tahu bahwa kejadian kecil dalam hidupnya bisa menjadi ide cerita. Tanyakan: Kapan terakhir kamu tertawa keras? Kapan kamu kehilangan sesuatu? Kapan seekor kucing membuatmu kaget? Minta dia menjawab masing-masing dengan satu kalimat. Jangan membetulkan jawabannya; ide yang sederhana pun boleh masuk Bank Ide.",
+      "kenapa": "Hal yang pernah terjadi padamu bisa menjadi cerita. Pertanyaan yang tepat membuat ingatanmu keluar.",
+      "langkah": [
+        "Taruh tablet sebentar dan duduk bersama Ayah atau Ummah.",
+        "Dengarkan 3 pertanyaan dari Ayah. Jawab masing-masing dengan satu kalimat.",
+        "Ambil tablet lagi. Di halaman ini, tekan Buka Ruang Penulis.",
+        "Di Bank Ide, tulis satu jawaban, pilih Sumur Kenangan, lalu tekan Simpan ide. Ulangi untuk jawaban lainnya.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -110,7 +118,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Ambil 2 benda acak di rumah sambil menutup mata. Tulis satu ide cerita yang masuk akal dari keduanya di Bank Ide."
+      "petunjuk": "Ambil 2 benda acak di rumah sambil menutup mata. Pikirkan satu ide cerita yang masuk akal dari keduanya, lalu tulis di Bank Ide.",
+      "kenapa": "Ini Sumur Acak. Dua benda yang tidak ada hubungannya bisa memancing ide yang tidak terpikir sebelumnya.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Tutup mata, lalu ambil 2 benda di sekitarmu. Misalnya sendok dan sandal.",
+        "Buka mata. Pikirkan satu cerita yang memakai kedua benda itu. Siapa tokohnya, dan apa masalahnya?",
+        "Ambil tablet lagi. Tekan Buka Ruang Penulis, tulis idemu di Bank Ide, pilih Sumur Acak, lalu tekan Simpan ide.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak berlatih menggali ide dengan Sumur Acak, bukan menunggu ide datang sendiri. Pastikan benar-benar acak (mata tertutup). Kalau dia bingung, tanyakan: \"Bagaimana kalau sendok ini milik seseorang yang sedang mencarinya?\" Biarkan dia yang menyusun idenya."
     },
     {
       "urutan": 4,
@@ -118,7 +135,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Beri bintang setiap ide di Bank Ide: aku senang menulisnya, ada masalahnya, aku tahu akhirnya. Pilih satu ide yang mendapat 3 bintang."
+      "petunjuk": "Beri bintang setiap ide di Bank Ide: aku senang menulisnya, ada masalahnya, aku tahu akhirnya. Pilih satu ide yang mendapat 3 bintang.",
+      "kenapa": "Ide yang punya masalah dan akhir tidak akan macet di tengah jalan. Tes ini membantumu memilih ide yang siap ditulis.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis.",
+        "Di Bank Ide, baca idemu satu per satu.",
+        "Tekan bintang yang cocok. Bintang 1: aku senang menulisnya. Bintang 2: ada masalahnya. Bintang 3: aku tahu akhirnya.",
+        "Cari satu ide yang bintangnya tiga. Ingat ide itu, kamu akan memakainya di modul berikutnya.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak belajar memilih ide yang cukup kuat untuk menjadi cerita utuh. Kalau belum ada ide yang mendapat 3 bintang, tidak apa-apa: ajak dia menambah masalah atau akhir pada satu ide, atau menggali ide baru dulu. Jangan memilihkan idenya."
     },
     {
       "urutan": 5,
@@ -126,7 +152,17 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Dari novel atau kisah nyata yang sedang kamu baca, tebak ide ceritanya berasal dari sumur yang mana.",
-      "pertanyaan": "Dari sumur mana idenya, dan kenapa kamu menebak begitu?"
+      "pertanyaan": "Dari sumur mana idenya, dan kenapa kamu menebak begitu?",
+      "kenapa": "Penulis buku juga menggali ide dari sumur yang sama denganmu. Kalau kamu bisa menebak sumurnya, kamu belajar cara mereka menemukan ide.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Ambil novel atau kisah nyata yang sedang kamu baca.",
+        "Pikirkan: idenya dari kenangan penulis, dari \"bagaimana kalau…\", atau dari dua hal acak yang digabung?",
+        "Cari satu alasan dari isi bukunya.",
+        "Kembali ke sini, tulis jawabanmu, lalu tekan Simpan LOG."
+      ],
+      "contoh": "Sumur Bagaimana Kalau. Bagaimana kalau ada anak yang bisa bicara dengan kucing?",
+      "petunjuk_ortu": "Tujuannya: anak melihat bahwa ide di buku sungguhan juga digali dari tiga sumur. Tidak ada jawaban yang salah selama dia punya alasan. Tanyakan: \"Kenapa kamu menebak sumur itu?\""
     },
     {
       "urutan": 6,
@@ -134,7 +170,15 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tambahkan 1 ide baru ke Bank Ide setiap hari selama seminggu."
+      "petunjuk": "Tambahkan 1 ide baru ke Bank Ide setiap hari selama seminggu.",
+      "kenapa": "Makin banyak ide di Bank Ide, makin mudah kamu memilih cerita berikutnya. Menggali ide setiap hari membuatnya jadi kebiasaan.",
+      "langkah": [
+        "Setiap hari selama seminggu, cari satu ide baru dari sumur mana saja.",
+        "Tekan Buka Ruang Penulis, tulis idenya di Bank Ide, lalu tekan Simpan ide.",
+        "Ide kecil juga boleh. Satu kalimat sudah cukup.",
+        "Setelah 7 hari, kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: menggali ide menjadi kebiasaan, bukan tugas sekali jalan. Ini misi bonus. Ingatkan sekali sehari, misalnya setelah makan malam. Jangan menilai bagus atau tidaknya ide."
     }
   ]
 }

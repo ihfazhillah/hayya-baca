@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "misi.langkah"],
   "nomor": 10,
   "musim": 1,
   "level": 3,
@@ -55,8 +55,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Centang setiap kotak Peta 4 Kotak yang sudah muncul di draf.",
-      "petunjuk_ortu": "Baca draf bersama dengan Peta 4 Kotak di samping. Tanyakan \"Kotak 3 ada di kalimat mana?\" dan biarkan dia yang menunjuk."
+      "petunjuk": "Baca ceritamu keras-keras dengan Peta 4 Kotak di samping. Centang setiap kotak yang sudah muncul di draf.",
+      "petunjuk_ortu": "Tujuannya: anak memeriksa apakah ceritanya utuh (tokoh, keinginan, masalah, akhir) sebelum memperbaiki kalimat. Baca draf bersama dengan Peta 4 Kotak di samping. Tanyakan \"Kotak 3 ada di kalimat mana?\" dan biarkan dia yang menunjuk. Kalau ada kotak yang tidak muncul, cukup dicatat; perbaikannya di misi berikutnya.",
+      "kenapa": "Sebelum memperbaiki kalimat, pastikan ceritanya lengkap. Kotak yang hilang membuat pembaca bingung.",
+      "langkah": [
+        "Siapkan kertas Peta 4 Kotak ceritamu. Kalau petamu ada di tablet, salin dulu keempat kalimatnya ke kertas.",
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Baca ceritamu keras-keras bersama Ayah atau Ummah.",
+        "Setiap kali satu kotak muncul di cerita, centang kotak itu di kertas.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai. Kamu juga bisa mencentangnya di daftar Misi kecil lapis ini."
+      ]
     },
     {
       "urutan": 2,
@@ -64,7 +72,16 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Isi semua tanda [???]."
+      "petunjuk": "Cari semua tanda [???] di ceritamu, lalu ganti dengan kata atau kalimat yang tepat.",
+      "kenapa": "Tanda [???] adalah lubang yang kamu tinggalkan saat Draf Nol. Sekarang saatnya menambalnya.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Kalau masih di Langkah 1, tekan Selesai menyorot, mulai merevisi.",
+        "Cari setiap tanda [???] dan ganti dengan kata atau kalimat yang kamu mau.",
+        "Tidak ada [???] di ceritamu? Misi ini langsung selesai.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak menyelesaikan bagian yang dia lewati saat Draf Nol, dengan kata-katanya sendiri. Kalau dia lupa maksudnya dulu, tanyakan: \"Di bagian ini, apa yang terjadi?\" Jangan mendiktekan kalimatnya."
     },
     {
       "urutan": 3,
@@ -72,7 +89,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pakai kartu prompt Lapis 1, perbaiki 1 bagian yang membingungkan."
+      "petunjuk": "Pakai kartu prompt Lapis 1 di kotak Mentor AI untuk menemukan bagian yang membingungkan. Pilih 1 bagian, lalu perbaiki.",
+      "kenapa": "Kamu tahu isi kepalamu, jadi ceritamu selalu terasa jelas bagimu. Pembaca lain bisa menunjukkan bagian yang belum jelas.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Di kotak Mentor AI, tekan Salin prompt. Bersama Ayah atau Ummah, tempel di Gemini bersama ceritamu.",
+        "Dari jawabannya, pilih 1 bagian yang membingungkan. Perbaiki sendiri di tablet.",
+        "Tekan Simpan sebagai Versi baru, lalu tekan Minta stempel ke Ayah atau Ummah.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak belajar memperbaiki satu bagian besar cerita, bukan semua sekaligus. Dampingi saat memakai Gemini; prompt sudah meminta AI untuk tidak memperbaiki. Pastikan perbaikannya ditulis sendiri oleh anak. Setelah dia meminta stempel, beri stempel Peta di Pojok Orang Tua, menu Naskah, supaya Lapis 2 terbuka."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M8-1", "lembar M8-2", "misi 3: contoh Draf Nol Fatih ditampilkan sebagai teks"],
+  "_draf": ["tujuan", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar M8-1", "lembar M8-2", "misi 3: contoh Draf Nol Fatih ditampilkan sebagai teks", "misi.langkah"],
   "nomor": 8,
   "musim": 1,
   "level": 2,
@@ -107,9 +107,17 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tulis ceritamu selama 15 menit dengan Peta 4 Kotak di samping. Draf Nol boleh berantakan seperti contoh Draf Nol Fatih di bawah.",
-      "petunjuk_ortu": "Jangan membaca layarnya selama timer berjalan. Setelah selesai, isi Jejak Keterampilan bersama dia.",
-      "teks": "Fatih punya sandal jepit hijau. Sandal itu sandal kesayangan Fatih karena dibeliin Babah waktu ke pasar. Hari itu Fatih sholat ashar di masjid dan dia buru buru karena mau nonton lomba di tv dan lombanya mulai jam 4. Setelah sholat Fatih langsung lari ke rak sandal. Tapi sandalnya tidak ada. Fatih sedih. Fatih mencari sandal di rak atas, di rak bawah, di bawah tangga. Tetap tidak ada. Fatih kesal. Lalu Fatih melihat kakek Darto jalan pelan pelan. Lalu Fatih melihat kaki kakek Darto. Ternyata kakek Darto pakai sandal hijau Fatih! [???] kakek Darto minta maaf karena matanya sudah tidak jelas. Lalu kakek Darto mengajak Fatih ke rumahnya makan pisang goreng. Fatih senang. Fatih lupa sama lomba di tv."
+      "petunjuk": "Tulis ceritamu selama 15 menit dengan Peta 4 Kotak di samping. Dilarang menghapus. Draf Nol boleh berantakan seperti contoh Draf Nol Fatih di bawah.",
+      "petunjuk_ortu": "Tujuannya: anak menyelesaikan cerita utuh dari awal sampai akhir tanpa berhenti untuk memperbaiki. Jangan membaca layarnya selama timer berjalan, dan jangan mengoreksi apa pun. Setelah disimpan, naskah otomatis masuk Laci Rahasia selama 2 hari. Setelah selesai, lihat Jejak Keterampilan bersama dia.",
+      "teks": "Fatih punya sandal jepit hijau. Sandal itu sandal kesayangan Fatih karena dibeliin Babah waktu ke pasar. Hari itu Fatih sholat ashar di masjid dan dia buru buru karena mau nonton lomba di tv dan lombanya mulai jam 4. Setelah sholat Fatih langsung lari ke rak sandal. Tapi sandalnya tidak ada. Fatih sedih. Fatih mencari sandal di rak atas, di rak bawah, di bawah tangga. Tetap tidak ada. Fatih kesal. Lalu Fatih melihat kakek Darto jalan pelan pelan. Lalu Fatih melihat kaki kakek Darto. Ternyata kakek Darto pakai sandal hijau Fatih! [???] kakek Darto minta maaf karena matanya sudah tidak jelas. Lalu kakek Darto mengajak Fatih ke rumahnya makan pisang goreng. Fatih senang. Fatih lupa sama lomba di tv.",
+      "kenapa": "Cerita harus selesai dulu, baru diperbaiki. Kalau kamu memperbaiki sambil menulis, ceritamu sering berhenti di tengah.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut Draf Nol.",
+        "Lihat Peta 4 Kotak di samping, lalu tekan Mulai. Timer 15 menit berjalan.",
+        "Tulis terus sampai timer selesai. Jangan menghapus. Kalau bingung, tulis [???] lalu lanjut.",
+        "Isi Kartu Tebakan, lalu tekan Simpan sebagai Versi 1 dan masukkan ke Laci.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 4,
@@ -117,7 +125,16 @@
       "tahap": "mandiri",
       "jenis": "log",
       "petunjuk": "Hitung kata Draf Nol-mu. Berapa pun jumlahnya, Draf Nol sudah selesai.",
-      "pertanyaan": "Berapa jumlah kata Draf Nol-mu?"
+      "pertanyaan": "Berapa jumlah kata Draf Nol-mu?",
+      "kenapa": "Angka ini adalah titik awalmu. Nanti kamu bisa membandingkannya dengan cerita berikutnya.",
+      "langkah": [
+        "Lihat angka kata yang muncul setelah kamu menyimpan Versi 1.",
+        "Lupa angkanya? Buka Ruang Penulis. Angkanya tertulis di kartu naskahmu, misalnya \"Versi 1 · 210 kata\".",
+        "Berapa pun jumlahnya, Draf Nol sudah selesai.",
+        "Kembali ke sini, tulis angkanya, lalu tekan Simpan LOG."
+      ],
+      "contoh": "185 kata. Lebih banyak dari yang aku kira!",
+      "petunjuk_ortu": "Tujuannya: anak merayakan cerita yang selesai, bukan cerita yang sempurna. Jumlah kata hanya dicatat, tidak dinilai. Pujilah karena ceritanya selesai, bukan karena panjangnya."
     }
   ]
 }

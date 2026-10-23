@@ -89,14 +89,32 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Dengarkan seseorang bercerita.",
-      "pertanyaan": "Kata apa yang paling sering dia ulang?"
+      "pertanyaan": "Kata apa yang paling sering dia ulang?",
+      "kenapa": "Detektor Kembar juga bekerja dengan telinga. Orang yang bercerita sering mengulang kata tanpa sadar, persis seperti Si Ceroboh.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Minta Ayah, Ummah, kakak, atau temanmu bercerita tentang harinya, sekitar 2 menit.",
+        "Dengarkan baik-baik. Kata apa yang terus muncul? Misalnya \"terus\", \"lalu\", atau \"nah\".",
+        "Jangan bilang dulu ke dia, simpan di kepalamu.",
+        "Kembali ke sini dan tulis jawabanmu."
+      ],
+      "contoh": "Kakak bilang \"terus\" 6 kali waktu cerita soal sekolah.",
+      "petunjuk_ortu": "Tujuannya: anak menangkap kata kembar lewat telinga, bukan hanya di teks. Kalau Ayah atau Ummah yang bercerita, boleh sengaja memakai satu kata berulang (misalnya \"terus\") supaya mudah ditemukan."
     },
     {
       "urutan": 5,
       "judul": "Lima pengganti \"lalu\"",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Tulis 5 pengganti kata \"lalu\" di kertas kecil dan tempel di Kartu Alat."
+      "petunjuk": "Tulis 5 pengganti kata \"lalu\" di kertas kecil dan tempel di Kartu Alat.",
+      "kenapa": "Kalau kamu sudah punya daftar pengganti, kamu tidak perlu berpikir lama saat menemukan kata kembar di ceritamu.",
+      "langkah": [
+        "Ambil kertas kecil dan pensil.",
+        "Tulis 5 kata yang bisa menggantikan \"lalu\". Contohnya: setelah itu.",
+        "Tempel kertasnya di Kartu Alat Detektor Kembar.",
+        "Kembali ke sini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak punya bekal kata pengganti yang dia tulis sendiri. Jawaban yang benar misalnya: setelah itu, kemudian, sesudahnya, tak lama kemudian, akhirnya. Kalau dia kesulitan, beri satu contoh lalu biarkan dia mencari sisanya."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "misi.langkah"],
   "nomor": 13,
   "musim": 1,
   "level": 3,
@@ -54,8 +54,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Cek huruf besar saja.",
-      "petunjuk_ortu": "Bacakan kalimat satu per satu dari belakang. Untuk setiap kalimat, tanyakan hanya \"Huruf besarnya sudah benar?\""
+      "petunjuk": "Periksa huruf besar saja: di awal kalimat dan di nama. Abaikan kesalahan lain dulu.",
+      "petunjuk_ortu": "Tujuannya: anak memeriksa ejaan satu jenis sekali, mulai dari huruf besar. Bacakan kalimat satu per satu dari belakang. Untuk setiap kalimat, tanyakan hanya \"Huruf besarnya sudah benar?\" Biarkan dia yang menemukan dan menandainya.",
+      "kenapa": "Kalau mencari satu jenis kesalahan saja, matamu lebih teliti dan tidak cepat lelah.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Duduk bersama Ayah atau Ummah. Mulai dari kalimat terakhir, mundur ke depan.",
+        "Untuk setiap kalimat, tanya: huruf besarnya sudah benar?",
+        "Kalau salah, pilih katanya lalu tekan stabilo Kaca Pembesar.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -63,7 +71,16 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Cek titik dan koma saja."
+      "petunjuk": "Periksa titik dan koma saja. Setiap kalimat diakhiri titik, dan tidak ada spasi sebelum titik atau koma.",
+      "kenapa": "Titik dan koma membantu pembaca tahu kapan berhenti dan bernapas.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Mulai dari kalimat terakhir, mundur ke depan.",
+        "Untuk setiap kalimat, tanya: titiknya ada? Komanya di tempat yang benar?",
+        "Kalau salah, beri stabilo Kaca Pembesar.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memeriksa tanda baca dengan sedikit bantuan. Kali ini dia membaca sendiri; Ayah atau Ummah cukup di dekatnya. Kalau dia ragu, tanyakan \"Kalau dibaca keras, kamu berhenti di mana?\""
     },
     {
       "urutan": 3,
@@ -71,7 +88,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Cek di/ke dan kata ulang saja."
+      "petunjuk": "Periksa di/ke dan kata ulang saja. \"di masjid\" dipisah, \"dipakai\" disambung. Kata ulang pakai tanda hubung: buru-buru.",
+      "kenapa": "Ini kesalahan yang paling sering dibuat orang dewasa juga. Kamu sudah berlatih menemukannya di Modul 5.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Cari setiap \"di\" dan \"ke\". Tempat dipisah, kata kerja disambung.",
+        "Cari kata ulang, misalnya \"pelan pelan\". Beri tanda hubung: pelan-pelan.",
+        "Tekan Selesai menyorot, mulai merevisi, lalu betulkan semua yang kamu stabilo. Tekan Simpan sebagai Versi baru.",
+        "Mau misi bonus? Kerjakan dulu. Lalu tekan Minta stempel ke Ayah atau Ummah, kembali ke sini, dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memeriksa jenis kesalahan ketiga sendirian, lalu membetulkan semua tanda dari tiga putaran. Jangan ikut mencari; ini tahap mandiri. Setelah dia meminta stempel, periksa sekilas lalu beri stempel Kaca di Pojok Orang Tua, menu Naskah."
     },
     {
       "urutan": 4,
@@ -79,7 +105,16 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pakai kartu prompt Lapis 4 untuk pemeriksaan terakhir."
+      "petunjuk": "Pakai kartu prompt Lapis 4 di kotak Mentor AI. AI hanya memberi nomor kalimat yang masih salah, kamu yang mencari kesalahannya.",
+      "kenapa": "Mata yang sudah lelah bisa melewatkan kesalahan kecil. Nomor kalimat dari AI membantumu melihat sekali lagi, tanpa diberi tahu jawabannya.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Di kotak Mentor AI, lengkapi bagian 2 dan 4, lalu tekan Salin prompt.",
+        "Bersama Ayah atau Ummah, tempel di Gemini bersama ceritamu.",
+        "Periksa kalimat bernomor itu sendiri. Kalau ada yang dibetulkan, simpan sebagai versi baru.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memakai AI sebagai petunjuk, bukan pengganti matanya. Ini misi bonus. Dampingi saat memakai Gemini, dan pastikan AI hanya memberi nomor kalimat, bukan jawabannya. Sebaiknya dikerjakan sebelum memberi stempel Kaca."
     }
   ]
 }

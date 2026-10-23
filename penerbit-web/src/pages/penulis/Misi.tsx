@@ -9,6 +9,7 @@ import { useNavPenulis } from '../../components/LayoutPenulis'
 import TeksKlik, { type AwalKlik } from '../../components/TeksKlik'
 import Gunting from '../../components/Gunting'
 import DetektorKembar from '../../components/DetektorKembar'
+import Perekam from '../../components/Perekam'
 import '../../styles/penulis-halaman.css'
 
 type Muat = { kunci: string; modul: ModulDetail | ModulTerkunci; misi: MisiDetail | null }
@@ -90,7 +91,10 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
         <p className="kecil" style={{ fontWeight: 600 }}>{kepala} · {misi.tahap_label}</p>
         <h1 className="page-title">{misi.judul}</h1>
         {misi.petunjuk && <p className="ph-sub">{misi.petunjuk}</p>}
+        {misi.tahap === 'bonus' && <p className="lencana">⭐ Bonus, boleh dilewati</p>}
       </header>
+
+      <Panduan misi={misi} />
 
       {dariAwal ? (
         <JawabanTerbuka misi={misi} />
@@ -115,6 +119,29 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
 
       {hadiah.length > 0 && <PerayaanHadiah hadiah={hadiah} onTutup={tutupHadiah} />}
     </>
+  )
+}
+
+/** Kenapa, langkah, dan catatan orang tua: supaya misi di luar layar jelas harus ke mana. */
+function Panduan({ misi }: { misi: MisiDetail }) {
+  if (!misi.kenapa && !misi.langkah?.length && !misi.petunjuk_ortu) return null
+  return (
+    <div className="tumpuk ph-panduan">
+      {misi.kenapa && (
+        <p><strong>Kenapa? </strong>{misi.kenapa}</p>
+      )}
+      {!!misi.langkah?.length && (
+        <ol className="ph-langkah" aria-label="Langkah">
+          {misi.langkah.map((l) => <li key={l}>{l}</li>)}
+        </ol>
+      )}
+      {misi.petunjuk_ortu && (
+        <details className="ph-lipat">
+          <summary>Untuk Ayah atau Ummah</summary>
+          <p>{misi.petunjuk_ortu}</p>
+        </details>
+      )}
+    </div>
   )
 }
 
@@ -207,17 +234,41 @@ function MisiTandai({ misi, selesai, onSelesai }: {
   }
   return (
     <div className="tumpuk">
-      {misi.petunjuk_ortu && (
-        <details className="ph-lipat">
-          <summary>Untuk Ayah atau Ummah</summary>
-          <p>{misi.petunjuk_ortu}</p>
-        </details>
-      )}
+      {misi.teks_rekam && <AreaRekam teks={misi.teks_rekam} />}
       {misi.tautan && <p><TautanMisi href={misi.tautan} /></p>}
       <Galat pesan={galat} />
       {!selesai && (
         <button type="button" className="btn-besar" onClick={tandai} disabled={sibuk}>Tandai selesai</button>
       )}
+    </div>
+  )
+}
+
+function AreaRekam({ teks }: { teks: NonNullable<MisiDetail['teks_rekam']> }) {
+  const [pilih, setPilih] = useState(0)
+  if (!teks.length) {
+    return (
+      <p className="callout callout-info">
+        Selesaikan dulu misi Si Ceroboh di modul ini. Teks yang sudah kamu betulkan akan muncul di sini untuk dibaca.
+      </p>
+    )
+  }
+  return (
+    <div className="tumpuk">
+      {teks.length > 1 && (
+        <div className="baris" role="group" aria-label="Pilih teks">
+          {teks.map((t, i) => (
+            <button key={t.judul} type="button" className={`tombol-kecil${i === pilih ? ' aktif' : ''}`}
+              aria-pressed={i === pilih} onClick={() => setPilih(i)}>{t.judul}</button>
+          ))}
+        </div>
+      )}
+      <div className="callout callout-accent">
+        <div className="callout-content">
+          <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text)' }}>{teks[pilih]?.teks}</p>
+        </div>
+      </div>
+      <Perekam />
     </div>
   )
 }
@@ -250,6 +301,7 @@ function MisiLog({ misi, selesai, onSelesai }: {
         </label>
         <input id={`${id}-log`} className="ph-isian" value={log} onChange={(e) => setLog(e.target.value)}
           disabled={selesai} maxLength={300} />
+        {misi.contoh && <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>Contoh: “{misi.contoh}”</p>}
       </div>
       <Galat pesan={galat} />
       {!selesai && <button type="submit" className="btn-besar" disabled={!log.trim() || sibuk}>Simpan LOG</button>}

@@ -168,6 +168,19 @@ class TestMisiLain(Dasar):
         assert r.data["status"] == "menunggu"
         assert PemeriksaanLembar.objects.get(profil=self.profil).lembar.kode == "M2-5"
 
+    def test_misi_di_luar_layar_menyebut_langkah_alasan_dan_contoh(self):
+        d = self.anak.get(f"/api/penerbit/misi/{self.misi(1, 4).id}/").data
+        assert len(d["langkah"]) >= 3
+        assert d["kenapa"] and d["contoh"] and d["petunjuk_ortu"]
+
+    def test_rekam_hanya_memakai_teks_misi_yang_sudah_selesai(self):
+        url = f"/api/penerbit/misi/{self.misi(1, 5).id}/"
+        assert self.anak.get(url).data["teks_rekam"] == []
+        m1 = self.misi(1, 1)
+        HasilMisi.objects.create(profil=self.profil, misi=m1, status="selesai")
+        teks = self.anak.get(url).data["teks_rekam"]
+        assert teks == [{"judul": m1.judul, "teks": m1.data["versi_benar"]}]
+
     def test_tandai_tidak_untuk_misi_klik(self):
         m = self.misi(1, 2)
         assert self.anak.post(f"/api/penerbit/misi/{m.id}/tandai/").status_code == 400

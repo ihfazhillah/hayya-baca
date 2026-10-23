@@ -104,14 +104,39 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Baca keras-keras satu halaman buku favoritmu.",
-      "pertanyaan": "Apakah penulisnya membuatmu tersandung? Di mana?"
+      "pertanyaan": "Apakah penulisnya membuatmu tersandung? Di mana?",
+      "kenapa": "Pengeras Suara bukan hanya untuk Si Ceroboh. Kamu bisa memakainya di buku apa saja, dan nanti di ceritamu sendiri.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Ambil satu buku cerita yang kamu suka.",
+        "Pilih satu halaman, lalu baca keras-keras dari awal sampai akhir.",
+        "Ingat kalimat yang membuat lidahmu tersandung. Kalau tidak ada, itu juga jawaban.",
+        "Kembali ke sini dan tulis satu baris di bawah."
+      ],
+      "contoh": "Aku tersandung di halaman 12, kalimatnya panjang sekali.",
+      "petunjuk_ortu": "Tujuannya: anak memakai Pengeras Suara di luar latihan, dan sadar bahwa tulisan yang bagus enak dibaca keras. Dengarkan dari jauh: apakah dia benar-benar membaca dengan suara, bukan dalam hati? Jawaban \"tidak tersandung\" juga benar. Tanyakan: \"Kenapa menurutmu enak dibaca?\""
     },
     {
       "urutan": 5,
       "judul": "Rekam suaramu",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Rekam suaramu membaca teks Si Ceroboh yang sudah dibetulkan, lalu dengarkan. Enak didengar, kan?"
+      "petunjuk": "Rekam suaramu membaca teks Si Ceroboh yang sudah kamu betulkan, langsung di halaman ini. Lalu dengarkan. Enak didengar, kan?",
+      "kenapa": "Saat mendengar rekamanmu sendiri, kamu bisa merasakan bedanya kalimat yang lancar dengan kalimat yang membuat tersandung.",
+      "langkah": [
+        "Pilih satu teks di bawah. Ini teks Si Ceroboh yang sudah kamu betulkan.",
+        "Tekan Rekam, lalu baca teks itu keras-keras.",
+        "Tekan Berhenti, lalu tekan Dengarkan.",
+        "Masih ada bagian yang membuatmu tersandung? Kalau sudah lancar, tekan Tandai selesai."
+      ],
+      "rekam": {
+        "dari_misi": [
+          1,
+          2,
+          3
+        ]
+      },
+      "petunjuk_ortu": "Tujuannya: anak mendengar sendiri bahwa teks yang sudah dibetulkan lancar dibaca. Ini bonus, boleh dilewati. Rekaman hanya ada di tablet ini dan hilang saat halaman ditutup; tidak dikirim ke mana pun. Saat pertama kali, tablet meminta izin memakai mikrofon: bantu tekan Izinkan."
     }
   ]
 }

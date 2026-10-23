@@ -253,3 +253,10 @@ details.ph-lipat.ph-lipat-putih { background: #fff; margin: var(--space-3) 0; }
 .ph-grafik h3 { font-size: var(--text-sm); font-family: var(--font-body); font-weight: 600; color: var(--color-text-secondary); }
 .ph-grafik .angka { font-size: var(--text-xl); }
 .ph-grafik .lencana { margin-top: var(--space-1); }
+
+/* Panduan misi di luar layar dan perekam suara */
+.ph-panduan { margin: var(--space-4) 0; }
+.ph-langkah { margin: 0; padding-left: 1.6em; display: grid; gap: var(--space-2); font-size: var(--text-lg); }
+.ph-langkah li::marker { font-weight: 700; color: var(--color-accent); }
+.ph-perekam { display: grid; gap: var(--space-3); justify-items: start; }
+.ph-perekam audio { width: min(100%, 360px); }

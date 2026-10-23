@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "lembar M16-2"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "lembar M16-2", "misi.langkah"],
   "nomor": 16,
   "musim": 1,
   "level": 3,
@@ -70,8 +70,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tulis 3 pilihan judul, keluarga memilih.",
-      "petunjuk_ortu": "Kumpulkan keluarga sebentar untuk memilih. Kalau suara seri, penulis yang memutuskan."
+      "petunjuk": "Tulis 3 pilihan judul untuk ceritamu, lalu keluarga memilih satu.",
+      "petunjuk_ortu": "Tujuannya: anak belajar membuat beberapa pilihan sebelum memutuskan, dan keluarga ikut merayakan. Kumpulkan keluarga sebentar untuk memilih. Kalau suara seri, penulis yang memutuskan. Judul akhir diisi di Pojok Orang Tua, menu Naskah, panel Terbitkan.",
+      "kenapa": "Judul adalah hal pertama yang dibaca orang. Dengan 3 pilihan, kamu tidak terpaku pada judul pertama yang terpikir.",
+      "langkah": [
+        "Taruh tablet sebentar. Ambil kertas dan tulis 3 judul yang berbeda.",
+        "Kumpulkan keluarga sebentar. Bacakan ketiganya.",
+        "Setiap orang memilih satu. Judul dengan suara terbanyak menang.",
+        "Berikan judul pemenang ke Ayah atau Ummah. Mereka yang mengisinya saat menerbitkan.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -87,7 +95,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tulis Tentang Penulis dalam 3 kalimat."
+      "petunjuk": "Tulis Tentang Penulis dalam 3 kalimat: siapa kamu, apa yang kamu suka, dan buku ini tentang apa.",
+      "kenapa": "Pembaca senang mengenal penulisnya. Tiga kalimat pendek sudah cukup.",
+      "langkah": [
+        "Taruh tablet sebentar. Lihat halaman Tentang Penulis di satu buku yang kamu suka.",
+        "Di kertas, tulis 3 kalimat: siapa kamu, apa yang kamu suka, dan buku ini tentang apa.",
+        "Baca keras-keras. Sudah enak didengar?",
+        "Berikan kertasnya ke Ayah atau Ummah untuk dimasukkan ke bukumu.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memperkenalkan dirinya sebagai penulis dengan kalimatnya sendiri. Ketik ketiga kalimatnya apa adanya di Pojok Orang Tua, menu Naskah, panel Terbitkan. Kalau ada salah ejaan, tunjukkan dan biarkan dia yang membetulkan."
     },
     {
       "urutan": 4,
@@ -95,8 +112,16 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Bacakan di acara keluarga.",
-      "petunjuk_ortu": "Cetak dan jilid sederhana, beri nomor terbitan (misalnya PR-001), lalu siapkan acaranya."
+      "petunjuk": "Bacakan bukumu di acara keluarga.",
+      "petunjuk_ortu": "Tujuannya: anak merasakan bahwa semua revisinya menghasilkan buku sungguhan yang dibaca orang lain. Tekan Terbitkan di Pojok Orang Tua, menu Naskah (perlu 5 stempel); nomor terbitan (misalnya PR-001) diberikan otomatis. Cetak dari Rak Buku dengan tombol Cetak buku (A5), jilid sederhana, lalu siapkan acaranya.",
+      "kenapa": "Ini hari panenmu. Cerita yang dibacakan di depan keluarga terasa sungguhan.",
+      "langkah": [
+        "Tunggu Ayah atau Ummah menerbitkan dan mencetak bukumu.",
+        "Bersama keluarga, tentukan waktu acaranya.",
+        "Taruh tablet. Pegang bukumu dan bacakan keras-keras dari awal sampai akhir.",
+        "Setelah selesai, dengarkan pertanyaan dan pujian keluarga.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "lembar KARTU-ULASAN", "misi 3: log, bukan tandai, supaya alasannya tersimpan"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "lembar KARTU-ULASAN", "misi 3: log, bukan tandai, supaya alasannya tersimpan", "misi.langkah"],
   "nomor": 14,
   "musim": 1,
   "level": 3,
@@ -69,8 +69,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Bacakan cerita ke satu pembaca.",
-      "petunjuk_ortu": "Bantu memilih pembaca dan waktunya. Ingatkan pembaca untuk mendengarkan sampai selesai tanpa mengoreksi."
+      "petunjuk": "Bacakan ceritamu ke satu pembaca, dari awal sampai akhir.",
+      "petunjuk_ortu": "Tujuannya: anak merasakan ceritanya didengar orang lain, langkah pertama sebelum menerima ulasan. Bantu memilih pembaca dan waktunya. Ingatkan pembaca untuk mendengarkan sampai selesai tanpa mengoreksi.",
+      "kenapa": "Kamu sudah memperbaiki ceritamu dengan empat lapis. Sekarang saatnya tahu bagaimana rasanya bagi orang lain.",
+      "langkah": [
+        "Bersama Ayah atau Ummah, pilih satu pembaca dan waktunya.",
+        "Di halaman ini, tekan Buka Ruang Penulis, buka naskahmu, lalu tekan Baca Versi pada versi yang paling baru.",
+        "Bacakan ceritamu keras-keras dari awal sampai akhir. Pembaca mendengarkan tanpa memotong.",
+        "Setelah selesai, ucapkan terima kasih. Jangan tanya \"bagus tidak?\" dulu.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -78,15 +86,31 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "petunjuk": "Pembaca mengisi Kartu Ulasan: bagian favoritku, bagian yang membuatku bingung, satu pertanyaan untuk penulis.",
-      "petunjuk_ortu": "Pembaca yang punya akun mengisi Kartu Ulasan di situs. Pembaca lain boleh memakai lembar cetak KARTU-ULASAN."
+      "petunjuk_ortu": "Tujuannya: anak menerima masukan yang jelas dan sopan dari pembaca. Pembaca yang punya akun mengisi Kartu Ulasan di situs (bagikan lewat Pojok Orang Tua, menu Naskah, Bagikan ke Editor Tamu). Pembaca lain boleh memakai lembar cetak KARTU-ULASAN; ketik isinya di panel Kartu Ulasan supaya tersimpan dan stempel Pembaca bisa diberikan.",
+      "kenapa": "Kartu Ulasan membuat masukan pembaca jelas: apa yang dia suka, apa yang membuatnya bingung, dan apa yang ingin dia tanyakan.",
+      "langkah": [
+        "Minta pembacamu mengisi Kartu Ulasan. Ayah atau Ummah akan membantu menyiapkannya.",
+        "Tunggu sampai pembaca selesai. Jangan membela ceritamu dulu, cukup dengarkan.",
+        "Untuk melihat ulasannya, buka Ruang Penulis, buka naskahmu, lalu lihat bagian Dari pembaca.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 3,
       "judul": "Pilih satu masukan",
       "tahap": "mandiri",
       "jenis": "log",
-      "petunjuk": "Pilih 1 masukan dan tulis alasannya.",
-      "pertanyaan": "Masukan mana yang kamu pilih, dan kenapa?"
+      "petunjuk": "Baca Kartu Ulasan dari pembacamu. Pilih 1 masukan yang mau kamu pakai, dan tulis alasannya.",
+      "pertanyaan": "Masukan mana yang kamu pilih, dan kenapa?",
+      "kenapa": "Kamu penulisnya, jadi kamu yang memutuskan. Memilih dengan alasan melatihmu mendengar pembaca tanpa kehilangan ceritamu sendiri.",
+      "langkah": [
+        "Buka Ruang Penulis, buka naskahmu, lalu baca bagian Dari pembaca. Atau baca lembar Kartu Ulasan di kertas.",
+        "Taruh tablet sebentar. Pikirkan setiap masukan: kalau dipakai, ceritamu jadi lebih jelas?",
+        "Pilih 1 masukan. Boleh juga menolak masukan, asal kamu bisa menjelaskan alasannya.",
+        "Kembali ke sini, tulis masukan pilihanmu dan alasannya, lalu tekan Simpan LOG."
+      ],
+      "contoh": "Kakak bingung kenapa kakek tidak lihat sandalnya. Aku pakai masukan ini karena aku belum menulis kalau mata kakek sudah rabun.",
+      "petunjuk_ortu": "Tujuannya: anak belajar menimbang masukan dan memutuskan sendiri. Jangan memilihkan masukannya. Menolak masukan juga boleh, asal alasannya jelas. Setelah dia memilih, beri stempel Pembaca di Pojok Orang Tua, menu Naskah."
     }
   ]
 }

@@ -74,7 +74,15 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "petunjuk": "Ayah menulis 3 kalimat, masing-masing dengan 1 kesalahan, dan menyebut jenis kesalahannya. Temukan dan betulkan.",
-      "petunjuk_ortu": "Tulis 3 kalimat di kertas, masing-masing dengan satu kesalahan (huruf besar, titik, atau di/ke), dan sebutkan jenisnya sebelum anak mencari."
+      "petunjuk_ortu": "Tujuannya: anak berlatih mencari satu jenis kesalahan dengan bantuan. Tulis 3 kalimat di kertas, masing-masing dengan satu kesalahan (huruf besar, titik, atau di/ke), dan sebutkan jenisnya sebelum anak mencari. Contoh: \"oren tidur di kasur.\" (huruf besar).",
+      "kenapa": "Kaca Pembesar mencari kesalahan kecil satu per satu. Kalau tahu jenis kesalahannya, kamu tahu harus melihat ke mana.",
+      "langkah": [
+        "Duduk bersama Ayah atau Ummah dengan kertas dan pulpen merah.",
+        "Ayah menulis 3 kalimat dan menyebut jenis kesalahannya.",
+        "Periksa satu kalimat saja dulu, dari belakang ke depan.",
+        "Lingkari kesalahannya dan tulis yang benar.",
+        "Setelah ketiganya selesai, tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -118,7 +126,17 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Cari satu kesalahan ejaan di spanduk, papan pengumuman, atau menu warung.",
-      "pertanyaan": "Kesalahannya apa?"
+      "pertanyaan": "Kesalahannya apa?",
+      "kenapa": "Kesalahan ejaan ada di mana-mana, bahkan di tulisan orang dewasa. Mata detektifmu bisa menemukannya.",
+      "langkah": [
+        "Misi ini dikerjakan saat kamu keluar rumah, jadi tablet tidak perlu dibawa.",
+        "Saat di jalan, baca spanduk, papan pengumuman, atau menu warung.",
+        "Cari satu kesalahan: huruf besar, titik, spasi, atau di/ke.",
+        "Ingat tulisannya, atau minta Ayah atau Ummah memotretnya.",
+        "Kembali ke sini dan tulis kesalahannya beserta yang benar."
+      ],
+      "contoh": "Di warung tertulis \"di jual es teh\". Yang benar \"dijual es teh\".",
+      "petunjuk_ortu": "Tujuannya: anak memakai Kaca Pembesar di dunia nyata. Misi ini boleh menunggu sampai kalian keluar rumah. Ajarkan untuk tidak mengoreksi pemilik warung secara langsung; cukup dicatat."
     },
     {
       "urutan": 5,
@@ -146,7 +164,16 @@
       "judul": "Peran dibalik",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Buat 3 kalimat yang sengaja dibuat salah untuk dikoreksi Ayah."
+      "petunjuk": "Buat 3 kalimat yang sengaja dibuat salah untuk dikoreksi Ayah.",
+      "kenapa": "Membuat kesalahan dengan sengaja lebih sulit daripada mencarinya. Kalau kamu bisa, berarti kamu sudah paham.",
+      "langkah": [
+        "Ambil kertas dan pensil.",
+        "Tulis 3 kalimat, masing-masing dengan satu kesalahan yang kamu sengaja.",
+        "Di balik kertas, tulis kunci jawabannya.",
+        "Berikan ke Ayah atau Ummah untuk dikoreksi, lalu periksa jawabannya.",
+        "Kembali ke sini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak mengajar balik, tanda dia paham jenis-jenis kesalahan. Sesekali lewatkan satu kesalahan dengan sengaja, lalu biarkan dia yang menemukannya."
     },
     {
       "urutan": 7,

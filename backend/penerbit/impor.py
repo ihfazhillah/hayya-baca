@@ -219,6 +219,11 @@ def _impor_modul(data, nama_file):
                 raise _Gagal(f"{label}: lembar {m['lembar']} tidak ada")
         if m["jenis"] == "cetak" and lembar is None:
             raise _Gagal(f"{label}: misi cetak tanpa lembar")
+        if "rekam" in m:
+            punya_versi = {x["urutan"] for x in data["misi"] if x.get("versi_benar")}
+            kurang = [u for u in m["rekam"].get("dari_misi", []) if u not in punya_versi]
+            if kurang or not m["rekam"].get("dari_misi"):
+                raise _Gagal(f"{label}: rekam dari misi {kurang} yang tidak punya versi_benar")
         Misi.objects.update_or_create(
             modul=modul, urutan=m["urutan"],
             defaults={"judul": m["judul"], "tahap": m["tahap"], "jenis": m["jenis"],

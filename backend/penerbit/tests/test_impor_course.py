@@ -106,6 +106,15 @@ class TestImpor(TestCase):
                      versi_benar="Dia di rumah.")
         impor_folder(tulis(self.tmp, data))
 
+    def test_rekam_hanya_dari_misi_yang_punya_versi_benar(self):
+        data = modul()
+        data["misi"].append({"urutan": 3, "judul": "Rekam", "tahap": "bonus", "jenis": "tandai",
+                             "rekam": {"dari_misi": [2]}})
+        with pytest.raises(CommandError, match="misi 3: rekam"):
+            impor_folder(tulis(self.tmp, data))
+        data["misi"][2]["rekam"] = {"dari_misi": [1]}
+        impor_folder(tulis(self.tmp, data))
+
     def test_kembar_kata_terbanyak_harus_diterima(self):
         data = modul(jenis="kembar", teks="Oren makan. Oren minum. Lalu Oren tidur. Lalu pulang.",
                      kata=["lalu"])
@@ -148,6 +157,13 @@ class TestIsiCourseMusim1(TestCase):
         for modul_ in Modul.objects.all():
             assert modul_.ujian.count() >= 1, modul_
             assert 3 <= modul_.misi.count() <= 7, modul_
+
+    def test_misi_di_luar_layar_punya_langkah_dan_tujuan(self):
+        for m in Misi.objects.filter(jenis__in=["tandai", "log"]):
+            assert m.data.get("kenapa") and len(m.data.get("langkah", [])) >= 3, m
+            assert m.data.get("petunjuk_ortu", "").startswith("Tujuannya"), m
+            if m.jenis == "log":
+                assert m.data.get("contoh"), m
 
     def test_misi_cetak_selalu_punya_lembar(self):
         for m in Misi.objects.filter(jenis="cetak"):

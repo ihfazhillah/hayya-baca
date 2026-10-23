@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "misi.langkah"],
   "nomor": 15,
   "musim": 1,
   "level": 3,
@@ -52,8 +52,15 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pilih 1 bab cerita lama.",
-      "petunjuk_ortu": "Bantu mencari cerita lama dan memilih bab yang pendek. Jangan memilihkan babnya."
+      "petunjuk": "Pilih 1 bab dari cerita lama yang kamu tulis sebelum punya kelima alat. Pilih yang pendek.",
+      "petunjuk_ortu": "Tujuannya: anak memilih sendiri tulisan lama yang mau diperbaiki, supaya dia melihat kemajuannya. Bantu mencari cerita lama dan memilih bab yang pendek. Jangan memilihkan babnya.",
+      "kenapa": "Cerita lamamu ditulis sebelum kamu punya alat-alat ini. Memperbaikinya menunjukkan seberapa jauh kamu sudah berkembang.",
+      "langkah": [
+        "Bersama Ayah atau Ummah, cari cerita lamamu. Bisa di buku tulis, di kertas, atau di Ruang Penulis.",
+        "Baca sekilas, lalu pilih 1 bab yang pendek.",
+        "Kalau ceritanya di kertas, taruh tablet sebentar dan siapkan bab itu di meja.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -61,7 +68,16 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pilih 1 alat."
+      "petunjuk": "Pilih 1 alat untuk bab itu: Pengeras Suara, Gunting, Detektor Kembar, Kamera, atau Kaca Pembesar. Satu saja.",
+      "kenapa": "Montir tidak mengganti semuanya sekaligus. Satu alat dalam satu sesi membuat pekerjaanmu rapi dan tidak melelahkan.",
+      "langkah": [
+        "Baca bab itu sekali.",
+        "Tanya: masalah apa yang paling terasa? Tersandung, kalimat panjang, kata kembar, bilang perasaan, atau ejaan?",
+        "Pilih 1 alat yang cocok untuk masalah itu.",
+        "Pakai kartu prompt Bengkel di kotak Mentor AI kalau kamu butuh bantuan menemukan 2 tempat untuk alat itu.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak bisa memilih alat yang tepat untuk masalah yang dia lihat sendiri. Tanyakan: \"Kenapa alat ini?\" Pilihan apa pun boleh asal ada alasannya. Kalau memakai Mentor AI, dampingi saat menempel di Gemini."
     },
     {
       "urutan": 3,
@@ -69,7 +85,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pakai alat itu, simpan sebagai Versi 2 bab tersebut."
+      "petunjuk": "Pakai alat pilihanmu di bab itu, lalu simpan hasilnya sebagai Versi 2. Versi aslinya jangan ditimpa.",
+      "kenapa": "Kalau versi aslinya disimpan, kamu bisa melihat sendiri sebelum dan sesudahnya. Itu bukti kemajuanmu.",
+      "langkah": [
+        "Taruh tablet sebentar. Siapkan bab lama dan kertas baru.",
+        "Tandai paling sedikit 2 tempat untuk alat pilihanmu.",
+        "Tulis ulang bab itu di kertas baru dengan perbaikanmu. Beri judul \"Versi 2\".",
+        "Simpan kertas versi asli dan Versi 2 bersama-sama. Jangan coret atau buang versi aslinya.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memakai satu alat di tulisan yang sudah dia kenal, dan melihat bedanya sendiri. Satu bab, satu alat, satu sesi. Setelah selesai, minta dia membacakan versi asli dan Versi 2 bergantian, lalu tanyakan: \"Mana yang lebih enak didengar?\""
     }
   ]
 }

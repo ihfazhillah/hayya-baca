@@ -20,6 +20,16 @@ def ambil_misi(request, pk):
     return misi
 
 
+def teks_rekam(profil, misi):
+    """Teks yang dibaca keras untuk misi rekam: versi benar misi yang sudah selesai saja,
+    supaya kunci misi yang belum dikerjakan tidak terbuka."""
+    sumber = misi.modul.misi.filter(urutan__in=misi.data["rekam"]["dari_misi"]).order_by("urutan")
+    selesai = set(HasilMisi.objects.filter(
+        profil=profil, misi__in=sumber, status=HasilMisi.Status.SELESAI
+    ).values_list("misi_id", flat=True))
+    return [{"judul": m.judul, "teks": m.data["versi_benar"]} for m in sumber if m.id in selesai]
+
+
 def percobaan_aktif(profil, misi):
     """Percobaan berjalan, dikunci sampai transaksi selesai: dua klik yang datang bersamaan
     tidak saling menimpa `ditemukan` (Postgres). Panggil di dalam transaction.atomic."""
@@ -69,6 +79,9 @@ class MisiView(PenulisView):
             out["kata_umum"] = sorted(KATA_UMUM)
         if misi.lembar:
             out["lembar"] = {"kode": misi.lembar.kode, "judul": misi.lembar.judul}
+        if "rekam" in misi.data:
+            out.pop("rekam")
+            out["teks_rekam"] = teks_rekam(request.profil, misi)
         if misi.jenis in JENIS_INTERAKTIF:
             p = Percobaan.objects.filter(profil=request.profil, misi=misi, selesai=False).last()
             out["percobaan"] = {

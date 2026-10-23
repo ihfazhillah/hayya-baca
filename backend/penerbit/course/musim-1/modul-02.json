@@ -126,7 +126,17 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Cari kalimat terpanjang di buku pelajaranmu.",
-      "pertanyaan": "Berapa kata panjangnya?"
+      "pertanyaan": "Berapa kata panjangnya?",
+      "kenapa": "Gunting dipakai untuk kalimat yang terlalu panjang. Dengan mencari di buku sungguhan, kamu jadi tahu seberapa panjang sebuah kalimat bisa jadi.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Ambil satu buku pelajaranmu, misalnya buku IPA atau IPS.",
+        "Di satu halaman, cari kalimat yang paling panjang.",
+        "Hitung katanya pakai jari, dari huruf besar sampai titik.",
+        "Kembali ke sini dan tulis jawabanmu."
+      ],
+      "contoh": "Buku IPA halaman 30, kalimatnya 27 kata. Aku kehabisan napas membacanya.",
+      "petunjuk_ortu": "Tujuannya: anak melihat kalimat panjang di tulisan nyata dan mulai merasakan kapan kalimat terlalu panjang. Kalau dia mau, tanyakan: \"Kalau kamu gunting, di mana kamu potong?\" Tidak perlu ditulis."
     },
     {
       "urutan": 5,

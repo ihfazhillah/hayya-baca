@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1].alasan", "ujian[2]", "bertanya", "lembar PETA-4-KOTAK", "lembar M7-1", "lembar M7-2"],
+  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1].alasan", "ujian[2]", "bertanya", "lembar PETA-4-KOTAK", "lembar M7-1", "lembar M7-2", "misi.langkah"],
   "nomor": 7,
   "musim": 1,
   "level": 2,
@@ -126,7 +126,17 @@
       "tahap": "dunia_nyata",
       "jenis": "log",
       "petunjuk": "Isi Peta 4 Kotak untuk novel atau kisah nyata yang sedang kamu baca.",
-      "pertanyaan": "Siapa tokohnya, dia mau apa, apa masalahnya, dan bagaimana akhirnya?"
+      "pertanyaan": "Siapa tokohnya, dia mau apa, apa masalahnya, dan bagaimana akhirnya?",
+      "kenapa": "Setiap cerita yang seru punya empat kotak yang sama. Kalau kamu bisa melihatnya di buku orang lain, kamu lebih mudah membuatnya untuk ceritamu.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Ambil novel atau kisah nyata yang sedang kamu baca.",
+        "Jawab dalam kepala: siapa tokohnya, dia mau apa, apa masalahnya, bagaimana akhirnya?",
+        "Kalau belum tahu akhirnya, tebak saja.",
+        "Kembali ke sini, tulis jawabanmu, lalu tekan Simpan LOG."
+      ],
+      "contoh": "Kancil mau menyeberang sungai. Masalahnya ada buaya. Akhirnya Kancil menipu buaya dan selamat.",
+      "petunjuk_ortu": "Tujuannya: anak melihat Peta 4 Kotak di cerita sungguhan, jadi dia percaya peta ini berguna. Jawaban satu baris sudah cukup. Kalau dia belum selesai membaca, akhir boleh berupa tebakan."
     },
     {
       "urutan": 4,
@@ -134,7 +144,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/baru/",
-      "petunjuk": "Isi Peta 4 Kotak untuk ide pilihanmu dari Bank Ide."
+      "petunjuk": "Isi Peta 4 Kotak untuk ide pilihanmu dari Bank Ide. Satu kalimat di setiap kotak.",
+      "kenapa": "Dengan peta, kamu tahu ke mana ceritamu pergi. Nanti saat menulis Draf Nol, kamu tidak bingung di tengah jalan.",
+      "langkah": [
+        "Di halaman ini, tekan Buat naskah baru.",
+        "Pilih ide yang mendapat 3 bintang dari Bank Ide.",
+        "Isi keempat kotak, satu kalimat di setiap kotak.",
+        "Tulis judul sementara, lalu tekan Simpan dulu, nanti lanjut. Draf Nol baru ditulis di modul berikutnya.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak merencanakan ceritanya sendiri sebelum menulis, supaya Draf Nol nanti lancar. Kalau satu kotak sulit, tanyakan pertanyaan kotaknya (Siapa? Mau apa? Ada masalah apa? Bagaimana akhirnya?) tanpa memberi jawaban. Sarankan dia menyalin keempat kalimatnya ke kertas juga; peta ini dipakai lagi saat Revisi Lapis 1."
     },
     {
       "urutan": 5,
@@ -142,7 +161,17 @@
       "tahap": "bonus",
       "jenis": "log",
       "petunjuk": "Ceritakan petamu ke kakak dalam 1 menit.",
-      "pertanyaan": "Kalau dia bingung, kotak mana yang perlu diperjelas?"
+      "pertanyaan": "Kalau dia bingung, kotak mana yang perlu diperjelas?",
+      "kenapa": "Kalau pendengar bisa mengikuti petamu, ceritamu sudah jelas. Kalau dia bingung, kamu tahu kotak mana yang perlu diperbaiki sebelum menulis.",
+      "langkah": [
+        "Taruh tablet sebentar.",
+        "Cari kakak, adik, Ayah, atau Ummah.",
+        "Ceritakan petamu dalam 1 menit: siapa, mau apa, ada masalah apa, bagaimana akhirnya.",
+        "Tanya dia: \"Ada yang membuatmu bingung?\"",
+        "Kembali ke sini, tulis jawabanmu, lalu tekan Simpan LOG."
+      ],
+      "contoh": "Kakak bingung kenapa kucingnya mau masuk ke dapur. Kotak 2 perlu diperjelas.",
+      "petunjuk_ortu": "Tujuannya: anak menguji petanya pada pendengar sebelum menulis. Ini misi bonus. Pendengar cukup bilang bagian mana yang membingungkan, tanpa memberi ide pengganti. Kalau pendengar tidak bingung, jawaban \"tidak ada yang bingung\" juga benar."
     }
   ]
 }

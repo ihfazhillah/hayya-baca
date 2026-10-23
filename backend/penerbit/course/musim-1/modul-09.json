@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar KARTU-TEBAKAN"],
+  "_draf": ["tujuan", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1]", "ujian[2]", "bertanya", "lembar KARTU-TEBAKAN", "misi.langkah"],
   "nomor": 9,
   "musim": 1,
   "level": 2,
@@ -85,7 +85,15 @@
       "jenis": "tandai",
       "tautan": "/naskah/",
       "petunjuk": "Cetak Versi 1, masukkan ke amplop bersama Kartu Tebakan, lalu tulis tanggal buka 2 hari lagi.",
-      "petunjuk_ortu": "Bantu mencetak Versi 1. Simpan amplop di tempat yang dia pilih, dan ingatkan tanggal bukanya."
+      "petunjuk_ortu": "Tujuannya: memberi jarak 2 hari supaya anak membaca ceritanya dengan mata pembaca baru. Bantu mencetak Versi 1; teksnya bisa dilihat di Pojok Orang Tua, menu Naskah. Simpan amplop di tempat yang dia pilih, dan ingatkan tanggal bukanya. Di aplikasi, naskah juga terkunci di Laci Rahasia selama 2 hari.",
+      "kenapa": "Setelah 2 hari, kamu sedikit lupa isi ceritamu. Kamu akan membacanya seperti pembaca baru, dan bagian yang aneh jadi kelihatan.",
+      "langkah": [
+        "Minta Ayah atau Ummah mencetak Versi 1.",
+        "Taruh tablet sebentar. Masukkan kertas Versi 1 dan Kartu Tebakan ke amplop.",
+        "Tulis di amplop tanggal buka, 2 hari dari sekarang.",
+        "Simpan amplop di tempat yang kamu pilih. Jangan dibuka, dan jangan baca Versi 1 di tablet juga.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 3,
@@ -93,15 +101,33 @@
       "tahap": "bonus",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tambahkan ide baru ke Bank Ide, atau baca novelmu."
+      "petunjuk": "Selama naskahmu di laci, tambahkan ide baru ke Bank Ide, atau baca novelmu.",
+      "kenapa": "Menunggu bukan berarti berhenti. Penulis memakai waktu menunggu untuk mengumpulkan ide cerita berikutnya.",
+      "langkah": [
+        "Pilih salah satu: menambah ide, atau membaca novel.",
+        "Kalau menambah ide: tekan Buka Ruang Penulis, tulis idenya di Bank Ide, lalu tekan Simpan ide.",
+        "Kalau membaca: taruh tablet dan baca novelmu paling sedikit 15 menit.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak tetap menulis dan membaca selama naskahnya di laci, tanpa mengintip naskahnya. Ini misi bonus. Latihan Harian juga pilihan yang baik selama menunggu."
     },
     {
       "urutan": 4,
       "judul": "Saat dibuka",
       "tahap": "mandiri",
       "jenis": "log",
-      "petunjuk": "Baca keras-keras dan beri tanda di 3 tempat kamu tersandung. Jangan diperbaiki dulu, itu tugas Level 3.",
-      "pertanyaan": "Apakah kamu masih setuju dengan Kartu Tebakanmu? Kenapa?"
+      "petunjuk": "Setelah 2 hari, buka amplopnya. Baca keras-keras dan beri tanda di 3 tempat kamu tersandung. Jangan diperbaiki dulu, itu tugas Level 3.",
+      "pertanyaan": "Apakah kamu masih setuju dengan Kartu Tebakanmu? Kenapa?",
+      "kenapa": "Ini saat kamu membaca ceritamu dengan mata pembaca. Tanda yang kamu buat hari ini adalah peta untuk revisi nanti.",
+      "langkah": [
+        "Tunggu sampai tanggal di amplop. Lalu buka amplopnya.",
+        "Taruh tablet sebentar. Baca Versi 1 keras-keras dengan pensil di tangan.",
+        "Beri tanda di 3 tempat lidahmu tersandung. Jangan diperbaiki dulu.",
+        "Baca lagi Kartu Tebakanmu. Masih setuju?",
+        "Di tablet, buka Ruang Penulis, pilih naskahmu, lalu tekan Buka laci. Setelah itu kembali ke sini, tulis jawabanmu, dan tekan Simpan LOG."
+      ],
+      "contoh": "Tidak setuju. Kalimat yang aku kira paling bagus ternyata terlalu panjang dan bikin tersandung.",
+      "petunjuk_ortu": "Tujuannya: anak membaca tulisannya sendiri sebagai pembaca baru dan menemukan bagian yang perlu diperbaiki, tanpa memperbaikinya dulu. Dengarkan dari jauh saat dia membaca keras. Jawaban \"tidak setuju\" sama bagusnya dengan \"setuju\", asal ada alasannya. Simpan kertas bertanda ini untuk Revisi Lapis 1."
     }
   ]
 }

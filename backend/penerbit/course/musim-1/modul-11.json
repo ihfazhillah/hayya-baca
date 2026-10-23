@@ -1,5 +1,5 @@
 {
-  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]"],
+  "_draf": ["tujuan", "kenapa", "langkah", "resep", "mengapa", "kamus", "petunjuk_lihat", "ujian[1] (dari tabel Versi 1 dan Versi Terbit)", "ujian[2]", "misi.langkah"],
   "nomor": 11,
   "musim": 1,
   "level": 3,
@@ -53,8 +53,16 @@
       "tahap": "bersama",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Garis bawahi semua kata perasaan: sedih, senang, kesal, takut, malu.",
-      "petunjuk_ortu": "Duduk di samping, tapi biarkan dia yang memegang stabilo Kamera. Kalau ada yang terlewat, tanyakan \"Di paragraf ini ada perasaan?\""
+      "petunjuk": "Garis bawahi semua kata perasaan di ceritamu dengan stabilo Kamera: sedih, senang, kesal, takut, malu.",
+      "petunjuk_ortu": "Tujuannya: anak menemukan sendiri tempat-tempat dia \"bilang perasaan\" di ceritanya. Duduk di samping, tapi biarkan dia yang memegang stabilo Kamera. Kalau ada yang terlewat, tanyakan \"Di paragraf ini ada perasaan?\"",
+      "kenapa": "Kata perasaan memberi tahu pembaca. Sebelum mengubahnya menjadi adegan, kamu perlu tahu di mana saja kata itu ada.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Duduk bersama Ayah atau Ummah.",
+        "Baca ceritamu pelan-pelan. Setiap ketemu kata perasaan, pilih katanya lalu tekan stabilo Kamera.",
+        "Jangan ubah teksnya dulu. Ini masih Langkah 1.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ]
     },
     {
       "urutan": 2,
@@ -62,7 +70,16 @@
       "tahap": "petunjuk",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Pilih 2, tanya \"kalau ini film, apa yang terlihat?\""
+      "petunjuk": "Dari kata perasaan yang sudah distabilo, pilih 2 yang paling penting. Untuk setiap kata, tanya: \"Kalau ini film, apa yang terlihat?\"",
+      "kenapa": "Kalau semua perasaan diubah menjadi adegan, ceritamu jadi lambat. Cukup 2 tempat yang paling penting.",
+      "langkah": [
+        "Lihat kata-kata yang sudah kamu stabilo.",
+        "Pilih 2 yang paling penting di ceritamu.",
+        "Taruh tablet sebentar. Tutup mata dan bayangkan bagian itu seperti film.",
+        "Apa yang terlihat? Tangan, wajah, kaki, atau suara tokohnya? Ceritakan ke Ayah atau Ummah.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memilih 2 tempat terpenting dan membayangkan apa yang terlihat, sebelum menulis ulang. Dengarkan saat dia bercerita. Kalau dia hanya mengulang nama perasaannya, tanyakan: \"Tangannya sedang apa? Wajahnya bagaimana?\""
     },
     {
       "urutan": 3,
@@ -70,7 +87,16 @@
       "tahap": "mandiri",
       "jenis": "tandai",
       "tautan": "/naskah/",
-      "petunjuk": "Tulis ulang 2 kalimat itu dengan Kamera."
+      "petunjuk": "Tulis ulang 2 kalimat yang kamu pilih dengan Kamera: tunjukkan apa yang terlihat, tanpa menyebut nama perasaannya.",
+      "kenapa": "Pembaca ikut merasakan kalau dia bisa melihatnya sendiri, bukan hanya diberi tahu.",
+      "langkah": [
+        "Di halaman ini, tekan Buka Ruang Penulis. Di naskahmu, tekan Lanjut revisi.",
+        "Tekan Selesai menyorot, mulai merevisi.",
+        "Tulis ulang 2 kalimat itu dengan apa yang kamu bayangkan di film tadi.",
+        "Tekan Simpan sebagai Versi baru, lalu tekan Minta stempel ke Ayah atau Ummah.",
+        "Kembali ke halaman misi ini dan tekan Tandai selesai."
+      ],
+      "petunjuk_ortu": "Tujuannya: anak mengubah 2 kalimat \"bilang perasaan\" menjadi adegan yang bisa dilihat pembaca. Cukup 2 kalimat, jangan minta lebih. Kalimat yang baik menyebut gerakan atau suara, bukan nama perasaannya. Setelah dia meminta stempel, beri stempel Kamera di Pojok Orang Tua, menu Naskah."
     }
   ]
 }

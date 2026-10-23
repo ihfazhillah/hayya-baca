@@ -163,4 +163,103 @@ describe('Misi', () => {
     expect(await screen.findByRole('heading', { name: 'Misi 1 selesai!' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Misi berikutnya' })).toHaveAttribute('href', '/modul/1/misi/2')
   })
+
+  it('misi di luar layar: alasan, langkah bernomor, contoh jawaban, dan tujuan untuk orang tua', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/12/': {
+        body: {
+          ...dasarMisi, id: 12, urutan: 3, berikutnya: null, judul: 'Buku favoritmu', jenis: 'log',
+          tahap: 'dunia_nyata', tahap_label: 'Dunia nyata', pertanyaan: 'Apakah kamu tersandung?',
+          kenapa: 'Pengeras Suara bisa dipakai di buku apa saja.',
+          langkah: ['Taruh tablet sebentar.', 'Ambil satu buku.', 'Kembali ke sini.'],
+          contoh: 'Aku tersandung di halaman 12.',
+          petunjuk_ortu: 'Tujuannya: memakai alat di luar latihan.',
+        },
+      },
+    })
+    tampil('/modul/1/misi/3')
+    expect(await screen.findByText('Pengeras Suara bisa dipakai di buku apa saja.')).toBeInTheDocument()
+    const langkah = screen.getByRole('list', { name: 'Langkah' })
+    expect(langkah.tagName).toBe('OL')
+    expect(langkah).toHaveTextContent('Taruh tablet sebentar.')
+    expect(screen.getByText(/Aku tersandung di halaman 12\./)).toBeInTheDocument()
+    expect(screen.getByText('Tujuannya: memakai alat di luar latihan.')).toBeInTheDocument()
+  })
+
+  it('misi bonus ditandai boleh dilewati', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: { ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Bonus', jenis: 'tandai', tahap: 'bonus', tahap_label: 'Bonus' },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText(/boleh dilewati/)).toBeInTheDocument()
+  })
+
+  it('misi rekam: belum ada teks sebelum misi lain selesai', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: { ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Rekam suaramu', jenis: 'tandai', tahap: 'bonus', tahap_label: 'Bonus', teks_rekam: [] },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText(/Selesaikan dulu misi Si Ceroboh/)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Rekam/ })).not.toBeInTheDocument()
+  })
+
+  it('misi rekam: rekam, berhenti, lalu dengarkan rekamannya di halaman ini', async () => {
+    class PerekamPalsu {
+      state = 'inactive'
+      ondataavailable: ((e: { data: Blob }) => void) | null = null
+      onstop: (() => void) | null = null
+      start() { this.state = 'recording' }
+      stop() {
+        this.state = 'inactive'
+        this.ondataavailable?.({ data: new Blob(['suara'], { type: 'audio/webm' }) })
+        this.onstop?.()
+      }
+    }
+    const berhentiTrek = vi.fn()
+    vi.stubGlobal('MediaRecorder', PerekamPalsu)
+    Object.defineProperty(navigator, 'mediaDevices', {
+      configurable: true,
+      value: { getUserMedia: vi.fn().mockResolvedValue({ getTracks: () => [{ stop: berhentiTrek }] }) },
+    })
+    URL.createObjectURL = vi.fn(() => 'blob:rekaman')
+    URL.revokeObjectURL = vi.fn()
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: {
+          ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Rekam suaramu', jenis: 'tandai', tahap: 'bonus', tahap_label: 'Bonus',
+          teks_rekam: [{ judul: 'Oren dan ikan', teks: 'Oren sangat suka makan ikan.' }],
+        },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText('Oren sangat suka makan ikan.')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /Rekam/ }))
+    await userEvent.click(await screen.findByRole('button', { name: /Berhenti/ }))
+    expect(berhentiTrek).toHaveBeenCalled()
+    expect(await screen.findByLabelText('Rekamanmu')).toHaveAttribute('src', 'blob:rekaman')
+    expect(screen.getByRole('button', { name: 'Tandai selesai' })).toBeInTheDocument()
+  })
+
+  it('misi rekam di perangkat tanpa perekam: arahkan ke aplikasi perekam tablet', async () => {
+    vi.stubGlobal('MediaRecorder', undefined)
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: MODUL },
+      'GET /api/penerbit/misi/10/': {
+        body: {
+          ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Rekam suaramu', jenis: 'tandai', tahap: 'bonus', tahap_label: 'Bonus',
+          teks_rekam: [{ judul: 'Oren dan ikan', teks: 'Oren sangat suka makan ikan.' }],
+        },
+      },
+    })
+    tampil('/modul/1/misi/1')
+    expect(await screen.findByText(/aplikasi perekam suara/)).toBeInTheDocument()
+  })
 })
