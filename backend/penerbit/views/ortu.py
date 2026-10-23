@@ -1,4 +1,5 @@
 """Area Pemeriksa (Ayah dan Ummah) di bawah /ortu/."""
+import re
 import uuid
 from datetime import timedelta
 
@@ -100,6 +101,11 @@ class DasborView(OrtuView):
         })
 
 
+def urut_kode(lb):
+    """M4-2 sebelum M4-10: bagian angka dibandingkan sebagai angka."""
+    return [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", lb.kode)]
+
+
 def lembar_json(lb):
     return {
         "kode": lb.kode, "judul": lb.judul, "petunjuk": lb.petunjuk, "soal": lb.soal,
@@ -154,11 +160,13 @@ class LembarView(OrtuView):
         p.tanggal_periksa = timezone.now()
         p.save()
         if p.misi:
-            HasilMisi.objects.create(
-                profil=p.profil, misi=p.misi,
-                status=HasilMisi.Status.SELESAI if hasil == "bagus" else HasilMisi.Status.COBA_LAGI,
-                log=p.catatan,
-            )
+            status_baru = (HasilMisi.Status.SELESAI if hasil == "bagus"
+                           else HasilMisi.Status.COBA_LAGI)
+            terakhir = HasilMisi.objects.filter(profil=p.profil, misi=p.misi).first()
+            # Simpan ulang dengan hasil yang sama tidak menambah baris hasil misi.
+            if terakhir is None or terakhir.status != status_baru or terakhir.log != p.catatan:
+                HasilMisi.objects.create(profil=p.profil, misi=p.misi, status=status_baru,
+                                         log=p.catatan)
         baru = []
         tingkat = request.data.get("stiker")
         alat = p.lembar.modul.alat
@@ -464,7 +472,8 @@ class CetakOrtuView(OrtuView):
     def get(self, request):
         modul = get_object_or_404(Modul, nomor=request.query_params.get("modul") or 0)
         return Response({"modul": {"nomor": modul.nomor, "judul": modul.judul},
-                         "lembar": [lembar_json(lb) for lb in modul.lembar.order_by("kode")]})
+                         "lembar": [lembar_json(lb) for lb in
+                                    sorted(modul.lembar.all(), key=urut_kode)]})
 
 
 def prompt_json(p):

@@ -68,6 +68,16 @@ class TestKlikKesalahan(Dasar):
         assert self.klik(m, token=tok(m, "ibu")).data["hasil"] == "sudah"
         assert self.klik(m, celah=n).data["hasil"] == "ketemu"
 
+    def test_celah_yang_ditemukan_tetap_ada_setelah_dimuat_ulang(self):
+        for n in range(1, 5):
+            selesaikan_modul(self.profil, n)
+        m = self.misi(5, 2)
+        n = len(m.data["tokens"])
+        self.klik(m, celah=n)
+        p = self.anak.get(f"/api/penerbit/misi/{m.id}/").data["percobaan"]
+        assert p["celah"] == [n]
+        assert p["ditemukan"] == 1
+
     def test_petunjuk_baru_boleh_setelah_tiga_meleset(self):
         m = self.misi(1, 2)
         url = f"/api/penerbit/misi/{m.id}/petunjuk/"

@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from .. import hadiah, jadwal
 from ..models import (
-    Alat, Hadiah, HasilMisi, Lembar, Misi, Modul, Naskah, PemeriksaanLembar, Penukaran, Prompt,
+    Alat, Hadiah, HasilLatihan, HasilMisi, Lembar, Misi, Modul, Naskah, PemeriksaanLembar, Penukaran, Prompt,
     Stempel, Stiker, TahapMentor,
 )
 from ..peran import profil_diperiksa, profil_untuk_pemeriksa, profil_untuk_request
@@ -116,12 +116,18 @@ class BerandaView(PenulisView):
         profil = request.profil
         stiker = {(s.alat_id, s.tingkat): s for s in Stiker.objects.filter(profil=profil)}
         due = [a for a in jadwal.alat_jatuh_tempo(profil)]
+        sudah = set(HasilLatihan.objects.filter(
+            profil=profil, tanggal__gte=jadwal.awal_hari()).values_list("kalimat_id", flat=True))
+        modul_terbuka_set = {m.nomor for m in Modul.objects.all() if modul_terbuka(profil, m)}
+        sisa_kartu = [k for k in jadwal.kartu_hari_ini(profil) if k.id not in sudah]
         return Response({
             "nama": profil.nama_panggilan,
             "lanjutkan": lanjutkan(profil),
-            "pemanasan": {"alat": [a.nama for a in due], "ada": bool(due)},
+            "pemanasan": {"alat": [a.nama for a in due], "ada": bool(sisa_kartu)},
             "peta": peta_perjalanan(profil),
             "alat": [{"kode": a.kode, "nama": a.nama, "emoji": a.emoji, "warna": a.warna,
+                      "modul_belajar": a.modul_belajar,
+                      "terbuka": a.modul_belajar in modul_terbuka_set,
                       "stiker": [t for t in hadiah.URUTAN_TINGKAT if (a.id, t) in stiker]}
                      for a in Alat.objects.all()],
             "pangkat": profil.pangkat.nama if profil.pangkat else None,

@@ -201,12 +201,19 @@ def evaluasi(profil):
     baru = []
     poin = _poin_misi(profil) + _poin_jejak(profil) + _poin_terbit(profil)
     for alat in Alat.objects.all():
+        dipelajari = Stiker.objects.filter(
+            profil=profil, alat=alat, tingkat=Tingkat.PERUNGGU).exists()
         for tingkat in URUTAN_TINGKAT:
             if Stiker.objects.filter(profil=profil, alat=alat, tingkat=tingkat).exists():
+                continue
+            # Perak dan Emas otomatis hanya untuk alat yang sudah dipelajari (punya Perunggu).
+            if tingkat != Tingkat.PERUNGGU and not dipelajari:
                 continue
             terpenuhi, _ = cek_syarat(profil, alat, alat.syarat.get(tingkat, {}))
             if terpenuhi:
                 baru += beri_stiker(profil, alat, tingkat)
+                if tingkat == Tingkat.PERUNGGU:
+                    dipelajari = True
     baru += _naikkan_pangkat(profil)
     if poin:
         baru.insert(0, {"jenis": "poin", "jumlah": poin})

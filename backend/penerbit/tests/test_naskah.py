@@ -201,3 +201,31 @@ class TestJejakPenulis(Dasar):
         r = self.anak.get("/api/penerbit/jejak/")
         assert [c["judul"] for c in r.data["cerita"]] == ["Satu", "Dua"]
         assert "turun" in r.data["kalimat_utama"]
+
+
+class TestSorotanVersiLama(Dasar):
+    """Versi lama hanya bisa dibaca dan disorot dengan stabilo (Rancangan Situs §Aturan menulis)."""
+
+    def test_sorotan_boleh_disimpan_teks_tidak(self):
+        nid = self.naskah_baru()
+        self.ke_revisi(nid)
+        url = f"/api/penerbit/naskah/{nid}/versi/1/"
+        sorotan = [{"alat": "kamera", "index": 0, "length": 12, "sumber": "anak", "diperbaiki": False}]
+        r = self.anak.patch(url, {"sorotan": sorotan, "teks": "diubah"}, format="json")
+        assert r.status_code == 200
+        v = Versi.objects.get(naskah_id=nid, nomor=1)
+        assert v.sorotan == sorotan
+        assert v.teks == "Fatih sedih. Lalu dia pulang."
+
+    def test_sorotan_harus_daftar(self):
+        nid = self.naskah_baru()
+        self.ke_revisi(nid)
+        r = self.anak.patch(f"/api/penerbit/naskah/{nid}/versi/1/", {"sorotan": "x"}, format="json")
+        assert r.status_code == 400
+
+    def test_daftar_naskah_menyebut_jumlah_versi_dan_kata(self):
+        nid = self.naskah_baru()
+        self.simpan(nid)
+        self.versi(nid)
+        d = self.anak.get("/api/penerbit/naskah/").data[0]
+        assert (d["jumlah_versi"], d["jumlah_kata"]) == (1, 5)

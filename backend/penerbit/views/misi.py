@@ -73,6 +73,8 @@ class MisiView(PenulisView):
             p = Percobaan.objects.filter(profil=request.profil, misi=misi, selesai=False).last()
             out["percobaan"] = {
                 "diklik": p.diklik if p else [],
+                "celah": p.celah if p else [],
+                "ditemukan": len(p.ditemukan) if p else 0,
                 "meleset": p.meleset if p else 0,
                 "pakai_petunjuk": p.pakai_petunjuk if p else False,
             }
@@ -91,6 +93,8 @@ def proses_klik(p, data, request):
         p.ditemukan = p.ditemukan + [grup]
         if token is not None:
             p.diklik = p.diklik + [token]
+        if celah is not None:
+            p.celah = p.celah + [celah]
     elif hasil == "meleset":
         p.meleset += 1
     total = len(data["kunci"])

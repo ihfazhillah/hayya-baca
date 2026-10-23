@@ -29,6 +29,26 @@ class TestBeranda(Dasar):
         assert d["lanjutkan"]["modul"]["nomor"] == 2
         assert [m["status"] for m in d["peta"]][:2] == ["selesai", "aktif"]
 
+    def test_alat_beranda_menyebut_terbuka_dan_modul_belajar(self):
+        alat = {a["kode"]: a for a in self.anak.get("/api/penerbit/beranda/").data["alat"]}
+        assert alat["pengeras"]["terbuka"] is True and alat["kamera"]["terbuka"] is False
+        assert alat["kamera"]["modul_belajar"] == 4
+
+    def test_pemanasan_hilang_setelah_semua_kartu_hari_ini_selesai(self):
+        from penerbit import hadiah, jadwal
+        from penerbit.impor import ubah_data_soal
+        from penerbit.models import Alat, HasilLatihan, JadwalUlang, KalimatLatihan
+
+        alat = Alat.objects.get(kode="pengeras")
+        k = KalimatLatihan.objects.create(kode="p-1", alat=alat, jenis="klik", data=ubah_data_soal(
+            "klik", {"teks": "di di", "kesalahan": [{"cari": "di di"}]}))
+        hadiah.beri_stiker(self.profil, alat, "perunggu", oleh=self.ayah)
+        JadwalUlang.objects.filter(profil=self.profil).update(jatuh_tempo=jadwal.hari_ini())
+        assert self.anak.get("/api/penerbit/beranda/").data["pemanasan"]["ada"] is True
+        HasilLatihan.objects.create(profil=self.profil, kalimat=k, alat=alat, benar=1, total=1)
+        jadwal.majukan(self.profil, alat)
+        assert self.anak.get("/api/penerbit/beranda/").data["pemanasan"]["ada"] is False
+
     def test_kabar_dari_ayah(self):
         from penerbit import hadiah
         from penerbit.models import Alat

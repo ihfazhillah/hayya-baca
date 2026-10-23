@@ -73,6 +73,7 @@ class TestPerak(Dasar):
         return hadiah.evaluasi(self.profil)
 
     def test_dua_kali_berturut_di_teks_baru(self):
+        hadiah.beri_stiker(self.profil, self.pengeras, "perunggu", oleh=self.ayah)
         self.selesai(1, 3, benar=2, total=2)  # misi mandiri
         assert not self.punya(self.pengeras, "perak")
         self.latihan(4, 5)
@@ -95,6 +96,14 @@ class TestPerak(Dasar):
         self.latihan(5, 5)
         assert not self.punya(self.pengeras, "perak")
 
+    def test_perak_menunggu_perunggu(self):
+        self.selesai(1, 3, benar=2, total=2)
+        self.latihan(5, 5)
+        assert not self.punya(self.pengeras, "perak")
+        self.selesai(1, 1)
+        self.selesai(1, 2)
+        assert self.punya(self.pengeras, "perunggu") and self.punya(self.pengeras, "perak")
+
     def test_kemajuan_untuk_kartu_alat(self):
         self.selesai(1, 3, benar=2, total=2)
         kemajuan = hadiah.kemajuan(self.profil, self.pengeras, "perak")
@@ -108,7 +117,16 @@ class TestEmasDariJejak(Dasar):
         Jejak.objects.create(versi=v, jumlah_kata=100, kalimat_terpanjang=kalimat_terpanjang)
         return hadiah.evaluasi(self.profil)
 
+    def test_emas_hanya_untuk_alat_yang_sudah_dipelajari(self):
+        self.cerita(10)
+        self.cerita(12)
+        assert not self.punya(self.gunting, "emas")  # Gunting belum punya Perunggu
+        hadiah.beri_stiker(self.profil, self.gunting, "perunggu", oleh=self.ayah)
+        hadiah.evaluasi(self.profil)
+        assert self.punya(self.gunting, "emas")
+
     def test_dua_draf_nol_berturut_tanpa_kalimat_panjang(self):
+        hadiah.beri_stiker(self.profil, self.gunting, "perunggu", oleh=self.ayah)
         self.cerita(24)
         self.cerita(18)
         assert not self.punya(self.gunting, "emas")

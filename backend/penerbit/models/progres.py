@@ -42,6 +42,7 @@ class Percobaan(models.Model):
     alat_benar = models.BooleanField(default=False)
     ditemukan = models.JSONField(default=list)  # indeks grup kunci yang sudah ketemu
     diklik = models.JSONField(default=list)  # indeks token yang sudah diklik benar
+    celah = models.JSONField(default=list)  # indeks celah yang sudah ditemukan (mode Kaca Pembesar)
     meleset = models.PositiveSmallIntegerField(default=0)
     pakai_petunjuk = models.BooleanField(default=False)
     selesai = models.BooleanField(default=False)

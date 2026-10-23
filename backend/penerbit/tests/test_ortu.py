@@ -97,6 +97,12 @@ class TestPemeriksaanLembar(Dasar):
         beranda = self.anak.get("/api/penerbit/beranda/").data
         assert beranda["coba_lagi"][0]["catatan"] == "Kalimat kedua masih bilang senang."
 
+    def test_simpan_ulang_tanpa_perubahan_tidak_menggandakan_hasil(self):
+        url = f"/api/penerbit/ortu/lembar/{self.p.id}/"
+        self.ortu.post(url, {"status": "bagus"}, format="json")
+        self.ortu.post(url, {"status": "bagus"}, format="json")
+        assert HasilMisi.objects.filter(misi=self.p.misi, status="selesai").count() == 1
+
     def test_lembar_keluarga_lain_404(self):
         assert auth(self.ayah_lain).get(f"/api/penerbit/ortu/lembar/{self.p.id}/").status_code == 404
 
@@ -247,6 +253,14 @@ class TestStikerHadiahPoin(Dasar):
 
 
 class TestCetakDanPrompt(Dasar):
+    def test_cetak_per_modul_urut_alami(self):
+        from penerbit.models import Lembar, Modul
+
+        m = Modul.objects.get(nomor=4)
+        Lembar.objects.create(kode="M4-10", modul=m, judul="x", petunjuk="x")
+        r = self.ortu.get("/api/penerbit/ortu/cetak/?modul=4")
+        assert [x["kode"] for x in r.data["lembar"]] == ["M4-2", "M4-3", "M4-5", "M4-10"]
+
     def test_cetak_per_modul(self):
         r = self.ortu.get("/api/penerbit/ortu/cetak/?modul=4")
         assert [x["kode"] for x in r.data["lembar"]] == ["M4-2", "M4-3", "M4-5"]

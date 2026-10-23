@@ -88,9 +88,12 @@ def versi_ringkas(v):
 
 
 def naskah_ringkas(n):
+    terakhir = n.versi.order_by("-nomor").first()
     return {"id": n.id, "judul": n.judul, "tahap": n.tahap, "tahap_label": n.get_tahap_display(),
             "laci": laci_json(n), "stempel": [s["lapis"] for s in stempel_json(n) if s["punya"]],
             "nomor_terbitan": n.nomor_terbitan, "stempel_diminta": n.stempel_diminta,
+            "jumlah_versi": terakhir.nomor if terakhir else 0,
+            "jumlah_kata": len(terakhir.teks.split()) if terakhir else 0,
             "created_at": n.created_at}
 
 
@@ -233,6 +236,16 @@ class VersiView(PenulisView):
     def get(self, request, pk, nomor):
         v = get_object_or_404(Versi, naskah=ambil_naskah(request, pk), nomor=nomor)
         return Response({**versi_ringkas(v), "isi": v.isi, "teks": v.teks, "sorotan": v.sorotan})
+
+    def patch(self, request, pk, nomor):
+        """Versi lama hanya boleh disorot dengan stabilo; teksnya tetap tidak bisa diubah."""
+        v = get_object_or_404(Versi, naskah=ambil_naskah(request, pk), nomor=nomor)
+        sorotan = request.data.get("sorotan")
+        if not isinstance(sorotan, list):
+            raise ValidationError("Kirim daftar sorotan.")
+        # update() langsung: Versi.save() sengaja menolak perubahan apa pun.
+        Versi.objects.filter(pk=v.pk).update(sorotan=sorotan)
+        return Response({"nomor": v.nomor, "sorotan": sorotan})
 
 
 class BukaLaciView(PenulisView):
