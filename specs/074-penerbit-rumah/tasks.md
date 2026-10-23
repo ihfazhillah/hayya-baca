@@ -29,8 +29,8 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_jadwal
 
 ## Fase 6 — Naskah
-- [ ] `jejak.py`, Ide, Naskah, DrafKerja, Versi, Laci, sorotan sistem
-- [ ] tests: test_jejak, test_naskah
+- [x] `jejak.py`, Ide, Naskah, DrafKerja, Versi, Laci, sorotan sistem
+- [x] tests: test_jejak, test_naskah
 
 ## Fase 7 — Pemeriksa + Editor Tamu (backend)
 - [ ] endpoint `ortu/…`, `ulasan/…`
