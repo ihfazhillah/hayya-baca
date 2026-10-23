@@ -1,7 +1,7 @@
 # 076 · Plan fase 1
 
 Cakupan: situs statis + checker v1 (rajaz, ramal) + Modul 0 lengkap (3 pelajaran) + rujukan +
-deploy ke `nadzom.ihfazh.com`. Modul 1–10 menyusul, satu per satu, sebagai data JSON.
+deploy ke `diwan.ihfazh.com`. Modul 1–10 menyusul, satu per satu, sebagai data JSON.
 
 ## Stack
 
@@ -90,5 +90,5 @@ Test (vitest) memakai bait yang taqthi'-nya tercatat di sumber:
 - `deploy/nadzom.nginx.conf`: statis, gzip, `/assets/` immutable, `try_files … /index.html`.
 - `deploy-nadzom.sh`: gate typecheck + test → build → rsync ke `~/nadzom-web/dist` → reload nginx.
   Tidak menyentuh backend.
-- Sekali di server (butuh pemilik setelah DNS): pasang site nginx, certbot `nadzom.ihfazh.com`.
+- Sekali di server (butuh pemilik setelah DNS): pasang site nginx, certbot `diwan.ihfazh.com`.
 - `docs/architecture.md`: tambah baris aplikasi statis.

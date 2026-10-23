@@ -3,11 +3,11 @@
 # Static site only: build locally → rsync to /home/ihfazh/nadzom-web/dist → reload nginx.
 # Does NOT pull, migrate, or restart the shared Django backend.
 #
-# Prereqs (one-time, after DNS nadzom.ihfazh.com points to the server):
+# Prereqs (one-time, after DNS diwan.ihfazh.com points to the server):
 #   sudo cp ~/hayyabaca/deploy/nadzom.nginx.conf /etc/nginx/sites-available/nadzom
 #   sudo ln -s /etc/nginx/sites-available/nadzom /etc/nginx/sites-enabled/nadzom
 #   sudo nginx -t && sudo systemctl reload nginx
-#   sudo certbot --nginx -d nadzom.ihfazh.com
+#   sudo certbot --nginx -d diwan.ihfazh.com
 set -euo pipefail
 
 SSH_HOST="${SSH_HOST:-ksatriamuslim}"
@@ -26,4 +26,4 @@ rsync -az --delete nadzom-web/dist/ "$SSH_HOST:$REMOTE_WEB/"
 echo "==> Reloading nginx"
 ssh "$SSH_HOST" "sudo nginx -t && sudo systemctl reload nginx"
 
-echo "==> Done. https://nadzom.ihfazh.com/"
+echo "==> Done. https://diwan.ihfazh.com/"

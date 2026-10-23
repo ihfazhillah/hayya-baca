@@ -17,7 +17,7 @@ kurikulumnya (3 babak, modul 0–10, 3 Boss, bonus). Yang belum ada: tempat menj
   arah latihan jangka panjang, bukan target course.
 - Waktu: 2–3 jam per pekan (sesi 20–30 menit, 1–3 sesi per modul) → kira-kira 2–4 bulan.
 - **Diwan tidak disimpan aplikasi.** Bait ditulis di mana saja (kertas, HP, Obsidian).
-- Hosting: `nadzom.ihfazh.com` di server yang sama, situs statis. DNS diurus pemilik.
+- Hosting: `diwan.ihfazh.com` di server yang sama, situs statis. DNS diurus pemilik.
 - Kode di repo ini (`nadzom-web/`) untuk sementara; boleh dipindah ke repo sendiri nanti.
 
 ## Hasil akhir dan bentuk sesi (keputusan pemilik)
