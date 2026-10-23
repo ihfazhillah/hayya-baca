@@ -1,0 +1,32 @@
+{
+  "istilah": [
+    { "istilah": "Taf'ilah", "ar": "التَّفْعِيلَة", "arti": "Satuan timbangan bait, mis. مُسْتَفْعِلُنْ.", "jembatan": "Seperti mizan sharaf فَعَلَ: timbangan, bukan kata." },
+    { "istilah": "Bahr", "ar": "الْبَحْر", "arti": "Pola taf'ilah yang diulang dalam satu bait.", "jembatan": "Seperti bab dalam tashrif: satu pola untuk banyak kata." },
+    { "istilah": "Mutaharrik", "ar": "الْمُتَحَرِّك", "arti": "Huruf hidup (berharakat). Ditandai 1.", "jembatan": "Huruf berharakat, sama seperti di nahwu." },
+    { "istilah": "Sakin", "ar": "السَّاكِن", "arti": "Huruf mati: sukun atau huruf mad. Ditandai 0.", "jembatan": "Huruf bersukun, dan huruf mad thabi'i dalam tajwid." },
+    { "istilah": "Sabab khafif", "ar": "السَّبَبُ الْخَفِيف", "arti": "Satu huruf hidup lalu satu mati: 10.", "jembatan": "Seperti لَمْ، قَدْ، مَا." },
+    { "istilah": "Watad majmu'", "ar": "الْوَتِدُ الْمَجْمُوع", "arti": "Dua huruf hidup lalu satu mati: 110.", "jembatan": "Seperti نَعَمْ، عَلَى، لَكُمْ." },
+    { "istilah": "Kitabah 'arudhiyyah", "ar": "الْكِتَابَةُ الْعَرُوضِيَّة", "arti": "Menulis bait sesuai bunyinya sebelum ditimbang.", "jembatan": "Membaca dengan tajwid: yang diucapkan ditulis, yang tidak diucapkan tidak ditulis." },
+    { "istilah": "Taqthi'", "ar": "التَّقْطِيع", "arti": "Memotong bait menjadi taf'ilah-taf'ilahnya.", "jembatan": "Seperti i'rab kalimat: setiap bagian diberi nama dan tempat." },
+    { "istilah": "Zihaf", "ar": "الزِّحَاف", "arti": "Perubahan taf'ilah yang diizinkan, mis. مُسْتَفْعِلُنْ → مُتَفْعِلُنْ.", "jembatan": "Seperti i'lal: bentuk asal berubah karena sebab yang diatur, tetap sah." },
+    { "istilah": "Syathr", "ar": "الشَّطْر", "arti": "Separuh bait.", "jembatan": "Seperti dua bagian kalimat yang seimbang." },
+    { "istilah": "'Arudh dan dharb", "ar": "الْعَرُوضُ وَالضَّرْب", "arti": "Taf'ilah terakhir syathr pertama ('arudh) dan syathr kedua (dharb).", "jembatan": "Dua ujung bait yang paling dijaga iramanya." },
+    { "istilah": "Qafiyah dan rawiy", "ar": "الْقَافِيَةُ وَالرَّوِيّ", "arti": "Bunyi ujung bait; rawiy = huruf yang menjadi nama qafiyah.", "jembatan": "Seperti fashilah ayat: akhir yang berulang." },
+    { "istilah": "Isyba'", "ar": "الْإِشْبَاع", "arti": "Memanjangkan harakat di akhir syathr: ـِ → ـِي.", "jembatan": "Seperti mad 'aridh lissukun, tetapi harakatnya dipanjangkan." }
+  ],
+  "bankKata": [
+    { "teks": "وَاصْبِرْ عَلَى", "arti": "dan bersabarlah atas", "catatan": "Satu مُسْتَفْعِلُنْ utuh." },
+    { "teks": "لَا تَيْأَسَنْ", "arti": "jangan sekali-kali putus asa", "catatan": "Satu مُسْتَفْعِلُنْ utuh." },
+    { "teks": "مَهَارَةٌ", "arti": "keterampilan", "catatan": "مُتَفْعِلُنْ (khabn)." },
+    { "teks": "كَرِّرْ", "arti": "ulangilah", "catatan": "Syaddah dihitung dua huruf." },
+    { "teks": "فَاصْبِرْ", "arti": "maka bersabarlah" },
+    { "teks": "أَعِدْ", "arti": "ulangilah", "catatan": "Satu watad." },
+    { "teks": "دَرْسَكَ", "arti": "pelajaranmu" },
+    { "teks": "حِفْظَكَ", "arti": "hafalanmu", "catatan": "Polanya sama dengan دَرْسَكَ; bisa saling tukar." },
+    { "teks": "يَا بُنَيَّ", "arti": "wahai anakku" },
+    { "teks": "صَبْرَا", "arti": "kesabaran (qafiyah)", "catatan": "Berpasangan dengan ذِكْرَا." },
+    { "teks": "ذِكْرَا", "arti": "zikir, ingatan (qafiyah)" },
+    { "teks": "الْعَمَلْ", "arti": "amal (qafiyah)", "catatan": "Berpasangan dengan الْأَمَلْ." },
+    { "teks": "الْأَمَلْ", "arti": "harapan (qafiyah)" }
+  ]
+}

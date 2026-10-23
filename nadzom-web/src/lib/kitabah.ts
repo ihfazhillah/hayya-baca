@@ -10,6 +10,8 @@ export type Aturan = 'syaddah' | 'tanwin' | 'hamzahWashal' | 'lamSyamsiyah' | 'i
 
 export interface OpsiKitabah {
   matikan?: Aturan[]
+  /** Kata lepas (bank kata): tanpa aturan akhir syathr (isyba', tanwin akhir bait). */
+  tanpaAkhir?: boolean
 }
 
 export type HasilKitabah =
@@ -42,14 +44,14 @@ export function kitabahBait(bait: string[], opsi: OpsiKitabah = {}): HasilKitaba
   const mati = new Set(opsi.matikan ?? [])
   const syathr: Huruf[][] = []
   for (let i = 0; i < bait.length; i++) {
-    const h = kitabahSyathr(bait[i], i === bait.length - 1, mati)
+    const h = kitabahSyathr(bait[i], i === bait.length - 1, mati, opsi.tanpaAkhir ?? false)
     if ('galat' in h) return { ok: false, ...h }
     syathr.push(h)
   }
   return { ok: true, syathr }
 }
 
-function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>): Huruf[] | { galat: string; kata?: string } {
+function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanpaAkhir: boolean): Huruf[] | { galat: string; kata?: string } {
   const kataKata = teks.trim().split(/\s+/).filter(Boolean)
   const units: Unit[] = []
   kataKata.forEach((w, k) => {
@@ -159,17 +161,18 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>): Hur
 
   // 6. Akhir syathr: tanwin di akhir bait tidak dibaca nun; harakat terakhir dipanjangkan (isyba').
   const terakhir = units.at(-1)!
+  if (tanpaAkhir) return out.map(bersih)
   if (akhirBait && terakhir.tanwin && out.at(-1)?.tambahan === 'tanwin' && !mati.has('tanwin')) out.pop()
   const ujung = out.at(-1)
   if (ujung?.bit === 1 && ujung.vokal && !mati.has('isyba')) {
     out.push({ h: MAD_DARI[ujung.vokal], bit: 0, kata: ujung.kata, tambahan: 'isyba' })
   }
 
-  return out.map(({ h, bit, kata, tambahan, opsional }) => ({
-    h, bit, kata,
-    ...(tambahan ? { tambahan } : {}),
-    ...(opsional ? { opsional } : {}),
-  }))
+  return out.map(bersih)
+}
+
+function bersih({ h, bit, kata, tambahan, opsional }: Kerja): Huruf {
+  return { h, bit, kata, ...(tambahan ? { tambahan } : {}), ...(opsional ? { opsional } : {}) }
 }
 
 /** Hamzah washal gugur di tengah kalam; huruf sebelumnya menyesuaikan (bertemunya dua sukun). */

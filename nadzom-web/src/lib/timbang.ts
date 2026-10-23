@@ -5,13 +5,13 @@ import { DAFTAR_BAHR } from './bahr'
 const BIAYA = { utuh: 0, berubah: 0.1, patah: 1 } as const
 const MAKS_OPSIONAL = 6
 
-interface Cocok {
+export interface Cocok {
   bentuk: Bentuk
   status: Status
   biaya: number
 }
 
-function cocokkan(seg: string, bentuk: Bentuk[]): Cocok {
+export function cocokkan(seg: string, bentuk: Bentuk[]): Cocok {
   const cocok = bentuk.find((x) => x.bit === seg)
   if (cocok) {
     return cocok.zihaf

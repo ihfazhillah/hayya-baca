@@ -1,0 +1,52 @@
+{
+  "babak": [
+    {
+      "nomor": 1,
+      "judul": "Rajaz",
+      "bahr": "مُسْتَفْعِلُنْ ×3",
+      "ringkas": "Bahr nadzom ilmu: paling banyak di playlist dan paling longgar untuk mulai menyusun.",
+      "modul": [
+        { "nomor": 0, "judul": "Peluru Pertama", "fokus": "Menimbang, mengisi cetakan, bait pertama", "hasil": "Bait #1 v1, boleh pincang" },
+        { "nomor": 1, "judul": "Telinga Rajaz", "fokus": "Hafal kunci rajaz, mengetuk irama, nada Alfiyah sebagai alat periksa", "hasil": "Bait #1 v2" },
+        { "nomor": 2, "judul": "Jebakan 'Ajam", "fokus": "Syaddah, tanwin, hamzah washal, huruf yang gugur, isyba'", "hasil": "Bait #2" },
+        { "nomor": 3, "judul": "Empat Wajah Rajaz", "fokus": "Zihaf yang diizinkan pada مُسْتَفْعِلُنْ", "hasil": "Bait #3 tanpa cetakan" },
+        { "nomor": 4, "judul": "Bank Kata", "fokus": "Laci hasyw, laci wazan sharaf, laci qafiyah", "hasil": "Revisi Bait #1–#3" },
+        { "nomor": 5, "judul": "Muzdawij", "fokus": "Qafiyah berpasangan di setiap bait", "hasil": "5 bait berurutan" },
+        { "nomor": null, "judul": "Boss 1", "fokus": "Nasihat untuk anak: sabar dan mengulang", "hasil": "10 bait rajaz", "boss": true }
+      ]
+    },
+    {
+      "nomor": 2,
+      "judul": "Dua Nuniyah",
+      "bahr": "Kamil · Basith",
+      "ringkas": "Qafiyah sama, bahr berbeda: qafiyah menentukan bunyi ujung, bahr menentukan iramanya.",
+      "modul": [
+        { "nomor": 6, "judul": "Kamil", "fokus": "Kunci kamil, jebakan dua harakat pendek, idhmar", "hasil": "1 bait, ganti satu kata" },
+        { "nomor": 7, "judul": "Laci ـانِ", "fokus": "Rawiy dan harakatnya, alif sebelum rawiy", "hasil": "3 bait kamil" },
+        { "nomor": 8, "judul": "Basith", "fokus": "Kunci basith, membandingkan dua nuniyah", "hasil": "1 bait basith" },
+        { "nomor": null, "judul": "Boss 2", "fokus": "Nuniyah kecil", "hasil": "5 bait berakhiran ـانِ", "boss": true }
+      ]
+    },
+    {
+      "nomor": 3,
+      "judul": "Ta'lim Muta'allim",
+      "bahr": "Thawil · Wafir",
+      "ringkas": "Latihan bertahap: ganti satu kata, lalu ganti satu syathr.",
+      "modul": [
+        { "nomor": 9, "judul": "Thawil", "fokus": "Kunci thawil, ganti satu kata lalu enam syarat", "hasil": "2 bait" },
+        { "nomor": 10, "judul": "Wafir", "fokus": "Kunci wafir", "hasil": "1 bait" },
+        { "nomor": null, "judul": "Boss 3", "fokus": "Nasihat thalabul ilmi", "hasil": "3 bait thawil atau wafir", "boss": true }
+      ]
+    },
+    {
+      "nomor": 4,
+      "judul": "Bonus: bait pendek",
+      "bahr": "Mujtats · Ramal majzu'",
+      "ringkas": "Bait pendek seperti nasyid modern; qafiyah berganti per bagian.",
+      "modul": [
+        { "nomor": null, "judul": "Ramal majzu'", "fokus": "Tiga jenis qafiyah dari satu nasyid", "hasil": "Satu bagian 4–7 baris" },
+        { "nomor": null, "judul": "Mujtats", "fokus": "Empat taf'ilah per bait, cocok sebagai selingan", "hasil": "4 bait pendek" }
+      ]
+    }
+  ]
+}
