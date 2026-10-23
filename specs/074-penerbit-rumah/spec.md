@@ -110,6 +110,21 @@ terbuka**, dan **Prompt** di Rancangan Situs. Route SPA memakai URL yang sama
 5. Aturan tampilan: tidak ada merah di area Penulis, target sentuh ≥44px,
    `prefers-reduced-motion`, nyaman di tablet tegak 768px.
 
+### Musim (data-driven)
+
+Hanya isi **Musim 1** yang dibuat. Tetapi musim dirancang supaya Musim 2 dst. cukup
+ditambah lewat data, tanpa mengubah kode:
+- Model `Musim` (nomor, genre, deskripsi, alat baru opsional) dan `Alat` dengan
+  `musim_dibuka`. Kartu Alat, bilah stabilo, Latihan Harian, syarat stiker, dan
+  daftar modul membaca daftar alat dari database, bukan konstanta di kode.
+- Warna, emoji, dan pola cetak hitam putih alat disimpan di data Alat (bukan CSS
+  per alat), sehingga alat keenam muncul otomatis di semua komponen.
+- Syarat stiker disimpan sebagai data terstruktur per alat (jenis syarat + angka),
+  dengan sejumlah jenis syarat yang didukung kode. Alat baru memakai jenis yang sudah ada.
+- Modul, misi, dan lembar musim baru masuk lewat `impor_course` yang sama.
+- Test: fixture musim ke-2 dengan satu alat fiktif diimpor, lalu dicek bahwa alat
+  itu muncul di Kartu Alat, stabilo, dan Latihan Harian tanpa perubahan kode.
+
 ### Isi course
 
 JSON untuk 16 modul, semua misi, ujian, lembar, kalimat Latihan Harian, dan
@@ -118,8 +133,8 @@ Latihan Bertanya. Modul 1–9 diambil dari Roadmap; isi yang belum ada di dokume
 
 ## 5. Di luar scope
 
-- Ekspor ke Jaring (disebut di halaman Terbitkan, tapi formatnya belum didefinisikan).
-- Musim 2–4 dan alat barunya (Telinga, Pengait, Jam); model Alat sudah mendukung.
+- Ekspor ke Jaring (dikeluarkan, 2026-10-23).
+- Isi Musim 2–4 dan alat barunya (Telinga, Pengait, Jam). Mekanismenya masuk scope (§4 Musim).
 - Unggah foto lembar, kecuali kalau mudah lewat media terlindungi yang sudah ada.
 - PWA/offline penuh; hanya antrean simpan naskah yang offline.
 - Integrasi Gemini selain tombol salin dan tautan.
@@ -129,7 +144,9 @@ Latihan Bertanya. Modul 1–9 diambil dari Roadmap; isi yang belum ada di dokume
 1. **Isi yang belum tertulis di Roadmap.** Belum ada: teks dan kunci misi Modul
    10–16 di luar tabel, isi semua lembar cetak selain M4-3, bank kalimat Latihan
    Harian, soal Latihan Bertanya Modul 1–9, dan teks Kenapa/Resep/Mengapa/Kamus untuk
-   Modul 6–16. Usulan: Claude menyusun draf, pemilik mereview per modul.
+   Modul 6–16. **Diputuskan 2026-10-23**: Claude menyusun draf langsung sebagai JSON
+   per modul, plus satu dokumen review (satu bagian per modul) yang dikomentari pemilik.
+   Urutan: Modul 6–9 → 10–16 → bank Latihan Harian + Latihan Bertanya.
 2. **Kunci ganda.** Modul 1: "nanti" muncul dua kali di kalimat terakhir. Usulan: kunci
    bisa berupa grup posisi, dan salah satu anggota grup yang diklik dihitung benar.
 3. **Daftar kata umum** untuk Detektor Kembar dan Jejak (yang tidak dihitung).
