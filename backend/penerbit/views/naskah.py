@@ -90,7 +90,8 @@ def versi_ringkas(v):
 def naskah_ringkas(n):
     return {"id": n.id, "judul": n.judul, "tahap": n.tahap, "tahap_label": n.get_tahap_display(),
             "laci": laci_json(n), "stempel": [s["lapis"] for s in stempel_json(n) if s["punya"]],
-            "nomor_terbitan": n.nomor_terbitan, "created_at": n.created_at}
+            "nomor_terbitan": n.nomor_terbitan, "stempel_diminta": n.stempel_diminta,
+            "created_at": n.created_at}
 
 
 def naskah_detail(n):

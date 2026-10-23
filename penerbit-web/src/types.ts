@@ -278,6 +278,7 @@ export interface NaskahRingkas {
   laci: Laci | null
   stempel: string[]
   nomor_terbitan: string
+  stempel_diminta: string
   created_at: string
 }
 

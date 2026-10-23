@@ -153,6 +153,11 @@ class TestNaskahPemeriksa(Dasar):
         self.ortu.patch(url + "ejaan/", {"kesalahan_ejaan": 4}, format="json")
         assert Jejak.objects.get(versi=v).ejaan == 4
 
+    def test_daftar_naskah_menunjukkan_stempel_diminta(self):
+        self.naskah(stempel_diminta="kamera")
+        r = self.ortu.get("/api/penerbit/ortu/naskah/" + self.q)
+        assert r.data[0]["stempel_diminta"] == "kamera"
+
     def test_naskah_keluarga_lain_404(self):
         n = Naskah.objects.create(profil=self.profil_lain, judul="Rara")
         assert self.ortu.get(f"/api/penerbit/ortu/naskah/{n.id}/").status_code == 404

@@ -1,4 +1,294 @@
-// TODO(spec 074): halaman Misi — lihat Rancangan Situs §Halaman per halaman.
+import { useCallback, useEffect, useId, useState, type FormEvent } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import {
+  berhentiMisi, cetakMisi, getMisi, getModul, klikMisi, periksaGunting, periksaKembar, petunjukMisi, tandaiMisi,
+} from '../../api'
+import type { HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci } from '../../types'
+import { Galat, Memuat, PerayaanHadiah } from '../../components/ui'
+import { useNavPenulis } from '../../components/LayoutPenulis'
+import TeksKlik from '../../components/TeksKlik'
+import Gunting from '../../components/Gunting'
+import DetektorKembar from '../../components/DetektorKembar'
+import '../../styles/penulis-halaman.css'
+
+type Muat = { kunci: string; modul: ModulDetail | ModulTerkunci; misi: MisiDetail | null }
+
 export default function Misi() {
-  return <main className="page"><div className="layar"><h1 className="page-title">Misi</h1></div></main>
+  const params = useParams()
+  const nomor = Number(params.nomor)
+  const urutan = Number(params.urutan)
+  const kunci = `${nomor}/${urutan}`
+  const [data, setData] = useState<Muat | null>(null)
+  const [galat, setGalat] = useState<string | null>(null)
+
+  useEffect(() => {
+    let aktif = true
+    setGalat(null)
+    ;(async () => {
+      const modul = await getModul(nomor)
+      if (modul.terkunci) return { kunci, modul, misi: null }
+      const r = modul.misi.find((x) => x.urutan === urutan)
+      if (!r) throw new Error('Misi ini tidak ada. Kembali ke modul, ya.')
+      return { kunci, modul, misi: await getMisi(r.id) }
+    })()
+      .then((d) => aktif && setData(d))
+      .catch((e: Error) => aktif && setGalat(e.message))
+    return () => { aktif = false }
+  }, [nomor, urutan, kunci])
+
+  const d = data?.kunci === kunci ? data : null
+  return (
+    <main className="page ph-halaman">
+      <Galat pesan={galat} />
+      {galat && <Link to={`/modul/${nomor}`}>Kembali ke modul</Link>}
+      {!d && !galat && <Memuat />}
+      {d && d.modul.terkunci && (
+        <>
+          <div className="callout callout-info" role="status">
+            <span className="callout-icon" aria-hidden="true">🔒</span>
+            <div className="callout-content"><p>Selesaikan Modul {d.modul.modul_sebelumnya} dulu, ya.</p></div>
+          </div>
+          <Link className="btn-besar ph-tautan-tombol" to={`/modul/${d.modul.modul_sebelumnya}`}>
+            Ke Modul {d.modul.modul_sebelumnya}
+          </Link>
+        </>
+      )}
+      {d && !d.modul.terkunci && d.misi && <IsiMisi key={d.misi.id} modul={d.modul} misi={d.misi} />}
+    </main>
+  )
+}
+
+function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
+  const { segarkan } = useNavPenulis()
+  const [selesai, setSelesai] = useState<Jawaban | null>(misi.status === 'selesai' ? misi : null)
+  const [hadiah, setHadiah] = useState<HadiahBaru[]>([])
+  const tutupHadiah = useCallback(() => setHadiah([]), [])
+
+  const selesaikan = useCallback((h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => {
+    setSelesai(h)
+    if (h.hadiah_baru?.length) setHadiah(h.hadiah_baru)
+    segarkan()
+  }, [segarkan])
+
+  const alat = modul.alat
+  const kepala = alat ? `${alat.emoji} ${alat.nama}` : `${modul.emoji} ${modul.judul}`
+  const urutanBerikut = misi.berikutnya !== null
+    ? modul.misi.find((x) => x.id === misi.berikutnya)?.urutan
+    : undefined
+  const dariAwal = misi.status === 'selesai'
+
+  return (
+    <>
+      <div className="ph-kemajuan">
+        Misi {misi.urutan} dari {misi.jumlah_misi}
+        <div className="ph-batang" aria-hidden="true">
+          <span style={{ width: `${(misi.urutan / Math.max(1, misi.jumlah_misi)) * 100}%` }} />
+        </div>
+      </div>
+
+      <header>
+        <p className="kecil" style={{ fontWeight: 600 }}>{kepala} · {misi.tahap_label}</p>
+        <h1 className="page-title">{misi.judul}</h1>
+        {misi.petunjuk && <p className="ph-sub">{misi.petunjuk}</p>}
+      </header>
+
+      {dariAwal ? (
+        <JawabanTerbuka misi={misi} />
+      ) : (
+        <AreaKerja misi={misi} selesai={!!selesai} onSelesai={selesaikan} onSegarkan={segarkan} urutanBerikut={urutanBerikut} nomor={modul.nomor} />
+      )}
+
+      {selesai && (
+        <section className="ph-selesai" aria-live="polite">
+          <h2>Misi {misi.urutan} selesai!</h2>
+          {urutanBerikut !== undefined && <p>Lanjut ke Misi {urutanBerikut}?</p>}
+          <div className="baris" style={{ marginTop: 'var(--space-4)' }}>
+            {urutanBerikut !== undefined && (
+              <Link className="btn-besar ph-tautan-tombol" to={`/modul/${modul.nomor}/misi/${urutanBerikut}`}>Misi berikutnya</Link>
+            )}
+            <Link className={`btn-besar ph-tautan-tombol${urutanBerikut !== undefined ? ' sekunder' : ''}`} to={`/modul/${modul.nomor}`}>
+              Kembali ke modul
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {hadiah.length > 0 && <PerayaanHadiah hadiah={hadiah} onTutup={tutupHadiah} />}
+    </>
+  )
+}
+
+/** Misi yang sudah selesai sebelumnya: tampilkan jawabannya. */
+function JawabanTerbuka({ misi }: { misi: MisiDetail }) {
+  return (
+    <div className="tumpuk">
+      {misi.versi_benar && (
+        <div className="callout callout-accent">
+          <div className="callout-content">
+            <span className="callout-title">{misi.jenis === 'gunting' ? 'Setelah digunting' : 'Versi yang sudah dibetulkan'}</span>
+            <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text)' }}>{misi.versi_benar}</p>
+          </div>
+        </div>
+      )}
+      {misi.jenis === 'kembar' && misi.kata && misi.kata.length > 0 && (
+        <p>Kata kembarnya: <strong>{misi.kata.join(', ')}</strong>
+          {misi.pengganti && misi.pengganti.length > 0 && <>. Pengganti yang bisa dipakai: {misi.pengganti.join(', ')}.</>}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor }: {
+  misi: MisiDetail
+  selesai: boolean
+  onSelesai: (h: Jawaban & { hadiah_baru?: HadiahBaru[] }) => void
+  onSegarkan: () => void
+  urutanBerikut: number | undefined
+  nomor: number
+}) {
+  const id = misi.id
+  const tokens = misi.tokens ?? []
+  switch (misi.jenis) {
+    case 'klik':
+      return (
+        <TeksKlik tokens={tokens} celah={misi.celah} jumlah={misi.jumlah}
+          awal={misi.percobaan ? { diklik: misi.percobaan.diklik, meleset: misi.percobaan.meleset } : undefined}
+          onKlik={(t) => klikMisi(id, t)} onPetunjuk={() => petunjukMisi(id)} onBerhenti={() => berhentiMisi(id)}
+          onSelesai={onSelesai} />
+      )
+    case 'gunting':
+      return <Gunting tokens={tokens} onPeriksa={(p) => periksaGunting(id, p)} onSelesai={onSelesai} />
+    case 'kembar':
+      return <DetektorKembar tokens={tokens} kataUmum={misi.kata_umum ?? []} onPeriksa={(k) => periksaKembar(id, k)} onSelesai={onSelesai} />
+    case 'tandai':
+      return <MisiTandai misi={misi} selesai={selesai} onSelesai={onSelesai} />
+    case 'log':
+      return <MisiLog misi={misi} selesai={selesai} onSelesai={onSelesai} />
+    case 'cetak':
+      return <MisiCetak misi={misi} onSegarkan={onSegarkan} urutanBerikut={urutanBerikut} nomor={nomor} />
+  }
+}
+
+function MisiTandai({ misi, selesai, onSelesai }: {
+  misi: MisiDetail; selesai: boolean; onSelesai: (h: { hadiah_baru?: HadiahBaru[] }) => void
+}) {
+  const [sibuk, setSibuk] = useState(false)
+  const [galat, setGalat] = useState<string | null>(null)
+  async function tandai() {
+    setSibuk(true)
+    setGalat(null)
+    try {
+      onSelesai(await tandaiMisi(misi.id))
+    } catch (e) {
+      setGalat(e instanceof Error ? e.message : 'Belum tersimpan. Coba lagi, ya.')
+    } finally {
+      setSibuk(false)
+    }
+  }
+  return (
+    <div className="tumpuk">
+      {misi.petunjuk_ortu && (
+        <details className="ph-lipat">
+          <summary>Untuk Ayah atau Ummah</summary>
+          <p>{misi.petunjuk_ortu}</p>
+        </details>
+      )}
+      {misi.tautan && (
+        <p>
+          <a className="btn-besar sekunder ph-tautan-tombol" href={misi.tautan} target="_blank" rel="noopener noreferrer">
+            Buka tautannya ↗
+          </a>
+        </p>
+      )}
+      <Galat pesan={galat} />
+      {!selesai && (
+        <button type="button" className="btn-besar" onClick={tandai} disabled={sibuk}>Tandai selesai</button>
+      )}
+    </div>
+  )
+}
+
+function MisiLog({ misi, selesai, onSelesai }: {
+  misi: MisiDetail; selesai: boolean; onSelesai: (h: { hadiah_baru?: HadiahBaru[] }) => void
+}) {
+  const id = useId()
+  const [log, setLog] = useState('')
+  const [sibuk, setSibuk] = useState(false)
+  const [galat, setGalat] = useState<string | null>(null)
+  async function kirim(e: FormEvent) {
+    e.preventDefault()
+    if (!log.trim()) return
+    setSibuk(true)
+    setGalat(null)
+    try {
+      onSelesai(await tandaiMisi(misi.id, log.trim()))
+    } catch (err) {
+      setGalat(err instanceof Error ? err.message : 'Belum tersimpan. Coba lagi, ya.')
+    } finally {
+      setSibuk(false)
+    }
+  }
+  return (
+    <form className="tumpuk" onSubmit={kirim}>
+      <div>
+        <label htmlFor={`${id}-log`} style={{ fontWeight: 600, display: 'block', marginBottom: 'var(--space-2)' }}>
+          {misi.pertanyaan || 'Tulis LOG-mu, satu baris saja.'}
+        </label>
+        <input id={`${id}-log`} className="ph-isian" value={log} onChange={(e) => setLog(e.target.value)}
+          disabled={selesai} maxLength={300} />
+      </div>
+      <Galat pesan={galat} />
+      {!selesai && <button type="submit" className="btn-besar" disabled={!log.trim() || sibuk}>Simpan LOG</button>}
+    </form>
+  )
+}
+
+function MisiCetak({ misi, onSegarkan, urutanBerikut, nomor }: {
+  misi: MisiDetail; onSegarkan: () => void; urutanBerikut: number | undefined; nomor: number
+}) {
+  const [status, setStatus] = useState(misi.status)
+  const [galat, setGalat] = useState<string | null>(null)
+  const kode = misi.lembar?.kode
+
+  async function cetak() {
+    if (!kode) return
+    window.open(`/cetak/${encodeURIComponent(kode)}`, '_blank', 'noopener')
+    setGalat(null)
+    try {
+      await cetakMisi(misi.id)
+      setStatus('menunggu')
+      onSegarkan()
+    } catch (e) {
+      setGalat(e instanceof Error ? e.message : 'Belum tersimpan. Coba lagi, ya.')
+    }
+  }
+
+  if (!kode) return <p>Lembar untuk misi ini belum ada. Tanya Ayah atau Ummah, ya.</p>
+  return (
+    <div className="tumpuk">
+      {status === 'coba_lagi' && (
+        <div className="callout callout-info"><div className="callout-content">
+          <p>Ayah atau Ummah minta kamu mencoba sekali lagi. Cetak lembarnya, lalu kerjakan lagi pelan-pelan.</p>
+        </div></div>
+      )}
+      <p className="kecil">Lembar <span className="mono">{kode}</span>{misi.lembar?.judul ? ` · ${misi.lembar.judul}` : ''}</p>
+      <Galat pesan={galat} />
+      {status === 'menunggu' ? (
+        <div className="tumpuk" aria-live="polite">
+          <p><span className="lencana">menunggu diperiksa Ayah atau Ummah</span></p>
+          <p>Kerjakan lembarnya, lalu serahkan ke Ayah atau Ummah. Kamu boleh lanjut sekarang.</p>
+          <div className="baris">
+            {urutanBerikut !== undefined && (
+              <Link className="btn-besar ph-tautan-tombol" to={`/modul/${nomor}/misi/${urutanBerikut}`}>Misi berikutnya</Link>
+            )}
+            <Link className="btn-besar sekunder ph-tautan-tombol" to={`/modul/${nomor}`}>Kembali ke modul</Link>
+            <button type="button" className="btn btn-ghost" onClick={cetak}>Cetak lagi</button>
+          </div>
+        </div>
+      ) : (
+        <button type="button" className="btn-besar" onClick={cetak}>🖨️ Cetak lembar ini</button>
+      )}
+    </div>
+  )
 }
