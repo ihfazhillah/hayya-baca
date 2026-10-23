@@ -37,6 +37,7 @@ proses web. Tiap aplikasi adalah satu Django app dan satu frontend sendiri.
 | Tahsin | `tahsin-web/` | `tahsin.ihfazh.com` | `tahsin` | `/api/tahsin/` | Pemilik (User), pengampu (Santri + login code) |
 | English Practice | `english-web/` | `english.ihfazh.com` | `english` | `/api/english/` | User (username + password) |
 | Penerbit Rumah | `penerbit-web/` | `penerbit.ihfazh.com` | `penerbit` | `/api/penerbit/` | Anak (akun `Child`), orang tua (`ChildAccess` parent), Editor Tamu (User yang dibagikan naskah) |
+| Nadzom (Spec 076) | `nadzom-web/` | `nadzom.ihfazh.com` | – (statis, tanpa backend) | – | Pemilik sendiri, tanpa akun; progres hanya di localStorage |
 
 Semua app dipasang di `backend/config/urls.py`.
 
@@ -144,6 +145,7 @@ rsync `dist/` → ssh (`git pull` → [`uv sync`, hanya english] → `migrate`) 
 | `deploy-tahsin.sh` | `pytest tahsin/tests.py` + frontend | `~/tahsin-web/dist` | – |
 | `deploy-english.sh` | `pytest english/tests.py` + frontend | `~/english-web/dist` | uv groups, install/restart worker |
 | `deploy-penerbit.sh` | `pytest penerbit` + frontend | `~/penerbit-web/dist` | uv groups, `impor_course` |
+| `deploy-nadzom.sh` | frontend saja (typecheck + vitest) | `~/nadzom-web/dist` | statis: tidak `git pull`, tidak `migrate`, tidak restart gunicorn |
 | `build-release.sh` | `npm test` | APK + GitHub release | – |
 
 Karena backend-nya satu, **deploy satu app ikut men-deploy backend untuk semua
