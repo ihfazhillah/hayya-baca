@@ -24,6 +24,8 @@ def modul_selesai(profil, modul):
 
 def modul_terbuka(profil, modul):
     """Modul pertama selalu terbuka; modul lain setelah modul sebelumnya selesai."""
+    if profil.buka_semua:
+        return True
     sebelumnya = Modul.objects.filter(nomor__lt=modul.nomor).order_by("-nomor").first()
     return sebelumnya is None or modul_selesai(profil, sebelumnya)
 

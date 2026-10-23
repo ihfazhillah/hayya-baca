@@ -4,6 +4,7 @@ from .views import latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
+    path("simulasi/ulang/", umum.UlangSimulasiView.as_view()),
     # Penulis
     path("beranda/", penulis.BerandaView.as_view()),
     path("alat/", penulis.KartuAlatView.as_view()),

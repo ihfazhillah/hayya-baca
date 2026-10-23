@@ -6,9 +6,18 @@ from .course import Alat, KalimatLatihan, Lembar, Misi, Modul, Pangkat, Tingkat
 
 
 class ProfilPenulis(models.Model):
+    """Penulis = akun anak. Profil simulasi = milik orang tua untuk melihat area anak."""
+
     child = models.OneToOneField(
-        "accounts.Child", on_delete=models.CASCADE, related_name="profil_penulis"
+        "accounts.Child", null=True, blank=True, on_delete=models.CASCADE,
+        related_name="profil_penulis",
     )
+    simulasi_oleh = models.OneToOneField(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE,
+        related_name="profil_simulasi",
+    )
+    # Semua modul terbuka (dipakai profil simulasi supaya orang tua bisa melihat semuanya).
+    buka_semua = models.BooleanField(default=False)
     nama_panggilan = models.CharField(max_length=60)
     pangkat = models.ForeignKey(Pangkat, null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)

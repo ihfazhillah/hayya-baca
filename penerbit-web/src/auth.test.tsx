@@ -8,7 +8,8 @@ import { getToken } from './api'
 import { pasangFetch } from './test/fetch'
 
 const ME_PENULIS = { peran: ['penulis'], penulis: { id: 1, nama: 'Fatih' }, pemeriksa: [], bisa_diaktifkan: [], tamu: false }
-const ME_ORTU = { peran: ['pemeriksa'], penulis: null, pemeriksa: [{ id: 1, nama: 'Fatih' }], bisa_diaktifkan: [], tamu: false }
+const ME_ORTU = { peran: ['pemeriksa'], penulis: null, pemeriksa: [{ id: 1, nama: 'Fatih' }], bisa_diaktifkan: [], tamu: false, bisa_simulasi: true, sedang_simulasi: false }
+const ME_SIM = { peran: ['penulis'], penulis: { id: 9, nama: 'Simulasi' }, pemeriksa: [], bisa_diaktifkan: [], tamu: false, bisa_simulasi: true, sedang_simulasi: true }
 
 function tampil(path = '/') {
   return render(
@@ -67,5 +68,24 @@ describe('Masuk', () => {
     pasangFetch({ 'GET /api/penerbit/me/': { body: ME_PENULIS } })
     tampil('/ortu')
     expect(await screen.findByRole('heading', { name: 'Beranda' })).toBeInTheDocument()
+  })
+
+  it('orang tua bisa "Lihat sebagai anak" lalu kembali ke Pojok Orang Tua', async () => {
+    localStorage.setItem('penerbit.token', 'ayah')
+    pasangFetch({
+      'GET /api/penerbit/me/': (_url, init) => {
+        const h = init.headers as Record<string, string>
+        return { body: h['X-Penerbit-Sebagai'] === 'simulasi' ? ME_SIM : ME_ORTU }
+      },
+    })
+    tampil('/ortu')
+    const u = userEvent.setup()
+    await u.click(await screen.findByRole('button', { name: 'Lihat sebagai anak' }))
+    expect(await screen.findByRole('heading', { name: 'Beranda' })).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent('Mode simulasi')
+    expect(localStorage.getItem('penerbit.simulasi')).toBe('1')
+    await u.click(screen.getByRole('button', { name: 'Kembali ke Pojok Orang Tua' }))
+    expect(await screen.findByRole('heading', { name: 'Dasbor' })).toBeInTheDocument()
+    expect(localStorage.getItem('penerbit.simulasi')).toBeNull()
   })
 })

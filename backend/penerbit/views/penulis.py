@@ -10,7 +10,7 @@ from ..models import (
     Alat, Hadiah, HasilMisi, Lembar, Misi, Modul, Naskah, PemeriksaanLembar, Penukaran, Prompt,
     Stempel, Stiker, TahapMentor,
 )
-from ..peran import profil_diperiksa, profil_penulis, profil_untuk_pemeriksa
+from ..peran import profil_diperiksa, profil_untuk_pemeriksa, profil_untuk_request
 from ..progres import modul_selesai, modul_terbuka, pesan_terkunci, status_misi
 from .base import PenulisView
 from .sampul import url_sampul
@@ -242,7 +242,7 @@ class PenukaranView(PenulisView):
 
 def profil_rak(request):
     """Penulis melihat raknya sendiri; Pemeriksa melihat rak anaknya (?penulis=)."""
-    profil = profil_penulis(request.user)
+    profil = profil_untuk_request(request)
     if profil:
         return profil
     if profil_diperiksa(request.user).exists():
@@ -282,7 +282,7 @@ class CetakLembarView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, kode):
-        if not (profil_penulis(request.user) or profil_diperiksa(request.user).exists()):
+        if not (profil_untuk_request(request) or profil_diperiksa(request.user).exists()):
             raise PermissionDenied("Lembar ini untuk penulis dan Ayah atau Ummah.")
         from .ortu import lembar_json
 

@@ -19,6 +19,9 @@ export interface Me {
   pemeriksa: ProfilRingkas[]
   bisa_diaktifkan: { child_id: number; nama: string }[]
   tamu: boolean
+  /** Orang tua boleh "Lihat sebagai anak" (profil simulasi, tidak menyentuh data anak). */
+  bisa_simulasi: boolean
+  sedang_simulasi: boolean
 }
 
 /** Satu token teks dari tokenizer server. j: kata | spasi | tanda */

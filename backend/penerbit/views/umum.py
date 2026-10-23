@@ -4,14 +4,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import ProfilPenulis
-from ..peran import IsPemeriksa, bisa_diaktifkan, ringkas_peran
+from ..peran import IsPemeriksa, bisa_diaktifkan, profil_simulasi, ringkas_peran
 
 
 class MeView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response(ringkas_peran(request.user))
+        return Response(ringkas_peran(request))
 
 
 class AktifkanPenulisView(APIView):
@@ -40,3 +40,14 @@ class AktifkanPenulisView(APIView):
         return Response(
             {"id": profil.id, "nama": profil.nama_panggilan}, status=status.HTTP_201_CREATED
         )
+
+
+class UlangSimulasiView(APIView):
+    """Hapus profil simulasi orang tua beserta semua progresnya; dibuat lagi kosong."""
+
+    permission_classes = [IsAuthenticated, IsPemeriksa]
+
+    def post(self, request):
+        ProfilPenulis.objects.filter(simulasi_oleh=request.user).delete()
+        p = profil_simulasi(request.user)
+        return Response({"id": p.id})

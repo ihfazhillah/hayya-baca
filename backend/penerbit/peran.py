@@ -21,6 +21,36 @@ def profil_penulis(user):
     return ProfilPenulis.objects.filter(child=user.child_profile).first()
 
 
+HEADER_SIMULASI = "X-Penerbit-Sebagai"
+
+
+def bisa_simulasi(user):
+    """Orang tua (Pemeriksa) boleh melihat area anak lewat profil simulasinya sendiri."""
+    return (
+        user.is_authenticated
+        and not is_child_account(user)
+        and ChildAccess.objects.filter(user=user, role=ChildAccess.Role.PARENT).exists()
+    )
+
+
+def sedang_simulasi(request):
+    return request.headers.get(HEADER_SIMULASI) == "simulasi" and bisa_simulasi(request.user)
+
+
+def profil_simulasi(user):
+    profil, _ = ProfilPenulis.objects.get_or_create(
+        simulasi_oleh=user, defaults={"nama_panggilan": "Simulasi", "buka_semua": True}
+    )
+    return profil
+
+
+def profil_untuk_request(request):
+    """Profil penulis aktif: profil simulasi orang tua bila diminta, selain itu akun anak."""
+    if sedang_simulasi(request):
+        return profil_simulasi(request.user)
+    return profil_penulis(request.user)
+
+
 def profil_diperiksa(user):
     return ProfilPenulis.objects.filter(
         child__access__user=user, child__access__role=ChildAccess.Role.PARENT
@@ -41,7 +71,19 @@ def adalah_tamu(user):
     return BagiNaskah.objects.filter(user=user).exists()
 
 
-def ringkas_peran(user):
+def ringkas_peran(request):
+    user = request.user
+    if sedang_simulasi(request):
+        p = profil_simulasi(user)
+        return {
+            "peran": ["penulis"],
+            "penulis": {"id": p.id, "nama": p.nama_panggilan},
+            "pemeriksa": [],
+            "bisa_diaktifkan": [],
+            "tamu": False,
+            "bisa_simulasi": True,
+            "sedang_simulasi": True,
+        }
     penulis = profil_penulis(user)
     pemeriksa = list(profil_diperiksa(user))
     tamu = adalah_tamu(user)
@@ -60,6 +102,8 @@ def ringkas_peran(user):
             {"child_id": c.id, "nama": c.name} for c in bisa_diaktifkan(user)
         ],
         "tamu": tamu,
+        "bisa_simulasi": bisa_simulasi(user),
+        "sedang_simulasi": False,
     }
 
 
@@ -67,7 +111,7 @@ class IsPenulis(BasePermission):
     message = "Halaman ini untuk penulis."
 
     def has_permission(self, request, view):
-        profil = profil_penulis(request.user)
+        profil = profil_untuk_request(request)
         if profil is None:
             return False
         request.profil = profil

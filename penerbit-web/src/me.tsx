@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
-import { getMe, getPenulisDipilih, setPenulisDipilih } from './api'
+import { getMe, getPenulisDipilih, setPenulisDipilih, setSimulasi } from './api'
 import type { Me } from './types'
 
 interface MeState {
@@ -9,6 +9,8 @@ interface MeState {
   /** Penulis yang sedang dilihat Pemeriksa. */
   penulisDipilih: number | null
   pilihPenulis: (id: number) => void
+  /** Masuk/keluar mode "Lihat sebagai anak". */
+  gantiSimulasi: (aktif: boolean) => Promise<void>
 }
 
 const MeContext = createContext<MeState | null>(null)
@@ -42,8 +44,14 @@ export function MeProvider({ children }: { children: ReactNode }) {
     setDipilih(id)
   }, [])
 
+  const gantiSimulasi = useCallback(async (aktif: boolean) => {
+    setSimulasi(aktif)
+    setMe(null)
+    await muatUlang()
+  }, [muatUlang])
+
   return (
-    <MeContext.Provider value={{ me, error, muatUlang, penulisDipilih, pilihPenulis }}>
+    <MeContext.Provider value={{ me, error, muatUlang, penulisDipilih, pilihPenulis, gantiSimulasi }}>
       {children}
     </MeContext.Provider>
   )

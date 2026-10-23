@@ -11,6 +11,7 @@ import type {
 
 const TOKEN_KEY = 'penerbit.token'
 const PENULIS_KEY = 'penerbit.penulis'
+const SIMULASI_KEY = 'penerbit.simulasi'
 const P = '/api/penerbit'
 
 export class ApiError extends Error {
@@ -42,6 +43,15 @@ export function setPenulisDipilih(id: number | null) {
   else localStorage.removeItem(PENULIS_KEY)
 }
 
+/** Orang tua sedang "Lihat sebagai anak": semua request memakai profil simulasinya. */
+export function sedangSimulasi(): boolean {
+  return localStorage.getItem(SIMULASI_KEY) === '1'
+}
+export function setSimulasi(aktif: boolean) {
+  if (aktif) localStorage.setItem(SIMULASI_KEY, '1')
+  else localStorage.removeItem(SIMULASI_KEY)
+}
+
 let onUnauthorized: (() => void) | null = null
 export function setUnauthorizedHandler(fn: (() => void) | null) {
   onUnauthorized = fn
@@ -51,6 +61,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
   const headers: Record<string, string> = { Accept: 'application/json' }
   const token = getToken()
   if (token) headers['Authorization'] = `Token ${token}`
+  if (sedangSimulasi()) headers['X-Penerbit-Sebagai'] = 'simulasi'
   let payload: BodyInit | undefined
   if (body instanceof FormData) {
     payload = body
@@ -110,6 +121,7 @@ export async function login(username: string, password: string): Promise<string>
 }
 
 export const getMe = () => request<Me>('GET', `${P}/me/`)
+export const ulangSimulasi = () => request<{ id: number }>('POST', `${P}/simulasi/ulang/`)
 export const aktifkanPenulis = (child_id: number, nama_panggilan?: string) =>
   request<{ id: number; nama: string }>('POST', `${P}/ortu/penulis/`, { child_id, nama_panggilan })
 

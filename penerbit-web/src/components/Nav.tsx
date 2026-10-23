@@ -1,4 +1,5 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { ulangSimulasi } from '../api'
 import { useAuth } from '../auth'
 import { useMe } from '../me'
 
@@ -9,7 +10,9 @@ export function NavPenulis({ titik = [], poin }: {
 }) {
   const { me } = useMe()
   return (
-    <nav className="nav tidak-dicetak">
+    <>
+    {me?.sedang_simulasi && <BannerSimulasi />}
+    <nav className={`nav tidak-dicetak${me?.sedang_simulasi ? ' nav-simulasi' : ''}`}>
       <div className="nav-inner">
         <div className="nav-title">
           <span className="nav-course-label">Penerbit Rumah</span>
@@ -32,13 +35,41 @@ export function NavPenulis({ titik = [], poin }: {
         </div>
       </div>
     </nav>
+    </>
+  )
+}
+
+/** Pita di atas nav saat orang tua sedang "Lihat sebagai anak". */
+function BannerSimulasi() {
+  const { gantiSimulasi } = useMe()
+  const navigate = useNavigate()
+  async function keluar() {
+    await gantiSimulasi(false)
+    navigate('/ortu')
+  }
+  async function ulang() {
+    await ulangSimulasi()
+    await gantiSimulasi(true)
+    navigate('/')
+  }
+  return (
+    <div className="banner-simulasi tidak-dicetak" role="status">
+      <span>Mode simulasi: progres di sini terpisah dari anak. Semua modul terbuka.</span>
+      <button type="button" className="btn btn-ghost" onClick={ulang}>Mulai ulang simulasi</button>
+      <button type="button" className="btn btn-ghost" onClick={keluar}>Kembali ke Pojok Orang Tua</button>
+    </div>
   )
 }
 
 /** Nav area Pemeriksa: Pojok Orang Tua + pilihan penulis bila lebih dari satu. */
 export function NavOrtu() {
-  const { me, penulisDipilih, pilihPenulis } = useMe()
+  const { me, penulisDipilih, pilihPenulis, gantiSimulasi } = useMe()
   const { logout } = useAuth()
+  const navigate = useNavigate()
+  async function lihatSebagaiAnak() {
+    await gantiSimulasi(true)
+    navigate('/')
+  }
   const penulis = me?.pemeriksa ?? []
   return (
     <nav className="nav tidak-dicetak">
@@ -60,6 +91,9 @@ export function NavOrtu() {
             >
               {penulis.map((p) => <option key={p.id} value={p.id}>{p.nama}</option>)}
             </select>
+          )}
+          {me?.bisa_simulasi && (
+            <button type="button" className="btn btn-ghost" onClick={lihatSebagaiAnak}>Lihat sebagai anak</button>
           )}
           <button className="btn btn-ghost" onClick={logout}>Keluar</button>
         </div>

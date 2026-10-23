@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { getToken, login as apiLogin, setPenulisDipilih, setToken, setUnauthorizedHandler } from './api'
+import { getToken, login as apiLogin, setPenulisDipilih, setSimulasi, setToken, setUnauthorizedHandler } from './api'
 
 interface AuthState {
   token: string | null
@@ -15,6 +15,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     setToken(null)
     setPenulisDipilih(null)
+    setSimulasi(false)
     setTok(null)
   }, [])
 
