@@ -84,3 +84,26 @@ menghasilkan sesuatu). Satu pelajaran 20–30 menit; 2–3 pelajaran per modul.
 - Agen reviewer 'arudh memeriksa ulang sumber dan harakat; agen reviewer tampilan memeriksa
   halaman baru (irama, susun banyak bait, laci).
 - Deploy ke diwan.ihfazh.com.
+
+## Pengayaan (permintaan pemilik 2026-10-24: "penjelasan dan tamrinaat kurang")
+
+Setiap pelajaran mengikuti an-Nahwul Wadhih lebih penuh. Test isi (`isi.test.ts`) menegakkannya.
+
+- **`syarh`** (wajib, 3–8 paragraf): uraian tertulis setelah peragaan Hudhud. Bahas contoh-contoh
+  satu per satu seperti al-bahts di an-Nahwul Wadhih: "Perhatikan contoh pertama … lalu contoh
+  kedua …", sebelum kaidah ditarik. Boleh memakai **tebal**; kata Arab otomatis diberi font Arab.
+- **`keliru`** (wajib, 2–5 butir): kesalahan yang sering dibuat penutur 'ajam pada materi itu:
+  `salah` (apa yang biasa ditulis/diucapkan), `benar`, `sebab` (satu kalimat, jembatani ke
+  tajwid/sharaf/nahwu bila bisa).
+- **`tamarin`** (wajib minimal 5, minimal 3 jenis), bertingkat seperti تمرينات:
+  1. **Kenali** (`kenali`, 4–8 soal dalam satu set; `arab: true` untuk pilihan berhuruf Arab).
+  2. **Tandai** (`tandai`, 6–10 butir kata/frasa pendek berharakat, dari yang mudah ke yang sulit).
+  3. **Potong** (`taqthi`, satu bait per tamrin; boleh 2 tamrin taqthi).
+  4. **Cari yang pincang** (`pincang`, 4–6 baris; minimal satu lurus dan satu pincang; baris pincang
+     buatan diberi `catatan` yang menjelaskan sebabnya; baris asli diambil dari bait terverifikasi).
+  5. **Susun/cetakan/irama** sesuai modul.
+  `pilih` tunggal tetap boleh, tetapi lebih baik dikumpulkan dalam `kenali`.
+- Aturan sumber tetap: bait yang dikutip diverifikasi, bait buatan diberi label.
+- Ghazal ditahan dulu (pemilik ingin course yang umum). Modul 15 (mujtats) ditulis ulang dengan
+  syair hikmah/zuhud atau nasyid yang hanya ditautkan.
+- Ta'sis sekarang dicek oleh `periksaQafiyah`; Modul 7 (qafiyah) menjelaskannya.
