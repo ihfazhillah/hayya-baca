@@ -229,3 +229,127 @@ class TestSorotanVersiLama(Dasar):
         self.versi(nid)
         d = self.anak.get("/api/penerbit/naskah/").data[0]
         assert (d["jumlah_versi"], d["jumlah_kata"]) == (1, 5)
+
+
+CERITA_FATIH = "Fatih lari. Fatih makan. Fatih tidur. Fatih bangun. Fatih senang."
+SIM = {"HTTP_X_PENERBIT_SEBAGAI": "simulasi"}
+
+
+class TestNamaTokoh(Dasar):
+    """Nama tokoh (Kotak Siapa + tambahan anak) tidak dihitung sebagai kata kembar."""
+
+    def draf_nol(self, teks=CERITA_FATIH, siapa="Fatih", judul="Sandal"):
+        r = self.anak.post("/api/penerbit/naskah/", {"judul": judul, "peta": {"siapa": siapa}},
+                           format="json")
+        nid = r.data["id"]
+        self.simpan(nid, teks)
+        return nid, self.versi(nid)
+
+    def tokoh(self, nid, client=None, **body):
+        return (client or self.anak).post(f"/api/penerbit/naskah/{nid}/tokoh/", body,
+                                          format="json")
+
+    def jejak(self, nid):
+        from penerbit.models import Jejak
+
+        return Jejak.objects.get(versi__naskah_id=nid, versi__nomor=1)
+
+    def test_nama_dari_kotak_siapa_tidak_dihitung_di_jejak(self):
+        nid, r = self.draf_nol()
+        assert r.data["jejak"]["kata_kembar"] != "fatih"
+        assert r.data["jejak"]["kata_kembar_jumlah"] <= 1
+        d = self.anak.get(f"/api/penerbit/naskah/{nid}/").data
+        assert d["tokoh"]["nama"] == ["Fatih"]
+        assert d["tokoh"]["otomatis"] == ["Fatih"]
+        assert (d["tokoh"]["tambah"], d["tokoh"]["abaikan"]) == ([], [])
+
+    def test_sorotan_sistem_tidak_menandai_nama_tokoh(self):
+        nid, _ = self.draf_nol()
+        r = self.anak.get(f"/api/penerbit/naskah/{nid}/sorotan-sistem/?alat=kembar")
+        assert r.data == []
+
+    def test_hapus_nama_otomatis_kembali_dihitung(self):
+        nid, _ = self.draf_nol()
+        r = self.tokoh(nid, hapus="Fatih")
+        assert r.status_code == 200, r.data
+        assert r.data["tokoh"]["nama"] == [] and r.data["tokoh"]["abaikan"] == ["fatih"]
+        j = self.jejak(nid)
+        assert (j.kata_kembar, j.kata_kembar_jumlah) == ("fatih", 5)
+        assert len(self.anak.get(f"/api/penerbit/naskah/{nid}/sorotan-sistem/?alat=kembar").data) == 5
+        # ditambah lagi: kembali tidak dihitung
+        r = self.tokoh(nid, tambah="fatih")
+        assert r.data["tokoh"]["nama"] == ["Fatih"] and r.data["tokoh"]["abaikan"] == []
+        assert self.jejak(nid).kata_kembar_jumlah == 1
+
+    def test_kotak_siapa_kosong_nama_ditambah_sendiri_per_kata(self):
+        teks = "Bu Siti datang. Bu Siti duduk. Bu Siti makan. Bu Siti pulang. Kucing tidur."
+        nid, r = self.draf_nol(teks, siapa="")
+        assert r.data["jejak"]["kata_kembar_jumlah"] == 4
+        assert self.anak.get(f"/api/penerbit/naskah/{nid}/").data["tokoh"]["otomatis"] == []
+        r = self.tokoh(nid, tambah="  Bu Siti ")
+        assert r.data["tokoh"]["tambah"] == ["Bu Siti"]
+        assert r.data["tokoh"]["nama"] == ["Bu Siti"]
+        assert self.jejak(nid).kata_kembar_jumlah == 1
+        r = self.tokoh(nid, hapus="Bu Siti")
+        assert r.data["tokoh"]["tambah"] == [] and r.data["tokoh"]["abaikan"] == []
+        assert self.jejak(nid).kata_kembar_jumlah == 4
+
+    def test_kata_umum_di_kotak_siapa_bukan_nama(self):
+        nid, _ = self.draf_nol("Dia lari. Dia makan.", siapa="Dia, anak kelas 4")
+        assert self.anak.get(f"/api/penerbit/naskah/{nid}/").data["tokoh"]["nama"] == []
+
+    def test_nama_kosong_ditolak(self):
+        nid, _ = self.draf_nol()
+        assert self.tokoh(nid, tambah="  ").status_code == 400
+
+    def test_mengubah_kotak_siapa_menghitung_ulang_jejak(self):
+        nid, _ = self.draf_nol(siapa="")
+        assert self.jejak(nid).kata_kembar == "fatih"
+        self.anak.patch(f"/api/penerbit/naskah/{nid}/", {"peta": {"siapa": "Fatih"}},
+                        format="json")
+        assert self.jejak(nid).kata_kembar_jumlah == 1
+
+    def test_emas_detektor_kembar_setelah_nama_tokoh_diatur(self):
+        from penerbit import hadiah
+        from penerbit.models import Alat, Stiker
+
+        from .base import impor_modul_1_5
+
+        impor_modul_1_5()
+        kembar = Alat.objects.get(kode="kembar")
+        hadiah.beri_stiker(self.profil, kembar, "perunggu", oleh=self.ayah)
+        teks = "Siti lari. Siti makan. Siti tidur. Siti bangun."
+        a, _ = self.draf_nol(teks, siapa="", judul="Satu")
+        b, _ = self.draf_nol(teks, siapa="", judul="Dua")
+        assert not Stiker.objects.filter(profil=self.profil, alat=kembar, tingkat="emas").exists()
+        self.tokoh(a, tambah="Siti")
+        r = self.tokoh(b, tambah="Siti")
+        assert Stiker.objects.filter(profil=self.profil, alat=kembar, tingkat="emas").exists()
+        assert any(h.get("alat") == "kembar" for h in r.data["hadiah_baru"])
+
+    def test_pemeriksa_bisa_membaca_tidak_bisa_mengubah(self):
+        nid, _ = self.draf_nol()
+        d = self.ortu.get(f"/api/penerbit/ortu/naskah/{nid}/?penulis={self.profil.id}").data
+        assert d["tokoh"]["nama"] == ["Fatih"]
+        assert self.tokoh(nid, client=self.ortu, hapus="Fatih").status_code == 403
+
+    def test_keluarga_lain_404(self):
+        nid, _ = self.draf_nol()
+        anak_lain = auth(self.akun_anak_lain)
+        assert self.tokoh(nid, client=anak_lain, hapus="Fatih").status_code == 404
+        assert self.jejak(nid).kata_kembar_jumlah == 1
+
+    def test_halaman_jejak_menyebut_nama_tokoh_per_cerita(self):
+        nid, _ = self.draf_nol()
+        self.tokoh(nid, tambah="Kakek Darto")
+        c = self.anak.get("/api/penerbit/jejak/").data["cerita"][0]
+        assert c["tokoh"] == ["Fatih", "Kakek Darto"]
+
+    def test_profil_simulasi_bisa_mengatur_nama(self):
+        r = self.ortu.post("/api/penerbit/naskah/", {"judul": "Sim", "peta": {"siapa": "Oren"}},
+                           format="json", **SIM)
+        nid = r.data["id"]
+        r = self.ortu.post(f"/api/penerbit/naskah/{nid}/tokoh/", {"tambah": "Kiki"},
+                           format="json", **SIM)
+        assert r.status_code == 200
+        assert r.data["tokoh"]["nama"] == ["Oren", "Kiki"]

@@ -187,6 +187,11 @@ export interface MisiDetail extends Jawaban {
   kata_umum?: string[]
   pertanyaan?: string
   tautan?: string
+  kenapa?: string
+  langkah?: string[]
+  contoh?: string
+  /** Hanya untuk misi rekam: versi benar misi Si Ceroboh yang sudah selesai. */
+  teks_rekam?: { judul: string; teks: string }[]
   lembar?: { kode: string; judul: string }
   percobaan?: Percobaan
 }
@@ -294,8 +299,18 @@ export interface VersiRingkas {
   jumlah_kata: number
 }
 
+/** Nama tokoh yang tidak dihitung sebagai kata kembar. nama = chip; kata = huruf kecil per kata. */
+export interface TokohNaskah {
+  nama: string[]
+  otomatis: string[]
+  tambah: string[]
+  abaikan: string[]
+  kata: string[]
+}
+
 export interface NaskahDetail extends Omit<NaskahRingkas, 'stempel'> {
   peta: Peta4
+  tokoh: TokohNaskah
   kartu_tebakan: string
   stempel: StempelSlot[]
   stempel_diminta: string
@@ -334,6 +349,8 @@ export interface JejakCerita {
   kalimat_perasaan: number
   kesalahan_ejaan: number
   ejaan_per_100: number
+  /** nama tokoh naskah ini (tidak dihitung sebagai kata kembar) */
+  tokoh?: string[]
 }
 
 export interface Lembar {

@@ -194,6 +194,43 @@ describe('Revisi per lapis', () => {
     expect(await screen.findByRole('region', { name: 'Mentor AI' })).toHaveTextContent('Isian')
   })
 
+  it('Nama tokoh: hapus dan tambah nama, lalu tanda sistem diperbarui', async () => {
+    const TOKOH = { nama: ['Fatih'], otomatis: ['Fatih'], tambah: [], abaikan: [], kata: ['fatih'] }
+    const calls = pasangFetch({
+      [`GET ${P}/naskah/5/`]: { body: n3({ tokoh: TOKOH, draf: { isi: { ops: [] }, teks: 'Draf lanjutan.', sorotan: [], lapis: 'gunting', waktu_klien: 5, menulis_tambahan_dari: null } }) },
+      [`GET ${P}/alat/`]: { body: { alat: ALAT } },
+      [`GET ${P}/modul/12/`]: { body: MODUL_12 },
+      [`GET ${P}/naskah/5/versi/3/`]: { body: versi(3, TEKS_V1) },
+      [`POST ${P}/naskah/5/simpan/`]: { body: { tersimpan: '', waktu_klien: 6 } },
+      [`GET ${P}/naskah/5/sorotan-sistem/`]: { body: [{ alat: 'kembar', index: 0, length: 5, sumber: 'sistem', diperbaiki: false }] },
+      [`POST ${P}/naskah/5/tokoh/`]: (_u, init) => {
+        const b = JSON.parse(String(init.body))
+        const nama = b.hapus ? [] : ['Bu Siti']
+        return { body: { tokoh: { ...TOKOH, nama, abaikan: b.hapus ? ['fatih'] : [] }, hadiah_baru: [] } }
+      },
+    })
+    const u = userEvent.setup()
+    tampil()
+    const ed = await screen.findByTestId('editor')
+    expect(ed).toHaveAttribute('data-sorotan', '0')
+    const kotak = screen.getByRole('group', { name: 'Nama tokoh' })
+    expect(within(kotak).getByText('Nama tokoh tidak dihitung sebagai kata kembar.')).toBeInTheDocument()
+    expect(within(kotak).getByText('Fatih')).toBeInTheDocument()
+
+    await u.click(within(kotak).getByRole('button', { name: 'Hapus nama Fatih' }))
+    expect(calls.find((c) => c.url === `${P}/naskah/5/tokoh/`)?.body).toEqual({ hapus: 'Fatih' })
+    await vi.waitFor(() => expect(within(kotak).queryByText('Fatih')).toBeNull())
+    // tanda sistem dimuat ulang dengan nama tokoh yang baru
+    await vi.waitFor(() => expect(screen.getByTestId('editor')).toHaveAttribute('data-sorotan', '1'))
+    expect(calls.some((c) => c.url.includes('sorotan-sistem'))).toBe(true)
+
+    await u.type(within(kotak).getByRole('textbox', { name: 'Tambah nama tokoh' }), 'Bu Siti')
+    await u.click(within(kotak).getByRole('button', { name: '+ Tambah nama' }))
+    expect(calls.filter((c) => c.url === `${P}/naskah/5/tokoh/`).at(-1)?.body).toEqual({ tambah: 'Bu Siti' })
+    expect(await within(kotak).findByText('Bu Siti')).toBeInTheDocument()
+    expect(within(kotak).getByRole('textbox', { name: 'Tambah nama tokoh' })).toHaveValue('')
+  })
+
   it('naskah yang masih di laci belum bisa direvisi', async () => {
     pasangFetch({
       [`GET ${P}/naskah/5/`]: { body: naskah({ tahap: 'laci' }) },

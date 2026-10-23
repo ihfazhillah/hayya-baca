@@ -257,3 +257,15 @@ textarea.isian { min-height: 88px; resize: vertical; line-height: 1.6; }
 .kartu-naskah-isi > .lencana, .kartu-naskah-isi > .gembok { align-self: flex-start; }
 .kartu-naskah-isi .lencana { max-width: 100%; white-space: normal; }
 @media (max-width: 480px) { .kartu-naskah { padding: var(--space-4); } .kolom-versi { padding: var(--space-4); } }
+
+/* Nama tokoh: tidak dihitung sebagai kata kembar */
+.nama-tokoh { display: flex; flex-direction: column; gap: var(--space-2); }
+.nama-tokoh-daftar { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.nama-tokoh-chip { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 36px; padding: 0 var(--space-1) 0 var(--space-3);
+  border-radius: var(--radius-full); background: var(--color-accent-light); color: var(--color-accent); font-weight: 600; }
+.nama-tokoh-chip button { min-width: 32px; min-height: 32px; border: 0; border-radius: var(--radius-full); background: none;
+  color: inherit; font: inherit; font-size: var(--text-lg); line-height: 1; cursor: pointer; }
+.nama-tokoh-chip button:hover { background: var(--color-surface); }
+.nama-tokoh-chip button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+.nama-tokoh-form { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+.nama-tokoh-form .isian { flex: 1 1 200px; width: auto; max-width: 320px; min-height: 44px; font-size: var(--text-base); padding: var(--space-2) var(--space-3); }

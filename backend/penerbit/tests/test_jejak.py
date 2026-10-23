@@ -52,3 +52,25 @@ def test_sorotan_sistem_lapis_kalimat():
     panjang = [s for s in sorotan if s["alat"] == "gunting"]
     assert len(panjang) == 1
     assert teks[panjang[0]["index"]:].startswith("kata kata")
+
+
+def test_nama_tokoh_tidak_dihitung_kembar():
+    j = hitung(SANDAL, tokoh={"fatih", "darto"})
+    assert j["kata_kembar"] not in {"fatih", "darto"}
+    assert (j["kata_kembar"], j["kata_kembar_jumlah"]) == ("sandal", 6)
+    assert j["jumlah_kata"] == 117  # angka lain tidak berubah
+
+
+def test_sorotan_sistem_melewati_nama_tokoh():
+    teks = "Fatih lari. Fatih makan. Fatih tidur. Fatih bangun. Lalu lalu lalu lalu."
+    kembar = sorotan_sistem(teks, ["kembar"], tokoh={"fatih"})
+    assert [teks[s["index"]:s["index"] + s["length"]].lower() for s in kembar] == ["lalu"] * 4
+
+
+def test_nama_otomatis_dari_kotak_siapa():
+    from penerbit.tokoh import otomatis
+
+    assert otomatis({"siapa": "Fatih dan Kakek Darto, anak kelas 4"}) == ["Fatih", "Kakek", "Darto"]
+    # "Dia" kata umum walau berhuruf besar; isian kosong atau hilang = tidak ada nama
+    assert otomatis({"siapa": "Dia anak yang suka sandal"}) == []
+    assert otomatis({"siapa": ""}) == [] and otomatis({}) == [] and otomatis(None) == []

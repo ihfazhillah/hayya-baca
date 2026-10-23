@@ -3,10 +3,11 @@ import { Link, useParams } from 'react-router-dom'
 import {
   getAlat, getModul, getNaskah, getVersi, mintaStempel, simpanVersi, sorotanSistem, sorotVersi, tandaiMisi,
 } from '../../api'
-import type { Alat, Delta, HadiahBaru, ModulDetail, ModulTerkunci, NaskahDetail, Sorotan } from '../../types'
+import type { Alat, Delta, HadiahBaru, ModulDetail, ModulTerkunci, NaskahDetail, Sorotan, TokohNaskah } from '../../types'
 import { Galat, KepalaHalaman, Memuat, PerayaanHadiah } from '../../components/ui'
 import { useNavPenulis } from '../../components/LayoutPenulis'
 import KotakPrompt from '../../components/KotakPrompt'
+import NamaTokoh from '../../components/NamaTokoh'
 import Editor, { type AlatStabilo, type DataEditor, type EditorApi } from '../../editor/Editor'
 import { pilihTerbaru, useSimpanOtomatis } from '../../editor/antrean'
 import { LAPIS, NAMA_STEMPEL, adalahLapis, alatDipelajari, type LapisRevisi } from '../../editor/naskah'
@@ -248,6 +249,13 @@ export default function Revisi() {
     }
   }
 
+  const tokohBerubah = (tokoh: TokohNaskah, baru: HadiahBaru[]) => {
+    setN((x) => (x ? { ...x, tokoh } : x))
+    if (baru.length) setHadiah(baru)
+    if (baru.length) segarkan()
+    periksaUlang()
+  }
+
   const simpanBaru = async () => {
     const d = editor.current?.ambil()
     if (!d) return
@@ -368,6 +376,9 @@ export default function Revisi() {
                   Ubah bagian yang disorot. Sorotan yang sudah kamu ubah memudar dengan tanda ✓.
                   {info.sistem.length ? ' Garis putus-putus = ditandai sistem (kata kembar, kalimat lebih dari 20 kata).' : ''}
                 </p>
+                {info.sistem.includes('kembar') && (
+                  <NamaTokoh naskahId={nid} nama={n.tokoh?.nama ?? []} onUbah={tokohBerubah} />
+                )}
                 {info.sistem.length > 0 && (
                   <div><button type="button" className="tombol-kecil" onClick={periksaUlang}>Periksa ulang tanda sistem</button></div>
                 )}

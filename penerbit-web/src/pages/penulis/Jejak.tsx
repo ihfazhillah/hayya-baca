@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getJejak } from '../../api'
+import NamaTokoh from '../../components/NamaTokoh'
 import type { JejakCerita } from '../../types'
 import { Galat, KepalaHalaman, Memuat } from '../../components/ui'
 import '../../styles/penulis-halaman.css'
@@ -27,8 +28,9 @@ export default function Jejak() {
   const [data, setData] = useState<DataJejak | null>(null)
   const [galat, setGalat] = useState<string | null>(null)
 
+  const muat = () => getJejak().then(setData).catch((e: Error) => setGalat(e.message))
   useEffect(() => {
-    getJejak().then(setData).catch((e: Error) => setGalat(e.message))
+    muat()
   }, [])
 
   return (
@@ -80,6 +82,16 @@ export default function Jejak() {
               </table>
             </div>
             <p className="kecil">Angka ejaan diisi Ayah atau Ummah dari halaman Pemeriksa.</p>
+          </section>
+          <section aria-labelledby="judul-tokoh" className="tumpuk">
+            <h2 id="judul-tokoh" className="ph-judul-bagian">Nama tokoh</h2>
+            <p className="kecil">Nama tokoh tidak dihitung sebagai kata kembar. Ada nama yang terlewat? Tambahkan di ceritanya.</p>
+            {[...new Map(data.cerita.map((c) => [c.naskah, c])).values()].reverse().map((c) => (
+              <div key={c.naskah} className="tumpuk">
+                <h3 style={{ fontSize: 'var(--text-base)' }}>{c.judul}</h3>
+                <NamaTokoh naskahId={c.naskah} nama={c.tokoh ?? []} label={`Nama tokoh ${c.judul}`} onUbah={muat} />
+              </div>
+            ))}
           </section>
         </>
       )}

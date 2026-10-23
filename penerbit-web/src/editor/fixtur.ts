@@ -31,6 +31,7 @@ export function naskah(over: Partial<NaskahDetail> = {}): NaskahDetail {
     id: 5, judul: 'Sandal Jepit yang Hilang', tahap: 'revisi', tahap_label: 'Revisi', laci: null,
     nomor_terbitan: '', created_at: '2026-10-01T10:00:00Z', jumlah_versi: 1, jumlah_kata: 6,
     peta: { siapa: 'Fatih', mau_apa: 'Mencari sandal', masalah: 'Sandal hilang', akhir: 'Ketemu' },
+    tokoh: { nama: ['Fatih'], otomatis: ['Fatih'], tambah: [], abaikan: [], kata: ['fatih'] },
     kartu_tebakan: 'Bagian rak sandal', stempel: stempel(['peta']), stempel_diminta: '', lapis_berikutnya: 'kamera',
     versi: [
       { nomor: 1, lapis: '', tanggal: '2026-10-02T10:00:00Z', jumlah_kata: 6 },

@@ -23,9 +23,11 @@ def _kata_kalimat(tokens):
     return [[t for t in tokens[a:b + 1] if t.jenis == "kata"] for a, b in kalimat(tokens)]
 
 
-def _hitung_kembar(tokens):
+def _hitung_kembar(tokens, tokoh=()):
+    """Hitung kata selain kata umum dan nama tokoh (`tokoh` = kata huruf kecil)."""
+    lewati = KATA_UMUM | set(tokoh)
     return Counter(
-        t.teks.lower() for t in tokens if t.jenis == "kata" and t.teks.lower() not in KATA_UMUM
+        t.teks.lower() for t in tokens if t.jenis == "kata" and t.teks.lower() not in lewati
     )
 
 
@@ -46,10 +48,10 @@ def _kesalahan_ejaan(tokens):
     return n
 
 
-def hitung(teks):
+def hitung(teks, tokoh=()):
     tokens = tokenize(teks or "")
     per_kalimat = _kata_kalimat(tokens)
-    kembar = _hitung_kembar(tokens).most_common(1)
+    kembar = _hitung_kembar(tokens, tokoh).most_common(1)
     return {
         "jumlah_kata": sum(1 for t in tokens if t.jenis == "kata"),
         "kalimat_terpanjang": max((len(k) for k in per_kalimat), default=0),
@@ -62,12 +64,12 @@ def hitung(teks):
     }
 
 
-def sorotan_sistem(teks, alat):
+def sorotan_sistem(teks, alat, tokoh=()):
     """Sorotan otomatis untuk alat yang diminta. Posisi = indeks karakter di teks."""
     tokens = tokenize(teks or "")
     out = []
     if ALAT_KEMBAR in alat:
-        kembar = {k for k, n in _hitung_kembar(tokens).items() if n > BATAS_KATA_KEMBAR}
+        kembar = {k for k, n in _hitung_kembar(tokens, tokoh).items() if n > BATAS_KATA_KEMBAR}
         for t in tokens:
             if t.jenis == "kata" and t.teks.lower() in kembar:
                 out.append({"alat": ALAT_KEMBAR, "index": t.awal, "length": t.akhir - t.awal,

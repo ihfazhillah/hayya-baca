@@ -36,6 +36,7 @@ urlpatterns = [
     path("naskah/<int:pk>/sorotan-sistem/", naskah.SorotanSistemView.as_view()),
     path("naskah/<int:pk>/minta-stempel/", naskah.MintaStempelView.as_view()),
     path("naskah/<int:pk>/favorit/", naskah.FavoritView.as_view()),
+    path("naskah/<int:pk>/tokoh/", naskah.TokohView.as_view()),
     path("jejak/", naskah.JejakView.as_view()),
     path("latihan/", latihan.LatihanView.as_view()),
     path("latihan/<int:pk>/alat/", latihan.LatihanAlatView.as_view()),

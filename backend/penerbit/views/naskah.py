@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
-from .. import hadiah, jejak
+from .. import hadiah, jejak, tokoh
 from ..models import (
     LAPIS_STEMPEL, DrafKerja, Ide, Jejak, Naskah, Stempel, Versi,
 )
@@ -103,6 +103,7 @@ def naskah_detail(n):
     return {
         **naskah_ringkas(n),
         "peta": n.peta,
+        "tokoh": tokoh.tokoh_json(n),
         "kartu_tebakan": n.kartu_tebakan,
         "stempel": stempel_json(n),
         "stempel_diminta": n.stempel_diminta,
@@ -156,10 +157,41 @@ class NaskahView(PenulisView):
         for f in ("judul", "kartu_tebakan"):
             if f in request.data:
                 setattr(n, f, str(request.data[f])[:500])
+        peta_berubah = False
         if "peta" in request.data and isinstance(request.data["peta"], dict):
+            peta_berubah = tokoh.otomatis(request.data["peta"]) != tokoh.otomatis(n.peta)
             n.peta = request.data["peta"]
         n.save()
+        if peta_berubah:
+            hitung_ulang_jejak(n)
         return Response(naskah_detail(n))
+
+
+def hitung_ulang_jejak(n):
+    """Nama tokoh berubah: hitung ulang Jejak Versi 1 (bila ada) dan hadiah otomatisnya."""
+    j = Jejak.objects.filter(versi__naskah=n, versi__nomor=1).select_related("versi").first()
+    if j is None:
+        return []
+    for kunci, nilai in jejak.hitung(j.versi.teks, tokoh=tokoh.kata(n)).items():
+        setattr(j, kunci, nilai)  # kesalahan_ejaan_ortu (isian orang tua) tidak disentuh
+    j.save()
+    return hadiah.evaluasi(n.profil)
+
+
+class TokohView(PenulisView):
+    """Tambah nama tokoh ({"tambah": "Bu Siti"}) atau hapus ({"hapus": "Fatih"})."""
+
+    @transaction.atomic
+    def post(self, request, pk):
+        n = Naskah.objects.select_for_update().get(pk=ambil_naskah(request, pk).pk)
+        if "tambah" in request.data:
+            tokoh.tambah(n, request.data["tambah"])
+        elif "hapus" in request.data:
+            tokoh.hapus(n, request.data["hapus"])
+        else:
+            raise ValidationError("Kirim nama yang mau ditambah atau dihapus.")
+        n.save(update_fields=["tokoh_tambah", "tokoh_abaikan"])
+        return Response({"tokoh": tokoh.tokoh_json(n), "hadiah_baru": hitung_ulang_jejak(n)})
 
 
 def boleh_menulis(n):
@@ -222,7 +254,7 @@ class VersiBaruView(PenulisView):
         )
         out = {"nomor": nomor, "lapis": lapis}
         if nomor == 1:
-            angka = jejak.hitung(v.teks)
+            angka = jejak.hitung(v.teks, tokoh=tokoh.kata(n))
             Jejak.objects.create(versi=v, **angka)
             out["jejak"] = angka
             n.tahap = Naskah.Tahap.LACI
@@ -268,7 +300,7 @@ class SorotanSistemView(PenulisView):
         n = ambil_naskah(request, pk)
         alat = [a for a in (request.query_params.get("alat") or "").split(",") if a]
         teks = n.draf.teks if hasattr(n, "draf") else ""
-        return Response(jejak.sorotan_sistem(teks, alat))
+        return Response(jejak.sorotan_sistem(teks, alat, tokoh=tokoh.kata(n)))
 
 
 class MintaStempelView(PenulisView):
@@ -320,6 +352,7 @@ def jejak_cerita(profil):
     ).order_by("versi__tanggal", "versi__id"):
         out.append({
             "naskah": j.versi.naskah_id, "judul": j.versi.naskah.judul,
+            "tokoh": tokoh.nama(j.versi.naskah),
             "tanggal": j.versi.tanggal, "jumlah_kata": j.jumlah_kata,
             "kalimat_terpanjang": j.kalimat_terpanjang, "kata_kembar": j.kata_kembar,
             "kata_kembar_jumlah": j.kata_kembar_jumlah, "kalimat_perasaan": j.kalimat_perasaan,

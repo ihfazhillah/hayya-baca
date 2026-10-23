@@ -6,7 +6,7 @@ import type {
   Alat, Beranda, Buku, Dasbor, HadiahBaru, HadiahItem, HasilGunting, HasilKembar, HasilKlik,
   Ide, Jawaban, JejakCerita, KartuLatihan, Lembar, Me, MisiDetail, ModulDetail, ModulTerkunci,
   NaskahDetail, NaskahOrtu, NaskahRingkas, PemeriksaanDetail, PemeriksaanRingkas, PenukaranItem,
-  Peta4, PromptAnak, Sorotan, Delta, StempelSlot, VersiDetail, AlatRingkas,
+  Peta4, PromptAnak, Sorotan, Delta, StempelSlot, TokohNaskah, VersiDetail, AlatRingkas,
 } from './types'
 
 const TOKEN_KEY = 'penerbit.token'
@@ -200,6 +200,8 @@ export const bukaLaci = (id: number) =>
   request<{ kartu_tebakan: string; tahap: string }>('POST', `${P}/naskah/${id}/buka-laci/`)
 export const sorotanSistem = (id: number, alat: string[]) =>
   request<Sorotan[]>('GET', `${P}/naskah/${id}/sorotan-sistem/?alat=${alat.join(',')}`)
+export const ubahTokoh = (id: number, body: { tambah: string } | { hapus: string }) =>
+  request<{ tokoh: TokohNaskah; hadiah_baru: HadiahBaru[] }>('POST', `${P}/naskah/${id}/tokoh/`, body)
 export const mintaStempel = (id: number, lapis: string) =>
   request<{ stempel_diminta: string }>('POST', `${P}/naskah/${id}/minta-stempel/`, { lapis })
 export const simpanFavorit = (id: number, sebelum: string, sesudah: string) =>

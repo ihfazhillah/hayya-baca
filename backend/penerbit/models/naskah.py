@@ -38,6 +38,9 @@ class Naskah(models.Model):
     judul = models.CharField(max_length=150)
     ide = models.ForeignKey(Ide, null=True, blank=True, on_delete=models.SET_NULL)
     peta = models.JSONField(default=dict)  # {siapa, mau_apa, masalah, akhir}
+    # Nama tokoh untuk kata kembar: nama tambahan anak, dan kata nama otomatis yang diabaikan.
+    tokoh_tambah = models.JSONField(default=list)  # ["Bu Siti", ...]
+    tokoh_abaikan = models.JSONField(default=list)  # ["fatih", ...] huruf kecil
     tahap = models.CharField(max_length=10, choices=Tahap.choices, default=Tahap.PETA)
     laci_buka = models.DateTimeField(null=True, blank=True)
     laci_dibuka = models.BooleanField(default=False)
