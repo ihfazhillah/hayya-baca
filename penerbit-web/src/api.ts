@@ -58,7 +58,20 @@ export function setUnauthorizedHandler(fn: (() => void) | null) {
   onUnauthorized = fn
 }
 
-export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+/** GET yang sama dan masih berjalan dipakai bersama (mis. nav dan Beranda meminta data Beranda bersamaan). */
+const sedangJalan = new Map<string, Promise<unknown>>()
+
+export function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+  if (method !== 'GET') return kirim<T>(method, path, body)
+  const kunci = `${getToken() ?? ''}|${sedangSimulasi() ? 's' : ''}|${path}`
+  const ada = sedangJalan.get(kunci)
+  if (ada) return ada as Promise<T>
+  const p = kirim<T>(method, path).finally(() => sedangJalan.delete(kunci))
+  sedangJalan.set(kunci, p)
+  return p
+}
+
+async function kirim<T>(method: string, path: string, body?: unknown): Promise<T> {
   const headers: Record<string, string> = { Accept: 'application/json' }
   const token = getToken()
   if (token) headers['Authorization'] = `Token ${token}`

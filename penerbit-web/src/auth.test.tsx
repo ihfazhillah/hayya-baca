@@ -42,6 +42,9 @@ describe('Masuk', () => {
     expect(await screen.findByRole('heading', { name: 'Beranda' })).toBeInTheDocument()
     expect(getToken()).toBe('anak')
     expect(calls.some((c) => c.url === '/api/auth/login/')).toBe(false)
+    // Nav dan halaman Beranda sama-sama butuh data Beranda: cukup satu permintaan.
+    await new Promise((r) => setTimeout(r, 50))
+    expect(calls.filter((c) => c.method === 'GET' && c.url === '/api/penerbit/beranda/')).toHaveLength(1)
   })
 
   it('akun orang tua ditolak child-login lalu masuk lewat login biasa ke /ortu', async () => {

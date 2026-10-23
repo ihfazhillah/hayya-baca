@@ -1,8 +1,9 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, Suspense, useCallback, useContext, useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { getBeranda } from '../api'
 import type { Beranda } from '../types'
 import { NavPenulis } from './Nav'
+import { Memuat } from './ui'
 
 interface NavData {
   peta: Beranda['peta']
@@ -27,7 +28,7 @@ export default function LayoutPenulis() {
   return (
     <NavContext.Provider value={{ ...data, segarkan }}>
       <NavPenulis titik={data.peta} poin={data.poin} />
-      <Outlet />
+      <Suspense fallback={<main className="page"><Memuat /></main>}><Outlet /></Suspense>
     </NavContext.Provider>
   )
 }
