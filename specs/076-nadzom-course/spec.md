@@ -1,6 +1,6 @@
 # 076 · Course Nadzom & Syair untuk Orang 'Ajam
 
-Status: draf revisi 3, menunggu persetujuan pemilik.
+Status: disetujui pemilik (2026-10-23), implementasi fase 1.
 Blueprint isi: https://claude.ai/artifact/6njYwBmekyV5PRu492tvbo (Claude Docs, 2026-10-21).
 
 ## Masalah
@@ -45,6 +45,19 @@ kurikulumnya (3 babak, modul 0–10, 3 Boss, bonus). Yang belum ada: tempat menj
 | [Abu Qudamah, التلخيصات الشافية درس 11: الرجز](https://abuqudamah.com/talkheesat_shafeyah_11) | Arab (tulisan) | Langkah taqthi' bertahap + latihan mandiri, seri 11 pelajaran |
 | [Terjemah al-Mukhtashar asy-Syafi](https://archive.org/download/terjemah-mukhtashor-syafi-ilmu-arudh-qawafi-mktbhazzaen/Terjemah%20Mukhtashor%20Syafi%20(Ilmu%20'Arudh%20&%20Qawafi).pdf) | Indonesia | Rujukan kaidah |
 
+## Keputusan tampilan (2026-10-23)
+
+- **Notasi bit**: `1` = huruf hidup (berharakat), `0` = huruf mati (sukun atau huruf mad).
+  Sabab khafif = `10`, watad majmu' = `110`, مُسْتَفْعِلُنْ = `1010110`. Satu catatan di legenda:
+  kitab menulis `1` sebagai `/`. Notasi `– ب` tidak dipakai.
+- **Peragaan langkah demi langkah** (seperti Contoh Oren di Penerbit) di setiap البحث: papan huruf,
+  tanda muncul satu per satu, kelompok sabab/watad berwarna, mizan di bawah tiap taf'ilah, lalu
+  giliran pengguna. Contoh yang disetujui: https://claude.ai/artifact/KTdtfV5wNggT7mdDcsJbXV
+- **Pemandu: Hudhud** (burung, bukan kucing, bukan ustadz), menyapa dengan "Anda".
+- **Palet** (arabian nights): navy `#0a1428`, navy dalam `#132a4a`, emas `#d4af37`, perunggu
+  `#b08968`, krem `#faf3e0`. Navy mendominasi; emas hanya untuk judul, segel, dan garis tipis,
+  tidak untuk bidang besar; latar krem.
+
 ## Kebutuhan
 
 ### K1. Peta course
@@ -77,7 +90,7 @@ Setiap sesi ditutup dengan **patokan**: target yang dicek checker. Isi modul ada
 - Masukan: teks Arab berharakat (utama) atau suku kata Latin (`ma-la-hal-ar-waa`), satu syathr per
   baris atau dipisah `|`. Checker menampilkan juga kitabah 'arudhiyyah-nya, supaya terlihat huruf
   mana yang dihitung.
-- Keluaran: pola `–` (panjang) / `ب` (pendek) per suku kata, dipotong per taf'ilah, dicocokkan ke bahr
+- Keluaran: pola bit per huruf (`1` = hidup/mutaharrik, `0` = mati/sakin), dipotong per taf'ilah, dicocokkan ke bahr
   sasaran. Tiap taf'ilah berstatus **utuh**, **zihaf yang dikenal** (dengan nama zihafnya), atau
   **patah**. Ringkasan: jumlah taf'ilah patah.
 - Versi bertahap mengikuti blueprint: v1 (Modul 0: rajaz + ramal), v2 (Modul 3: zihaf rajaz),
@@ -91,7 +104,7 @@ Setiap sesi ditutup dengan **patokan**: target yang dicek checker. Isi modul ada
 - Deterministik, tanpa AI. Diuji dengan bait-bait model dari blueprint.
 
 ### K4. Salin ke Diwan
-- Tombol **Salin** di checker: menyalin bait + pola + jumlah patah sebagai Markdown, siap ditempel
+- Tombol **Salin** di checker: menyalin bait + pola bit + jumlah patah sebagai Markdown, siap ditempel
   di Obsidian atau catatan lain. Aplikasi tidak menyimpan apa pun.
 
 ### K5. Rujukan yang berjalan sepanjang course
@@ -127,7 +140,7 @@ Setiap sesi ditutup dengan **patokan**: target yang dicek checker. Isi modul ada
 
   Dikutip Ibnu ad-Damamini, *al-'Uyun al-Ghamizah 'ala Khabaya ar-Ramizah* (hlm. 138–146), juga
   as-Sakkaki, *Miftah al-'Ulum*, bab rajaz. Kitab itu menyebut "ما جارتن" ('arudh) dan "مثل ززبر"
-  (dharb) sama-sama مستفعلن. Hitungan kita: keenam taf'ilah `– – ب –`, utuh semua. Riwayat lain
+  (dharb) sama-sama مستفعلن. Hitungan kita: keenam taf'ilah `1010110`, utuh semua. Riwayat lain
   memakai "قفرًا"; wazannya sama.
   Rajaz Khandaq (*Nahnu alladzina*) tetap diperdengarkan, tetapi dibedah sebagai contoh utama di
   Modul 3.
