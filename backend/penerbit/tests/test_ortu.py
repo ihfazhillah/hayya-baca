@@ -231,6 +231,15 @@ class TestStikerHadiahPoin(Dasar):
         assert (r.data["harga"], r.data["aktif"]) == (120, False)
         assert self.ortu.patch(url, {"aktif": "false"}, format="json").data["aktif"] is False
 
+    def test_pengajuan_menunggu_ikut_mengurangi_saldo(self):
+        h = Hadiah.objects.create(profil=self.profil, nama="Es krim", harga=20)
+        Poin.objects.create(profil=self.profil, jumlah=30, alasan="x", kunci_sumber="uji")
+        assert self.anak.post("/api/penerbit/penukaran/", {"hadiah": h.id},
+                              format="json").status_code == 201
+        # 30 poin, 20 sudah diajukan: pengajuan kedua (20) melebihi sisa.
+        assert self.anak.post("/api/penerbit/penukaran/", {"hadiah": h.id},
+                              format="json").status_code == 400
+
     def test_penukaran_tanpa_poin_cukup_ditolak(self):
         h = Hadiah.objects.create(profil=self.profil, nama="Buku baru", harga=100)
         assert self.anak.post("/api/penerbit/penukaran/", {"hadiah": h.id},

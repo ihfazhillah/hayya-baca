@@ -232,7 +232,9 @@ class PenukaranView(PenulisView):
     def post(self, request):
         profil = request.profil
         h = get_object_or_404(Hadiah, pk=request.data.get("hadiah"), profil=profil, aktif=True)
-        if hadiah.total_poin(profil) < h.harga:
+        diajukan = sum(Penukaran.objects.filter(
+            profil=profil, status=Penukaran.Status.DIAJUKAN).values_list("hadiah__harga", flat=True))
+        if hadiah.total_poin(profil) - diajukan < h.harga:
             raise ValidationError("Poinmu belum cukup. Terus berlatih, ya!")
         p = Penukaran.objects.create(profil=profil, hadiah=h)
         return Response({"id": p.id, "status": p.status}, status=status.HTTP_201_CREATED)
