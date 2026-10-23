@@ -4,7 +4,7 @@ import { catatanPrompt, listPromptAnak } from '../../api'
 import { Galat, Memuat } from '../../components/ui'
 import { useMe } from '../../me'
 import type { PromptAnak as Prompt } from '../../types'
-import { NAMA_TAHAP_MENTOR, pesanGalat, RUMUS_BERTANYA, tglJam, useMuat } from './umum'
+import { ButuhPenulis, NAMA_TAHAP_MENTOR, pesanGalat, RUMUS_BERTANYA, tglJam, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
 const NAMA_BANTU = { ya: 'Ya', sedikit: 'Sedikit', tidak: 'Tidak' } as const
@@ -72,7 +72,7 @@ function KartuPrompt({ p }: { p: Prompt }) {
   )
 }
 
-export default function PromptAnak() {
+function IsiPromptAnak() {
   const { penulisDipilih } = useMe()
   const { data, error } = useMuat(listPromptAnak, [penulisDipilih])
   const daftar = [...(data ?? [])].sort((a, b) => b.tanggal.localeCompare(a.tanggal))
@@ -87,4 +87,8 @@ export default function PromptAnak() {
       {daftar.map((p) => <KartuPrompt key={p.id} p={p} />)}
     </main>
   )
+}
+
+export default function PromptAnak() {
+  return <ButuhPenulis judul="Prompt anak"><IsiPromptAnak /></ButuhPenulis>
 }

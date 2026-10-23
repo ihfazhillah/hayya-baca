@@ -28,7 +28,7 @@ describe('Rak Buku', () => {
     })
     tampilHalaman('/rak', { '/rak': <RakBuku />, '/rak/:id': <Buku /> })
     expect(await screen.findByRole('link', { name: '← Pojok Orang Tua' })).toHaveAttribute('href', '/ortu')
-    expect(screen.getByText('Buku karya Fatih')).toBeInTheDocument()
+    expect(screen.getByText('Buku karya Fatih · 1 buku')).toBeInTheDocument()
     const u = userEvent.setup()
     await u.click(await screen.findByRole('link', { name: /Sandal Jepit PR-001/ }))
     expect(await screen.findByRole('heading', { name: 'Sandal Jepit' })).toBeInTheDocument()

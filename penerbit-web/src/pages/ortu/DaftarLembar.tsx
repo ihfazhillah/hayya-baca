@@ -2,10 +2,10 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { listPemeriksaan } from '../../api'
 import { Galat, Memuat } from '../../components/ui'
 import { useMe } from '../../me'
-import { STATUS_LEMBAR, tgl, useMuat } from './umum'
+import { ButuhPenulis, STATUS_LEMBAR, tglJam, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
-export default function DaftarLembar() {
+function IsiDaftarLembar() {
   const { penulisDipilih } = useMe()
   const [params, setParams] = useSearchParams()
   const status = params.get('status') ?? 'menunggu'
@@ -25,10 +25,10 @@ export default function DaftarLembar() {
   return (
     <main className="page">
       <h1 className="page-title">Pemeriksaan lembar</h1>
-      <div className="baris bagian-ortu formulir" style={{ display: 'flex' }}>
+      <div className="saringan" role="search">
         <label>
           Cari kode di kertas
-          <input type="text" className="isian" value={kode} placeholder="mis. M4-3"
+          <input type="search" className="isian" value={kode} placeholder="mis. M4-3"
             onChange={(e) => ubah('kode', e.target.value)} />
         </label>
         <label>
@@ -45,11 +45,19 @@ export default function DaftarLembar() {
       {!data && !error && <Memuat />}
       {data && (
         daftar.length === 0 ? (
-          <p className="kecil bagian-ortu">
+          <p className="kecil">
             {status === 'menunggu' && !kode ? 'Tidak ada lembar yang menunggu diperiksa.' : 'Tidak ada lembar yang cocok.'}
+            {kode.trim() && status !== 'semua' && (
+              <>
+                {' '}
+                <button type="button" className="btn btn-ghost btn-kecil" onClick={() => ubah('status', 'semua')}>
+                  Cari di semua status
+                </button>
+              </>
+            )}
           </p>
         ) : (
-          <div className="gulir-x bagian-ortu">
+          <div className="gulir-x">
             <p className="kecil">{daftar.length} lembar</p>
             <table className="tabel">
               <thead>
@@ -61,9 +69,9 @@ export default function DaftarLembar() {
                     <td className="mono"><b>{p.kode}</b></td>
                     <td>{p.judul}</td>
                     <td>{p.modul}</td>
-                    <td>{tgl(p.tanggal_cetak)}</td>
+                    <td className="mono kecil">{tglJam(p.tanggal_cetak)}</td>
                     <td>{STATUS_LEMBAR[p.status] ?? p.status}{p.diperiksa_oleh ? ` · ${p.diperiksa_oleh}` : ''}</td>
-                    <td><Link to={`/ortu/lembar/${p.id}`}>{p.status === 'menunggu' ? 'Periksa' : 'Lihat'}</Link></td>
+                    <td className="aksi"><Link to={`/ortu/lembar/${p.id}`}>{p.status === 'menunggu' ? 'Periksa' : 'Lihat'}</Link></td>
                   </tr>
                 ))}
               </tbody>
@@ -73,4 +81,8 @@ export default function DaftarLembar() {
       )}
     </main>
   )
+}
+
+export default function DaftarLembar() {
+  return <ButuhPenulis judul="Pemeriksaan lembar"><IsiDaftarLembar /></ButuhPenulis>
 }

@@ -37,7 +37,7 @@ export default function Ulasan() {
 
   return (
     <main className="page">
-      <div className="layar tumpuk">
+      <div className="layar tumpuk kolom-ulasan">
         <Link className="kembali" to="/ulasan">← Semua cerita</Link>
         <Galat pesan={error} />
         {!data && !error && <Memuat />}
@@ -46,6 +46,7 @@ export default function Ulasan() {
             <header>
               <h1 className="page-title">{data.judul}</h1>
               <p className="kecil">oleh {data.penulis} · Versi {data.versi}</p>
+              <p className="kecil">Kamu hanya bisa membaca dan memberi ulasan. Penulisnya yang memutuskan mau mengubah apa.</p>
             </header>
             <article className="teks-naskah teks-baca" aria-label="Teks cerita">
               {paragraf(data.teks).map((p, i) => <p key={i}>{p}</p>)}

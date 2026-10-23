@@ -4,7 +4,7 @@ import { beriStiker, getStikerOrtu } from '../../api'
 import { EMOJI_TINGKAT, Galat, Memuat } from '../../components/ui'
 import { useMe } from '../../me'
 import type { Alat, Slot } from '../../types'
-import { LAPIS, pesanGalat, TINGKAT, tgl, useMuat } from './umum'
+import { ButuhPenulis, LAPIS, pesanGalat, TINGKAT, tgl, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
 function layak(s: Slot): boolean {
@@ -35,7 +35,7 @@ function SelStiker({ alat, slot, onBeri, sibuk }: { alat: Alat; slot: Slot | und
   )
 }
 
-export default function StikerStempel() {
+function IsiStikerStempel() {
   const { penulisDipilih } = useMe()
   const { data, error, muat } = useMuat(getStikerOrtu, [penulisDipilih])
   const [sibuk, setSibuk] = useState(false)
@@ -116,4 +116,8 @@ export default function StikerStempel() {
       )}
     </main>
   )
+}
+
+export default function StikerStempel() {
+  return <ButuhPenulis judul="Stiker dan stempel"><IsiStikerStempel /></ButuhPenulis>
 }

@@ -56,53 +56,54 @@ function IsiDasbor() {
           {angka.map((a) => (
             <Link key={a.ke} to={a.ke} className={`kartu-angka${a.n ? '' : ' nol'}`}>
               <span className="angka-besar">{a.n}</span>
-              {a.teks}
+              <span>{a.teks}</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="bagian-ortu" aria-labelledby="minggu">
-        <h2 id="minggu" className="judul-bagian">Minggu ini · {data.penulis.nama}</h2>
-        <ul className="ringkas-minggu">
-          <li><b>{m.sesi}</b> sesi</li>
-          <li><b>{m.misi_selesai}</b> misi selesai</li>
-          <li><b>{m.kata_draf_nol}</b> kata Draf Nol</li>
-          {m.alat && <li>{m.alat} sedang dipelajari</li>}
-        </ul>
-      </section>
+      <div className="dasbor-dua">
+        <section className="kartu" aria-labelledby="minggu">
+          <h2 id="minggu" className="judul-bagian">Minggu ini · {data.penulis.nama}</h2>
+          <ul className="ringkas-minggu">
+            <li><b>{m.sesi}</b><span>sesi</span></li>
+            <li><b>{m.misi_selesai}</b><span>misi selesai</span></li>
+            <li><b>{m.kata_draf_nol}</b><span>kata Draf Nol</span></li>
+            {m.alat && <li><b>🧰</b><span>{m.alat} sedang dipelajari</span></li>}
+          </ul>
+        </section>
 
-      <section className="bagian-ortu" aria-labelledby="persiapan">
-        <h2 id="persiapan" className="judul-bagian">Persiapan sesi berikutnya</h2>
-        {p ? (
-          <div className="kartu bagian-ortu">
-            <p><b>Modul {p.nomor} · {p.judul}</b></p>
-            {p.petunjuk_lihat && <p><span className="kecil">Tahap Lihat untuk orang tua:</span> {p.petunjuk_lihat}</p>}
-            {p.lembar.length > 0 ? (
-              <div className="baris">
-                {p.lembar.map((kode) => (
-                  <a key={kode} className="btn btn-ghost btn-kecil" href={`/cetak/${encodeURIComponent(kode)}`}
-                    target="_blank" rel="noreferrer">
-                    🖨️ Cetak {kode}
-                  </a>
-                ))}
-                <Link className="btn btn-ghost btn-kecil" to={`/ortu/cetak?modul=${p.nomor}`}>
-                  Cetak semua lembar Modul {p.nomor}
-                </Link>
-              </div>
-            ) : (
-              <p className="kecil">Modul ini tidak punya lembar cetak.</p>
-            )}
-          </div>
-        ) : (
-          <p className="kecil">Tidak ada modul terbuka yang menunggu.</p>
-        )}
-      </section>
+        <section className="kartu kartu-persiapan" aria-labelledby="persiapan">
+          <h2 id="persiapan" className="judul-bagian">Persiapan sesi berikutnya</h2>
+          {p ? (
+            <>
+              <p><b>Modul {p.nomor} · {p.judul}.</b>{p.petunjuk_lihat && <> Tahap Lihat untuk orang tua: {p.petunjuk_lihat}</>}</p>
+              {p.lembar.length > 0 ? (
+                <div className="baris">
+                  <Link className="btn btn-primary" to={`/ortu/cetak?modul=${p.nomor}`}>
+                    Cetak lembar Modul {p.nomor}
+                  </Link>
+                  {p.lembar.map((kode) => (
+                    <a key={kode} className="btn btn-ghost btn-kecil" href={`/cetak/${encodeURIComponent(kode)}`}
+                      target="_blank" rel="noreferrer" aria-label={`Cetak ${kode}`}>
+                      🖨️ {kode}
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="kecil">Modul ini tidak punya lembar cetak.</p>
+              )}
+            </>
+          ) : (
+            <p className="kecil">Tidak ada modul terbuka yang menunggu.</p>
+          )}
+        </section>
+      </div>
 
       <section className="bagian-ortu" aria-labelledby="aktivitas">
         <h2 id="aktivitas" className="judul-bagian">Aktivitas terbaru</h2>
         {data.aktivitas.length ? (
-          <ul className="daftar-aktivitas">
+          <ul className="daftar-aktivitas kotak-aktivitas">
             {data.aktivitas.map((a, i) => (
               <li key={i}><time dateTime={a.tanggal}>{tglJam(a.tanggal)}</time><span>{a.teks}</span></li>
             ))}

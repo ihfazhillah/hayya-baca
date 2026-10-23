@@ -7,6 +7,7 @@ import Dasbor from './Dasbor'
 import DaftarLembar from './DaftarLembar'
 import PemeriksaanLembar from './PemeriksaanLembar'
 import NaskahPenulis from './NaskahPenulis'
+import DaftarNaskah from './DaftarNaskah'
 import CetakModul from './CetakModul'
 import HadiahPoin from './HadiahPoin'
 import PromptAnak from './PromptAnak'
@@ -77,6 +78,11 @@ describe('Pojok Orang Tua', () => {
       'GET /api/penerbit/ortu/lembar/5/': detail(5, 'M4-3'),
       'GET /api/penerbit/ortu/lembar/6/': detail(6, 'M4-4'),
       'POST /api/penerbit/ortu/lembar/5/': { body: { id: 5, status: 'coba_lagi', hadiah_baru: [] } },
+      'GET /api/penerbit/ortu/stiker/': {
+        body: { alat: [{ kode: 'kamera', nama: 'Kamera', slot: [
+          { tingkat: 'perunggu', punya: true }, { tingkat: 'perak', punya: false }, { tingkat: 'emas', punya: false },
+        ] }], stempel: [] },
+      },
       'GET /api/penerbit/ortu/lembar/': {
         body: [
           { id: 5, kode: 'M4-3', status: 'menunggu', tanggal_cetak: '2026-10-18T08:00:00Z' },
@@ -87,6 +93,9 @@ describe('Pojok Orang Tua', () => {
     tampilHalaman('/ortu/lembar/5', { '/ortu/lembar/:id': <PemeriksaanLembar /> })
     expect(await screen.findByText('Ibu meletakkan sapu dengan keras.')).toBeInTheDocument()
     const u = userEvent.setup()
+    // Stiker yang sudah dimiliki tidak bisa dipilih lagi.
+    expect(await screen.findByLabelText(/Perunggu \(sudah\)/)).toBeDisabled()
+    expect(screen.getByLabelText(/Perak/)).toBeEnabled()
     await u.click(screen.getByLabelText('Coba lagi'))
     // Catatan wajib untuk Coba lagi.
     await u.click(screen.getByRole('button', { name: 'Simpan dan lembar berikutnya' }))
@@ -100,6 +109,32 @@ describe('Pojok Orang Tua', () => {
     const post = calls.find((c) => c.method === 'POST')!
     expect(post.body).toEqual({ status: 'coba_lagi', catatan: 'Kalimat keduanya masih bilang senang.', stiker: 'perak' })
     expect(await screen.findByRole('heading', { name: /M4-4/ })).toBeInTheDocument()
+    // Hasil lembar sebelumnya tetap terlihat di lembar berikutnya.
+    expect(screen.getByText('Lembar M4-3 tersimpan.')).toBeInTheDocument()
+  })
+
+  it('Daftar naskah: naskah yang minta stempel ada di atas dengan tandanya', async () => {
+    const ringkas = (id: number, judul: string, diminta: string) => ({
+      id, judul, tahap: 'revisi', tahap_label: 'Revisi', laci: null, stempel: ['peta'], nomor_terbitan: '',
+      stempel_diminta: diminta, created_at: '2026-10-01T00:00:00Z',
+    })
+    pasangFetch({
+      'GET /api/penerbit/me/': { body: ME_ORTU },
+      'GET /api/penerbit/ortu/naskah/': { body: [ringkas(1, 'Layang-layang', ''), ringkas(2, 'Sandal Jepit', 'kamera')] },
+    })
+    tampilHalaman('/ortu/naskah', { '/ortu/naskah': <DaftarNaskah /> })
+    const baris = await screen.findAllByRole('row')
+    expect(baris[1]).toHaveTextContent('Sandal Jepit')
+    expect(within(baris[1]).getByText('minta stempel Kamera')).toBeInTheDocument()
+  })
+
+  it('Orang tua yang anaknya belum aktif diarahkan ke Dasbor, bukan melihat galat server', async () => {
+    const calls = pasangFetch({
+      'GET /api/penerbit/me/': { body: { ...ME_ORTU, peran: [], pemeriksa: [], bisa_diaktifkan: [{ child_id: 7, nama: 'Fatih' }] } },
+    })
+    tampilHalaman('/ortu/lembar', { '/ortu/lembar': <DaftarLembar /> })
+    expect(await screen.findByRole('link', { name: /Aktifkan Penerbit Rumah untuk anak di Dasbor/ })).toHaveAttribute('href', '/ortu')
+    expect(calls.some((c) => c.url.includes('/ortu/lembar/'))).toBe(false)
   })
 
   it('Naskah: Terbitkan terkunci sampai 5 stempel, lalu menampilkan nomor terbitan', async () => {
@@ -185,6 +220,8 @@ describe('Pojok Orang Tua', () => {
     expect(await screen.findByText(/Sudah disetujui: Es krim/)).toBeInTheDocument()
     expect(calls.find((c) => c.method === 'POST')?.body).toEqual({ status: 'disetujui' })
     expect(screen.getByText('Misi 3.1')).toBeInTheDocument()
+    // Kode minggu ISO dari server ditampilkan sebagai rentang tanggal.
+    expect(screen.getByText('Minggu 19–25 Okt')).toBeInTheDocument()
   })
 
   it('Prompt anak: menandai bagian Rumus Bertanya dan menyimpan catatan orang tua', async () => {

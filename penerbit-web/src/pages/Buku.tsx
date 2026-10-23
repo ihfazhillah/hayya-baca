@@ -54,36 +54,40 @@ export default function Buku() {
         {!b && !error && <Memuat />}
         {b && (
           <>
-            <header className="baris" style={{ alignItems: 'flex-end', gap: 'var(--space-6)' }}>
-              {b.sampul ? <img className="sampul sampul-besar" src={b.sampul} alt={`Sampul ${b.judul}`} />
-                : <div className="sampul sampul-besar">{b.judul}</div>}
-              <div>
+            <header className="kepala-buku">
+              {b.sampul ? <img className="sampul" src={b.sampul} alt={`Sampul ${b.judul}`} />
+                : <div className="sampul sampul-teks"><b>{b.judul}</b><span>{b.penulis}</span></div>}
+              <div className="tumpuk-kecil">
+                <span className="nomor-terbitan">
+                  {b.nomor_terbitan}{b.tanggal_terbit ? ` · terbit ${tgl(b.tanggal_terbit)}` : ''}
+                </span>
                 <h1 className="page-title">{b.judul}</h1>
-                <p className="kecil">
-                  oleh {b.penulis} · <span className="mono">{b.nomor_terbitan}</span>
-                  {b.tanggal_terbit ? ` · terbit ${tgl(b.tanggal_terbit)}` : ''}
-                </p>
-                <button type="button" className="btn btn-ghost" onClick={() => window.print()}>🖨️ Cetak buku</button>
-                <p className="kecil">Ukuran A5. Untuk dua halaman per kertas A4, pilih “2 halaman per lembar” di dialog cetak.</p>
+                <p className="kecil">oleh {b.penulis}</p>
+                <div>
+                  <button type="button" className="btn btn-primary" onClick={() => window.print()}>🖨️ Cetak buku (A5)</button>
+                </div>
+                <p className="kecil">Untuk dua halaman per kertas A4, pilih “2 halaman per lembar” di dialog cetak.</p>
               </div>
             </header>
             <article className="teks-baca" aria-label="Isi buku">
               {paragraf(b.teks ?? '').map((p, i) => <p key={i}>{p}</p>)}
             </article>
-            {b.tentang_penulis && (
-              <section className="kartu">
-                <h2 className="judul-bagian">Tentang Penulis</h2>
-                <p>{b.tentang_penulis}</p>
-              </section>
-            )}
-            {(fav.sebelum || fav.sesudah) && (
-              <section>
-                <h2 className="judul-bagian">Paragraf favorit: Sebelum dan Sesudah</h2>
-                <div className="favorit-dua">
-                  <div className="kartu"><b className="kecil">Sebelum</b><p className="teks-baca">{fav.sebelum}</p></div>
-                  <div className="kartu"><b className="kecil">Sesudah</b><p className="teks-baca">{fav.sesudah}</p></div>
-                </div>
-              </section>
+            {(b.tentang_penulis || fav.sebelum || fav.sesudah) && (
+              <div className="favorit-dua">
+                {b.tentang_penulis && (
+                  <section className="kartu-lembut">
+                    <h2 className="judul-bagian">Tentang Penulis</h2>
+                    <p>{b.tentang_penulis}</p>
+                  </section>
+                )}
+                {(fav.sebelum || fav.sesudah) && (
+                  <section className="kartu-lembut">
+                    <h2 className="judul-bagian">Paragraf favorit: Sebelum dan Sesudah</h2>
+                    {fav.sebelum && <p className="sebelum"><del>{fav.sebelum}</del></p>}
+                    {fav.sesudah && <p>{fav.sesudah}</p>}
+                  </section>
+                )}
+              </div>
             )}
           </>
         )}

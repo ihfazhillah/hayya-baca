@@ -14,7 +14,11 @@ export default function RakBuku() {
         <TautanPulang />
         <header className="page-header" style={{ marginBottom: 0 }}>
           <h1 className="page-title">Rak Buku</h1>
-          {data && <p className="page-subtitle">Buku karya {data.penulis}</p>}
+          {data && (
+            <p className="page-subtitle">
+              Buku karya {data.penulis}{data.buku.length > 0 ? ` · ${data.buku.length} buku` : ''}
+            </p>
+          )}
         </header>
         <Galat pesan={error} />
         {!data && !error && <Memuat />}
@@ -22,15 +26,31 @@ export default function RakBuku() {
           <p>Rak masih kosong. Cerita yang sudah mendapat 5 stempel dan diterbitkan akan muncul di sini.</p>
         )}
         {data && data.buku.length > 0 && (
-          <div className="rak">
-            {data.buku.map((b) => (
-              <Link key={b.id} to={`/rak/${b.id}`} aria-label={`${b.judul} ${b.nomor_terbitan}`}>
-                {b.sampul ? <img className="sampul" src={b.sampul} alt={`Sampul ${b.judul}`} /> : <div className="sampul">{b.judul}</div>}
-                <b>{b.judul}</b>
-                <span className="nomor-terbitan">{b.nomor_terbitan}{b.tanggal_terbit ? ` · ${tgl(b.tanggal_terbit)}` : ''}</span>
-              </Link>
-            ))}
-          </div>
+          <section className="rak" aria-label="Rak">
+            <div className="rak-isi">
+              {data.buku.map((b) => (
+                <Link key={b.id} to={`/rak/${b.id}`} className="buku-rak" aria-label={`${b.judul} ${b.nomor_terbitan}`}>
+                  {b.sampul ? (
+                    <img className="sampul" src={b.sampul} alt="" />
+                  ) : (
+                    <span className="sampul sampul-teks">
+                      <span className="mono">{b.nomor_terbitan}</span>
+                      <b>{b.judul}</b>
+                      <span>{data.penulis}</span>
+                    </span>
+                  )}
+                  <span className="judul-rak">{b.judul}</span>
+                  <span className="nomor-terbitan">{b.nomor_terbitan}{b.tanggal_terbit ? ` · ${tgl(b.tanggal_terbit)}` : ''}</span>
+                </Link>
+              ))}
+              <span className="buku-rak buku-berikutnya" aria-hidden="true">
+                <span className="sampul">Buku berikutnya</span>
+                <span className="judul-rak">&nbsp;</span>
+                <span className="nomor-terbitan">&nbsp;</span>
+              </span>
+            </div>
+            <div className="papan-rak" aria-hidden="true" />
+          </section>
         )}
       </div>
     </main>

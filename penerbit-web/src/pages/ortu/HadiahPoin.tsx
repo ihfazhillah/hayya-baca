@@ -3,7 +3,7 @@ import { getHadiahOrtu, putuskanPenukaran, tambahHadiah, ubahHadiah } from '../.
 import { Galat, Memuat } from '../../components/ui'
 import { useMe } from '../../me'
 import type { HadiahItem } from '../../types'
-import { pesanGalat, tgl, useMuat } from './umum'
+import { ButuhPenulis, labelMinggu, pesanGalat, tgl, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
 const NAMA_STATUS = { diajukan: 'Diajukan', disetujui: 'Disetujui', ditunda: 'Nanti dulu' } as const
@@ -19,7 +19,7 @@ function BarisHadiah({ h, aksi, sibuk }: { h: HadiahItem; aksi: (fn: () => Promi
       <td><input className="isian" type="number" min={1} aria-label={`Harga ${h.nama}`} style={{ width: 90 }} value={harga}
         onChange={(e) => setHarga(e.target.value)} /></td>
       <td>{aktif ? 'Aktif' : 'Nonaktif'}</td>
-      <td className="baris">
+      <td className="aksi">
         <button type="button" className="btn btn-ghost btn-kecil" disabled={sibuk || !berubah || !nama.trim() || Number(harga) <= 0}
           onClick={() => aksi(() => ubahHadiah(h.id, { nama: nama.trim(), harga: Number(harga) }))}>Simpan</button>
         <button type="button" className="btn btn-ghost btn-kecil" disabled={sibuk}
@@ -29,7 +29,7 @@ function BarisHadiah({ h, aksi, sibuk }: { h: HadiahItem; aksi: (fn: () => Promi
   )
 }
 
-export default function HadiahPoin() {
+function IsiHadiahPoin() {
   const { penulisDipilih } = useMe()
   const { data, error, muat } = useMuat(getHadiahOrtu, [penulisDipilih])
   const [sibuk, setSibuk] = useState(false)
@@ -77,6 +77,7 @@ export default function HadiahPoin() {
         {diajukan.length === 0 ? (
           <p className="kecil">Tidak ada penukaran yang menunggu.</p>
         ) : (
+          <div className="gulir-x">
           <table className="tabel">
             <thead><tr><th>Hadiah</th><th>Harga</th><th>Tanggal</th><th>Status</th><th /></tr></thead>
             <tbody>
@@ -85,8 +86,11 @@ export default function HadiahPoin() {
                   <td>{p.hadiah}</td>
                   <td>{p.harga ?? ''}</td>
                   <td>{tgl(p.tanggal)}</td>
-                  <td>{NAMA_STATUS[p.status]}</td>
-                  <td className="baris">
+                  <td>
+                    {NAMA_STATUS[p.status]}
+                    {p.harga != null && data.total < p.harga && <div className="kecil">poin belum cukup</div>}
+                  </td>
+                  <td className="aksi">
                     <button type="button" className="btn btn-primary btn-kecil" disabled={sibuk}
                       onClick={() => void aksi(() => putuskanPenukaran(p.id, 'disetujui'))}>Setujui</button>
                     {p.status === 'diajukan' && (
@@ -98,15 +102,18 @@ export default function HadiahPoin() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
         {selesai.length > 0 && (
           <p className="kecil">Sudah disetujui: {selesai.map((p) => `${p.hadiah} (${tgl(p.tanggal)})`).join(', ')}</p>
         )}
       </section>
 
-      <section className="bagian-ortu gulir-x" aria-label="Daftar hadiah">
+      <section className="bagian-ortu" aria-label="Daftar hadiah">
         <h2 className="judul-bagian">Daftar hadiah</h2>
+        {data.hadiah.length === 0 && <p className="kecil">Belum ada hadiah. Tambahkan hadiah yang bisa ditukar dengan poin.</p>}
         {data.hadiah.length > 0 && (
+          <div className="gulir-x">
           <table className="tabel">
             <thead><tr><th>Hadiah</th><th>Harga (poin)</th><th>Status</th><th /></tr></thead>
             <tbody>
@@ -115,8 +122,9 @@ export default function HadiahPoin() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
-        <form className="baris" onSubmit={tambah}>
+        <form className="baris form-hadiah" onSubmit={tambah}>
           <input className="isian" type="text" aria-label="Nama hadiah baru" placeholder="Hadiah baru" value={nama}
             onChange={(e) => setNama(e.target.value)} />
           <input className="isian" type="number" min={1} aria-label="Harga hadiah baru" placeholder="Poin" style={{ width: 100 }}
@@ -130,8 +138,8 @@ export default function HadiahPoin() {
         {data.riwayat_poin.length === 0 && <p className="kecil">Belum ada poin.</p>}
         {data.riwayat_poin.map((m) => (
           <details key={m.minggu} open={m === data.riwayat_poin[0]}>
-            <summary><b>Minggu {m.minggu}</b> · {m.total >= 0 ? '+' : ''}{m.total} poin</summary>
-            <table className="tabel">
+            <summary><b>Minggu {labelMinggu(m.minggu)}</b> · {m.total >= 0 ? '+' : ''}{m.total} poin</summary>
+            <table className="tabel riwayat-poin">
               <tbody>
                 {m.baris.map((b, i) => (
                   <tr key={i}>
@@ -147,4 +155,8 @@ export default function HadiahPoin() {
       </section>
     </main>
   )
+}
+
+export default function HadiahPoin() {
+  return <ButuhPenulis judul="Hadiah dan poin"><IsiHadiahPoin /></ButuhPenulis>
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getPemeriksaan, listPemeriksaan, simpanPemeriksaan } from '../../api'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { getPemeriksaan, getStikerOrtu, listPemeriksaan, simpanPemeriksaan } from '../../api'
 import { EMOJI_TINGKAT, Galat, Memuat } from '../../components/ui'
 import type { HadiahBaru, Tingkat } from '../../types'
-import { pesanGalat, STATUS_LEMBAR, TINGKAT, tgl, useMuat } from './umum'
+import { pesanGalat, STATUS_LEMBAR, TINGKAT, tgl, useKeDaftarSaatGantiPenulis, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
 function ringkasHadiah(h: HadiahBaru[]): string {
@@ -17,12 +17,35 @@ export default function PemeriksaanLembar() {
   const id = Number(useParams().id)
   const navigate = useNavigate()
   const { data, error, muat } = useMuat(() => getPemeriksaan(id), [id])
+  useKeDaftarSaatGantiPenulis('/ortu/lembar')
   const [hasil, setHasil] = useState<'bagus' | 'coba_lagi' | ''>('')
   const [catatan, setCatatan] = useState('')
   const [stiker, setStiker] = useState<Tingkat | ''>('')
   const [sibuk, setSibuk] = useState(false)
   const [galat, setGalat] = useState<string | null>(null)
+  const lokasi = useLocation()
+  // Pesan hasil lembar sebelumnya ("Simpan dan lembar berikutnya") ikut dibawa lewat state navigasi.
   const [pesan, setPesan] = useState<string | null>(null)
+  useEffect(() => {
+    setPesan((lokasi.state as { pesan?: string } | null)?.pesan ?? null)
+  }, [lokasi.key, lokasi.state])
+  const [sudahPunya, setSudahPunya] = useState<Tingkat[]>([])
+  const alat = data?.alat ?? null
+
+  // Stiker yang sudah dimiliki tidak bisa diberikan lagi (server diam-diam mengabaikannya).
+  useEffect(() => {
+    setSudahPunya([])
+    if (!alat) return
+    let batal = false
+    getStikerOrtu()
+      .then((r) => {
+        if (batal) return
+        const a = r.alat.find((x) => x.kode === alat)
+        setSudahPunya(a ? a.slot.filter((s) => s.punya).map((s) => s.tingkat) : [])
+      })
+      .catch(() => {})
+    return () => { batal = true }
+  }, [alat, data])
 
   useEffect(() => {
     if (!data) return
@@ -46,10 +69,11 @@ export default function PemeriksaanLembar() {
         const berikut = menunggu
           .filter((p) => p.id !== id)
           .sort((a, b) => b.tanggal_cetak.localeCompare(a.tanggal_cetak))[0]
+        const state = { pesan: `Lembar ${data?.kode ?? ''} tersimpan.${hadiahTeks}` }
         if (berikut) {
-          navigate(`/ortu/lembar/${berikut.id}`)
+          navigate(`/ortu/lembar/${berikut.id}`, { state })
         } else {
-          navigate('/ortu/lembar?status=menunggu')
+          navigate('/ortu/lembar?status=menunggu', { state })
         }
         return
       }
@@ -63,17 +87,19 @@ export default function PemeriksaanLembar() {
   }
 
   if (error) return <main className="page"><Galat pesan={error} /></main>
-  if (!data) return <main className="page"><Memuat /></main>
+  // Saat pindah ke lembar berikutnya, jangan tampilkan formulir lembar lama dengan id baru.
+  if (!data || data.id !== id) return <main className="page"><Memuat /></main>
   const lb = data.lembar
 
   return (
     <main className="page">
       <Link className="kembali" to="/ortu/lembar">← Daftar lembar</Link>
       <h1 className="page-title">{data.kode} · {data.judul}</h1>
+      {pesan && <p className="pesan-ok" role="status">{pesan}</p>}
       <p className="kecil">
         Modul {lb.modul.nomor} · {lb.modul.judul}{data.misi ? ` · ${data.misi}` : ''} · dicetak {tgl(data.tanggal_cetak)}
         {' · '}{STATUS_LEMBAR[data.status]}{data.diperiksa_oleh ? ` oleh ${data.diperiksa_oleh}` : ''}
-        {' · '}<a href={`/cetak/${encodeURIComponent(data.kode)}`} target="_blank" rel="noreferrer">Lihat lembar asli</a>
+        {' · '}<a href={`/cetak/${encodeURIComponent(data.kode)}?lihat=1`} target="_blank" rel="noreferrer">Lihat lembar asli</a>
       </p>
 
       <div className="dua-kolom bagian-ortu">
@@ -81,7 +107,7 @@ export default function PemeriksaanLembar() {
           <section>
             <h2 className="judul-bagian">Soal</h2>
             {lb.petunjuk && <p><i>{lb.petunjuk}</i></p>}
-            <p style={{ whiteSpace: 'pre-wrap' }}>{lb.soal}</p>
+            <p className="teks-soal">{lb.soal}</p>
           </section>
           <section>
             <h2 className="judul-bagian">Kriteria</h2>
@@ -89,12 +115,12 @@ export default function PemeriksaanLembar() {
           </section>
           <section>
             <h2 className="judul-bagian">Contoh jawaban</h2>
-            <p style={{ whiteSpace: 'pre-wrap' }}>{lb.contoh_jawaban || '—'}</p>
+            <p className="teks-soal">{lb.contoh_jawaban || '—'}</p>
             {lb.saran_stiker && <p className="kecil">{lb.saran_stiker}</p>}
           </section>
         </div>
 
-        <form className="kartu formulir" onSubmit={(e) => { e.preventDefault(); void simpan(true) }}>
+        <form className="kartu formulir kartu-hasil" aria-label="Hasil pemeriksaan" onSubmit={(e) => { e.preventDefault(); void simpan(true) }}>
           <fieldset className="pilihan" style={{ border: 0, padding: 0 }}>
             <legend className="judul-bagian">Hasil</legend>
             <label><input type="radio" name="hasil" checked={hasil === 'bagus'} onChange={() => setHasil('bagus')} /> Sudah bagus</label>
@@ -107,18 +133,21 @@ export default function PemeriksaanLembar() {
           </label>
           {data.alat && (
             <fieldset className="pilihan" style={{ border: 0, padding: 0 }}>
-              <legend style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>Stiker yang ikut diberikan</legend>
+              <legend className="legenda-kecil">Stiker yang ikut diberikan</legend>
               <label><input type="radio" name="stiker" checked={stiker === ''} onChange={() => setStiker('')} /> Tanpa stiker</label>
-              {TINGKAT.map((t) => (
-                <label key={t.kode}>
-                  <input type="radio" name="stiker" checked={stiker === t.kode} onChange={() => setStiker(t.kode)} />
-                  {EMOJI_TINGKAT[t.kode]} {t.nama}
-                </label>
-              ))}
+              {TINGKAT.map((t) => {
+                const punya = sudahPunya.includes(t.kode)
+                return (
+                  <label key={t.kode} className={punya ? 'sudah' : undefined}>
+                    <input type="radio" name="stiker" checked={stiker === t.kode} disabled={punya}
+                      onChange={() => setStiker(t.kode)} />
+                    {EMOJI_TINGKAT[t.kode]} {t.nama}{punya ? ' (sudah)' : ''}
+                  </label>
+                )
+              })}
             </fieldset>
           )}
           <Galat pesan={galat} />
-          {pesan && <p className="pesan-ok" role="status">{pesan}</p>}
           <div className="baris">
             <button type="button" className="btn btn-ghost" disabled={sibuk} onClick={() => void simpan(false)}>Simpan</button>
             <button type="submit" className="btn btn-primary" disabled={sibuk}>Simpan dan lembar berikutnya</button>

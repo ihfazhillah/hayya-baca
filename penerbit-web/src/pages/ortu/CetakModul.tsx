@@ -16,7 +16,7 @@ function KartuAlatDinding({ alat, nama }: { alat: Alat[]; nama: string }) {
     <article className="lembar-cetak kartu-dinding" aria-label="Kartu Alat">
       <header className="kepala">
         <div>
-          <div className="logo" style={{ fontWeight: 800 }}>Penerbit Rumah</div>
+          <div className="logo">Penerbit Rumah</div>
           <h1>Kartu Alat{nama ? ` · ${nama}` : ''}</h1>
         </div>
       </header>
@@ -82,10 +82,10 @@ export default function CetakModul() {
 
   return (
     <main className="page">
-      <div className="tidak-dicetak">
+      <div className="tidak-dicetak tumpuk-ortu">
         <h1 className="page-title">Cetak per modul</h1>
-        <div className="baris bagian-ortu">
-          <label className="baris">
+        <div className="saringan">
+          <label>
             Modul
             <select className="isian" value={modul} onChange={(e) => setParams({ modul: e.target.value }, { replace: true })}>
               {Array.from({ length: JUMLAH_MODUL }, (_, i) => i + 1).map((n) => (
@@ -93,14 +93,14 @@ export default function CetakModul() {
               ))}
             </select>
           </label>
-          {data && <b>{data.modul.judul}</b>}
+          {data && <b className="judul-modul-cetak">{data.modul.judul}</b>}
         </div>
         <Galat pesan={error ?? galat} />
         {!data && !error && <Memuat />}
         {data && (
           <section className="bagian-ortu" aria-label="Lembar modul">
             {data.lembar.length === 0 && <p className="kecil">Modul ini tidak punya lembar cetak.</p>}
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <ul className="pilih-lembar">
               {data.lembar.map((l) => (
                 <li key={l.kode}>
                   <label className="baris">
@@ -110,7 +110,7 @@ export default function CetakModul() {
                 </li>
               ))}
             </ul>
-            <label className="baris">
+            <label className="baris pilih-kartu">
               <input type="checkbox" checked={kartuAlat} onChange={(e) => { setKartuAlat(e.target.checked); setCetak(false) }} />
               Kartu Alat untuk ditempel di dinding
             </label>

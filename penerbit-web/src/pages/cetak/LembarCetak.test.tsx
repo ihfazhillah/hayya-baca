@@ -37,4 +37,31 @@ describe('Lembar cetak', () => {
     await waitFor(() => expect(print).toHaveBeenCalledTimes(1))
     expect(screen.getByRole('link', { name: '← Beranda' })).toHaveAttribute('href', '/')
   })
+
+  it('?lihat=1 hanya menampilkan lembar; garis bawah di soal menjadi ruang tulis penuh', async () => {
+    const print = vi.fn()
+    vi.stubGlobal('print', print)
+    pasangFetch({
+      'GET /api/penerbit/me/': { body: ME_PENULIS },
+      'GET /api/penerbit/cetak/KARTU-ULASAN/': {
+        body: {
+          kode: 'KARTU-ULASAN', judul: 'Kartu Ulasan', petunjuk: 'Isi tiga baris ini.', baris_tulis: 0,
+          soal: 'Judul cerita: ____________________\n\n1. Bagian favoritku: ____________________\n____________________',
+          pertanyaan_bantu: '', cek_sendiri: [], kriteria: '', contoh_jawaban: '1. Satu\n2. Dua', saran_stiker: '',
+          modul: { nomor: 14, judul: 'Pembaca Pertama' },
+        },
+      },
+    })
+    tampilHalaman('/cetak/KARTU-ULASAN?lihat=1', { '/cetak/:kode': <LembarCetak /> })
+    const lembar = await screen.findByLabelText('Lembar KARTU-ULASAN')
+    // Teks tanpa deretan garis bawah; garisnya diganti ruang tulis.
+    expect(within(lembar).getByText('Judul cerita:')).toBeInTheDocument()
+    expect(lembar.querySelector('.soal-ruang')!.textContent).not.toContain('___')
+    expect(lembar.querySelectorAll('.isian-garis')).toHaveLength(2)
+    // Isian bernomor dapat satu garis tambahan; baris yang hanya garis bawah menjadi satu garis.
+    expect(lembar.querySelectorAll('.garis')).toHaveLength(2)
+    await new Promise((r) => setTimeout(r, 120))
+    expect(print).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', { name: /Cetak/ })).toBeInTheDocument()
+  })
 })

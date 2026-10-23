@@ -6,7 +6,7 @@ import {
 } from '../../api'
 import { Galat, Memuat } from '../../components/ui'
 import type { NaskahOrtu } from '../../types'
-import { paragraf, pesanGalat, tgl, useMuat } from './umum'
+import { LAPIS, paragraf, pesanGalat, tgl, useKeDaftarSaatGantiPenulis, useMuat } from './umum'
 import '../../styles/ortu-halaman.css'
 
 /** Jalankan aksi, tampilkan pesan hasil atau galat, lalu muat ulang naskah. */
@@ -60,7 +60,7 @@ function PanelStempel({ n, muat }: { n: NaskahOrtu; muat: () => Promise<void> })
     })
   return (
     <Kartu judul="Stempel">
-      <ul className="jalur-stempel">
+      <ul className="jalur-ortu">
         {n.stempel.map((s) => {
           const diminta = n.stempel_diminta === s.lapis
           const butuhUlasan = s.lapis === 'pembaca' && !adaUlasan
@@ -299,9 +299,16 @@ function PanelLaci({ n, muat }: { n: NaskahOrtu; muat: () => Promise<void> }) {
   )
 }
 
+/** Nama lapis untuk dibaca orang tua; lapis kosong berarti Draf Nol. */
+function namaLapis(lapis: string): string {
+  if (!lapis) return 'Draf Nol'
+  return `Lapis ${LAPIS.find((l) => l.kode === lapis)?.nama ?? lapis}`
+}
+
 export default function NaskahPenulis() {
   const id = Number(useParams().id)
   const { data: n, error, muat } = useMuat(() => getNaskahOrtu(id), [id])
+  useKeDaftarSaatGantiPenulis('/ortu/naskah')
   if (error) return <main className="page"><Galat pesan={error} /></main>
   if (!n) return <main className="page"><Memuat /></main>
   const v = n.versi_terakhir
@@ -312,12 +319,12 @@ export default function NaskahPenulis() {
       <h1 className="page-title">{n.judul || '(tanpa judul)'}</h1>
       <p className="kecil">
         {n.tahap_label}
-        {v ? ` · Versi ${v.nomor}${v.lapis ? ` · ${v.lapis}` : ''}` : ''}
+        {v ? ` · Versi ${v.nomor} · ${namaLapis(v.lapis)}` : ''}
         {diminta ? ` · minta stempel ${diminta.nama}` : ''}
         {n.jumlah_kata_v1 ? ` · Versi 1: ${n.jumlah_kata_v1} kata` : ''}
       </p>
       <div className="dua-kolom bagian-ortu">
-        <section aria-label="Versi terakhir">
+        <section className="naskah-baca" aria-label="Versi terakhir">
           {v ? (
             <div className="teks-naskah">
               {paragraf(v.teks).map((p, i) => <p key={i}>{p}</p>)}

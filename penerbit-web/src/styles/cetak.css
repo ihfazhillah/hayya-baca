@@ -11,7 +11,7 @@
 .pola-tebal { text-decoration: underline; text-decoration-thickness: 3px; }
 .pola-titik { text-decoration: underline dotted; }
 @media print {
-  @page { size: A4 portrait; margin: 12mm; }
+  @page { size: A4 portrait; margin: 10mm; }
   .nav, .tidak-dicetak, button { display: none !important; }
   body { background: #fff !important; }
   .page { padding: 0 !important; }
