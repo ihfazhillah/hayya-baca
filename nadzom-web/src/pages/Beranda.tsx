@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { BABAK, MODUL } from '@/content'
 import { kodePelajaran, sudahSelesai } from '@/lib/progres'
+import Teks from '@/components/Teks'
 
 /** Pelajaran pertama yang belum dicentang, untuk tombol "Lanjutkan". */
 function pelajaranBerikut(): { modul: number; pelajaran: number; mulai: boolean } {
@@ -43,7 +44,7 @@ export default function Beranda() {
             <div className="babak-kepala">
               <span className="segel" aria-hidden="true">{b.nomor}</span>
               <h2>{b.nomor === 4 ? b.judul : `Babak ${b.nomor}: ${b.judul}`}</h2>
-              <span className="ar" lang="ar">{b.bahr}</span>
+              <span className="babak-bahr"><Teks>{b.bahr}</Teks></span>
             </div>
             <p className="babak-ringkas">{b.ringkas}</p>
             <ul className="modul-daftar">

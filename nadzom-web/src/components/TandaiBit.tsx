@@ -25,6 +25,7 @@ export default function TandaiBit({ huruf, onBenar }: Props) {
   }
   const benar = periksa?.filter(Boolean).length ?? 0
   const kosong = jawab.filter((v) => v === null).length
+  const salah = periksa ? periksa.filter((ok, i) => !ok && jawab[i] !== null).length : 0
 
   return (
     <div className="tumpuk">
@@ -38,7 +39,10 @@ export default function TandaiBit({ huruf, onBenar }: Props) {
         <div className={`pesan ${benar === huruf.length ? 'ok' : 'salah'}`}>
           {benar === huruf.length
             ? `Semua ${huruf.length} huruf benar.`
-            : `${huruf.length - benar} huruf belum tepat (merah). Ingat: huruf mad dan huruf sukun = 0.`}
+            : [
+                salah > 0 ? `${salah} tanda belum tepat (merah). Ingat: huruf mad dan huruf sukun = 0.` : '',
+                kosong > 0 ? `${kosong} huruf belum ditandai.` : '',
+              ].filter(Boolean).join(' ')}
         </div>
       )}
       <div className="baris">

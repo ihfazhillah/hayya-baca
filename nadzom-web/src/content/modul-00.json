@@ -51,7 +51,7 @@
           },
           {
             "tampil": "tanda",
-            "kata": "Langkah 3, beri tanda. Huruf hidup (berharakat): **1**. Huruf mati (sukun): **0**. Huruf mad juga **0**, karena ia mati. Maka دَا = 10, sama panjang dengan لَمْ."
+            "kata": "Langkah 3, beri tanda. Huruf hidup (berharakat): **1**. Huruf mati (sukun): **0**. Huruf mad juga **0**, karena ia mati. Maka دَا = 10, sama panjang dengan لَمْ. Di papan, tanda mengikuti hurufnya dari kanan; kalau ditulis berderet, kita menulisnya dari kiri: 1010…"
           },
           {
             "tampil": "kelompok",

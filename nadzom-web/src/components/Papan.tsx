@@ -34,18 +34,15 @@ const LABEL_STATUS: Record<Status, string> = { utuh: 'utuh', berubah: 'berubah',
 export default function Papan({
   huruf, kaki, tanda = 'tidak', juz, mizan, status, jawab, onKetuk, periksa, batas, onCelah, sorotTambahan,
 }: Props) {
-  const kelompok: Kaki[] = kaki ?? [{ mulai: 0, akhir: huruf.length }]
-  const pakaiJeda = !kaki
   let urutan = 0
 
   const sel = (i: number) => {
     const h = huruf[i]
-    const berikut = huruf[i + 1]
-    const jeda = pakaiJeda && berikut && berikut.kata !== h.kata
     let isiBit: React.ReactNode = null
     if (onKetuk && jawab) {
       const v = jawab[i]
-      const cek = periksa ? (periksa[i] ? ' benar' : ' salah') : ''
+      // Kotak yang belum diisi tetap netral saat diperiksa.
+      const cek = periksa && v !== null && v !== undefined ? (periksa[i] ? ' benar' : ' salah') : ''
       isiBit = (
         <button
           type="button"
@@ -77,7 +74,7 @@ export default function Papan({
             aria-pressed={batas?.includes(i) ?? false}
           />
         )}
-        <div className={`sel${jeda ? ' jeda' : ''}${periksa && periksa[i] === false ? ' ditandai' : ''}`}>
+        <div className={`sel${periksa && periksa[i] === false && jawab?.[i] != null ? ' ditandai' : ''}`}>
           <span className={`sel-h${sorotTambahan && h.tambahan ? ' tambah' : ''}`} lang="ar">{h.h}</span>
           {isiBit}
         </div>
@@ -85,9 +82,23 @@ export default function Papan({
     )
   }
 
+  // Tanpa potongan: huruf dikelompokkan per kata supaya baris panjang turun per kata, bukan terpotong.
+  if (!kaki) {
+    const kata: number[][] = []
+    huruf.forEach((h, i) => {
+      if (!kata.length || huruf[kata[kata.length - 1][0]].kata !== h.kata) kata.push([])
+      kata[kata.length - 1].push(i)
+    })
+    return (
+      <div className="sel-baris kata-baris">
+        {kata.map((ii) => <div className="kaki-sel" key={ii[0]}>{ii.map(sel)}</div>)}
+      </div>
+    )
+  }
+
   return (
     <div className="sel-baris">
-      {kelompok.map((k, ki) => {
+      {kaki.map((k, ki) => {
         const bit = huruf.slice(k.mulai, k.akhir).map((h) => h.bit).join('')
         return (
           <div className={`kaki${status && k.status === 'patah' ? ' patah' : ''}`} key={ki}>
@@ -98,8 +109,7 @@ export default function Papan({
               <div className="juz" aria-label="sabab dan watad">
                 {pecahJuz(bit).map((j, x) => (
                   <span key={x} className={`juz-item ${j.jenis}`} style={{ width: `calc(var(--sel) * ${j.bit.length} - 2px)` }}>
-                    <span className="bit">{j.bit}</span>
-                    {NAMA_JUZ[j.jenis]}
+                    {NAMA_JUZ[j.jenis] || j.bit}
                   </span>
                 ))}
               </div>

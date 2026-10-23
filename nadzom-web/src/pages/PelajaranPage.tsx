@@ -98,7 +98,7 @@ export default function PelajaranPage() {
         </span>
         <h1>{p.judul}</h1>
         <p className="lead"><Teks>{p.analogi}</Teks></p>
-        <div className="baris"><span className="chip">{p.menit} menit</span><span className="chip"><Teks>{p.ringkas}</Teks></span></div>
+        <div className="baris"><span className="chip">{p.menit} menit</span><span className="redup kecil"><Teks>{p.ringkas}</Teks></span></div>
       </section>
 
       <Bagian nomor={1} ar="الأَمْثِلَة" label="Contoh">
@@ -134,7 +134,7 @@ export default function PelajaranPage() {
 
       <nav className="baris-antara" aria-label="Pelajaran lain">
         {sebelum ? <Link className="tombol" to={`/modul/${modul.nomor}/${sebelum.nomor}`}>← {sebelum.judul}</Link> : <span />}
-        {berikut ? <Link className="tombol utama" to={`/modul/${modul.nomor}/${berikut.nomor}`}>{berikut.judul} →</Link> : <Link className="tombol" to="/">Kembali ke peta</Link>}
+        {berikut ? <Link className="tombol utama lanjut" to={`/modul/${modul.nomor}/${berikut.nomor}`}>{berikut.judul} →</Link> : <Link className="tombol lanjut" to="/">Kembali ke peta</Link>}
       </nav>
     </>
   )

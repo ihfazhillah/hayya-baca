@@ -21,7 +21,7 @@ export default function SalinDiwan({ bait, hasil, judulAwal = 'Bait' }: { bait: 
   }
 
   return (
-    <div className="kartu kartu-tipis">
+    <div className="kartu">
       <div className="baris-antara">
         <span className="label">Salin ke Diwan</span>
         {status === 'tersalin' && <span className="chip ok">Tersalin</span>}

@@ -82,7 +82,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
       {bank && <BankKata />}
       {galat && <div className="pesan salah">{galat}</div>}
       {versi.length > 0 && (
-        <div className="kartu kartu-tipis">
+        <div className="kartu">
           <span className="label">Versi</span>
           <ul className="versi">
             {versi.map((v, i) => (

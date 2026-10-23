@@ -6,6 +6,6 @@
 - [x] T4 Isi Modul 0 + rujukan (JSON) + test isi
 - [x] T5 Komponen: Papan, Hudhud, Peragaan, TandaiBit, PotongTafilah, Pilihan, HasilTimbang
 - [x] T6 Halaman: Beranda, Pelajaran, Checker, Rujukan + test alur utama
-- [ ] T7 Review tampilan oleh agent terpisah (jarak, keseragaman, pengelompokan, presisi) + perbaikan
+- [x] T7 Review tampilan oleh agent terpisah (jarak, keseragaman, pengelompokan, presisi) + perbaikan
 - [x] T8 `deploy/nadzom.nginx.conf`, `deploy-nadzom.sh`, `docs/architecture.md`
 - [ ] T9 Deploy (setelah DNS `nadzom.ihfazh.com` diarahkan pemilik) + certbot

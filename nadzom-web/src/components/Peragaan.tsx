@@ -104,8 +104,8 @@ export default function Peragaan({ bahts, onGiliranBenar }: { bahts: Bahts; onGi
         </>
       ) : (
         <>
-          {l.tampil === 'timbang' ? <div>{papan(l)}</div> : <div className="papan" key={ke}>{papan(l)}</div>}
           <Hudhud angguk={ke}><Teks>{l.kata}</Teks></Hudhud>
+          {l.tampil === 'timbang' ? <div>{papan(l)}</div> : <div className="papan" key={ke}>{papan(l)}</div>}
         </>
       )}
       <div className="baris-antara">
