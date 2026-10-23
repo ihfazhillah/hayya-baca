@@ -186,6 +186,13 @@ describe('review \'arudh (2026-10-23)', () => {
     expect(bitLepas('لِلْعِلْمِ')).toBe('10101')
   })
 
+  it('lam ta\'rif setelah وَلِ / فَلِ juga lebur (Tuhfat al-Athfal bait 6: وَلِلتَّنْوِينِ)', () => {
+    const k = kitabahBait(['لِلنُّونِ إِنْ تَسْكُنْ وَلِلتَّنْوِينِ', 'أَرْبَعُ أَحْكَامٍ فَخُذْ تَبْيِينِي'])
+    if (!k.ok) throw new Error(k.galat)
+    expect(tampil(k.syathr[0].slice(-9))).toBe('وَلِتْتَنْوِينِي')
+    expect(timbangBait(k.syathr, BAHR.rajaz).patah).toBe(0)
+  })
+
   it('alif khanjariyah pada kata berakhiran dhamir atau ber-ال', () => {
     expect(bitLepas('لَكِنَّهُ')).toBe('101011')
     expect(bitLepas('إِلَهَكَ')).toBe('11011')

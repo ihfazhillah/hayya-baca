@@ -105,7 +105,8 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
 
     // 2. Lam ta'rif (setelah hamzah washal, atau setelah لِ: لِلنَّاسِ): lebur ke huruf syamsiyah
     //    bersyaddah walau ditulis bersukun; selain itu sukun (qamariyah).
-    const lamSetelahLi = u.pos === 1 && prev?.dasar === 'ل' && prev.harakat === 'i' && prev.kata === u.kata
+    const awalanLi = prev?.pos === 0 || (prev?.pos === 1 && 'وف'.includes(units[idx - 2]?.dasar ?? '') && units[idx - 2]?.harakat === 'a')
+    const lamSetelahLi = awalanLi && prev?.dasar === 'ل' && prev.harakat === 'i' && prev.kata === u.kata
     if (u.dasar === 'ل' && (u.harakat === null || u.harakat === 'sukun') && !u.syaddah && (setelahWashal || lamSetelahLi)) {
       if (next?.syaddah && next.kata === u.kata && !mati.has('lamSyamsiyah')) continue
       out.push({ h: 'ل' + SUKUN, bit: 0, kata: u.kata })
