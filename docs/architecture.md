@@ -36,6 +36,7 @@ proses web. Tiap aplikasi adalah satu Django app dan satu frontend sendiri.
 | Ruang Cerita (diary) | `diary-web/` | `ruangcerita.ihfazh.com` | `diary`, `schedule` | `/api/diary/`, `/api/schedule/` | Orang tua/guardian, anak (akun Child) |
 | Tahsin | `tahsin-web/` | `tahsin.ihfazh.com` | `tahsin` | `/api/tahsin/` | Pemilik (User), pengampu (Santri + login code) |
 | English Practice | `english-web/` | `english.ihfazh.com` | `english` | `/api/english/` | User (username + password) |
+| Penerbit Rumah | `penerbit-web/` | `penerbit.ihfazh.com` | `penerbit` | `/api/penerbit/` | Anak (akun `Child`), orang tua (`ChildAccess` parent), Editor Tamu (User yang dibagikan naskah) |
 
 Semua app dipasang di `backend/config/urls.py`.
 
@@ -61,6 +62,7 @@ Cara tiap aplikasi "menempel" ke identitas:
 | diary, schedule | FK ke `Child` (+ `author`/`user` FK ke User) | Akun Child (`child_profile`) atau guardian |
 | tahsin | FK langsung ke User (`owner`) | `Santri` = entitas sendiri. Pengampu dibuatkan User otomatis + `login_code` (`tahsin/services.py`) |
 | english | FK langsung ke User | Tidak mengenal `Child` sama sekali |
+| penerbit | FK ke `ProfilPenulis` (OneToOne `Child`) | Akun Child = Penulis; guardian lewat `ChildAccess` parent = Pemeriksa |
 
 Dua hal yang perlu diperhatikan:
 - **Ada dua konsep "anak/murid" yang berbeda**: `accounts.Child` dan
@@ -81,14 +83,14 @@ rewards   ──► sync
 search    ──► library, reading
 accounts/admin ──► games, rewards        (arah terbalik, hanya di admin)
 schedule/views ──► diary.permissions     (schedule bergantung ke diary)
-english, tahsin, diary ──► hanya accounts
+english, tahsin, diary, penerbit ──► hanya accounts
 ```
 
 Klaster yang terbentuk:
 - **Inti**: `accounts`
 - **Hayya Baca**: `library`, `reading`, `rewards`, `games`, `sync`, `search`, `streaks`
 - **Ruang Cerita**: `diary`, `schedule`
-- **Mandiri**: `english`, `tahsin`
+- **Mandiri**: `english`, `tahsin`, `penerbit`
 
 Belum ada aturan otomatis yang menjaga batas ini.
 
@@ -141,6 +143,7 @@ rsync `dist/` → ssh (`git pull` → [`uv sync`, hanya english] → `migrate`) 
 | `deploy-diary.sh` | frontend saja (typecheck + vitest) | `~/ruangcerita/dist` | – |
 | `deploy-tahsin.sh` | `pytest tahsin/tests.py` + frontend | `~/tahsin-web/dist` | – |
 | `deploy-english.sh` | `pytest english/tests.py` + frontend | `~/english-web/dist` | uv groups, install/restart worker |
+| `deploy-penerbit.sh` | `pytest penerbit` + frontend | `~/penerbit-web/dist` | uv groups, `impor_course` |
 | `build-release.sh` | `npm test` | APK + GitHub release | – |
 
 Karena backend-nya satu, **deploy satu app ikut men-deploy backend untuk semua
