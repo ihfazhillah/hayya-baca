@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-/** Hudhud: jambul emas berujung hitam, badan perunggu, sayap bergaris, paruh panjang. */
+/** Hudhud tanpa mata: jambul emas berujung hitam, badan perunggu, sayap bergaris, paruh panjang. */
 export function WajahHudhud({ angguk }: { angguk?: number }) {
   return (
     <svg viewBox="0 0 60 60" className="hudhud-wajah" aria-hidden="true">
@@ -13,8 +13,6 @@ export function WajahHudhud({ angguk }: { angguk?: number }) {
         <path d="M14 36 Q28 30 40 40 Q30 50 14 46 Z" fill="#faf3e0" />
         <path d="M16 37 L38 41 M15 41 L36 45 M16 45 L32 48" stroke="#0a1428" strokeWidth="2.6" />
         <path d="M12 44 L2 52 L14 48 Z" fill="#0a1428" />
-        <circle cx="38" cy="22" r="2.2" fill="#0a1428" />
-        <circle cx="38.7" cy="21.3" r=".7" fill="#faf3e0" />
         <path d="M26 52 L25 58 M32 52 L33 58" stroke="#6b4a2b" strokeWidth="1.8" strokeLinecap="round" />
       </g>
     </svg>
