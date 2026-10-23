@@ -260,3 +260,11 @@ details.ph-lipat.ph-lipat-putih { background: #fff; margin: var(--space-3) 0; }
 .ph-langkah li::marker { font-weight: 700; color: var(--color-accent); }
 .ph-perekam { display: grid; gap: var(--space-3); justify-items: start; }
 .ph-perekam audio { width: min(100%, 360px); }
+
+/* Deretan misi di halaman misi: lompat ke misi lain */
+.ph-deret-atas { flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.ph-deret-misi { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.ph-deret-titik { min-width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; text-decoration: none; color: var(--color-text); background: var(--color-surface); border: 2px solid var(--color-border); }
+.ph-deret-titik.selesai { background: var(--color-success); border-color: var(--color-success); color: #fff; }
+.ph-deret-titik.di-sini { border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-muted); }

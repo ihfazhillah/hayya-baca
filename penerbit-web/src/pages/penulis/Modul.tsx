@@ -6,6 +6,8 @@ import { EMOJI_TINGKAT, Galat, KepalaHalaman, Memuat, warnaCss } from '../../com
 import KotakPrompt from '../../components/KotakPrompt'
 import LatihanBertanya from '../../components/LatihanBertanya'
 import UjianAB from '../../components/UjianAB'
+import { SebelumBerikut } from '../../components/NavModul'
+import { useNavPenulis } from '../../components/LayoutPenulis'
 import '../../styles/penulis-halaman.css'
 
 export default function Modul() {
@@ -22,8 +24,10 @@ export default function Modul() {
   }, [nomor])
 
   const m = data?.nomor === nomor ? data.m : null
+  const { peta } = useNavPenulis()
   return (
     <main className="page ph-halaman">
+      <SebelumBerikut peta={peta} nomor={nomor} />
       <Galat pesan={galat} />
       {!m && !galat && <Memuat />}
       {m && (m.terkunci ? <Terkunci m={m} /> : <IsiModul key={m.nomor} m={m} />)}

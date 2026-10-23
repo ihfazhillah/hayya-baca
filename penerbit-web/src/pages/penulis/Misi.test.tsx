@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -62,7 +62,7 @@ describe('Misi', () => {
     })
     tampil('/modul/1/misi/2')
     expect(await screen.findByRole('heading', { name: 'Klik 1 kesalahan' })).toBeInTheDocument()
-    expect(screen.getByText('Misi 2 dari 3')).toBeInTheDocument()
+    expect(screen.getByText(/Misi 2 dari 3/)).toBeInTheDocument()
     expect(screen.getByText('🔊 Pengeras Suara · Dengan petunjuk')).toBeInTheDocument()
     // Jumlah kesalahan cukup sekali, di penghitung (petunjuk misi sudah menyebutnya).
     expect(screen.getByText('0 dari 1 kesalahan ditemukan')).toBeInTheDocument()
@@ -246,6 +246,21 @@ describe('Misi', () => {
     expect(berhentiTrek).toHaveBeenCalled()
     expect(await screen.findByLabelText('Rekamanmu')).toHaveAttribute('src', 'blob:rekaman')
     expect(screen.getByRole('button', { name: 'Tandai selesai' })).toBeInTheDocument()
+  })
+
+  it('deretan misi: bisa lompat ke misi lain dan kembali ke modul', async () => {
+    pasangFetch({
+      'GET /api/penerbit/modul/1/': { body: { ...MODUL, misi: [{ ...misiRingkas(10, 1, 'tandai'), status: 'selesai' }, misiRingkas(11, 2), misiRingkas(12, 3, 'cetak')] } },
+      'GET /api/penerbit/misi/11/': {
+        body: { ...dasarMisi, id: 11, urutan: 2, berikutnya: 12, judul: 'Klik', jenis: 'klik', tokens: tokens('Oren.'), jumlah: 1 },
+      },
+    })
+    tampil('/modul/1/misi/2')
+    const deret = await screen.findByRole('navigation', { name: 'Misi di modul ini' })
+    expect(within(deret).getByRole('link', { name: /Misi 1.*selesai/ })).toHaveAttribute('href', '/modul/1/misi/1')
+    expect(within(deret).getByRole('link', { name: /Misi 2/ })).toHaveAttribute('aria-current', 'step')
+    expect(within(deret).getByRole('link', { name: /Misi 3/ })).toHaveAttribute('href', '/modul/1/misi/3')
+    expect(screen.getByRole('link', { name: /Kembali ke Modul 1/ })).toHaveAttribute('href', '/modul/1')
   })
 
   it('misi rekam yang sudah selesai tetap menampilkan teks dan perekam', async () => {

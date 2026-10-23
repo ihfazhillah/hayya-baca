@@ -80,12 +80,23 @@ function IsiMisi({ modul, misi }: { modul: ModulDetail; misi: MisiDetail }) {
 
   return (
     <>
-      <div className="ph-kemajuan">
-        Misi {misi.urutan} dari {misi.jumlah_misi}
-        <div className="ph-batang" aria-hidden="true">
-          <span style={{ width: `${(misi.urutan / Math.max(1, misi.jumlah_misi)) * 100}%` }} />
-        </div>
+      <div className="ph-antara ph-deret-atas">
+        <Link to={`/modul/${modul.nomor}`}>← Kembali ke Modul {modul.nomor}</Link>
+        <nav className="ph-deret-misi" aria-label="Misi di modul ini">
+          {modul.misi.map((x) => {
+            const status = x.status === 'selesai' ? ', selesai' : x.status === 'menunggu' ? ', menunggu diperiksa' : ''
+            return (
+              <Link key={x.id} to={`/modul/${modul.nomor}/misi/${x.urutan}`}
+                aria-label={`Misi ${x.urutan}, ${x.judul}${status}`} title={x.judul}
+                aria-current={x.urutan === misi.urutan ? 'step' : undefined}
+                className={`ph-deret-titik${x.status === 'selesai' ? ' selesai' : ''}${x.urutan === misi.urutan ? ' di-sini' : ''}`}>
+                {x.status === 'selesai' ? '✓' : x.urutan}
+              </Link>
+            )
+          })}
+        </nav>
       </div>
+      <p className="kecil">Misi {misi.urutan} dari {misi.jumlah_misi}. Ketuk angka di atas untuk pindah misi.</p>
 
       <header>
         <p className="kecil" style={{ fontWeight: 600 }}>{kepala} · {misi.tahap_label}</p>

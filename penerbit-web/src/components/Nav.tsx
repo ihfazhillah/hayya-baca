@@ -1,7 +1,8 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { ulangSimulasi } from '../api'
 import { useAuth } from '../auth'
 import { useMe } from '../me'
+import { TitikModul } from './NavModul'
 
 /** Nav area Penulis: judul course, titik modul, nama penulis + poin. */
 export function NavPenulis({ titik = [], poin }: {
@@ -9,6 +10,8 @@ export function NavPenulis({ titik = [], poin }: {
   poin?: number
 }) {
   const { me } = useMe()
+  const cocok = useLocation().pathname.match(/^\/modul\/(\d+)/)
+  const nomorModul = cocok ? Number(cocok[1]) : undefined
   return (
     <>
     {me?.sedang_simulasi && <BannerSimulasi />}
@@ -18,17 +21,7 @@ export function NavPenulis({ titik = [], poin }: {
           <span className="nav-course-label">Penerbit Rumah</span>
           <Link to="/">Beranda</Link>
         </div>
-        <div className="nav-dots" aria-label="Modul">
-          {titik.map((t) => (
-            <Link
-              key={t.nomor}
-              to={`/modul/${t.nomor}`}
-              title={`Modul ${t.nomor} — ${t.judul}`}
-              className={`nav-dot${t.status === 'aktif' ? ' active' : ''}`}
-              style={t.status === 'selesai' ? { background: 'var(--color-success)' } : undefined}
-            />
-          ))}
-        </div>
+        <TitikModul peta={titik} nomor={nomorModul} />
         <div className="nav-links">
           <NavLink to="/naskah">Ruang Penulis</NavLink>
           <span>{me?.penulis?.nama}{poin !== undefined ? ` · ${poin} poin` : ''}</span>

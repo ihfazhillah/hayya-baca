@@ -6,6 +6,8 @@ import Gunting from './Gunting'
 import DetektorKembar from './DetektorKembar'
 import TombolSalin from './TombolSalin'
 import UjianAB from './UjianAB'
+import { SebelumBerikut, TitikModul } from './NavModul'
+import { MemoryRouter } from 'react-router-dom'
 import { useTimer } from './Timer'
 import type { HasilKlik, Token } from '../types'
 
@@ -182,4 +184,27 @@ describe('useTimer', () => {
     vi.useRealTimers()
   })
 
+})
+
+describe('Navigasi modul', () => {
+  const peta = [
+    { nomor: 1, judul: 'Pengeras Suara', status: 'selesai' as const },
+    { nomor: 2, judul: 'Gunting', status: 'aktif' as const },
+    { nomor: 3, judul: 'Detektor Kembar', status: 'terkunci' as const },
+  ]
+
+  it('titik modul bernomor: selesai dan sedang bisa diklik, terkunci tidak', () => {
+    render(<MemoryRouter><TitikModul peta={peta} /></MemoryRouter>)
+    expect(screen.getByRole('link', { name: 'Modul 1, Pengeras Suara, selesai' })).toHaveTextContent('1')
+    expect(screen.getByRole('link', { name: 'Modul 2, Gunting, sedang dikerjakan' })).toHaveAttribute('aria-current', 'step')
+    expect(screen.queryByRole('link', { name: /Modul 3/ })).not.toBeInTheDocument()
+    expect(screen.getByLabelText('Modul 3, Detektor Kembar, terkunci')).toBeInTheDocument()
+  })
+
+  it('modul sebelumnya dan berikutnya, berikutnya terkunci tidak bisa dibuka', () => {
+    render(<MemoryRouter><SebelumBerikut peta={peta} nomor={2} /></MemoryRouter>)
+    expect(screen.getByRole('link', { name: /Modul 1 · Pengeras Suara/ })).toHaveAttribute('href', '/modul/1')
+    expect(screen.queryByRole('link', { name: /Modul 3/ })).not.toBeInTheDocument()
+    expect(screen.getByText(/Modul 3 · Detektor Kembar/)).toHaveTextContent('🔒')
+  })
 })
