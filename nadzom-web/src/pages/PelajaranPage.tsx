@@ -14,6 +14,9 @@ import Cetakan from '@/components/Cetakan'
 import Susun from '@/components/Susun'
 import HasilTimbang from '@/components/HasilTimbang'
 import Irama from '@/components/Irama'
+import Kenali from '@/components/Kenali'
+import TandaiDrill from '@/components/TandaiDrill'
+import CariPincang from '@/components/CariPincang'
 
 const ANGKA = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
 const angka = (n: number) => String(n).split('').map((d) => ANGKA[Number(d)]).join('')
@@ -54,7 +57,16 @@ function KartuContoh({ c }: { c: Contoh }) {
   )
 }
 
-const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = { pilih: 'Kenali', taqthi: "Taqthi' bertahap", cetakan: 'Isi cetakan', susun: 'Susun sendiri', irama: 'Dengar dan lagukan' }
+const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = {
+  pilih: 'Kenali',
+  kenali: 'Kenali',
+  tandai: 'Beri tanda',
+  pincang: 'Cari yang pincang',
+  taqthi: "Taqthi' bertahap",
+  cetakan: 'Isi cetakan',
+  susun: 'Susun sendiri',
+  irama: 'Dengar dan lagukan',
+}
 
 function TamrinIrama({ t }: { t: Extract<Tamrin, { jenis: 'irama' }> }) {
   const k = kitabahBait(t.bait)
@@ -75,7 +87,7 @@ function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
         <span className="segel" aria-hidden="true">{angka(ke)}</span>
         <h3>{NAMA_TAMRIN[t.jenis]}</h3>
       </div>
-      {t.jenis === 'pilih' && <Pilihan soal={t.soal} pilihan={t.pilihan} jawaban={t.jawaban} alasan={t.alasan} />}
+      {t.jenis === 'pilih' && <Pilihan soal={t.soal} pilihan={t.pilihan} jawaban={t.jawaban} alasan={t.alasan} arab={t.arab} />}
       {t.jenis === 'taqthi' && (
         <>
           <p><Teks>{t.petunjuk}</Teks></p>
@@ -86,6 +98,9 @@ function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
       {t.jenis === 'cetakan' && <Cetakan t={t} />}
       {t.jenis === 'susun' && <Susun t={t} />}
       {t.jenis === 'irama' && <TamrinIrama t={t} />}
+      {t.jenis === 'kenali' && <Kenali petunjuk={t.petunjuk} soal={t.soal} />}
+      {t.jenis === 'tandai' && <TandaiDrill petunjuk={t.petunjuk} butir={t.butir} />}
+      {t.jenis === 'pincang' && <CariPincang petunjuk={t.petunjuk} bahr={t.bahr} baris={t.baris} />}
     </article>
   )
 }
@@ -136,6 +151,26 @@ export default function PelajaranPage() {
 
       <Bagian nomor={2} ar="البَحْث" label="Pembahasan">
         <Peragaan key={kode} bahts={p.bahts} />
+        {p.syarh && p.syarh.length > 0 && (
+          <div className="kartu">
+            <span className="label">Penjelasan</span>
+            <div className="syarh">{p.syarh.map((x, k) => <p key={k}><Teks>{x}</Teks></p>)}</div>
+          </div>
+        )}
+        {p.keliru && p.keliru.length > 0 && (
+          <div className="kartu">
+            <span className="label">Yang sering keliru</span>
+            <ul className="keliru">
+              {p.keliru.map((x, k) => (
+                <li key={k}>
+                  <span className="tanda-keliru salah">Keliru</span><span><Teks>{x.salah}</Teks></span>
+                  <span className="tanda-keliru benar">Benar</span><span><Teks>{x.benar}</Teks></span>
+                  <span className="sebab"><Teks>{x.sebab}</Teks></span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </Bagian>
 
       <Bagian nomor={3} ar="القَاعِدَة" label="Kaidah">

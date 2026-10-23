@@ -35,9 +35,30 @@ for (const modul of MODUL) {
           expect(p.bahts.giliran.syathr).toBeLessThan(p.bahts.bait.length)
         })
 
+        it('penjelasan dan tamrinat cukup: uraian, yang sering keliru, minimal lima tamrin bertingkat', () => {
+          expect(p.syarh?.length ?? 0, 'syarh').toBeGreaterThanOrEqual(3)
+          expect(p.keliru?.length ?? 0, 'keliru').toBeGreaterThanOrEqual(2)
+          expect(p.tamarin.length, 'tamarin').toBeGreaterThanOrEqual(5)
+          const jenis = new Set(p.tamarin.map((t) => t.jenis))
+          expect(jenis.size, 'ragam tamrin').toBeGreaterThanOrEqual(3)
+        })
+
         it('latihan: jawaban dalam rentang, bait taqthi\' lurus, contoh cetakan lurus', () => {
           for (const t of p.tamarin) {
             if (t.jenis === 'pilih') expect(t.jawaban).toBeLessThan(t.pilihan.length)
+            if (t.jenis === 'kenali') {
+              expect(t.soal.length).toBeGreaterThanOrEqual(3)
+              for (const q of t.soal) expect(q.jawaban, q.soal).toBeLessThan(q.pilihan.length)
+            }
+            if (t.jenis === 'tandai') {
+              expect(t.butir.length).toBeGreaterThanOrEqual(5)
+              for (const b of t.butir) expect(kitabahBait([b], { tanpaAkhir: true }).ok, b).toBe(true)
+            }
+            if (t.jenis === 'pincang') {
+              const patah = t.baris.map((b) => timbang(b.bait, t.bahr).patah)
+              expect(patah.some((x) => x === 0), 'ada yang lurus').toBe(true)
+              expect(patah.some((x) => x > 0), 'ada yang pincang').toBe(true)
+            }
             if (t.jenis === 'taqthi' || t.jenis === 'irama') expect(timbang(t.bait, t.bahr).patah, t.bait.join(' / ')).toBe(0)
             if (t.jenis === 'susun' && t.rancangan) expect(t.rancangan.length).toBe(t.jumlah ?? 1)
             if (t.jenis === 'cetakan') {

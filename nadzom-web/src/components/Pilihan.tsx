@@ -9,12 +9,14 @@ interface Props {
   /** Pilihan berupa teks Arab panjang (kitabah): ditampilkan besar dan RTL. */
   arab?: boolean
   onBenar?: () => void
+  /** Dipanggil sekali saat jawaban benar ditemukan; `pertama` = benar tanpa salah. */
+  onSelesai?: (pertama: boolean) => void
 }
 
 const HURUF = 'abcdefgh'
 
 /** Pilihan ganda: salah boleh dicoba lagi; benar membuka alasannya. */
-export default function Pilihan({ soal, pilihan, jawaban, alasan, arab, onBenar }: Props) {
+export default function Pilihan({ soal, pilihan, jawaban, alasan, arab, onBenar, onSelesai }: Props) {
   const [salah, setSalah] = useState<number[]>([])
   const [benar, setBenar] = useState(false)
 
@@ -23,6 +25,7 @@ export default function Pilihan({ soal, pilihan, jawaban, alasan, arab, onBenar 
     if (i === jawaban) {
       setBenar(true)
       onBenar?.()
+      onSelesai?.(salah.length === 0)
     } else if (!salah.includes(i)) {
       setSalah([...salah, i])
     }

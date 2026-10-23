@@ -80,6 +80,15 @@ describe('qafiyah: rawiy, harakatnya, dan ridf', () => {
     expect(periksaQafiyah([[e, d]], 'muzdawij').map((m) => m.bait)).toEqual([1])
   })
 
+  it('ta\'sis: alif berjarak satu huruf sebelum rawiy harus ada di semua bait (جَاهِلُ / الْمَحَافِلُ, asy-Syafi\'i)', () => {
+    const b1 = k(['تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا', 'وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ'])
+    expect(qafiyah(b1[1])).toEqual({ rawiy: 'ل', harakat: 'dhammah', tasis: true })
+    const b2 = k(['وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ', 'صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْمَحَافِلُ'])
+    expect(periksaQafiyah([b1, b2], 'satu')).toEqual([])
+    const tanpa = k(['تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا', 'وَمَنْ لَمْ يَذُقْ طَعْمَ الْعُلُومِ يَسْأَلُ'])
+    expect(periksaQafiyah([b1, tanpa], 'satu')[0].pesan).toMatch(/ta'sis/)
+  })
+
   it('qafiyah muqayyadah: rawiy bersukun (الزُّبُرْ)', () => {
     const [, s2] = k(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])
     expect(qafiyah(s2)).toEqual({ rawiy: 'ر', harakat: 'sukun' })

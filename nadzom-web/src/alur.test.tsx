@@ -11,6 +11,9 @@ import { timbangBait } from './lib/timbang'
 import { BAHR } from './lib/bahr'
 import Susun from './components/Susun'
 import Irama from './components/Irama'
+import CariPincang from './components/CariPincang'
+import TandaiDrill from './components/TandaiDrill'
+import Kenali from './components/Kenali'
 
 function buka(path: string) {
   return render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>)
@@ -144,5 +147,54 @@ describe('irama', () => {
     expect(baris.querySelectorAll('.suku.panjang')).toHaveLength(9)
     expect(baris.querySelectorAll('.suku:not(.panjang)')).toHaveLength(3)
     await user.click(screen.getByRole('button', { name: 'Putar irama' }))
+  })
+})
+
+describe('tamrinat bertingkat', () => {
+  it('cari yang pincang: centang, periksa, lalu skor dan status per baris', async () => {
+    const user = userEvent.setup()
+    render(
+      <CariPincang
+        petunjuk="Mana yang pincang?"
+        bahr="rajaz"
+        baris={[
+          { bait: ['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'] },
+          { bait: ['بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ', 'وَصَلَّيْتُ عَلَى النَّبِيِّ الْمُرْسَلِ'] },
+        ]}
+      />,
+    )
+    const kotak = screen.getAllByRole('checkbox', { name: 'Pincang' })
+    await user.click(kotak[1])
+    await user.click(screen.getByRole('button', { name: 'Periksa' }))
+    expect(screen.getByText('2 dari 2 tepat')).toBeInTheDocument()
+    expect(screen.getByText('lurus')).toBeInTheDocument()
+    expect(screen.getByText('patah 1')).toBeInTheDocument()
+  })
+
+  it('drill tandai: butir demi butir, hitungan benar bertambah', async () => {
+    const user = userEvent.setup()
+    render(<TandaiDrill petunjuk="Beri tanda." butir={['لَمْ', 'نَعَمْ']} />)
+    expect(screen.getByText('Butir 1 dari 2')).toBeInTheDocument()
+    const sel = screen.getAllByRole('button', { name: /huruf/i })
+    await user.click(sel[0])
+    await user.click(sel[1]); await user.click(sel[1])
+    await user.click(screen.getByRole('button', { name: 'Periksa' }))
+    expect(screen.getByText('1 benar')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Butir berikutnya' }))
+    expect(screen.getByText('Butir 2 dari 2')).toBeInTheDocument()
+  })
+
+  it('set kenali: skor percobaan pertama setelah semua soal dijawab', async () => {
+    const user = userEvent.setup()
+    render(<Kenali petunjuk="Kenali." soal={[
+      { soal: 'لَمْ = ?', pilihan: ['10', '110'], jawaban: 0, alasan: 'sabab' },
+      { soal: 'نَعَمْ = ?', pilihan: ['10', '110'], jawaban: 1, alasan: 'watad' },
+    ]} />)
+    const [satuA, , duaA, duaB] = screen.getAllByRole('button')
+    await user.click(satuA)
+    await user.click(duaA)
+    await user.click(duaB)
+    expect(screen.getByText('2 dari 2 soal')).toBeInTheDocument()
+    expect(screen.getByText(/Benar pada percobaan pertama: 1 dari 2/)).toBeInTheDocument()
   })
 })

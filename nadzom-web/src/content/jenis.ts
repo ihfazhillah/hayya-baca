@@ -39,8 +39,23 @@ export interface Bahts {
   giliran: { syathr: number; petunjuk: string }
 }
 
+export interface SoalPilih {
+  soal: string
+  pilihan: string[]
+  jawaban: number
+  alasan: string
+  /** Pilihan berupa teks Arab (kitabah, pola kata): ditampilkan besar dan RTL. */
+  arab?: boolean
+}
+
 export type Tamrin =
-  | { jenis: 'pilih'; soal: string; pilihan: string[]; jawaban: number; alasan: string }
+  | ({ jenis: 'pilih' } & SoalPilih)
+  /** Set soal pilihan ganda dalam satu kartu, dengan skor. */
+  | { jenis: 'kenali'; petunjuk: string; soal: SoalPilih[] }
+  /** Drill: beri tanda 1/0 pada kata atau frasa pendek, satu per satu. Dibaca tanpa isyba' akhir bait. */
+  | { jenis: 'tandai'; petunjuk: string; butir: string[] }
+  /** Dari beberapa baris, tandai mana yang pincang. Mesin yang memutuskan; minimal satu lurus dan satu pincang. */
+  | { jenis: 'pincang'; petunjuk: string; bahr: KodeBahr; baris: { bait: string[]; catatan?: string }[] }
   | { jenis: 'taqthi'; petunjuk: string; bait: string[]; bahr: KodeBahr; makna?: string }
   /** Dengar irama bait: suku kata pendek dan panjang diputar berurutan; pengguna melagukan bersamanya. */
   | { jenis: 'irama'; petunjuk: string; bait: string[]; bahr: KodeBahr; makna?: string }
@@ -77,11 +92,21 @@ export interface Pelajaran {
   analogi: string
   amtsilah: Contoh[]
   bahts: Bahts
+  /** Uraian tertulis setelah peragaan Hudhud: membahas setiap contoh, seperti al-bahts an-Nahwul Wadhih. */
+  syarh?: string[]
+  /** Kesalahan yang sering dibuat penutur 'ajam. */
+  keliru?: Keliru[]
   qaidah: string[]
   tamarin: Tamrin[]
   patokan: string
   /** Tautan dengar (YouTube, dengan menit), sudah dicek ada. */
   dengar?: Dengar[]
+}
+
+export interface Keliru {
+  salah: string
+  benar: string
+  sebab: string
 }
 
 export interface Dengar {

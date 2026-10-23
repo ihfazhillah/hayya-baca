@@ -8,6 +8,8 @@ export interface Qafiyah {
   harakat: Harakat
   /** Huruf mad tepat sebelum rawiy. و dan ي boleh saling berganti; ا tidak. */
   ridf?: string
+  /** Ta'sis: alif yang berjarak satu huruf hidup (dakhil) sebelum rawiy, seperti جَاهِلُ. */
+  tasis?: true
 }
 
 const TANDA: Record<string, Harakat> = { 'َ': 'fathah', 'ِ': 'kasrah', 'ُ': 'dhammah', 'ْ': 'sukun' }
@@ -39,6 +41,8 @@ export function qafiyah(huruf: Huruf[]): Qafiyah {
   const q: Qafiyah = { rawiy: r.h[0], harakat }
   const sebelum = huruf[i - 1]
   if (sebelum && sebelum.bit === 0 && sebelum.tambahan !== 'syaddah' && 'اوي'.includes(sebelum.h[0]) && huruf[i - 2]?.bit === 1) q.ridf = sebelum.h[0]
+  const alif = huruf[i - 2]
+  if (!q.ridf && sebelum?.bit === 1 && alif?.bit === 0 && alif.h[0] === 'ا' && alif.kata === sebelum.kata) q.tasis = true
   return q
 }
 
@@ -48,6 +52,7 @@ function beda(a: Qafiyah, b: Qafiyah): string | null {
   if (a.rawiy !== b.rawiy) return `rawiy ${b.rawiy || '?'} berbeda dari ${a.rawiy}`
   if (a.harakat !== b.harakat) return `rawiy ${b.rawiy} ber-${NAMA[b.harakat]}, seharusnya ${NAMA[a.harakat]}`
   if (!ridfSama(a.ridf, b.ridf)) return a.ridf ? `sebelum rawiy seharusnya ada huruf mad ${a.ridf}` : `huruf mad ${b.ridf} sebelum rawiy tidak ada di bait pertama`
+  if (!a.tasis !== !b.tasis) return a.tasis ? `bait pertama memakai ta'sis (alif sebelum huruf sebelum rawiy, seperti جَاهِلُ); di sini tidak ada` : `di sini ada ta'sis (alif sebelum huruf sebelum rawiy), bait pertama tidak`
   return null
 }
 
