@@ -14,12 +14,16 @@ const TANDA: Record<string, Harakat> = { 'َ': 'fathah', 'ِ': 'kasrah', 'ُ': '
 const DARI_ISYBA: Record<string, Harakat> = { 'ا': 'fathah', 'ي': 'kasrah', 'و': 'dhammah' }
 const NAMA: Record<Harakat, string> = { fathah: 'fathah', kasrah: 'kasrah', dhammah: 'dhammah', sukun: 'sukun' }
 
-/** Indeks rawiy: huruf terakhir yang diucapkan, tanpa isyba', nun tanwin, atau huruf mad di ujung. */
+/**
+ * Indeks rawiy: huruf terakhir yang diucapkan, tanpa isyba', nun tanwin, atau huruf mad di ujung.
+ * Ha setelah huruf hidup (ha dhamir, ta marbutah yang diwaqafkan) adalah wasl: rawiy-nya huruf sebelumnya.
+ */
 function indeksRawiy(huruf: Huruf[]): number {
   for (let i = huruf.length - 1; i >= 0; i--) {
     const h = huruf[i]
     if (h.tambahan === 'isyba' || h.tambahan === 'tanwin') continue
     if (h.bit === 0 && 'اويى'.includes(h.h[0]) && i > 0) continue
+    if (h.h[0] === 'ه' && huruf[i - 1]?.bit === 1) return i - 1
     return i
   }
   return -1
@@ -30,11 +34,11 @@ export function qafiyah(huruf: Huruf[]): Qafiyah {
   if (i < 0) return { rawiy: '', harakat: 'sukun' }
   const r = huruf[i]
   const tanda = [...r.h].map((c) => TANDA[c]).find(Boolean)
-  const setelah = huruf[i + 1]
+  const setelah = huruf[i + 1]?.h[0] === 'ه' ? huruf[i + 2] : huruf[i + 1]
   const harakat: Harakat = r.bit === 0 ? 'sukun' : tanda && tanda !== 'sukun' ? tanda : setelah ? DARI_ISYBA[setelah.h[0]] ?? 'sukun' : 'sukun'
   const q: Qafiyah = { rawiy: r.h[0], harakat }
   const sebelum = huruf[i - 1]
-  if (sebelum && sebelum.bit === 0 && 'اوي'.includes(sebelum.h[0]) && huruf[i - 2]?.bit === 1) q.ridf = sebelum.h[0]
+  if (sebelum && sebelum.bit === 0 && sebelum.tambahan !== 'syaddah' && 'اوي'.includes(sebelum.h[0]) && huruf[i - 2]?.bit === 1) q.ridf = sebelum.h[0]
   return q
 }
 

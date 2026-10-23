@@ -69,6 +69,17 @@ describe('qafiyah: rawiy, harakatnya, dan ridf', () => {
     expect(qafiyah(s1)).toEqual(qafiyah(s2))
   })
 
+  it('ha di ujung setelah huruf hidup adalah wasl; rawiy huruf sebelumnya (Dzat al-Amtsal, Alfiyah)', () => {
+    const [a, b] = k(['الْحَمْدُ لِلَّهِ عَلَى تَقْدِيرِهِ', 'وَحُسْنِ مَا صَرَّفَ مِنْ أُمُورِهِ'])
+    expect(qafiyah(a)).toEqual({ rawiy: 'ر', harakat: 'kasrah', ridf: 'ي' })
+    expect(qafiyah(b)).toMatchObject({ rawiy: 'ر', harakat: 'kasrah', ridf: 'و' })
+    const [c, d] = k(['وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ', 'مَقَاصِدُ النَّحْوِ بِهَا مَحْوِيَّهْ'])
+    expect(qafiyah(c)).toEqual({ rawiy: 'ي', harakat: 'fathah' })
+    expect(qafiyah(d)).toEqual(qafiyah(c))
+    const [e] = k(['وَاللَّهُ يَقْضِي بِهِبَاتٍ وَافِرَهْ', 'لِي وَلَهُ فِي دَرَجَاتِ الْآخِرَهْ'])
+    expect(periksaQafiyah([[e, d]], 'muzdawij').map((m) => m.bait)).toEqual([1])
+  })
+
   it('qafiyah muqayyadah: rawiy bersukun (الزُّبُرْ)', () => {
     const [, s2] = k(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])
     expect(qafiyah(s2)).toEqual({ rawiy: 'ر', harakat: 'sukun' })

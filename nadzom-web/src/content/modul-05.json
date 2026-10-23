@@ -1,0 +1,570 @@
+{
+  "nomor": 5,
+  "judul": "Muzdawij",
+  "tujuan": "Bait-bait yang bersambung seperti Alfiyah: dua syathr setiap bait berqafiyah sama, bait berikutnya boleh berganti qafiyah. Hasilnya 5 bait rajaz berurutan.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "judul": "Rawiy: huruf ujung",
+      "ringkas": "Muzdawij artinya berpasangan. Ujung syathr pertama dan kedua bertemu di satu huruf: rawiy.",
+      "menit": 25,
+      "analogi": "Saat waqf di akhir ayat, Anda tahu huruf apa yang terakhir diucapkan: الْعَالَمِينَ berhenti di nun, الرَّحِيمِ di mim. Huruf terakhir yang diucapkan saat berhenti itulah **rawiy**. Dalam Alfiyah, dua syathr satu bait selalu berhenti di rawiy yang sama. Bait berikutnya boleh pindah ke rawiy lain.",
+      "amtsilah": [
+        {
+          "bait": [
+            "مُصَلِّيًا عَلَى النَّبِيِّ الْمُصْطَفَى",
+            "وَآلِهِ الْمُسْتَكْمِلِينَ الشَّرَفَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Sambil bershalawat kepada Nabi yang terpilih, dan kepada keluarganya yang meraih kemuliaan dengan sempurna.",
+          "sumber": "Alfiyah Ibnu Malik, muqaddimah bait 2. Teks: OpenITI 0672IbnMalik.Alfiyya (dari Shamela 8522), dicocokkan dengan Wikisource ألفية ابن مالك.",
+          "catatan": "Rawiy kedua syathr: fa berharakat fathah (ـفَى، ـفَا). Alif di ujungnya hanya pemanjang, bukan rawiy."
+        },
+        {
+          "bait": [
+            "وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ",
+            "مَقَاصِدُ النَّحْوِ بِهَا مَحْوِيَّهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Aku memohon pertolongan Allah untuk menyusun seribu bait, yang menghimpun pokok-pokok ilmu nahwu.",
+          "sumber": "Alfiyah Ibnu Malik, muqaddimah bait 3. Teks: OpenITI 0672IbnMalik.Alfiyya, dicocokkan dengan Wikisource.",
+          "catatan": "Bait sebelumnya berqafiyah ـفَا; bait ini pindah ke ـيَّهْ. Inilah muzdawij: berpasangan di dalam bait, bebas berganti antarbait."
+        },
+        {
+          "bait": [
+            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ",
+            "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas, dan memberi dengan lapang lewat janji yang ditepati.",
+          "sumber": "Alfiyah Ibnu Malik, muqaddimah bait 4. Teks: OpenITI 0672IbnMalik.Alfiyya, dicocokkan dengan Wikisource.",
+          "catatan": "مُوجَزِ / مُنْجَزِ: rawiy zai berharakat kasrah. Polanya pun sama (1011), jadi pasangan ini enak didengar."
+        },
+        {
+          "bait": [
+            "حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ",
+            "مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dari semua yang kau kejar, cukuplah makanan sekadarnya. Bagi orang yang pasti mati, sekadar makan pun sudah banyak.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal, dari al-Mawsu'ah asy-Syi'riyyah dan Diwan Abi al-'Atahiyah, Dar al-Arqam); juga dikutip adz-Dzahabi, Siyar A'lam an-Nubala', biografi Abu al-'Atahiyah.",
+          "catatan": "Urjuzah ini seluruhnya muzdawij, ribuan bait hikmah. Rawiy: ta. Waw mad sebelumnya (ـوتُ) ikut dijaga di kedua syathr."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "لِكُلِّ مَا يُؤْذِي وَإِنْ قَلَّ أَلَمْ",
+          "مَا أَطْوَلَ اللَّيْلَ عَلَى مَنْ لَمْ يَنَمْ"
+        ],
+        "bahr": "rajaz",
+        "makna": "Setiap hal yang menyakitkan, sekecil apa pun, tetap terasa sakit. Betapa panjang malam bagi orang yang tidak bisa tidur.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait hikmah dari urjuzah Abu al-'Atahiyah. Kita timbang dulu, lalu lihat ujungnya."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "Kitabah 'arudhiyyah. Syaddah di لِكُلِّ dan قَلَّ ditulis dua huruf: لِكُلْلِ، قَلْلَ. Hamzah di يُؤْذِي dan أَلَمْ adalah hamzah qath', jadi tetap ditulis."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0. Ujung syathr ini mati: مْ = 0."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Tiga taf'ilah: مُتَفْعِلُنْ (110110), مُسْتَفْعِلُنْ (1010110), مُسْتَعِلُنْ (101110). Semuanya bentuk sah rajaz."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Rajaz. Sekarang yang baru: lihat **huruf terakhir** syathr ini, lalu syathr berikutnya."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Berhentilah seperti waqf. أَلَمْ berhenti di mim mati. يَنَمْ juga berhenti di mim mati. Huruf itu **rawiy**. Dua syathr, satu rawiy: bait ini muzdawij.",
+            "papan": "أَلَمْ ← م\nيَنَمْ ← م\nrawiy sama: م sukun"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Yang tidak dihitung sebagai rawiy: alif atau ya pemanjang di ujung (ـفَى، ـفَا), nun tanwin, dan isyba'. Semua itu hanya ekor bunyi. Rawiy ada tepat sebelum ekor itu.",
+            "papan": "الْمُصْطَفَى ← ف\nالشَّرَفَا ← ف\nالْقُوتُ ← ت"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**. Perhatikan عَلَى مَنْ: alif maqshurah dibaca panjang (لَا = 10). Setelah selesai, sebutkan rawiy-nya."
+        }
+      },
+      "qaidah": [
+        "**Rawiy** = huruf terakhir yang diucapkan saat berhenti, sebelum ekor bunyi (alif/ya/waw pemanjang, nun tanwin, isyba'). Seperti waqf dalam tajwid.",
+        "**Muzdawij** = dua syathr setiap bait berakhir dengan rawiy yang sama. Bait berikutnya boleh memakai rawiy lain. Inilah pola Alfiyah dan kebanyakan matan nadzom.",
+        "Satu rawiy berlaku untuk **satu bait** saja. Tidak perlu mencari ratusan kata berakhiran sama; cukup dua kata untuk setiap bait.",
+        "Karena rajaz muzdawij, ujung syathr pertama ('arudh) mengikuti ujung syathr kedua (dharb). Maka 'illah seperti qath' boleh muncul di kedua ujung, seperti الْمُصْطَفَى / الشَّرَفَا."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Apa rawiy bait حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ / مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ?",
+          "pilihan": [
+            "و",
+            "ت",
+            "ق"
+          ],
+          "jawaban": 1,
+          "alasan": "Huruf terakhir yang diucapkan saat berhenti adalah ta. Waw sebelumnya adalah huruf mad yang menempel pada rawiy (ridf), dibahas di pelajaran berikutnya."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Bait Alfiyah bait 2 berakhir ـفَا, bait 3 berakhir ـيَّهْ. Apakah itu cacat?",
+          "pilihan": [
+            "Cacat: semua bait harus satu qafiyah",
+            "Sah: dalam muzdawij qafiyah boleh berganti setiap bait",
+            "Sah hanya kalau bahrnya berganti"
+          ],
+          "jawaban": 1,
+          "alasan": "Yang wajib dalam muzdawij hanya dua syathr di dalam satu bait. Qashidah (satu qafiyah untuk semua bait) dibahas di Modul 7."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Dengarkan iramanya, lalu lagukan bersama. Tahan sedikit di ujung setiap syathr: di situ rawiy bertemu.",
+          "bait": [
+            "حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ",
+            "مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dari semua yang kau kejar, cukuplah makanan sekadarnya. Bagi orang yang pasti mati, sekadar makan pun sudah banyak."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang syathr pertama Alfiyah bait 4, lalu sebutkan rawiy-nya.",
+          "bait": [
+            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas."
+        }
+      ],
+      "patokan": "Syathr kedua bahts ditandai sendiri, dan rawiy empat contoh disebutkan dengan benar."
+    },
+    {
+      "nomor": 2,
+      "judul": "Pasangan qafiyah",
+      "ringkas": "Rawiy sama saja belum cukup. Harakatnya harus sama, dan huruf mad sebelumnya juga.",
+      "menit": 25,
+      "analogi": "Dalam sharaf, كَاتِبٌ dan عَالِمٌ satu wazan karena huruf hidup dan matinya sejajar. Pasangan qafiyah juga begitu: bukan hanya huruf ujung yang sama, tetapi juga harakatnya dan huruf mad di depannya. الْحَلَالِ berpasangan dengan الْعِيَالِ, bukan dengan الْجَمِيلِ.",
+      "amtsilah": [
+        {
+          "bait": [
+            "رَضِيتُ بِاللَّهِ وَبِالْقَضَاءِ",
+            "مَا أَكْرَمَ الصَّبْرَ عَلَى الْبَلَاءِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Aku rida kepada Allah dan kepada ketetapan-Nya. Alangkah mulianya bersabar ketika ditimpa ujian.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal, dari al-Mawsu'ah asy-Syi'riyyah dan Diwan Dar al-Arqam).",
+          "catatan": "Rawiy hamzah berharakat kasrah, didahului alif mad: ـضَاءِ / ـلَاءِ. Alif itu disebut ridf."
+        },
+        {
+          "bait": [
+            "مَا أَشْرَفَ الْكَسْبَ مِنَ الْحَلَالِ",
+            "مَا أَكْرَمَ السَّعْيَ عَلَى الْعِيَالِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Alangkah mulianya penghasilan dari yang halal. Alangkah mulianya bekerja keras untuk menafkahi keluarga.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal).",
+          "catatan": "مَا أَفْعَلَ (ta'ajjub) di awal kedua syathr: polanya 1010110, persis مُسْتَفْعِلُنْ. Pola sharaf yang pas dengan satu taf'ilah sangat berguna."
+        },
+        {
+          "bait": [
+            "تَحَرَّ فِيمَا تَطْلُبُ الْبَلَاغَا",
+            "وَاغْتَنِمِ الصِّحَّةَ وَالْفَرَاغَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dalam setiap yang kau cari, carilah yang mencukupi saja. Manfaatkan masa sehat dan waktu luangmu.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal).",
+          "catatan": "Rawiy ghain berharakat fathah, ridf alif, lalu alif ithlaq: ـلَاغَا / ـرَاغَا. Dua kata berwazan فَعَال, jadi polanya juga kembar."
+        },
+        {
+          "bait": [
+            "إِذَا جَعَلْتَ الْهَمَّ هَمًّا وَاحِدَا",
+            "نَعِمْتَ بَالًا وَغَنِيتَ رَاشِدَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Bila semua keinginanmu kau satukan menjadi satu tujuan, hatimu tenang dan engkau cukup, berjalan di atas petunjuk.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal).",
+          "catatan": "وَاحِدَا / رَاشِدَا: wazan فَاعِلًا, rawiy dal fathah. Alif di رَاشِدَا bukan ridf karena tidak tepat sebelum rawiy (ada شِ di antaranya)."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "مَا أَشْرَفَ الْكَسْبَ مِنَ الْحَلَالِ",
+          "مَا أَكْرَمَ السَّعْيَ عَلَى الْعِيَالِ"
+        ],
+        "bahr": "rajaz",
+        "makna": "Alangkah mulianya penghasilan dari yang halal. Alangkah mulianya bekerja keras untuk menafkahi keluarga.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait ini dibuka ta'ajjub dua kali. Kita timbang syathr pertama, lalu bedah pasangan qafiyahnya."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "مِنَ الْحَلَالِ: hamzah washal gugur, nun berharakat fathah langsung bertemu lam: مِنَلْحَلَالِ. Di ujung syathr, kasrah lam dipanjangkan (isyba'): ـلِي."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "مَا أَشْ رَفَلْ = 1010110, مُسْتَفْعِلُنْ utuh. Lalu مُسْتَعِلُنْ (101110), lalu ujungnya 11010: مُتَفْعِلْ, bentuk qath' yang sah di ujung rajaz."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Rajaz. Sekarang ujungnya."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tiga hal yang harus sama di pasangan qafiyah. **Rawiy**: lam. **Harakat rawiy**: kasrah. **Ridf**: alif mad tepat sebelum rawiy. الْحَلَالِ dan الْعِيَالِ lolos ketiganya.",
+            "papan": "الْحَلَالِ: ـلَا + لِ\nالْعِيَالِ: ـيَا + لِ\nrawiy ل · kasrah · ridf ا"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Uji dua calon pasangan lain. الْجَمِيلِ: rawiy dan harakatnya sama, tetapi ridf-nya ya, bukan alif. Gagal. الْأَمَلِ: tanpa ridf sama sekali. Gagal juga. Ridf alif hanya berpasangan dengan alif.",
+            "papan": "الْحَلَالِ × الْجَمِيلِ (ridf ا ≠ ي)\nالْحَلَالِ × الْأَمَلِ (tanpa ridf)\nالْقُوتُ ✓ يَمُوتُ ✓ الْمَبِيتُ (و dan ي boleh bergantian)"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**. عَلَى الْعِيَالِ dibaca عَلَلْعِيَالِي: alif maqshurah gugur sebelum hamzah washal."
+        }
+      },
+      "qaidah": [
+        "Pasangan qafiyah harus sama dalam tiga hal: **rawiy**, **harakat rawiy** (fathah, kasrah, dhammah, atau sukun), dan **ridf** (huruf mad tepat sebelum rawiy) bila ada.",
+        "Ridf **alif** hanya berpasangan dengan alif: الْقَضَاءِ / الْبَلَاءِ. Ridf **waw** dan **ya** boleh saling berganti: الْقُوتُ / الْمَبِيتُ.",
+        "Huruf ه kata ganti (ـهِ، ـهُ) dan ta marbutah yang dibaca ـهْ biasanya menjadi ekor; rawiy yang sebenarnya huruf sebelumnya. Maka samakan **dua huruf terakhir**: تَقْدِيرِهِ / أُمُورِهِ, أَلْفِيَّهْ / مَحْوِيَّهْ. Pemeriksa qafiyah di aplikasi juga melompati ه ini dan membandingkan huruf sebelumnya.",
+        "Cara cepat mencari pasangan: pakai **wazan yang sama**. فَعَال: الْحَلَالِ، الْعِيَالِ، الْبَلَاغَا، الْفَرَاغَا. فَاعِل: وَاحِدَا، رَاشِدَا. Satu wazan biasanya satu pola bit juga."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Pasangan mana yang sah untuk الْقُوتُ?",
+          "pilihan": [
+            "الْوَقْتُ",
+            "يَفُوتُ",
+            "الْقُوتَا"
+          ],
+          "jawaban": 1,
+          "alasan": "يَفُوتُ: rawiy ta, dhammah, ridf waw. الْوَقْتُ tidak punya ridf (qaf sebelum ta mati). الْقُوتَا harakat rawiy-nya fathah, bukan dhammah."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Syathr pertama berakhir الْقَضَاءِ. Mana ujung syathr kedua yang benar?",
+          "pilihan": [
+            "الْبَلَاءِ",
+            "الْبَلَاءُ",
+            "الدُّعَا"
+          ],
+          "jawaban": 0,
+          "alasan": "Rawiy hamzah, kasrah, ridf alif. الْبَلَاءُ harakatnya dhammah. الدُّعَا kehilangan hamzahnya, jadi rawiy-nya berubah."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait ini, lalu tunjukkan rawiy, harakat rawiy, dan ridf-nya.",
+          "bait": [
+            "رَضِيتُ بِاللَّهِ وَبِالْقَضَاءِ",
+            "مَا أَكْرَمَ الصَّبْرَ عَلَى الْبَلَاءِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Aku rida kepada Allah dan kepada ketetapan-Nya. Alangkah mulianya bersabar ketika ditimpa ujian."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Susun **dua bait** berurutan dalam rajaz. Setiap bait: dua syathr dengan pasangan qafiyah yang sah. Bait kedua memakai rawiy lain dari bait pertama. Ambil pasangan dari laci qafiyah. Timbang, lalu catat di Diwan.",
+          "bahr": "rajaz",
+          "makna": "Usul makna: bait 1 tentang mencari rezeki yang halal (pasangan الْحَلَالِ / الْعِيَالِ), bait 2 tentang memanfaatkan waktu luang (pasangan الْبَلَاغَا / الْفَرَاغَا). Boleh tema lain.",
+          "bankKata": true,
+          "jumlah": 2,
+          "qafiyah": "muzdawij"
+        }
+      ],
+      "patokan": "Dua bait muzdawij tersusun, ditimbang, dan setiap pasangan qafiyahnya lolos pemeriksaan rawiy, harakat, dan ridf."
+    },
+    {
+      "nomor": 3,
+      "judul": "Lima bait berurutan",
+      "ringkas": "Rancang dulu maknanya per bait, pilih pasangan qafiyah per bait, baru susun. Hasilnya 5 bait.",
+      "menit": 30,
+      "analogi": "Matan nadzom dibuka dengan hamdalah dan shalawat, lalu masuk ke isi, lalu ditutup dengan doa. Alfiyah begitu, urjuzah Abu al-'Atahiyah juga dibuka dengan hamdalah. Kerangka ini memudahkan: Anda tidak mulai dari kertas kosong, Anda mengisi lima laci.",
+      "amtsilah": [
+        {
+          "bait": [
+            "الْحَمْدُ لِلَّهِ عَلَى تَقْدِيرِهِ",
+            "وَحُسْنِ مَا صَرَّفَ مِنْ أُمُورِهِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Segala puji bagi Allah atas takdir-Nya, dan atas indahnya cara Dia mengatur segala urusan.",
+          "sumber": "Abu al-'Atahiyah, urjuzah Dzat al-Amtsal, bait pembuka (OpenITI 0211AbuCatahiya.UrjuzaDhatAmthal).",
+          "catatan": "Pasangannya ـرِهِ / ـرِهِ: ha kata ganti adalah ekor, rawiy-nya ra kasrah. Ya dan waw sebelum ra (تَقْدِيـ، أُمُو) adalah ridf yang boleh bergantian."
+        },
+        {
+          "bait": [
+            "وَاللَّهُ يَقْضِي بِهِبَاتٍ وَافِرَهْ",
+            "لِي وَلَهُ فِي دَرَجَاتِ الْآخِرَهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Semoga Allah menetapkan karunia yang berlimpah bagiku dan baginya (Ibnu Mu'thi) di derajat-derajat akhirat.",
+          "sumber": "Alfiyah Ibnu Malik, akhir muqaddimah (bait 7). Teks: OpenITI 0672IbnMalik.Alfiyya.",
+          "catatan": "Doa di akhir muqaddimah. وَافِرَهْ / الْآخِرَهْ: dua huruf terakhir sama, ـرَهْ."
+        },
+        {
+          "bait": [
+            "فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى",
+            "مُحَمَّدٍ خَيْرِ نَبِيٍّ أُرْسِلَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Maka aku memuji Allah sambil bershalawat kepada Muhammad, sebaik-baik nabi yang diutus,",
+          "sumber": "Alfiyah Ibnu Malik, khatimah. Teks: OpenITI 0672IbnMalik.Alfiyya.",
+          "catatan": "Makna syathr pertama baru selesai di syathr kedua (عَلَى ... مُحَمَّدٍ). Boleh, selama bait tetap lurus."
+        },
+        {
+          "bait": [
+            "وَآلِهِ الْغُرِّ الْكِرَامِ الْبَرَرَهْ",
+            "وَصَحْبِهِ الْمُنْتَخَبِينَ الْخِيَرَهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "juga kepada keluarganya yang bercahaya, mulia, dan berbakti, serta para sahabatnya yang terpilih dan terbaik.",
+          "sumber": "Alfiyah Ibnu Malik, bait terakhir. Teks: OpenITI 0672IbnMalik.Alfiyya.",
+          "catatan": "Bait penutup Alfiyah. Dua bait terakhir ini pola khatimah yang bisa Anda tiru: hamdalah, shalawat, keluarga, sahabat."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "الْحَمْدُ لِلَّهِ عَلَى تَقْدِيرِهِ",
+          "وَحُسْنِ مَا صَرَّفَ مِنْ أُمُورِهِ"
+        ],
+        "bahr": "rajaz",
+        "makna": "Segala puji bagi Allah atas takdir-Nya, dan atas indahnya cara Dia mengatur segala urusan.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "teks",
+            "kata": "Lima bait butuh rancangan. Tulis makna setiap bait dalam satu kalimat bahasa Anda sendiri. Jangan langsung menyusun Arabnya.",
+            "papan": "1. Hamdalah\n2. Shalawat\n3. Keutamaan ilmu\n4. Nasihat: sabar\n5. Doa penutup"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Lalu pilih **pasangan qafiyah per bait**. Ini kelebihan muzdawij: setiap bait cukup dua kata yang berpasangan. Ambil dari laci.",
+            "papan": "1. ـرِهِ: تَقْدِيرِهِ / أُمُورِهِ\n2. ـفَى: الْمُصْطَفَى / الشَّرَفَا\n3. ـلَالِ: الْحَلَالِ / الْعِيَالِ\n4. ـلَاءِ: الْقَضَاءِ / الْبَلَاءِ\n5. ـرَهْ: الْبَرَرَهْ / الْخِيَرَهْ"
+          },
+          {
+            "tampil": "bait",
+            "kata": "Lihat cara Abu al-'Atahiyah membuka urjuzahnya: hamdalah, dengan pasangan تَقْدِيرِهِ / أُمُورِهِ di ujung. Kita timbang syathr pertamanya."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "لِلَّهِ: lam syaddah ditulis dua, dan alif khanjariyah dibaca: لِلْلَاهِ. Di ujung, kasrah ha dipanjangkan: ـرِهِي."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "اَلْحَمْ دُلِلْ = 1010110 utuh. لَاهِ عَلَى = 101110, مُسْتَعِلُنْ. تَقْدِيرِهِي = 1010110 utuh."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Rajaz. Bait pertama beres. Ulangi jalur yang sama untuk bait 2 sampai 5: makna, pasangan qafiyah, susun, timbang. Satu bait selesai, baru pindah."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: tandai **syathr kedua**. صَرَّفَ: syaddah = dua huruf (صَرْرَفَ). Lalu periksa: apakah أُمُورِهِ benar berpasangan dengan تَقْدِيرِهِ?"
+        }
+      },
+      "qaidah": [
+        "Urutan kerja lima bait: **rancang makna** semua bait → **pilih pasangan qafiyah** per bait → susun bait satu per satu → timbang setiap bait → periksa pasangan qafiyah.",
+        "Kerangka umum matan: hamdalah, shalawat, isi, doa atau penutup. Alfiyah dan Dzat al-Amtsal sama-sama dibuka dengan hamdalah.",
+        "Makna boleh menyambung dari satu syathr ke syathr berikutnya (فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى / مُحَمَّدٍ). Tetapi untuk pemula, usahakan setiap bait selesai maknanya sendiri.",
+        "Hindari memakai pasangan qafiyah yang sama di dua bait yang berdekatan. Muzdawij memberi kebebasan; manfaatkan untuk variasi."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Anda menyusun 5 bait muzdawij. Bait 1 berpasangan ـرِهِ, bait 2 ingin memakai ـفَا. Boleh?",
+          "pilihan": [
+            "Boleh, setiap bait punya pasangannya sendiri",
+            "Tidak, harus ـرِهِ sampai akhir",
+            "Boleh, asal bait 2 memakai bahr lain"
+          ],
+          "jawaban": 0,
+          "alasan": "Muzdawij hanya menuntut dua syathr dalam satu bait berpasangan. Bahr tetap rajaz untuk semua bait."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Dengarkan dan lagukan dua bait penutup Alfiyah berturut-turut. Rasakan qafiyah berganti dari ـلَا ke ـرَهْ, tetapi iramanya tetap.",
+          "bait": [
+            "وَآلِهِ الْغُرِّ الْكِرَامِ الْبَرَرَهْ",
+            "وَصَحْبِهِ الْمُنْتَخَبِينَ الْخِيَرَهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "juga kepada keluarganya yang bercahaya, mulia, dan berbakti, serta para sahabatnya yang terpilih dan terbaik."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Susun **5 bait berurutan** dalam rajaz muzdawij. Ikuti rancangan, atau ganti dengan rancangan Anda sendiri. Pilih pasangan qafiyah per bait sebelum menyusun. Timbang setiap bait, periksa pasangannya, lalu salin kelimanya ke Diwan.",
+          "bahr": "rajaz",
+          "makna": "Usul tema: pembuka kecil untuk catatan belajar Anda sendiri.",
+          "bankKata": true,
+          "jumlah": 5,
+          "qafiyah": "muzdawij",
+          "rancangan": [
+            "Hamdalah: memuji Allah",
+            "Shalawat kepada Nabi, keluarga, dan sahabat",
+            "Keutamaan ilmu",
+            "Nasihat: bersabar dalam belajar",
+            "Doa penutup"
+          ],
+          "judulDiwan": "Lima bait muzdawij"
+        }
+      ],
+      "patokan": "Lima bait rajaz muzdawij tersusun, setiap bait ditimbang dan pasangan qafiyahnya lolos, lalu disalin ke Diwan."
+    }
+  ],
+  "laci": [
+    {
+      "teks": "الْمُصْطَفَى",
+      "arti": "yang terpilih (Nabi)",
+      "laci": "qafiyah",
+      "catatan": "Pasangan ـفَى / ـفَا: الشَّرَفَا. Polanya 1010110 di awal kalam, satu مُسْتَفْعِلُنْ.",
+      "dari": "Alfiyah muqaddimah bait 2"
+    },
+    {
+      "teks": "الشَّرَفَا",
+      "arti": "kemuliaan",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْمُصْطَفَى. Alif di ujung adalah alif ithlaq, bukan rawiy.",
+      "dari": "Alfiyah muqaddimah bait 2"
+    },
+    {
+      "teks": "مُوجَزِ",
+      "arti": "ringkas",
+      "laci": "qafiyah",
+      "catatan": "Pasangan مُنْجَزِ. Keduanya isim maf'ul, pola 1011.",
+      "dari": "Alfiyah muqaddimah bait 4"
+    },
+    {
+      "teks": "مُنْجَزِ",
+      "arti": "yang ditepati",
+      "laci": "qafiyah",
+      "catatan": "Pasangan مُوجَزِ.",
+      "dari": "Alfiyah muqaddimah bait 4"
+    },
+    {
+      "teks": "الْقُوتُ",
+      "arti": "makanan pokok, bekal hidup",
+      "laci": "qafiyah",
+      "catatan": "Rawiy ت dhammah, ridf و. Pasangan: يَمُوتُ، يَفُوتُ.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "يَمُوتُ",
+      "arti": "mati",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْقُوتُ. Pola 1101.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "أَلَمْ",
+      "arti": "rasa sakit",
+      "laci": "qafiyah",
+      "catatan": "Rawiy م sukun. Pasangan يَنَمْ. Pola 110, satu watad.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "يَنَمْ",
+      "arti": "tidur (majzum setelah لَمْ)",
+      "laci": "qafiyah",
+      "catatan": "Pasangan أَلَمْ.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْقَضَاءِ",
+      "arti": "ketetapan Allah",
+      "laci": "qafiyah",
+      "catatan": "Rawiy ء kasrah, ridf ا. Pasangan الْبَلَاءِ. Wazan فَعَال.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْبَلَاءِ",
+      "arti": "ujian, cobaan",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْقَضَاءِ.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْحَلَالِ",
+      "arti": "yang halal",
+      "laci": "qafiyah",
+      "catatan": "Rawiy ل kasrah, ridf ا. Pasangan الْعِيَالِ (bukan الْجَمِيلِ).",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْعِيَالِ",
+      "arti": "keluarga yang ditanggung",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْحَلَالِ.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْبَلَاغَا",
+      "arti": "yang mencukupi, sampai pada tujuan",
+      "laci": "qafiyah",
+      "catatan": "Rawiy غ fathah, ridf ا. Pasangan الْفَرَاغَا.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الْفَرَاغَا",
+      "arti": "waktu luang",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْبَلَاغَا.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "رَاشِدَا",
+      "arti": "lurus, mendapat petunjuk (hal)",
+      "laci": "qafiyah",
+      "catatan": "Wazan فَاعِلًا, pola 10110. Pasangan وَاحِدَا.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "مَا أَكْرَمَ",
+      "arti": "alangkah mulianya",
+      "laci": "wazan",
+      "catatan": "Ta'ajjub مَا أَفْعَلَ. Bila diikuti kata ber-الْ (مَا أَكْرَمَ الصَّبْرَ), jadi مَا أَكْ رَمَصْ = 1010110, satu مُسْتَفْعِلُنْ. Ganti dengan مَا أَشْرَفَ، مَا أَكْثَرَ، مَا أَطْوَلَ.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "حَسْبُكَ",
+      "arti": "cukuplah bagimu",
+      "laci": "hasyw",
+      "catatan": "Pola 1011. حَسْبُكَ مِمَّا = 1011 + 1010.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "لِكُلِّ مَا",
+      "arti": "bagi setiap yang",
+      "laci": "hasyw",
+      "catatan": "Pola 110110, satu مُتَفْعِلُنْ (khabn). Pembuka hikmah yang serbaguna.",
+      "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "وَإِنْ قَلَّ",
+      "arti": "meskipun sedikit",
+      "laci": "hasyw",
+      "dari": "Dzat al-Amtsal"
+    }
+  ]
+}
