@@ -15,6 +15,14 @@ REMOTE_APP="/home/ihfazh/hayyabaca"
 REMOTE_WEB="/home/ihfazh/penerbit-web/dist"
 VENV="$REMOTE_APP/backend/.venv/bin"
 
+# The server pulls the backend from origin while the frontend is built locally:
+# deploying unpushed commits would ship a new frontend against an old backend.
+git fetch -q origin
+if [ -n "$(git log origin/master..HEAD --oneline)" ]; then
+  echo "!! Local commits are not pushed to origin/master. Push first." >&2
+  exit 1
+fi
+
 echo "==> Gating: backend penerbit tests"
 ( cd backend && .venv/bin/python -m pytest penerbit -q )
 
