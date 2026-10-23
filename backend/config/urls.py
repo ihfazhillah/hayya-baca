@@ -14,6 +14,7 @@ urlpatterns = [
     path("api/", include("games.urls")),
     path("api/", include("english.urls")),
     path("api/tahsin/", include("tahsin.urls")),
+    path("api/penerbit/", include("penerbit.urls")),
     path("api/search/", include("search.urls")),
     path("api/diary/", include("diary.urls")),
     path("api/schedule/", include("schedule.urls")),
