@@ -25,8 +25,8 @@ Persetujuan: pemilik menyetujui semua fase sekaligus (2026-10-23). Deploy ke ser
 - [x] tests: test_hadiah, test_musim_data
 
 ## Fase 5 — Latihan Harian
-- [ ] `jadwal.py`, endpoint latihan
-- [ ] tests: test_jadwal
+- [x] `jadwal.py`, endpoint latihan
+- [x] tests: test_jadwal
 
 ## Fase 6 — Naskah
 - [ ] `jejak.py`, Ide, Naskah, DrafKerja, Versi, Laci, sorotan sistem

@@ -21,10 +21,16 @@ class ProfilPenulis(models.Model):
 
 
 class Percobaan(models.Model):
-    """Satu percobaan misi yang sedang berjalan (klik per klik dinilai server)."""
+    """Satu percobaan misi atau kalimat latihan yang sedang berjalan (dinilai server per klik)."""
 
     profil = models.ForeignKey(ProfilPenulis, on_delete=models.CASCADE, related_name="percobaan")
-    misi = models.ForeignKey(Misi, on_delete=models.CASCADE)
+    misi = models.ForeignKey(Misi, null=True, blank=True, on_delete=models.CASCADE)
+    kalimat = models.ForeignKey(KalimatLatihan, null=True, blank=True, on_delete=models.CASCADE)
+    # Latihan campuran: alat yang dipilih anak sebelum mengerjakan.
+    alat_dipilih = models.ForeignKey(
+        Alat, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+    alat_benar = models.BooleanField(default=False)
     ditemukan = models.JSONField(default=list)  # indeks grup kunci yang sudah ketemu
     diklik = models.JSONField(default=list)  # indeks token yang sudah diklik benar
     meleset = models.PositiveSmallIntegerField(default=0)
@@ -89,6 +95,7 @@ class JadwalUlang(models.Model):
     alat = models.ForeignKey(Alat, on_delete=models.CASCADE)
     jatuh_tempo = models.DateField()
     putaran = models.PositiveSmallIntegerField(default=0)  # 0..3 → 1h, 3h, 1mg, 2mg; 4 = sesekali
+    terakhir = models.DateField(null=True, blank=True)  # tanggal terakhir dilatih
 
     class Meta:
         unique_together = ["profil", "alat"]

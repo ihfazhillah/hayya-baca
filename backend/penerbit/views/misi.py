@@ -78,38 +78,40 @@ class MisiView(PenulisView):
         return Response(out)
 
 
+def proses_klik(p, data, request):
+    """Satu klik pada percobaan `p`. Kembalikan respons; `p.selesai` True bila semua ketemu."""
+    token, celah = request.data.get("token"), request.data.get("celah")
+    if token is None and celah is None:
+        raise ValidationError("Kirim token atau celah.")
+    hasil, grup = penilaian.nilai_klik(data, p.ditemukan, token=token, celah=celah)
+    if hasil == "ketemu":
+        p.ditemukan = p.ditemukan + [grup]
+        if token is not None:
+            p.diklik = p.diklik + [token]
+    elif hasil == "meleset":
+        p.meleset += 1
+    total = len(data["kunci"])
+    p.selesai = len(p.ditemukan) == total
+    p.save()
+    return {"hasil": hasil, "ditemukan": len(p.ditemukan), "total": total,
+            "meleset": p.meleset,
+            "boleh_petunjuk": p.meleset >= penilaian.BATAS_MELESET_PETUNJUK,
+            "selesai": False}
+
+
 class KlikView(PenulisView):
     @transaction.atomic
     def post(self, request, pk):
         misi = ambil_misi(request, pk)
         if misi.jenis != Misi.Jenis.KLIK:
             raise ValidationError("Misi ini bukan Klik Kesalahan.")
-        token, celah = request.data.get("token"), request.data.get("celah")
-        if token is None and celah is None:
-            raise ValidationError("Kirim token atau celah.")
         p = percobaan_aktif(request.profil, misi)
-        hasil, grup = penilaian.nilai_klik(misi.data, p.ditemukan, token=token, celah=celah)
-        if hasil == "ketemu":
-            p.ditemukan = p.ditemukan + [grup]
-            if token is not None:
-                p.diklik = p.diklik + [token]
-        elif hasil == "meleset":
-            p.meleset += 1
-        total = len(misi.data["kunci"])
-        out = {"hasil": hasil, "ditemukan": len(p.ditemukan), "total": total,
-               "meleset": p.meleset,
-               "boleh_petunjuk": p.meleset >= penilaian.BATAS_MELESET_PETUNJUK,
-               "selesai": False}
-        if len(p.ditemukan) == total:
-            p.selesai = True
-            p.save()
+        out = proses_klik(p, misi.data, request)
+        if p.selesai:
             baru = catat_hasil(request.profil, misi, status=HasilMisi.Status.SELESAI,
-                               benar=total, total=total, meleset=p.meleset,
+                               benar=out["total"], total=out["total"], meleset=p.meleset,
                                pakai_petunjuk=p.pakai_petunjuk)
             out.update(selesai_respons(misi, p, baru))
-            out["hasil"] = hasil
-        else:
-            p.save()
         return Response(out)
 
 

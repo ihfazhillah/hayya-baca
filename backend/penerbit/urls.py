@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import misi, ortu, penulis, umum
+from .views import latihan, misi, ortu, penulis, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
@@ -16,6 +16,11 @@ urlpatterns = [
     path("misi/<int:pk>/cetak/", misi.CetakMisiView.as_view()),
     path("ujian/<int:pk>/jawab/", misi.UjianJawabView.as_view()),
     path("bertanya/<int:nomor>/jawab/", misi.BertanyaJawabView.as_view()),
+    path("latihan/", latihan.LatihanView.as_view()),
+    path("latihan/<int:pk>/alat/", latihan.LatihanAlatView.as_view()),
+    path("latihan/<int:pk>/klik/", latihan.LatihanKlikView.as_view()),
+    path("latihan/<int:pk>/berhenti/", latihan.LatihanBerhentiView.as_view()),
+    path("latihan/<int:pk>/periksa/", latihan.LatihanPeriksaView.as_view()),
     # Pemeriksa
     path("ortu/penulis/", umum.AktifkanPenulisView.as_view()),
     path("ortu/dasbor/", ortu.DasborView.as_view()),
