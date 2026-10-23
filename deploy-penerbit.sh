@@ -31,6 +31,7 @@ rsync -az --delete penerbit-web/dist/ "$SSH_HOST:$REMOTE_WEB/"
 echo "==> Updating backend (git pull + uv sync + migrate + impor_course + restart)"
 ssh "$SSH_HOST" bash -s <<REMOTE
 set -euo pipefail
+export PATH="\$HOME/.local/bin:\$HOME/.cargo/bin:\$PATH"
 cd $REMOTE_APP
 git pull --ff-only origin master
 cd backend
