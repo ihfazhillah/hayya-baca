@@ -174,14 +174,14 @@ describe('tamrinat bertingkat', () => {
   it('drill tandai: butir demi butir, hitungan benar bertambah', async () => {
     const user = userEvent.setup()
     render(<TandaiDrill petunjuk="Beri tanda." butir={['لَمْ', 'نَعَمْ']} />)
-    expect(screen.getByText('Butir 1 dari 2')).toBeInTheDocument()
+    expect(screen.getByText(/Butir 1 dari 2/)).toBeInTheDocument()
     const sel = screen.getAllByRole('button', { name: /huruf/i })
     await user.click(sel[0])
     await user.click(sel[1]); await user.click(sel[1])
     await user.click(screen.getByRole('button', { name: 'Periksa' }))
     expect(screen.getByText('1 benar')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Butir berikutnya' }))
-    expect(screen.getByText('Butir 2 dari 2')).toBeInTheDocument()
+    expect(screen.getByText(/Butir 2 dari 2/)).toBeInTheDocument()
   })
 
   it('set kenali: skor percobaan pertama setelah semua soal dijawab', async () => {

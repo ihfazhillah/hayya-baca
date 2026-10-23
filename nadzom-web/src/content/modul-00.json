@@ -7,7 +7,7 @@
       "nomor": 1,
       "judul": "Menimbang satu bait",
       "ringkas": "Tanda 1 dan 0, sabab dan watad, lalu مُسْتَفْعِلُنْ.",
-      "menit": 25,
+      "menit": 35,
       "analogi": "Anda sudah biasa menimbang كَتَبَ dengan فَعَلَ tanpa melihat maknanya. Bait juga ditimbang begitu: yang dilihat hanya mana huruf yang hidup dan mana yang mati.",
       "amtsilah": [
         {
@@ -82,27 +82,85 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Mana timbangan مُسْتَفْعِلُنْ?",
-          "pilihan": [
-            "1010110",
-            "1011010",
-            "110110",
-            "1010101"
-          ],
-          "jawaban": 0,
-          "alasan": "مُسْ = 10, تَفْ = 10, عِلُنْ = 110. 1011010 adalah فَاعِلَاتُنْ, yang akan Anda temui di pelajaran berikutnya."
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Mana timbangan مُسْتَفْعِلُنْ?",
+              "pilihan": [
+                "1010110",
+                "1011010",
+                "110110",
+                "1010101"
+              ],
+              "jawaban": 0,
+              "alasan": "مُسْ = 10, تَفْ = 10, عِلُنْ = 110. 1011010 adalah فَاعِلَاتُنْ, yang akan Anda temui di pelajaran berikutnya."
+            },
+            {
+              "soal": "Alif dalam دَا (dari دَارٌ) diberi tanda apa?",
+              "pilihan": [
+                "1, karena ia huruf",
+                "0, karena ia huruf mad dan mati",
+                "Tidak diberi tanda"
+              ],
+              "jawaban": 1,
+              "alasan": "Huruf mad tidak berharakat, jadi ia mati. دَا = 10, sama dengan لَمْ."
+            },
+            {
+              "soal": "لَمْ termasuk blok apa?",
+              "pilihan": [
+                "Sabab khafif (10)",
+                "Watad majmu' (110)"
+              ],
+              "jawaban": 0,
+              "alasan": "لَ hidup, مْ mati: 10."
+            },
+            {
+              "soal": "عَلَى termasuk blok apa?",
+              "pilihan": [
+                "Sabab khafif (10)",
+                "Watad majmu' (110)"
+              ],
+              "jawaban": 1,
+              "alasan": "عَ hidup, لَ hidup, alif maqshurah mati: 110."
+            },
+            {
+              "soal": "Tanwin pada جَارَةٌ (ujung syathr pertama) dalam kitabah 'arudhiyyah menjadi?",
+              "pilihan": [
+                "نْ, diberi 0",
+                "Tidak ditulis",
+                "نُ, diberi 1"
+              ],
+              "jawaban": 0,
+              "alasan": "جَارَةٌ = جَارَتُنْ. Ta marbutah dibaca ت, tanwin menjadi nun sakinah."
+            },
+            {
+              "soal": "Dalam satu syathr rajaz, مُسْتَفْعِلُنْ muncul berapa kali?",
+              "pilihan": [
+                "Dua kali",
+                "Tiga kali",
+                "Empat kali"
+              ],
+              "jawaban": 1,
+              "alasan": "Rajaz tam: tiga مُسْتَفْعِلُنْ per syathr, enam per bait."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Alif dalam دَا (dari دَارٌ) diberi tanda apa?",
-          "pilihan": [
-            "1, karena ia huruf",
-            "0, karena ia huruf mad dan mati",
-            "Tidak diberi tanda"
-          ],
-          "jawaban": 1,
-          "alasan": "Huruf mad tidak berharakat, jadi ia mati. دَا = 10, sama dengan لَمْ."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 atau 0 pada setiap huruf. Mulai dari blok pendek, lalu kata dari bait contoh.",
+          "butir": [
+            "لَمْ",
+            "قَدْ",
+            "نَعَمْ",
+            "عَلَى",
+            "دَارٌ",
+            "سَلْمَى",
+            "قَفْرٌ",
+            "جَارَةٌ",
+            "تَرَى",
+            "آيَاتِهَا"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -112,15 +170,91 @@
           ],
           "bahr": "rajaz",
           "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)"
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang **syathr pertama** syahid rajaz, langkah demi langkah, tanpa melihat peragaan.",
+          "bait": [
+            "دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Itulah rumah Salma, dulu ketika Sulaima masih bertetangga. Kini sunyi; bekas-bekasnya tinggal seperti tulisan di lembaran tua."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan setiap baris dengan nada kunci rajaz. Centang yang terasa tersendat, lalu periksa dengan timbangan.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ"
+              ],
+              "catatan": "Syahid asli: tiga مُسْتَفْعِلُنْ utuh."
+            },
+            {
+              "bait": [
+                "دَارٌ لِسَلْمَى سُلَيْمَى جَارَةٌ"
+              ],
+              "catatan": "إِذْ dibuang, jadi satu sabab (10) hilang: taf'ilah kedua tinggal 10110. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "فِي أَبْحُرِ الْأَرْجَازِ بَحْرٌ يَسْهُلُ"
+              ],
+              "catatan": "Kunci rajaz."
+            },
+            {
+              "bait": [
+                "قَفْرٌ تَرَى آيَاتِهَا كَالزُّبُرْ"
+              ],
+              "catatan": "مِثْلَ diganti كَ: dua huruf hilang, taf'ilah ketiga kekurangan satu sabab. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ"
+              ],
+              "catatan": "Syahid asli, syathr kedua."
+            }
+          ]
         }
       ],
-      "patokan": "Syathr kedua dan kunci rajaz ditandai sendiri sampai semua huruf benar."
+      "patokan": "Set Kenali minimal 5 dari 6 benar pada percobaan pertama, sepuluh butir Tandai benar, kunci rajaz dan syahid ditimbang sampai lurus, dan semua baris di Cari yang pincang tepat.",
+      "syarh": [
+        "Perhatikan contoh pertama, «دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ». Sebelum bertanya apa maknanya, kita bertanya **bagaimana ia dibaca**. دَارٌ dibaca دَارُنْ: tanwin itu nun sakinah yang diucapkan, maka ia ditulis dan dihitung. Inilah **kitabah 'arudhiyyah**: tulisan mengikuti lisan, persis seperti ketika Anda membaca dengan tajwid.",
+        "Lalu setiap huruf diberi tanda. Huruf yang berharakat diberi **1**. Huruf yang mati diberi **0**. Huruf mati di sini ada dua macam: huruf bersukun seperti نْ dari tanwin, dan huruf mad seperti alif pada دَا. Keduanya 0, karena keduanya tidak membawa harakat sendiri. Maka دَا = 10, sama dengan لَمْ.",
+        "Setelah ditandai, deretan 1 dan 0 itu ternyata hanya tersusun dari dua blok. Blok **10** (satu hidup lalu satu mati) disebut **sabab khafif**: لَمْ، قَدْ، مَا. Blok **110** (dua hidup lalu satu mati) disebut **watad majmu'**: نَعَمْ، عَلَى، لَكُمْ. Seperti kata-kata dalam sharaf yang tersusun dari huruf asal dan huruf tambahan, semua timbangan syair tersusun dari blok-blok ini.",
+        "Di syathr pertama, blok-blok itu datang dengan urutan sabab, sabab, watad: 10 10 110 = 1010110. Urutan inilah yang diberi nama مُسْتَفْعِلُنْ: مُسْ (10) تَفْ (10) عِلُنْ (110). Dalam satu syathr ia muncul tiga kali, semuanya utuh. Pola tiga مُسْتَفْعِلُنْ inilah **rajaz**.",
+        "Sekarang perhatikan contoh kedua, kunci rajaz. Baris pertamanya kalimat biasa, baris keduanya timbangannya sendiri. Kalau Anda menandai baris pertama dan mendapat pola yang sama dengan baris kedua, berarti timbangan Anda benar. Karena itu kunci ini dihafal: ia contoh sekaligus alat periksa.",
+        "Satu hal kecil di ujung kunci: مُسْتَفْعِلُ tertulis tanpa nun. Huruf terakhir bait selalu dipanjangkan (**isyba'**), jadi لُ dibaca لُو, dan polanya tetap 1010110. Isyba' dibahas lagi di Modul 2."
+      ],
+      "keliru": [
+        {
+          "salah": "Menghitung seperti suku kata bahasa Indonesia: دَارٌ dianggap dua ketukan, «da-run».",
+          "benar": "دَارٌ = دَارُنْ = 1010: dua huruf hidup, dua huruf mati.",
+          "sebab": "Wazan Arab menghitung huruf hidup dan huruf mati, bukan suku kata. Huruf mad dan nun tanwin ikut dihitung sebagai 0."
+        },
+        {
+          "salah": "Alif pada دَا diberi 1 karena ia tertulis.",
+          "benar": "Alif mad diberi 0.",
+          "sebab": "Ia tidak berharakat. Seperti dalam tajwid, ia hanya memanjangkan fathah sebelumnya."
+        },
+        {
+          "salah": "Tanwin dilewati karena tidak tertulis sebagai huruf.",
+          "benar": "Tanwin ditulis نْ dan diberi 0.",
+          "sebab": "Tanwin diucapkan sebagai nun sakinah. Yang diucapkan, ditulis dan dihitung."
+        },
+        {
+          "salah": "مِثْلَ الزُّبُرْ ditandai dengan alif dan lam: مِثْلَ أَلْ زُبُرْ.",
+          "benar": "مِثْلَزْزُبُرْ.",
+          "sebab": "Hamzah washal gugur di tengah kalam, dan lam syamsiyah lebur ke za bersyaddah, sama dengan bacaan tajwid."
+        }
+      ]
     },
     {
       "nomor": 2,
       "judul": "Mengisi cetakan",
       "ringkas": "Blok yang sama, taf'ilah lain: فَاعِلَاتُنْ. Isi kotaknya dengan kata sendiri.",
-      "menit": 25,
+      "menit": 35,
       "analogi": "Dalam tashrif, wazan فَاعِلٌ sudah tersedia; Anda tinggal memasukkan akar kata menjadi كَاتِبٌ atau عَالِمٌ. Cetakan bait juga begitu: polanya tetap, Anda mengisi kotaknya.",
       "amtsilah": [
         {
@@ -181,15 +315,121 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "فِي الْقَلْبِ dalam kitabah 'arudhiyyah ditulis?",
-          "pilihan": [
-            "فِيلْقَلْبِ",
-            "فِلْقَلْبِ",
-            "فِي أَلْقَلْبِ"
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu.",
+          "soal": [
+            {
+              "soal": "فِي الْقَلْبِ dalam kitabah 'arudhiyyah ditulis?",
+              "pilihan": [
+                "فِيلْقَلْبِ",
+                "فِلْقَلْبِ",
+                "فِي أَلْقَلْبِ"
+              ],
+              "jawaban": 1,
+              "alasan": "Hamzah washal gugur di tengah kalam. Ya mad lalu bertemu lam sukun, maka ya gugur."
+            },
+            {
+              "soal": "Timbangan فَاعِلَاتُنْ adalah?",
+              "pilihan": [
+                "1011010",
+                "1010110",
+                "110110"
+              ],
+              "jawaban": 0,
+              "alasan": "فَا (10) عِلَا (110) تُنْ (10)."
+            },
+            {
+              "soal": "Urutan blok فَاعِلَاتُنْ?",
+              "pilihan": [
+                "Sabab, watad, sabab",
+                "Sabab, sabab, watad",
+                "Watad, sabab, sabab"
+              ],
+              "jawaban": 0,
+              "alasan": "10 110 10. مُسْتَفْعِلُنْ yang sabab, sabab, watad."
+            },
+            {
+              "soal": "عَلَى الْأَرْضِ dalam kitabah 'arudhiyyah?",
+              "pilihan": [
+                "عَلَلْأَرْضِ",
+                "عَلَى أَلْأَرْضِ",
+                "عَلَالْأَرْضِ"
+              ],
+              "jawaban": 0,
+              "alasan": "Hamzah washal gugur; alif maqshurah bertemu lam sukun lalu gugur.",
+              "arab": true
+            },
+            {
+              "soal": "Ramal majzu' berisi berapa فَاعِلَاتُنْ per syathr?",
+              "pilihan": [
+                "Dua",
+                "Tiga"
+              ],
+              "jawaban": 0,
+              "alasan": "Majzu' = dipotong satu dari ramal yang lengkap (tiga)."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 atau 0. Perhatikan huruf mad yang gugur sebelum lam.",
+          "butir": [
+            "لَمْ يَزَلْ",
+            "نُورٌ",
+            "خَيْرٌ",
+            "حُبٌّ",
+            "فِي الْقَلْبِ",
+            "فِي الْعَيْشِ",
+            "عَلَى الْأَرْضِ",
+            "فَاعِلَاتُنْ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang baris cetakan sendiri, langkah demi langkah.",
+          "bait": [
+            "لَمْ يَزَلْ فِي الْقَلْبِ نُورٌ",
+            "لَمْ يَزَلْ فِي الْعَيْشِ خَيْرٌ"
           ],
-          "jawaban": 1,
-          "alasan": "Hamzah washal gugur di tengah kalam. Ya mad lalu bertemu lam sukun, maka ya gugur."
+          "bahr": "ramalMajzu",
+          "makna": "Di dalam hati masih ada cahaya; dalam hidup masih ada kebaikan."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Semua baris memakai cetakan yang sama. Mana yang keluar dari irama?",
+          "bahr": "ramalMajzu",
+          "baris": [
+            {
+              "bait": [
+                "لَمْ يَزَلْ فِي الْقَلْبِ نُورٌ"
+              ],
+              "catatan": "Lurus: dua فَاعِلَاتُنْ. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "لَمْ يَزَلْ فِي قَلْبِي نُورٌ"
+              ],
+              "catatan": "Tanpa الْ, ya pada فِي tetap dibaca dan قَلْبِي menambah satu huruf mad: taf'ilah kedua menjadi 10101010. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "لَمْ يَزَلْ فِي الْأَرْضِ خَيْرٌ"
+              ],
+              "catatan": "Lurus: الْأَرْضِ berpola 101 seperti الْقَلْبِ. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "لَمْ يَزَلْ فِي الْقَلْبِ إِيمَانٌ"
+              ],
+              "catatan": "إِيمَانٌ = 101010, lebih panjang dari kotak 1010. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "لَمْ يَزَلْ فِي الْقَلْبِ حُبٌّ"
+              ],
+              "catatan": "Lurus: حُبٌّ = حُبْبُنْ = 1010. Bait latihan, bukan kutipan."
+            }
+          ]
         },
         {
           "jenis": "cetakan",
@@ -221,13 +461,37 @@
           "jumlah": 3
         }
       ],
-      "patokan": "Tiga baris cetakan dengan kata sendiri, semuanya 0 patah."
+      "patokan": "Delapan butir Tandai benar, semua baris Cari yang pincang tepat, dan tiga baris cetakan dengan kata sendiri, semuanya 0 patah.",
+      "syarh": [
+        "Perhatikan contoh: «لَمْ يَزَلْ فِي الْقَلْبِ نُورٌ». Kita menimbangnya dengan cara yang sama seperti rajaz: kitabah dulu, lalu tanda. Di sini ada satu peristiwa tajwid: فِي الْقَلْبِ dibaca **فِلْقَلْبِ**. Hamzah washal gugur, lalu ya mad bertemu lam sukun. Dua huruf mati bertemu, yang pertama (huruf mad) gugur dalam ucapan, seperti فِي الْأَرْضِ dibaca fil-ardhi.",
+        "Tandanya: لَمْ (10) يَزَلْ (110) فِلْ (10), lalu قَلْ (10) بِ نُو (110) رُنْ (10). Bloknya sama dengan rajaz, hanya **urutannya** berbeda: sabab, watad, sabab. 10 110 10 = 1011010. Urutan ini bernama فَاعِلَاتُنْ: فَا (10) عِلَا (110) تُنْ (10).",
+        "Bandingkan dengan مُسْتَفْعِلُنْ = 1010110. Jumlah hurufnya sama, tujuh, tetapi letak watadnya berbeda. Seperti dalam sharaf, huruf yang sama dengan susunan berbeda menghasilkan wazan berbeda. Telinga menangkap perbedaan itu sebagai irama yang lain.",
+        "Satu syathr di contoh ini berisi dua فَاعِلَاتُنْ. Ramal yang lengkap berisi tiga per syathr; yang hanya dua disebut **majzu'** (dipotong satu). Banyak nasyid memakai ramal majzu' karena barisnya pendek dan mudah dilagukan.",
+        "Sekarang lihat cetakannya: لَمْ يَزَلْ فِي الْ ___ ___. Bagian yang tetap sudah lurus. Kotak pertama harus berpola **101** (mis. قَلْبِ), kotak kedua **1010** (kata bertanwin, mis. نُورٌ). Selama kata pengganti polanya sama, baris tetap lurus. Inilah cara pertama menyusun: meminjam kerangka, mengganti isinya."
+      ],
+      "keliru": [
+        {
+          "salah": "فِي الْقَلْبِ ditulis فِيلْقَلْبِ (ya tetap dibaca).",
+          "benar": "فِلْقَلْبِ.",
+          "sebab": "Ya mad bertemu lam sukun; huruf mad gugur dalam ucapan karena dua sukun bertemu."
+        },
+        {
+          "salah": "Menganggap فَاعِلَاتُنْ dan مُسْتَفْعِلُنْ sama karena hurufnya sama-sama tujuh.",
+          "benar": "1011010 berbeda dari 1010110.",
+          "sebab": "Yang menentukan irama adalah urutan blok, bukan jumlah huruf."
+        },
+        {
+          "salah": "Mengisi kotak kedua dengan kata tanpa tanwin, mis. نُورُ.",
+          "benar": "نُورٌ = نُورُنْ = 1010.",
+          "sebab": "Tanwin menambah satu huruf mati. Tanpanya, pola kotak kedua kurang satu 0."
+        }
+      ]
     },
     {
       "nomor": 3,
       "judul": "Bait pertama",
       "ringkas": "Jalur lengkap: makna, qafiyah, susun, lagukan, taqthi', perbaiki, Diwan.",
-      "menit": 30,
+      "menit": 40,
       "analogi": "Tembakan pertama tidak harus kena; yang penting jalurnya terlihat. Bait #1 boleh pincang. Yang wajib: Anda menimbangnya dan mencatat berapa taf'ilah yang patah.",
       "amtsilah": [
         {
@@ -320,15 +584,141 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Dalam rajaz, taf'ilah مُتَفْعِلُنْ (110110) muncul di tengah bait. Itu?",
-          "pilihan": [
-            "Patah: hurufnya kurang satu",
-            "Sah: bentuk berubah (zihaf) dari مُسْتَفْعِلُنْ",
-            "Tanda bahrnya bukan rajaz"
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu.",
+          "soal": [
+            {
+              "soal": "Dalam rajaz, taf'ilah مُتَفْعِلُنْ (110110) muncul di tengah bait. Itu?",
+              "pilihan": [
+                "Patah: hurufnya kurang satu",
+                "Sah: bentuk berubah (zihaf) dari مُسْتَفْعِلُنْ",
+                "Tanda bahrnya bukan rajaz"
+              ],
+              "jawaban": 1,
+              "alasan": "مُتَفْعِلُنْ adalah مُسْتَفْعِلُنْ yang huruf keduanya (sin sakinah) dibuang. Zihaf ini disebut khabn, sangat sering dalam rajaz. Bait Khandaq dan Alfiyah memakainya."
+            },
+            {
+              "soal": "Tahap pertama jalur menyusun adalah?",
+              "pilihan": [
+                "Makna",
+                "Taqthi'",
+                "Susun"
+              ],
+              "jawaban": 0,
+              "alasan": "Makna dulu, dalam bahasa Anda sendiri; lalu qafiyah, baru menyusun."
+            },
+            {
+              "soal": "Bait v1 patah 1, v2 patah 0. Apa yang dicatat di Diwan?",
+              "pilihan": [
+                "Hanya v2",
+                "Keduanya, beserta jumlah patahnya"
+              ],
+              "jawaban": 1,
+              "alasan": "Riwayat versi menunjukkan kemajuan."
+            },
+            {
+              "soal": "Rawiy bait pertama Alfiyah (مَالِكِ / مَالِكِ) adalah?",
+              "pilihan": [
+                "ك",
+                "ي",
+                "ل"
+              ],
+              "jawaban": 0,
+              "alasan": "Huruf terakhir yang diucapkan sebelum isyba': كِ. Ya-nya hanya pemanjangan.",
+              "arab": true
+            },
+            {
+              "soal": "Mengapa مُصَلِّيًا dipilih menggantikan وَصَلَّيْتُ?",
+              "pilihan": [
+                "Polanya 110110 mengisi slot, dan maknanya tetap",
+                "Karena lebih panjang",
+                "Karena berakhiran tanwin"
+              ],
+              "jawaban": 0,
+              "alasan": "Pola yang cocok dengan slot, makna yang tetap, dan sejajar dengan حَامِدًا."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda pada kata-kata dari contoh dan debug loop. Perhatikan syaddah (dua huruf) dan alif yang tidak dibaca.",
+          "butir": [
+            "حَامِدًا",
+            "مُصَلِّيًا",
+            "وَصَلَّيْتُ",
+            "مُحَمَّدَا",
+            "بَايَعُوا",
+            "نَحْنُ الَّذِينَ",
+            "لِلْأَوَّلِ",
+            "الْمُرْسَلِ"
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama rajaz Khandaq, lalu lagukan bersama. Inilah irama yang akan Anda pakai untuk Bait #1.",
+          "bait": [
+            "نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا",
+            "عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا"
           ],
-          "jawaban": 1,
-          "alasan": "مُتَفْعِلُنْ adalah مُسْتَفْعِلُنْ yang huruf keduanya (sin sakinah) dibuang. Zihaf ini disebut khabn, sangat sering dalam rajaz. Bait Khandaq dan Alfiyah memakainya."
+          "bahr": "rajaz",
+          "makna": "Kamilah yang telah berbaiat kepada Muhammad, untuk berjihad selama kami masih hidup."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang rajaz Khandaq sendiri. Taf'ilah yang \"berubah\" itu sah.",
+          "bait": [
+            "نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا",
+            "عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Kamilah yang telah berbaiat kepada Muhammad, untuk berjihad selama kami masih hidup."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan dengan nada Khandaq. Centang yang tersendat, lalu periksa.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا",
+                "عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا"
+              ],
+              "catatan": "Rajaz Khandaq, riwayat al-Bukhari."
+            },
+            {
+              "bait": [
+                "بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ",
+                "وَصَلَّيْتُ عَلَى النَّبِيِّ الْمُرْسَلِ"
+              ],
+              "catatan": "Draf v1: وَصَلَّيْتُ membuat awal syathr kedua 110101. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "قَالَ مُحَمَّدٌ هُوَ ابْنُ مَالِكِ",
+                "أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ"
+              ],
+              "catatan": "Alfiyah bait 1."
+            },
+            {
+              "bait": [
+                "قَالَ مُحَمَّدٌ ابْنُ مَالِكِ"
+              ],
+              "catatan": "هُوَ dibuang: dua huruf hilang, taf'ilah kedua tinggal 1110. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ",
+                "مُصَلِّيًا عَلَى النَّبِيِّ الْمُرْسَلِ"
+              ],
+              "catatan": "Versi v2: lurus. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "بَدَأْتُ نَظْمِي حَمْدًا لِلْأَوَّلِ"
+              ],
+              "catatan": "حَامِدًا diganti حَمْدًا: alif hilang, taf'ilah kedua menjadi 101010 dan tidak cocok di tengah syathr. Bait latihan, bukan kutipan."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -338,7 +728,31 @@
           "bankKata": true
         }
       ],
-      "patokan": "Bait #1 v1 tersusun (dua syathr), ditimbang, dan jumlah patahnya tercatat di Diwan Anda."
+      "patokan": "Rajaz Khandaq ditimbang sendiri, semua baris Cari yang pincang tepat, lalu Bait #1 v1 tersusun, ditimbang, dan jumlah patahnya tercatat di Diwan Anda.",
+      "syarh": [
+        "Perhatikan contoh pertama, rajaz para sahabat ketika menggali parit Khandaq: «نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا». Taf'ilah pertamanya نَحْنُلْلَذِي = 1010110, utuh. Taf'ilah berikutnya نَبَايَعُو = 110110: satu huruf mati di depannya hilang. Bentuk ini sah dan sangat sering dalam rajaz; namanya **zihaf**, dibahas tuntas di Modul 3. Untuk sekarang cukup tahu: timbangan menandainya \"berubah\", bukan \"patah\".",
+        "Contoh kedua adalah bait pertama Alfiyah: «قَالَ مُحَمَّدٌ هُوَ ابْنُ مَالِكِ». Ibnu Malik membuka seribu bait nahwu dengan rajaz yang sama. Perhatikan هُوَ ابْنُ: hamzah washal gugur, jadi dibaca هُوَبْنُ. Dan مَالِكِ di ujung dipanjangkan menjadi مَالِكِي. Kedua syathrnya berakhir dengan bunyi yang sama, ـلِكِ; pola ini (muzdawij) dibahas di Modul 5.",
+        "Sekarang jalur menyusun, tujuh tahap: **makna, qafiyah, susun, lagukan, taqthi', perbaiki, Diwan**. Qafiyah dipilih sebelum menyusun karena ujung bait paling sempit pilihannya. Di contoh kita rawiynya lam berharakat kasrah: الْأَوَّلِ، الْمُرْسَلِ.",
+        "Draf pertama, v1: «وَصَلَّيْتُ عَلَى النَّبِيِّ الْمُرْسَلِ». Saat dilagukan, awal syathr tersendat. Timbangan memastikannya: وَصَلْلَيْتُ عَ = 110101, tidak cocok dengan bentuk مُسْتَفْعِلُنْ mana pun. Satu taf'ilah patah.",
+        "Perbaikannya bukan mencari sinonim sembarang, tetapi mencari kata yang **polanya cocok dengan slotnya**. مُصَلِّيًا = مُصَلْلِيَنْ = 110110, bentuk yang sah. Maknanya tetap (bershalawat), dan ia sejajar dengan حَامِدًا sebagai hal. Hasilnya v2, 0 patah. Kedua versi dicatat di Diwan: menurunnya angka patah adalah tanda kemajuan."
+      ],
+      "keliru": [
+        {
+          "salah": "Menunggu bait sempurna sebelum menimbang.",
+          "benar": "Tulis draf, timbang, perbaiki.",
+          "sebab": "Patah di v1 itu wajar. Timbangan menunjukkan tempatnya, jadi perbaikannya terarah."
+        },
+        {
+          "salah": "Mengganti kata dengan sinonim tanpa melihat polanya, mis. وَصَلَّيْتُ → وَسَلَّمْتُ.",
+          "benar": "Pilih pengganti yang polanya mengisi slot: مُصَلِّيًا = 110110.",
+          "sebab": "Makna yang sama tidak menjamin wazan yang sama. Yang dicocokkan adalah pola 1 dan 0."
+        },
+        {
+          "salah": "Memilih qafiyah setelah bait jadi.",
+          "benar": "Tentukan rawiy dulu (ـلِ), lalu cari kata ujung.",
+          "sebab": "Ujung bait paling sempit pilihannya; kalau dipikir belakangan, bait sering harus dibongkar."
+        }
+      ]
     }
   ],
   "laci": [

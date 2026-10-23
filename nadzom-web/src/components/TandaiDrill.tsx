@@ -18,10 +18,9 @@ export default function TandaiDrill({ petunjuk, butir }: { petunjuk: string; but
     <div className="tumpuk">
       <p><Teks>{petunjuk}</Teks></p>
       <div className="baris-antara">
-        <span className="label">Butir {ke + 1} dari {butir.length}</span>
+        <span className="label">Butir {ke + 1} dari {butir.length}: <span className="ar-in" lang="ar">{butir[ke]}</span></span>
         <span className={`chip ${jumlahBenar === butir.length ? 'ok' : ''}`}>{jumlahBenar} benar</span>
       </div>
-      <div className="papan-bait" lang="ar">{butir[ke]}</div>
       {h ? (
         <TandaiBit key={ke} huruf={h} onBenar={() => setBenar((b) => b.map((v, i) => v || i === ke))} />
       ) : (
