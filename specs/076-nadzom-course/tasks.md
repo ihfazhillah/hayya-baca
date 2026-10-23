@@ -8,4 +8,4 @@
 - [x] T6 Halaman: Beranda, Pelajaran, Checker, Rujukan + test alur utama
 - [x] T7 Review tampilan oleh agent terpisah (jarak, keseragaman, pengelompokan, presisi) + perbaikan
 - [x] T8 `deploy/nadzom.nginx.conf`, `deploy-nadzom.sh`, `docs/architecture.md`
-- [ ] T9 Deploy (setelah DNS `diwan.ihfazh.com` diarahkan pemilik) + certbot
+- [x] T9 Deploy (setelah DNS `diwan.ihfazh.com` diarahkan pemilik) + certbot
