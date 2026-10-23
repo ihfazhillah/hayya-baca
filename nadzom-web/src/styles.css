@@ -296,8 +296,9 @@ textarea, input[type="text"], select {
   width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface);
   padding: var(--s-3); min-height: var(--kontrol);
 }
-select { height: var(--kontrol); padding-block: 0; }
+select, input[type="text"] { height: var(--kontrol); padding-block: 0; }
 textarea.ar, input.ar { font-size: 24px; line-height: 1.8; text-align: right; }
+input.ar { height: auto; padding-block: var(--s-1); } /* harakat butuh ruang */
 textarea { resize: vertical; }
 .segmen { display: inline-flex; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); overflow: hidden; }
 .segmen button { border: 0; background: var(--surface); padding: 0 var(--s-4); min-height: calc(var(--kontrol) - 2px); cursor: pointer; font-weight: 600; font-size: 14px; color: var(--muted); }
@@ -343,7 +344,7 @@ td.ar { font-size: 22px; text-align: right; white-space: nowrap; }
 .contoh-bait .papan-bait { font-size: 25px; }
 
 .versi { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-2); }
-.versi li { display: flex; align-items: center; gap: var(--s-3); font-size: 15px; }
+.versi li { display: flex; align-items: center; gap: var(--s-2); font-size: 15px; }
 
 @media (max-width: 560px) {
   :root { --sel: 24px; }
@@ -360,6 +361,8 @@ td.ar { font-size: 22px; text-align: right; white-space: nowrap; }
   .juz-item { font-size: 9px; letter-spacing: 0; }
   .babak-kepala, .modul-baris, .pelajaran-baris { padding-left: var(--s-4); padding-right: var(--s-4); }
   .babak-ringkas { padding-left: var(--s-4); padding-right: var(--s-4); }
+  .babak-kepala { row-gap: var(--s-1); }
+  .babak-bahr { flex-basis: 100%; margin-left: calc(28px + var(--s-3)); }
   .navigasi a { padding: var(--s-2); }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -367,17 +370,69 @@ td.ar { font-size: 22px; text-align: right; white-space: nowrap; }
 }
 .lanjut { margin-left: auto; }
 
-/* Irama: suku pendek sempit, suku panjang lebar; awal taf'ilah diberi jarak. */
-.irama { display: flex; flex-wrap: wrap; gap: var(--s-1); justify-content: center; font-family: var(--font-ar); font-size: 22px; line-height: 1.6; }
-.suku { display: inline-flex; justify-content: center; min-width: 32px; padding: 0 var(--s-2); border-radius: var(--radius-sm); background: var(--sabab-bg); color: var(--ink); border-bottom: 3px solid var(--sabab); transition: background .1s, color .1s; }
-.suku.panjang { min-width: 64px; background: var(--watad-bg); border-bottom-color: var(--watad); }
-.suku.awal-kaki { margin-inline-start: var(--s-3); }
+/* Irama: suku pendek sempit, suku panjang lebar (2:1). Satu taf'ilah satu kelompok yang tidak dipatah.
+   Panjang = 10 = sabab khafif, jadi warnanya sabab; pendek netral. */
+.irama { display: flex; flex-wrap: wrap; justify-content: center; row-gap: var(--s-2); column-gap: var(--s-4); font-family: var(--font-ar); font-size: 21px; line-height: 1.6; }
+.irama-kaki { display: inline-flex; gap: 3px; white-space: nowrap; }
+.suku { display: inline-flex; justify-content: center; min-width: 26px; padding: 0 3px; border-radius: 6px; background: var(--surface-2); color: var(--ink); border-bottom: 3px solid var(--line-strong); transition: background .1s, color .1s; }
+.suku.panjang { min-width: 52px; background: var(--sabab-bg); border-bottom-color: var(--sabab); }
 .suku.aktif { background: var(--primary); color: var(--on-primary); border-bottom-color: var(--gold); }
+.irama-tombol { min-width: 132px; }
+.centang-label { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--kontrol); font-size: 14px; font-weight: 500; cursor: pointer; }
+.centang-label input { margin: 0; }
+/* irama di dalam hasil timbangan: sumur, sama dengan papan */
+.sumur { background: var(--surface-2); border-radius: var(--radius); padding: var(--s-4); }
+.sumur .suku:not(.panjang):not(.aktif) { background: var(--surface); }
 
 /* Makna bait: terjemah yang disesuaikan, di bawah teks Arab. */
 .makna { margin: 0; color: var(--ink-2); font-style: italic; text-align: center; text-wrap: pretty; }
+.papan-bait + .makna { margin-top: calc(-1 * var(--s-3)); }
 .makna::before { content: "Makna: "; font-style: normal; font-weight: 600; color: var(--muted); }
 
 .dengar { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: var(--s-1); }
-.qafiyah-daftar { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--s-2); }
-.qafiyah-daftar li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+/* Susun: rancangan, tujuh tahap, daftar bait hasil timbangan */
+.rancangan { margin: 0; padding-inline-start: var(--s-5); display: flex; flex-direction: column; gap: var(--s-2); }
+.rancangan .chip { margin-inline-start: var(--s-1); vertical-align: 1px; }
+.chip.tahap { cursor: pointer; padding: 4px 10px 4px 8px; }
+.chip.tahap input { margin: 0; }
+.pesan-daftar { margin: 0; padding-inline-start: var(--s-4); display: flex; flex-direction: column; gap: 2px; }
+.bait-daftar { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); }
+.bait-daftar > li { display: flex; flex-direction: column; gap: var(--s-2); padding: var(--s-3) var(--s-4); }
+.bait-daftar > li + li { border-top: 1px solid var(--line); }
+.bait-daftar > li > .tumpuk { margin-top: var(--s-2); }
+.bait-teks { font-family: var(--font-ar); font-size: 22px; line-height: 1.8; display: flex; flex-wrap: wrap; column-gap: var(--s-6); row-gap: 0; }
+.bait-daftar .baris-antara > .tombol { margin-left: auto; }
+.versi li { flex-wrap: wrap; row-gap: var(--s-1); }
+.versi-bait { font-family: var(--font-ar); font-size: 19px; line-height: 1.5; flex: 1 1 180px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+
+/* Laci & tabel bentuk: judul tabel sebagai caption, kolom tetap agar tabel yang bertumpuk sejajar */
+caption { caption-side: top; text-align: left; padding: var(--s-3) var(--s-4); font-weight: 600; font-size: 15px; color: var(--ink-2); border-bottom: 1px solid var(--line); }
+caption .redup { font-weight: 400; }
+.tabel-tetap { table-layout: fixed; }
+th.ar-kepala { text-align: right; }
+.laci-pola-sel { display: none; }
+.laci-cari { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+.laci-cari input { flex: 1 1 240px; width: auto; }
+.laci .laci-k-kata { width: 24%; }
+col.laci-k-pola { width: 128px; }
+.laci td { padding-block: var(--s-2); }
+.laci td.ar { white-space: normal; line-height: 1.5; }
+.bentuk col.bentuk-k-ar { width: 26%; }
+.bentuk col.bentuk-k-pola { width: 120px; }
+@media (max-width: 560px) {
+  .laci .laci-k-kata { width: 42%; }
+  .laci .laci-k-pola { display: none; }
+  .laci .laci-pola-sel { display: block; font-size: 13px; color: var(--muted); text-align: right; line-height: 1.4; }
+  .bentuk { table-layout: auto; }
+  .bentuk col.bentuk-k-ar, .bentuk col.bentuk-k-pola { width: auto; }
+  .bentuk th { letter-spacing: .02em; }
+  .bentuk td.bit { font-size: 13px; letter-spacing: 0; }
+  .irama { font-size: 18px; column-gap: var(--s-2); }
+  .irama-kaki { gap: 2px; }
+  .suku { min-width: 20px; padding: 0 2px; }
+  .suku.panjang { min-width: 40px; }
+  .irama-kunci { flex-basis: 100%; }
+  .sumur { padding: var(--s-3) var(--s-2); }
+  .bait-daftar > li { padding: var(--s-3); }
+  .bait-teks { font-size: 20px; }
+}

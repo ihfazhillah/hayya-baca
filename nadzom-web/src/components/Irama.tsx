@@ -56,28 +56,33 @@ export default function Irama({ hasil }: { hasil: HasilBait }) {
     <div className="tumpuk-kecil">
       {baris.map((suku, b) => (
         <div className="irama" dir="rtl" lang="ar" key={b} aria-label={`Irama syathr ${b + 1}`}>
-          {suku.map((s, i) => (
-            <span
-              key={i}
-              className={`suku${s.panjang ? ' panjang' : ''}${s.awalKaki && i > 0 ? ' awal-kaki' : ''}${aktif?.[0] === b && aktif[1] === i ? ' aktif' : ''}`}
-              title={s.panjang ? 'panjang (10)' : 'pendek (1)'}
-            >
-              {s.teks}
+          {/* satu taf'ilah satu kelompok: baris hanya patah di antara taf'ilah */}
+          {[...new Set(suku.map((s) => s.kaki))].map((kaki) => (
+            <span className="irama-kaki" key={kaki}>
+              {suku.map((s, i) => (s.kaki !== kaki ? null : (
+                <span
+                  key={i}
+                  className={`suku${s.panjang ? ' panjang' : ''}${aktif?.[0] === b && aktif[1] === i ? ' aktif' : ''}`}
+                  title={s.panjang ? 'panjang (10)' : 'pendek (1)'}
+                >
+                  {s.teks}
+                </span>
+              )))}
             </span>
           ))}
         </div>
       ))}
       <div className="baris">
         {aktif ? (
-          <button type="button" className="tombol" onClick={henti}>Berhenti</button>
+          <button type="button" className="tombol irama-tombol" onClick={henti}>Berhenti</button>
         ) : (
-          <button type="button" className="tombol utama" onClick={putar}>Putar irama</button>
+          <button type="button" className="tombol utama irama-tombol" onClick={putar}>Putar irama</button>
         )}
-        <label className="baris kecil" style={{ cursor: 'pointer' }}>
+        <label className="centang-label">
           <input type="checkbox" checked={pelan} onChange={(e) => setPelan(e.target.checked)} />
           Pelan
         </label>
-        <span className="redup kecil">Kotak lebar = suku panjang (10), sempit = pendek (1).</span>
+        <span className="redup kecil irama-kunci">Kotak lebar = suku panjang (10), sempit = pendek (1).</span>
       </div>
     </div>
   )

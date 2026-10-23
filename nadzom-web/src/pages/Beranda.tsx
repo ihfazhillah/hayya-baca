@@ -42,7 +42,7 @@ export default function Beranda() {
         {BABAK.map((b) => (
           <article className="babak" key={b.nomor}>
             <div className="babak-kepala">
-              <span className="segel" aria-hidden="true">{b.nomor}</span>
+              <span className="segel" aria-hidden="true">{b.nomor === 4 ? '+' : b.nomor}</span>
               <h2>{b.nomor === 4 ? b.judul : `Babak ${b.nomor}: ${b.judul}`}</h2>
               <span className="babak-bahr"><Teks>{b.bahr}</Teks></span>
             </div>

@@ -62,21 +62,21 @@ export default function Susun({ t }: { t: TamrinSusun }) {
       <p><Teks>{t.petunjuk}</Teks></p>
       <p className="redup"><Teks>{t.makna}</Teks></p>
       {t.rancangan && (
-        <ol className="qafiyah-daftar" style={{ listStyle: 'decimal', paddingInlineStart: 24 }}>
+        <ol className="rancangan">
           {t.rancangan.map((r, i) => {
             const selesai = akhir && i < akhir.bait.length && akhir.hasil[i]?.patah === 0
             return (
-              <li key={i} style={{ display: 'list-item' }}>
+              <li key={i}>
                 <Teks>{r}</Teks> {selesai && <span className="chip ok">lurus</span>}
               </li>
             )
           })}
         </ol>
       )}
-      <div className="baris" role="group" aria-label="Tujuh tahap">
+      <div className="baris" role="group" aria-label="Tujuh tahap" style={{ gap: 'var(--s-2)' }}>
         {JALUR.map((j, i) => (
-          <label key={j} className={`chip ${centang[i] ? 'ok' : ''}`} style={{ cursor: 'pointer' }}>
-            <input type="checkbox" checked={centang[i]} onChange={() => setCentang(centang.map((v, k) => (k === i ? !v : v)))} style={{ margin: 0 }} />
+          <label key={j} className={`chip tahap${centang[i] ? ' ok' : ''}`}>
+            <input type="checkbox" checked={centang[i]} onChange={() => setCentang(centang.map((v, k) => (k === i ? !v : v)))} />
             {i + 1}. {j}
           </label>
         ))}
@@ -106,7 +106,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
                 <span className={`chip ${patahTotal(v) === 0 ? 'ok' : 'salah'}`}>patah {patahTotal(v)}</span>
                 {banyak && <span className="chip">{v.bait.length} bait</span>}
                 {v.qafiyah.length > 0 && <span className="chip salah">qafiyah {v.qafiyah.length}</span>}
-                <span className="ar-in" lang="ar" style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{v.bait[0]?.[0]}</span>
+                <span className="versi-bait" dir="rtl" lang="ar">{v.bait[0]?.[0]}</span>
               </li>
             ))}
           </ul>
@@ -119,29 +119,33 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         <div className="tumpuk" key={versi.length}>
           {akhir.qafiyah.length > 0 && (
             <div className="pesan salah">
-              {akhir.qafiyah.map((m, i) => <div key={i}>Bait {m.bait}: {m.pesan}</div>)}
+              <ul className="pesan-daftar">{akhir.qafiyah.map((m, i) => <li key={i}>Bait {m.bait}: {m.pesan}</li>)}</ul>
             </div>
           )}
-          <ul className="qafiyah-daftar">
+          <ol className="bait-daftar">
             {akhir.bait.map((b, i) => {
               const h = akhir.hasil[i]
               const q = akhir.qafiyah.some((m) => m.bait === i + 1)
               return (
-                <li key={i} className="tumpuk-kecil" style={{ alignItems: 'stretch' }}>
-                  <div className="baris">
-                    <span className="chip">{i + 1}</span>
-                    <span className={`chip ${h.patah === 0 ? 'ok' : 'salah'}`}>patah {h.patah}</span>
-                    {t.qafiyah && <span className={`chip ${q ? 'salah' : 'ok'}`}>{q ? 'ujung lain' : 'qafiyah pas'}</span>}
-                    <span className="ar-in" lang="ar">{b.join(' ... ')}</span>
+                <li key={i}>
+                  <div className="baris-antara">
+                    <div className="baris" style={{ gap: 'var(--s-2)' }}>
+                      <span className="chip">Bait {i + 1}</span>
+                      <span className={`chip ${h.patah === 0 ? 'ok' : 'salah'}`}>patah {h.patah}</span>
+                      {t.qafiyah && <span className={`chip ${q ? 'salah' : 'ok'}`}>{q ? 'ujung lain' : 'qafiyah pas'}</span>}
+                    </div>
                     <button type="button" className="tombol kecil" onClick={() => setBuka(buka === i ? null : i)} aria-expanded={buka === i}>
                       {buka === i ? 'Tutup' : 'Lihat timbangan'}
                     </button>
+                  </div>
+                  <div className="bait-teks" dir="rtl" lang="ar">
+                    {b.map((sy, k) => <span key={k}>{sy}</span>)}
                   </div>
                   {buka === i && <HasilTimbang hasil={h} bait={b} />}
                 </li>
               )
             })}
-          </ul>
+          </ol>
           <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanQasidah(judul, akhir.bait, akhir.hasil)} />
         </div>
       )}

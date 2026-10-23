@@ -62,8 +62,10 @@ export default function Rujukan() {
           const unik = semua.filter((x, i) => semua.findIndex((y) => y.bit === x.bit) === i)
           return (
             <div className="tabel-wrap" key={b.kode}>
-              <table>
-                <thead><tr><th>{b.nama}</th><th>Pola</th><th>Nama di kitab</th><th>Perubahan</th></tr></thead>
+              <table className="tabel-tetap bentuk">
+                <caption>{b.nama} <span className="ar-in redup" lang="ar">{b.namaAr}</span></caption>
+                <colgroup><col className="bentuk-k-ar" /><col className="bentuk-k-pola" /><col className="bentuk-k-ar" /><col /></colgroup>
+                <thead><tr><th className="ar-kepala">Taf'ilah</th><th>Pola</th><th className="ar-kepala">Nama di kitab</th><th>Perubahan</th></tr></thead>
                 <tbody>
                   {unik.map((x) => (
                     <tr key={x.bit}>

@@ -31,7 +31,7 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
           {dengar ? 'Tutup irama' : 'Dengar irama'}
         </button>
       </div>
-      {dengar && <Irama hasil={hasil} />}
+      {dengar && <div className="sumur"><Irama hasil={hasil} /></div>}
       <div className="papan">
         {hasil.syathr.map((s, i) => (
           <div className="tumpuk-kecil" key={i} style={{ alignItems: 'center', width: '100%' }}>
