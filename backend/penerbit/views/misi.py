@@ -6,7 +6,9 @@ from rest_framework.response import Response
 
 from .. import hadiah, penilaian
 from ..kata_umum import KATA_UMUM
-from ..models import HasilMisi, HasilUjian, Misi, Modul, PemeriksaanLembar, Percobaan, SoalUjian
+from ..models import (
+    HasilMisi, HasilUjian, Lembar, Misi, Modul, PemeriksaanLembar, Percobaan, SoalUjian,
+)
 from ..progres import modul_terbuka, pesan_terkunci, status_misi
 from .base import PenulisView
 
@@ -20,10 +22,11 @@ def ambil_misi(request, pk):
     return misi
 
 
-def teks_rekam(profil, misi):
+def teks_rekam(profil, misi, rekam=None):
     """Teks yang dibaca keras untuk misi rekam: versi benar misi yang sudah selesai saja,
-    supaya kunci misi yang belum dikerjakan tidak terbuka."""
-    sumber = misi.modul.misi.filter(urutan__in=misi.data["rekam"]["dari_misi"]).order_by("urutan")
+    supaya kunci misi yang belum dikerjakan tidak terbuka. `rekam`: milik satu tantangan Jelajah."""
+    rekam = rekam or misi.data["rekam"]
+    sumber = misi.modul.misi.filter(urutan__in=rekam["dari_misi"]).order_by("urutan")
     selesai = set(HasilMisi.objects.filter(
         profil=profil, misi__in=sumber, status=HasilMisi.Status.SELESAI
     ).values_list("misi_id", flat=True))
@@ -42,6 +45,39 @@ def catat_hasil(profil, misi, **kw):
     """Simpan HasilMisi lalu jalankan mesin hadiah. Kembalikan hadiah baru."""
     HasilMisi.objects.create(profil=profil, misi=misi, **kw)
     return hadiah.evaluasi(profil)
+
+
+# ---- Misi Jelajah: misi bonus "pilih 1 dari 3 tantangan" (spec 075 K4) ----------------
+#
+# Pilihan anak disimpan di Percobaan.butir {"pilihan": i} (tanpa migrasi): percobaan yang masih
+# berjalan = pilihan saat ini; setelah Tandai selesai, percobaan ditutup dan pilihannya tetap
+# terbaca dari percobaan terakhir.
+
+def tantangan_publik(profil, misi, t):
+    out = {k: v for k, v in t.items() if k not in ("rekam", "lembar")}
+    if "rekam" in t:
+        out["teks_rekam"] = teks_rekam(profil, misi, t["rekam"])
+    if t.get("lembar"):
+        lb = Lembar.objects.filter(kode=t["lembar"]).first()
+        out["lembar"] = {"kode": t["lembar"], "judul": lb.judul if lb else ""}
+    return out
+
+
+def pilihan_tersimpan(profil, misi):
+    """Indeks tantangan yang dipilih: percobaan berjalan dulu, lalu yang terakhir selesai."""
+    p = (Percobaan.objects.filter(profil=profil, misi=misi, selesai=False).last()
+         or Percobaan.objects.filter(profil=profil, misi=misi, selesai=True).last())
+    i = (p.butir or {}).get("pilihan") if p else None
+    return i if isinstance(i, int) and 0 <= i < len(misi.data.get("pilihan", [])) else None
+
+
+def indeks_pilihan(misi, nilai):
+    if "pilihan" not in misi.data:
+        raise ValidationError("Misi ini tidak punya tantangan untuk dipilih.")
+    if isinstance(nilai, bool) or not isinstance(nilai, int) \
+            or not 0 <= nilai < len(misi.data["pilihan"]):
+        raise ValidationError("Pilih salah satu dari tiga tantangan.")
+    return nilai
 
 
 def selesai_respons(misi, percobaan, hadiah_baru):
@@ -82,6 +118,10 @@ class MisiView(PenulisView):
         if "rekam" in misi.data:
             out.pop("rekam")
             out["teks_rekam"] = teks_rekam(request.profil, misi)
+        if "pilihan" in misi.data:
+            out["pilihan"] = [tantangan_publik(request.profil, misi, t)
+                              for t in misi.data["pilihan"]]
+            out["dipilih"] = pilihan_tersimpan(request.profil, misi)
         if misi.jenis in JENIS_INTERAKTIF:
             p = Percobaan.objects.filter(profil=request.profil, misi=misi, selesai=False).last()
             out["percobaan"] = {
@@ -302,8 +342,32 @@ class TandaiView(PenulisView):
         log = (request.data.get("log") or "").strip()
         if misi.jenis == Misi.Jenis.LOG and not log:
             raise ValidationError("Tulis LOG-mu dulu, satu baris saja.")
+        if "pilihan" in misi.data:
+            p = percobaan_aktif(request.profil, misi)
+            if request.data.get("pilihan") is not None:
+                p.butir = {"pilihan": indeks_pilihan(misi, request.data.get("pilihan"))}
+            i = (p.butir or {}).get("pilihan")
+            if i is None:
+                raise ValidationError("Pilih satu tantangan dulu, ya.")
+            if misi.data["pilihan"][i].get("pertanyaan") and not log:
+                raise ValidationError("Tulis jawabanmu dulu, satu baris saja.")
+            p.selesai = True
+            p.save()
         baru = catat_hasil(request.profil, misi, status=HasilMisi.Status.SELESAI, log=log)
         return Response({"selesai": True, "hadiah_baru": baru})
+
+
+class PilihTantanganView(PenulisView):
+    """Misi Jelajah: anak memilih satu dari tiga tantangan (boleh diganti sebelum selesai)."""
+
+    @transaction.atomic
+    def post(self, request, pk):
+        misi = ambil_misi(request, pk)
+        i = indeks_pilihan(misi, request.data.get("pilihan"))
+        p = percobaan_aktif(request.profil, misi)
+        p.butir = {"pilihan": i}
+        p.save()
+        return Response({"dipilih": i})
 
 
 class CetakMisiView(PenulisView):

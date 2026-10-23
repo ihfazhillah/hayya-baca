@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from penerbit.hadiah import total_poin
 from penerbit.models import (
-    LAPIS_STEMPEL, Alat, BagiNaskah, Hadiah, HasilMisi, Jejak, Misi, Naskah, PemeriksaanLembar,
+    LAPIS_STEMPEL, Alat, BagiNaskah, Hadiah, HasilMisi, Jejak, Lembar, Misi, Naskah, PemeriksaanLembar,
     Penukaran, Poin, Prompt, Stempel, Stiker, Versi,
 )
 
@@ -35,14 +35,15 @@ class Dasar(Keluarga):
 class TestDasbor(Dasar):
     def test_angka_perlu_tindakan(self):
         selesaikan_modul(self.profil, 1)
-        self.cetak(2, 5)
+        # Satu lembar menunggu diperiksa (Modul 2 tidak lagi punya misi cetak: M2-5 kini tantangan Jelajah).
+        PemeriksaanLembar.objects.create(profil=self.profil, lembar=Lembar.objects.get(kode="M2-5"))
         self.naskah(stempel_diminta="peta")
         Penukaran.objects.create(profil=self.profil,
                                  hadiah=Hadiah.objects.create(profil=self.profil, nama="Es krim",
                                                               harga=10))
         r = self.ortu.get("/api/penerbit/ortu/dasbor/" + self.q)
         assert r.data["perlu_tindakan"] == {"lembar": 1, "stempel": 1, "penukaran": 1, "pertanyaan": 0,
-                                            "kartu_pamer": 0}
+                                            "kartu_pamer": 0, "soal_buatan": 0}
         assert r.data["minggu_ini"]["misi_selesai"] == 5
         assert r.data["persiapan"]["modul"]["nomor"] == 2
         assert r.data["aktivitas"]

@@ -456,10 +456,12 @@ class TestMisiLain(Dasar):
 
     def test_cetak_menunggu_pemeriksaan(self):
         selesaikan_modul(self.profil, 1)
-        m = self.misi(2, 5)
+        selesaikan_modul(self.profil, 2)
+        selesaikan_modul(self.profil, 3)
+        m = self.misi(4, 5)
         r = self.anak.post(f"/api/penerbit/misi/{m.id}/cetak/")
         assert r.data["status"] == "menunggu"
-        assert PemeriksaanLembar.objects.get(profil=self.profil).lembar.kode == "M2-5"
+        assert PemeriksaanLembar.objects.get(profil=self.profil).lembar.kode == "M4-5"
 
     def test_misi_di_luar_layar_menyebut_langkah_alasan_dan_contoh(self):
         d = self.anak.get(f"/api/penerbit/misi/{self.misi(1, 4).id}/").data
@@ -468,11 +470,14 @@ class TestMisiLain(Dasar):
 
     def test_rekam_hanya_memakai_teks_misi_yang_sudah_selesai(self):
         url = f"/api/penerbit/misi/{self.misi(1, 5).id}/"
-        assert self.anak.get(url).data["teks_rekam"] == []
+
+        def teks_rekam():  # tantangan "Rekam suaramu" di Misi Jelajah
+            return next(p for p in self.anak.get(url).data["pilihan"] if "teks_rekam" in p)["teks_rekam"]
+
+        assert teks_rekam() == []
         m1 = self.misi(1, 1)
         HasilMisi.objects.create(profil=self.profil, misi=m1, status="selesai")
-        teks = self.anak.get(url).data["teks_rekam"]
-        assert teks == [{"judul": m1.judul, "teks": m1.data["versi_benar"]}]
+        assert teks_rekam() == [{"judul": m1.judul, "teks": m1.data["versi_benar"]}]
 
     def test_tandai_tidak_untuk_misi_klik(self):
         m = self.misi(1, 2)

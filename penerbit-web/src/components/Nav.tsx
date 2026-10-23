@@ -77,6 +77,7 @@ export function NavOrtu() {
           <NavLink to="/ortu/lembar">Pemeriksaan</NavLink>
           <NavLink to="/ortu/pertanyaan">Pertanyaan</NavLink>
           <NavLink to="/ortu/kartu-pamer">Kartu Pamer</NavLink>
+          <NavLink to="/ortu/soal">Soal Anak</NavLink>
           <NavLink to="/ortu/naskah">Naskah</NavLink>
           <NavLink to="/ortu/stiker">Stiker</NavLink>
           <NavLink to="/ortu/prompt">Prompt</NavLink>

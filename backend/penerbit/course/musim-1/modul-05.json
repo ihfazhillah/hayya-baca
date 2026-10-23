@@ -170,20 +170,50 @@
     },
     {
       "urutan": 6,
-      "judul": "Peran dibalik",
+      "judul": "Misi Jelajah",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Buat 3 kalimat yang sengaja dibuat salah untuk dikoreksi Ayah.",
-      "kenapa": "Membuat kesalahan dengan sengaja itu lebih sulit. Kalau kamu bisa, berarti kamu sudah paham.",
-      "langkah": [
-        "Ambil kertas dan pensil.",
-        "Tulis 3 kalimat, masing-masing dengan satu kesalahan yang kamu sengaja.",
-        "Di balik kertas, tulis kunci jawabannya.",
-        "Berikan ke Ayah atau Ummah untuk dikoreksi.",
-        "Periksa jawaban Ayah atau Ummah dengan kuncimu.",
-        "Kembali ke sini dan tekan Tandai selesai."
+      "petunjuk": "Pilih satu dari tiga tantangan. Kerjakan sendiri, kapan saja.",
+      "pilihan": [
+        {
+          "judul": "Peran dibalik",
+          "kenapa": "Membuat kesalahan dengan sengaja itu lebih sulit. Kalau kamu bisa, berarti kamu sudah paham.",
+          "langkah": [
+            "Ambil kertas dan pensil.",
+            "Tulis 3 kalimat. Buat satu kesalahan di setiap kalimat dengan sengaja.",
+            "Di balik kertas, tulis kunci jawabannya.",
+            "Berikan ke kakak, adik, Ayah, atau Ummah untuk dikoreksi.",
+            "Periksa jawaban mereka dengan kuncimu.",
+            "Kembali ke sini dan tekan Tandai selesai."
+          ]
+        },
+        {
+          "judul": "Periksa buku tulismu",
+          "kenapa": "Tulisan lamamu juga bisa punya kesalahan. Kaca Pembesar membantumu melihatnya.",
+          "langkah": [
+            "Ambil buku tulis sekolahmu yang lama.",
+            "Pilih satu halaman tulisanmu sendiri.",
+            "Cari kesalahan: huruf besar, titik, spasi, atau di/ke.",
+            "Betulkan dengan pensil.",
+            "Tulis di bawah: kesalahan apa yang paling sering kamu temukan?"
+          ],
+          "pertanyaan": "Kesalahan apa yang paling sering kamu temukan?",
+          "contoh": "Aku sering lupa titik di akhir kalimat."
+        },
+        {
+          "judul": "Pemburu huruf besar",
+          "kenapa": "Huruf besar punya alasan. Kalau tahu alasannya, kamu tidak lupa memakainya.",
+          "langkah": [
+            "Buka satu halaman buku cerita.",
+            "Cari 5 kata yang diawali huruf besar.",
+            "Untuk setiap kata, tanya: ini awal kalimat atau nama?",
+            "Tulis satu kata dan alasannya di bawah."
+          ],
+          "pertanyaan": "Tulis satu kata berhuruf besar dan alasannya.",
+          "contoh": "\"Jakarta\". Itu nama kota."
+        }
       ],
-      "petunjuk_ortu": "Tujuannya: anak mengajar balik, tanda dia paham jenis-jenis kesalahan. Sesekali lewatkan satu kesalahan dengan sengaja, lalu biarkan dia yang menemukannya. Kalau dia bertanya kesalahan apa yang boleh dibuat, jawab: huruf besar, titik, spasi, atau di/ke."
+      "petunjuk_ortu": "Tujuannya: anak memakai Kaca Pembesar di luar latihan. Ini bonus, boleh dilewati; anak memilih sendiri satu dari tiga tantangan. Kalau dia memberi Anda soal Peran dibalik, sesekali lewatkan satu kesalahan dengan sengaja, lalu biarkan dia yang menemukannya. Kalau dia bertanya kesalahan apa yang boleh dibuat, jawab: huruf besar, titik, spasi, atau di/ke."
     },
     {
       "urutan": 7,

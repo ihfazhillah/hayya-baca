@@ -320,15 +320,49 @@ def _impor_modul(data, nama_file):
         if m["jenis"] == "cetak" and lembar is None:
             raise _Gagal(f"{label}: misi cetak tanpa lembar")
         if "rekam" in m:
-            punya_versi = {x["urutan"] for x in data["misi"] if x.get("versi_benar")}
-            kurang = [u for u in m["rekam"].get("dari_misi", []) if u not in punya_versi]
-            if kurang or not m["rekam"].get("dari_misi"):
-                raise _Gagal(f"{label}: rekam dari misi {kurang} yang tidak punya versi_benar")
+            _cek_rekam(m["rekam"], data, label)
+        if "pilihan" in m:
+            _cek_pilihan(m, data, label)
         Misi.objects.update_or_create(
             modul=modul, urutan=m["urutan"],
             defaults={"judul": m["judul"], "tahap": m["tahap"], "jenis": m["jenis"],
                       "petunjuk": m.get("petunjuk", ""), "data": isi, "lembar": lembar},
         )
+
+
+def _cek_rekam(rekam, data_modul, label):
+    punya_versi = {x["urutan"] for x in data_modul["misi"] if x.get("versi_benar")}
+    kurang = [u for u in rekam.get("dari_misi", []) if u not in punya_versi]
+    if kurang or not rekam.get("dari_misi"):
+        raise _Gagal(f"{label}: rekam dari misi {kurang} yang tidak punya versi_benar")
+
+
+KOLOM_TANTANGAN = {"judul", "kenapa", "langkah", "pertanyaan", "contoh", "rekam", "tautan", "lembar"}
+
+
+def _cek_pilihan(m, data_modul, label):
+    """Misi Jelajah (spec 075 K4): misi bonus "pilih 1 dari 3 tantangan"."""
+    if (m.get("tahap"), m.get("jenis")) != ("bonus", "tandai"):
+        raise _Gagal(f"{label}: pilihan hanya untuk misi bonus jenis tandai")
+    pilihan = m["pilihan"]
+    if not isinstance(pilihan, list) or len(pilihan) != 3:
+        raise _Gagal(f"{label}: pilihan harus 3 tantangan")
+    for n, t in enumerate(pilihan, start=1):
+        sub = f"{label}: tantangan {n}"
+        asing = set(t) - KOLOM_TANTANGAN
+        if asing:
+            raise _Gagal(f"{sub}: kolom {sorted(asing)} tidak dikenal")
+        for kolom in ("judul", "kenapa", "langkah"):
+            if not t.get(kolom):
+                raise _Gagal(f"{sub}: tanpa \"{kolom}\"")
+        if not isinstance(t["langkah"], list):
+            raise _Gagal(f"{sub}: langkah harus daftar")
+        if "contoh" in t and not t.get("pertanyaan"):
+            raise _Gagal(f"{sub}: contoh hanya untuk tantangan satu baris (butuh \"pertanyaan\")")
+        if "rekam" in t:
+            _cek_rekam(t["rekam"], data_modul, sub)
+        if t.get("lembar") and not Lembar.objects.filter(kode=t["lembar"]).exists():
+            raise _Gagal(f"{sub}: lembar {t['lembar']} tidak ada")
 
 
 def _impor_latihan(data):

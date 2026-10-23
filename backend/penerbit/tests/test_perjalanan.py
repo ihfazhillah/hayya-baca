@@ -50,6 +50,8 @@ class TestPerjalananPenuh(Keluarga):
         elif misi.jenis == "log":
             assert self.anak.post(url + "tandai/", {"log": "Aku memakai alat ini karena..."},
                                   format="json").status_code == 200
+        elif misi.jenis == "tandai" and d.get("pilihan"):  # Misi Jelajah: pilih 1 dari 3
+            assert self.anak.post(url + "tandai/", {"pilihan": 0}, format="json").status_code == 200
         elif misi.jenis == "tandai":
             assert self.anak.post(url + "tandai/").status_code == 200
         elif misi.jenis == "cetak":
@@ -147,4 +149,4 @@ class TestPerjalananPenuh(Keluarga):
         assert beranda["poin"] > 50
         dasbor = self.ortu.get("/api/penerbit/ortu/dasbor/").data
         assert dasbor["perlu_tindakan"] == {"lembar": 0, "stempel": 0, "penukaran": 0, "pertanyaan": 0,
-                                            "kartu_pamer": 0}
+                                            "kartu_pamer": 0, "soal_buatan": 0}

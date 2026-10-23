@@ -10,6 +10,7 @@ import KartuAlat from './pages/penulis/KartuAlat'
 import Modul from './pages/penulis/Modul'
 import Misi from './pages/penulis/Misi'
 import LatihanHarian from './pages/penulis/LatihanHarian'
+import RuangLatihan from './pages/penulis/RuangLatihan'
 import Jejak from './pages/penulis/Jejak'
 import Tukar from './pages/penulis/Tukar'
 import RuangPenulis from './pages/penulis/RuangPenulis'
@@ -18,6 +19,8 @@ import DrafNol from './pages/penulis/DrafNol'
 import HalamanNaskah from './pages/penulis/HalamanNaskah'
 import Revisi from './pages/penulis/Revisi'
 import Bandingkan from './pages/penulis/Bandingkan'
+import BuatSoal from './pages/penulis/BuatSoal'
+import AlatBebas from './pages/penulis/AlatBebas'
 import RakBuku from './pages/RakBuku'
 import Buku from './pages/Buku'
 import LembarCetak from './pages/cetak/LembarCetak'
@@ -32,6 +35,7 @@ import CetakModul from './pages/ortu/CetakModul'
 import PromptAnak from './pages/ortu/PromptAnak'
 import PertanyaanAnak from './pages/ortu/PertanyaanAnak'
 import KartuPamerAnak from './pages/ortu/KartuPamerAnak'
+import SoalAnak, { KerjakanSoal } from './pages/ortu/SoalAnak'
 import DaftarUlasan from './pages/tamu/DaftarUlasan'
 import Ulasan from './pages/tamu/Ulasan'
 import type { Peran } from './types'
@@ -82,6 +86,7 @@ function Rute() {
         <Route path="/modul/:nomor" element={<Modul />} />
         <Route path="/modul/:nomor/misi/:urutan" element={<Misi />} />
         <Route path="/latihan" element={<LatihanHarian />} />
+        <Route path="/alat/:kode/latihan" element={<RuangLatihan />} />
         <Route path="/jejak" element={<Jejak />} />
         <Route path="/tukar" element={<Tukar />} />
         <Route path="/naskah" element={<RuangPenulis />} />
@@ -90,6 +95,8 @@ function Rute() {
         <Route path="/naskah/:id/draf-nol" element={<DrafNol />} />
         <Route path="/naskah/:id/revisi/:lapis" element={<Revisi />} />
         <Route path="/naskah/:id/bandingkan" element={<Bandingkan />} />
+        <Route path="/soal" element={<BuatSoal />} />
+        <Route path="/alat-bebas" element={<AlatBebas />} />
         </Route>
       </Route>
       <Route path="/rak" element={<RakBuku />} />
@@ -108,6 +115,8 @@ function Rute() {
           <Route path="/ortu/prompt" element={<PromptAnak />} />
           <Route path="/ortu/pertanyaan" element={<PertanyaanAnak />} />
           <Route path="/ortu/kartu-pamer" element={<KartuPamerAnak />} />
+          <Route path="/ortu/soal" element={<SoalAnak />} />
+          <Route path="/ortu/soal/:id" element={<KerjakanSoal />} />
         </Route>
       </Route>
       <Route element={<Butuh peran="tamu" />}>

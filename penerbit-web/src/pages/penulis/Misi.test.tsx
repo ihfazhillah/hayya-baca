@@ -754,4 +754,74 @@ describe('Misi: Gunting dan Detektor Kembar dengan Contoh dari Oren (spec 075 Fa
     const contoh = screen.getByRole('region', { name: 'Contoh dari Oren' })
     expect(within(contoh).getByText('Kata "terus" muncul lagi.')).toBeInTheDocument()
   })
+  describe('Misi Jelajah: pilih 1 dari 3 tantangan', () => {
+    const PILIHAN = [
+      { judul: 'Rekam suaramu', kenapa: 'Dengarkan suaramu sendiri.', langkah: ['Tekan Rekam.', 'Tekan Berhenti.', 'Tekan Tandai selesai.'], teks_rekam: [] },
+      { judul: 'Kalimat belibet', kenapa: 'Lidah bisa tersandung.', langkah: ['Baca keras.', 'Buat kalimat.', 'Tulis di bawah.'],
+        pertanyaan: 'Tulis kalimat belibet buatanmu.', contoh: 'Ular lari lurus.' },
+      { judul: 'Hariku dalam 5 kalimat', kenapa: 'Kalimat pendek enak dibaca.', langkah: ['Cetak lembarnya.', 'Tulis.', 'Tandai.'],
+        lembar: { kode: 'M2-5', judul: 'Hariku dalam 5 kalimat' } },
+    ]
+    const jelajah = (over: Record<string, unknown> = {}) => ({
+      ...dasarMisi, id: 10, urutan: 1, berikutnya: 11, judul: 'Misi Jelajah', jenis: 'tandai', tahap: 'bonus',
+      tahap_label: 'Bonus', petunjuk: 'Pilih satu dari tiga tantangan.', pilihan: PILIHAN, dipilih: null, ...over,
+    })
+
+    it('memilih tantangan satu baris: langkahnya tampil, jawaban wajib, pilihan ikut terkirim', async () => {
+      const calls = pasangFetch({
+        'GET /api/penerbit/modul/1/': { body: MODUL },
+        'GET /api/penerbit/misi/10/': { body: jelajah() },
+        'POST /api/penerbit/misi/10/pilih/': { body: { dipilih: 1 } },
+        'POST /api/penerbit/misi/10/tandai/': { body: { selesai: true, hadiah_baru: [] } },
+      })
+      tampil('/modul/1/misi/1')
+      const daftar = await screen.findByRole('group', { name: 'Pilih satu tantangan' })
+      expect(within(daftar).getAllByRole('button')).toHaveLength(3)
+      expect(screen.queryByRole('button', { name: 'Tandai selesai' })).toBeNull()
+
+      await userEvent.click(within(daftar).getByRole('button', { name: /Kalimat belibet/ }))
+      expect(calls.find((c) => c.url.endsWith('/pilih/'))?.body).toEqual({ pilihan: 1 })
+      expect(await screen.findByRole('heading', { name: 'Kalimat belibet' })).toBeInTheDocument()
+      expect(screen.getByRole('list', { name: 'Langkah' })).toHaveTextContent('Buat kalimat.')
+      expect(screen.getByText(/Ular lari lurus\./)).toBeInTheDocument()
+      const simpan = screen.getByRole('button', { name: 'Simpan jawaban' })
+      expect(simpan).toBeDisabled()
+      await userEvent.type(screen.getByLabelText('Tulis kalimat belibet buatanmu.'), 'Kuku kaki kakek.')
+      await userEvent.click(simpan)
+      expect(calls.find((c) => c.url.endsWith('/tandai/'))?.body).toEqual({ log: 'Kuku kaki kakek.', pilihan: 1 })
+      expect(await screen.findByRole('heading', { name: 'Misi 1 selesai!' })).toBeInTheDocument()
+    })
+
+    it('pilihan tersimpan dibuka langsung; boleh ganti tantangan; tantangan lembar bisa dicetak sendiri', async () => {
+      const buka = vi.fn()
+      vi.stubGlobal('open', buka)
+      const calls = pasangFetch({
+        'GET /api/penerbit/modul/1/': { body: MODUL },
+        'GET /api/penerbit/misi/10/': { body: jelajah({ dipilih: 0 }) },
+        'POST /api/penerbit/misi/10/pilih/': { body: { dipilih: 2 } },
+        'POST /api/penerbit/misi/10/tandai/': { body: { selesai: true, hadiah_baru: [] } },
+      })
+      tampil('/modul/1/misi/1')
+      expect(await screen.findByRole('heading', { name: 'Rekam suaramu' })).toBeInTheDocument()
+      expect(screen.getByText(/Selesaikan dulu misi Si Ceroboh/)).toBeInTheDocument()
+      await userEvent.click(screen.getByRole('button', { name: 'Ganti tantangan' }))
+      await userEvent.click(screen.getByRole('button', { name: /Hariku dalam 5 kalimat/ }))
+      expect(await screen.findByRole('heading', { name: 'Hariku dalam 5 kalimat' })).toBeInTheDocument()
+      await userEvent.click(screen.getByRole('button', { name: /Cetak lembar/ }))
+      expect(buka).toHaveBeenCalledWith('/cetak/M2-5', '_blank', 'noopener')
+      await userEvent.click(screen.getByRole('button', { name: 'Tandai selesai' }))
+      expect(calls.find((c) => c.url.endsWith('/tandai/'))?.body).toEqual({ pilihan: 2 })
+    })
+
+    it('sudah selesai: tantangan yang dipilih disebut, dan boleh mencoba tantangan lain', async () => {
+      pasangFetch({
+        'GET /api/penerbit/modul/1/': { body: MODUL },
+        'GET /api/penerbit/misi/10/': { body: jelajah({ dipilih: 1, status: 'selesai' }) },
+      })
+      tampil('/modul/1/misi/1')
+      expect(await screen.findByText(/Kamu sudah mengerjakan: Kalimat belibet/)).toBeInTheDocument()
+      await userEvent.click(screen.getByRole('button', { name: /Coba tantangan lain/ }))
+      expect(screen.getByRole('group', { name: 'Pilih satu tantangan' })).toBeInTheDocument()
+    })
+  })
 })

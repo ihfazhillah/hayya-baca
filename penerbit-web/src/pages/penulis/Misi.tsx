@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useId, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
-  bantuanGunting, berhentiMisi, cetakMisi, getMisi, getModul, kirimPerasaan, klikMisi, periksaGunting, periksaKembar, petunjukMisi, tandaiMisi,
+  bantuanGunting, berhentiMisi, cetakMisi, getMisi, getModul, kirimPerasaan, klikMisi, periksaGunting, periksaKembar, petunjukMisi, pilihTantangan, tandaiMisi,
 } from '../../api'
 import type {
-  BantuanPerasaan, HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci, PercobaanPerasaan,
+  BantuanPerasaan, HadiahBaru, Jawaban, MisiDetail, ModulDetail, ModulTerkunci, PercobaanPerasaan, Tantangan,
 } from '../../types'
 import { Galat, Memuat, PerayaanHadiah } from '../../components/ui'
 import { useNavPenulis } from '../../components/LayoutPenulis'
@@ -179,7 +179,9 @@ function JawabanTerbuka({ misi, onUlang }: { misi: MisiDetail; onUlang: (contoh:
           <button type="button" className="btn btn-ghost" onClick={() => onUlang(false)}>🔁 Kerjakan lagi</button>
         </div>
       )}
-      {(misi.jenis === 'tandai' || misi.jenis === 'log') && (
+      {misi.pilihan?.length ? (
+        <JelajahSelesai misi={misi} onUlang={() => onUlang(false)} />
+      ) : (misi.jenis === 'tandai' || misi.jenis === 'log') && (
         <p className="lencana aktif">✓ Misi ini sudah selesai. Kamu boleh mengulanginya kapan saja.</p>
       )}
       {misi.teks_rekam && <AreaRekam teks={misi.teks_rekam} />}
@@ -249,7 +251,9 @@ function AreaKerja({ misi, selesai, onSelesai, onSegarkan, urutanBerikut, nomor,
         </DenganContoh>
       )
     case 'tandai':
-      return <MisiTandai misi={misi} selesai={selesai} onSelesai={onSelesai} />
+      return misi.pilihan?.length
+        ? <MisiJelajah misi={misi} selesai={selesai} onSelesai={onSelesai} />
+        : <MisiTandai misi={misi} selesai={selesai} onSelesai={onSelesai} />
     case 'log':
       return <MisiLog misi={misi} selesai={selesai} onSelesai={onSelesai} />
     case 'perasaan':
@@ -354,6 +358,122 @@ function MisiTandai({ misi, selesai, onSelesai }: {
         <button type="button" className="btn-besar" onClick={tandai} disabled={sibuk}>Tandai selesai</button>
       )}
     </div>
+  )
+}
+
+/** Misi Jelajah yang sudah selesai: tantangan yang dikerjakan, dan ajakan mencoba yang lain. */
+function JelajahSelesai({ misi, onUlang }: { misi: MisiDetail; onUlang: () => void }) {
+  const t = misi.dipilih != null ? misi.pilihan?.[misi.dipilih] : undefined
+  return (
+    <div className="tumpuk">
+      <p className="lencana aktif">✓ {t ? `Kamu sudah mengerjakan: ${t.judul}.` : 'Misi ini sudah selesai.'}</p>
+      {t?.teks_rekam && <AreaRekam teks={t.teks_rekam} />}
+      <p><button type="button" className="btn btn-ghost" onClick={onUlang}>🧭 Coba tantangan lain</button></p>
+    </div>
+  )
+}
+
+/** Misi Jelajah (spec 075 K4): pilih 1 dari 3 tantangan, lihat langkahnya, lalu selesaikan
+ *  (Tandai selesai, atau jawaban satu baris bila tantangannya punya pertanyaan). */
+function MisiJelajah({ misi, selesai, onSelesai }: {
+  misi: MisiDetail; selesai: boolean; onSelesai: (h: { hadiah_baru?: HadiahBaru[] }) => void
+}) {
+  const pilihan = misi.pilihan ?? []
+  const [dipilih, setDipilih] = useState<number | null>(misi.status === 'selesai' ? null : (misi.dipilih ?? null))
+  const [sibuk, setSibuk] = useState(false)
+  const [galat, setGalat] = useState<string | null>(null)
+
+  async function pilih(i: number) {
+    setSibuk(true)
+    setGalat(null)
+    try {
+      await pilihTantangan(misi.id, i)
+      setDipilih(i)
+    } catch (e) {
+      setGalat(e instanceof Error ? e.message : 'Belum tersimpan. Coba lagi, ya.')
+    } finally {
+      setSibuk(false)
+    }
+  }
+
+  async function kirim(log?: string) {
+    if (dipilih === null) return
+    setSibuk(true)
+    setGalat(null)
+    try {
+      onSelesai(await tandaiMisi(misi.id, log, dipilih))
+    } catch (e) {
+      setGalat(e instanceof Error ? e.message : 'Belum tersimpan. Coba lagi, ya.')
+    } finally {
+      setSibuk(false)
+    }
+  }
+
+  const t = dipilih !== null ? pilihan[dipilih] : undefined
+  if (!t) {
+    return (
+      <div className="tumpuk">
+        <div className="tumpuk" role="group" aria-label="Pilih satu tantangan">
+          {pilihan.map((x, i) => (
+            <button key={x.judul} type="button" className="ph-pilih" style={{ textAlign: 'left' }}
+              onClick={() => pilih(i)} disabled={sibuk}>
+              <strong>{x.judul}</strong>
+              <span className="kecil" style={{ display: 'block' }}>{x.kenapa}</span>
+            </button>
+          ))}
+        </div>
+        <Galat pesan={galat} />
+      </div>
+    )
+  }
+  return (
+    <section className="tumpuk ph-panduan" aria-labelledby={`tantangan-${misi.id}`}>
+      <h2 id={`tantangan-${misi.id}`}>{t.judul}</h2>
+      <p><strong>Kenapa? </strong>{t.kenapa}</p>
+      <ol className="ph-langkah" aria-label="Langkah">
+        {t.langkah.map((l) => <li key={l}>{l}</li>)}
+      </ol>
+      {t.teks_rekam && <AreaRekam teks={t.teks_rekam} />}
+      {t.tautan && <p><TautanMisi href={t.tautan} /></p>}
+      {t.lembar && (
+        <p>
+          <button type="button" className="btn-besar sekunder"
+            onClick={() => window.open(`/cetak/${encodeURIComponent(t.lembar!.kode)}`, '_blank', 'noopener')}>
+            🖨️ Cetak lembar {t.lembar.kode}
+          </button>
+        </p>
+      )}
+      <Galat pesan={galat} />
+      {!selesai && (t.pertanyaan
+        ? <JawabanSatuBaris tantangan={t} sibuk={sibuk} onKirim={kirim} />
+        : <button type="button" className="btn-besar" onClick={() => kirim()} disabled={sibuk}>Tandai selesai</button>)}
+      {!selesai && (
+        <p><button type="button" className="btn btn-ghost" onClick={() => setDipilih(null)}>Ganti tantangan</button></p>
+      )}
+    </section>
+  )
+}
+
+function JawabanSatuBaris({ tantangan: t, sibuk, onKirim }: {
+  tantangan: Tantangan; sibuk: boolean; onKirim: (log: string) => void
+}) {
+  const id = useId()
+  const [log, setLog] = useState('')
+  function kirim(e: FormEvent) {
+    e.preventDefault()
+    if (log.trim()) onKirim(log.trim())
+  }
+  return (
+    <form className="tumpuk" onSubmit={kirim}>
+      <div>
+        <label htmlFor={`${id}-jawab`} style={{ fontWeight: 600, display: 'block', marginBottom: 'var(--space-2)' }}>
+          {t.pertanyaan}
+        </label>
+        <input id={`${id}-jawab`} className="ph-isian" value={log} onChange={(e) => setLog(e.target.value)} maxLength={300} />
+        {t.contoh && <p className="kecil" style={{ marginTop: 'var(--space-2)' }}>Contoh: “{t.contoh}”</p>}
+      </div>
+      <button type="submit" className="btn-besar" disabled={!log.trim() || sibuk}>Simpan jawaban</button>
+    </form>
   )
 }
 

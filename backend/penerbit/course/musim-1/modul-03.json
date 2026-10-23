@@ -119,18 +119,46 @@
     },
     {
       "urutan": 5,
-      "judul": "Lima pengganti \"lalu\"",
+      "judul": "Misi Jelajah",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Tulis 5 pengganti kata \"lalu\". Tempel di Kartu Alat.",
-      "kenapa": "Daftar pengganti membuatmu cepat. Saat menemukan kata kembar, kamu tinggal memilih penggantinya.",
-      "langkah": [
-        "Ambil kertas kecil dan pensil.",
-        "Tulis 5 kata yang bisa menggantikan \"lalu\". Contohnya: setelah itu.",
-        "Tempel kertasnya di Kartu Alat Detektor Kembar.",
-        "Kembali ke sini dan tekan Tandai selesai."
+      "petunjuk": "Pilih satu dari tiga tantangan. Kerjakan sendiri, kapan saja.",
+      "pilihan": [
+        {
+          "judul": "Lima pengganti \"lalu\"",
+          "kenapa": "Daftar pengganti membuatmu cepat. Saat menemukan kata kembar, kamu tinggal memilih penggantinya.",
+          "langkah": [
+            "Ambil kertas kecil dan pensil.",
+            "Tulis 5 kata yang bisa menggantikan \"lalu\". Contohnya: setelah itu.",
+            "Tempel kertasnya di Kartu Alat Detektor Kembar.",
+            "Kembali ke sini dan tekan Tandai selesai."
+          ]
+        },
+        {
+          "judul": "Lima pengganti \"bilang\"",
+          "kenapa": "Kata \"bilang\" juga sering jadi kata kembar. Penggantinya membuat ceritamu lebih hidup.",
+          "langkah": [
+            "Ambil kertas kecil dan pensil.",
+            "Tulis 5 kata pengganti \"bilang\". Contohnya: berbisik.",
+            "Untuk setiap kata, bayangkan siapa yang mengucapkannya.",
+            "Tempel kertasnya di Kartu Alat Detektor Kembar.",
+            "Kembali ke sini dan tekan Tandai selesai."
+          ]
+        },
+        {
+          "judul": "Cerita tanpa \"terus\"",
+          "kenapa": "Saat bercerita, kita sering mengulang kata \"terus\". Coba bercerita tanpa kata itu!",
+          "langkah": [
+            "Ceritakan harimu dengan suara keras. Boleh ke boneka, adik, atau kakak.",
+            "Jangan pakai kata \"terus\" atau \"lalu\".",
+            "Keceplosan? Tidak apa-apa. Mulai lagi dari awal.",
+            "Tulis di bawah: kata apa yang kamu pakai sebagai gantinya?"
+          ],
+          "pertanyaan": "Kata apa yang kamu pakai sebagai ganti \"terus\"?",
+          "contoh": "Aku pakai \"setelah itu\" dan \"sesudahnya\"."
+        }
       ],
-      "petunjuk_ortu": "Tujuannya: anak punya bekal kata pengganti yang dia tulis sendiri. Jawaban yang benar misalnya: setelah itu, kemudian, sesudahnya, tak lama kemudian, akhirnya. Kalau dia kesulitan, beri satu contoh lalu biarkan dia mencari sisanya."
+      "petunjuk_ortu": "Tujuannya: anak punya bekal kata pengganti yang dia cari sendiri. Ini bonus, boleh dilewati; anak memilih sendiri satu dari tiga tantangan. Pengganti \"lalu\" misalnya: setelah itu, kemudian, sesudahnya, tak lama kemudian, akhirnya. Pengganti \"bilang\" misalnya: bertanya, berteriak, berbisik, menjawab, bergumam. Kalau dia kesulitan, beri satu contoh lalu biarkan dia mencari sisanya."
     }
   ]
 }

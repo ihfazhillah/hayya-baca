@@ -144,6 +144,34 @@ Gunting dan Kembar juga bisa memakai `contoh`, `bantuan_memudar`, dan `suara`
 `tautan` (path halaman situs, mis. `"/naskah/baru/"`) yang dibuka tombol misi. Misi
 Level 2 dan 3 yang dikerjakan di Ruang Penulis memakai `tandai` + `tautan`.
 
+**Misi Jelajah** — misi `bonus` jenis `tandai` dengan `pilihan`: anak memilih 1 dari 3 tantangan
+(spec 075 K4). `kenapa`/`langkah` ditulis di tiap tantangan, bukan di misinya.
+```json
+{"urutan": 5, "judul": "Misi Jelajah", "tahap": "bonus", "jenis": "tandai",
+ "petunjuk": "Pilih satu dari tiga tantangan. Kerjakan sendiri, kapan saja.",
+ "petunjuk_ortu": "Tujuannya: ...",
+ "pilihan": [
+   {"judul": "Rekam suaramu", "kenapa": "...", "langkah": ["...", "..."],
+    "rekam": {"dari_misi": [1, 2, 3]}},
+   {"judul": "Hariku dalam 5 kalimat", "kenapa": "...", "langkah": ["..."], "lembar": "M2-5"},
+   {"judul": "Kalimat belibet", "kenapa": "...", "langkah": ["..."],
+    "pertanyaan": "Tulis kalimat belibet buatanmu.", "contoh": "Ular lari lurus di lorong lurus."}
+ ]}
+```
+- Tepat 3 tantangan. Wajib: `judul`, `kenapa`, `langkah` (daftar). Opsional:
+  `pertanyaan` (+ `contoh`) = tantangan diselesaikan dengan jawaban satu baris (LOG, wajib diisi);
+  tanpa `pertanyaan` = Tandai selesai. `rekam` = perekam suara dengan teks dari misi yang sudah
+  selesai (aturan sama dengan `rekam` biasa). `tautan` = tombol ke halaman lain. `lembar` = kode
+  lembar yang boleh dicetak anak sendiri (tidak masuk antrean pemeriksaan). Kolom lain ditolak.
+- Hanya untuk `tahap: bonus` + `jenis: tandai`. Semua diperiksa saat impor.
+- Tantangan harus bisa dikerjakan anak sendirian di rumah. Paling banyak satu tantangan melibatkan
+  keluarga, dan tidak pernah mewajibkan orang tua duduk menemani.
+- Pilihan anak disimpan di `Percobaan.butir` (`{"pilihan": i}`, tanpa migrasi):
+  `POST misi/<id>/pilih/ {"pilihan": i}` (boleh diganti sebelum selesai), lalu
+  `POST misi/<id>/tandai/` (`{"log"}` untuk tantangan satu baris; `{"pilihan"}` boleh ikut dikirim).
+  `GET misi/<id>/` mengirim `pilihan` (tanpa `rekam`, diganti `teks_rekam`; `lembar` jadi
+  `{kode, judul}`) dan `dipilih` (indeks atau `null`; tetap terbaca setelah selesai).
+
 ## latihan.json
 
 ```json
@@ -156,6 +184,17 @@ Level 2 dan 3 yang dikerjakan di Ruang Penulis memakai `tandai` + `tautan`.
 ```
 Satu kalimat (atau dua-tiga kalimat pendek), satu alat. Untuk Kamera: `klik` dengan
 kesalahan = kalimat yang "bilang perasaan".
+
+Bank yang sama dipakai dua tempat:
+- **Latihan Harian** (`GET latihan/`): sampai 3 kartu dari alat yang jatuh tempo. Menyelesaikan
+  kartu pemanasan hari ini memajukan jadwal ulang alat itu.
+- **Ruang Latihan alat** (`GET alat/<kode>/latihan/`, spec 075 K4): semua kalimat satu alat, bebas
+  dimainkan setelah stiker Perunggu alat itu (tanpa Perunggu: 403). Urutan: belum dicoba, lalu yang
+  paling jarang dicoba. Penilaian lewat endpoint latihan yang sama (`latihan/<id>/klik|periksa|
+  berhenti/`), jadi percobaan pertama di tiap kalimat dihitung sebagai teks baru untuk Perak.
+  Ruang Latihan **tidak** memajukan jadwal ulang, kecuali kalimatnya kebetulan kartu pemanasan
+  hari ini (kartu itu lalu tercatat selesai di Latihan Harian juga).
+  Supaya Ruang Latihan berguna, isi tiap alat dengan ±10–12 kalimat.
 
 ## Panduan bahasa untuk anak (spec 075 K5)
 

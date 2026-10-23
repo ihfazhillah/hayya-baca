@@ -23,6 +23,7 @@ from ..peran import profil_diperiksa
 from ..progres import modul_selesai, modul_terbuka
 from .base import OrtuView
 from .belajar import jumlah_kartu_tanpa_reaksi, jumlah_pertanyaan_terbuka
+from .jelajah import jumlah_soal_belum_dikerjakan
 from .naskah import naskah_detail, naskah_ringkas, stempel_json
 from .penulis import alat_json
 
@@ -86,6 +87,7 @@ class DasborView(OrtuView):
                     profil=profil, status=Penukaran.Status.DIAJUKAN).count(),
                 "pertanyaan": jumlah_pertanyaan_terbuka(profil),
                 "kartu_pamer": jumlah_kartu_tanpa_reaksi(profil),
+                "soal_buatan": jumlah_soal_belum_dikerjakan(profil, request.user),
             },
             "minggu_ini": {
                 "sesi": len(set(hari_misi) | set(hari_latihan)),

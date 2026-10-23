@@ -1,12 +1,13 @@
 """Latihan Harian (Pemanasan Alat Lama)."""
 from django.db import transaction
+from django.db.models import Count, Max, Q
 from django.shortcuts import get_object_or_404
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 
 from .. import hadiah, jadwal, penilaian
 from ..kata_umum import KATA_UMUM
-from ..models import Alat, HasilLatihan, KalimatLatihan, Misi, Percobaan
+from ..models import Alat, HasilLatihan, KalimatLatihan, Misi, Percobaan, Stiker, Tingkat
 from .base import PenulisView
 from .misi import proses_klik
 
@@ -31,11 +32,15 @@ def ambil_kalimat(request, pk):
 
 
 def selesaikan(request, kalimat, p, benar, total):
+    # Jadwal pemanasan hanya maju lewat kartu pemanasan hari ini (dari Latihan Harian atau, bila
+    # kebetulan sama, dari Ruang Latihan). Teks lain di Ruang Latihan tidak memajukan jadwal.
+    kartu_hari_ini = kalimat in jadwal.kartu_hari_ini(request.profil)
     HasilLatihan.objects.create(
         profil=request.profil, kalimat=kalimat, alat=kalimat.alat,
         alat_dipilih=p.alat_dipilih if p else None, benar=benar, total=total,
     )
-    jadwal.majukan(request.profil, kalimat.alat)
+    if kartu_hari_ini:
+        jadwal.majukan(request.profil, kalimat.alat)
     baru = hadiah.evaluasi(request.profil)
     return {"selesai": True, "hadiah_baru": baru, **penilaian.jawaban(kalimat.data, kalimat.jenis)}
 
@@ -139,3 +144,39 @@ class LatihanPeriksaView(PenulisView):
             return Response({"hasil": "benar",
                              **selesaikan(request, k, p, 1 if p.meleset == 0 else 0, 1)})
         raise ValidationError("Kalimat ini tidak diperiksa dengan cara ini.")
+
+
+class RuangLatihanView(PenulisView):
+    """Ruang Latihan satu alat (spec 075 K4): semua teks bank latihan alat itu, bebas dimainkan
+    setelah Perunggu. Teks yang belum dicoba didahulukan, lalu yang paling jarang dicoba.
+    Penilaian memakai endpoint latihan yang sama, jadi percobaan pertama di tiap teks dihitung
+    sebagai teks baru untuk Perak."""
+
+    def get(self, request, kode):
+        profil = request.profil
+        alat = get_object_or_404(Alat, kode=kode)
+        if not Stiker.objects.filter(profil=profil, alat=alat, tingkat=Tingkat.PERUNGGU).exists():
+            raise PermissionDenied(
+                f"Ruang Latihan {alat.nama} terbuka setelah kamu mendapat stiker Perunggu "
+                f"di Modul {alat.modul_belajar}.")
+        qs = (KalimatLatihan.objects.filter(alat=alat)
+              .annotate(n=Count("hasillatihan", filter=Q(hasillatihan__profil=profil)),
+                        terakhir=Max("hasillatihan__tanggal", filter=Q(hasillatihan__profil=profil)))
+              .order_by("n", "terakhir", "kode"))
+        kartu = [{
+            "id": k.id, "kode": k.kode, "jenis": k.jenis, "dicoba": k.n > 0,
+            "kata_umum": sorted(KATA_UMUM) if k.jenis == Misi.Jenis.KEMBAR else [],
+            **penilaian.data_publik(k.data, k.jenis),
+        } for k in qs]
+        perak = Stiker.objects.filter(profil=profil, alat=alat, tingkat=Tingkat.PERAK).exists()
+        return Response({
+            "alat": alat_ringkas(alat),
+            "kartu": kartu,
+            "dicoba": sum(1 for k in kartu if k["dicoba"]),
+            "jumlah": len(kartu),
+            "perak": {
+                "punya": perak,
+                "syarat_teks": alat.syarat_teks.get(Tingkat.PERAK, ""),
+                "kemajuan": None if perak else hadiah.kemajuan(profil, alat, Tingkat.PERAK),
+            },
+        })

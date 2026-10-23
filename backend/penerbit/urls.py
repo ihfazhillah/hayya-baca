@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import belajar, latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
+from .views import belajar, jelajah, latihan, misi, naskah, ortu, penulis, sampul, tamu, umum
 
 urlpatterns = [
     path("me/", umum.MeView.as_view()),
@@ -24,11 +24,16 @@ urlpatterns = [
     path("misi/<int:pk>/bantuan/", misi.BantuanGuntingView.as_view()),
     path("misi/<int:pk>/perasaan/", misi.PerasaanView.as_view()),
     path("misi/<int:pk>/tandai/", misi.TandaiView.as_view()),
+    path("misi/<int:pk>/pilih/", misi.PilihTantanganView.as_view()),
     path("misi/<int:pk>/cetak/", misi.CetakMisiView.as_view()),
     path("ujian/<int:pk>/jawab/", misi.UjianJawabView.as_view()),
     path("bertanya/<int:nomor>/jawab/", misi.BertanyaJawabView.as_view()),
     path("pertanyaan/", belajar.PertanyaanView.as_view()),
     path("modul/<int:nomor>/kartu-pamer/", belajar.KartuPamerView.as_view()),
+    path("soal-buatan/", jelajah.SoalBuatanView.as_view()),
+    path("soal-buatan/token/", jelajah.TokenSoalView.as_view()),
+    path("soal-buatan/<int:pk>/", jelajah.SoalBuatanItemView.as_view()),
+    path("alat-bebas/sorotan-sistem/", jelajah.SorotanBebasView.as_view()),
     path("ide/", naskah.IdeListView.as_view()),
     path("ide/<int:pk>/", naskah.IdeView.as_view()),
     path("naskah/", naskah.NaskahListView.as_view()),
@@ -47,6 +52,7 @@ urlpatterns = [
     path("latihan/<int:pk>/klik/", latihan.LatihanKlikView.as_view()),
     path("latihan/<int:pk>/berhenti/", latihan.LatihanBerhentiView.as_view()),
     path("latihan/<int:pk>/periksa/", latihan.LatihanPeriksaView.as_view()),
+    path("alat/<slug:kode>/latihan/", latihan.RuangLatihanView.as_view()),
     # Pemeriksa
     path("ortu/penulis/", umum.AktifkanPenulisView.as_view()),
     path("ortu/dasbor/", ortu.DasborView.as_view()),
@@ -74,6 +80,10 @@ urlpatterns = [
     path("ortu/pertanyaan/<int:pk>/dijawab/", belajar.PertanyaanDijawabView.as_view()),
     path("ortu/kartu-pamer/", belajar.KartuPamerOrtuView.as_view()),
     path("ortu/kartu-pamer/<int:pk>/reaksi/", belajar.ReaksiKartuView.as_view()),
+    path("ortu/soal-buatan/", jelajah.SoalBuatanOrtuListView.as_view()),
+    path("ortu/soal-buatan/<int:pk>/", jelajah.SoalBuatanOrtuView.as_view()),
+    path("ortu/soal-buatan/<int:pk>/klik/", jelajah.KlikSoalBuatanView.as_view()),
+    path("ortu/soal-buatan/<int:pk>/berhenti/", jelajah.BerhentiSoalBuatanView.as_view()),
     # Editor Tamu
     path("ulasan/", tamu.UlasanListView.as_view()),
     path("ulasan/<int:pk>/", tamu.UlasanView.as_view()),

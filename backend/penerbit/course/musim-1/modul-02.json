@@ -153,11 +153,49 @@
     },
     {
       "urutan": 5,
-      "judul": "Hariku dalam 5 kalimat",
+      "judul": "Misi Jelajah",
       "tahap": "bonus",
-      "jenis": "cetak",
-      "petunjuk": "Ceritakan kegiatanmu hari ini dalam 5 kalimat pendek.",
-      "lembar": "M2-5"
+      "jenis": "tandai",
+      "petunjuk": "Pilih satu dari tiga tantangan. Kerjakan sendiri, kapan saja.",
+      "pilihan": [
+        {
+          "judul": "Hariku dalam 5 kalimat",
+          "kenapa": "Kalimat pendek enak dibaca. Kamu berlatih menulisnya sendiri.",
+          "langkah": [
+            "Cetak lembarnya, atau pakai kertas biasa.",
+            "Ceritakan kegiatanmu hari ini dalam 5 kalimat pendek.",
+            "Setiap kalimat diakhiri titik.",
+            "Kata \"dan\" hanya boleh dipakai sekali.",
+            "Tekan Tandai selesai."
+          ],
+          "lembar": "M2-5"
+        },
+        {
+          "judul": "Gunting sungguhan",
+          "kenapa": "Kalimat panjang bisa digunting sungguhan. Kamu akan melihatnya jadi pendek-pendek.",
+          "langkah": [
+            "Ambil selembar kertas, pensil, dan gunting.",
+            "Tulis satu kalimat panjang dengan banyak kata \"dan\".",
+            "Contohnya: Aku makan dan minum dan tidur dan bermimpi.",
+            "Gunting kertasnya tepat sebelum setiap kata \"dan\".",
+            "Coret \"dan\" di awal potongan. Tambahkan titik di akhirnya.",
+            "Tekan Tandai selesai."
+          ]
+        },
+        {
+          "judul": "Penyiar berita",
+          "kenapa": "Penyiar berita memakai kalimat pendek. Pendengarnya jadi mudah mengerti.",
+          "langkah": [
+            "Pilih satu kejadian hari ini.",
+            "Tulis beritanya dalam 3 kalimat pendek.",
+            "Bacakan seperti penyiar berita. Boleh di depan cermin, adik, atau kakak.",
+            "Tulis kalimat pertamamu di bawah."
+          ],
+          "pertanyaan": "Tulis kalimat pertama beritamu.",
+          "contoh": "Hari ini kucing tetangga masuk ke dapur."
+        }
+      ],
+      "petunjuk_ortu": "Tujuannya: anak memakai Gunting di luar latihan. Ini bonus, boleh dilewati; anak memilih sendiri satu dari tiga tantangan. Lembar M2-5 boleh dicetak anak sendiri dan tidak perlu diperiksa. Kalau dia bertanya kalimatnya sudah cukup pendek atau belum, tanya balik: \"Ada berapa 'dan' di kalimat itu?\""
     }
   ]
 }

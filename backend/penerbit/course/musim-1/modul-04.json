@@ -190,20 +190,49 @@
     },
     {
       "urutan": 6,
-      "judul": "Tebak gaya",
+      "judul": "Misi Jelajah",
       "tahap": "bonus",
       "jenis": "tandai",
-      "petunjuk": "Ayah atau Ummah memperagakan perasaan tanpa bicara. Kamu menebak perasaannya.",
-      "petunjuk_ortu": "Tujuannya: anak melihat sendiri bahwa perasaan terlihat dari gerakan. Ini misi bonus; kerjakan kalau ada waktu. Peragakan marah, ngantuk, dan kaget tanpa bicara. Setelah dia menebak, tanya: \"Apa yang kamu lihat sehingga tahu?\" Kalau dia bertanya kenapa tidak boleh bicara, jawab: di cerita, pembaca juga hanya melihat gerakannya.",
-      "kenapa": "Perasaan bisa dilihat dari gerakan. Kamu berlatih melihatnya di wajah dan tubuh Ayah.",
-      "langkah": [
-        "Ajak Ayah atau Ummah duduk berhadapan.",
-        "Ayah memperagakan satu perasaan tanpa bicara.",
-        "Tebak perasaannya.",
-        "Ceritakan apa yang kamu lihat: tangan, wajah, dan mata.",
-        "Ulangi untuk marah, ngantuk, dan kaget.",
-        "Tekan Tandai selesai."
-      ]
+      "petunjuk": "Pilih satu dari tiga tantangan. Kerjakan sendiri, kapan saja.",
+      "pilihan": [
+        {
+          "judul": "Tebak gaya",
+          "kenapa": "Perasaan bisa dilihat dari gerakan. Kamu berlatih melihatnya di wajah dan tubuh orang.",
+          "langkah": [
+            "Ajak siapa saja di rumah. Boleh kakak, adik, Ayah, atau Ummah.",
+            "Dia memperagakan satu perasaan tanpa bicara.",
+            "Tebak perasaannya.",
+            "Ceritakan apa yang kamu lihat: tangan, wajah, dan mata.",
+            "Ulangi untuk marah, ngantuk, dan kaget.",
+            "Tekan Tandai selesai."
+          ]
+        },
+        {
+          "judul": "Detektif cermin",
+          "kenapa": "Tubuhmu sendiri juga bisa jadi Kamera. Lihat apa yang berubah saat perasaanmu berubah.",
+          "langkah": [
+            "Berdiri di depan cermin.",
+            "Pura-pura marah. Lihat alis, mulut, dan tanganmu.",
+            "Sekarang pura-pura ngantuk. Apa yang berubah?",
+            "Tulis gerakan yang kamu lihat. Jangan pakai kata perasaan."
+          ],
+          "pertanyaan": "Apa yang dilakukan tubuhmu saat pura-pura marah?",
+          "contoh": "Alisku turun. Tanganku mengepal."
+        },
+        {
+          "judul": "Kamera di buku bergambar",
+          "kenapa": "Penggambar buku juga memakai Kamera. Mereka menggambar gerakan, bukan menulis perasaan.",
+          "langkah": [
+            "Ambil buku bergambar atau komik.",
+            "Pilih satu tokoh di satu gambar.",
+            "Lihat tangan, wajah, dan kakinya.",
+            "Tulis apa yang dia lakukan. Jangan pakai kata perasaan."
+          ],
+          "pertanyaan": "Apa yang dilakukan tokoh itu?",
+          "contoh": "Dia menunduk dan memeluk lututnya."
+        }
+      ],
+      "petunjuk_ortu": "Tujuannya: anak melihat sendiri bahwa perasaan terlihat dari gerakan. Ini bonus, boleh dilewati; anak memilih sendiri satu dari tiga tantangan. Kalau dia mengajak main Tebak gaya, peragakan marah, ngantuk, dan kaget tanpa bicara, lalu tanya: \"Apa yang kamu lihat sehingga tahu?\" Kalau dia bertanya kenapa tidak boleh bicara, jawab: di cerita, pembaca juga hanya melihat gerakannya."
     }
   ]
 }

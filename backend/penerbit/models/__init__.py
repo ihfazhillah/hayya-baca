@@ -11,3 +11,4 @@ from .progres import (  # noqa: F401
     Percobaan, Poin, ProfilPenulis, Prompt, Stiker,
 )
 from .belajar import BATAS_PERTANYAAN, KartuPamer, Pertanyaan  # noqa: F401
+from .jelajah import JawabanSoalBuatan, SoalBuatan  # noqa: F401

@@ -218,7 +218,9 @@ class TestIsiCourseMusim1(TestCase):
 
     def test_misi_di_luar_layar_punya_langkah_dan_tujuan(self):
         for m in Misi.objects.filter(jenis__in=["tandai", "log"]):
-            assert m.data.get("kenapa") and len(m.data.get("langkah", [])) >= 3, m
+            # Misi Jelajah: kenapa dan langkah ada di setiap tantangan.
+            for t in m.data.get("pilihan") or [m.data]:
+                assert t.get("kenapa") and len(t.get("langkah", [])) >= 3, m
             assert m.data.get("petunjuk_ortu", "").startswith("Tujuannya"), m
             if m.jenis == "log":
                 assert m.data.get("contoh"), m
@@ -361,7 +363,7 @@ class TestIsiModul4dan5(TestCase):
     def test_modul_4_tebak_gaya_jadi_bonus_terakhir(self):
         misi = list(Misi.objects.filter(modul__nomor=4).order_by("urutan"))
         terakhir = misi[-1]
-        assert terakhir.judul == "Tebak gaya"
+        assert "Tebak gaya" in [p["judul"] for p in terakhir.data["pilihan"]]  # Misi Jelajah
         assert (terakhir.tahap, terakhir.jenis) == ("bonus", "tandai")
         assert terakhir.data["petunjuk_ortu"].startswith("Tujuannya")
         # Urutan misi lain tidak bergeser (progres yang sudah ada tetap di misi yang sama).
@@ -458,3 +460,120 @@ class TestIsiModul2dan3(TestCase):
             terlalu += [(nomor, k) for t in umum for k in kalimat_panjang(t, 15)]
             terlalu += [(nomor, k) for t in pendek for k in kalimat_panjang(t, 12)]
         assert terlalu == []
+
+
+def tantangan(judul="Tantangan", **extra):
+    t = {"judul": judul, "kenapa": "Supaya kamu makin jago.", "langkah": ["Baca.", "Tekan Tandai selesai."]}
+    t.update(extra)
+    return t
+
+
+def modul_jelajah(**misi_extra):
+    """Modul uji dengan misi bonus "pilih 1 dari 3 tantangan" (spec 075 K4, Misi Jelajah)."""
+    data = modul()
+    m = {"urutan": 3, "judul": "Misi Jelajah", "tahap": "bonus", "jenis": "tandai",
+         "petunjuk": "Pilih satu tantangan.",
+         "pilihan": [tantangan("Rekam", rekam={"dari_misi": [1]}),
+                     tantangan("Satu baris", pertanyaan="Apa yang kamu temukan?", contoh="Ada dua."),
+                     tantangan("Cetak", lembar="U-1")]}
+    m.update(misi_extra)
+    data["misi"].append(m)
+    return data
+
+
+class TestImporMisiJelajah(TestCase):
+    @pytest.fixture(autouse=True)
+    def _tmp(self, tmp_path):
+        self.tmp = tmp_path
+
+    def test_pilihan_tersimpan_utuh(self):
+        impor_folder(tulis(self.tmp, modul_jelajah()))
+        m = Misi.objects.get(modul__nomor=91, urutan=3)
+        assert [p["judul"] for p in m.data["pilihan"]] == ["Rekam", "Satu baris", "Cetak"]
+        assert m.data["pilihan"][0]["rekam"] == {"dari_misi": [1]}
+        assert m.data["pilihan"][1]["pertanyaan"] == "Apa yang kamu temukan?"
+
+    def test_harus_tepat_tiga_tantangan(self):
+        data = modul_jelajah()
+        data["misi"][2]["pilihan"] = data["misi"][2]["pilihan"][:2]
+        with pytest.raises(CommandError, match="misi 3: pilihan harus 3 tantangan"):
+            impor_folder(tulis(self.tmp, data))
+
+    def test_tiap_tantangan_butuh_judul_kenapa_langkah(self):
+        for kolom in ("judul", "kenapa", "langkah"):
+            data = modul_jelajah()
+            data["misi"][2]["pilihan"][1].pop(kolom)
+            with pytest.raises(CommandError, match=f"tantangan 2: tanpa \"{kolom}\""):
+                impor_folder(tulis(self.tmp, data))
+
+    def test_hanya_untuk_misi_bonus_tandai(self):
+        with pytest.raises(CommandError, match="pilihan hanya untuk misi bonus"):
+            impor_folder(tulis(self.tmp, modul_jelajah(tahap="mandiri")))
+        with pytest.raises(CommandError, match="pilihan hanya untuk misi bonus"):
+            impor_folder(tulis(self.tmp, modul_jelajah(jenis="log")))
+
+    def test_rekam_contoh_lembar_dan_kolom_asing_diperiksa(self):
+        data = modul_jelajah()
+        data["misi"][2]["pilihan"][0]["rekam"] = {"dari_misi": [2]}  # misi cetak: tanpa versi_benar
+        with pytest.raises(CommandError, match="tantangan 1: rekam"):
+            impor_folder(tulis(self.tmp, data))
+        data = modul_jelajah()
+        data["misi"][2]["pilihan"][1].pop("pertanyaan")  # contoh LOG tanpa pertanyaan
+        with pytest.raises(CommandError, match="tantangan 2: contoh"):
+            impor_folder(tulis(self.tmp, data))
+        data = modul_jelajah()
+        data["misi"][2]["pilihan"][2]["lembar"] = "X-9"
+        with pytest.raises(CommandError, match="tantangan 3: lembar X-9"):
+            impor_folder(tulis(self.tmp, data))
+        data = modul_jelajah()
+        data["misi"][2]["pilihan"][2]["langkah_"] = ["salah ketik"]
+        with pytest.raises(CommandError, match="tantangan 3: kolom"):
+            impor_folder(tulis(self.tmp, data))
+
+
+class TestIsiMisiJelajah(TestCase):
+    """Misi bonus Modul 1–5 menjadi "pilih 1 dari 3 tantangan" (spec 075 K4)."""
+
+    BONUS = {1: (5, "Rekam suaramu"), 2: (5, "Hariku dalam 5 kalimat"),
+             3: (5, "Lima pengganti \"lalu\""), 4: (6, "Tebak gaya"), 5: (6, "Peran dibalik")}
+
+    def setUp(self):
+        impor_folder(ISI)
+
+    def test_ide_lama_tetap_jadi_salah_satu_tantangan(self):
+        for nomor, (urutan, ide) in self.BONUS.items():
+            m = Misi.objects.get(modul__nomor=nomor, urutan=urutan)
+            assert (m.tahap, m.jenis) == ("bonus", "tandai"), m
+            judul = [p["judul"] for p in m.data["pilihan"]]
+            assert len(judul) == 3 and ide in judul, (nomor, judul)
+        rekam = next(p for p in Misi.objects.get(modul__nomor=1, urutan=5).data["pilihan"]
+                     if p["judul"] == "Rekam suaramu")
+        assert rekam["rekam"] == {"dari_misi": [1, 2, 3]}
+
+    def test_urutan_misi_tidak_bergeser(self):
+        jumlah = {1: 5, 2: 5, 3: 5, 4: 6, 5: 7}
+        for nomor, n in jumlah.items():
+            assert Misi.objects.filter(modul__nomor=nomor).count() == n, nomor
+        assert Misi.objects.get(modul__nomor=4, urutan=5).jenis == "cetak"  # Tiga cara ngantuk
+        assert Misi.objects.get(modul__nomor=5, urutan=7).judul == "Bos Level 1"
+
+    def test_paling_banyak_satu_tantangan_bersama_keluarga(self):
+        keluarga = ("Ayah", "Ummah", "kakak", "Kakak", "adik", "Adik", "keluarga")
+        for nomor, (urutan, _) in self.BONUS.items():
+            m = Misi.objects.get(modul__nomor=nomor, urutan=urutan)
+            bareng = [p["judul"] for p in m.data["pilihan"]
+                      if any(k in " ".join([p["kenapa"], *p["langkah"]]) for k in keluarga)]
+            assert len(bareng) <= 1, (nomor, bareng)
+
+    def test_bahasa_tantangan_untuk_anak_8_tahun(self):
+        from penerbit.teks import kalimat_teks
+
+        panjang = []
+        for nomor in range(1, 6):
+            d = json.loads((ISI / f"modul-0{nomor}.json").read_text())
+            for m in d["misi"]:
+                for p in m.get("pilihan", []):
+                    for teks in [p["judul"], p["kenapa"], *p["langkah"], p.get("pertanyaan", ""),
+                                 p.get("contoh", "")]:
+                        panjang += [k for k in kalimat_teks(teks) if len(k.split()) > 15]
+        assert panjang == []

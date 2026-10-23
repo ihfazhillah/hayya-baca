@@ -32,7 +32,8 @@ describe('Kartu Alat', () => {
     expect(p.getByText('Temukan semua kesalahan di teks baru, 2 kali')).toBeInTheDocument()
     expect(p.getByText('1 dari 2')).toBeInTheDocument()
     expect(p.getByText('Diberikan Ayah atau Ummah')).toBeInTheDocument()
-    expect(p.getByRole('link', { name: 'Latih alat ini' })).toHaveAttribute('href', '/latihan')
+    // Ruang Latihan alat itu saja (spec 075 K4), bukan Latihan Harian.
+    expect(p.getByRole('link', { name: 'Latih alat ini' })).toHaveAttribute('href', '/alat/pengeras/latihan')
 
     const kamera = screen.getByRole('article', { name: 'Kamera, terkunci' })
     expect(kamera).toHaveClass('samar')

@@ -209,6 +209,9 @@ function IsiBeranda({ data, statusAlat }: { data: DataBeranda; statusAlat: Alat[
             )
           })}
         </ul>
+        <p className="kecil" style={{ marginTop: 'var(--space-3)' }}>
+          <Link to="/alat-bebas">Alat Bebas</Link> · <Link to="/soal">Buat soal untuk Ayah</Link>
+        </p>
       </section>
 
       <section className="kartu ph-antara" aria-label="Pangkat dan poin">

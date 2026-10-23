@@ -265,6 +265,31 @@ export interface MisiDetail extends Jawaban {
   teks_rekam?: { judul: string; teks: string }[]
   lembar?: { kode: string; judul: string }
   percobaan?: Percobaan
+  /** Misi Jelajah (spec 075 K4): misi bonus "pilih 1 dari 3 tantangan". */
+  pilihan?: Tantangan[]
+  /** Indeks tantangan yang dipilih anak (tetap ada setelah selesai), atau null. */
+  dipilih?: number | null
+}
+
+/** Satu tantangan Misi Jelajah. Dengan `pertanyaan`: diselesaikan dengan jawaban satu baris. */
+export interface Tantangan {
+  judul: string
+  kenapa: string
+  langkah: string[]
+  pertanyaan?: string
+  contoh?: string
+  tautan?: string
+  teks_rekam?: { judul: string; teks: string }[]
+  lembar?: { kode: string; judul: string }
+}
+
+/** Ruang Latihan satu alat (spec 075 K4). */
+export interface RuangLatihan {
+  alat: AlatRingkas
+  kartu: (Omit<KartuLatihan, 'alat' | 'pilihan_alat' | 'selesai'> & { kode: string; dicoba: boolean })[]
+  dicoba: number
+  jumlah: number
+  perak: { punya: boolean; syarat_teks: string; kemajuan: { sekarang: number; target: number } | null }
 }
 
 export interface HasilKlik extends Jawaban {
@@ -457,7 +482,7 @@ export interface Buku {
 
 export interface Dasbor {
   penulis: ProfilRingkas
-  perlu_tindakan: { lembar: number; stempel: number; penukaran: number; pertanyaan?: number; kartu_pamer?: number }
+  perlu_tindakan: { lembar: number; stempel: number; penukaran: number; pertanyaan?: number; kartu_pamer?: number; soal_buatan?: number }
   minggu_ini: { sesi: number; misi_selesai: number; kata_draf_nol: number; alat: string | null }
   persiapan: { modul: { nomor: number; judul: string; petunjuk_lihat: string; lembar: string[] } | null }
   aktivitas: { tanggal: string; teks: string }[]

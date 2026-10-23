@@ -58,7 +58,7 @@ export function setUnauthorizedHandler(fn: (() => void) | null) {
   onUnauthorized = fn
 }
 
-async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   const headers: Record<string, string> = { Accept: 'application/json' }
   const token = getToken()
   if (token) headers['Authorization'] = `Token ${token}`
@@ -94,7 +94,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
 }
 
 /** Tambah ?penulis= untuk endpoint Pemeriksa. */
-function q(path: string, extra?: Record<string, string | number | undefined>) {
+export function q(path: string, extra?: Record<string, string | number | undefined>) {
   const params = new URLSearchParams()
   const p = getPenulisDipilih()
   if (p) params.set('penulis', String(p))
@@ -149,8 +149,11 @@ export const periksaKembar = (id: number, kata: string) =>
   request<HasilKembar>('POST', `${P}/misi/${id}/periksa/`, { kata })
 export const kirimPerasaan = (id: number, body: { soal: number; perasaan?: string; token?: number }) =>
   request<HasilPerasaan>('POST', `${P}/misi/${id}/perasaan/`, body)
-export const tandaiMisi = (id: number, log?: string) =>
-  request<{ selesai: true; hadiah_baru: HadiahBaru[] }>('POST', `${P}/misi/${id}/tandai/`, { log })
+export const tandaiMisi = (id: number, log?: string, pilihan?: number) =>
+  request<{ selesai: true; hadiah_baru: HadiahBaru[] }>('POST', `${P}/misi/${id}/tandai/`, { log, pilihan })
+/** Misi Jelajah: pilih satu dari tiga tantangan (boleh diganti sebelum selesai). */
+export const pilihTantangan = (id: number, pilihan: number) =>
+  request<{ dipilih: number }>('POST', `${P}/misi/${id}/pilih/`, { pilihan })
 export const cetakMisi = (id: number) =>
   request<{ status: 'menunggu'; lembar: string }>('POST', `${P}/misi/${id}/cetak/`)
 export const jawabUjian = (id: number, pilihan: 'a' | 'b') =>
@@ -170,6 +173,9 @@ export const periksaGuntingLatihan = (id: number, potong: number[]) =>
   request<HasilGunting>('POST', `${P}/latihan/${id}/periksa/`, { potong })
 export const periksaKembarLatihan = (id: number, kata: string) =>
   request<HasilKembar>('POST', `${P}/latihan/${id}/periksa/`, { kata })
+/** Ruang Latihan satu alat (spec 075 K4). Penilaian memakai endpoint latihan di atas. */
+export const getRuangLatihan = (kode: string) =>
+  request<import('./types').RuangLatihan>('GET', `${P}/alat/${encodeURIComponent(kode)}/latihan/`)
 
 export const listIde = () => request<Ide[]>('GET', `${P}/ide/`)
 export const tambahIde = (teks: string, sumur: Ide['sumur']) =>

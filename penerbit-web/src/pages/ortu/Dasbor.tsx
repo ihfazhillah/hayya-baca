@@ -49,6 +49,7 @@ function IsiDasbor() {
     { n: t.penukaran, teks: 'penukaran poin diajukan', ke: '/ortu/hadiah' },
     { n: t.pertanyaan ?? 0, teks: 'pertanyaan dari anak', ke: '/ortu/pertanyaan' },
     { n: t.kartu_pamer ?? 0, teks: 'Kartu Pamer belum diberi reaksi', ke: '/ortu/kartu-pamer' },
+    { n: t.soal_buatan ?? 0, teks: 'soal dari anak belum kamu kerjakan', ke: '/ortu/soal' },
   ]
   return (
     <>

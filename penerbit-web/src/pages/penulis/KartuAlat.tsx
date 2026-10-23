@@ -50,6 +50,7 @@ function KartuSatuAlat({ alat: a }: { alat: Alat }) {
     )
   }
   const perunggu = a.slot.find((s) => s.tingkat === 'perunggu')?.punya ?? false
+  const perak = a.slot.find((s) => s.tingkat === 'perak')?.punya ?? false
   return (
     <article className={`kartu-alat ph-alat-baris${perunggu ? '' : ' sekarang'}`} style={gaya} aria-label={a.nama}>
       <div className="ph-alat-info">
@@ -57,9 +58,15 @@ function KartuSatuAlat({ alat: a }: { alat: Alat }) {
         <h2 className="ph-alat-nama">{a.nama}</h2>
         {a.pertanyaan && <p className="ph-alat-tanya">“{a.pertanyaan}”</p>}
         {perunggu ? (
-          <Link className="btn-besar sekunder ph-tautan-tombol ph-tombol-kecil" to="/latihan">Latih alat ini</Link>
+          <Link className="btn-besar sekunder ph-tautan-tombol ph-tombol-kecil" to={`/alat/${a.kode}/latihan`}>Latih alat ini</Link>
         ) : (
           <Link className="ph-alat-modul" to={`/modul/${a.modul_belajar}`}>Sedang dipelajari di Modul {a.modul_belajar}</Link>
+        )}
+        {perunggu && (
+          <p className="kecil">
+            <Link to="/alat-bebas">Alat Bebas</Link>
+            {perak && <> · <Link to="/soal">Buat soal untuk Ayah</Link></>}
+          </p>
         )}
       </div>
       <div className="ph-slot-grid">
