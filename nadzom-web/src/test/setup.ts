@@ -14,5 +14,5 @@ if (typeof globalThis.localStorage === 'undefined' || globalThis.localStorage ==
   Object.defineProperty(globalThis, 'localStorage', { value: penyimpanan, configurable: true })
 }
 
-// jsdom tidak punya scrollTo.
-window.scrollTo = () => {}
+// jsdom tidak punya scrollTo. Chrome 155 mengembalikan Promise; tiru agar efek yang mengembalikannya ketahuan.
+window.scrollTo = (() => Promise.resolve()) as unknown as typeof window.scrollTo

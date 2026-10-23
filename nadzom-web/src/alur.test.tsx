@@ -20,6 +20,16 @@ describe('peta', () => {
     expect(screen.getByRole('link', { name: /Modul 0: Peluru Pertama/ })).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: /Modul 1: Telinga Rajaz/ })).not.toBeInTheDocument()
   })
+
+  it('pindah halaman lewat tautan langsung tampil tanpa muat ulang', async () => {
+    const user = userEvent.setup()
+    buka('/')
+    await user.click(screen.getByRole('link', { name: /Modul 0: Peluru Pertama/ }))
+    await user.click(screen.getByRole('link', { name: /Pelajaran 1/ }))
+    expect(screen.getByRole('heading', { level: 1, name: MODUL[0].pelajaran[0].judul })).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Rujukan' }))
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+  })
 })
 
 describe('pelajaran 1: peragaan lalu giliran', () => {
