@@ -81,7 +81,7 @@ describe('Pojok Orang Tua: belajar mandiri', () => {
     tampilHalaman('/ortu/kartu-pamer', { '/ortu/kartu-pamer': <KartuPamerAnak /> })
     const kartu = await screen.findByRole('article', { name: /Modul 1/ })
     expect(within(kartu).getByText('Telingaku pintar.')).toBeInTheDocument()
-    expect(within(kartu).getByText('Oren sangat sangat suka.')).toBeInTheDocument()
+    expect(within(kartu).getAllByRole('figure')[0]).toHaveTextContent('Oren sangat sangat suka.')
     // Stiker yang sudah dimiliki tidak ditawarkan lagi.
     const pilih = within(kartu).getByLabelText('Beri stiker (opsional)')
     expect(within(pilih).queryByRole('option', { name: /Perunggu/ })).not.toBeInTheDocument()
