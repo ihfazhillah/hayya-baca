@@ -1,5 +1,5 @@
 /** Qafiyah: rawiy, harakat rawiy (majra), dan ridf (huruf mad sebelum rawiy). */
-import type { Huruf } from './jenis'
+import type { Bentuk, HasilBait, Huruf } from './jenis'
 
 export type Harakat = 'fathah' | 'kasrah' | 'dhammah' | 'sukun'
 
@@ -76,6 +76,32 @@ export function periksaQafiyah(bait: Huruf[][][], pola: 'muzdawij' | 'satu'): Ma
   bait.slice(1).forEach((s, k) => {
     const m = beda(acuan, qafiyah(s[s.length - 1]))
     if (m) masalah.push({ bait: k + 2, pesan: `Ujung bait: ${m}.` })
+  })
+  return masalah
+}
+
+const ILLAH = ["qath'", 'hadzadz', 'hadzf', 'qashr', 'tasbigh', 'qathf']
+
+/** Jenis ujung: 'illah yang dipakai, atau shahih. Zihaf yang menyertainya (idhmar, khabn) boleh berganti. */
+function jenisUjung(b: Bentuk): string {
+  if (!b.illah || !b.zihaf) return 'shahih'
+  return b.zihaf.split(' + ').find((z) => ILLAH.includes(z)) ?? b.zihaf
+}
+
+/** 'Illah dharb, sekali dipakai, harus tetap di seluruh qasidah. Dibandingkan dengan bait pertama. */
+export function periksaDharb(hasil: HasilBait[]): MasalahQafiyah[] {
+  const ujung = (h: HasilBait) => {
+    const p = h.syathr.at(-1)?.potongan.at(-1)
+    return p && p.status !== 'patah' ? p.bentuk : null
+  }
+  const acuan = hasil[0] ? ujung(hasil[0]) : null
+  if (!acuan) return []
+  const masalah: MasalahQafiyah[] = []
+  hasil.slice(1).forEach((h, k) => {
+    const b = ujung(h)
+    if (b && jenisUjung(b) !== jenisUjung(acuan)) {
+      masalah.push({ bait: k + 2, pesan: `Dharb ${b.namaLain ?? b.nama} (${jenisUjung(b)}) berbeda dari bait pertama, ${acuan.namaLain ?? acuan.nama} (${jenisUjung(acuan)}). 'Illah dharb harus tetap.` })
+    }
   })
   return masalah
 }

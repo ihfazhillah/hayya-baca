@@ -6,6 +6,7 @@ import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import { MODUL } from './content'
 import { kitabahBait } from './lib/kitabah'
+import { aturSelesai, kodePelajaran } from './lib/progres'
 import { timbangBait } from './lib/timbang'
 import { BAHR } from './lib/bahr'
 import Susun from './components/Susun'
@@ -18,11 +19,18 @@ function buka(path: string) {
 beforeEach(() => localStorage.clear())
 
 describe('peta', () => {
-  it('Modul 0 bisa dibuka; modul lain "Segera"', () => {
+  it('mulai dari Modul 0; setiap modul yang sudah ada bisa dibuka, Boss tampil dengan namanya', () => {
     buka('/')
     expect(screen.getByRole('link', { name: /Mulai Modul 0/ })).toHaveAttribute('href', '/modul/0/1')
     expect(screen.getByRole('link', { name: /Modul 0: Peluru Pertama/ })).toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: /Modul 1: Telinga Rajaz/ })).not.toBeInTheDocument()
+    for (const m of MODUL) expect(document.querySelector(`a[href="/modul/${m.nomor}"]`), `Modul ${m.nomor}`).not.toBeNull()
+    expect(screen.getByRole('link', { name: /Boss 1Nasihat/ })).toHaveAttribute('href', '/modul/11')
+  })
+
+  it('Lanjutkan menunjuk pelajaran pertama yang belum selesai, mengikuti urutan peta', () => {
+    for (const p of MODUL[0].pelajaran) aturSelesai(kodePelajaran(0, p.nomor), true)
+    buka('/')
+    expect(screen.getByRole('link', { name: /Lanjutkan: Modul 1, pelajaran 1/ })).toHaveAttribute('href', '/modul/1/1')
   })
 
   it('pindah halaman lewat tautan langsung tampil tanpa muat ulang', async () => {
@@ -118,7 +126,7 @@ describe('susun banyak bait (Muzdawij, Boss)', () => {
     await user.click(screen.getByRole('button', { name: 'Timbang' }))
     expect(screen.getByText('2 dari 2 bait')).toBeInTheDocument()
     expect(screen.getByText('qafiyah pas')).toBeInTheDocument()
-    expect(screen.getByText('qafiyah lain')).toBeInTheDocument()
+    expect(screen.getByText('ujung lain')).toBeInTheDocument()
     expect(screen.getByText(/Bait 2: Dua syathr tidak berpasangan/)).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Buka laci kata' }))
     expect(screen.getByRole('button', { name: /Laci qafiyah/ })).toBeInTheDocument()

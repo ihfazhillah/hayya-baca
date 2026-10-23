@@ -1,0 +1,460 @@
+{
+  "nomor": 8,
+  "judul": "Basith",
+  "tujuan": "Mengenal basith lewat Nuniyah al-Busti ('Unwan al-Hikam), lalu membandingkannya dengan Nuniyah Ibnul Qayyim: rawiy sama, bahr dan majra berbeda. Hasilnya satu bait basith.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "judul": "Kunci basith",
+      "ringkas": "Dua taf'ilah bergantian: مُسْتَفْعِلُنْ lalu فَاعِلُنْ, dua kali per syathr.",
+      "menit": 25,
+      "analogi": "Rajaz dan kamil memakai satu taf'ilah yang diulang. Basith memakai dua yang bergantian, seperti langkah panjang lalu langkah pendek. Langkah panjangnya sudah Anda kenal dari rajaz: مُسْتَفْعِلُنْ. Langkah pendeknya baru: فَاعِلُنْ.",
+      "amtsilah": [
+        {
+          "bait": [
+            "إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ",
+            "مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ"
+          ],
+          "bahr": "basith",
+          "makna": "Bahr basith: di sanalah harapan dibentangkan lebar. (Baris kedua adalah timbangannya.)",
+          "sumber": "Kunci bahr basith (miftah al-buhur) yang masyhur di kitab-kitab 'arudh.",
+          "catatan": "Nama basith artinya yang terbentang: baitnya panjang, delapan taf'ilah."
+        },
+        {
+          "bait": [
+            "زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ",
+            "وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Bertambahnya milik seseorang di dunia sejatinya adalah kekurangan; dan labanya, selain kebaikan yang murni, adalah kerugian.",
+          "sumber": "Abu al-Fath al-Busti (w. 400 H), 'Unwan al-Hikam (Nuniyah al-Busti), bait 1. Teks: Wikisource ar, عنوان الحكم; dicocokkan dengan kutipan di goodreads.com/quotes/7232283. Harakat dari Wikisource, dilengkapi penyusun.",
+          "catatan": "Bait pertama ber-tasri': kedua syathr berakhir ـانُ."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ",
+          "وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ"
+        ],
+        "bahr": "basith",
+        "makna": "Bertambahnya milik seseorang di dunia sejatinya adalah kekurangan; dan labanya, selain kebaikan yang murni, adalah kerugian.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Ini nuniyah kedua di babak ini: 'Unwan al-Hikam karya Abu al-Fath al-Busti, penyair dan katib yang wafat tahun 400 H. Qashidah hikmah ini banyak dihafal. Kita timbang syathr pertama."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "زِيَادَةُ الْمَرْءِ → زِيَادَتُلْمَرْءِ: ta marbuthah dibaca ta, hamzah washal gugur. فِي دُنْيَاهُ: ya mad tetap, karena setelahnya bukan sukun. Dhammah di ujung syathr dipanjangkan: نُقْصَانُو."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0. Perhatikan هُ dalam دُنْيَاهُ: ia hidup (1) dan tidak dipanjangkan, karena sebelumnya alif mad."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "زِيَادَتُلْ = 110110: مُسْتَفْعِلُنْ yang kehilangan sin (khabn), sama seperti di rajaz. مَرْءِ فِي = 10 1 10 = **10110 = فَاعِلُنْ**. دُنْيَاهُ نُقْ = 1010110, مُسْتَفْعِلُنْ utuh. صَانُو = 1010: فَاعِلُنْ yang dipotong ujungnya, dibaca فَعْلُنْ."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَاعِلُنْ dalam satu syathr: **basith**. Ujung bait al-Busti selalu 1010 (ـَانُو)."
+          },
+          {
+            "tampil": "irama",
+            "kata": "Dengarkan iramanya: panjang-panjang-pendek-panjang, lalu panjang-pendek-panjang. Langkah panjang, langkah pendek, bergantian."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. وَرِبْحُهُ: هُ setelah huruf hidup dibaca panjang, رِبْحُهُو. الْخَيْرِ → لْخَيْرِ: hamzah washal gugur. Ujungnya خُسْرَانُو."
+        }
+      },
+      "qaidah": [
+        "**فَاعِلُنْ** = 10 110 = **10110**. Dengan khabn (huruf kedua dibuang) menjadi **فَعِلُنْ** = 1110.",
+        "**Basith** = مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَاعِلُنْ dalam satu syathr. Taf'ilah terakhir syathr pertama biasanya فَعِلُنْ (1110).",
+        "مُسْتَفْعِلُنْ di basith menerima khabn (مُتَفْعِلُنْ 110110), seperti di rajaz.",
+        "Ujung bait (dharb) boleh فَعِلُنْ (1110) atau فَعْلُنْ (1010, qath'). Satu qashidah memakai satu bentuk dharb: al-Busti memakai 1010 di semua bait.",
+        "Kunci basith: إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Mana timbangan فَاعِلُنْ?",
+          "pilihan": [
+            "10110",
+            "1110",
+            "11010",
+            "1010110"
+          ],
+          "jawaban": 0,
+          "alasan": "فَا = 10, عِلُنْ = 110. 1110 adalah فَعِلُنْ (khabn); 11010 adalah فَعُولُنْ milik thawil; 1010110 adalah مُسْتَفْعِلُنْ."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama **kunci basith** dan lagukan sampai hafal. Rasakan pergantian taf'ilah panjang dan pendek.",
+          "bait": [
+            "إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ",
+            "مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ"
+          ],
+          "bahr": "basith",
+          "makna": "Bahr basith: di sanalah harapan dibentangkan lebar."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama bait pembuka al-Busti. Bandingkan ujungnya (ـسَانُو) dengan ujung kunci (ـمَلُو).",
+          "bait": [
+            "زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ",
+            "وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Bertambahnya milik seseorang di dunia sejatinya adalah kekurangan; dan labanya, selain kebaikan yang murni, adalah kerugian."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait kedua al-Busti sendiri. Tanwin di حَظٍّ dibaca حَظْظِنْ. Ujung syathr pertama لَهُ dibaca لَهُو.",
+          "bait": [
+            "وَكُلُّ وِجْدَانِ حَظٍّ لَا ثَبَاتَ لَهُ",
+            "فَإِنَّ مَعْنَاهُ فِي التَّحْقِيقِ فُقْدَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Setiap keberuntungan yang tidak kekal, hakikatnya adalah kehilangan."
+        }
+      ],
+      "patokan": "Kunci basith dihafal dan dilagukan; syathr kedua bait pembuka dan bait kedua al-Busti ditandai sendiri sampai benar.",
+      "dengar": [
+        {
+          "judul": "Qashidah 'Unwan al-Hikam lil-Busti, suara Badr at-Turki (dengan teks)",
+          "url": "https://www.youtube.com/watch?v=Fy5N2rHB7yc"
+        },
+        {
+          "judul": "Nuniyah al-Busti 'Unwan al-Hikam, Mishari Rasyid al-'Afasi",
+          "url": "https://www.youtube.com/watch?v=FSgj0tkuySs"
+        }
+      ]
+    },
+    {
+      "nomor": 2,
+      "judul": "Dua nuniyah",
+      "ringkas": "Rawiy sama, bahr berbeda, majra berbeda: ـانِ dan ـانُ.",
+      "menit": 25,
+      "analogi": "Dua masjid bisa sama-sama berkubah hijau, tetapi denahnya berbeda. Qafiyah itu kubahnya: yang terdengar di ujung. Bahr itu denahnya: irama sepanjang bait. Nuniyah Ibnul Qayyim dan Nuniyah al-Busti sama kubahnya, beda denahnya.",
+      "amtsilah": [
+        {
+          "bait": [
+            "أَحْسِنْ إِلَى النَّاسِ تَسْتَعْبِدْ قُلُوبَهُمُ",
+            "فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Berbuat baiklah kepada manusia, niscaya engkau memikat hati mereka. Betapa sering kebaikan menawan hati manusia.",
+          "sumber": "Abu al-Fath al-Busti, 'Unwan al-Hikam, bait 7 (Wikisource ar, عنوان الحكم); sama di kutipan goodreads.com/quotes/7232283. Harakat dari Wikisource, dilengkapi penyusun.",
+          "catatan": "Ditutup إِحْسَانُ: majra dhammah."
+        },
+        {
+          "bait": [
+            "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+            "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Lalu para saksi pertemuan datang dan bersaksi bahwa ia benar, terjadi di majelis kebaikan.",
+          "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), bait 3. Teks: Wikisource ar, القصيدة النونية. Harakat dari penyusun.",
+          "catatan": "Ditutup kata yang sama, الْإِحْسَانِ, tetapi majranya kasrah dan bahrnya kamil."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "أَحْسِنْ إِلَى النَّاسِ تَسْتَعْبِدْ قُلُوبَهُمُ",
+          "فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ"
+        ],
+        "bahr": "basith",
+        "makna": "Berbuat baiklah kepada manusia, niscaya engkau memikat hati mereka. Betapa sering kebaikan menawan hati manusia.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait al-Busti ini ditutup إِحْسَانُ. Bait ketiga Nuniyah Ibnul Qayyim ditutup الْإِحْسَانِ. Kata yang sama, rawiy yang sama. Apa bedanya?"
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "إِلَى النَّاسِ → إِلَنْنَاسِ: alif maqshurah gugur sebelum hamzah washal, lam syamsiyah lebur. قُلُوبَهُمُ di ujung syathr dibaca قُلُوبَهُمُو."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "أَحْسِنْ إِلَنْ = 1010110 (مُسْتَفْعِلُنْ). نَاسِ تَسْ = 10110 (فَاعِلُنْ). تَعْبِدْ قُلُو = 1010110. بَهُمُو = 1110 (فَعِلُنْ). Basith, taf'ilah demi taf'ilah."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Sekarang timbang bait Ibnul Qayyim dengan basith. Patah di mana-mana. Qafiyahnya serumpun, tetapi bahrnya lain.",
+            "bait": [
+              "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+              "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+            ],
+            "patah": 4
+          },
+          {
+            "tampil": "teks",
+            "kata": "Bandingkan ujung keduanya. Rawiy dan ridf sama; majra dan bahr berbeda.",
+            "papan": "Ibnul Qayyim: مَجْلِسِ الْإِحْسَانِ → ـسَانِي · majra kasrah · kamil\nal-Busti: الْإِنْسَانَ إِحْسَانُ → ـسَانُو · majra dhammah · basith\nSama: rawiy ن · ridf ا"
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Qafiyah menentukan bunyi ujung; bahr menentukan irama sepanjang bait. Keduanya dipilih di bait pertama dan tidak berganti sampai akhir qashidah."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. فَطَالَمَا اسْتَعْبَدَ: hamzah washal gugur dan alif مَا ikut gugur, jadi فَطَالَمَسْتَعْبَدَ. الْإِنْسَانَ إِحْسَانُ: dua kata yang berbunyi mirip, polanya pun mirip."
+        }
+      },
+      "qaidah": [
+        "Nama qashidah mengikuti rawiy. Dua-duanya **nuniyah**, karena rawiynya nun.",
+        "Majra berbeda: Ibnul Qayyim نِ (kasrah), al-Busti نُ (dhammah). Kata ujung tidak bisa dipindah begitu saja dari satu qashidah ke qashidah lain.",
+        "Majra terikat i'rab. Di al-Busti, إِحْسَانُ marfu' karena fa'il dari اسْتَعْبَدَ. Di Ibnul Qayyim, الْإِحْسَانِ majrur karena mudhaf ilaih. Di sinilah nahwu Anda bekerja menjaga qafiyah.",
+        "Bahr berbeda: kamil (مُتَفَاعِلُنْ ×3) dan basith (مُسْتَفْعِلُنْ فَاعِلُنْ ×2). Ujung keduanya sama-sama dipotong dan berakhir 1010."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Kata mana yang cocok menutup bait baru dalam Nuniyah al-Busti?",
+          "pilihan": [
+            "إِيمَانُ",
+            "الْإِيمَانِ",
+            "إِيمَانَا"
+          ],
+          "jawaban": 0,
+          "alasan": "Majra al-Busti dhammah: ـانُ. الْإِيمَانِ cocok untuk Ibnul Qayyim, إِيمَانَا untuk qashidah bermajra fathah."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Apa yang SAMA dari Nuniyah Ibnul Qayyim dan Nuniyah al-Busti?",
+          "pilihan": [
+            "Bahrnya",
+            "Rawiy dan ridfnya",
+            "Majranya",
+            "Semuanya sama"
+          ],
+          "jawaban": 1,
+          "alasan": "Rawiy ن dan ridf alif sama. Bahr (kamil dan basith) dan majra (kasrah dan dhammah) berbeda."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Dalam فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ, mengapa إِحْسَانُ marfu'?",
+          "pilihan": [
+            "Fa'il dari اسْتَعْبَدَ",
+            "Mubtada'",
+            "Na'at bagi الْإِنْسَانَ"
+          ],
+          "jawaban": 0,
+          "alasan": "الْإِنْسَانَ maf'ul bih yang didahulukan; إِحْسَانُ fa'il yang diakhirkan. Penyair memindahkan fa'il ke ujung agar ia menjadi qafiyah."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait وَاشْدُدْ يَدَيْكَ sendiri. Perhatikan فَإِنَّهُ الرُّكْنُ: hamzah washal gugur, lam syamsiyah lebur, jadi فَإِنْنَهُرْرُكْنُ.",
+          "bait": [
+            "وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ مُعْتَصِمًا",
+            "فَإِنَّهُ الرُّكْنُ إِنْ خَانَتْكَ أَرْكَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Genggamlah tali Allah erat-erat, berpeganglah padanya. Dialah sandaran ketika sandaran-sandaran lain mengkhianatimu."
+        }
+      ],
+      "patokan": "Satu tabel perbandingan dua nuniyah di Diwan (rawiy, ridf, majra, bahr, ujung bait) dan bait وَاشْدُدْ يَدَيْكَ ditandai sendiri."
+    },
+    {
+      "nomor": 3,
+      "judul": "Bait basith pertama",
+      "ringkas": "Susun dari ujung: kata qafiyah ـانُ dulu, lalu isi taf'ilah ke depan.",
+      "menit": 30,
+      "analogi": "Basith lebih panjang dari kamil: delapan taf'ilah per bait. Seperti menyusun kalimat panjang dalam insya', mulailah dari yang pasti: kata penutup. Setelah ujungnya terkunci, isi bagian depan sedikit demi sedikit.",
+      "amtsilah": [
+        {
+          "bait": [
+            "وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ مُعْتَصِمًا",
+            "فَإِنَّهُ الرُّكْنُ إِنْ خَانَتْكَ أَرْكَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Genggamlah tali Allah erat-erat, berpeganglah padanya. Dialah sandaran ketika sandaran-sandaran lain mengkhianatimu.",
+          "sumber": "Abu al-Fath al-Busti, 'Unwan al-Hikam, bait 12 (Wikisource ar, عنوان الحكم); sama di kutipan goodreads.com/quotes/7232283. Harakat dari Wikisource, dilengkapi penyusun.",
+          "catatan": "وَشْدُدْ يَدَيْ = 1010110, lalu كَبِحَبْ = 1110 (فَعِلُنْ, khabn). Perhatikan permainan kata الرُّكْنُ dan أَرْكَانُ."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "وَكُلُّ وِجْدَانِ حَظٍّ لَا ثَبَاتَ لَهُ",
+          "فَإِنَّ مَعْنَاهُ فِي التَّحْقِيقِ فُقْدَانُ"
+        ],
+        "bahr": "basith",
+        "makna": "Setiap keberuntungan yang tidak kekal, hakikatnya adalah kehilangan.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait kedua al-Busti. Kita pakai ujungnya sebagai contoh, lalu menyusun bait basith sendiri dengan nada yang sama."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Syathr kedua: فَإِنْنَ مَعْ = 110110 (khabn). نَاهُ فِتْ = 10110. تَحْقِيقِ فُقْ = 1010110. دَانُو = 1010. Kata فُقْدَانُ terbelah dua: فُقْ menutup taf'ilah ketiga, دَانُو menjadi ujung."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tahap 1, makna. Tema ilmu, dengan gaya hikmah al-Busti: kalimat pendek yang mudah diingat.",
+            "papan": "Siapa menuntut ilmu, Allah memuliakannya dengan ilmu itu. Ilmu adalah mahkota seseorang dan tanda pengenalnya."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tahap 2, qafiyah: ـانُ, majra dhammah, ridf alif, ujung 1010. Kata kandidat dari laci:",
+            "papan": "عُنْوَانُ · إِحْسَانُ · بُرْهَانُ · إِنْسَانُ"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Draf pertama. Syathr kedua terasa tersendat di tengah, dan timbangan memastikan patah. (Bait latihan, bukan kutipan.)",
+            "bait": [
+              "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+              "وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Perbaiki hanya bagian yang patah: تَاجٌ لِلْإِنْسَانِ diganti لِلْمَرْءِ تَاجٌ وَهْوَ. Maknanya tetap, timbangan lurus. (Bait latihan, bukan kutipan.)",
+            "bait": [
+              "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+              "وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهْوَ عُنْوَانُ"
+            ],
+            "patah": 0
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama** bait al-Busti. وَكُلُّ → وَكُلْلُ. حَظٍّ → حَظْظِنْ. لَهُ di ujung syathr dibaca لَهُو."
+        }
+      },
+      "qaidah": [
+        "Susun dari ujung: kunci kata qafiyah ـانُ (ujung 1010), lalu isi taf'ilah sebelum-sebelumnya.",
+        "Satu kata boleh terbelah antara dua taf'ilah, seperti فُقْ | دَانُو. Yang ditimbang bunyinya, bukan batas kata.",
+        "Kalau patah, jangan ganti semuanya. Lihat taf'ilah yang ditandai patah, lalu ganti kata di sana saja.",
+        "Bentuk ujung (فَعْلُنْ 1010) harus sama di semua bait qashidah Anda, mengikuti bait pertama."
+      ],
+      "tamarin": [
+        {
+          "jenis": "pilih",
+          "soal": "Draf: وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ patah. Taf'ilah mana yang perlu diperbaiki?",
+          "pilihan": [
+            "Taf'ilah kedua: تَاجُنْ لِلْ… terlalu banyak suku panjang",
+            "Taf'ilah terakhir: عُنْوَانُ salah majra",
+            "Taf'ilah pertama: وَالْعِلْمُ terlalu pendek"
+          ],
+          "jawaban": 0,
+          "alasan": "مُسْتَفْعِلُنْ pertama (وَلْعِلْمُ تَا) lurus, ujung عُنْوَانُ juga benar. Di posisi فَاعِلُنْ (10110) muncul 101010: suku panjang berderet tanpa watad."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Susun **1 bait basith** dengan qafiyah ـانُ seperti al-Busti. Mulai dari kata penutup, lalu isi ke depan. Timbang, perbaiki taf'ilah yang patah, dan catat setiap versi di Diwan.",
+          "bahr": "basith",
+          "makna": "Usul makna: satu hikmah pendek tentang ilmu, adab, atau sabar, dengan gaya al-Busti. Boleh tema lain.",
+          "bankKata": true,
+          "judulDiwan": "Bait basith pertama"
+        }
+      ],
+      "patokan": "Satu bait basith berqafiyah ـانُ, 0 patah atau patahnya tercatat, dengan setiap versi tersimpan di Diwan."
+    }
+  ],
+  "laci": [
+    {
+      "teks": "نُقْصَانُ",
+      "arti": "kekurangan",
+      "laci": "qafiyah",
+      "catatan": "Majra dhammah. Wazan فُعْلَانٌ; ujung صَانُو = 1010.",
+      "dari": "Nuniyah al-Busti bait 1"
+    },
+    {
+      "teks": "خُسْرَانُ",
+      "arti": "kerugian",
+      "laci": "qafiyah",
+      "catatan": "Wazan فُعْلَانٌ, pasangan نُقْصَانُ.",
+      "dari": "Nuniyah al-Busti bait 1"
+    },
+    {
+      "teks": "فُقْدَانُ",
+      "arti": "kehilangan",
+      "laci": "qafiyah",
+      "catatan": "Wazan فُعْلَانٌ.",
+      "dari": "Nuniyah al-Busti bait 2"
+    },
+    {
+      "teks": "إِحْسَانُ",
+      "arti": "kebaikan",
+      "laci": "qafiyah",
+      "catatan": "Bentuk marfu' untuk al-Busti; untuk Ibnul Qayyim: الْإِحْسَانِ.",
+      "dari": "Nuniyah al-Busti bait 7"
+    },
+    {
+      "teks": "أَرْكَانُ",
+      "arti": "pilar-pilar, sandaran",
+      "laci": "qafiyah",
+      "catatan": "Wazan أَفْعَالٌ.",
+      "dari": "Nuniyah al-Busti bait 12"
+    },
+    {
+      "teks": "عُنْوَانُ",
+      "arti": "tanda pengenal, judul",
+      "laci": "qafiyah",
+      "catatan": "Wazan فُعْلَانٌ, majra dhammah.",
+      "dari": "Nuniyah al-Busti (bait كُنْ رَيِّقَ الْبِشْرِ); bait latihan modul ini"
+    },
+    {
+      "teks": "زِيَادَةُ الْمَرْءِ",
+      "arti": "bertambahnya (milik) seseorang",
+      "laci": "hasyw",
+      "catatan": "زِيَادَتُلْ = 110110, lalu مَرْءِ = awal فَاعِلُنْ.",
+      "dari": "Nuniyah al-Busti bait 1"
+    },
+    {
+      "teks": "فِي دُنْيَاهُ",
+      "arti": "di dunianya",
+      "laci": "hasyw",
+      "dari": "Nuniyah al-Busti bait 1"
+    },
+    {
+      "teks": "فِي التَّحْقِيقِ",
+      "arti": "pada hakikatnya",
+      "laci": "hasyw",
+      "catatan": "فِتْتَحْقِيقِ: ya mad gugur sebelum hamzah washal.",
+      "dari": "Nuniyah al-Busti bait 2"
+    },
+    {
+      "teks": "أَحْسِنْ إِلَى النَّاسِ",
+      "arti": "berbuat baiklah kepada manusia",
+      "laci": "hasyw",
+      "catatan": "أَحْسِنْ إِلَنْ = 1010110, نَاسِ = awal فَاعِلُنْ.",
+      "dari": "Nuniyah al-Busti bait 7"
+    },
+    {
+      "teks": "فَطَالَمَا",
+      "arti": "betapa sering",
+      "laci": "umum",
+      "catatan": "فَطَالَمَا = فَ طَا لَ مَا = 110110: pas satu مُتَفْعِلُنْ.",
+      "dari": "Nuniyah al-Busti bait 7"
+    },
+    {
+      "teks": "بِحَبْلِ اللَّهِ",
+      "arti": "dengan tali Allah",
+      "laci": "hasyw",
+      "dari": "Nuniyah al-Busti bait 12"
+    },
+    {
+      "teks": "مُعْتَصِمًا",
+      "arti": "sambil berpegang teguh",
+      "laci": "wazan",
+      "catatan": "Wazan مُفْتَعِلًا (isim fa'il, hal) = مُعْتَصِمَنْ = 101110. Di bait ini ia terbelah: مُعْ menutup مُسْتَفْعِلُنْ, تَصِمَنْ = 1110 (فَعِلُنْ).",
+      "dari": "Nuniyah al-Busti bait 12"
+    },
+    {
+      "teks": "يُكْرِمْهُ الْإِلَهُ",
+      "arti": "Allah memuliakannya",
+      "laci": "hasyw",
+      "catatan": "Fi'il majzum sebagai jawab syarth (مَنْ).",
+      "dari": "Bait latihan modul ini"
+    }
+  ]
+}

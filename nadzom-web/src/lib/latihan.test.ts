@@ -3,7 +3,7 @@ import { kitabahBait } from './kitabah'
 import { BAHR } from './bahr'
 import { timbangBait } from './timbang'
 import { diwanMarkdown, periksaPotong, periksaTanda, pilihanKitabah, pisahQasidah, teksKitabah } from './latihan'
-import { periksaQafiyah, qafiyah } from './qafiyah'
+import { periksaDharb, periksaQafiyah, qafiyah } from './qafiyah'
 
 const syathr = (teks: string, akhir = true) => {
   const k = kitabahBait(akhir ? [teks] : [teks, 'لَا'])
@@ -110,5 +110,20 @@ describe('pisah qasidah: teks banyak bait', () => {
   })
   it('syathr yang belum berpasangan tetap menjadi bait sendiri', () => {
     expect(pisahQasidah('أ ب | ج د\nهـ و')).toEqual([['أ ب', 'ج د'], ['هـ و']])
+  })
+})
+
+describe('dharb satu qasidah harus tetap', () => {
+  const timbangK = (bait: string[]) => {
+    const r = kitabahBait(bait)
+    if (!r.ok) throw new Error(r.galat)
+    return timbangBait(r.syathr, BAHR.kamil)
+  }
+  it('dharb maqthu\' lalu ahadhdh di bait berikutnya ditandai; dharb yang sama tidak', () => {
+    const b1 = timbangK(['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ'])
+    const sama = timbangK(['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ'])
+    expect(periksaDharb([b1, sama])).toEqual([])
+    const lain = timbangK(['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدُ'])
+    expect(periksaDharb([b1, lain]).map((m) => m.bait)).toEqual([2])
   })
 })

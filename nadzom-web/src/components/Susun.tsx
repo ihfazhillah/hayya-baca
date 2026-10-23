@@ -4,7 +4,7 @@ import { kitabahBait } from '@/lib/kitabah'
 import { cariBahr } from '@/lib/bahr'
 import { timbangBait } from '@/lib/timbang'
 import { diwanQasidah, pisahQasidah } from '@/lib/latihan'
-import { periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
+import { periksaDharb, periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
 import type { HasilBait, Huruf } from '@/lib/jenis'
 import Teks from './Teks'
 import HasilTimbang from './HasilTimbang'
@@ -47,8 +47,10 @@ export default function Susun({ t }: { t: TamrinSusun }) {
     }
     setGalat('')
     setBuka(null)
+    const hasil = syathr.map((s) => timbangBait(s, bahr))
     const qafiyah = banyak && t.qafiyah ? periksaQafiyah(syathr, t.qafiyah) : []
-    setVersi([...versi, { bait, hasil: syathr.map((s) => timbangBait(s, bahr)), qafiyah }])
+    if (banyak && t.qafiyah === 'satu') qafiyah.push(...periksaDharb(hasil))
+    setVersi([...versi, { bait, hasil, qafiyah }])
     setCentang((c) => c.map((v, i) => v || JALUR[i] === "Taqthi'"))
   }
   const akhir = versi.at(-1)
@@ -117,7 +119,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         <div className="tumpuk" key={versi.length}>
           {akhir.qafiyah.length > 0 && (
             <div className="pesan salah">
-              {akhir.qafiyah.map((m) => <div key={m.bait}>Bait {m.bait}: {m.pesan}</div>)}
+              {akhir.qafiyah.map((m, i) => <div key={i}>Bait {m.bait}: {m.pesan}</div>)}
             </div>
           )}
           <ul className="qafiyah-daftar">
@@ -129,7 +131,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
                   <div className="baris">
                     <span className="chip">{i + 1}</span>
                     <span className={`chip ${h.patah === 0 ? 'ok' : 'salah'}`}>patah {h.patah}</span>
-                    {t.qafiyah && <span className={`chip ${q ? 'salah' : 'ok'}`}>{q ? 'qafiyah lain' : 'qafiyah pas'}</span>}
+                    {t.qafiyah && <span className={`chip ${q ? 'salah' : 'ok'}`}>{q ? 'ujung lain' : 'qafiyah pas'}</span>}
                     <span className="ar-in" lang="ar">{b.join(' ... ')}</span>
                     <button type="button" className="tombol kecil" onClick={() => setBuka(buka === i ? null : i)} aria-expanded={buka === i}>
                       {buka === i ? 'Tutup' : 'Lihat timbangan'}
