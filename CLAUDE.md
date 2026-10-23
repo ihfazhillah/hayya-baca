@@ -70,6 +70,7 @@ Pakai `./build-release.sh` — gating di `npm test`, signed APK, tag + GitHub re
 - Don't be aggressive — wait for permission before acting on risky or wide-scope changes.
 - High-level architecture, decisions, sync strategy, and the coin/star reward system are documented in `docs/memory.md` — read it before touching sync, rewards, guided reading, or speech flows.
 - Parked ideas live in `docs/parking/`.
+- Multi-app layout (RN + diary/tahsin/english web, shared `accounts` userspace, deploy per app, checklist for adding a new app) is in `docs/architecture.md` — read it before adding a new app.
 
 ### Test Rules
 Tests in this repo are **use-case level**, not unit tests. They are organized by user journey and should stay stable across refactors.
