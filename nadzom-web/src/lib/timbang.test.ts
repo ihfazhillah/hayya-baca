@@ -237,3 +237,57 @@ describe('review \'arudh (2026-10-23)', () => {
     expect(BAHR.rajaz.slot[1][2].find((b) => b.zihaf === "qath'")?.illah).toBe(true)
   })
 })
+
+describe('bahr Babak 2–3 dan bonus: bait model ditimbang lurus dan ditebak benar', () => {
+  const kasus: { nama: string; kode: keyof typeof BAHR; bait: string[]; pola: string[][] }[] = [
+    {
+      nama: 'kamil: Nuniyah Ibnul Qayyim bait 1 (idhmar, tasri\' dengan dharb maqthu\')',
+      kode: 'kamil',
+      bait: ['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ'],
+      pola: [['1010110', '1110110', '101010'], ['1010110', '1110110', '111010']],
+    },
+    {
+      nama: 'basith: Nuniyah al-Busti bait 1 (khabn, dharb maqthu\')',
+      kode: 'basith',
+      bait: ['زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ', 'وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ'],
+      pola: [['110110', '10110', '1010110', '1010'], ['110110', '10110', '1010110', '1010']],
+    },
+    {
+      nama: 'thawil: Ta\'lim al-Muta\'allim, enam syarat (\'arudh maqbudhah, dharb mahdzuf)',
+      kode: 'thawil',
+      bait: ['أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ', 'سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ'],
+      pola: [['11010', '1101010', '11010', '110110'], ['11010', '1101010', '1101', '11010']],
+    },
+    {
+      nama: 'wafir: شَكَوْتُ إِلَى وَكِيعٍ (\'ashb, \'arudh dan dharb maqthufah)',
+      kode: 'wafir',
+      bait: ['شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي', 'فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي'],
+      pola: [['1101110', '1101010', '11010'], ['1101110', '1101010', '11010']],
+    },
+    {
+      nama: 'mujtats: syahid الْبَطْنُ مِنْهَا خَمِيصٌ',
+      kode: 'mujtats',
+      bait: ['الْبَطْنُ مِنْهَا خَمِيصٌ', 'وَالْوَجْهُ مِثْلُ الْهِلَالِ'],
+      pola: [['1010110', '1011010'], ['1010110', '1011010']],
+    },
+  ]
+  for (const k of kasus) {
+    it(k.nama, () => {
+      const s = kitabahOk(k.bait)
+      const h = timbangBait(s, BAHR[k.kode])
+      expect(h.patah).toBe(0)
+      expect(h.syathr.map((x) => x.potongan.map((p) => p.bit))).toEqual(k.pola)
+      expect(tebakBahr(s).bahr.kode).toBe(k.kode)
+    })
+  }
+
+  it('kunci setiap bahr ditimbang lurus dengan bahrnya sendiri', () => {
+    for (const kode of ['kamil', 'basith', 'thawil', 'wafir', 'mujtats'] as const) {
+      expect(timbangBait(kitabahOk(BAHR[kode].kunci), BAHR[kode]).patah, kode).toBe(0)
+    }
+  })
+
+  it('rajaz tetap ditebak rajaz walaupun polanya sama dengan kamil mudhmar', () => {
+    expect(tebakBahr(kitabahOk(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])).bahr.kode).toBe('rajaz')
+  })
+})

@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom'
-import { BABAK, MODUL } from '@/content'
+import { BABAK, MODUL, judulPeta, namaModul } from '@/content'
 import { kodePelajaran, sudahSelesai } from '@/lib/progres'
 import Teks from '@/components/Teks'
 
 /** Pelajaran pertama yang belum dicentang, untuk tombol "Lanjutkan". */
-function pelajaranBerikut(): { modul: number; pelajaran: number; mulai: boolean } {
+function pelajaranBerikut(): { modul: number; nama: string; pelajaran: number; mulai: boolean } {
   for (const m of MODUL) {
     for (const p of m.pelajaran) {
       if (!sudahSelesai(kodePelajaran(m.nomor, p.nomor))) {
-        return { modul: m.nomor, pelajaran: p.nomor, mulai: m.nomor === 0 && p.nomor === 1 }
+        return { modul: m.nomor, nama: namaModul(m), pelajaran: p.nomor, mulai: m.nomor === 0 && p.nomor === 1 }
       }
     }
   }
   const m = MODUL.at(-1)!
-  return { modul: m.nomor, pelajaran: m.pelajaran.at(-1)!.nomor, mulai: false }
+  return { modul: m.nomor, nama: namaModul(m), pelajaran: m.pelajaran.at(-1)!.nomor, mulai: false }
 }
 
 export default function Beranda() {
@@ -32,7 +32,7 @@ export default function Beranda() {
         </p>
         <div className="baris" style={{ marginTop: 'var(--s-2)' }}>
           <Link className="tombol utama" to={`/modul/${lanjut.modul}/${lanjut.pelajaran}`}>
-            {lanjut.mulai ? 'Mulai Modul 0' : `Lanjutkan: Modul ${lanjut.modul}, pelajaran ${lanjut.pelajaran}`}
+            {lanjut.mulai ? 'Mulai Modul 0' : `Lanjutkan: ${lanjut.nama}, pelajaran ${lanjut.pelajaran}`}
           </Link>
           <Link className="tombol" to="/timbang">Timbang bait</Link>
         </div>
@@ -49,12 +49,12 @@ export default function Beranda() {
             <p className="babak-ringkas">{b.ringkas}</p>
             <ul className="modul-daftar">
               {b.modul.map((m, i) => {
-                const aktif = m.nomor !== null && tersedia.has(m.nomor)
+                const aktif = tersedia.has(m.nomor)
                 const isi = (
                   <>
-                    <span className="modul-nomor">{m.boss ? 'B' : m.nomor ?? '+'}</span>
+                    <span className="modul-nomor">{m.boss ? 'B' : m.bonus ? '+' : m.nomor}</span>
                     <span className="modul-teks">
-                      <span className="modul-judul">{m.nomor !== null ? `Modul ${m.nomor}: ` : ''}{m.judul}</span>
+                      <span className="modul-judul">{judulPeta(m)}</span>
                       <span className="modul-fokus">{m.fokus} · hasil: {m.hasil}</span>
                     </span>
                     <span className={aktif ? 'chip ok' : 'chip'}>{aktif ? 'Buka' : 'Segera'}</span>

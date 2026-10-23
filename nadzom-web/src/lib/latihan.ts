@@ -1,6 +1,6 @@
 /** Pemeriksa untuk latihan bertahap (spec 076 K3, mode bertahap) dan format Diwan. */
 import type { Bentuk, HasilBait, Huruf } from './jenis'
-import { kitabahBait, type Aturan } from './kitabah'
+import { kitabahBait, pisahBait, type Aturan } from './kitabah'
 import { cocokkan } from './timbang'
 
 /** Huruf digabung per kata, kata dipisah spasi. */
@@ -77,4 +77,39 @@ export function diwanMarkdown(judul: string, bait: string[], hasil: HasilBait, t
     `- Patah: ${hasil.patah}`,
     '',
   ].join('\n')
+}
+
+/** Beberapa bait sekaligus (Muzdawij, Boss) dalam satu entri Diwan. */
+export function diwanQasidah(judul: string, bait: string[][], hasil: HasilBait[], tanggal = new Date()): string {
+  const tgl = tanggal.toISOString().slice(0, 10)
+  const patah = hasil.reduce((a, h) => a + h.patah, 0)
+  return [
+    `### ${judul || 'Qasidah'} · ${tgl}`,
+    '',
+    ...bait.flatMap((b, i) => [`${i + 1}. ${b.join(' ... ')} — patah ${hasil[i]?.patah ?? '?'}`]),
+    '',
+    `- Bahr: ${hasil[0]?.bahr.nama ?? '-'}`,
+    `- Jumlah bait: ${bait.length}`,
+    `- Patah: ${patah}`,
+    '',
+  ].join('\n')
+}
+
+/** Banyak bait: satu baris berisi dua syathr (dipisah | / * …), atau dua baris berurutan menjadi satu bait. */
+export function pisahQasidah(teks: string): string[][] {
+  const bait: string[][] = []
+  let sisa: string | null = null
+  for (const baris of teks.split('\n').map((x) => x.trim()).filter(Boolean)) {
+    const s = pisahBait(baris)
+    if (s.length >= 2) {
+      if (sisa) bait.push([sisa])
+      sisa = null
+      bait.push(s.slice(0, 2))
+    } else if (sisa) {
+      bait.push([sisa, s[0]])
+      sisa = null
+    } else sisa = s[0]
+  }
+  if (sisa) bait.push([sisa])
+  return bait
 }

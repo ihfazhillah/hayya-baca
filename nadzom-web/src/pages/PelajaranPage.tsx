@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { cariModul } from '@/content'
+import { cariModul, namaModul } from '@/content'
 import type { Contoh, Tamrin } from '@/content/jenis'
 import { kitabahBait } from '@/lib/kitabah'
 import { cariBahr } from '@/lib/bahr'
@@ -13,6 +13,7 @@ import TaqthiBertahap from '@/components/TaqthiBertahap'
 import Cetakan from '@/components/Cetakan'
 import Susun from '@/components/Susun'
 import HasilTimbang from '@/components/HasilTimbang'
+import Irama from '@/components/Irama'
 
 const ANGKA = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
 const angka = (n: number) => String(n).split('').map((d) => ANGKA[Number(d)]).join('')
@@ -38,6 +39,7 @@ function KartuContoh({ c }: { c: Contoh }) {
       <div className="papan-bait" lang="ar">
         {c.bait.map((s, i) => <div key={i}>{s}</div>)}
       </div>
+      <p className="makna">{c.makna}</p>
       <div className="tumpuk-kecil">
         {c.catatan && <p><Teks>{c.catatan}</Teks></p>}
         <p className="redup kecil"><Teks>{c.sumber}</Teks></p>
@@ -52,7 +54,19 @@ function KartuContoh({ c }: { c: Contoh }) {
   )
 }
 
-const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = { pilih: 'Kenali', taqthi: "Taqthi' bertahap", cetakan: 'Isi cetakan', susun: 'Susun sendiri' }
+const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = { pilih: 'Kenali', taqthi: "Taqthi' bertahap", cetakan: 'Isi cetakan', susun: 'Susun sendiri', irama: 'Dengar dan lagukan' }
+
+function TamrinIrama({ t }: { t: Extract<Tamrin, { jenis: 'irama' }> }) {
+  const k = kitabahBait(t.bait)
+  return (
+    <>
+      <p><Teks>{t.petunjuk}</Teks></p>
+      <div className="papan-bait" lang="ar">{t.bait.map((s, i) => <div key={i}>{s}</div>)}</div>
+      {t.makna && <p className="makna">{t.makna}</p>}
+      {k.ok ? <Irama hasil={timbangBait(k.syathr, cariBahr(t.bahr)!)} /> : <div className="pesan salah">{k.galat}</div>}
+    </>
+  )
+}
 
 function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
   return (
@@ -65,11 +79,13 @@ function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
       {t.jenis === 'taqthi' && (
         <>
           <p><Teks>{t.petunjuk}</Teks></p>
+          {t.makna && <p className="makna">{t.makna}</p>}
           <TaqthiBertahap bait={t.bait} bahr={cariBahr(t.bahr)} judulDiwan="Taqthi' kunci" />
         </>
       )}
       {t.jenis === 'cetakan' && <Cetakan t={t} />}
       {t.jenis === 'susun' && <Susun t={t} />}
+      {t.jenis === 'irama' && <TamrinIrama t={t} />}
     </article>
   )
 }
@@ -94,7 +110,7 @@ export default function PelajaranPage() {
     <>
       <section className="judul-halaman">
         <span className="label">
-          <Link to="/">Peta</Link> · <Link to={`/modul/${modul.nomor}`}>Modul {modul.nomor}: {modul.judul}</Link> · Pelajaran {p.nomor}
+          <Link to="/">Peta</Link> · <Link to={`/modul/${modul.nomor}`}>{namaModul(modul)}: {modul.judul}</Link> · Pelajaran {p.nomor}
         </span>
         <h1>{p.judul}</h1>
         <p className="lead"><Teks>{p.analogi}</Teks></p>
@@ -103,6 +119,19 @@ export default function PelajaranPage() {
 
       <Bagian nomor={1} ar="الأَمْثِلَة" label="Contoh">
         {p.amtsilah.map((c, k) => <KartuContoh key={k} c={c} />)}
+        {p.dengar && p.dengar.length > 0 && (
+          <div className="kartu">
+            <span className="label">Dengarkan</span>
+            <ul className="dengar">
+              {p.dengar.map((d) => (
+                <li key={d.url}>
+                  <a href={d.url} target="_blank" rel="noreferrer">{d.judul}</a>
+                  {d.catatan && <span className="redup kecil"> · <Teks>{d.catatan}</Teks></span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </Bagian>
 
       <Bagian nomor={2} ar="البَحْث" label="Pembahasan">

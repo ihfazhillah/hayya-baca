@@ -6,13 +6,15 @@ export type KodeBahr = Bahr['kode']
 export interface Contoh {
   bait: string[]
   bahr: KodeBahr
+  /** Makna bait dalam bahasa Indonesia, disesuaikan agar mudah ditangkap (bukan kata per kata). */
+  makna: string
   sumber: string
   catatan?: string
   /** Jumlah taf'ilah patah yang diharapkan (bawaan 0). Diperiksa oleh test isi. */
   patah?: number
 }
 
-export type TampilPeragaan = 'bait' | 'kitabah' | 'huruf' | 'tanda' | 'kelompok' | 'mizan' | 'bahr' | 'timbang' | 'teks'
+export type TampilPeragaan = 'bait' | 'kitabah' | 'huruf' | 'tanda' | 'kelompok' | 'mizan' | 'bahr' | 'timbang' | 'teks' | 'irama'
 
 export interface LangkahPeragaan {
   tampil: TampilPeragaan
@@ -29,6 +31,7 @@ export interface LangkahPeragaan {
 export interface Bahts {
   bait: string[]
   bahr: KodeBahr
+  makna?: string
   /** Syathr yang diperagakan (indeks). */
   syathr: number
   langkah: LangkahPeragaan[]
@@ -38,7 +41,9 @@ export interface Bahts {
 
 export type Tamrin =
   | { jenis: 'pilih'; soal: string; pilihan: string[]; jawaban: number; alasan: string }
-  | { jenis: 'taqthi'; petunjuk: string; bait: string[]; bahr: KodeBahr }
+  | { jenis: 'taqthi'; petunjuk: string; bait: string[]; bahr: KodeBahr; makna?: string }
+  /** Dengar irama bait: suku kata pendek dan panjang diputar berurutan; pengguna melagukan bersamanya. */
+  | { jenis: 'irama'; petunjuk: string; bait: string[]; bahr: KodeBahr; makna?: string }
   | {
       jenis: 'cetakan'
       petunjuk: string
@@ -49,7 +54,20 @@ export type Tamrin =
       /** Berapa baris berbeda yang harus dibuat. */
       jumlah: number
     }
-  | { jenis: 'susun'; petunjuk: string; bahr: KodeBahr; makna: string; bankKata: boolean }
+  | {
+      jenis: 'susun'
+      petunjuk: string
+      bahr: KodeBahr
+      makna: string
+      bankKata: boolean
+      /** Jumlah bait yang disusun (bawaan 1). */
+      jumlah?: number
+      /** Aturan qafiyah untuk lebih dari satu bait. */
+      qafiyah?: 'muzdawij' | 'satu'
+      /** Rancangan makna per bait (Boss). */
+      rancangan?: string[]
+      judulDiwan?: string
+    }
 
 export interface Pelajaran {
   nomor: number
@@ -62,21 +80,34 @@ export interface Pelajaran {
   qaidah: string[]
   tamarin: Tamrin[]
   patokan: string
+  /** Tautan dengar (YouTube, dengan menit), sudah dicek ada. */
+  dengar?: Dengar[]
+}
+
+export interface Dengar {
+  judul: string
+  url: string
+  catatan?: string
 }
 
 export interface Modul {
   nomor: number
+  /** Nama tampilan selain "Modul N", mis. "Boss 1" atau "Bonus". */
+  label?: string
   judul: string
   tujuan: string
   pelajaran: Pelajaran[]
+  /** Kata baru dari bait-bait modul ini; masuk ke laci (bank kata). */
+  laci?: KataBank[]
 }
 
 export interface ModulPeta {
-  nomor: number | null
+  nomor: number
   judul: string
   fokus: string
   hasil: string
   boss?: boolean
+  bonus?: boolean
 }
 
 export interface Babak {
@@ -87,10 +118,16 @@ export interface Babak {
   modul: ModulPeta[]
 }
 
+export type JenisLaci = 'hasyw' | 'wazan' | 'qafiyah' | 'umum'
+
 export interface KataBank {
   teks: string
   arti: string
   catatan?: string
+  /** Laci: frasa pengisi (hasyw), kelompok wazan sharaf, akhiran qafiyah, atau kata umum. */
+  laci?: JenisLaci
+  /** Asal kata, mis. "Alfiyah bait 1". */
+  dari?: string
 }
 
 export interface Istilah {

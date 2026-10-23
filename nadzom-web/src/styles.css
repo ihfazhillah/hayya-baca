@@ -366,3 +366,18 @@ td.ar { font-size: 22px; text-align: right; white-space: nowrap; }
   .sel-b.muncul, .hudhud-wajah .angguk { animation: none; }
 }
 .lanjut { margin-left: auto; }
+
+/* Irama: suku pendek sempit, suku panjang lebar; awal taf'ilah diberi jarak. */
+.irama { display: flex; flex-wrap: wrap; gap: var(--s-1); justify-content: center; font-family: var(--font-ar); font-size: 22px; line-height: 1.6; }
+.suku { display: inline-flex; justify-content: center; min-width: 32px; padding: 0 var(--s-2); border-radius: var(--radius-sm); background: var(--sabab-bg); color: var(--ink); border-bottom: 3px solid var(--sabab); transition: background .1s, color .1s; }
+.suku.panjang { min-width: 64px; background: var(--watad-bg); border-bottom-color: var(--watad); }
+.suku.awal-kaki { margin-inline-start: var(--s-3); }
+.suku.aktif { background: var(--primary); color: var(--on-primary); border-bottom-color: var(--gold); }
+
+/* Makna bait: terjemah yang disesuaikan, di bawah teks Arab. */
+.makna { margin: 0; color: var(--ink-2); font-style: italic; text-align: center; text-wrap: pretty; }
+.makna::before { content: "Makna: "; font-style: normal; font-weight: 600; color: var(--muted); }
+
+.dengar { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: var(--s-1); }
+.qafiyah-daftar { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--s-2); }
+.qafiyah-daftar li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }

@@ -89,62 +89,88 @@
     {
       "teks": "وَاصْبِرْ عَلَى",
       "arti": "dan bersabarlah atas",
-      "catatan": "Satu مُسْتَفْعِلُنْ utuh."
+      "catatan": "Satu مُسْتَفْعِلُنْ utuh.",
+      "laci": "hasyw",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "لَا تَيْأَسَنْ",
       "arti": "jangan sekali-kali putus asa",
-      "catatan": "Satu مُسْتَفْعِلُنْ utuh."
+      "catatan": "Satu مُسْتَفْعِلُنْ utuh.",
+      "laci": "hasyw",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "مَهَارَةٌ",
       "arti": "keterampilan",
-      "catatan": "مُتَفْعِلُنْ (khabn)."
+      "catatan": "مُتَفْعِلُنْ (khabn).",
+      "laci": "wazan",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "كَرِّرْ",
       "arti": "ulangilah",
-      "catatan": "Syaddah dihitung dua huruf."
+      "catatan": "Syaddah dihitung dua huruf.",
+      "laci": "umum",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "فَاصْبِرْ",
-      "arti": "maka bersabarlah"
+      "arti": "maka bersabarlah",
+      "laci": "hasyw",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "أَعِدْ",
       "arti": "ulangilah",
-      "catatan": "Satu watad."
+      "catatan": "Satu watad.",
+      "laci": "umum",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "دَرْسَكَ",
-      "arti": "pelajaranmu"
+      "arti": "pelajaranmu",
+      "laci": "wazan",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "حِفْظَكَ",
       "arti": "hafalanmu",
-      "catatan": "Polanya sama dengan دَرْسَكَ; bisa saling tukar."
+      "catatan": "Polanya sama dengan دَرْسَكَ; bisa saling tukar.",
+      "laci": "wazan",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "يَا بُنَيَّ",
-      "arti": "wahai anakku"
+      "arti": "wahai anakku",
+      "laci": "hasyw",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "صَبْرَا",
-      "arti": "kesabaran (qafiyah)",
-      "catatan": "Berpasangan dengan ذِكْرَا."
+      "arti": "kesabaran",
+      "catatan": "Berpasangan dengan ذِكْرَا.",
+      "laci": "qafiyah",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "ذِكْرَا",
-      "arti": "zikir, ingatan (qafiyah)"
+      "arti": "zikir, ingatan",
+      "laci": "qafiyah",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "الْعَمَلْ",
-      "arti": "amal (qafiyah)",
-      "catatan": "Berpasangan dengan الْأَمَلْ."
+      "arti": "amal",
+      "catatan": "Berpasangan dengan الْأَمَلْ.",
+      "laci": "qafiyah",
+      "dari": "Rancangan Boss 1"
     },
     {
       "teks": "الْأَمَلْ",
-      "arti": "harapan (qafiyah)"
+      "arti": "harapan",
+      "laci": "qafiyah",
+      "dari": "Rancangan Boss 1"
     }
   ]
 }

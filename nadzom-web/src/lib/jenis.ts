@@ -28,11 +28,13 @@ export interface Bentuk {
 }
 
 export interface Bahr {
-  kode: 'rajaz' | 'ramalMajzu' | 'ramal'
+  kode: 'rajaz' | 'ramalMajzu' | 'ramal' | 'kamil' | 'basith' | 'thawil' | 'wafir' | 'mujtats'
   nama: string
   namaAr: string
   /** Kunci bahr (miftah al-buhur), dua syathr. */
   kunci: [string, string]
+  /** Makna kunci, disesuaikan: kunci menyebut nama bahr sekaligus mengikuti wazannya. */
+  kunciMakna: string
   /** Slot taf'ilah: syathr pertama (hasyw + 'arudh) dan kedua (hasyw + dharb). Bentuk tanpa `zihaf` = utuh. */
   slot: [Bentuk[][], Bentuk[][]]
 }

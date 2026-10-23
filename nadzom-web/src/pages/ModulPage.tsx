@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
-import { cariModul } from '@/content'
+import { cariModul, namaModul } from '@/content'
 import { kodePelajaran, sudahSelesai } from '@/lib/progres'
 import Teks from '@/components/Teks'
+import Laci from '@/components/Laci'
 
 export default function ModulPage() {
   const nomor = Number(useParams().modul)
@@ -11,7 +12,7 @@ export default function ModulPage() {
   return (
     <>
       <section className="judul-halaman">
-        <span className="label"><Link to="/">Peta</Link> · Modul {modul.nomor}</span>
+        <span className="label"><Link to="/">Peta</Link> · {namaModul(modul)}</span>
         <h1>{modul.judul}</h1>
         <p className="lead"><Teks>{modul.tujuan}</Teks></p>
       </section>
@@ -32,6 +33,13 @@ export default function ModulPage() {
           )
         })}
       </section>
+      {modul.laci && modul.laci.length > 0 && (
+        <section className="bagian" aria-label="Laci modul ini">
+          <div className="bagian-judul"><h2>Kata baru untuk laci</h2></div>
+          <p className="redup">Kata dan frasa dari bait-bait modul ini. Semuanya juga tersimpan di laci halaman Rujukan.</p>
+          <Laci kata={modul.laci} pilihLaci={false} />
+        </section>
+      )}
     </>
   )
 }

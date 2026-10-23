@@ -2,13 +2,17 @@ import { useId, useRef, useState } from 'react'
 import type { HasilBait } from '@/lib/jenis'
 import { diwanMarkdown } from '@/lib/latihan'
 
+type Props =
+  | { bait: string[]; hasil: HasilBait; judulAwal?: string; buatMd?: never }
+  | { buatMd: (judul: string) => string; judulAwal?: string; bait?: never; hasil?: never }
+
 /** Salin bait + pola + jumlah patah sebagai Markdown. Aplikasi tidak menyimpan apa pun. */
-export default function SalinDiwan({ bait, hasil, judulAwal = 'Bait' }: { bait: string[]; hasil: HasilBait; judulAwal?: string }) {
+export default function SalinDiwan({ bait, hasil, buatMd, judulAwal = 'Bait' }: Props) {
   const id = useId()
   const [judul, setJudul] = useState(judulAwal)
   const [status, setStatus] = useState<'diam' | 'tersalin' | 'manual'>('diam')
   const area = useRef<HTMLTextAreaElement>(null)
-  const md = diwanMarkdown(judul, bait, hasil)
+  const md = buatMd ? buatMd(judul) : diwanMarkdown(judul, bait!, hasil!)
 
   const salin = () => {
     navigator.clipboard.writeText(md).then(

@@ -2,7 +2,7 @@ import { ISTILAH } from '@/content'
 import { DAFTAR_BAHR } from '@/lib/bahr'
 import { kitabahBait } from '@/lib/kitabah'
 import { timbangBait } from '@/lib/timbang'
-import { BankKata } from '@/components/Susun'
+import Laci from '@/components/Laci'
 import Papan from '@/components/Papan'
 import Teks from '@/components/Teks'
 
@@ -42,6 +42,7 @@ export default function Rujukan() {
                 <span className="ar" lang="ar" style={{ fontSize: 22, color: 'var(--heading)' }}>{b.namaAr}</span>
               </div>
               <div className="papan-bait" lang="ar" style={{ fontSize: 24 }}>{b.kunci.map((s, i) => <div key={i}>{s}</div>)}</div>
+              <p className="makna">{b.kunciMakna}</p>
               {h && (
                 <div className="papan">
                   <Papan huruf={h.syathr[0].huruf} kaki={h.syathr[0].potongan} tanda="tampil" juz mizan />
@@ -98,8 +99,8 @@ export default function Rujukan() {
       </section>
 
       <section className="bagian" aria-label="Bank kata">
-        <div className="bagian-judul"><h2>Bank kata</h2></div>
-        <BankKata />
+        <div className="bagian-judul"><h2>Laci kata</h2></div>
+        <Laci />
       </section>
     </>
   )

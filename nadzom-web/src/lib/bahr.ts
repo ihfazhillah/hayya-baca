@@ -36,7 +36,57 @@ const RAMAL_MAJZU_DHARB = [
   ...FAILUN,
 ]
 
+/** Kamil: 'arudh shahihah atau hadzdza'; dharb juga maqthu'. Idhmar (huruf kedua disukunkan) sangat lazim. */
+const MUTAFAILUN = [
+  b('مُتَفَاعِلُنْ', '1110110'),
+  b('مُتْفَاعِلُنْ', '1010110', 'idhmar', { namaLain: 'مُسْتَفْعِلُنْ', nilai: 'hasan' }),
+  b('مُفَاعِلُنْ', '110110', 'waqsh', { nilai: 'qabih' }),
+  b('مُتْفَعِلُنْ', '101110', 'khazl', { namaLain: 'مُفْتَعِلُنْ', nilai: 'qabih' }),
+]
+const KAMIL_ARUDH = [
+  ...MUTAFAILUN,
+  b('مُتَفَا', '1110', 'hadzadz', { illah: true, namaLain: 'فَعِلُنْ' }),
+  b('مُتْفَا', '1010', 'hadzadz + idhmar', { illah: true, namaLain: 'فَعْلُنْ' }),
+]
+const KAMIL_DHARB = [
+  ...KAMIL_ARUDH,
+  b('مُتَفَاعِلْ', '111010', "qath'", { illah: true, namaLain: 'فَعِلَاتُنْ' }),
+  b('مُتْفَاعِلْ', '101010', "qath' + idhmar", { illah: true, namaLain: 'مَفْعُولُنْ' }),
+]
+
+/** Basith: فاعلن di hasyw; 'arudh makhbunah; dharb makhbun atau maqthu'. */
+const FAILUN_ASLI = [b('فَاعِلُنْ', '10110'), b('فَعِلُنْ', '1110', 'khabn', { nilai: 'hasan' })]
+const BASITH_DHARB = [...FAILUN_ASLI, b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ' })]
+
+/** Thawil: 'arudh selalu maqbudhah; dharb shahih, maqbudh, atau mahdzuf. */
+const FAULUN = [b('فَعُولُنْ', '11010'), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan' })]
+const MAFAILUN = [
+  b('مَفَاعِيلُنْ', '1101010'),
+  b('مَفَاعِلُنْ', '110110', 'qabdh', { nilai: 'hasan' }),
+  b('مَفَاعِيلُ', '110101', 'kaff', { nilai: 'shalih' }),
+]
+const THAWIL_ARUDH = [b('مَفَاعِلُنْ', '110110', 'qabdh')]
+const THAWIL_DHARB = [...MAFAILUN.slice(0, 2), b('مَفَاعِي', '11010', 'hadzf', { illah: true, namaLain: 'فَعُولُنْ' })]
+
+/** Wafir tam: 'arudh dan dharb selalu maqthufah. 'Ashb (huruf kelima disukunkan) sangat lazim. */
+const MUFAALATUN = [
+  b('مُفَاعَلَتُنْ', '1101110'),
+  b('مُفَاعَلْتُنْ', '1101010', "'ashb", { namaLain: 'مَفَاعِيلُنْ', nilai: 'hasan' }),
+  b('مُفَاعَتُنْ', '110110', "'aql", { namaLain: 'مَفَاعِلُنْ', nilai: 'qabih' }),
+  b('مُفَاعَلْتُ', '110101', 'naqsh', { namaLain: 'مَفَاعِيلُ', nilai: 'qabih' }),
+]
+const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, namaLain: 'فَعُولُنْ' })]
+
+/** Mujtats: selalu majzu', dua taf'ilah per syathr. */
+const MUSTAFILUN_MUJTATS = [
+  b('مُسْتَفْعِلُنْ', '1010110'),
+  b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan' }),
+  b('مُسْتَفْعِلُ', '101011', 'kaff', { nilai: 'qabih' }),
+  b('مُتَفْعِلُ', '11011', 'syakl', { nilai: 'qabih' }),
+]
+
 const KUNCI_RAMAL: [string, string] = ['رَمَلُ الْأَبْحُرِ تَرْوِيهِ الثِّقَاتُ', 'فَاعِلَاتُنْ فَاعِلَاتُنْ فَاعِلَاتُ']
+const MAKNA_RAMAL = 'Ramal di antara bahr-bahr: para perawi tepercaya meriwayatkannya.'
 
 export const BAHR = {
   rajaz: {
@@ -44,6 +94,7 @@ export const BAHR = {
     nama: 'Rajaz',
     namaAr: 'الرَّجَز',
     kunci: ['فِي أَبْحُرِ الْأَرْجَازِ بَحْرٌ يَسْهُلُ', 'مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ'],
+    kunciMakna: 'Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui.',
     slot: [
       [MUSTAFILUN, MUSTAFILUN, MUSTAFILUN],
       [MUSTAFILUN, MUSTAFILUN, MUSTAFILUN_DHARB],
@@ -54,6 +105,7 @@ export const BAHR = {
     nama: "Ramal majzu'",
     namaAr: 'الرَّمَل الْمَجْزُوء',
     kunci: KUNCI_RAMAL,
+    kunciMakna: MAKNA_RAMAL,
     slot: [
       [FAILATUN, FAILATUN],
       [FAILATUN, RAMAL_MAJZU_DHARB],
@@ -64,14 +116,71 @@ export const BAHR = {
     nama: 'Ramal',
     namaAr: 'الرَّمَل',
     kunci: KUNCI_RAMAL,
+    kunciMakna: MAKNA_RAMAL,
     slot: [
       [FAILATUN, FAILATUN, RAMAL_ARUDH],
       [FAILATUN, FAILATUN, RAMAL_DHARB],
     ],
   },
+  kamil: {
+    kode: 'kamil',
+    nama: 'Kamil',
+    namaAr: 'الْكَامِل',
+    kunci: ['كَمَلَ الْجَمَالُ مِنَ الْبُحُورِ الْكَامِلُ', 'مُتَفَاعِلُنْ مُتَفَاعِلُنْ مُتَفَاعِلُ'],
+    kunciMakna: 'Keindahan menjadi sempurna: di antara semua bahr, kamil-lah yang sempurna.',
+    slot: [
+      [MUTAFAILUN, MUTAFAILUN, KAMIL_ARUDH],
+      [MUTAFAILUN, MUTAFAILUN, KAMIL_DHARB],
+    ],
+  },
+  basith: {
+    kode: 'basith',
+    nama: 'Basith',
+    namaAr: 'الْبَسِيط',
+    kunci: ['إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ', 'مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ'],
+    kunciMakna: 'Bahr basith: di sanalah harapan dibentangkan lebar.',
+    slot: [
+      [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, FAILUN_ASLI],
+      [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, BASITH_DHARB],
+    ],
+  },
+  thawil: {
+    kode: 'thawil',
+    nama: 'Thawil',
+    namaAr: 'الطَّوِيل',
+    kunci: ['طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ', 'فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِلُ'],
+    kunciMakna: 'Thawil punya keutamaan yang tidak dimiliki bahr lain.',
+    slot: [
+      [FAULUN, MAFAILUN, FAULUN, THAWIL_ARUDH],
+      [FAULUN, MAFAILUN, FAULUN, THAWIL_DHARB],
+    ],
+  },
+  wafir: {
+    kode: 'wafir',
+    nama: 'Wafir',
+    namaAr: 'الْوَافِر',
+    kunci: ['بُحُورُ الشِّعْرِ وَافِرُهَا جَمِيلُ', 'مُفَاعَلَتُنْ مُفَاعَلَتُنْ فَعُولُ'],
+    kunciMakna: 'Di antara bahr-bahr syair, wafir itu indah.',
+    slot: [
+      [MUFAALATUN, MUFAALATUN, WAFIR_AKHIR],
+      [MUFAALATUN, MUFAALATUN, WAFIR_AKHIR],
+    ],
+  },
+  mujtats: {
+    kode: 'mujtats',
+    nama: 'Mujtats',
+    namaAr: 'الْمُجْتَثّ',
+    kunci: ['إِنْ جُثَّتِ الْحَرَكَاتُ', 'مُسْتَفْعِلُنْ فَاعِلَاتُ'],
+    kunciMakna: 'Bila harakat-harakatnya dipangkas: itulah mujtats, artinya yang dipangkas.',
+    slot: [
+      [MUSTAFILUN_MUJTATS, FAILATUN],
+      [MUSTAFILUN_MUJTATS, FAILATUN],
+    ],
+  },
 } satisfies Record<string, Bahr>
 
-export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal]
+/** Urutan juga pemecah seri saat menebak: rajaz didahulukan dari kamil yang semuanya mudhmar. */
+export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats]
 
 export function cariBahr(kode: string): Bahr | undefined {
   return DAFTAR_BAHR.find((x) => x.kode === kode)

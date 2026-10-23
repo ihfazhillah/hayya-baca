@@ -9,6 +9,7 @@ import Papan from './Papan'
 import Teks from './Teks'
 import TandaiBit from './TandaiBit'
 import HasilTimbang from './HasilTimbang'
+import Irama from './Irama'
 
 /** Kitabah per kata; huruf tambahan (tanwin, syaddah, isyba', alif khanjariyah) digarisbawahi emas. */
 export function KitabahTeks({ huruf }: { huruf: Huruf[] }) {
@@ -54,7 +55,14 @@ export default function Peragaan({ bahts, onGiliranBenar }: { bahts: Bahts; onGi
   const papan = (l: LangkahPeragaan) => {
     switch (l.tampil) {
       case 'bait':
-        return <BaitPapan bait={l.bait ?? bahts.bait} sorot={l.bait ? undefined : bahts.syathr} />
+        return (
+          <>
+            <BaitPapan bait={l.bait ?? bahts.bait} sorot={l.bait ? undefined : bahts.syathr} />
+            {!l.bait && bahts.makna && <p className="makna">{bahts.makna}</p>}
+          </>
+        )
+      case 'irama':
+        return <Irama hasil={dasar} />
       case 'kitabah':
         return (
           <>
@@ -78,6 +86,7 @@ export default function Peragaan({ bahts, onGiliranBenar }: { bahts: Bahts; onGi
             <div className="papan-bait redup" lang="ar" style={{ fontSize: 21 }}>
               {bahr.kunci.map((k, i) => <div key={i}>{k}</div>)}
             </div>
+            <p className="makna">{bahr.kunciMakna}</p>
             <BaitPapan bait={bahts.bait} />
           </>
         )

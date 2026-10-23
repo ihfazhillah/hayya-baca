@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { kitabahBait } from './kitabah'
 import { BAHR } from './bahr'
 import { timbangBait } from './timbang'
-import { diwanMarkdown, periksaPotong, periksaTanda, pilihanKitabah, teksKitabah } from './latihan'
+import { diwanMarkdown, periksaPotong, periksaTanda, pilihanKitabah, pisahQasidah, teksKitabah } from './latihan'
+import { periksaQafiyah, qafiyah } from './qafiyah'
 
 const syathr = (teks: string, akhir = true) => {
   const k = kitabahBait(akhir ? [teks] : [teks, 'لَا'])
@@ -52,5 +53,51 @@ describe('Diwan', () => {
 
   it('teks kitabah dipisah per kata', () => {
     expect(teksKitabah(syathr('دَارٌ لِسَلْمَى', false))).toBe('دَارُنْ لِسَلْمَى')
+  })
+})
+
+describe('qafiyah: rawiy, harakatnya, dan ridf', () => {
+  const k = (bait: string[]) => {
+    const r = kitabahBait(bait)
+    if (!r.ok) throw new Error(r.galat)
+    return r.syathr
+  }
+
+  it('ـانِ: rawiy nun, majra kasrah, ridf alif (Nuniyah Ibnul Qayyim)', () => {
+    const [s1, s2] = k(['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ'])
+    expect(qafiyah(s2)).toEqual({ rawiy: 'ن', harakat: 'kasrah', ridf: 'ا' })
+    expect(qafiyah(s1)).toEqual(qafiyah(s2))
+  })
+
+  it('qafiyah muqayyadah: rawiy bersukun (الزُّبُرْ)', () => {
+    const [, s2] = k(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])
+    expect(qafiyah(s2)).toEqual({ rawiy: 'ر', harakat: 'sukun' })
+  })
+
+  it('muzdawij: setiap bait berqafiyah sendiri, dua syathrnya harus sama', () => {
+    const baik = [
+      k(['قَالَ مُحَمَّدٌ هُوَ ابْنُ مَالِكِ', 'أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ']),
+      k(['وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ', 'مَقَاصِدُ النَّحْوِ بِهَا مَحْوِيَّهْ']),
+    ]
+    expect(periksaQafiyah(baik, 'muzdawij')).toEqual([])
+    const pincang = [baik[0], k(['وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])]
+    expect(periksaQafiyah(pincang, 'muzdawij').map((m) => m.bait)).toEqual([2])
+  })
+
+  it('satu qafiyah: ujung setiap bait mengikuti bait pertama, termasuk harakat rawiy', () => {
+    const b1 = k(['حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ', 'مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ'])
+    const b2 = k(['زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ', 'وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ'])
+    const m = periksaQafiyah([b1, b2], 'satu')
+    expect(m.map((x) => x.bait)).toEqual([2])
+    expect(m[0].pesan).toMatch(/kasrah/)
+  })
+})
+
+describe('pisah qasidah: teks banyak bait', () => {
+  it('satu bait per baris dengan |, atau dua baris berurutan per bait', () => {
+    expect(pisahQasidah('أ ب | ج د\nهـ و\nز ح\n\nط ي | ك ل')).toEqual([['أ ب', 'ج د'], ['هـ و', 'ز ح'], ['ط ي', 'ك ل']])
+  })
+  it('syathr yang belum berpasangan tetap menjadi bait sendiri', () => {
+    expect(pisahQasidah('أ ب | ج د\nهـ و')).toEqual([['أ ب', 'ج د'], ['هـ و']])
   })
 })

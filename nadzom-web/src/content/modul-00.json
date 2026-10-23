@@ -16,6 +16,7 @@
             "قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ"
           ],
           "bahr": "rajaz",
+          "makna": "Itulah rumah Salma, dulu ketika Sulaima masih bertetangga. Kini sunyi; bekas-bekasnya tinggal seperti tulisan di lembaran tua.",
           "sumber": "Syahid rajaz tam di kitab 'arudh: Ibnu ad-Damamini, al-'Uyun al-Ghamizah; as-Sakkaki, Miftah al-'Ulum.",
           "catatan": "Keenam taf'ilahnya utuh, jadi cocok sebagai timbangan pertama."
         },
@@ -25,6 +26,7 @@
             "مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ"
           ],
           "bahr": "rajaz",
+          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr rajaz (miftah al-buhur) yang masyhur.",
           "catatan": "Kunci ini sekaligus contoh dan alat periksa. Hafalkan dan lagukan."
         }
@@ -35,6 +37,7 @@
           "قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ"
         ],
         "bahr": "rajaz",
+        "makna": "Itulah rumah Salma, dulu ketika Sulaima masih bertetangga. Kini sunyi; bekas-bekasnya tinggal seperti tulisan di lembaran tua.",
         "syathr": 0,
         "langkah": [
           {
@@ -107,7 +110,8 @@
           "bait": [
             "فِي أَبْحُرِ الْأَرْجَازِ بَحْرٌ يَسْهُلُ"
           ],
-          "bahr": "rajaz"
+          "bahr": "rajaz",
+          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)"
         }
       ],
       "patokan": "Syathr kedua dan kunci rajaz ditandai sendiri sampai semua huruf benar."
@@ -125,6 +129,7 @@
             "لَمْ يَزَلْ فِي الْعَيْشِ خَيْرٌ"
           ],
           "bahr": "ramalMajzu",
+          "makna": "Di dalam hati masih ada cahaya; dalam hidup masih ada kebaikan.",
           "sumber": "Cetakan latihan dari irama nasyid Ma laha al-arwah asra (ramal majzu').",
           "catatan": "Setiap syathr: فَاعِلَاتُنْ dua kali."
         }
@@ -135,6 +140,7 @@
           "لَمْ يَزَلْ فِي الْعَيْشِ خَيْرٌ"
         ],
         "bahr": "ramalMajzu",
+        "makna": "Di dalam hati masih ada cahaya; dalam hidup masih ada kebaikan.",
         "syathr": 0,
         "langkah": [
           {
@@ -230,6 +236,7 @@
             "عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا"
           ],
           "bahr": "rajaz",
+          "makna": "Kamilah yang telah berbaiat kepada Muhammad, untuk berjihad selama kami masih hidup.",
           "sumber": "Rajaz para sahabat saat menggali Khandaq (Shahih al-Bukhari); dipakai ulang oleh nasyid Nahnu alladzina.",
           "catatan": "Beberapa taf'ilahnya berubah (مُتَفْعِلُنْ, مُسْتَعِلُنْ). Itu sah, bukan pincang; dibahas di Modul 3."
         },
@@ -239,6 +246,7 @@
             "أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ"
           ],
           "bahr": "rajaz",
+          "makna": "Muhammad, yaitu Ibnu Malik, berkata: aku memuji Tuhanku, Allah, sebaik-baik Pemilik.",
           "sumber": "Alfiyah Ibnu Malik, bait pertama.",
           "catatan": "Perhatikan رَبِّي اللَّهَ → بِلْلَاهَ: ya mad gugur sebelum hamzah washal."
         }
@@ -249,6 +257,7 @@
           "مُصَلِّيًا عَلَى النَّبِيِّ الْمُرْسَلِ"
         ],
         "bahr": "rajaz",
+        "makna": "Aku memulai nadzomku dengan memuji Allah Yang Mahaawal, sambil bershalawat kepada Nabi yang diutus.",
         "syathr": 0,
         "langkah": [
           {
@@ -330,6 +339,47 @@
         }
       ],
       "patokan": "Bait #1 v1 tersusun (dua syathr), ditimbang, dan jumlah patahnya tercatat di Diwan Anda."
+    }
+  ],
+  "laci": [
+    {
+      "teks": "نَحْنُ الَّذِينَ",
+      "arti": "kamilah yang",
+      "laci": "hasyw",
+      "dari": "Rajaz Khandaq"
+    },
+    {
+      "teks": "مَا بَقِينَا",
+      "arti": "selama kami masih ada (hidup)",
+      "laci": "hasyw",
+      "dari": "Rajaz Khandaq"
+    },
+    {
+      "teks": "أَبَدَا",
+      "arti": "selamanya",
+      "laci": "qafiyah",
+      "catatan": "Pasangan qafiyah ـدَا: مُحَمَّدَا، غَدَا.",
+      "dari": "Rajaz Khandaq"
+    },
+    {
+      "teks": "خَيْرَ مَالِكِ",
+      "arti": "sebaik-baik pemilik",
+      "laci": "qafiyah",
+      "dari": "Alfiyah bait 1"
+    },
+    {
+      "teks": "حَامِدًا",
+      "arti": "sambil memuji",
+      "laci": "wazan",
+      "catatan": "Wazan فَاعِلًا (hal).",
+      "dari": "Bait #1 contoh"
+    },
+    {
+      "teks": "مُصَلِّيًا",
+      "arti": "sambil bershalawat",
+      "laci": "wazan",
+      "catatan": "Wazan مُفَعِّلًا (hal).",
+      "dari": "Bait #1 contoh"
     }
   ]
 }
