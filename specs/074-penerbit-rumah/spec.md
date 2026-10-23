@@ -1,6 +1,6 @@
 # Spec 074 — Penerbit Rumah (course menulis dan merevisi cerita untuk anak 10 tahun)
 
-**Status:** Draft — menunggu approval spec
+**Status:** Spec disetujui 2026-10-23 — plan dalam review
 **Tanggal:** 2026-10-23
 **Produk:** Aplikasi web terpisah `penerbit-web/` + backend app `backend/penerbit/`
 **Pola:** Sama seperti Tahsin (Spec 072) dan English (Spec 064): SPA Vite + React,
@@ -139,7 +139,7 @@ Latihan Bertanya. Modul 1–9 diambil dari Roadmap; isi yang belum ada di dokume
 - PWA/offline penuh; hanya antrean simpan naskah yang offline.
 - Integrasi Gemini selain tombol salin dan tautan.
 
-## 6. Keputusan terbuka (perlu jawaban sebelum plan)
+## 6. Keputusan (semua diputuskan 2026-10-23)
 
 1. **Isi yang belum tertulis di Roadmap.** Belum ada: teks dan kunci misi Modul
    10–16 di luar tabel, isi semua lembar cetak selain M4-3, bank kalimat Latihan
@@ -147,13 +147,13 @@ Latihan Bertanya. Modul 1–9 diambil dari Roadmap; isi yang belum ada di dokume
    Modul 6–16. **Diputuskan 2026-10-23**: Claude menyusun draf langsung sebagai JSON
    per modul, plus satu dokumen review (satu bagian per modul) yang dikomentari pemilik.
    Urutan: Modul 6–9 → 10–16 → bank Latihan Harian + Latihan Bertanya.
-2. **Kunci ganda.** Modul 1: "nanti" muncul dua kali di kalimat terakhir. Usulan: kunci
+2. **Kunci ganda** (disetujui). Modul 1: "nanti" muncul dua kali di kalimat terakhir. Usulan: kunci
    bisa berupa grup posisi, dan salah satu anggota grup yang diklik dihitung benar.
-3. **Daftar kata umum** untuk Detektor Kembar dan Jejak (yang tidak dihitung).
+3. **Daftar kata umum** (disetujui) untuk Detektor Kembar dan Jejak (yang tidak dihitung).
    Usulan awal: dan, yang, di, ke, itu, ini, dia, aku, akan, sudah, tidak, dengan, untuk, dari.
-4. **Emas yang tidak bisa dihitung mesin** (Pengeras Suara, Kamera, Kaca Pembesar):
+4. **Emas yang tidak bisa dihitung mesin** (disetujui) (Pengeras Suara, Kamera, Kaca Pembesar):
    Pemeriksa yang memberikan, dengan tampilan kemajuan sebagai bantuan.
-5. **"Berani Hapus" (10 poin)**: diberikan Pemeriksa secara manual dari halaman naskah.
+5. **"Berani Hapus" (10 poin)** (disetujui): diberikan Pemeriksa secara manual dari halaman naskah.
 6. ~~Membuat akun Editor Tamu~~ — **diputuskan 2026-10-23**: hanya User yang sudah
    ada; Pemeriksa membagikan naskah dengan mengetik username. Tidak ada pembuatan akun dari app ini.
 7. ~~Akun Penulis~~ — **diputuskan 2026-10-23**: memakai akun anak yang sudah ada
