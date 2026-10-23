@@ -43,16 +43,6 @@
         },
         {
           "bait": [
-            "يَا هِلَالًا قَدْ تَجَلَّى",
-            "فِي ثِيَابٍ مِنْ حَرِيرِ"
-          ],
-          "bahr": "ramalMajzu",
-          "makna": "Wahai bulan sabit yang tampak terang, berbalut pakaian sutra.",
-          "sumber": "Ibnu 'Abdi Rabbih, al-'Iqd al-Farid, juz 5, bab 'arudh, contoh ramal majzu' dharb sahih (Wikisource, bagian 3).",
-          "catatan": "حَرِيرِ (ridf ya) satu qashidah dengan الزَّبُورِ (ridf waw). Keduanya sah. Yang tidak boleh: mencampur ridf alif dengan ya/waw."
-        },
-        {
-          "bait": [
             "طَالِبَ الْعِلْمِ تَأَدَّبْ",
             "كُنْ صَبُورًا فِي الطَّلَبْ"
           ],
@@ -300,23 +290,123 @@
     }
   ],
   "laci": [
-    { "teks": "إِنَّمَا الدُّنْيَا", "arti": "dunia ini hanyalah", "laci": "hasyw", "catatan": "Satu فَاعِلَاتُنْ penuh: إِنْنَمَدْدُنْ.", "dari": "Diwan 'Ali" },
-    { "teks": "فَنَاءٌ", "arti": "kefanaan", "laci": "umum", "dari": "Diwan 'Ali" },
-    { "teks": "ثُبُوتُ", "arti": "ketetapan, keabadian", "laci": "qafiyah", "catatan": "Qafiyah ـوتُ muthlaqah. Pasangan: الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ.", "dari": "Diwan 'Ali" },
-    { "teks": "الْعَنْكَبُوتُ", "arti": "laba-laba", "laci": "qafiyah", "dari": "Diwan 'Ali" },
-    { "teks": "قُوتُ", "arti": "makanan pokok, bekal hidup", "laci": "qafiyah", "dari": "Diwan 'Ali" },
-    { "teks": "يَمُوتُ", "arti": "akan mati", "laci": "qafiyah", "dari": "Diwan 'Ali" },
-    { "teks": "وَلَعَمْرِي", "arti": "demi hidupku", "laci": "hasyw", "catatan": "Pola 111010, فَعِلَاتُنْ: pembuka syathr ramal.", "dari": "Diwan 'Ali" },
-    { "teks": "عَنْ قَلِيلٍ", "arti": "tidak lama lagi", "laci": "hasyw", "dari": "Diwan 'Ali" },
-    { "teks": "أَيُّهَا الطَّالِبُ", "arti": "wahai pencari", "laci": "hasyw", "dari": "Diwan 'Ali" },
-    { "teks": "الزَّبُورِ", "arti": "kitab, tulisan", "laci": "qafiyah", "catatan": "Ridf و; boleh berpasangan dengan حَرِيرِ، أَمِيرِ (ridf ي).", "dari": "Syahid al-'Iqd al-Farid" },
-    { "teks": "حَرِيرِ", "arti": "sutra", "laci": "qafiyah", "catatan": "Ridf ي; pasangan الزَّبُورِ.", "dari": "al-'Iqd al-Farid" },
-    { "teks": "دَارِسَاتٌ", "arti": "yang hampir terhapus", "laci": "wazan", "catatan": "Jamak فَاعِلَاتٌ: tepat satu فَاعِلَاتُنْ.", "dari": "Syahid al-'Iqd al-Farid" },
-    { "teks": "طَالِبَ الْعِلْمِ", "arti": "wahai penuntut ilmu", "laci": "hasyw", "catatan": "Munada mudhaf, satu فَاعِلَاتُنْ.", "dari": "Bait latihan Bonus ramal" },
-    { "teks": "فِي الطَّلَبْ", "arti": "dalam mencari (ilmu)", "laci": "qafiyah", "catatan": "Muqayyadah tanpa ridf: ujung فَاعِلُنْ.", "dari": "Bait latihan Bonus ramal" },
-    { "teks": "رِضْوَانْ", "arti": "keridaan", "laci": "qafiyah", "catatan": "Muqayyadah dengan ridf alif: ujung فَاعِلَاتَانْ.", "dari": "Bait latihan Bonus ramal" },
-    { "teks": "دَهْرَا", "arti": "sepanjang masa", "laci": "qafiyah", "catatan": "Muthlaqah alif. Pasangan: ذُخْرَا، صَبْرَا، أَجْرَا.", "dari": "Bait latihan Bonus ramal" },
-    { "teks": "ذُخْرَا", "arti": "simpanan, bekal", "laci": "qafiyah", "dari": "Bait latihan Bonus ramal" },
-    { "teks": "سَارِعِ الْخَيْرَاتِ", "arti": "bersegeralah kepada kebaikan", "laci": "hasyw", "dari": "Bait latihan Bonus ramal" }
+    {
+      "teks": "إِنَّمَا الدُّنْيَا",
+      "arti": "dunia ini hanyalah",
+      "laci": "hasyw",
+      "catatan": "Satu فَاعِلَاتُنْ penuh: إِنْنَمَدْدُنْ.",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "فَنَاءٌ",
+      "arti": "kefanaan",
+      "laci": "umum",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "ثُبُوتُ",
+      "arti": "ketetapan, keabadian",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـوتُ muthlaqah. Pasangan: الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ.",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "الْعَنْكَبُوتُ",
+      "arti": "laba-laba",
+      "laci": "qafiyah",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "قُوتُ",
+      "arti": "makanan pokok, bekal hidup",
+      "laci": "qafiyah",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "يَمُوتُ",
+      "arti": "akan mati",
+      "laci": "qafiyah",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "وَلَعَمْرِي",
+      "arti": "demi hidupku",
+      "laci": "hasyw",
+      "catatan": "Pola 111010, فَعِلَاتُنْ: pembuka syathr ramal.",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "عَنْ قَلِيلٍ",
+      "arti": "tidak lama lagi",
+      "laci": "hasyw",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "أَيُّهَا الطَّالِبُ",
+      "arti": "wahai pencari",
+      "laci": "hasyw",
+      "dari": "Diwan 'Ali"
+    },
+    {
+      "teks": "الزَّبُورِ",
+      "arti": "kitab, tulisan",
+      "laci": "qafiyah",
+      "catatan": "Ridf و; boleh berpasangan dengan حَرِيرِ، أَمِيرِ (ridf ي).",
+      "dari": "Syahid al-'Iqd al-Farid"
+    },
+    {
+      "teks": "حَرِيرِ",
+      "arti": "sutra",
+      "laci": "qafiyah",
+      "catatan": "Ridf ي; pasangan الزَّبُورِ.",
+      "dari": "al-'Iqd al-Farid"
+    },
+    {
+      "teks": "دَارِسَاتٌ",
+      "arti": "yang hampir terhapus",
+      "laci": "wazan",
+      "catatan": "Jamak فَاعِلَاتٌ: tepat satu فَاعِلَاتُنْ.",
+      "dari": "Syahid al-'Iqd al-Farid"
+    },
+    {
+      "teks": "طَالِبَ الْعِلْمِ",
+      "arti": "wahai penuntut ilmu",
+      "laci": "hasyw",
+      "catatan": "Munada mudhaf, satu فَاعِلَاتُنْ.",
+      "dari": "Bait latihan Bonus ramal"
+    },
+    {
+      "teks": "فِي الطَّلَبْ",
+      "arti": "dalam mencari (ilmu)",
+      "laci": "qafiyah",
+      "catatan": "Muqayyadah tanpa ridf: ujung فَاعِلُنْ.",
+      "dari": "Bait latihan Bonus ramal"
+    },
+    {
+      "teks": "رِضْوَانْ",
+      "arti": "keridaan",
+      "laci": "qafiyah",
+      "catatan": "Muqayyadah dengan ridf alif: ujung فَاعِلَاتَانْ.",
+      "dari": "Bait latihan Bonus ramal"
+    },
+    {
+      "teks": "دَهْرَا",
+      "arti": "sepanjang masa",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah alif. Pasangan: ذُخْرَا، صَبْرَا، أَجْرَا.",
+      "dari": "Bait latihan Bonus ramal"
+    },
+    {
+      "teks": "ذُخْرَا",
+      "arti": "simpanan, bekal",
+      "laci": "qafiyah",
+      "dari": "Bait latihan Bonus ramal"
+    },
+    {
+      "teks": "سَارِعِ الْخَيْرَاتِ",
+      "arti": "bersegeralah kepada kebaikan",
+      "laci": "hasyw",
+      "dari": "Bait latihan Bonus ramal"
+    }
   ]
 }
