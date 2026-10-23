@@ -3,7 +3,7 @@
  * Masukan teks berharakat per syathr; keluaran daftar huruf ber-bit (1 hidup, 0 mati).
  */
 import type { Huruf } from './jenis'
-import { KASRAH, MAD_DARI, SUKUN, TANDA, kerangka, pecahKata, tandaiKhanjariyah, type Harakat, type HurufAsli } from './huruf'
+import { DHAMMAH, FATHAH, KASRAH, MAD_DARI, SUKUN, TANDA, kerangka, pecahKata, tandaiKhanjariyah, type Harakat, type HurufAsli } from './huruf'
 
 /** Aturan yang bisa dimatikan untuk membuat bacaan pengecoh di latihan. */
 export type Aturan = 'syaddah' | 'tanwin' | 'hamzahWashal' | 'lamSyamsiyah' | 'isyba'
@@ -30,6 +30,8 @@ interface Kerja extends Huruf {
   vokal?: 'a' | 'i' | 'u'
   mad?: boolean
   dasar?: string
+  /** Kerangka kata asal, untuk harakat penyambung sebelum hamzah washal (مِنَ، عَلَيْكُمُ). */
+  kr?: string
 }
 
 /** Pisahkan bait menjadi syathr: baris baru, `|`, `/`, `*`, `…`, atau `...`. */
@@ -72,15 +74,20 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
     const akhirKata = u.pos === u.panjang - 1
     const isAlif = u.dasar === 'ا'
 
-    // 1. Hamzah washal: alif tak berharakat di awal kata, atau setelah awalan و ف ب ك ل:
-    //    sebelum lam ta'rif (وَالْ، بِالْ) atau sebelum huruf sukun (وَاصْبِرْ، فَاسْأَلْ).
-    //    Alif mad tidak pernah diikuti huruf sukun, jadi بَابٌ tetap mad.
-    const lamTarif = next?.dasar === 'ل' && (next.harakat === null || next.syaddah)
+    // 1. Hamzah washal: alif tak berharakat di awal kata; setelah awalan (و ف ب ك ل) sebelum lam ta'rif
+    //    (وَالْ، بِالْ، بِالِاسْمِ); atau di dalam kata sebelum huruf sukun (وَاصْبِرْ، لِلِاسْمِ).
+    //    Alif mad hanya diikuti huruf sukun di akhir kata (الشَّمَالْ), jadi itu tetap mad; بَابٌ juga mad.
+    const lamTarif =
+      next?.dasar === 'ل' &&
+      (next.harakat === null || next.harakat === 'sukun' || next.syaddah ||
+        (next.harakat === 'i' && units[idx + 2]?.dasar === 'ا' && units[idx + 2].kata === u.kata))
+    const sebelumSukunDalamKata =
+      next?.harakat === 'sukun' && next.kata === u.kata && next.pos !== next.panjang - 1
     const washal =
       isAlif && u.harakat === null && !u.syaddah && !akhirKata &&
       (u.pos === 0 ||
-        (u.pos === 1 && 'وفبكل'.includes(prev.dasar) && prev.harakat !== null &&
-          (lamTarif || next?.harakat === 'sukun')))
+        (prev.kata === u.kata && prev.harakat !== null && prev.harakat !== 'sukun' &&
+          ((u.pos === 1 && 'وفبكل'.includes(prev.dasar) && lamTarif) || sebelumSukunDalamKata)))
     if (washal) {
       sebelumnyaWashal = true
       if (mati.has('hamzahWashal')) {
@@ -96,8 +103,10 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
     const setelahWashal = sebelumnyaWashal
     sebelumnyaWashal = false
 
-    // 2. Lam ta'rif tanpa harakat: lebur ke huruf syamsiyah bersyaddah, atau sukun (qamariyah).
-    if (u.dasar === 'ل' && u.harakat === null && !u.syaddah && setelahWashal) {
+    // 2. Lam ta'rif (setelah hamzah washal, atau setelah لِ: لِلنَّاسِ): lebur ke huruf syamsiyah
+    //    bersyaddah walau ditulis bersukun; selain itu sukun (qamariyah).
+    const lamSetelahLi = u.pos === 1 && prev?.dasar === 'ل' && prev.harakat === 'i' && prev.kata === u.kata
+    if (u.dasar === 'ل' && (u.harakat === null || u.harakat === 'sukun') && !u.syaddah && (setelahWashal || lamSetelahLi)) {
       if (next?.syaddah && next.kata === u.kata && !mati.has('lamSyamsiyah')) continue
       out.push({ h: 'ل' + SUKUN, bit: 0, kata: u.kata })
       continue
@@ -108,7 +117,8 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
       if (prev?.kata === u.kata && prev.tanwin) continue // كِتَابًا، هُدًى
       const wawJamaah =
         isAlif && akhirKata && prev?.kata === u.kata && prev.dasar === 'و' &&
-        (prev.harakat === null || prev.harakat === 'sukun') && units[idx - 2]?.harakat === 'u'
+        (prev.harakat === null || prev.harakat === 'sukun') &&
+        (units[idx - 2]?.harakat === 'u' || units[idx - 2]?.harakat === 'a') // كَتَبُوا، سَعَوْا
       if (wawJamaah) continue
       out.push({ h: u.dasar, bit: 0, kata: u.kata, mad: true })
       continue
@@ -139,12 +149,12 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
       out.push({ h: dasar + SUKUN, bit: 0, kata: u.kata, tambahan: 'syaddah' })
     }
     if (harakat === 'sukun') {
-      out.push({ h: dasar + SUKUN, bit: 0, kata: u.kata })
+      out.push({ h: dasar + SUKUN, bit: 0, kata: u.kata, dasar, kr: u.kerangkaKata })
       continue
     }
     out.push({ h: dasar + TANDA[harakat], bit: 1, kata: u.kata, vokal: harakat, dasar })
     if (u.khanjariyah) out.push({ h: 'ا', bit: 0, kata: u.kata, tambahan: 'khanjariyah', mad: true })
-    if (u.tanwin && !mati.has('tanwin')) out.push({ h: 'ن' + SUKUN, bit: 0, kata: u.kata, tambahan: 'tanwin' })
+    if (u.tanwin && !mati.has('tanwin')) out.push({ h: 'ن' + SUKUN, bit: 0, kata: u.kata, tambahan: 'tanwin', dasar: 'ن' })
 
     // 5. Bacaan pilihan: isyba' ha' dhamir dan mim jama' sebelum huruf hidup.
     const kataBerikut = units.find((x) => x.kata === u.kata + 1)
@@ -160,9 +170,10 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
   }
 
   // 6. Akhir syathr: tanwin di akhir bait tidak dibaca nun; harakat terakhir dipanjangkan (isyba').
-  const terakhir = units.at(-1)!
   if (tanpaAkhir) return out.map(bersih)
-  if (akhirBait && terakhir.tanwin && out.at(-1)?.tambahan === 'tanwin' && !mati.has('tanwin')) out.pop()
+  // Tanwin kata terakhir (juga أَبَدًا yang alifnya tidak dibaca) tidak dibaca nun di akhir bait.
+  const kataTerakhir = units.at(-1)!.kata
+  if (akhirBait && out.at(-1)?.tambahan === 'tanwin' && out.at(-1)?.kata === kataTerakhir && !mati.has('tanwin')) out.pop()
   const ujung = out.at(-1)
   if (ujung?.bit === 1 && ujung.vokal && !mati.has('isyba')) {
     out.push({ h: MAD_DARI[ujung.vokal], bit: 0, kata: ujung.kata, tambahan: 'isyba' })
@@ -184,9 +195,10 @@ function sambungSebelumWashal(out: Kerja[]): void {
     return
   }
   if (sebelum.bit === 0) {
-    // Tanwin atau huruf sukun bertemu sukun: diberi kasrah (مَنْ → مَنِ).
+    // Tanwin atau huruf sukun bertemu sukun: diberi kasrah (مَنِ), kecuali مِنَ dan mim jama' (عَلَيْكُمُ).
+    const v = sebelum.kr === 'من' ? 'a' : sebelum.dasar === 'م' && /(هم|كم|تم)$/.test(sebelum.kr ?? '') ? 'u' : 'i'
     sebelum.bit = 1
-    sebelum.vokal = 'i'
-    sebelum.h = sebelum.h.replace(SUKUN, '') + KASRAH
+    sebelum.vokal = v
+    sebelum.h = sebelum.h.replace(SUKUN, '') + ({ a: FATHAH, i: KASRAH, u: DHAMMAH } as const)[v]
   }
 }

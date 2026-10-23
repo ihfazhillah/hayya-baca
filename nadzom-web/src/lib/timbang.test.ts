@@ -161,3 +161,79 @@ describe('suku kata Latin', () => {
     expect(bits(s)).toBe('1010110'.repeat(3))
   })
 })
+
+describe('review \'arudh (2026-10-23)', () => {
+  const bitLepas = (teks: string) => {
+    const k = kitabahBait([teks], { tanpaAkhir: true })
+    if (!k.ok) throw new Error(k.galat)
+    return bits(k.syathr[0])
+  }
+
+  it('tasri\'/muzdawij: \'arudh boleh memakai bentuk dharb (Alfiyah bait 2, مَفْعُولُنْ di kedua ujung)', () => {
+    const h = timbangBait(kitabahOk(['وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ', 'مَقَاصِدُ النَّحْوِ بِهَا مَحْوِيَّهْ']), BAHR.rajaz)
+    expect(h.patah).toBe(0)
+    expect(h.syathr[0].potongan[2].bit).toBe('101010')
+  })
+
+  it('tanpa tasri\', \'arudh tetap tidak menerima \'illah dharb', () => {
+    const h = timbangBait(kitabahOk(['وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ']), BAHR.rajaz)
+    expect(h.syathr[0].patah).toBe(1)
+  })
+
+  it('lam ta\'rif setelah لِ lebur ke huruf syamsiyah (لِلنَّاسِ → لِنْنَاسِ), bertulis sukun pun sama', () => {
+    expect(bitLepas('لِلنَّاسِ')).toBe('10101')
+    expect(bitLepas('لِلْنَّاسِ')).toBe('10101')
+    expect(bitLepas('لِلْعِلْمِ')).toBe('10101')
+  })
+
+  it('alif khanjariyah pada kata berakhiran dhamir atau ber-ال', () => {
+    expect(bitLepas('لَكِنَّهُ')).toBe('101011')
+    expect(bitLepas('إِلَهَكَ')).toBe('11011')
+    expect(bitLepas('الْإِلَهِ')).toBe('101101')
+    expect(bitLepas('أُولَئِكَ')).toBe('11011')
+    expect(bitLepas('كَذَلِكَ')).toBe('11011')
+  })
+
+  it('alif setelah waw jama\'ah yang didahului fathah tidak dibaca (سَعَوْا)', () => {
+    expect(bitLepas('سَعَوْا لَهُ')).toBe('11011')
+  })
+
+  it('hamzah washal di tengah kata setelah awalan (لِلِاسْمِ، بِالِاسْمِ)', () => {
+    expect(bitLepas('لِلِاسْمِ')).toBe('1101')
+    expect(bitLepas('بِالِاسْمِ')).toBe('1101')
+  })
+
+  it('alif mad sebelum huruf sukun di akhir kata tetap mad (الشَّمَالْ)', () => {
+    expect(bitLepas('الشَّمَالْ')).toBe('101100')
+  })
+
+  it('ramal tam: dharb maqshur فَاعِلَانْ dan \'arudh mahdzufah فَاعِلُنْ', () => {
+    const s1 = latinKeHuruf('faa-i-laa-tun-faa-i-laa-tun-faa-i-lun')
+    const s2 = latinKeHuruf('faa-i-laa-tun-faa-i-laa-tun-faa-i-laan')
+    expect(timbangBait([s1, s2], BAHR.ramal).patah).toBe(0)
+  })
+
+  it('ramal majzu\': dharb mahdzuf فَاعِلُنْ', () => {
+    const s1 = latinKeHuruf('faa-i-laa-tun-faa-i-laa-tun')
+    const s2 = latinKeHuruf('faa-i-laa-tun-faa-i-lun')
+    expect(timbangBait([s1, s2], BAHR.ramalMajzu).patah).toBe(0)
+  })
+
+  it('tampilan: tanwin fathah di akhir bait menjadi alif (أَبَدًا → أَبَدَا)', () => {
+    const [, s2] = kitabahOk(['نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا', 'عَلَى الْجِهَادِ مَا بَقِينَا أَبَدًا'])
+    expect(tampil(s2.slice(-4))).toBe('أَبَدَا')
+    expect(bits(s2)).toBe('110110' + '110110' + '101110')
+  })
+
+  it('mim jama\' bertemu hamzah washal diberi dhammah', () => {
+    const k = kitabahBait(['عَلَيْكُمْ السَّلَامُ'], { tanpaAkhir: true })
+    if (!k.ok) throw new Error(k.galat)
+    expect(tampil(k.syathr[0].slice(0, 5))).toBe('عَلَيْكُمُ')
+  })
+
+  it('khabl diberi nilai qabih; nama lazim di kitab tersedia', () => {
+    expect(BAHR.rajaz.slot[0][0].find((b) => b.zihaf === 'khabl')?.nilai).toBe('qabih')
+    expect(BAHR.rajaz.slot[0][0].find((b) => b.zihaf === 'khabn')?.namaLain).toBe('مَفَاعِلُنْ')
+    expect(BAHR.rajaz.slot[1][2].find((b) => b.zihaf === "qath'")?.illah).toBe(true)
+  })
+})

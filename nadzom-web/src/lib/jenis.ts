@@ -17,8 +17,14 @@ export interface Bentuk {
   /** Nama taf'ilah dengan harakat, mis. مُسْتَفْعِلُنْ */
   nama: string
   bit: string
-  /** Nama zihaf/'illah dalam transliterasi; kosong = bentuk utuh. */
+  /** Nama perubahan (zihaf atau 'illah) dalam transliterasi; kosong = bentuk utuh. */
   zihaf?: string
+  /** Perubahan berupa 'illah: hanya di 'arudh/dharb dan, sekali dipakai, tetap. */
+  illah?: boolean
+  /** Nama yang lazim di kitab, mis. مُتَفْعِلُنْ → مَفَاعِلُنْ. */
+  namaLain?: string
+  /** Penilaian ulama untuk zihaf: hasan, shalih, qabih (kurang baik). */
+  nilai?: 'hasan' | 'shalih' | 'qabih'
 }
 
 export interface Bahr {

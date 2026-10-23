@@ -66,28 +66,29 @@ export function kerangka(kata: HurufAsli[]): string {
 
 /** Kata yang alif mad-nya tidak ditulis (alif khanjariyah tersirat). Nilai = indeks huruf yang diberi alif. */
 const KHANJARIYAH: Record<string, number> = {
-  'هذا': 0, 'هذه': 0, 'هذان': 0, 'هذين': 0, 'هؤلاء': 0, 'ذلك': 0, 'ذلكم': 0, 'لكن': 0,
-  'الرحمن': 4, 'إله': 1, 'إلهي': 1, 'إلهنا': 1,
+  'هذا': 0, 'هذه': 0, 'هذي': 0, 'هذان': 0, 'هذين': 0, 'هؤلاء': 0, 'ذلك': 0, 'لكن': 0,
+  'الرحمن': 4, 'رحمن': 3, 'إله': 1, 'أولئك': 2,
 }
-const AWALAN = ['', 'و', 'ف', 'ب', 'ك', 'ل']
+const AWALAN = ['', 'و', 'ف', 'ب', 'ك', 'ل', 'وب', 'فب', 'ال', 'وال', 'فال', 'بال', 'لل', 'ول', 'فل']
+const AKHIRAN = ['', 'ه', 'ها', 'هم', 'هما', 'هن', 'ك', 'كم', 'كما', 'كن', 'ي', 'نا', 'ني', 'م', 'ما', 'ن']
 
-/** Tandai alif khanjariyah yang tersirat. Teks yang sudah menulis ٰ tidak diubah. */
+/** Tandai alif khanjariyah yang tersirat, termasuk dengan awalan/ال dan akhiran dhamir. Teks yang sudah menulis ٰ tidak diubah. */
 export function tandaiKhanjariyah(kata: HurufAsli[]): void {
   if (kata.some((h) => h.khanjariyah)) return
   const k = kerangka(kata)
   // Lafzh Allah: الله، لله، بالله، والله، فالله، اللهم → lam terakhir sebelum ه dipanjangkan.
-  const allah = /^(?:[وفبت]?ا?)?لله(?:م)?$/.exec(k)
-  if (allah) {
-    const i = k.lastIndexOf('له')
-    kata[i].khanjariyah = true
+  if (/^(?:[وفبت]?ا?)?لله(?:م)?$/.test(k)) {
+    kata[k.lastIndexOf('له')].khanjariyah = true
     return
   }
   for (const awal of AWALAN) {
     if (!k.startsWith(awal)) continue
-    const inti = k.slice(awal.length)
-    if (inti in KHANJARIYAH) {
-      kata[awal.length + KHANJARIYAH[inti]].khanjariyah = true
-      return
+    for (const [inti, i] of Object.entries(KHANJARIYAH)) {
+      const sisa = k.slice(awal.length)
+      if (sisa.startsWith(inti) && AKHIRAN.includes(sisa.slice(inti.length))) {
+        kata[awal.length + i].khanjariyah = true
+        return
+      }
     }
   }
 }

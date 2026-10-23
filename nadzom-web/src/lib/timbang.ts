@@ -76,7 +76,7 @@ function buatPotongan(mulai: number, akhir: number, seg: string, c: Cocok): Poto
   if (c.status === 'berubah') {
     return {
       mulai, akhir, bit: seg, status: 'berubah', bentuk: c.bentuk, salah: [],
-      catatan: `${c.bentuk.nama}: bentuk berubah yang sah (${c.bentuk.zihaf}).`,
+      catatan: `${c.bentuk.nama}${c.bentuk.namaLain ? ` (${c.bentuk.namaLain})` : ''}: bentuk berubah yang sah, ${c.bentuk.illah ? "'illah" : 'zihaf'} ${c.bentuk.zihaf}${c.bentuk.nilai === 'qabih' ? ', jarang dan dinilai kurang baik' : ''}.`,
     }
   }
   const salah = posisiBeda(seg, c.bentuk.bit).map((i) => mulai + i)
@@ -88,12 +88,35 @@ function buatPotongan(mulai: number, akhir: number, seg: string, c: Cocok): Poto
   return { mulai, akhir, bit: seg, status: 'patah', bentuk: c.bentuk, salah, catatan }
 }
 
+/** Huruf rawiy: huruf terakhir yang diucapkan, tanpa isyba', nun tanwin, atau huruf mad di ujung. */
+export function rawiy(huruf: Huruf[]): string {
+  for (let i = huruf.length - 1; i >= 0; i--) {
+    const h = huruf[i]
+    if (h.tambahan === 'isyba' || h.tambahan === 'tanwin') continue
+    if (h.bit === 0 && 'اويى'.includes(h.h) && i > 0) continue
+    return h.h[0]
+  }
+  return ''
+}
+
+/**
+ * Slot taf'ilah untuk syathr ke-i. Syathr terakhir memakai dharb. Bila dua syathr berqafiyah sama
+ * (tasri', muzdawij seperti Alfiyah), 'arudh mengikuti dharb. Satu baris saja (masythur) = dharb.
+ */
+export function slotSyathr(bahr: Bahr, syathr: Huruf[][], i: number): Bentuk[][] {
+  const [awal, akhir] = bahr.slot
+  if (syathr.length === 1 || i === syathr.length - 1) return akhir
+  if (syathr.length === 2 && rawiy(syathr[0]) !== '' && rawiy(syathr[0]) === rawiy(syathr[1])) {
+    const dharb = akhir.at(-1)!
+    const arudh = awal.at(-1)!
+    return [...awal.slice(0, -1), [...arudh, ...dharb.filter((d) => !arudh.some((a) => a.bit === d.bit))]]
+  }
+  return awal
+}
+
 /** Timbang bait; bacaan pilihan (opsional) dicoba dengan dan tanpa, diambil yang paling lurus. */
 export function timbangBait(syathr: Huruf[][], bahr: Bahr): HasilBait {
-  const hasil = syathr.map((huruf, i) => {
-    const slot = bahr.slot[i === syathr.length - 1 && syathr.length > 1 ? 1 : 0]
-    return timbangDenganPilihan(huruf, slot)
-  })
+  const hasil = syathr.map((huruf, i) => timbangDenganPilihan(huruf, slotSyathr(bahr, syathr, i)))
   return { bahr, syathr: hasil, patah: hasil.reduce((a, s) => a + s.patah, 0) }
 }
 
