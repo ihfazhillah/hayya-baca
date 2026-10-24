@@ -119,6 +119,31 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua**, لَيْسَ لِلدُّنْيَا ثُبُوتُ. لِلدُّنْيَا: lam syamsiyah lebur, لِدْدُنْيَا. Ujungnya dipanjangkan, ثُبُوتُو."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, «إِنَّمَا الدُّنْيَا فَنَاءٌ / لَيْسَ لِلدُّنْيَا ثُبُوتُ». Huruf ujung yang menjadi poros qafiyah, **rawiy**, adalah ت pada ثُبُوتُ. Ia berharakat dhammah, dan saat dilagukan dhammah itu dipanjangkan: ثُبُوتُو. Qafiyah yang rawiy-nya hidup lalu dipanjangkan disebut **muthlaqah**.",
+        "Lihat huruf sebelum rawiy: و pada ثُبُوتُ. Huruf mad yang tepat sebelum rawiy disebut **ridf**. Contoh kedua berakhir الْعَنْكَبُوتُ: rawiy ت dhammah, ridf و. Dua bait itu satu qafiyah.",
+        "Contoh ketiga, «مُقْفِرَاتٌ دَارِسَاتٌ / مِثْلَ آيَاتِ الزَّبُورِ», juga ber-ridf و dengan rawiy ر kasrah. Seandainya bait berikutnya berakhir الْكَبِيرِ (ridf ي), itu tetap sah. Ridf و dan ي boleh bergantian karena keduanya mad yang serumpun: dhammah dengan waw, kasrah dengan ya. Ridf alif tidak boleh dicampur dengan keduanya.",
+        "Contoh keempat adalah bait latihan: «طَالِبَ الْعِلْمِ تَأَدَّبْ / كُنْ صَبُورًا فِي الطَّلَبْ». Ujungnya فِطْطَلَبْ: rawiy ب disukunkan. Qafiyah yang rawiy-nya mati disebut **muqayyadah**. Di ramal majzu', dharb jenis ini menjadi فَاعِلُنْ (10110).",
+        "Peragaan Hudhud menunjukkan jebakannya. Kalau ثُبُوتُ disukunkan menjadi ثُبُوتْ, dharb-nya فَاعِلَانْ (101100), bentuk yang tidak dipakai ramal majzu'. Jadi muqayyadah tidak bisa dibuat hanya dengan mensukunkan kata muthlaqah. Ia punya bentuknya sendiri: فَاعِلُنْ tanpa ridf, atau فَاعِلَاتَانْ dengan ridf (رِضْوَانْ).",
+        "Muthlaqah dan muqayyadah mirip washal dan waqaf dalam tajwid: ujung dibaca dengan harakat, atau dengan sukun. Bedanya, dalam qashidah pilihan itu dibuat sekali di bait pertama dan tidak berganti-ganti."
+      ],
+      "keliru": [
+        {
+          "salah": "Mencampur ثُبُوتُ (muthlaqah) dan ثُبُوتْ (muqayyadah) dalam satu qashidah.",
+          "benar": "Pilih satu wajah di bait pertama dan setia sampai akhir.",
+          "sebab": "Harakat rawiy (majra) atau sukunnya termasuk yang dikunci oleh bait pertama."
+        },
+        {
+          "salah": "Memasangkan ridf و dengan ridf ا: الزَّبُورِ lalu الْكِبَارِ.",
+          "benar": "Ridf و dan ي boleh bergantian (الزَّبُورِ / الْكَبِيرِ); ridf ا tetap ا.",
+          "sebab": "و dan ي sama-sama mad yang lahir dari dhammah dan kasrah; alif lahir dari fathah dan bunyinya terlalu berbeda."
+        },
+        {
+          "salah": "Mewaqafkan ujung ramal majzu' seperti membaca biasa: يَمُوتْ.",
+          "benar": "يَمُوتُو (muthlaqah).",
+          "sebab": "Waqaf dengan sukun mengubah dharb menjadi فَاعِلَانْ, bentuk yang tidak dipakai ramal majzu'."
+        }
+      ],
       "qaidah": [
         "**Muthlaqah**: rawiy berharakat lalu dipanjangkan. Fathah → ا (دَهْرَا), kasrah → ي (الزَّبُورِي), dhammah → و (ثُبُوتُو). Di ramal majzu' ujungnya biasanya فَاعِلَاتُنْ.",
         "**Muqayyadah**: rawiy sukun. Di ramal majzu' hanya dua bentuk: **فَاعِلُنْ** tanpa ridf (فِطْطَلَبْ) atau **فَاعِلَاتَانْ** dengan ridf (بِعُسْفَانْ، رِضْوَانْ). فَاعِلَانْ (ثُبُوتْ، لِلْكِبَارْ) tidak termasuk.",
@@ -127,27 +152,140 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Bait pertama Anda berakhir الزَّبُورِ. Mana yang sah sebagai ujung bait kedua?",
-          "pilihan": [
-            "الْكَبِيرِ",
-            "الْكِبَارِ",
-            "الْكَبِيرْ",
-            "الْكَبِيرُ"
-          ],
-          "jawaban": 0,
-          "alasan": "الْكَبِيرِ: rawiy ر kasrah, ridf ي yang boleh menggantikan و. الْكِبَارِ ridf-nya alif. الْكَبِيرْ disukunkan, padahal الزَّبُورِ muthlaqah. الْكَبِيرُ harakatnya dhammah."
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Rawiy dalam ثُبُوتُ adalah?",
+              "pilihan": [
+                "ت",
+                "و",
+                "ب"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy = huruf yang menjadi poros qafiyah, di sini ت. و sebelumnya adalah ridf.",
+              "arab": true
+            },
+            {
+              "soal": "Bait pertama Anda berakhir الزَّبُورِ. Mana yang sah sebagai ujung bait kedua?",
+              "pilihan": [
+                "الْكَبِيرِ",
+                "الْكِبَارِ",
+                "الْكَبِيرْ",
+                "الْكَبِيرُ"
+              ],
+              "jawaban": 0,
+              "alasan": "الْكَبِيرِ: rawiy ر kasrah, ridf ي yang boleh menggantikan و. الْكِبَارِ ridf-nya alif. الْكَبِيرْ disukunkan, padahal الزَّبُورِ muthlaqah. الْكَبِيرُ harakatnya dhammah.",
+              "arab": true
+            },
+            {
+              "soal": "«وَتَوَاضَعْ لِلْكِبَارْ» sebagai syathr kedua ramal majzu': lurus atau patah?",
+              "pilihan": [
+                "Lurus: rawiy sukun selalu boleh",
+                "Patah: لِلْكِبَارْ menjadi فَاعِلَانْ, yang bukan dharb ramal majzu'",
+                "Lurus asal ridf-nya alif"
+              ],
+              "jawaban": 1,
+              "alasan": "لِلْ كِ بَارْ = 10 1 100 = فَاعِلَانْ. Ramal majzu' hanya menerima فَاعِلَاتُنْ, فَاعِلَاتَانْ, atau فَاعِلُنْ di dharb. Bacalah muthlaqah (لِلْكِبَارِ) atau ganti katanya."
+            },
+            {
+              "soal": "Huruf و dalam ثُبُوتُ disebut?",
+              "pilihan": [
+                "Ridf",
+                "Rawiy",
+                "Ta'sis"
+              ],
+              "jawaban": 0,
+              "alasan": "Huruf mad tepat sebelum rawiy."
+            },
+            {
+              "soal": "Qafiyah «فِي الطَّلَبْ» termasuk?",
+              "pilihan": [
+                "Muqayyadah",
+                "Muthlaqah"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy ب disukunkan."
+            },
+            {
+              "soal": "Mana yang boleh menjadi pasangan qafiyah الْعَنْكَبُوتُ?",
+              "pilihan": [
+                "يَمُوتُ",
+                "يَمُوتْ",
+                "الْبُيُوتِ"
+              ],
+              "jawaban": 0,
+              "alasan": "يَمُوتُ: rawiy ت dhammah, ridf و. يَمُوتْ disukunkan; الْبُيُوتِ harakatnya kasrah.",
+              "arab": true
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "«وَتَوَاضَعْ لِلْكِبَارْ» sebagai syathr kedua ramal majzu': lurus atau patah?",
-          "pilihan": [
-            "Lurus: rawiy sukun selalu boleh",
-            "Patah: لِلْكِبَارْ menjadi فَاعِلَانْ, yang bukan dharb ramal majzu'",
-            "Lurus asal ridf-nya alif"
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda pada kata-kata bait 'Ali. Perhatikan kata qafiyah di ujung: berapa huruf matinya sebelum rawiy?",
+          "butir": [
+            "إِنَّمَا",
+            "الدُّنْيَا",
+            "فَنَاءٌ",
+            "ثُبُوتُ",
+            "كَبَيْتٍ",
+            "نَسَجَتْهُ",
+            "الْعَنْكَبُوتُ",
+            "دَارِسَاتٌ",
+            "آيَاتِ الزَّبُورِ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait kedua 'Ali. نَسَجَتْهُ الْعَنْكَبُوتُ: ha dhamir di sini pendek karena bertemu lam sakin; hamzah washal gugur.",
+          "bait": [
+            "إِنَّمَا الدُّنْيَا كَبَيْتٍ",
+            "نَسَجَتْهُ الْعَنْكَبُوتُ"
           ],
-          "jawaban": 1,
-          "alasan": "لِلْ كِ بَارْ = 10 1 100 = فَاعِلَانْ. Ramal majzu' hanya menerima فَاعِلَاتُنْ, فَاعِلَاتَانْ, atau فَاعِلُنْ di dharb. Bacalah muthlaqah (لِلْكِبَارِ) atau ganti katanya."
+          "bahr": "ramalMajzu",
+          "makna": "Dunia ini tak lain seperti rumah yang dianyam laba-laba."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan dengan nada ramal majzu' (TAM-ta-TAM-TAM, dua kali per syathr). Centang yang tersendat.",
+          "bahr": "ramalMajzu",
+          "baris": [
+            {
+              "bait": [
+                "إِنَّمَا الدُّنْيَا فَنَاءٌ",
+                "لَيْسَ لِلدُّنْيَا ثُبُوتُ"
+              ],
+              "catatan": "Bait asli."
+            },
+            {
+              "bait": [
+                "إِنَّمَا الدُّنْيَا فَنَاءٌ",
+                "لَيْسَ لِلدُّنْيَا أَبَدًا ثُبُوتُ"
+              ],
+              "catatan": "أَبَدًا ditambahkan. Ruang ramal majzu' sempit; satu kata tambahan langsung membuat dharb terlalu panjang. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "إِنَّمَا الدُّنْيَا كَبَيْتٍ",
+                "نَسَجَتْهُ الْعَنْكَبُوتُ"
+              ],
+              "catatan": "Bait asli."
+            },
+            {
+              "bait": [
+                "إِنَّمَا الدُّنْيَا كَبَيْتٍ",
+                "قَدْ نَسَجَتْهُ الْعَنْكَبُوتُ"
+              ],
+              "catatan": "قَدْ ditambahkan di depan fi'il madhi. Nahwunya benar, tetapi taf'ilah pertama syathr kedua kelebihan satu sabab. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "مُقْفِرَاتٌ دَارِسَاتٌ",
+                "مِثْلَ آيَاتِ الزَّبُورِ"
+              ],
+              "catatan": "Syahid al-'Iqd, asli."
+            }
+          ]
         },
         {
           "jenis": "irama",
@@ -243,6 +381,30 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua**. وَاجْعَلِ الْإِخْلَاصَ: hamzah washal di وَاجْ dan di الْإِخْ sama-sama gugur, وَجْعَلِلْإِخْ."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, «وَلَقَدْ يَكْفِيكَ مِنْهَا / أَيُّهَا الطَّالِبُ قُوتُ». وَلَقَدْ يَكْ = 1 1 10 10 = 111010. Alif فَاعِلَاتُنْ (huruf kedua yang sakin) dibuang: **فَعِلَاتُنْ**. Ini khabn, perubahan yang paling sering di ramal, sama seperti di rajaz. Ujungnya قُوتُ: rawiy ت dhammah dengan ridf و.",
+        "Contoh kedua, «وَلَعَمْرِي عَنْ قَلِيلٍ / كُلُّ مَنْ فِيهَا يَمُوتُ». وَلَعَمْرِي = 111010, khabn lagi. Ujungnya هَايَمُوتُو = 1011010, utuh. Penyair bebas memakai khabn atau tidak di setiap taf'ilah.",
+        "Sekarang kumpulkan keempat bait 'Ali (dua di Pelajaran 1, dua di sini). Kata qafiyahnya: ثُبُوتُ، الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ. Semuanya rawiy ت, dhammah, ridf و. Inilah satu qafiyah dalam praktik: empat kata berbeda, satu bunyi ujung.",
+        "Lalu peragaan. وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا patah karena لَكَ menambah dua huruf hidup. Membuangnya tidak merusak makna: الْإِخْلَاصَ tetap maf'ul pertama dan ذُخْرًا maf'ul kedua dari جَعَلَ. Di ujung bait, ذُخْرًا dibaca ذُخْرَا: tanwin fathah diganti alif, sama seperti waqaf pada tanwin fathah dalam tajwid.",
+        "Kata pendek seperti لَكَ، قَدْ، فِي adalah penyebab patah yang paling sering di bahr pendek. Ramal majzu' hanya punya dua taf'ilah per syathr. Sebelum mencari kata baru, coba buang dulu."
+      ],
+      "keliru": [
+        {
+          "salah": "Menghitung ذُخْرًا di ujung bait sebagai ذُخْرَنْ.",
+          "benar": "ذُخْرَا: tanwin fathah menjadi alif, 1010.",
+          "sebab": "Rawiy yang bertanwin fathah dibaca dengan alif, seperti waqaf dalam tajwid."
+        },
+        {
+          "salah": "Menambah لَكَ atau قَدْ untuk memperjelas makna.",
+          "benar": "Buang dulu, lalu periksa apakah makna tetap utuh.",
+          "sebab": "Ruang ramal majzu' sempit. Makna لَكَ sering sudah tersirat dari perintah atau konteks."
+        },
+        {
+          "salah": "Memasangkan دَهْرَا dengan نَارَا.",
+          "benar": "Tanpa ridf semua: صَبْرَا، أَجْرَا، ذُخْرَا.",
+          "sebab": "دَهْرَا tidak ber-ridf, sedangkan نَارَا ber-ridf alif. Ada tidaknya ridf harus sama di semua bait."
+        }
+      ],
       "qaidah": [
         "**Sebelum menyusun, putuskan wajah qafiyah**: muthlaqah (alif, ya, atau waw) atau muqayyadah. Muthlaqah paling mudah untuk ramal majzu'.",
         "Ruang ramal majzu' sempit. Kata seperti لَكَ، قَدْ، فِي sering membuat kelebihan huruf. **Buang dulu**, baru cari pengganti.",
@@ -251,16 +413,129 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Qafiyah ـرَا (دَهْرَا). Mana yang sah untuk bait berikutnya?",
-          "pilihan": [
-            "صَبْرَا",
-            "صَبْرِي",
-            "الصَّبْرْ",
-            "نَارَا"
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "وَلَقَدْ يَكْ = 111010 adalah?",
+              "pilihan": [
+                "فَعِلَاتُنْ, khabn",
+                "فَاعِلَاتُنْ utuh",
+                "Patah"
+              ],
+              "jawaban": 0,
+              "alasan": "Alif (huruf kedua) فَاعِلَاتُنْ dibuang: فَعِلَاتُنْ, hasan."
+            },
+            {
+              "soal": "Qafiyah ـرَا (دَهْرَا). Mana yang sah untuk bait berikutnya?",
+              "pilihan": [
+                "صَبْرَا",
+                "صَبْرِي",
+                "الصَّبْرْ",
+                "نَارَا"
+              ],
+              "jawaban": 0,
+              "alasan": "صَبْرَا: rawiy ر fathah, tanpa ridf. صَبْرِي harakatnya kasrah. الصَّبْرْ disukunkan. نَارَا punya ridf alif, padahal دَهْرَا tanpa ridf.",
+              "arab": true
+            },
+            {
+              "soal": "Qafiyah keempat bait 'Ali (ثُبُوتُ، الْعَنْكَبُوتُ، قُوتُ، يَمُوتُ)?",
+              "pilihan": [
+                "Rawiy ت dhammah, ridf و",
+                "Rawiy و",
+                "Rawiy ت sukun"
+              ],
+              "jawaban": 0,
+              "alasan": "Muthlaqah dengan ridf و."
+            },
+            {
+              "soal": "Kenapa لَكَ dalam «وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا» membuat patah?",
+              "pilihan": [
+                "Menambah dua huruf hidup",
+                "Salah nahwu",
+                "Mengubah rawiy"
+              ],
+              "jawaban": 0,
+              "alasan": "لَ dan كَ sama-sama berharakat. Nahwunya sah, timbangannya tidak."
+            },
+            {
+              "soal": "ذُخْرًا di ujung bait dibaca?",
+              "pilihan": [
+                "ذُخْرَا",
+                "ذُخْرَنْ",
+                "ذُخْرْ"
+              ],
+              "jawaban": 0,
+              "alasan": "Tanwin fathah pada rawiy menjadi alif."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda pada kata dan frasa bait 'Ali dan bait peragaan.",
+          "butir": [
+            "وَلَقَدْ",
+            "يَكْفِيكَ",
+            "مِنْهَا",
+            "أَيُّهَا الطَّالِبُ",
+            "قُوتُ",
+            "وَلَعَمْرِي",
+            "عَنْ قَلِيلٍ",
+            "كُلُّ مَنْ فِيهَا",
+            "سَارِعِ الْخَيْرَاتِ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait ketiga 'Ali. Ada dua فَعِلَاتُنْ; temukan keduanya. الطَّالِبُ: lam syamsiyah lebur ke tha bersyaddah.",
+          "bait": [
+            "وَلَقَدْ يَكْفِيكَ مِنْهَا",
+            "أَيُّهَا الطَّالِبُ قُوتُ"
           ],
-          "jawaban": 0,
-          "alasan": "صَبْرَا: rawiy ر fathah, tanpa ridf. صَبْرِي harakatnya kasrah. الصَّبْرْ disukunkan. نَارَا punya ridf alif, padahal دَهْرَا tanpa ridf."
+          "bahr": "ramalMajzu",
+          "makna": "Wahai pencari dunia, sebenarnya cukup bagimu sekadar makanan untuk bertahan hidup."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Centang yang pincang. Yang pincang hanya berbeda satu kata kecil dari aslinya.",
+          "bahr": "ramalMajzu",
+          "baris": [
+            {
+              "bait": [
+                "وَلَقَدْ يَكْفِيكَ مِنْهَا",
+                "أَيُّهَا الطَّالِبُ قُوتُ"
+              ],
+              "catatan": "Bait asli."
+            },
+            {
+              "bait": [
+                "وَلَقَدْ يَكْفِيكَ مِنْهَا",
+                "أَيُّهَا الطَّالِبُ الْقُوتُ"
+              ],
+              "catatan": "قُوتُ diberi alif-lam. Ba pada الطَّالِبُ kini bersambung dengan lam sakin (بُلْ), dan taf'ilah terakhir menjadi 1101010, bukan فَعِلَاتُنْ. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "وَلَعَمْرِي عَنْ قَلِيلٍ",
+                "كُلُّ مَنْ فِيهَا يَمُوتُ"
+              ],
+              "catatan": "Bait asli."
+            },
+            {
+              "bait": [
+                "وَلَعَمْرِي عَنْ قَلِيلٍ",
+                "كُلُّ مَنْ فِي الدُّنْيَا يَمُوتُ"
+              ],
+              "catatan": "فِيهَا diganti فِي الدُّنْيَا agar lebih jelas. Taf'ilah terakhir kelebihan satu sabab. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+                "وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا"
+              ],
+              "catatan": "Draf peragaan dengan لَكَ. Bait latihan, bukan kutipan."
+            }
+          ]
         },
         {
           "jenis": "susun",

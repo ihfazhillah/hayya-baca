@@ -89,6 +89,31 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. فَأَرْشَدَنِي dibuka tiga huruf hidup lagi? Hitung sendiri. تَرْكِ الْمَعَاصِي: hamzah washal gugur, تَرْكِلْمَعَاصِي."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, «شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي». شَكَوْ = 110, watad, sama seperti pembuka thawil. Tetapi sesudahnya datang تُ إِلَى: tiga huruf hidup berturut-turut (تُ، إِ، لَ), lalu alif maqshurah yang mati. **1110**. Blok ini baru: **fashilah shughra**.",
+        "Jadi شَكَوْتُ إِلَى = 110 + 1110 = 1101110 = **مُفَاعَلَتُنْ**. Ta pada شَكَوْتُ berharakat dhammah karena ia dhamir fa'il mutakallim. Kalau Anda menyukunkannya saat membaca cepat, fashilah itu rusak, dan nahwunya juga salah.",
+        "Taf'ilah kedua: وَكِيعِنْ سُو. وَكِي = 110, lalu عِنْ = 10, سُو = 10. Hasilnya 1101010. Di mana tiga huruf hidupnya? Huruf kelima مُفَاعَلَتُنْ (lam) disukunkan, sehingga fashilah 1110 menjadi dua sabab 10 10. Ini **'ashb**. Bunyinya sama dengan مَفَاعِيلُنْ dari thawil.",
+        "Taf'ilah ketiga, ءَحِفْظِي = 1 10 10 = 11010, فَعُولُنْ. Wafir tam selalu ditutup taf'ilah pendek ini. Dari mana asalnya akan dibahas di Pelajaran 2.",
+        "Contoh kedua, «وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ». وَأَخْبَرَنِي = 1 10 1 1 10 = 1101110, utuh, dengan tiga huruf hidup بَ رَ نِ. Di syathr kedua, وَنُورُلْلَا dan هِلَا يُهْدَى masing-masing 1101010: seluruhnya ber-'ashb. Kalau Anda hanya mendengar dua taf'ilah itu, ia terdengar seperti hazaj. Yang menandai wafir adalah ujungnya: لِعَاصِي = 11010.",
+        "Contoh ketiga, kunci wafir, mencampur keduanya. بُحُورُشْشِعْ = 1101010 ('ashb), رِوَافِرُهَا = 1101110 (utuh), جَمِيلُو = فَعُولُنْ. Satu bait boleh mencampur utuh dan 'ashb dengan bebas. Mirip taskin dalam bacaan: harakat yang dilepas membuat bunyi lebih padat, tanpa mengubah kata."
+      ],
+      "keliru": [
+        {
+          "salah": "Mengira bait wafir yang semua taf'ilahnya 1101010 adalah hazaj atau thawil.",
+          "benar": "Lihat taf'ilah ketiga. Kalau فَعُولُنْ (11010), itu wafir.",
+          "sebab": "Hazaj tidak punya ujung pendek seperti itu, dan thawil berselang-seling فَعُولُنْ مَفَاعِيلُنْ sejak taf'ilah pertama."
+        },
+        {
+          "salah": "Membaca شَكَوْتْ إِلَى dengan ta sukun.",
+          "benar": "شَكَوْتُ إِلَى, ta berharakat dhammah: 1101110.",
+          "sebab": "تُ adalah dhamir fa'il mutakallim yang mabni dhammah. Menyukunkannya salah nahwu dan memecah fashilah."
+        },
+        {
+          "salah": "Memberi tanda 1 pada alif maqshurah إِلَى karena tertulis ى.",
+          "benar": "ى pada إِلَى adalah alif mad, diberi 0.",
+          "sebab": "Dalam tajwid ia dibaca mad thabi'i. Huruf yang tidak berharakat diberi 0."
+        }
+      ],
       "qaidah": [
         "**Fashilah shughra** = tiga huruf hidup lalu satu mati = **1110**, seperti عَلَتُنْ atau كَتَبَتْ.",
         "**مُفَاعَلَتُنْ** = watad (110) + fashilah (1110) = **1101110**. **Wafir** = مُفَاعَلَتُنْ مُفَاعَلَتُنْ فَعُولُنْ dalam satu syathr.",
@@ -97,27 +122,88 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "مُفَاعَلَتُنْ timbangannya?",
-          "pilihan": [
-            "1101010",
-            "1101110",
-            "1110110",
-            "11010"
-          ],
-          "jawaban": 1,
-          "alasan": "مُفَا = 110, عَلَتُنْ = 1110. 1101010 adalah مُفَاعَلْتُنْ (sesudah 'ashb). 1110110 adalah مُتَفَاعِلُنْ dari kamil: fashilahnya di depan."
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Fashilah shughra adalah?",
+              "pilihan": [
+                "1110",
+                "110",
+                "10",
+                "11110"
+              ],
+              "jawaban": 0,
+              "alasan": "Tiga huruf hidup lalu satu mati, seperti تُإِلَى atau عَلَتُنْ."
+            },
+            {
+              "soal": "مُفَاعَلَتُنْ timbangannya?",
+              "pilihan": [
+                "1101010",
+                "1101110",
+                "1110110",
+                "11010"
+              ],
+              "jawaban": 1,
+              "alasan": "مُفَا = 110, عَلَتُنْ = 1110. 1101010 adalah مُفَاعَلْتُنْ (sesudah 'ashb). 1110110 adalah مُتَفَاعِلُنْ dari kamil: fashilahnya di depan."
+            },
+            {
+              "soal": "Di syathr pertama bait Waki', taf'ilah mana yang terkena 'ashb?",
+              "pilihan": [
+                "شَكَوْتُ إِلَى",
+                "وَكِيعٍ سُو",
+                "ءَ حِفْظِي"
+              ],
+              "jawaban": 1,
+              "alasan": "وَكِي عِنْ سُو = 1101010: huruf kelima (nun tanwin) sukun. شَكَوْتُ إِلَى masih utuh (1101110). ءَ حِفْظِي adalah فَعُولُنْ, taf'ilah ketiga yang memang pendek."
+            },
+            {
+              "soal": "مُفَاعَلْتُنْ (sesudah 'ashb) bunyinya sama dengan?",
+              "pilihan": [
+                "مَفَاعِيلُنْ",
+                "فَعُولُنْ",
+                "مُتَفَاعِلُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "Keduanya 1101010.",
+              "arab": true
+            },
+            {
+              "soal": "وَأَخْبَرَنِي ditimbang?",
+              "pilihan": [
+                "1101110, utuh",
+                "1101010, 'ashb",
+                "Patah"
+              ],
+              "jawaban": 0,
+              "alasan": "وَأَخْ = 110, بَرَنِي = 1110. Tiga huruf hidup بَ رَ نِ masih utuh."
+            },
+            {
+              "soal": "'Ashb dalam wafir dinilai?",
+              "pilihan": [
+                "Hasan, sangat sering",
+                "Qabih, dihindari",
+                "Hanya boleh di dharb"
+              ],
+              "jawaban": 0,
+              "alasan": "'Ashb boleh di setiap مُفَاعَلَتُنْ dan sangat lazim. Bait Waki' sendiri memakainya."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Di syathr pertama bait Waki', taf'ilah mana yang terkena 'ashb?",
-          "pilihan": [
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda. Cari tiga huruf hidup berturut-turut: di mana fashilah utuh, di mana ia sudah ber-'ashb.",
+          "butir": [
+            "إِلَى",
+            "شَكَوْتُ",
             "شَكَوْتُ إِلَى",
-            "وَكِيعٍ سُو",
-            "ءَ حِفْظِي"
-          ],
-          "jawaban": 1,
-          "alasan": "وَكِي عِنْ سُو = 1101010: huruf kelima (nun tanwin) sukun. شَكَوْتُ إِلَى masih utuh (1101110). ءَ حِفْظِي adalah فَعُولُنْ, taf'ilah ketiga yang memang pendek."
+            "وَكِيعٍ",
+            "سُوءَ حِفْظِي",
+            "فَأَرْشَدَنِي",
+            "وَأَخْبَرَنِي",
+            "بِأَنَّ الْعِلْمَ",
+            "لِعَاصِي"
+          ]
         },
         {
           "jenis": "irama",
@@ -138,6 +224,58 @@
           ],
           "bahr": "wafir",
           "makna": "Di antara bahr-bahr syair, wafir itu indah. (Baris kedua adalah timbangannya.)"
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait ini. Di setiap syathr, taf'ilah pertama utuh dan kedua ber-'ashb. وَالْعَيْبُ: hamzah washal gugur, nun زَمَانَنَا menyambung ke wawu.",
+          "bait": [
+            "نَعِيبُ زَمَانَنَا وَالْعَيْبُ فِينَا",
+            "وَمَا لِزَمَانِنَا عَيْبٌ سِوَانَا"
+          ],
+          "bahr": "wafir",
+          "makna": "Kita mencela zaman kita, padahal cacatnya ada pada kita. Zaman kita tidak punya cacat selain kita sendiri."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan dengan nada wafir: ta-TAM ta-ta-TAM. Centang yang tersendat.",
+          "bahr": "wafir",
+          "baris": [
+            {
+              "bait": [
+                "شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي",
+                "فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي"
+              ],
+              "catatan": "Bait asli."
+            },
+            {
+              "bait": [
+                "شَكَوْتُ إِلَى الشَّيْخِ وَكِيعٍ سُوءَ حِفْظِي",
+                "فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي"
+              ],
+              "catatan": "الشَّيْخِ ditambahkan untuk memuliakan Waki'. Hormatnya benar, tetapi taf'ilah kedua kelebihan tiga huruf. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ",
+                "وَنُورُ اللَّهِ لَا يُهْدَى لِعَاصِي"
+              ],
+              "catatan": "Bait kedua yang asli."
+            },
+            {
+              "bait": [
+                "وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ",
+                "وَنُورُ اللَّهِ لَا يُهْدَى لِلْعَاصِي"
+              ],
+              "catatan": "لِعَاصِي diganti لِلْعَاصِي. Alif-lam menambah satu huruf mati: لِلْعَاصِي = 101010, padahal ujung wafir harus 11010. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "نَعِيبُ زَمَانَنَا وَالْعَيْبُ فِينَا",
+                "وَلَيْسَ لِزَمَانِنَا عَيْبٌ سِوَانَا"
+              ],
+              "catatan": "وَمَا diganti وَلَيْسَ. Nafinya sama, tetapi وَلَيْسَ membawa satu huruf hidup lebih. Bait latihan, bukan kutipan."
+            }
+          ]
         }
       ],
       "patokan": "Syathr kedua bait Waki' dan kunci wafir ditandai sendiri sampai benar; di setiap taf'ilah Anda bisa menyebut utuh atau ber-'ashb.",
@@ -246,6 +384,30 @@
           "petunjuk": "Giliran Anda: tandai **syathr pertama**. رَفِيقٍ: tanwin → نْ. Cari taf'ilah mana yang utuh dan mana yang ber-'ashb."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, «رَأَيْتُ الْعِلْمَ صَاحِبُهُ كَرِيمٌ». رَأَيْتُلْعِلْ = 1101010, ber-'ashb. مَصَاحِبُهُو = 1101110, utuh. Ha dhamir di sini dipanjangkan karena diapit dua huruf hidup (بُ dan كَ). Lalu كَرِيمُنْ = 11010.",
+        "Kenapa ujungnya selalu 11010? Wafir tam di atas kertas punya tiga مُفَاعَلَتُنْ per syathr. Tetapi Arab tidak pernah memakai yang ketiga secara utuh. Sabab terakhirnya (تُنْ) dibuang (**hadzf**), lalu lam disukunkan (**'ashb**): مُفَاعَلَتُنْ → مُفَاعَلْ, yang disebut **فَعُولُنْ**. Gabungan dua perubahan ini namanya **qathf**.",
+        "Contoh kedua, «فَلَوْلَا الْعِلْمُ مَا سَعِدَتْ رِجَالٌ / وَلَا عُرِفَ الْحَلَالُ وَلَا الْحَرَامُ». Di syathr kedua, dua taf'ilah pertama utuh: وَلَا عُرِفَلْ dan حَلَالُ وَلَلْ. Lihat وَلَا الْحَرَامُ: alif pada لَا gugur karena bertemu lam sakin, jadi وَلَلْ. Ini hukum iltiqa' sakinain yang sama dengan tajwid: mad thabi'i gugur bila bertemu sukun di kata berikutnya.",
+        "Contoh ketiga, «وَلَيْسَ يَزَالُ يَرْفَعُهُ إِلَى أَنْ». Syathr pertamanya berhenti di إِلَى أَنْ, padahal kalimatnya belum selesai: يُعَظِّمَ ada di syathr kedua. Itu boleh. Yang penting timbangannya genap: إِلَى أَنْ = 11010, فَعُولُنْ.",
+        "Peragaan Hudhud tadi mempraktikkan satu cara memperbaiki. فِي كُلِّ يَوْمٍ membuat ujung terlalu panjang. فِي dibuang, dan كُلَّ يَوْمٍ tetap bermakna 'setiap hari' karena ia manshub sebagai zharaf. Nahwu sering memberi jalan yang lebih ringkas; pakailah sebelum mencari kata baru."
+      ],
+      "keliru": [
+        {
+          "salah": "Mengisi taf'ilah ketiga wafir dengan kata panjang, misalnya لَئِيمُونَ.",
+          "benar": "Ujung syathr wafir tam selalu فَعُولُنْ (11010): لِئَامُ، كَرِيمٌ.",
+          "sebab": "Qathf di 'arudh dan dharb wafir tam itu wajib."
+        },
+        {
+          "salah": "Mempertahankan alif لَا dalam bacaan وَلَا الْحَرَامُ.",
+          "benar": "وَلَلْحَرَامُو.",
+          "sebab": "Dua huruf mati bertemu, maka mad yang pertama gugur, persis seperti dalam tajwid."
+        },
+        {
+          "salah": "Menambah huruf jar untuk memperjelas makna: فِي كُلِّ يَوْمٍ.",
+          "benar": "كُلَّ يَوْمٍ, manshub sebagai zharaf.",
+          "sebab": "Zharaf zaman yang manshub sudah mengandung makna فِي. Buang dulu sebelum mengganti."
+        }
+      ],
       "qaidah": [
         "**Qathf** = hadzf (buang sabab terakhir) + 'ashb: مُفَاعَلَتُنْ → **مُفَاعَلْ** = **فَعُولُنْ** (11010). Di wafir tam, 'arudh dan dharb selalu begini.",
         "Karena ujungnya فَعُولُنْ, qafiyah wafir sering berupa فَعَالِ / فَعِيلُ / فَعُولُ: الْمَعَاصِي، لِعَاصِي، الْكِرَامُ، جَمِيلُ. Laci qafiyah thawil (زَمَانِ، بَيَانِ) juga pas di sini.",
@@ -254,16 +416,127 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Taf'ilah ketiga setiap syathr wafir tam selalu?",
-          "pilihan": [
-            "مُفَاعَلَتُنْ utuh",
-            "مُفَاعَلْتُنْ ber-'ashb",
-            "فَعُولُنْ (qathf)",
-            "Bebas, asal tidak patah"
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Qathf = ?",
+              "pilihan": [
+                "Hadzf + 'ashb",
+                "Qabdh + kaff",
+                "Khabn saja"
+              ],
+              "jawaban": 0,
+              "alasan": "Sabab terakhir dibuang (hadzf) dan huruf kelima disukunkan ('ashb): مُفَاعَلْ."
+            },
+            {
+              "soal": "Taf'ilah ketiga setiap syathr wafir tam selalu?",
+              "pilihan": [
+                "مُفَاعَلَتُنْ utuh",
+                "مُفَاعَلْتُنْ ber-'ashb",
+                "فَعُولُنْ (qathf)",
+                "Bebas, asal tidak patah"
+              ],
+              "jawaban": 2,
+              "alasan": "'Arudh dan dharb wafir tam selalu maqthufah: مُفَاعَلْ = فَعُولُنْ. Itu sebabnya kunci wafir ditutup فَعُولُ."
+            },
+            {
+              "soal": "«رِجَالٌ» di ujung syathr pertama contoh kedua menjadi?",
+              "pilihan": [
+                "رِجَالُنْ = 11010",
+                "رِجَالْ = 1100",
+                "رِجَالُ = 1101"
+              ],
+              "jawaban": 0,
+              "alasan": "Tanwin dibaca نْ: رِ جَا لُنْ = 11010, فَعُولُنْ."
+            },
+            {
+              "soal": "Mana yang bisa menutup syathr wafir?",
+              "pilihan": [
+                "كَرِيمٌ",
+                "كُرَمَاءُ",
+                "مُكَرَّمُونَ"
+              ],
+              "jawaban": 0,
+              "alasan": "كَرِيمُنْ = 11010. Dua lainnya terlalu banyak huruf hidup atau terlalu panjang.",
+              "arab": true
+            },
+            {
+              "soal": "وَلَا الْحَرَامُ dibaca?",
+              "pilihan": [
+                "وَلَلْحَرَامُو",
+                "وَلَا الْحَرَامُ dengan alif"
+              ],
+              "jawaban": 0,
+              "alasan": "Alif لَا gugur karena bertemu lam sakin."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda pada kata-kata ujung wafir dan frasa dari bait asy-Syafi'i.",
+          "butir": [
+            "كَرِيمٌ",
+            "لِئَامُ",
+            "رِجَالٌ",
+            "الْحَرَامُ",
+            "صَاحِبُهُ",
+            "وَلَا الْحَرَامُ",
+            "إِلَى أَنْ",
+            "كُلَّ يَوْمٍ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait ini. Hitung berapa مُفَاعَلَتُنْ yang utuh dan berapa yang ber-'ashb. وَلَا الْحَرَامُ: alif لَا gugur.",
+          "bait": [
+            "فَلَوْلَا الْعِلْمُ مَا سَعِدَتْ رِجَالٌ",
+            "وَلَا عُرِفَ الْحَلَالُ وَلَا الْحَرَامُ"
           ],
-          "jawaban": 2,
-          "alasan": "'Arudh dan dharb wafir tam selalu maqthufah: مُفَاعَلْ = فَعُولُنْ. Itu sebabnya kunci wafir ditutup فَعُولُ."
+          "bahr": "wafir",
+          "makna": "Seandainya bukan karena ilmu, manusia tidak akan berbahagia, dan halal-haram pun tidak akan dikenal."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Perhatikan ujung setiap syathr: apakah tetap فَعُولُنْ? Centang yang pincang.",
+          "bahr": "wafir",
+          "baris": [
+            {
+              "bait": [
+                "رَأَيْتُ الْعِلْمَ صَاحِبُهُ كَرِيمٌ",
+                "وَلَوْ وَلَدَتْهُ آبَاءٌ لِئَامُ"
+              ],
+              "catatan": "Bait asy-Syafi'i, asli."
+            },
+            {
+              "bait": [
+                "رَأَيْتُ الْعِلْمَ صَاحِبُهُ كَرِيمٌ",
+                "وَلَوْ وَلَدَتْهُ آبَاءٌ لَئِيمُونَ"
+              ],
+              "catatan": "لِئَامُ (jamak taksir) diganti لَئِيمُونَ (jamak mudzakkar salim). Ujungnya menjadi 1101010, terlalu panjang untuk فَعُولُنْ. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "فَلَوْلَا الْعِلْمُ مَا سَعِدَتْ رِجَالٌ",
+                "وَلَمْ يُعْرَفِ الْحَلَالُ وَلَا الْحَرَامُ"
+              ],
+              "catatan": "وَلَا عُرِفَ diganti وَلَمْ يُعْرَفِ. Maknanya sama, tetapi taf'ilah pertama syathr kedua kelebihan satu huruf. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "وَيَتَّبِعُونَهُ فِي كُلِّ حَالٍ",
+                "كَرَاعِي الضَّأْنِ تَتْبَعُهُ السَّوَامُ"
+              ],
+              "catatan": "Bait ketiga qashidah asy-Syafi'i, asli."
+            },
+            {
+              "bait": [
+                "شَكَوْتُ إِلَى رَفِيقٍ ضَعْفَ فَهْمِي",
+                "فَقَالَ أَعِدْ دُرُوسَكَ فِي كُلِّ يَوْمٍ"
+              ],
+              "catatan": "Draf peragaan dengan فِي. Bait latihan, bukan kutipan."
+            }
+          ]
         },
         {
           "jenis": "cetakan",
@@ -298,23 +571,126 @@
     }
   ],
   "laci": [
-    { "teks": "شَكَوْتُ إِلَى", "arti": "aku mengadu kepada", "laci": "hasyw", "catatan": "Satu مُفَاعَلَتُنْ utuh: 1101110.", "dari": "Bait Waki'" },
-    { "teks": "سُوءَ حِفْظِي", "arti": "buruknya hafalanku", "laci": "hasyw", "dari": "Bait Waki'" },
-    { "teks": "فَأَرْشَدَنِي", "arti": "lalu ia menunjukiku", "laci": "hasyw", "catatan": "Pola 1101110, satu مُفَاعَلَتُنْ.", "dari": "Bait Waki'" },
-    { "teks": "تَرْكِ الْمَعَاصِي", "arti": "meninggalkan maksiat", "laci": "qafiyah", "catatan": "Qafiyah ـاصِي: rawiy shad kasrah, ridf alif. Pasangan لِعَاصِي.", "dari": "Bait Waki'" },
-    { "teks": "لِعَاصِي", "arti": "kepada orang yang bermaksiat", "laci": "qafiyah", "catatan": "Isim naqish عَاصٍ, di qafiyah ya-nya dibaca (isyba').", "dari": "Bait Waki'" },
-    { "teks": "وَأَخْبَرَنِي", "arti": "dan ia mengabarkan kepadaku", "laci": "hasyw", "catatan": "Pola 1101110.", "dari": "Bait Waki'" },
-    { "teks": "الْعِلْمَ نُورٌ", "arti": "ilmu itu cahaya", "laci": "hasyw", "dari": "Bait Waki'" },
-    { "teks": "رَأَيْتُ الْعِلْمَ", "arti": "aku melihat ilmu", "laci": "hasyw", "catatan": "رَأَيْ تُلْعِلْ مَ: awal مُفَاعَلْتُنْ.", "dari": "asy-Syafi'i" },
-    { "teks": "كَرِيمٌ", "arti": "mulia", "laci": "wazan", "catatan": "Wazan فَعِيلٌ = 11010, pas di ujung syathr wafir. Sekelompok: جَمِيلٌ، عَظِيمٌ، رَفِيقٌ.", "dari": "asy-Syafi'i" },
-    { "teks": "لِئَامُ", "arti": "orang-orang hina", "laci": "qafiyah", "catatan": "Qafiyah ـامُ. Pasangan: الْكِرَامُ، الْحَرَامُ، السَّلَامُ.", "dari": "asy-Syafi'i" },
-    { "teks": "الْكِرَامُ", "arti": "orang-orang mulia", "laci": "qafiyah", "catatan": "Jamak فِعَالٌ dari كَرِيمٌ.", "dari": "asy-Syafi'i" },
-    { "teks": "الْحَلَالُ", "arti": "yang halal", "laci": "umum", "dari": "asy-Syafi'i" },
-    { "teks": "الْحَرَامُ", "arti": "yang haram", "laci": "qafiyah", "catatan": "Pasangan الْكِرَامُ، لِئَامُ.", "dari": "asy-Syafi'i" },
-    { "teks": "فَلَوْلَا الْعِلْمُ", "arti": "kalau bukan karena ilmu", "laci": "hasyw", "dari": "asy-Syafi'i" },
-    { "teks": "رَفِيقٍ", "arti": "seorang teman", "laci": "wazan", "catatan": "Pengganti وَكِيعٍ: sama-sama فَعِيلٍ, 11010.", "dari": "Bait latihan Modul 10" },
-    { "teks": "ضَعْفَ فَهْمِي", "arti": "lemahnya pemahamanku", "laci": "hasyw", "catatan": "Pola sama dengan سُوءَ حِفْظِي.", "dari": "Bait latihan Modul 10" },
-    { "teks": "أَعِدْ دُرُوسَكَ", "arti": "ulangi pelajaranmu", "laci": "hasyw", "dari": "Bait latihan Modul 10" },
-    { "teks": "كُلَّ يَوْمِ", "arti": "setiap hari", "laci": "qafiyah", "catatan": "Zharaf; ujung syathr wafir: لَ يَوْ مِي = فَعُولُنْ.", "dari": "Bait latihan Modul 10" }
+    {
+      "teks": "شَكَوْتُ إِلَى",
+      "arti": "aku mengadu kepada",
+      "laci": "hasyw",
+      "catatan": "Satu مُفَاعَلَتُنْ utuh: 1101110.",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "سُوءَ حِفْظِي",
+      "arti": "buruknya hafalanku",
+      "laci": "hasyw",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "فَأَرْشَدَنِي",
+      "arti": "lalu ia menunjukiku",
+      "laci": "hasyw",
+      "catatan": "Pola 1101110, satu مُفَاعَلَتُنْ.",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "تَرْكِ الْمَعَاصِي",
+      "arti": "meninggalkan maksiat",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـاصِي: rawiy shad kasrah, ridf alif. Pasangan لِعَاصِي.",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "لِعَاصِي",
+      "arti": "kepada orang yang bermaksiat",
+      "laci": "qafiyah",
+      "catatan": "Isim naqish عَاصٍ, di qafiyah ya-nya dibaca (isyba').",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "وَأَخْبَرَنِي",
+      "arti": "dan ia mengabarkan kepadaku",
+      "laci": "hasyw",
+      "catatan": "Pola 1101110.",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "الْعِلْمَ نُورٌ",
+      "arti": "ilmu itu cahaya",
+      "laci": "hasyw",
+      "dari": "Bait Waki'"
+    },
+    {
+      "teks": "رَأَيْتُ الْعِلْمَ",
+      "arti": "aku melihat ilmu",
+      "laci": "hasyw",
+      "catatan": "رَأَيْ تُلْعِلْ مَ: awal مُفَاعَلْتُنْ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "كَرِيمٌ",
+      "arti": "mulia",
+      "laci": "wazan",
+      "catatan": "Wazan فَعِيلٌ = 11010, pas di ujung syathr wafir. Sekelompok: جَمِيلٌ، عَظِيمٌ، رَفِيقٌ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "لِئَامُ",
+      "arti": "orang-orang hina",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـامُ. Pasangan: الْكِرَامُ، الْحَرَامُ، السَّلَامُ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "الْكِرَامُ",
+      "arti": "orang-orang mulia",
+      "laci": "qafiyah",
+      "catatan": "Jamak فِعَالٌ dari كَرِيمٌ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "الْحَلَالُ",
+      "arti": "yang halal",
+      "laci": "umum",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "الْحَرَامُ",
+      "arti": "yang haram",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الْكِرَامُ، لِئَامُ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "فَلَوْلَا الْعِلْمُ",
+      "arti": "kalau bukan karena ilmu",
+      "laci": "hasyw",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "رَفِيقٍ",
+      "arti": "seorang teman",
+      "laci": "wazan",
+      "catatan": "Pengganti وَكِيعٍ: sama-sama فَعِيلٍ, 11010.",
+      "dari": "Bait latihan Modul 10"
+    },
+    {
+      "teks": "ضَعْفَ فَهْمِي",
+      "arti": "lemahnya pemahamanku",
+      "laci": "hasyw",
+      "catatan": "Pola sama dengan سُوءَ حِفْظِي.",
+      "dari": "Bait latihan Modul 10"
+    },
+    {
+      "teks": "أَعِدْ دُرُوسَكَ",
+      "arti": "ulangi pelajaranmu",
+      "laci": "hasyw",
+      "dari": "Bait latihan Modul 10"
+    },
+    {
+      "teks": "كُلَّ يَوْمِ",
+      "arti": "setiap hari",
+      "laci": "qafiyah",
+      "catatan": "Zharaf; ujung syathr wafir: لَ يَوْ مِي = فَعُولُنْ.",
+      "dari": "Bait latihan Modul 10"
+    }
   ]
 }

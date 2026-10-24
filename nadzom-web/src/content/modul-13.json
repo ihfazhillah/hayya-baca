@@ -104,6 +104,30 @@
           "petunjuk": "Giliran Anda: tandai **syathr pertama**. شِئْتَ: hamzah sakinah dihitung 0. بِعِلْمٍ dan وَرِفْعَةٍ: tanwin → نْ."
         }
       },
+      "syarh": [
+        "Boss ini tidak membawa bahr baru. Yang baru adalah **memilih**. Perhatikan contoh pertama dan kedua: keduanya thawil, tetapi qafiyahnya berbeda. Bait Ta'lim berakhir بِبَيَانِ: nun kasrah, dharb فَعُولُنْ. Bait asy-Syafi'i berakhir الْجَحَافِلُ: lam dhammah, dharb مَفَاعِلُنْ. Masing-masing benar dalam qashidahnya sendiri.",
+        "Contoh ketiga dan keempat adalah wafir. Ujung keduanya sama-sama فَعُولُنْ: لِعَاصِي dan السَّوَامُ. Perhatikan وَيَتَّبِعُونَهُ: ha dhamir setelah nun berharakat dipanjangkan, نَهُو, seperti mad shilah dalam riwayat Hafsh. Tanpa itu, taf'ilah kedua kekurangan satu huruf mati.",
+        "Bandingkan dua bahr ini. Thawil punya empat taf'ilah per syathr; ruangnya lapang, cocok untuk daftar dan nasihat yang tenang. Wafir punya tiga, dan fashilah 1110 membuatnya terasa mengalir. Keduanya dibuka watad, jadi pembukanya bisa mirip: إِذَا، شَكَوْتُ، تَعَلَّمْ.",
+        "Lalu peragaan. Draf pertama memakai مَشَايِخَ, jamak yang benar secara bahasa. Tetapi مَشَايِخَلْعِلْ menaruh dua huruf hidup (يِ خَ) di tempat yang menuntut satu mati. شُيُوخَ (wazan فُعُول) membawa makna yang sama dengan pola yang pas. Sharaf memberi Anda dua jamak; wazan memilih salah satunya.",
+        "Urutan kerjanya sama seperti Boss sebelumnya: pilih bahr, tulis bait pertama sampai lurus, kunci qafiyah dan bentuk dharb-nya, baru lanjut. Bait kedua dan ketiga mengikuti bait pertama, bukan sebaliknya."
+      ],
+      "keliru": [
+        {
+          "salah": "Bait 1 thawil, lalu bait 2 wafir karena kata-katanya lebih mudah masuk.",
+          "benar": "Satu qashidah, satu bahr.",
+          "sebab": "Nada bahr adalah identitas qashidah. Berganti bahr di tengah sama dengan memulai qashidah baru."
+        },
+        {
+          "salah": "Qafiyah sama huruf, tetapi beda bentuk dharb: بَيَانِ (فَعُولُنْ) lalu وَإِعْلَانِ (مَفَاعِيلُنْ).",
+          "benar": "Dharb ikut bait 1: لِسَانِ، زَمَانِ.",
+          "sebab": "Bentuk dharb termasuk yang dikunci oleh bait pertama."
+        },
+        {
+          "salah": "Memakai مَشَايِخَ karena terdengar lebih fasih.",
+          "benar": "شُيُوخَ, sama-sama jamak شَيْخ.",
+          "sebab": "Dua jamak taksir dengan wazan berbeda; pilih yang polanya cocok dengan taf'ilah."
+        }
+      ],
       "qaidah": [
         "**Pilih satu bahr untuk ketiga bait.** Thawil cocok untuk nasihat yang panjang dan tenang; wafir cocok untuk nada yang mengalir. Jangan dicampur dalam satu qashidah.",
         "**Qafiyah dan dharb bait 1 mengikat bait 2 dan 3**: rawiy, harakat, ridf, dan bentuk dharb sama. Thawil: ـانِ (فَعُولُنْ) atau ـاهِلُ (مَفَاعِلُنْ). Wafir: ـاصِي، ـامُ، ـانِ (فَعُولُنْ).",
@@ -112,15 +136,73 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Bait 1 Anda (thawil) berakhir بِبَيَانِ. Ujung bait 3 mana yang sah?",
-          "pilihan": [
-            "وَإِعْلَانِ (مَفَاعِيلُنْ)",
-            "لِسَانِ (فَعُولُنْ)",
-            "الْمَحَافِلُ (مَفَاعِلُنْ)"
-          ],
-          "jawaban": 1,
-          "alasan": "لِسَانِ: rawiy nun kasrah, ridf alif, dharb فَعُولُنْ, sama dengan بِبَيَانِ. وَإِعْلَانِ qafiyahnya sama, tetapi dharb-nya مَفَاعِيلُنْ: bentuk dharb dalam satu qashidah harus tetap."
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Thawil dan wafir sama-sama dibuka oleh?",
+              "pilihan": [
+                "Watad (110)",
+                "Sabab (10)",
+                "Fashilah (1110)"
+              ],
+              "jawaban": 0,
+              "alasan": "فَعُولُنْ dan مُفَاعَلَتُنْ sama-sama dimulai watad majmu'."
+            },
+            {
+              "soal": "Bait 1 Anda (thawil) berakhir بِبَيَانِ. Ujung bait 3 mana yang sah?",
+              "pilihan": [
+                "وَإِعْلَانِ (مَفَاعِيلُنْ)",
+                "لِسَانِ (فَعُولُنْ)",
+                "الْمَحَافِلُ (مَفَاعِلُنْ)"
+              ],
+              "jawaban": 1,
+              "alasan": "لِسَانِ: rawiy nun kasrah, ridf alif, dharb فَعُولُنْ, sama dengan بِبَيَانِ. وَإِعْلَانِ qafiyahnya sama, tetapi dharb-nya مَفَاعِيلُنْ: bentuk dharb dalam satu qashidah harus tetap."
+            },
+            {
+              "soal": "Ujung syathr wafir tam dan dharb thawil mahdzuf (بَيَانِ) sama-sama berpola?",
+              "pilihan": [
+                "11010",
+                "110110",
+                "1101010"
+              ],
+              "jawaban": 0,
+              "alasan": "Keduanya فَعُولُنْ. Karena itu laci qafiyah ـانِ bisa dipakai di kedua bahr."
+            },
+            {
+              "soal": "Satu syathr thawil berapa taf'ilah, wafir berapa?",
+              "pilihan": [
+                "Empat dan tiga",
+                "Tiga dan tiga",
+                "Empat dan empat"
+              ],
+              "jawaban": 0,
+              "alasan": "Thawil: فَعُولُنْ مَفَاعِيلُنْ ×2. Wafir: مُفَاعَلَتُنْ مُفَاعَلَتُنْ فَعُولُنْ."
+            },
+            {
+              "soal": "Ujung «الْجَحَافِلُ» ditimbang?",
+              "pilihan": [
+                "110110, مَفَاعِلُنْ",
+                "11010, فَعُولُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "جَحَافِلُو = 1 10 1 10. Dharb thawil maqbudh."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda pada kata dan frasa dari bait peragaan dan contoh. Inilah bahan laci untuk tiga bait Anda.",
+          "butir": [
+            "إِذَا شِئْتَ",
+            "تَحْظَى",
+            "بِعِلْمٍ وَرِفْعَةٍ",
+            "فَلَازِمْ",
+            "مَشَايِخَ",
+            "شُيُوخَ الْعِلْمِ",
+            "طُولَ زَمَانِ",
+            "السَّوَامُ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -131,6 +213,58 @@
           ],
           "bahr": "wafir",
           "makna": "Orang-orang mengikutinya dalam segala keadaan, seperti gembala domba yang diikuti ternak gembalaannya."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Pemanasan untuk yang memilih thawil: timbang bait asy-Syafi'i ini. الْتَفَّتْ: hamzah washal gugur setelah إِذَا, dan alif إِذَا pun gugur karena bertemu lam sakin.",
+          "bait": [
+            "وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ",
+            "صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْجَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Pembesar kaum yang tidak berilmu tetaplah kecil, sekalipun pasukan besar berkumpul mengelilinginya."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Baris thawil bertema ilmu. Centang yang pincang, lalu lihat timbangan untuk menemukan kata yang mengganggu.",
+          "bahr": "thawil",
+          "baris": [
+            {
+              "bait": [
+                "وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ",
+                "صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْجَحَافِلُ"
+              ],
+              "catatan": "Bait asy-Syafi'i, asli."
+            },
+            {
+              "bait": [
+                "وَإِنَّ كَبِيرَ الْقَوْمِ لَيْسَ لَهُ عِلْمٌ",
+                "صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْجَحَافِلُ"
+              ],
+              "catatan": "لَا عِلْمَ عِنْدَهُ diganti لَيْسَ لَهُ عِلْمٌ. Maknanya sama, tetapi 'arudh menjadi 1101010, padahal 'arudh thawil harus مَفَاعِلُنْ. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ",
+                "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+              ],
+              "catatan": "Bait Ta'lim, asli."
+            },
+            {
+              "bait": [
+                "وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ",
+                "صَغِيرٌ إِذَا اجْتَمَعَتْ عَلَيْهِ الْجَحَافِلُ"
+              ],
+              "catatan": "الْتَفَّتْ diganti اجْتَمَعَتْ. Dua fi'il wazan افْتَعَلَ, tetapi الْتَفَّتْ bersyaddah (لْتَفْ) sedangkan اجْتَمَعَتْ punya satu huruf hidup lebih. Bait latihan, bukan kutipan."
+            },
+            {
+              "bait": [
+                "إِذَا شِئْتَ أَنْ تَحْظَى بِعِلْمٍ وَرِفْعَةٍ",
+                "فَلَازِمْ مَشَايِخَ الْعِلْمِ طُولَ زَمَانِ"
+              ],
+              "catatan": "Draf peragaan dengan مَشَايِخَ. Bait latihan, bukan kutipan."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -167,19 +301,98 @@
     }
   ],
   "laci": [
-    { "teks": "إِذَا شِئْتَ", "arti": "bila kau ingin", "laci": "hasyw", "catatan": "Pembuka thawil: إِذَا شِئْ = 11010.", "dari": "Bait latihan Boss 3" },
-    { "teks": "أَنْ تَحْظَى", "arti": "meraih, mendapat bagian", "laci": "hasyw", "dari": "Bait latihan Boss 3" },
-    { "teks": "بِعِلْمٍ وَرِفْعَةٍ", "arti": "dengan ilmu dan kedudukan tinggi", "laci": "hasyw", "catatan": "فَعُولُنْ + مَفَاعِلُنْ: pas sebagai penutup 'arudh thawil.", "dari": "Bait latihan Boss 3" },
-    { "teks": "فَلَازِمْ", "arti": "maka tetaplah bersama", "laci": "hasyw", "catatan": "Fi'il amr wazan فَاعِلْ, didahului فَ: 11010.", "dari": "Bait latihan Boss 3" },
-    { "teks": "شُيُوخَ الْعِلْمِ", "arti": "para guru ilmu", "laci": "wazan", "catatan": "Jamak فُعُولٌ; pengganti مَشَايِخَ yang patah.", "dari": "Bait latihan Boss 3" },
-    { "teks": "طُولَ زَمَانِ", "arti": "sepanjang waktu", "laci": "qafiyah", "dari": "Bait latihan Boss 3" },
-    { "teks": "لِسَانِ", "arti": "lisan", "laci": "qafiyah", "catatan": "Qafiyah ـانِ, dharb فَعُولُنْ.", "dari": "Boss 3" },
-    { "teks": "أَمَانِ", "arti": "rasa aman", "laci": "qafiyah", "catatan": "Qafiyah ـانِ.", "dari": "Boss 3" },
-    { "teks": "الْجَحَافِلُ", "arti": "pasukan-pasukan besar", "laci": "qafiyah", "catatan": "Jamak فَعَالِلُ, qafiyah ـافِلُ.", "dari": "asy-Syafi'i" },
-    { "teks": "كَبِيرَ الْقَوْمِ", "arti": "pembesar kaum", "laci": "hasyw", "dari": "asy-Syafi'i" },
-    { "teks": "صَغِيرٌ", "arti": "kecil", "laci": "wazan", "catatan": "Wazan فَعِيلٌ = 11010, pembuka syathr thawil.", "dari": "asy-Syafi'i" },
-    { "teks": "فِي كُلِّ حَالٍ", "arti": "dalam segala keadaan", "laci": "hasyw", "dari": "asy-Syafi'i" },
-    { "teks": "كَرَاعِي الضَّأْنِ", "arti": "seperti gembala domba", "laci": "hasyw", "dari": "asy-Syafi'i" },
-    { "teks": "السَّوَامُ", "arti": "ternak yang digembalakan", "laci": "qafiyah", "catatan": "Qafiyah ـامُ; pasangan الْكِرَامُ، الْحَرَامُ.", "dari": "asy-Syafi'i" }
+    {
+      "teks": "إِذَا شِئْتَ",
+      "arti": "bila kau ingin",
+      "laci": "hasyw",
+      "catatan": "Pembuka thawil: إِذَا شِئْ = 11010.",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "أَنْ تَحْظَى",
+      "arti": "meraih, mendapat bagian",
+      "laci": "hasyw",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "بِعِلْمٍ وَرِفْعَةٍ",
+      "arti": "dengan ilmu dan kedudukan tinggi",
+      "laci": "hasyw",
+      "catatan": "فَعُولُنْ + مَفَاعِلُنْ: pas sebagai penutup 'arudh thawil.",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "فَلَازِمْ",
+      "arti": "maka tetaplah bersama",
+      "laci": "hasyw",
+      "catatan": "Fi'il amr wazan فَاعِلْ, didahului فَ: 11010.",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "شُيُوخَ الْعِلْمِ",
+      "arti": "para guru ilmu",
+      "laci": "wazan",
+      "catatan": "Jamak فُعُولٌ; pengganti مَشَايِخَ yang patah.",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "طُولَ زَمَانِ",
+      "arti": "sepanjang waktu",
+      "laci": "qafiyah",
+      "dari": "Bait latihan Boss 3"
+    },
+    {
+      "teks": "لِسَانِ",
+      "arti": "lisan",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـانِ, dharb فَعُولُنْ.",
+      "dari": "Boss 3"
+    },
+    {
+      "teks": "أَمَانِ",
+      "arti": "rasa aman",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـانِ.",
+      "dari": "Boss 3"
+    },
+    {
+      "teks": "الْجَحَافِلُ",
+      "arti": "pasukan-pasukan besar",
+      "laci": "qafiyah",
+      "catatan": "Jamak فَعَالِلُ, qafiyah ـافِلُ.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "كَبِيرَ الْقَوْمِ",
+      "arti": "pembesar kaum",
+      "laci": "hasyw",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "صَغِيرٌ",
+      "arti": "kecil",
+      "laci": "wazan",
+      "catatan": "Wazan فَعِيلٌ = 11010, pembuka syathr thawil.",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "فِي كُلِّ حَالٍ",
+      "arti": "dalam segala keadaan",
+      "laci": "hasyw",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "كَرَاعِي الضَّأْنِ",
+      "arti": "seperti gembala domba",
+      "laci": "hasyw",
+      "dari": "asy-Syafi'i"
+    },
+    {
+      "teks": "السَّوَامُ",
+      "arti": "ternak yang digembalakan",
+      "laci": "qafiyah",
+      "catatan": "Qafiyah ـامُ; pasangan الْكِرَامُ، الْحَرَامُ.",
+      "dari": "asy-Syafi'i"
+    }
   ]
 }
