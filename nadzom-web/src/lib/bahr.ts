@@ -55,10 +55,10 @@ const KAMIL_DHARB = [
 ]
 
 /** Basith: فاعلن di hasyw; 'arudh makhbunah; dharb makhbun atau maqthu'. */
-const FAILUN_ASLI = [b('فَاعِلُنْ', '10110'), b('فَعِلُنْ', '1110', 'khabn', { nilai: 'hasan' })]
+const FAILUN_ASLI = [b('فَاعِلُنْ', '10110', undefined, { lagu: 'لا نعم' }), b('فَعِلُنْ', '1110', 'khabn', { nilai: 'hasan', lagu: 'لَ نعم' })]
 /** 'Arudh tam selalu makhbunah; فَاعِلُنْ di ujung syathr pertama hanya lewat tasri'. */
 const BASITH_ARUDH = [FAILUN_ASLI[1]]
-const BASITH_DHARB = [FAILUN_ASLI[1], b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ' })]
+const BASITH_DHARB = [FAILUN_ASLI[1], b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ', lagu: 'لا لا' })]
 
 /** Thawil: 'arudh selalu maqbudhah; dharb shahih, maqbudh, atau mahdzuf. */
 const FAULUN = [b('فَعُولُنْ', '11010'), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan' })]
@@ -151,6 +151,11 @@ export const BAHR = {
     namaAr: 'الْبَسِيط',
     kunci: ['إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ', 'مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ'],
     kunciMakna: 'Bahr basith: di sanalah harapan dibentangkan lebar.',
+    dengar: {
+      youtube: 'NgfEQyyIWU4',
+      judul: 'Tanghim tafshili bahr basith (tam), dua surah',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 45",
+    },
     slot: [
       [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, BASITH_ARUDH],
       [MUSTAFILUN, FAILUN_ASLI, MUSTAFILUN, BASITH_DHARB],

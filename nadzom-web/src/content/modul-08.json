@@ -29,6 +29,26 @@
           "makna": "Bertambahnya milik seseorang di dunia sejatinya adalah kekurangan; dan labanya, selain kebaikan yang murni, adalah kerugian.",
           "sumber": "Abu al-Fath al-Busti (w. 400 H), 'Unwan al-Hikam (Nuniyah al-Busti), bait 1. Teks: Wikisource ar, عنوان الحكم; dicocokkan dengan kutipan di goodreads.com/quotes/7232283. Harakat dari Wikisource, dilengkapi penyusun.",
           "catatan": "Bait pertama ber-tasri': kedua syathr berakhir ـانُ."
+        },
+        {
+          "bait": [
+            "جَاوَزْتِ فِي نُصْحِهِ حَدًّا أَضَرَّ بِهِ",
+            "مِنْ حَيْثُ قَدَّرْتِ أَنَّ النُّصْحَ يَنْفَعُهُ"
+          ],
+          "bahr": "basith",
+          "makna": "Engkau berlebihan menasihatinya sampai nasihat itu justru melukainya, padahal engkau mengira nasihat itu akan bermanfaat baginya.",
+          "sumber": "Ibnu Zuraiq al-Baghdadi, qashidah 'ainiyah (لَا تَعْذُلِيهِ). Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 45.",
+          "catatan": "Surah pertama basith: 'arudh dan dharb sama-sama فَعِلُنْ, dilagukan **لَ نعم**. Lagu satu syathr: لا لا نعم · لا نعم · لا لا نعم · لَ نعم."
+        },
+        {
+          "bait": [
+            "وَإِنَّ صَخْرًا لَتَأْتَمُّ الْهُدَاةُ بِهِ",
+            "كَأَنَّهُ عَلَمٌ فِي رَأْسِهِ نَارُ"
+          ],
+          "bahr": "basith",
+          "makna": "Sungguh, Shakhr diikuti oleh para penunjuk jalan, seakan-akan ia gunung tinggi yang di puncaknya menyala api.",
+          "sumber": "Al-Khansa', ratapan untuk saudaranya Shakhr. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 45.",
+          "catatan": "Surah kedua basith: dharb-nya فَعْلُنْ (نَارُو = 1010), dilagukan **لا لا**, sama seperti ujung bait al-Busti di atas."
         }
       ],
       "bahts": {
@@ -54,7 +74,7 @@
           },
           {
             "tampil": "mizan",
-            "kata": "زِيَادَتُلْ = 110110: مُسْتَفْعِلُنْ yang kehilangan sin (khabn), sama seperti di rajaz. مَرْءِ فِي = 10 1 10 = **10110 = فَاعِلُنْ**. دُنْيَاهُ نُقْ = 1010110, مُسْتَفْعِلُنْ utuh. صَانُو = 1010: فَاعِلُنْ yang dipotong ujungnya, dibaca فَعْلُنْ."
+            "kata": "زِيَادَتُلْ = 110110: مُسْتَفْعِلُنْ yang kehilangan sin (khabn), sama seperti di rajaz. مَرْءِ فِي = 10 1 10 = **10110 = فَاعِلُنْ**. دُنْيَاهُ نُقْ = 1010110, مُسْتَفْعِلُنْ utuh. صَانُو = 1010: فَاعِلُنْ yang dipotong ujungnya, dibaca فَعْلُنْ. Lagunya: فَاعِلُنْ = لا نعم, فَعِلُنْ = لَ نعم, فَعْلُنْ = لا لا."
           },
           {
             "tampil": "bahr",
