@@ -29,6 +29,16 @@
           "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr rajaz (miftah al-buhur) yang masyhur.",
           "catatan": "Kunci ini sekaligus contoh dan alat periksa. Hafalkan dan lagukan."
+        },
+        {
+          "bait": [
+            "مَا لِلْكَبِيرِ فِي الْغَوَانِي مِنْ أَرَبْ",
+            "مَاتَ الْهَوَى فَلَا جَوًى وَلَا طَرَبْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Orang tua tak lagi punya hajat pada gadis-gadis jelita. Cintanya sudah mati: tak ada lagi rindu yang membakar, tak ada lagi gairah.",
+          "sumber": "Diwan al-Buhturi. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 64.",
+          "catatan": "Kuncinya tetap dilagukan لا لا نعم. Tetapi taf'ilah kedua di tiap syathr, juga dharb-nya, kehilangan sukun pertamanya (khabn): مُتَفْعِلُنْ, dilagukan لَ لا نعم. Para pengajar melagukan hasyw dengan bentuk utuhnya; telinga yang hafal لا لا نعم akan menangkap bahwa ini tetap rajaz."
         }
       ],
       "bahts": {
@@ -58,7 +68,7 @@
           },
           {
             "tampil": "kelompok",
-            "kata": "Langkah 4, kumpulkan. **10** (satu hidup, satu mati) disebut **sabab khafif**, seperti لَمْ. **110** (dua hidup, satu mati) disebut **watad majmu'**, seperti نَعَمْ."
+            "kata": "Langkah 4, kumpulkan dan **lagukan**. **10** (satu hidup, satu mati) disebut **sabab khafif**, kita lagukan **لا**. **110** (dua hidup, satu mati) disebut **watad majmu'**, kita lagukan **نَعَمْ**. Jadi مُسْتَفْعِلُنْ = لا لا نعم."
           },
           {
             "tampil": "mizan",

@@ -75,6 +75,17 @@ describe('pelajaran 1: peragaan lalu giliran', () => {
     expect(localStorage.getItem('nadzom.selesai.v1')).toContain('0-1')
   })
 
+  it('langkah bahr: kunci dilagukan لا لا نعم, dan nagham dari ahlinya bisa diputar', async () => {
+    const user = userEvent.setup()
+    buka('/modul/0/1')
+    const bahts = screen.getByRole('region', { name: 'Pembahasan' })
+    const ke = MODUL[0].pelajaran[0].bahts.langkah.findIndex((l) => l.tampil === 'bahr')
+    for (let i = 0; i < ke; i++) await user.click(within(bahts).getByRole('button', { name: 'Lanjut' }))
+    expect(within(bahts).getAllByText('لا لا نعم لا لا نعم لا لا نعم')).toHaveLength(2)
+    const video = within(bahts).getByTitle(/Lisan Mubin/)
+    expect(video.getAttribute('src')).toContain('youtube-nocookie.com/embed/b3dA6ihqHjM')
+  })
+
   it('pilihan ganda: salah boleh dicoba lagi, benar membuka alasannya', async () => {
     const user = userEvent.setup()
     buka('/modul/0/1')

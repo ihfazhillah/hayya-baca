@@ -1,20 +1,20 @@
 /** Definisi bahr. Bahr baru = data baru di sini. Bentuk tanpa `zihaf` = utuh. */
 import type { Bahr, Bentuk } from './jenis'
 
-type Tambahan = Pick<Bentuk, 'illah' | 'namaLain' | 'nilai'>
+type Tambahan = Pick<Bentuk, 'illah' | 'namaLain' | 'nilai' | 'lagu'>
 const b = (nama: string, bit: string, zihaf?: string, lain: Tambahan = {}): Bentuk =>
   zihaf ? { nama, bit, zihaf, ...lain } : { nama, bit, ...lain }
 
 const MUSTAFILUN = [
-  b('مُسْتَفْعِلُنْ', '1010110'),
-  b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan' }),
-  b('مُسْتَعِلُنْ', '101110', 'thayy', { namaLain: 'مُفْتَعِلُنْ', nilai: 'shalih' }),
-  b('مُتَعِلُنْ', '11110', 'khabl', { namaLain: 'فَعِلَتُنْ', nilai: 'qabih' }),
+  b('مُسْتَفْعِلُنْ', '1010110', undefined, { lagu: 'لا لا نعم' }),
+  b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan', lagu: 'لَ لا نعم' }),
+  b('مُسْتَعِلُنْ', '101110', 'thayy', { namaLain: 'مُفْتَعِلُنْ', nilai: 'shalih', lagu: 'لا لَ نعم' }),
+  b('مُتَعِلُنْ', '11110', 'khabl', { namaLain: 'فَعِلَتُنْ', nilai: 'qabih', lagu: 'لَ لَ نعم' }),
 ]
 const MUSTAFILUN_DHARB = [
   ...MUSTAFILUN,
-  b('مُسْتَفْعِلْ', '101010', "qath'", { illah: true, namaLain: 'مَفْعُولُنْ' }),
-  b('مُتَفْعِلْ', '11010', "khabn + qath'", { illah: true, namaLain: 'فَعُولُنْ' }),
+  b('مُسْتَفْعِلْ', '101010', "qath'", { illah: true, namaLain: 'مَفْعُولُنْ', lagu: 'لا لا لا' }),
+  b('مُتَفْعِلْ', '11010', "khabn + qath'", { illah: true, namaLain: 'فَعُولُنْ', lagu: 'لَ لا لا' }),
 ]
 const FAILATUN = [b('فَاعِلَاتُنْ', '1011010'), b('فَعِلَاتُنْ', '111010', 'khabn', { nilai: 'hasan' })]
 const FAILUN = [
@@ -97,6 +97,11 @@ export const BAHR = {
     namaAr: 'الرَّجَز',
     kunci: ['فِي أَبْحُرِ الْأَرْجَازِ بَحْرٌ يَسْهُلُ', 'مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ'],
     kunciMakna: 'Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui.',
+    dengar: {
+      youtube: 'b3dA6ihqHjM',
+      judul: 'Tanghim tafshili bahr rajaz',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 64",
+    },
     slot: [
       [MUSTAFILUN, MUSTAFILUN, MUSTAFILUN],
       [MUSTAFILUN, MUSTAFILUN, MUSTAFILUN_DHARB],

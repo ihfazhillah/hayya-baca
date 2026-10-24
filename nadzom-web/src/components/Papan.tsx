@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import type { Bentuk, Huruf, Status } from '@/lib/jenis'
-import { pecahJuz } from '@/lib/juz'
+import { juzBentuk } from '@/lib/lagu'
 
 export interface Kaki {
   mulai: number
@@ -107,9 +107,10 @@ export default function Papan({
             </div>
             {juz && (
               <div className="juz" aria-label="sabab dan watad">
-                {pecahJuz(bit).map((j, x) => (
+                {juzBentuk(bit, k.bentuk).map((j, x) => (
                   <span key={x} className={`juz-item ${j.jenis}`} style={{ width: `calc(var(--sel) * ${j.bit.length} - 2px)` }}>
-                    {NAMA_JUZ[j.jenis] || j.bit}
+                    {NAMA_JUZ[j.jenis] || (j.lagu ? null : j.bit)}
+                    {j.lagu && <span className="juz-lagu" lang="ar">{j.lagu}</span>}
                   </span>
                 ))}
               </div>

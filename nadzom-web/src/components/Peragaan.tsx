@@ -10,6 +10,8 @@ import Teks from './Teks'
 import TandaiBit from './TandaiBit'
 import HasilTimbang from './HasilTimbang'
 import Irama from './Irama'
+import DengarNagham from './DengarNagham'
+import { laguBahr } from '@/lib/lagu'
 
 /** Kitabah per kata; huruf tambahan (tanwin, syaddah, isyba', alif khanjariyah) digarisbawahi emas. */
 export function KitabahTeks({ huruf }: { huruf: Huruf[] }) {
@@ -79,17 +81,25 @@ export default function Peragaan({ bahts, onGiliranBenar }: { bahts: Bahts; onGi
         return <Papan huruf={s.huruf} kaki={s.potongan} tanda="tampil" juz />
       case 'mizan':
         return <Papan huruf={s.huruf} kaki={s.potongan} tanda="tampil" juz mizan />
-      case 'bahr':
+      case 'bahr': {
+        const lagu = laguBahr(bahr)
         return (
           <>
             <h3 className="ar" style={{ fontSize: 32 }}>{bahr.namaAr}</h3>
             <div className="papan-bait redup" lang="ar" style={{ fontSize: 21 }}>
               {bahr.kunci.map((k, i) => <div key={i}>{k}</div>)}
             </div>
+            {lagu && (
+              <div className="lagu-kunci" lang="ar" dir="rtl" aria-label="Lagu kunci">
+                {lagu.map((x, i) => <div key={i}>{x}</div>)}
+              </div>
+            )}
             <p className="makna">{bahr.kunciMakna}</p>
+            {bahr.dengar && <DengarNagham dengar={bahr.dengar} />}
             <BaitPapan bait={bahts.bait} />
           </>
         )
+      }
       case 'timbang': {
         const k = kitabahBait(l.bait ?? bahts.bait)
         if (!k.ok) return <p>{k.galat}</p>

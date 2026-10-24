@@ -454,3 +454,8 @@ col.laci-k-pola { width: 128px; }
 .keliru .tanda-keliru.salah { color: var(--err); }
 .keliru .tanda-keliru.benar { color: var(--ok); }
 .keliru .sebab { grid-column: 2; color: var(--ink-2); }
+
+.juz-lagu { font-family: var(--font-ar); font-size: 13px; line-height: 1.2; }
+.lagu-kunci { font-family: var(--font-ar); font-size: 19px; text-align: center; color: var(--gold); line-height: 1.7; }
+.dengar-nagham .video { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: var(--surface-2); margin: 8px 0; }
+.dengar-nagham iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }

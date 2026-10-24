@@ -2,6 +2,8 @@
 export interface Juz {
   jenis: 'sabab' | 'watad' | 'tunggal'
   bit: string
+  /** Kata lagu tanghim (لا, نعم, لَ …), bila bentuknya berlagu. */
+  lagu?: string
 }
 
 export function pecahJuz(bit: string): Juz[] {

@@ -3,6 +3,7 @@ import { kitabahBait } from './kitabah'
 import { latinKeHuruf } from './latin'
 import { slotSyathr, timbangBait, tebakBahr } from './timbang'
 import { BAHR } from './bahr'
+import { bitLagu, juzBentuk, laguBahr } from './lagu'
 import type { Huruf } from './jenis'
 
 const bits = (h: Huruf[]) => h.map((x) => x.bit).join('')
@@ -322,5 +323,30 @@ describe('bahr Babak 2–3 dan bonus: bait model ditimbang lurus dan ditebak ben
 
   it('rajaz tetap ditebak rajaz walaupun polanya sama dengan kamil mudhmar', () => {
     expect(tebakBahr(kitabahOk(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])).bahr.kode).toBe('rajaz')
+  })
+})
+
+describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => {
+  it('setiap bentuk yang punya lagu: bit lagunya sama dengan bit bentuknya', () => {
+    for (const bahr of Object.values(BAHR)) {
+      for (const syathr of bahr.slot) for (const slot of syathr) for (const b of slot) {
+        if (b.lagu) expect(bitLagu(b.lagu), `${bahr.kode} ${b.nama}`).toBe(b.bit)
+      }
+    }
+  })
+
+  it('rajaz: semua bentuknya punya lagu; kunci dilagukan لا لا نعم tiga kali', () => {
+    for (const syathr of BAHR.rajaz.slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, b.nama).toBeTruthy()
+    expect(laguBahr(BAHR.rajaz)).toEqual(['لا لا نعم لا لا نعم لا لا نعم', 'لا لا نعم لا لا نعم لا لا نعم'])
+  })
+
+  it('juz mengikuti lagu: مُتَفْعِلُنْ = لَ · sabab · watad, bukan dua watad', () => {
+    const khabn = BAHR.rajaz.slot[0][0].find((b) => b.zihaf === 'khabn')!
+    expect(juzBentuk(khabn.bit, khabn).map((j) => [j.jenis, j.lagu])).toEqual([['tunggal', 'لَ'], ['sabab', 'لا'], ['watad', 'نعم']])
+  })
+
+  it('taf\'ilah patah (bit tidak sama dengan bentuk terdekat) tetap dipecah dari bitnya sendiri', () => {
+    const utuh = BAHR.rajaz.slot[0][0][0]
+    expect(juzBentuk('10110', utuh).map((j) => j.bit).join('')).toBe('10110')
   })
 })

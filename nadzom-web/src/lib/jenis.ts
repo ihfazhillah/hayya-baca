@@ -25,6 +25,16 @@ export interface Bentuk {
   namaLain?: string
   /** Penilaian ulama untuk zihaf: hasan, shalih, qabih (kurang baik). */
   nilai?: 'hasan' | 'shalih' | 'qabih'
+  /** Lagu tanghim per juz, dipisah spasi: لا = 10, نعم = 110, لَ = 1. Lihat `lib/lagu.ts`. */
+  lagu?: string
+}
+
+/** Nagham bahr dari pengajar 'arudh, diputar lewat embed YouTube. */
+export interface DengarBahr {
+  /** ID video YouTube. */
+  youtube: string
+  judul: string
+  sumber: string
 }
 
 export interface Bahr {
@@ -37,6 +47,7 @@ export interface Bahr {
   kunciMakna: string
   /** Slot taf'ilah: syathr pertama (hasyw + 'arudh) dan kedua (hasyw + dharb). Bentuk tanpa `zihaf` = utuh. */
   slot: [Bentuk[][], Bentuk[][]]
+  dengar?: DengarBahr
 }
 
 export interface Potongan {
