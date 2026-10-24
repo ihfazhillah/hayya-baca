@@ -38,20 +38,20 @@ const RAMAL_MAJZU_DHARB = [
 
 /** Kamil: 'arudh shahihah atau hadzdza'; dharb juga maqthu'. Idhmar (huruf kedua disukunkan) sangat lazim. */
 const MUTAFAILUN = [
-  b('مُتَفَاعِلُنْ', '1110110'),
-  b('مُتْفَاعِلُنْ', '1010110', 'idhmar', { namaLain: 'مُسْتَفْعِلُنْ', nilai: 'hasan' }),
-  b('مُفَاعِلُنْ', '110110', 'waqsh', { nilai: 'qabih' }),
-  b('مُتْفَعِلُنْ', '101110', 'khazl', { namaLain: 'مُفْتَعِلُنْ', nilai: 'qabih' }),
+  b('مُتَفَاعِلُنْ', '1110110', undefined, { lagu: 'لَ لَ لا نعم' }),
+  b('مُتْفَاعِلُنْ', '1010110', 'idhmar', { namaLain: 'مُسْتَفْعِلُنْ', nilai: 'hasan', lagu: 'لا لا نعم' }),
+  b('مُفَاعِلُنْ', '110110', 'waqsh', { nilai: 'qabih', lagu: 'لَ لا نعم' }),
+  b('مُتْفَعِلُنْ', '101110', 'khazl', { namaLain: 'مُفْتَعِلُنْ', nilai: 'qabih', lagu: 'لا لَ نعم' }),
 ]
 const KAMIL_ARUDH = [
   ...MUTAFAILUN,
-  b('مُتَفَا', '1110', 'hadzadz', { illah: true, namaLain: 'فَعِلُنْ' }),
-  b('مُتْفَا', '1010', 'hadzadz + idhmar', { illah: true, namaLain: 'فَعْلُنْ' }),
+  b('مُتَفَا', '1110', 'hadzadz', { illah: true, namaLain: 'فَعِلُنْ', lagu: 'لَ لَ لا' }),
+  b('مُتْفَا', '1010', 'hadzadz + idhmar', { illah: true, namaLain: 'فَعْلُنْ', lagu: 'لا لا' }),
 ]
 const KAMIL_DHARB = [
   ...KAMIL_ARUDH,
-  b('مُتَفَاعِلْ', '111010', "qath'", { illah: true, namaLain: 'فَعِلَاتُنْ' }),
-  b('مُتْفَاعِلْ', '101010', "qath' + idhmar", { illah: true, namaLain: 'مَفْعُولُنْ' }),
+  b('مُتَفَاعِلْ', '111010', "qath'", { illah: true, namaLain: 'فَعِلَاتُنْ', lagu: 'لَ لَ لا لا' }),
+  b('مُتْفَاعِلْ', '101010', "qath' + idhmar", { illah: true, namaLain: 'مَفْعُولُنْ', lagu: 'لا لا لا' }),
 ]
 
 /** Basith: فاعلن di hasyw; 'arudh makhbunah; dharb makhbun atau maqthu'. */
@@ -135,6 +135,11 @@ export const BAHR = {
     namaAr: 'الْكَامِل',
     kunci: ['كَمَلَ الْجَمَالُ مِنَ الْبُحُورِ الْكَامِلُ', 'مُتَفَاعِلُنْ مُتَفَاعِلُنْ مُتَفَاعِلُ'],
     kunciMakna: 'Keindahan menjadi sempurna: di antara semua bahr, kamil-lah yang sempurna.',
+    dengar: {
+      youtube: '6s-lq6-q3a0',
+      judul: 'Tanghim tafshili bahr kamil (tam), enam surah',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 48",
+    },
     slot: [
       [MUTAFAILUN, MUTAFAILUN, KAMIL_ARUDH],
       [MUTAFAILUN, MUTAFAILUN, KAMIL_DHARB],
