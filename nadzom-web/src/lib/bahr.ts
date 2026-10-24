@@ -84,10 +84,10 @@ const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, na
 
 /** Mujtats: selalu majzu', dua taf'ilah per syathr. */
 const MUSTAFILUN_MUJTATS = [
-  b('مُسْتَفْعِلُنْ', '1010110'),
-  b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan' }),
-  b('مُسْتَفْعِلُ', '101011', 'kaff', { nilai: 'qabih' }),
-  b('مُتَفْعِلُ', '11011', 'syakl', { nilai: 'qabih' }),
+  b('مُسْتَفْعِلُنْ', '1010110', undefined, { lagu: 'لا لا نعم' }),
+  b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan', lagu: 'لَ لا نعم' }),
+  b('مُسْتَفْعِلُ', '101011', 'kaff', { nilai: 'qabih', lagu: 'لا لا لَ لَ' }),
+  b('مُتَفْعِلُ', '11011', 'syakl', { nilai: 'qabih', lagu: 'لَ لا لَ لَ' }),
 ]
 
 const KUNCI_RAMAL: [string, string] = ['رَمَلُ الْأَبْحُرِ تَرْوِيهِ الثِّقَاتُ', 'فَاعِلَاتُنْ فَاعِلَاتُنْ فَاعِلَاتُ']
@@ -212,6 +212,11 @@ export const BAHR = {
     namaAr: 'الْمُجْتَثّ',
     kunci: ['إِنْ جُثَّتِ الْحَرَكَاتُ', 'مُسْتَفْعِلُنْ فَاعِلَاتُ'],
     kunciMakna: 'Bila harakat-harakatnya dipangkas: itulah mujtats, artinya yang dipangkas.',
+    dengar: {
+      youtube: 'jVFTxXIoo9M',
+      judul: "Tanghim tafshili bahr mudhari', muqtadhab, dan mujtats (mujtats di bagian akhir)",
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 59",
+    },
     slot: [
       [MUSTAFILUN_MUJTATS, FAILATUN],
       [MUSTAFILUN_MUJTATS, FAILATUN],
