@@ -336,16 +336,18 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
   })
 
   it('bahr yang sudah dilagukan: semua bentuknya punya lagu dan video nagham', () => {
-    for (const kode of ['rajaz', 'kamil', 'basith'] as const) {
+    for (const kode of ['rajaz', 'kamil', 'basith', 'thawil'] as const) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
       expect(BAHR[kode].dengar?.youtube, kode).toBeTruthy()
     }
   })
 
-  it("kunci dilagukan seperti di Lisan Mubin: rajaz, kamil, basith ('arudh makhbunah: لَ نعم)", () => {
-    expect(laguBahr(BAHR.rajaz)).toEqual(['لا لا نعم لا لا نعم لا لا نعم', 'لا لا نعم لا لا نعم لا لا نعم'])
-    expect(laguBahr(BAHR.kamil)).toEqual(['لَ لَ لا نعم لَ لَ لا نعم لَ لَ لا نعم', 'لَ لَ لا نعم لَ لَ لا نعم لَ لَ لا نعم'])
-    expect(laguBahr(BAHR.basith)).toEqual(['لا لا نعم لا نعم لا لا نعم لَ نعم', 'لا لا نعم لا نعم لا لا نعم لَ نعم'])
+  it("kunci dilagukan seperti lembar ringkasan Lisan Mubin: satu baris per bahr", () => {
+    // Kunci = satu syathr, jadi lagunya satu baris: syathr pertama dengan 'arudh-nya.
+    expect(laguBahr(BAHR.rajaz)).toBe('لا لا نعم لا لا نعم لا لا نعم')
+    expect(laguBahr(BAHR.kamil)).toBe('لَ لَ لا نعم لَ لَ لا نعم لَ لَ لا نعم')
+    expect(laguBahr(BAHR.basith)).toBe('لا لا نعم لا نعم لا لا نعم لَ نعم')
+    expect(laguBahr(BAHR.thawil)).toBe('نعم لا نعم لا لا نعم لا نعم لَ لا')
   })
 
   it('مُتَفَاعِلُنْ = sabab tsaqil (لَ لَ) · sabab · watad, bukan لَ + dua watad', () => {

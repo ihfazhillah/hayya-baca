@@ -90,9 +90,7 @@ export default function Peragaan({ bahts, onGiliranBenar }: { bahts: Bahts; onGi
               {bahr.kunci.map((k, i) => <div key={i}>{k}</div>)}
             </div>
             {lagu && (
-              <div className="lagu-kunci" lang="ar" dir="rtl" aria-label="Lagu kunci">
-                {lagu.map((x, i) => <div key={i}>{x}</div>)}
-              </div>
+              <div className="lagu-kunci" lang="ar" dir="rtl" aria-label="Lagu kunci">{lagu}</div>
             )}
             <p className="makna">{bahr.kunciMakna}</p>
             {bahr.dengar && <DengarNagham dengar={bahr.dengar} />}

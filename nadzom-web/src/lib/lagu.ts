@@ -33,9 +33,8 @@ export function juzBentuk(bit: string, bentuk?: Bentuk): Juz[] {
   return pecahJuz(bit)
 }
 
-/** Lagu kunci bahr per syathr, dari bentuk pertama tiap slot. Null bila ada slot yang belum berlagu. */
-export function laguBahr(bahr: Bahr): string[] | null {
-  const hasil = bahr.slot.map((syathr) => syathr.map((slot) => slot[0].lagu))
-  if (hasil.some((s) => s.some((l) => !l))) return null
-  return hasil.map((s) => s.join(' '))
+/** Lagu kunci bahr: syathr pertama (kunci hanya satu syathr), dari bentuk pertama tiap slot. Null bila belum berlagu. */
+export function laguBahr(bahr: Bahr): string | null {
+  const lagu = bahr.slot[0].map((slot) => slot[0].lagu)
+  return lagu.every(Boolean) ? lagu.join(' ') : null
 }

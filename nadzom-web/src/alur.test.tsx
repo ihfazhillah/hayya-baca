@@ -81,7 +81,7 @@ describe('pelajaran 1: peragaan lalu giliran', () => {
     const bahts = screen.getByRole('region', { name: 'Pembahasan' })
     const ke = MODUL[0].pelajaran[0].bahts.langkah.findIndex((l) => l.tampil === 'bahr')
     for (let i = 0; i < ke; i++) await user.click(within(bahts).getByRole('button', { name: 'Lanjut' }))
-    expect(within(bahts).getAllByText('لا لا نعم لا لا نعم لا لا نعم')).toHaveLength(2)
+    expect(within(bahts).getByText('لا لا نعم لا لا نعم لا لا نعم')).toBeInTheDocument()
     const video = within(bahts).getByTitle(/Lisan Mubin/)
     expect(video.getAttribute('src')).toContain('youtube-nocookie.com/embed/b3dA6ihqHjM')
   })

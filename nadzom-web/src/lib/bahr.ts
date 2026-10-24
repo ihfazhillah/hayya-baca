@@ -61,14 +61,14 @@ const BASITH_ARUDH = [FAILUN_ASLI[1]]
 const BASITH_DHARB = [FAILUN_ASLI[1], b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ', lagu: 'لا لا' })]
 
 /** Thawil: 'arudh selalu maqbudhah; dharb shahih, maqbudh, atau mahdzuf. */
-const FAULUN = [b('فَعُولُنْ', '11010'), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan' })]
+const FAULUN = [b('فَعُولُنْ', '11010', undefined, { lagu: 'نعم لا' }), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan', lagu: 'نعم لَ' })]
 const MAFAILUN = [
-  b('مَفَاعِيلُنْ', '1101010'),
-  b('مَفَاعِلُنْ', '110110', 'qabdh', { nilai: 'hasan' }),
-  b('مَفَاعِيلُ', '110101', 'kaff', { nilai: 'shalih' }),
+  b('مَفَاعِيلُنْ', '1101010', undefined, { lagu: 'نعم لا لا' }),
+  b('مَفَاعِلُنْ', '110110', 'qabdh', { nilai: 'hasan', lagu: 'نعم لَ لا' }),
+  b('مَفَاعِيلُ', '110101', 'kaff', { nilai: 'shalih', lagu: 'نعم لا لَ' }),
 ]
-const THAWIL_ARUDH = [b('مَفَاعِلُنْ', '110110', 'qabdh')]
-const THAWIL_DHARB = [...MAFAILUN.slice(0, 2), b('مَفَاعِي', '11010', 'hadzf', { illah: true, namaLain: 'فَعُولُنْ' })]
+const THAWIL_ARUDH = [b('مَفَاعِلُنْ', '110110', 'qabdh', { lagu: 'نعم لَ لا' })]
+const THAWIL_DHARB = [...MAFAILUN.slice(0, 2), b('مَفَاعِي', '11010', 'hadzf', { illah: true, namaLain: 'فَعُولُنْ', lagu: 'نعم لا' })]
 
 /** Wafir tam: 'arudh dan dharb selalu maqthufah. 'Ashb (huruf kelima disukunkan) sangat lazim. */
 const MUFAALATUN = [
@@ -167,6 +167,11 @@ export const BAHR = {
     namaAr: 'الطَّوِيل',
     kunci: ['طَوِيلٌ لَهُ دُونَ الْبُحُورِ فَضَائِلُ', 'فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِلُ'],
     kunciMakna: 'Thawil punya keutamaan yang tidak dimiliki bahr lain.',
+    dengar: {
+      youtube: '27eH0PkRgJk',
+      judul: 'Tanghim tafshili bahr thawil, tiga surah',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 43",
+    },
     slot: [
       [FAULUN, MAFAILUN, FAULUN, THAWIL_ARUDH],
       [FAULUN, MAFAILUN, FAULUN, THAWIL_DHARB],

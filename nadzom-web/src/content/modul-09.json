@@ -39,6 +39,36 @@
           "makna": "Thawil punya keutamaan yang tidak dimiliki bahr lain. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr thawil (miftah al-buhur) yang masyhur.",
           "catatan": "Perhatikan taf'ilah terakhir kunci ini: مَفَاعِلُ, bukan مَفَاعِيلُنْ. Itu akan dijelaskan di Pelajaran 2."
+        },
+        {
+          "bait": [
+            "وَمَنْ ذَا الَّذِي تُرْضَى سَجَايَاهُ كُلُّهَا",
+            "كَفَى الْمَرْءَ نُبْلًا أَنْ تُعَدَّ مَعَايِبُهْ"
+          ],
+          "bahr": "thawil",
+          "makna": "Siapa orangnya yang seluruh perangainya disukai? Cukuplah kemuliaan seseorang bila aib-aibnya masih bisa dihitung.",
+          "sumber": "Basysyar bin Burd. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 43.",
+          "catatan": "Surah pertama thawil: dharb مَفَاعِلُنْ, sama dengan 'arudh-nya, dilagukan **نعم لَ لا**."
+        },
+        {
+          "bait": [
+            "وَقَدْ زَعَمُوا أَنَّ الْمُحِبَّ إِذَا دَنَا",
+            "يَمَلُّ وَأَنَّ الْبُعْدَ يَشْفِي مِنَ الْوَجْدِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang-orang menyangka bahwa pencinta, bila sudah dekat, akan bosan; dan bahwa jarak bisa menyembuhkan rindu.",
+          "sumber": "Ibnud Dumainah. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 43.",
+          "catatan": "Surah kedua: dharb مَفَاعِيلُنْ utuh (مِنَلْوَجْدِي), dilagukan **نعم لا لا**. Perhatikan juga فَعُولُ (نعم لَ) di hasyw."
+        },
+        {
+          "bait": [
+            "فَلَيْتَكَ تَحْلُو وَالْحَيَاةُ مَرِيرَةٌ",
+            "وَلَيْتَكَ تَرْضَى وَالْأَنَامُ غِضَابُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Andai engkau manis kepadaku walau hidup ini pahit, dan andai engkau ridha walau semua orang marah. (Aslinya untuk Saifud Daulah; banyak dikutip sebagai munajat.)",
+          "sumber": "Abu Firas al-Hamdani. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 43.",
+          "catatan": "Surah ketiga: dharb مَفَاعِي yang dibuang sabab akhirnya (hadzf), dibaca فَعُولُنْ, dilagukan **نعم لا**."
         }
       ],
       "bahts": {
@@ -68,7 +98,7 @@
           },
           {
             "tampil": "kelompok",
-            "kata": "Itu sebabnya thawil terasa lain. Rajaz mulai dengan **sabab** (10). Thawil mulai dengan **watad** (110). أَلَا = watad, لَا = sabab."
+            "kata": "Itu sebabnya thawil terasa lain. Rajaz mulai dengan **sabab** (10). Thawil mulai dengan **watad** (110). أَلَا = watad, لَا = sabab. Dengarkan bedanya: rajaz dilagukan لا لا نعم, thawil dimulai نعم لا. Kata أَلَا لَا sendiri sudah berbunyi نعم لا."
           },
           {
             "tampil": "mizan",
@@ -343,7 +373,7 @@
           },
           {
             "tampil": "mizan",
-            "kata": "تَعَلْ لَمْ = 11010, فَعُولُنْ utuh. فَلَيْ سَلْ مَرْ = 1101010, مَفَاعِيلُنْ utuh. ءُيُو لَ = **1101**: huruf kelimanya, nun sakin, hilang. Itu **فَعُولُ**. دُعَا لِمَنْ = **110110**: مَفَاعِيلُنْ yang kehilangan ya sakin, menjadi **مَفَاعِلُنْ**."
+            "kata": "تَعَلْ لَمْ = 11010, فَعُولُنْ utuh. فَلَيْ سَلْ مَرْ = 1101010, مَفَاعِيلُنْ utuh. ءُيُو لَ = **1101**: huruf kelimanya, nun sakin, hilang. Itu **فَعُولُ**. دُعَا لِمَنْ = **110110**: مَفَاعِيلُنْ yang kehilangan ya sakin, menjadi **مَفَاعِلُنْ**. Di lagu, sabab yang kehilangan sukunnya menjadi **لَ** pendek: فَعُولُ = نعم لَ, مَفَاعِلُنْ = نعم لَ لا."
           },
           {
             "tampil": "teks",
