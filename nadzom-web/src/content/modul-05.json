@@ -96,6 +96,36 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua**. Perhatikan عَلَى مَنْ: alif maqshurah dibaca panjang (لَا = 10). Setelah selesai, sebutkan rawiy-nya."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, bait kedua Alfiyah. Syathr pertama berhenti di الْمُصْطَفَى, syathr kedua di الشَّرَفَا. Waqf-lah pada keduanya: yang terakhir terdengar adalah fa, lalu alif. Alif itu hanya memanjangkan fathah, seperti waqf pada tanwin fathah dalam tajwid (عَلِيمًا dibaca عَلِيمَا). Huruf yang dituju adalah **fa**. Itulah rawiy kedua syathr.",
+        "Lalu contoh kedua, bait sesudahnya. Ibnu Malik pindah ke أَلْفِيَّهْ dan مَحْوِيَّهْ. Bait 2 berhenti di fa, bait 3 berhenti di ya bersyaddah. Ini bukan cacat. Di dalam satu bait, dua syathr sama; dari bait ke bait, boleh berganti. Itulah **muzdawij**. Ha mati di ujungnya adalah ta marbutah yang diwaqafkan, jadi ekor juga. Itu dibahas lagi di pelajaran 2.",
+        "Contoh ketiga: مُوجَزِ dan مُنْجَزِ. Saat dilagukan, kasrah di ujung dipanjangkan menjadi ـزِي. Pemanjangan ini disebut **isyba'**. Ya itu tidak tertulis dan bukan rawiy; rawiy-nya zai berharakat kasrah. Harakat itu datang dari i'rab: مُوجَزِ na'at bagi لَفْظٍ, مُنْجَزِ na'at bagi وَعْدٍ, keduanya majrur. Jadi nahwu ikut menjaga qafiyah.",
+        "Contoh keempat dari Abu al-'Atahiyah: الْقُوتُ dan يَمُوتُ. Rawiy-nya ta berharakat dhammah. Perhatikan juga waw mad sebelum ta: ada di kedua kata. Huruf mad yang menempel pada rawiy ini juga harus dijaga. Namanya ridf, dan kita bedah di pelajaran 2.",
+        "Terakhir, bait peragaan: أَلَمْ dan يَنَمْ. Di sini rawiy-nya mati: mim sukun, tanpa ekor apa pun. Jadi rawiy bisa hidup (ـفَا، ـزِي، ـتُ) atau mati (ـمْ). Keduanya sah, asal dua syathr dalam satu bait sama.",
+        "Dari lima bait ini kaidahnya tertarik sendiri. Berhentilah seperti waqf. Buang dulu ekornya: alif, waw, atau ya pemanjang, nun tanwin, dan isyba'. Huruf yang tersisa paling ujung adalah rawiy. Lalu bandingkan rawiy syathr pertama dengan rawiy syathr kedua."
+      ],
+      "keliru": [
+        {
+          "salah": "Rawiy الشَّرَفَا adalah alif, karena alif itu huruf terakhir yang tertulis.",
+          "benar": "Rawiy-nya fa. Alif di ujung hanya memanjangkan fathah (alif ithlaq).",
+          "sebab": "Sama seperti waqf pada tanwin fathah dalam tajwid: alif pengganti tanwin hanya memanjangkan bunyi, bukan huruf yang dituju."
+        },
+        {
+          "salah": "Rawiy مُوجَزِ adalah ya, karena dilagukan مُوجَزِي.",
+          "benar": "Rawiy-nya zai berharakat kasrah. Ya itu isyba'.",
+          "sebab": "Isyba' mirip shilah ha dhamir dalam tajwid (بِهِۦ): bunyi tambahan yang tidak tertulis, jadi bukan huruf kata."
+        },
+        {
+          "salah": "Semua bait nadzom harus berakhir dengan huruf yang sama.",
+          "benar": "Dalam muzdawij, yang wajib sama hanya dua syathr di dalam satu bait.",
+          "sebab": "Alfiyah berpindah dari ـفَا ke ـيَّهْ lalu ke ـزِ dalam tiga bait berturut-turut."
+        },
+        {
+          "salah": "Mengubah harakat ujung kata supaya sama dengan pasangannya, misalnya menulis مُنْجَزُ.",
+          "benar": "Harakat rawiy mengikuti i'rab. Kalau i'rabnya tidak cocok, cari kata lain.",
+          "sebab": "مُنْجَزِ adalah na'at bagi وَعْدٍ yang majrur; mengubah harakatnya merusak nahwu."
+        }
+      ],
       "qaidah": [
         "**Rawiy** = huruf terakhir yang diucapkan saat berhenti, sebelum ekor bunyi (alif/ya/waw pemanjang, nun tanwin, isyba'). Seperti waqf dalam tajwid.",
         "**Muzdawij** = dua syathr setiap bait berakhir dengan rawiy yang sama. Bait berikutnya boleh memakai rawiy lain. Inilah pola Alfiyah dan kebanyakan matan nadzom.",
@@ -104,26 +134,151 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Apa rawiy bait حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ / مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ?",
-          "pilihan": [
-            "و",
-            "ت",
-            "ق"
-          ],
-          "jawaban": 1,
-          "alasan": "Huruf terakhir yang diucapkan saat berhenti adalah ta. Waw sebelumnya adalah huruf mad yang menempel pada rawiy (ridf), dibahas di pelajaran berikutnya."
+          "jenis": "kenali",
+          "petunjuk": "Waqf-lah pada setiap kata, buang ekornya, lalu tunjuk rawiy-nya.",
+          "soal": [
+            {
+              "soal": "Apa rawiy bait حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ / مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ?",
+              "pilihan": [
+                "و",
+                "ت",
+                "ق"
+              ],
+              "jawaban": 1,
+              "alasan": "Huruf terakhir yang diucapkan saat berhenti adalah ta. Waw sebelumnya adalah huruf mad yang menempel pada rawiy (ridf), dibahas di pelajaran berikutnya.",
+              "arab": true
+            },
+            {
+              "soal": "Apa rawiy الشَّرَفَا?",
+              "pilihan": [
+                "ا",
+                "ف",
+                "ر"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Alif di ujung hanya pemanjang fathah (alif ithlaq). Huruf yang dituju sebelum ekor itu adalah fa."
+            },
+            {
+              "soal": "Apa rawiy مُنْجَزِ, yang dilagukan مُنْجَزِي?",
+              "pilihan": [
+                "ي",
+                "ز",
+                "ج"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Ya di ujung adalah isyba', tidak tertulis dan bukan huruf kata. Rawiy-nya zai berharakat kasrah."
+            },
+            {
+              "soal": "Apa rawiy يَنَمْ?",
+              "pilihan": [
+                "ن",
+                "م",
+                "ي"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Mim mati adalah huruf terakhir yang diucapkan, dan tidak ada ekor sesudahnya. Rawiy boleh mati."
+            },
+            {
+              "soal": "Syathr pertama berakhir الْمُصْطَفَى, syathr kedua الشَّرَفَا. Apakah dua ujung ini berpasangan?",
+              "pilihan": [
+                "Ya, rawiy keduanya fa berharakat fathah",
+                "Tidak, karena yang satu ـفَى dan yang lain ـفَا",
+                "Tidak, karena jumlah hurufnya berbeda"
+              ],
+              "jawaban": 0,
+              "alasan": "Alif maqshurah dan alif ithlaq sama-sama hanya ekor bunyi. Bentuk tulisannya beda, bunyinya sama, rawiy-nya sama."
+            },
+            {
+              "soal": "Syathr pertama berakhir أَلَمْ. Mana ujung syathr kedua yang berpasangan?",
+              "pilihan": [
+                "الْقَلَمْ",
+                "الْعِلْمِ",
+                "يَنَامُ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "الْقَلَمْ berakhir mim sukun seperti أَلَمْ. الْعِلْمِ rawiy-nya mim berharakat kasrah, dan يَنَامُ mim berharakat dhammah dengan alif sebelumnya."
+            },
+            {
+              "soal": "Bait Alfiyah bait 2 berakhir ـفَا, bait 3 berakhir ـيَّهْ. Apakah itu cacat?",
+              "pilihan": [
+                "Cacat: semua bait harus satu qafiyah",
+                "Sah: dalam muzdawij qafiyah boleh berganti setiap bait",
+                "Sah hanya kalau bahrnya berganti"
+              ],
+              "jawaban": 1,
+              "alasan": "Yang wajib dalam muzdawij hanya dua syathr di dalam satu bait. Qashidah (satu qafiyah untuk semua bait) dibahas di Modul 7."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Bait Alfiyah bait 2 berakhir ـفَا, bait 3 berakhir ـيَّهْ. Apakah itu cacat?",
-          "pilihan": [
-            "Cacat: semua bait harus satu qafiyah",
-            "Sah: dalam muzdawij qafiyah boleh berganti setiap bait",
-            "Sah hanya kalau bahrnya berganti"
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 (hidup) dan 0 (mati) pada setiap ujung syathr. Mulai dari satu kata, lalu frasa. Ujung dibaca tanpa isyba'.",
+          "butir": [
+            "أَلَمْ",
+            "يَمُوتُ",
+            "مُوجَزِ",
+            "الشَّرَفَا",
+            "لِمَنْ يَمُوتُ",
+            "عَلَى مَنْ لَمْ يَنَمْ",
+            "النَّبِيِّ الْمُصْطَفَى",
+            "مَا أَطْوَلَ اللَّيْلَ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang syathr pertama Alfiyah bait 4, lalu sebutkan rawiy-nya.",
+          "bait": [
+            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ"
           ],
-          "jawaban": 1,
-          "alasan": "Yang wajib dalam muzdawij hanya dua syathr di dalam satu bait. Qashidah (satu qafiyah untuk semua bait) dibahas di Modul 7."
+          "bahr": "rajaz",
+          "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan setiap baris dengan nada rajaz. Centang yang terasa pincang, lalu periksa dengan timbangan. Yang diperiksa di sini hanya timbangan.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal, Abu al-'Atahiyah."
+            },
+            {
+              "bait": [
+                "مَا أَكْثَرَ الطَّعَامَ لِمَنْ يَمُوتُ"
+              ],
+              "catatan": "Diubah dari Dzat al-Amtsal: الْقُوتَ diganti الطَّعَامَ. Maknanya dekat, tetapi قُو تَ (101) menjadi طَ عَا مَ (1101). Satu huruf hidup lebih, taf'ilah kedua tidak lagi berbentuk rajaz."
+            },
+            {
+              "bait": [
+                "مُصَلِّيًا عَلَى النَّبِيِّ الْمُصْطَفَى"
+              ],
+              "catatan": "Lurus. Alfiyah, muqaddimah bait 2."
+            },
+            {
+              "bait": [
+                "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ قَصِيرِ"
+              ],
+              "catatan": "Diubah dari Alfiyah bait 4: مُوجَزِ diganti قَصِيرِ. Jumlah hurufnya sama, tetapi urutannya terbalik: مُوجَزِ = 1011, قَصِيرِ = 1101. Ujung syathr tidak jatuh pada bentuk rajaz."
+            },
+            {
+              "bait": [
+                "لِكُلِّ مَا يُؤْذِي وَإِنْ قَلَّ أَلَمْ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal, bait peragaan pelajaran ini."
+            },
+            {
+              "bait": [
+                "مَا أَطْوَلَ اللَّيْلَ عَلَى مَنْ لَا يَنَامْ"
+              ],
+              "catatan": "Diubah dari Dzat al-Amtsal: لَمْ يَنَمْ diganti لَا يَنَامْ. Ujungnya jadi ـنَامْ = 100, dua huruf mati bertemu, dan rajaz tidak punya ujung seperti itu. Ingat nahwu: setelah لَمْ, alif يَنَامُ gugur karena dua sukun bertemu, jadi يَنَمْ (110). Bentuk itulah yang dipakai penyair."
+            }
+          ]
         },
         {
           "jenis": "irama",
@@ -134,15 +289,6 @@
           ],
           "bahr": "rajaz",
           "makna": "Dari semua yang kau kejar, cukuplah makanan sekadarnya. Bagi orang yang pasti mati, sekadar makan pun sudah banyak."
-        },
-        {
-          "jenis": "taqthi",
-          "petunjuk": "Timbang syathr pertama Alfiyah bait 4, lalu sebutkan rawiy-nya.",
-          "bait": [
-            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ"
-          ],
-          "bahr": "rajaz",
-          "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas."
         }
       ],
       "patokan": "Syathr kedua bahts ditandai sendiri, dan rawiy empat contoh disebutkan dengan benar."
@@ -240,6 +386,36 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua**. عَلَى الْعِيَالِ dibaca عَلَلْعِيَالِي: alif maqshurah gugur sebelum hamzah washal."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: الْقَضَاءِ dan الْبَلَاءِ. Rawiy-nya hamzah, harakatnya kasrah, dan tepat sebelum hamzah ada alif mad. Alif itu disebut **ridf**. Bayangkan syathr kedua berakhir الْبَلَاءُ: hurufnya sama, harakatnya lain. Telinga langsung menangkap bedanya, sama seperti Anda langsung mendengar kalau i'rab sebuah kata salah.",
+        "Contoh kedua: الْحَلَالِ dan الْعِيَالِ. Rawiy lam, kasrah, ridf alif. Perhatikan wazannya: keduanya فَعَال. Dalam sharaf, kata yang satu wazan punya susunan hidup dan mati yang sama. Maka satu wazan hampir pasti satu pola bit juga, dan pasangannya enak didengar.",
+        "Contoh ketiga: الْبَلَاغَا dan الْفَرَاغَا. Wazannya lagi-lagi فَعَال. Di sini ada dua alif. Alif sebelum ghain adalah ridf: wajib ada juga di pasangannya. Alif sesudah ghain hanya ekor (alif ithlaq), seperti di الشَّرَفَا pada pelajaran 1.",
+        "Contoh keempat: وَاحِدَا dan رَاشِدَا. Alifnya tidak tepat sebelum rawiy; ada satu huruf hidup di antaranya (حِ dan شِ). Jadi itu bukan ridf. Alif yang berjarak satu huruf seperti ini disebut ta'sis, dan dibahas di Modul 7. Untuk sekarang cukup ingat: kalau satu syathr punya alif itu, pasangannya juga harus punya. Wazan فَاعِل menjaminnya. Kalau وَاحِدَا dipasangkan dengan أَبَدَا, pemeriksa akan menolak.",
+        "Di peragaan, Hudhud menguji الْحَلَالِ dengan dua calon lain. الْجَمِيلِ punya ridf ya, bukan alif: gagal. الْأَمَلِ tidak punya ridf sama sekali: gagal juga. Ridf alif hanya mau dengan alif. Ridf waw dan ya lebih longgar: الْقُوتُ boleh berpasangan dengan الْمَبِيتُ.",
+        "Jadi pasangan qafiyah diperiksa tiga lapis: rawiy, harakat rawiy, lalu ridf. Cara tercepat lolos ketiganya adalah mencari kata yang satu wazan dengan pasangannya."
+      ],
+      "keliru": [
+        {
+          "salah": "الْحَلَالِ dipasangkan dengan الْجَمِيلِ karena sama-sama berakhir ـلِ.",
+          "benar": "Pasangannya الْعِيَالِ atau الْكَمَالِ, kata yang juga punya alif tepat sebelum lam.",
+          "sebab": "Ridf alif hanya berpasangan dengan alif. Ya mad di الْجَمِيلِ adalah ridf jenis lain."
+        },
+        {
+          "salah": "الْقُوتُ dipasangkan dengan الْوَقْتُ.",
+          "benar": "يَفُوتُ، يَمُوتُ، atau الْمَبِيتُ.",
+          "sebab": "Di الْوَقْتُ, huruf sebelum ta adalah qaf mati, bukan huruf mad. Yang satu ber-ridf, yang lain tidak."
+        },
+        {
+          "salah": "الْقَضَاءِ dipasangkan dengan الدُّعَا, hamzahnya dibuang supaya ringan.",
+          "benar": "الْبَلَاءِ atau الشِّفَاءِ, dengan hamzah tetap.",
+          "sebab": "Tanpa hamzah, huruf terakhir yang diucapkan menjadi 'ain. Rawiy-nya berubah. Dalam tajwid pun, mad wajib muttashil hanya ada kalau hamzahnya ada."
+        },
+        {
+          "salah": "وَاحِدَا dipasangkan dengan أَبَدَا karena sama-sama ـدَا.",
+          "benar": "رَاشِدَا atau قَاصِدَا, yang sama-sama berwazan فَاعِل.",
+          "sebab": "وَاحِدَا punya alif yang berjarak satu huruf sebelum rawiy (ta'sis). Pasangannya harus punya juga."
+        }
+      ],
       "qaidah": [
         "Pasangan qafiyah harus sama dalam tiga hal: **rawiy**, **harakat rawiy** (fathah, kasrah, dhammah, atau sukun), dan **ridf** (huruf mad tepat sebelum rawiy) bila ada.",
         "Ridf **alif** hanya berpasangan dengan alif: الْقَضَاءِ / الْبَلَاءِ. Ridf **waw** dan **ya** boleh saling berganti: الْقُوتُ / الْمَبِيتُ.",
@@ -248,26 +424,99 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Pasangan mana yang sah untuk الْقُوتُ?",
-          "pilihan": [
-            "الْوَقْتُ",
-            "يَفُوتُ",
-            "الْقُوتَا"
-          ],
-          "jawaban": 1,
-          "alasan": "يَفُوتُ: rawiy ta, dhammah, ridf waw. الْوَقْتُ tidak punya ridf (qaf sebelum ta mati). الْقُوتَا harakat rawiy-nya fathah, bukan dhammah."
+          "jenis": "kenali",
+          "petunjuk": "Periksa tiga lapis: rawiy, harakat rawiy, ridf. Pilih yang lolos ketiganya.",
+          "soal": [
+            {
+              "soal": "Pasangan mana yang sah untuk الْحَلَالِ?",
+              "pilihan": [
+                "الْجَمِيلِ",
+                "الْعِيَالِ",
+                "الْأَمَلِ"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "الْعِيَالِ: lam, kasrah, ridf alif. الْجَمِيلِ ridf-nya ya, الْأَمَلِ tanpa ridf."
+            },
+            {
+              "soal": "Pasangan mana yang sah untuk الْقُوتُ?",
+              "pilihan": [
+                "الْوَقْتُ",
+                "يَفُوتُ",
+                "الْقُوتَا"
+              ],
+              "jawaban": 1,
+              "alasan": "يَفُوتُ: rawiy ta, dhammah, ridf waw. الْوَقْتُ tidak punya ridf (qaf sebelum ta mati). الْقُوتَا harakat rawiy-nya fathah, bukan dhammah.",
+              "arab": true
+            },
+            {
+              "soal": "Syathr pertama berakhir الْقَضَاءِ. Mana ujung syathr kedua yang benar?",
+              "pilihan": [
+                "الْبَلَاءِ",
+                "الْبَلَاءُ",
+                "الدُّعَا"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy hamzah, kasrah, ridf alif. الْبَلَاءُ harakatnya dhammah. الدُّعَا kehilangan hamzahnya, jadi rawiy-nya berubah.",
+              "arab": true
+            },
+            {
+              "soal": "Apa rawiy تَقْدِيرِهِ?",
+              "pilihan": [
+                "ه",
+                "ر",
+                "ي"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Ha dhamir sesudah huruf hidup adalah ekor. Rawiy-nya ra berharakat kasrah. Ya sebelum ra adalah ridf."
+            },
+            {
+              "soal": "الْقُوتُ dan الْمَبِيتُ di ujung dua syathr satu bait. Sah?",
+              "pilihan": [
+                "Sah: ridf waw dan ya boleh bergantian",
+                "Tidak sah: ridf harus huruf yang sama",
+                "Tidak sah: wazannya berbeda"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy ta, harakat dhammah, dan keduanya ber-ridf. Waw dan ya boleh saling ganti; hanya alif yang harus bertemu alif."
+            },
+            {
+              "soal": "Pasangan mana yang sah untuk وَاحِدَا?",
+              "pilihan": [
+                "أَبَدَا",
+                "رَاشِدَا",
+                "مُحَمَّدَا"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "وَاحِدَا punya alif yang berjarak satu huruf sebelum rawiy (ta'sis, Modul 7). Hanya رَاشِدَا yang punya juga, karena sama-sama berwazan فَاعِل."
+            },
+            {
+              "soal": "مَا أَكْرَمَ السَّعْيَ عَلَى الْأَوْلَادِ lurus timbangannya. Bolehkah syathr ini menjadi pasangan مَا أَشْرَفَ الْكَسْبَ مِنَ الْحَلَالِ?",
+              "pilihan": [
+                "Boleh, karena keduanya lurus",
+                "Tidak, rawiy-nya dal sedangkan pasangannya lam",
+                "Tidak, karena ridf-nya berbeda"
+              ],
+              "jawaban": 1,
+              "alasan": "Lurus timbangan dan sah qafiyah adalah dua pemeriksaan yang terpisah. Ridf keduanya sama-sama alif, tetapi rawiy-nya berbeda (د dan ل)."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Syathr pertama berakhir الْقَضَاءِ. Mana ujung syathr kedua yang benar?",
-          "pilihan": [
-            "الْبَلَاءِ",
-            "الْبَلَاءُ",
-            "الدُّعَا"
-          ],
-          "jawaban": 0,
-          "alasan": "Rawiy hamzah, kasrah, ridf alif. الْبَلَاءُ harakatnya dhammah. الدُّعَا kehilangan hamzahnya, jadi rawiy-nya berubah."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada kata-kata pasangan qafiyah. Perhatikan alif ridf: selalu 0, dan selalu didahului huruf hidup.",
+          "butir": [
+            "رَاشِدَا",
+            "الْعِيَالِ",
+            "الْبَلَاغَا",
+            "وَالْفَرَاغَا",
+            "مِنَ الْحَلَالِ",
+            "عَلَى الْبَلَاءِ",
+            "هَمًّا وَاحِدَا",
+            "وَاغْتَنِمِ الصِّحَّةَ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -278,6 +527,49 @@
           ],
           "bahr": "rajaz",
           "makna": "Aku rida kepada Allah dan kepada ketetapan-Nya. Alangkah mulianya bersabar ketika ditimpa ujian."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Kata pasangan qafiyah sering diganti sinonim. Lagukan setiap baris, centang yang pincang, lalu periksa. Di sini yang diperiksa hanya timbangan.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "مَا أَشْرَفَ الْكَسْبَ مِنَ الْحَلَالِ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal."
+            },
+            {
+              "bait": [
+                "رَضِيتُ بِاللَّهِ وَبِالْقَدَرِ"
+              ],
+              "catatan": "Diubah dari Dzat al-Amtsal: الْقَضَاءِ diganti الْقَدَرِ. Wazan فَعَال (قَ ضَا ءِ = 1101) menjadi فَعَل (قَ دَ رِ = 111). Alif hilang, satu suku panjang menjadi pendek."
+            },
+            {
+              "bait": [
+                "وَاغْتَنِمِ الصِّحَّةَ وَالْفَرَاغَا"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal."
+            },
+            {
+              "bait": [
+                "مَا أَشْرَفَ الْكَسْبَ مِنَ الطَّيِّبِ"
+              ],
+              "catatan": "Diubah: الْحَلَالِ diganti الطَّيِّبِ. Maknanya dekat, tetapi wazannya lain: نَلْ حَ لَا لِ menjadi نَطْ طَيْ يِ بِ. Urutan hidup dan matinya bergeser."
+            },
+            {
+              "bait": [
+                "إِذَا جَعَلْتَ الْهَمَّ هَمًّا وَاحِدَا"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal."
+            },
+            {
+              "bait": [
+                "وَاغْتَنِمِ الصِّحَّةَ وَالْوَقْتَا"
+              ],
+              "catatan": "Diubah: الْفَرَاغَا diganti الْوَقْتَا. فَ رَا غَا (11010) menjadi وَقْ تَا (1010): satu huruf hidup hilang, ujung syathr kurang satu bunyi."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -384,6 +676,36 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua**. صَرَّفَ: syaddah = dua huruf (صَرْرَفَ). Lalu periksa: apakah أُمُورِهِ benar berpasangan dengan تَقْدِيرِهِ?"
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, pembuka urjuzah Abu al-'Atahiyah: hamdalah, dengan pasangan تَقْدِيرِهِ dan أُمُورِهِ. Ha di ujung keduanya adalah dhamir yang kembali kepada Allah. Ha itu ekor; yang dipasangkan adalah ra berharakat kasrah, dengan ya dan waw mad sebelumnya sebagai ridf. Satu bait memuat satu gagasan utuh: memuji Allah atas takdir dan pengaturan-Nya.",
+        "Contoh kedua adalah penutup muqaddimah Alfiyah: doa. وَافِرَهْ dan الْآخِرَهْ. Ta marbutah diwaqafkan menjadi ha mati, jadi ekor; rawiy-nya ra berharakat fathah. Keduanya berwazan فَاعِلَة, maka polanya kembar, termasuk alif yang berjarak satu huruf dari rawiy.",
+        "Contoh ketiga dari khatimah Alfiyah: فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى / مُحَمَّدٍ. Huruf jar عَلَى berdiri di ujung syathr pertama, dan majrurnya baru muncul di syathr kedua. Makna menyeberang. Itu boleh, tetapi untuk pemula lebih aman bila setiap bait selesai maknanya sendiri.",
+        "Contoh keempat adalah bait terakhir Alfiyah: shalawat untuk keluarga dan sahabat, dengan pasangan الْبَرَرَهْ dan الْخِيَرَهْ. Qafiyah pindah dari ـلَا ke ـرَهْ, sedangkan iramanya tetap rajaz. Perhatikan juga الْغُرِّ: kata sifat yang menambah pujian sekaligus mengisi timbangan.",
+        "Dari empat contoh ini tampak kerangka matan: hamdalah, isi, doa, shalawat. Setiap bait punya pasangannya sendiri. Untuk lima bait, Anda cukup mencari lima pasang kata, bukan lima puluh kata berakhiran sama.",
+        "Di peragaan, Hudhud memulai dari rancangan makna, lalu memilih pasangan untuk setiap bait sebelum menulis satu kata Arab pun. Urutan ini penting. Kalau bait disusun dulu lalu qafiyah dicari belakangan, bait biasanya harus dibongkar ulang."
+      ],
+      "keliru": [
+        {
+          "salah": "Langsung menyusun bait Arab tanpa rancangan makna.",
+          "benar": "Tulis makna kelima bait dulu, lalu pilih lima pasang qafiyah, baru susun bait satu per satu.",
+          "sebab": "Seperti i'rab: tentukan dulu kedudukan kata dalam kalimat, baru harakatnya. Menebak harakat lebih dulu membuat kerja dua kali."
+        },
+        {
+          "salah": "Menganggap تَقْدِيرِهِ dan أُمُورِهِ tidak berpasangan karena yang satu ـيـ dan yang lain ـوـ.",
+          "benar": "Berpasangan. Rawiy ra kasrah sama, dan ridf ya boleh bertemu ridf waw.",
+          "sebab": "Ha dhamir di ujung hanya ekor; yang dibandingkan adalah ra dan huruf mad sebelumnya."
+        },
+        {
+          "salah": "Membuang kata seperti الْغُرِّ karena dianggap hiasan saja: وَآلِهِ الْكِرَامِ الْبَرَرَهْ.",
+          "benar": "Biarkan, atau ganti dengan kata yang sepola.",
+          "sebab": "Kata itu mengisi timbangan. Tanpa غُرْ رِ, syathr kekurangan bunyi dan pincang."
+        },
+        {
+          "salah": "Memakai pasangan ـلَالِ di bait 3, lalu ـلَالِ lagi di bait 4.",
+          "benar": "Ganti pasangan di bait berikutnya, misalnya ـلَاءِ atau ـرَهْ.",
+          "sebab": "Secara kaidah sah, tetapi muzdawij memberi kebebasan berganti. Mengulang pasangan yang sama terdengar miskin."
+        }
+      ],
       "qaidah": [
         "Urutan kerja lima bait: **rancang makna** semua bait → **pilih pasangan qafiyah** per bait → susun bait satu per satu → timbang setiap bait → periksa pasangan qafiyah.",
         "Kerangka umum matan: hamdalah, shalawat, isi, doa atau penutup. Alfiyah dan Dzat al-Amtsal sama-sama dibuka dengan hamdalah.",
@@ -392,15 +714,149 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Anda menyusun 5 bait muzdawij. Bait 1 berpasangan ـرِهِ, bait 2 ingin memakai ـفَا. Boleh?",
-          "pilihan": [
-            "Boleh, setiap bait punya pasangannya sendiri",
-            "Tidak, harus ـرِهِ sampai akhir",
-            "Boleh, asal bait 2 memakai bahr lain"
+          "jenis": "kenali",
+          "petunjuk": "Soal tentang merancang lima bait: urutan kerja, kerangka, dan pasangan qafiyah per bait.",
+          "soal": [
+            {
+              "soal": "Anda akan menyusun lima bait. Apa langkah pertama?",
+              "pilihan": [
+                "Menulis makna setiap bait dengan bahasa sendiri",
+                "Mencari kata yang berakhiran sama untuk kelima bait",
+                "Langsung menyusun bait pertama dalam bahasa Arab"
+              ],
+              "jawaban": 0,
+              "alasan": "Rancangan makna dulu, lalu pasangan qafiyah per bait, baru susun. Muzdawij tidak menuntut satu akhiran untuk semua bait."
+            },
+            {
+              "soal": "Anda menyusun 5 bait muzdawij. Bait 1 berpasangan ـرِهِ, bait 2 ingin memakai ـفَا. Boleh?",
+              "pilihan": [
+                "Boleh, setiap bait punya pasangannya sendiri",
+                "Tidak, harus ـرِهِ sampai akhir",
+                "Boleh, asal bait 2 memakai bahr lain"
+              ],
+              "jawaban": 0,
+              "alasan": "Muzdawij hanya menuntut dua syathr dalam satu bait berpasangan. Bahr tetap rajaz untuk semua bait."
+            },
+            {
+              "soal": "Apakah تَقْدِيرِهِ dan أُمُورِهِ berpasangan?",
+              "pilihan": [
+                "Ya: rawiy ra kasrah, ridf ya dan waw boleh bergantian",
+                "Tidak: ridf-nya berbeda",
+                "Tidak: rawiy-nya ha, jadi harus sama huruf sebelumnya juga"
+              ],
+              "jawaban": 0,
+              "alasan": "Ha dhamir adalah ekor. Rawiy ra kasrah ada di keduanya, dan ridf waw serta ya boleh saling ganti."
+            },
+            {
+              "soal": "Apa rawiy وَافِرَهْ / الْآخِرَهْ?",
+              "pilihan": [
+                "ه",
+                "ر",
+                "ف"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Ta marbutah yang diwaqafkan menjadi ha, dan ha sesudah huruf hidup adalah ekor. Rawiy-nya ra berharakat fathah."
+            },
+            {
+              "soal": "Bait 2 dalam rancangan: shalawat kepada keluarga dan sahabat. Pasangan mana yang paling pas maknanya?",
+              "pilihan": [
+                "الْبَرَرَهْ / الْخِيَرَهْ",
+                "الْحَلَالِ / الْعِيَالِ",
+                "الْقُوتُ / يَمُوتُ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "Ini pasangan bait terakhir Alfiyah, yang memang memuji keluarga dan sahabat Nabi."
+            },
+            {
+              "soal": "فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى / مُحَمَّدٍ ...: maknanya menyeberang dari syathr pertama ke syathr kedua. Bolehkah?",
+              "pilihan": [
+                "Boleh, selama bait lurus; pemula sebaiknya menyelesaikan makna dalam satu bait",
+                "Tidak boleh, setiap syathr harus kalimat sempurna",
+                "Boleh, asal qafiyahnya berganti"
+              ],
+              "jawaban": 0,
+              "alasan": "Ibnu Malik memakainya di khatimah. Tetapi untuk latihan, bait yang maknanya selesai sendiri lebih mudah diperiksa."
+            },
+            {
+              "soal": "Bait 3 memakai ـلَالِ. Bait 4 juga ingin memakai ـلَالِ. Bagaimana?",
+              "pilihan": [
+                "Sah, tetapi lebih baik berganti pasangan",
+                "Tidak sah dalam muzdawij",
+                "Wajib, karena bait berdekatan harus sama"
+              ],
+              "jawaban": 0,
+              "alasan": "Kaidah tidak melarangnya, tetapi muzdawij memberi kebebasan; manfaatkan untuk variasi."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada potongan dari kerangka pembuka dan penutup. Ingat: syaddah = dua huruf, mati lalu hidup.",
+          "butir": [
+            "الْبَرَرَهْ",
+            "أُمُورِهِ",
+            "وَصَحْبِهِ",
+            "تَقْدِيرِهِ",
+            "مُصَلِّيًا عَلَى",
+            "الْحَمْدُ لِلَّهِ",
+            "وَحُسْنِ مَا صَرَّفَ",
+            "خَيْرِ نَبِيٍّ أُرْسِلَا"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait doa penutup muqaddimah Alfiyah, lalu sebutkan rawiy dan harakatnya.",
+          "bait": [
+            "وَاللَّهُ يَقْضِي بِهِبَاتٍ وَافِرَهْ",
+            "لِي وَلَهُ فِي دَرَجَاتِ الْآخِرَهْ"
           ],
-          "jawaban": 0,
-          "alasan": "Muzdawij hanya menuntut dua syathr dalam satu bait berpasangan. Bahr tetap rajaz untuk semua bait."
+          "bahr": "rajaz",
+          "makna": "Semoga Allah menetapkan karunia yang berlimpah bagiku dan baginya (Ibnu Mu'thi) di derajat-derajat akhirat."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Ini bait-bait pembuka dan penutup. Sebagian kata diganti sinonim. Lagukan, centang yang pincang, lalu periksa.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "الْحَمْدُ لِلَّهِ عَلَى تَقْدِيرِهِ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal, bait pembuka."
+            },
+            {
+              "bait": [
+                "فَأَحْمَدُ رَبِّي مُصَلِّيًا عَلَى"
+              ],
+              "catatan": "Diubah dari khatimah Alfiyah: اللَّهَ diganti رَبِّي. Terlihat sepele, tetapi مَدُلْ لَاهَ = 110101 menjadi مَدُ رَبْ بِي = 111010. Susunan bunyinya bergeser."
+            },
+            {
+              "bait": [
+                "وَصَحْبِهِ الْمُنْتَخَبِينَ الْخِيَرَهْ"
+              ],
+              "catatan": "Lurus. Alfiyah, bait terakhir."
+            },
+            {
+              "bait": [
+                "وَصَحْبِهِ الْمُخْتَارِينَ الْخِيَرَهْ"
+              ],
+              "catatan": "Diubah: الْمُنْتَخَبِينَ diganti الْمُخْتَارِينَ. Dalam sharaf, مُخْتَار asalnya مُخْتَيَر; ya berharakat berubah menjadi alif (i'lal). Satu huruf hidup menjadi mad, dan polanya tidak muat lagi."
+            },
+            {
+              "bait": [
+                "فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى"
+              ],
+              "catatan": "Lurus. Alfiyah, khatimah."
+            },
+            {
+              "bait": [
+                "مُحَمَّدٍ أَفْضَلِ نَبِيٍّ أُرْسِلَا"
+              ],
+              "catatan": "Diubah dari khatimah Alfiyah: خَيْرِ diganti أَفْضَلِ. خَيْر adalah isim tafdhil yang hamzahnya dibuang (asalnya أَخْيَر), jadi pendek: خَيْ رِ (101). أَفْضَلِ = أَفْ ضَ لِ (1011), satu huruf hidup lebih."
+            }
+          ]
         },
         {
           "jenis": "irama",

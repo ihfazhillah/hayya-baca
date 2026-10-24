@@ -140,6 +140,36 @@
           "petunjuk": "Giliran Anda: tandai **syathr kedua** versi akhir. لِلدَّرْسِ: lam syamsiyah lebur, لِدْدَرْسِ. طَرِيقُ الْفَهْمِ: hamzah washal gugur, قُلْفَهْمِي."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: عَاقِبَةُ الصَّبْرِ لَهَا حَلَاوَهْ / وَعَادَةُ الشَّرِّ لَهَا ضَرَاوَهْ. Dua syathr dibangun sejajar: mudhaf dan mudhaf ilaih, lalu لَهَا, lalu kata berwazan فَعَالَة. Kesejajaran nahwu seperti ini membuat bait mudah dihafal, dan pasangan qafiyahnya datang sendiri: ـلَاوَهْ / ـرَاوَهْ, rawiy waw berharakat fathah dengan ridf alif. Struktur ini bisa ditiru untuk bait 2 dan bait 9.",
+        "Contoh kedua: رَضِيتُ بِاللَّهِ وَبِالْقَضَاءِ / مَا أَكْرَمَ الصَّبْرَ عَلَى الْبَلَاءِ. Syathr kedua dibuka dengan ta'ajjub. Wazan مَا أَفْعَلَ yang diikuti kata ber-الْ selalu memberi مَا أَكْ رَمَصْ = 1010110, satu مُسْتَفْعِلُنْ utuh. Ini cetakan siap pakai: ganti dengan مَا أَحْسَنَ atau مَا أَعْظَمَ, dan ganti الصَّبْرَ dengan kata sepola.",
+        "Contoh ketiga: النَّفْسُ أَعْدَى لَكَ مِمَّا تَحْسَبُ / حَسْبُكَ مِنْ عِلْمِكَ مَا تُجَرِّبُ. Syathr keduanya pas untuk bagian keterampilan (bait 7 dan 8): ilmu menjadi milikmu setelah kau coba sendiri. Perhatikan qafiyahnya: تَحْسَبُ dan تُجَرِّبُ sama-sama fi'il mudhari' marfu'. Harakat rawiy dhammah datang dari i'rab yang sama, jadi pasangan ini kokoh.",
+        "Contoh keempat: تَحَرَّ فِيمَا تَطْلُبُ الْبَلَاغَا / وَاغْتَنِمِ الصِّحَّةَ وَالْفَرَاغَا. Ini bahan bait 4: pakai waktu sedikit demi sedikit. Kedua syathr dibuka fi'il amr (تَحَرَّ، اغْتَنِمْ). Nada perintah seperti ini cocok untuk nasihat ayah kepada anak.",
+        "Contoh kelima dan keenam untuk khatimah. Doa يَا رَبِّ أَسْعِدْنِي بِمَا عَلَّمْتَنِي bisa diubah menjadi doa untuk anak hanya dengan mengganti kata ganti: أَسْعِدْهُ، عَلَّمْتَهُ. Dalam syair, ha dhamir boleh dipanjangkan (ـهُو) walaupun huruf sebelumnya mati, jadi panjangnya sama dengan ـنِي dan timbangannya tetap lurus. Sesudah doa, shalawat mengikuti pola فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى.",
+        "Terakhir, peragaan. Draf pertama memakai التَّكْرَارُ karena maknanya paling pas, dan syathr itu patah: وَتْ تَكْ رَا رُ adalah tiga suku panjang beruntun sebelum satu suku pendek. Hudhud tidak membuang maknanya; ia mengganti katanya dengan الْعَوْدُ لِلدَّرْسِ. Inilah pekerjaan inti Boss ini: makna dijaga, kata diganti, timbang lagi."
+      ],
+      "keliru": [
+        {
+          "salah": "Menyusun sepuluh bait sekaligus, lalu menimbang semuanya di akhir.",
+          "benar": "Satu bait: makna, pasangan qafiyah, susun, timbang. Setelah lurus, baru pindah.",
+          "sebab": "Kesalahan di bait pertama biasanya terulang di bait-bait berikutnya. Seperti memeriksa i'rab setiap kalimat sebelum lanjut membaca."
+        },
+        {
+          "salah": "Memaksakan kata التَّكْرَارُ karena maknanya paling pas.",
+          "benar": "Ganti kata, jaga makna: الْعَوْدُ لِلدَّرْسِ، أَعِدْ، كَرِّرْ، رَاجِعْ.",
+          "sebab": "Masdar wazan تَفْعَال berisi suku panjang beruntun; di awal syathr rajaz ia tidak muat."
+        },
+        {
+          "salah": "Mengubah doa menjadi يَا رَبِّ أَسْعِدْ وَلَدِي بِمَا عَلَّمْتَهُ supaya jelas untuk anak.",
+          "benar": "Cukup ganti kata ganti: يَا رَبِّ أَسْعِدْهُ بِمَا عَلَّمْتَهُ.",
+          "sebab": "Ha dhamir sudah menunjuk anak. Menyisipkan وَلَدِي menambah bunyi, dan syathr menjadi terlalu panjang."
+        },
+        {
+          "salah": "Memasangkan عِلْمِ dengan الْأَمَلْ karena maknanya serasi.",
+          "benar": "عِلْمِ / فَهْمِ, atau الْعَمَلْ / الْأَمَلْ.",
+          "sebab": "Rawiy dan harakatnya berbeda: mim kasrah dan lam sukun. Makna yang serasi tidak menolong qafiyah."
+        }
+      ],
       "qaidah": [
         "**Rancangan dulu, Arab kemudian.** Untuk setiap bait: tulis maknanya, pilih pasangan qafiyah, baru susun. Jangan menyusun sepuluh bait sekaligus.",
         "**Pasangan qafiyah per bait** boleh berbeda (muzdawij), tetapi di dalam satu bait harus sama rawiy, harakat, dan ridf-nya.",
@@ -149,27 +179,111 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Pasangan qafiyah mana yang **tidak** sah untuk satu bait muzdawij?",
-          "pilihan": [
-            "صَبْرَا / ذِكْرَا",
-            "الْعَمَلْ / الْأَمَلْ",
-            "أَبَدَا / غَدَا",
-            "عِلْمِ / الْأَمَلْ"
-          ],
-          "jawaban": 3,
-          "alasan": "عِلْمِ berawiy mim kasrah, الْأَمَلْ berawiy lam sukun. Tiga pasangan lainnya sama rawiy dan harakatnya: ر fathah, ل sukun, د fathah."
+          "jenis": "kenali",
+          "petunjuk": "Pemanasan qafiyah untuk sepuluh bait. Setiap soal memakai pasangan dari laci Boss.",
+          "soal": [
+            {
+              "soal": "Pasangan qafiyah mana yang **tidak** sah untuk satu bait muzdawij?",
+              "pilihan": [
+                "صَبْرَا / ذِكْرَا",
+                "الْعَمَلْ / الْأَمَلْ",
+                "أَبَدَا / غَدَا",
+                "عِلْمِ / الْأَمَلْ"
+              ],
+              "jawaban": 3,
+              "alasan": "عِلْمِ berawiy mim kasrah, الْأَمَلْ berawiy lam sukun. Tiga pasangan lainnya sama rawiy dan harakatnya: ر fathah, ل sukun, د fathah.",
+              "arab": true
+            },
+            {
+              "soal": "Apa rawiy حَلَاوَهْ / ضَرَاوَهْ?",
+              "pilihan": [
+                "ه",
+                "و",
+                "ا"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "Ha sesudah huruf hidup adalah ekor. Rawiy-nya waw berharakat fathah, dan alif sebelumnya adalah ridf."
+            },
+            {
+              "soal": "Bait 2: syathr pertama berakhir عِلْمِ. Pasangan mana yang sah?",
+              "pilihan": [
+                "فَهْمِ",
+                "الْعُلُومِ",
+                "عِلْمُ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "فَهْمِ: mim kasrah tanpa ridf. الْعُلُومِ punya ridf waw, عِلْمُ harakatnya dhammah."
+            },
+            {
+              "soal": "Bait 3: pasangan mana yang sah untuk الدُّرُوسِ?",
+              "pilihan": [
+                "الدَّرْسِ",
+                "النُّفُوسِ",
+                "الشُّمُوسُ"
+              ],
+              "jawaban": 1,
+              "arab": true,
+              "alasan": "النُّفُوسِ: sin kasrah, ridf waw, wazan فُعُول yang sama. الدَّرْسِ tanpa ridf, الشُّمُوسُ harakatnya dhammah."
+            },
+            {
+              "soal": "Pasangan mana yang sah untuk صَبْرَا?",
+              "pilihan": [
+                "صَبْرِ",
+                "صَابِرَا",
+                "ذِكْرَا"
+              ],
+              "jawaban": 2,
+              "arab": true,
+              "alasan": "ذِكْرَا: ra fathah, wazan فِعْل yang sama. صَبْرِ harakatnya kasrah. صَابِرَا punya alif yang berjarak satu huruf sebelum rawiy (ta'sis), صَبْرَا tidak."
+            },
+            {
+              "soal": "Mengapa تَحْسَبُ dan تُجَرِّبُ sama harakat rawiy-nya?",
+              "pilihan": [
+                "Keduanya fi'il mudhari' marfu'",
+                "Keduanya isim majrur",
+                "Kebetulan, harakatnya boleh diubah sesuai kebutuhan"
+              ],
+              "jawaban": 0,
+              "alasan": "Harakat rawiy mengikuti i'rab. Fi'il mudhari' yang tidak didahului nashib atau jazim berharakat dhammah."
+            },
+            {
+              "soal": "Bait 2 berpasangan عِلْمِ / فَهْمِ. Bait 3 ingin memakai الدُّرُوسِ / النُّفُوسِ. Boleh?",
+              "pilihan": [
+                "Boleh, setiap bait muzdawij punya pasangannya sendiri",
+                "Tidak, sepuluh bait harus satu qafiyah",
+                "Boleh, asal rawiy-nya tetap mim"
+              ],
+              "jawaban": 0,
+              "alasan": "Muzdawij hanya menuntut dua syathr di dalam satu bait berpasangan."
+            },
+            {
+              "soal": "Bait 10 berisi doa untuk anak. Mana sumber pola yang paling dekat?",
+              "pilihan": [
+                "يَا رَبِّ أَسْعِدْنِي بِمَا عَلَّمْتَنِي (Dzat al-Amtsal)",
+                "النَّفْسُ أَعْدَى لَكَ مِمَّا تَحْسَبُ (Dzat al-Amtsal)",
+                "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ (Alfiyah)"
+              ],
+              "jawaban": 0,
+              "alasan": "Bait itu sudah berupa doa tentang ilmu. Ganti kata ganti ـنِي (aku) dengan ـهُ (dia, anakku), lalu timbang ulang."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Bait 10 berisi doa untuk anak. Mana sumber pola yang paling dekat?",
-          "pilihan": [
-            "يَا رَبِّ أَسْعِدْنِي بِمَا عَلَّمْتَنِي (Dzat al-Amtsal)",
-            "النَّفْسُ أَعْدَى لَكَ مِمَّا تَحْسَبُ (Dzat al-Amtsal)",
-            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ (Alfiyah)"
-          ],
-          "jawaban": 0,
-          "alasan": "Bait itu sudah berupa doa tentang ilmu. Ganti kata ganti ـنِي (aku) dengan ـهُ (dia, anakku), lalu timbang ulang."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada frasa dari laci Boss. Inilah bahan yang akan Anda pakai di sepuluh bait. Tanwin dihitung نْ.",
+          "butir": [
+            "حِفْظًا",
+            "رَاجِعْ",
+            "يَا بُنَيَّ",
+            "ثُمَّ أَعِدْ",
+            "كُلَّ يَوْمٍ",
+            "وَاعْلَمْ بِأَنَّ",
+            "الصَّبْرُ مِفْتَاحٌ",
+            "قَلِيلُ دَرْسٍ دَائِمٍ",
+            "مِنْ قَبْلِ أَنْ تَنْسَاهُ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -180,6 +294,87 @@
           ],
           "bahr": "rajaz",
           "makna": "Ujung kesabaran itu manis. Sedangkan kebiasaan buruk, makin lama makin menjerat."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Bait-bait sumber dan beberapa ubahannya. Lagukan, centang yang pincang, lalu periksa. Kesalahan di sini adalah kesalahan yang paling mungkin Anda buat saat menyusun.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "عَاقِبَةُ الصَّبْرِ لَهَا حَلَاوَهْ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal, Abu al-'Atahiyah."
+            },
+            {
+              "bait": [
+                "عَاقِبَةُ الصَّبْرِ لَهَا لَذَّةٌ"
+              ],
+              "catatan": "Diubah: حَلَاوَهْ diganti sinonimnya لَذَّةٌ. حَ لَا وَهْ (11010) menjadi لَذْ ذَ تُنْ (10110). Maknanya dekat, urutan bunyinya lain, ujung syathr patah."
+            },
+            {
+              "bait": [
+                "يَا رَبِّ أَسْعِدْهُ بِمَا عَلَّمْتَهُ"
+              ],
+              "catatan": "Lurus. Bait latihan, bukan kutipan: doa Dzat al-Amtsal dengan ـنِي diganti ـهُ."
+            },
+            {
+              "bait": [
+                "يَا رَبِّ أَسْعِدْ وَلَدِي بِمَا عَلَّمْتَهُ"
+              ],
+              "catatan": "Diubah: kata وَلَدِي disisipkan. Ha dhamir sudah cukup menunjuk anak; tambahan وَ لَ دِي (1110) membuat syathr terlalu panjang."
+            },
+            {
+              "bait": [
+                "حَسْبُكَ مِنْ عِلْمِكَ مَا تُجَرِّبُ"
+              ],
+              "catatan": "Lurus. Dzat al-Amtsal."
+            },
+            {
+              "bait": [
+                "وَالتَّكْرَارُ طَرِيقُ الْفَهْمِ"
+              ],
+              "catatan": "Draf v1 dari peragaan (bait latihan). وَتْ تَكْ رَا رُ = 1010101: tiga suku panjang beruntun, padahal rajaz butuh watad sesudah dua sabab."
+            }
+          ]
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Bahan bait 2 dan 9. Isi kotak dengan isim majrur berpola **101** (wazan فِعْل atau فَعْل). Buat **tiga baris berbeda**, lalu cari pasangan qafiyahnya untuk syathr kedua.",
+          "cetakan": "الصَّبْرُ مِفْتَاحٌ لِكُلِّ {1}",
+          "kotak": [
+            {
+              "petunjuk": "Isim majrur pola 101, dibaca dengan isyba' di ujung, mis. عِلْمِ، حِفْظِ",
+              "pola": "101",
+              "contoh": [
+                "عِلْمِ",
+                "حِفْظِ",
+                "فَنِّ",
+                "أَمْرِ"
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "jumlah": 3
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Bahan bait 10. Isi kotak dengan fi'il amr wazan أَفْعِلْ ditambah ـهُ (untuk anak). Buat **tiga baris berbeda**; semuanya harus lurus.",
+          "cetakan": "يَا رَبِّ {1} بِمَا عَلَّمْتَهُ",
+          "kotak": [
+            {
+              "petunjuk": "Doa dengan fi'il amr wazan أَفْعِلْ + ـهُ, pola 10101, mis. أَسْعِدْهُ، أَكْرِمْهُ",
+              "pola": "10101",
+              "contoh": [
+                "أَسْعِدْهُ",
+                "أَكْرِمْهُ",
+                "أَرْشِدْهُ",
+                "أَصْلِحْهُ"
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "jumlah": 3
         },
         {
           "jenis": "susun",
