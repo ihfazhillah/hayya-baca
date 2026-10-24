@@ -16,23 +16,26 @@ const MUSTAFILUN_DHARB = [
   b('مُسْتَفْعِلْ', '101010', "qath'", { illah: true, namaLain: 'مَفْعُولُنْ', lagu: 'لا لا لا' }),
   b('مُتَفْعِلْ', '11010', "khabn + qath'", { illah: true, namaLain: 'فَعُولُنْ', lagu: 'لَ لا لا' }),
 ]
-const FAILATUN = [b('فَاعِلَاتُنْ', '1011010'), b('فَعِلَاتُنْ', '111010', 'khabn', { nilai: 'hasan' })]
+const FAILATUN = [
+  b('فَاعِلَاتُنْ', '1011010', undefined, { lagu: 'لا نعم لا' }),
+  b('فَعِلَاتُنْ', '111010', 'khabn', { nilai: 'hasan', lagu: 'لَ نعم لا' }),
+]
 const FAILUN = [
-  b('فَاعِلُنْ', '10110', 'hadzf', { illah: true }),
-  b('فَعِلُنْ', '1110', 'khabn + hadzf', { illah: true }),
+  b('فَاعِلُنْ', '10110', 'hadzf', { illah: true, lagu: 'لا نعم' }),
+  b('فَعِلُنْ', '1110', 'khabn + hadzf', { illah: true, lagu: 'لَ نعم' }),
 ]
 /** Ramal tam: 'arudh selalu mahdzufah; dharb shahih, maqshur, atau mahdzuf. */
 const RAMAL_ARUDH = FAILUN
 const RAMAL_DHARB = [
   ...FAILATUN,
   ...FAILUN,
-  b('فَاعِلَانْ', '101100', 'qashr', { illah: true }),
-  b('فَعِلَانْ', '11100', 'khabn + qashr', { illah: true }),
+  b('فَاعِلَانْ', '101100', 'qashr', { illah: true, lagu: 'لا نعام' }),
+  b('فَعِلَانْ', '11100', 'khabn + qashr', { illah: true, lagu: 'لَ نعام' }),
 ]
 /** Ramal majzu': 'arudh shahihah; dharb shahih, musabbagh, atau mahdzuf. */
 const RAMAL_MAJZU_DHARB = [
   ...FAILATUN,
-  b('فَاعِلَاتَانْ', '10110100', 'tasbigh', { illah: true }),
+  b('فَاعِلَاتَانْ', '10110100', 'tasbigh', { illah: true, lagu: 'لا نعم لال' }),
   ...FAILUN,
 ]
 
@@ -113,6 +116,11 @@ export const BAHR = {
     namaAr: 'الرَّمَل الْمَجْزُوء',
     kunci: KUNCI_RAMAL,
     kunciMakna: MAKNA_RAMAL,
+    dengar: {
+      youtube: '68kAGgPL00o',
+      judul: "Tanghim tafshili bahr ramal (majzu'), tiga surah",
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 52",
+    },
     slot: [
       [FAILATUN, FAILATUN],
       [FAILATUN, RAMAL_MAJZU_DHARB],
@@ -124,6 +132,11 @@ export const BAHR = {
     namaAr: 'الرَّمَل',
     kunci: KUNCI_RAMAL,
     kunciMakna: MAKNA_RAMAL,
+    dengar: {
+      youtube: 'mJ75tXCWYgo',
+      judul: 'Tanghim tafshili bahr ramal (tam), tiga surah',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 51",
+    },
     slot: [
       [FAILATUN, FAILATUN, RAMAL_ARUDH],
       [FAILATUN, FAILATUN, RAMAL_DHARB],
