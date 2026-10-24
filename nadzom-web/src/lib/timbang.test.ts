@@ -206,6 +206,13 @@ describe('review \'arudh (2026-10-23)', () => {
     expect(h.syathr[1].potongan[0].bentuk.zihaf).toBe("'ashb")
   })
 
+  it('ha lafzh al-jalalah bukan ha dhamir: tidak diberi isyba\' di tengah syathr («وَالْحَمْدُ لِلَّهِ مَدَى الدَّوَامِ», \'Imrithi)', () => {
+    const k = kitabahBait(['وَالْحَمْدُ لِلَّهِ مَدَى الدَّوَامِ'])
+    if (!k.ok) throw new Error(k.galat)
+    expect(k.syathr[0].some((h) => h.opsional)).toBe(false)
+    expect(timbangBait(k.syathr, BAHR.rajaz).syathr[0].potongan.map((p) => p.bit)).toEqual(['1010110', '101110', '11010'])
+  })
+
   it('alif khanjariyah pada kata berakhiran dhamir atau ber-ال', () => {
     expect(bitLepas('لَكِنَّهُ')).toBe('101011')
     expect(bitLepas('إِلَهَكَ')).toBe('11011')

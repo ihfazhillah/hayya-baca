@@ -85,6 +85,35 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. وَكُلُّ: syaddah dihitung dua huruf (كُلْلُ). Tandai, lalu tunjuk sendiri taf'ilah mana yang khabn."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: كَخِلْتُهُ حَسِبْتُهُ زَعَمْتُهُ. Setiap kata adalah fi'il madhi + تُ + هُ, dan ha dhamir dibaca panjang karena didahului huruf berharakat. Jadi كَخِلْتُهُو bertanda **110110**: enam huruf, bukan tujuh. Kelima kata lainnya sama persis. Bait ini tidak memuat satu pun مُسْتَفْعِلُنْ yang utuh, tetapi tetap rajaz.",
+        "Lalu contoh kedua: فَنَسْأَلُ الْمَنَّانَ. Di sini dua wajah bercampur. فَنَسْأَلُلْ = 110110, lalu مَنْنَانَأَنْ = 1010110 (utuh), lalu يُجِيرَنَا = 110110. Syathr kedua tiga-tiganya khabn. Lima khabn dan satu utuh: inilah rasa nadzom yang paling umum.",
+        "Bandingkan dengan contoh ketiga: وَالْفِعْلُ مِنْ فِعْلٍ. Keenam taf'ilahnya utuh, tujuh huruf semua. Bait ini sah, sama seperti dua bait sebelumnya. Jadi utuh dan khabn sama-sama rajaz, dan penyair bebas memilih di setiap taf'ilah.",
+        "Apa yang sebenarnya hilang? Letakkan مُسْتَفْعِلُنْ (1010110) di atas مُتَفْعِلُنْ (110110). Yang hilang hanya sin, huruf kedua, dan sin itu mati. Tiga huruf terakhir (عِلُنْ = 110) tidak berubah. Dalam istilah 'arudh, مُسْ adalah **sabab khafif** (satu huruf hidup lalu satu mati), dan zihaf hanya menyentuh huruf kedua sebuah sabab.",
+        "Jembatan ke sharaf: dalam i'lal ada huruf yang dibuang, tetapi wazannya tetap dikenali. Khabn mirip itu, dengan satu syarat ketat: yang boleh dibuang hanya huruf mati di tempat tertentu. Kalau yang hilang huruf hidup, atau huruf dari ujung 110, taf'ilah itu bukan khabn lagi. Ia patah. Membedakan keduanya adalah latihan utama pelajaran ini."
+      ],
+      "keliru": [
+        {
+          "salah": "Taf'ilah enam huruf (110110) dianggap patah karena tidak sama dengan kunci مُسْتَفْعِلُنْ.",
+          "benar": "110110 adalah مُتَفْعِلُنْ (khabn). Ia sah di taf'ilah mana saja dalam rajaz.",
+          "sebab": "Kunci hanya bentuk asal. Sama seperti قَالَ yang tetap dikenali sebagai wazan فَعَلَ walaupun asalnya قَوَلَ."
+        },
+        {
+          "salah": "Khabn dianggap membuang huruf mana saja asal tersisa enam: 101101 atau 101011 juga disebut khabn.",
+          "benar": "Khabn hanya membuang huruf kedua yang mati (sin). Hasilnya selalu **110110**.",
+          "sebab": "Zihaf menyentuh huruf kedua sebuah sabab, tidak sembarang huruf. Watad di ujung (110) tidak pernah disentuh."
+        },
+        {
+          "salah": "Saat menimbang مِنَ الرِّيَا, kata itu ditulis الرِّيَاءِ dengan hamzah seperti dalam prosa.",
+          "benar": "Ikuti teks bait: الرِّيَا tanpa hamzah. Memendekkan isim mamdud (qashr al-mamdud) dibolehkan dalam syair.",
+          "sebab": "Hamzah itu huruf hidup. Menambahnya membuat satu taf'ilah kelebihan huruf hidup, dan bait menjadi pincang."
+        },
+        {
+          "salah": "Kalau bait pertama memakai khabn di taf'ilah kedua, bait berikutnya dikira harus begitu juga.",
+          "benar": "Zihaf tidak mengikat. Setiap taf'ilah di setiap bait bebas memilih utuh atau khabn.",
+          "sebab": "Yang mengikat hanya 'illah di ujung bait (Pelajaran 3). Zihaf seperti pilihan qira'ah yang boleh berganti di setiap ayat."
+        }
+      ],
       "qaidah": [
         "**Zihaf** = perubahan pada huruf kedua sebuah sabab. Zihaf boleh di taf'ilah mana saja dan tidak mengikat bait berikutnya.",
         "**Khabn** = membuang huruf kedua yang mati. مُسْتَفْعِلُنْ (1010110) → مُتَفْعِلُنْ (**110110**), dibaca مَفَاعِلُنْ. Nilainya hasan.",
@@ -93,28 +122,89 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Mana bit مُتَفْعِلُنْ (khabn)?",
-          "pilihan": [
-            "110110",
-            "1010110",
-            "101110",
-            "11110"
-          ],
-          "jawaban": 0,
-          "alasan": "Huruf kedua (10 menjadi 1) hilang dari 1010110, tersisa 110110. 101110 adalah thayy dan 11110 adalah khabl, keduanya di pelajaran berikutnya."
+          "jenis": "kenali",
+          "petunjuk": "Kenali khabn. Jawab dari ingatan dulu, baru cocokkan dengan qaidah.",
+          "soal": [
+            {
+              "soal": "Mana bit مُتَفْعِلُنْ (khabn)?",
+              "pilihan": [
+                "110110",
+                "1010110",
+                "101110",
+                "11110"
+              ],
+              "jawaban": 0,
+              "alasan": "Huruf kedua (10 menjadi 1) hilang dari 1010110, tersisa 110110. 101110 adalah thayy dan 11110 adalah khabl, keduanya di pelajaran berikutnya."
+            },
+            {
+              "soal": "Khabn membuang huruf apa dari مُسْتَفْعِلُنْ?",
+              "pilihan": [
+                "Mim di awal",
+                "Sin yang mati (huruf kedua)",
+                "Fa' yang mati (huruf keempat)",
+                "Nun di ujung"
+              ],
+              "jawaban": 1,
+              "alasan": "Khabn = membuang huruf kedua yang mati. Fa' (huruf keempat) dibuang oleh thayy. Nun di ujung milik watad, tidak disentuh zihaf."
+            },
+            {
+              "soal": "Kata mana yang sendirian pas satu مُتَفْعِلُنْ (110110)?",
+              "pilihan": [
+                "مُضَاعِفًا",
+                "الْمَنَّانَ",
+                "يَنْتَفِعْ"
+              ],
+              "jawaban": 0,
+              "alasan": "مُضَاعِفًا = مُ 1، ضَا 10، عِ 1، فَنْ 10 = 110110. الْمَنَّانَ berpola 1010101 dan يَنْتَفِعْ = 10110; keduanya bukan 110110.",
+              "arab": true
+            },
+            {
+              "soal": "Syathr إِذِ الْفَتَى حَسْبَ اعْتِقَادِهِ رُفِعْ ditimbang 110110, 1010110, 110110. Berapa khabn di dalamnya?",
+              "pilihan": [
+                "Satu",
+                "Dua",
+                "Tiga"
+              ],
+              "jawaban": 1,
+              "alasan": "Taf'ilah pertama dan ketiga enam huruf dengan awal 11: khabn. Taf'ilah kedua tujuh huruf: utuh."
+            },
+            {
+              "soal": "Dalam kitab 'arudh, مُتَفْعِلُنْ biasanya ditulis dengan nama apa?",
+              "pilihan": [
+                "مَفَاعِلُنْ",
+                "مُفْتَعِلُنْ",
+                "فَعِلَتُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "مُتَفْعِلُنْ tidak lazim diucapkan, jadi diganti wazan seukuran مَفَاعِلُنْ. مُفْتَعِلُنْ adalah nama thayy dan فَعِلَتُنْ nama khabl.",
+              "arab": true
+            },
+            {
+              "soal": "Bait pertama Anda memakai tiga khabn. Bagaimana dengan bait kedua?",
+              "pilihan": [
+                "Harus memakai khabn di tempat yang sama",
+                "Bebas: utuh atau khabn di taf'ilah mana saja",
+                "Harus utuh semua sebagai penyeimbang"
+              ],
+              "jawaban": 1,
+              "alasan": "Zihaf tidak mengikat bait berikutnya. 'Imrithi sendiri mencampur utuh dan khabn sesuai kebutuhan kata."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Khabn membuang huruf apa dari مُسْتَفْعِلُنْ?",
-          "pilihan": [
-            "Mim di awal",
-            "Sin yang mati (huruf kedua)",
-            "Fa' yang mati (huruf keempat)",
-            "Nun di ujung"
-          ],
-          "jawaban": 1,
-          "alasan": "Khabn = membuang huruf kedua yang mati. Fa' (huruf keempat) dibuang oleh thayy. Nun di ujung milik watad, tidak disentuh zihaf."
+          "jenis": "tandai",
+          "petunjuk": "Tandai 1 dan 0. Semua butir ini seukuran satu مُتَفْعِلُنْ (**110110**). Tiga butir terakhir dua kata: perhatikan hamzah washal yang gugur.",
+          "butir": [
+            "مُضَاعِفًا",
+            "مُتَمِّمًا",
+            "أُجُورَنَا",
+            "يُجِيرَنَا",
+            "مُضَارِعًا",
+            "فَمَا أَتَى",
+            "كَمَا عُلِمْ",
+            "مِنَ الرِّيَا",
+            "إِذِ الْفَتَى"
+          ]
         },
         {
           "jenis": "irama",
@@ -135,6 +225,74 @@
           ],
           "bahr": "rajaz",
           "makna": "Kami memohon kepada Allah Yang Maha Pemberi agar melindungi kami dari riya, dan melipatgandakan pahala kami."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Dengarkan dengan telinga dulu, lalu centang baris yang pincang. Ingat: khabn hanya membuang huruf kedua yang mati. Kalau huruf hidup yang hilang atau bertambah, taf'ilah patah.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "وَأَنْ يَكُونَ نَافِعًا بِعِلْمِهِ",
+                "مَنِ اعْتَنَى بِحِفْظِهِ وَفَهْمِهِ"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, muqaddimah (usul.ai/t/durra-bahiyya/1; syarah al-Bajuri). Keenam taf'ilahnya khabn."
+            },
+            {
+              "bait": [
+                "كَخِلْتُهُ حَسِبْتُهُ زَعَمْتُهُ",
+                "رَأَيْتُهُ وَجَدْتُ عَلِمْتُهُ"
+              ],
+              "catatan": "Pincang (bait 'Imrithi yang diubah, bukan kutipan). وَجَدْتُهُ diganti وَجَدْتُ: ha dhamir dan isyba'nya hilang. Yang hilang huruf hidup, jadi taf'ilah kedua syathr kedua tinggal 1101. Ini bukan khabn."
+            },
+            {
+              "bait": [
+                "فَنَسْأَلُ الْمَنَّانَ أَنْ يُجِيرَنَا",
+                "مِنَ الرِّيَا مُضَاعِفًا أُجُورَنَا"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, muqaddimah: lima khabn dan satu utuh."
+            },
+            {
+              "bait": [
+                "فَنَسْأَلُ الْمَنَّانَ أَنْ يُجِيرَنَا",
+                "مِنَ الرِّيَاءِ مُضَاعِفًا أُجُورَنَا"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). الرِّيَا ditulis dengan hamzah seperti dalam prosa. Hamzah adalah huruf hidup, jadi syathr kedua kelebihan satu huruf hidup dan satu taf'ilahnya patah."
+            },
+            {
+              "bait": [
+                "إِذِ الْفَتَى بِقَدْرِ اعْتِقَادِهِ رُفِعْ",
+                "وَكُلُّ مَنْ لَمْ يَعْتَقِدْ لَمْ يَنْتَفِعْ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). حَسْبَ diganti بِقَدْرِ, maknanya sama. Tetapi بِقَدْرِ membawa satu huruf hidup lebih: taf'ilah pertama menjadi 1101101."
+            },
+            {
+              "bait": [
+                "إِذِ الْفَتَى حَسْبَ اعْتِقَادِهِ رُفِعْ",
+                "وَكُلُّ مَنْ لَمْ يَعْتَقِدْ لَمْ يَنْتَفِعْ"
+              ],
+              "catatan": "Lurus. Bait asli dari muqaddimah 'Imrithi, yang tadi diperagakan Hudhud."
+            }
+          ]
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Isi kotak dengan fi'il madhi + تُ + هُ, seperti deret 'Imrithi. Polanya **110110** (ha dhamir dibaca panjang). Buat **tiga baris berbeda**; semuanya harus khabn murni.",
+          "cetakan": "رَأَيْتُهُ {1} عَلِمْتُهُ",
+          "kotak": [
+            {
+              "petunjuk": "Fi'il madhi tsulatsi + تُهُ, pola 110110, mis. وَجَدْتُهُ، سَمِعْتُهُ",
+              "pola": "110110",
+              "contoh": [
+                "وَجَدْتُهُ",
+                "سَمِعْتُهُ",
+                "حَفِظْتُهُ",
+                "فَهِمْتُهُ"
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "jumlah": 3
         }
       ],
       "patokan": "Bait فَنَسْأَلُ الْمَنَّانَ ditimbang sendiri sampai benar, dan satu-satunya taf'ilah utuh ditunjuk dengan tepat."
@@ -240,6 +398,36 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. وَغَيْرُهُ اسْمٌ: hamzah washal gugur, jadi ha dhamir tidak dipanjangkan (bertemu huruf mati). Tandai, lalu beri nama wajah tiap taf'ilah."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: إِنْ قُلْتَ بَكْرًا. Lima taf'ilahnya utuh. Yang keenam, دِنْفَغَلَطْ, hanya enam huruf: **101110**. Bandingkan dengan khabn (110110). Di sini dua bit pertama masih 10, jadi sin masih ada. Yang hilang huruf keempat, fa' yang mati. Inilah **thayy**.",
+        "Contoh kedua: بِالْحَرَكَاتِ أَوْ. Taf'ilah pertama syathr kedua, بِلْحَرَكَا, juga 101110. Lihat sebabnya: wazan الْحَرَكَات memberi tiga huruf hidup beruntun (حَرَكَا) yang didahului lam mati. Kata yang memuat banyak huruf hidup beruntun seperti ini sering melahirkan thayy.",
+        "Contoh ketiga mengumpulkan empat wajah dalam satu bait. فَتِئَوَنْ = **11110**: empat huruf hidup lalu satu mati. Huruf kedua dan keempat sama-sama hilang: inilah **khabl**. Lalu فَكْكَوَزَا = 101110 (thayy) dan لَمَعْبَرِحْ = 110110 (khabn). Di syathr kedua, أَرْبَعُهَا = thayy lagi, lalu dua taf'ilah utuh.",
+        "Contoh keempat: فَلَقَبٌ di awal syathr kedua. Kata ini sendirian sudah satu khabl: فَلَقَبُنْ = 11110. Bandingkan dengan وَفِئَةٌ di bait taqthi': sama-sama 11110. Isim berwazan فَعَلٌ atau فِعَلَةٌ yang bertanwin dan didahului huruf athaf mudah membentuk khabl.",
+        "Dari empat contoh ini lahir cara cepat. Hitung huruf satu taf'ilah. Tujuh: utuh. Enam: lihat dua bit pertama; 11 berarti khabn, 10 berarti thayy. Lima: khabl. Empat atau kurang, atau ujung yang bukan 110, berarti patah (kecuali 'illah di ujung syathr, Pelajaran 3).",
+        "Jembatan ke tajwid: empat huruf hidup beruntun terasa seperti bacaan yang tergesa tanpa tempat bernapas. Karena itu ulama 'arudh menilai khabl **qabih**. Ia sah, tetapi telinga Arab lebih suka bila huruf hidup diselingi huruf mati. Thayy dinilai shalih dan khabn hasan."
+      ],
+      "keliru": [
+        {
+          "salah": "101110 disebut khabn karena sama-sama enam huruf.",
+          "benar": "Lihat dua bit pertama: **10** berarti thayy (huruf keempat hilang), **11** berarti khabn (huruf kedua hilang).",
+          "sebab": "Jumlah huruf sama, tempat yang hilang berbeda. Seperti فَعَّلَ dan أَفْعَلَ: sama-sama empat huruf, tetapi babnya lain."
+        },
+        {
+          "salah": "Lima huruf hidup beruntun (111110) dianggap khabl.",
+          "benar": "Khabl hanya **11110**: empat huruf hidup lalu satu mati. Lima huruf hidup beruntun tidak ada dalam rajaz.",
+          "sebab": "Ini biasanya terjadi karena huruf sukun dibaca berharakat, mis. مَعْ dibaca مَعَ. Satu huruf mati berubah hidup, dan taf'ilah patah."
+        },
+        {
+          "salah": "Karena khabl sah, ia dipakai sesering mungkin agar syathr mudah terisi.",
+          "benar": "Kenali khabl saat bertemu, tetapi dalam bait sendiri utamakan utuh, khabn, dan thayy.",
+          "sebab": "Nilainya qabih: sah tetapi kurang indah. Seperti bacaan yang sah tetapi kurang fasih."
+        },
+        {
+          "salah": "Menambah kata kecil seperti فَهْوَ agar makna lebih jelas, tanpa menimbang ulang.",
+          "benar": "Setiap tambahan kata ditimbang lagi. فَهْوَ لَقَبٌ menambah satu sabab, dan taf'ilah pertama menjadi tujuh huruf yang salah urutannya.",
+          "sebab": "Dalam nahwu, mubtada' yang dibuang (فَهُوَ) boleh dimunculkan. Dalam wazan, setiap huruf punya tempat."
+        }
+      ],
       "qaidah": [
         "**Thayy** = membuang huruf keempat yang mati. مُسْتَفْعِلُنْ → مُسْتَعِلُنْ (**101110**), dibaca مُفْتَعِلُنْ. Nilainya shalih.",
         "**Khabl** = khabn + thayy sekaligus. مُسْتَفْعِلُنْ → مُتَعِلُنْ (**11110**), dibaca فَعِلَتُنْ. Nilainya qabih: sah, tetapi sebaiknya jarang.",
@@ -248,28 +436,97 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Taf'ilah 101110 dalam rajaz adalah?",
-          "pilihan": [
-            "Khabn",
-            "Thayy",
-            "Khabl",
-            "Patah"
-          ],
-          "jawaban": 1,
-          "alasan": "Enam huruf dan diawali 10: huruf kedua masih ada, yang hilang huruf keempat. Itu thayy (مُسْتَعِلُنْ)."
+          "jenis": "kenali",
+          "petunjuk": "Beri nama wajah setiap pola. Pakai cara cepat: hitung huruf, lalu lihat dua bit pertama.",
+          "soal": [
+            {
+              "soal": "Taf'ilah 101110 dalam rajaz adalah?",
+              "pilihan": [
+                "Khabn",
+                "Thayy",
+                "Khabl",
+                "Patah"
+              ],
+              "jawaban": 1,
+              "alasan": "Enam huruf dan diawali 10: huruf kedua masih ada, yang hilang huruf keempat. Itu thayy (مُسْتَعِلُنْ)."
+            },
+            {
+              "soal": "Mana bit khabl?",
+              "pilihan": [
+                "110110",
+                "101110",
+                "11110",
+                "1110"
+              ],
+              "jawaban": 2,
+              "alasan": "Khabl membuang huruf kedua dan keempat: 1010110 → 11110. 1110 terlalu pendek; watad 110 harus tetap utuh, dan di depannya harus ada dua huruf hidup sisa sabab."
+            },
+            {
+              "soal": "Taf'ilah 110110 dalam rajaz adalah?",
+              "pilihan": [
+                "Utuh",
+                "Khabn",
+                "Thayy",
+                "Khabl"
+              ],
+              "jawaban": 1,
+              "alasan": "Enam huruf dan diawali 11: huruf kedua (sin) yang hilang. Itu khabn (مُتَفْعِلُنْ)."
+            },
+            {
+              "soal": "Thayy membuang huruf apa dari مُسْتَفْعِلُنْ?",
+              "pilihan": [
+                "Sin (huruf kedua)",
+                "Fa' (huruf keempat)",
+                "Lam (huruf keenam)"
+              ],
+              "jawaban": 1,
+              "alasan": "Thayy membuang huruf keempat yang mati, yaitu fa'. Lam milik watad di ujung dan tidak disentuh zihaf."
+            },
+            {
+              "soal": "فَلَقَبٌ sendirian (فَلَقَبُنْ) berpola?",
+              "pilihan": [
+                "11110",
+                "110110",
+                "101110"
+              ],
+              "jawaban": 0,
+              "alasan": "فَ 1، لَ 1، قَ 1، بُ 1، نْ 0 = 11110: empat huruf hidup lalu satu mati. Itu khabl."
+            },
+            {
+              "soal": "Taf'ilah 111110 (lima huruf hidup lalu satu mati) adalah?",
+              "pilihan": [
+                "Khabl",
+                "Thayy",
+                "Patah"
+              ],
+              "jawaban": 2,
+              "alasan": "Rajaz tidak pernah memuat lima huruf hidup beruntun. Khabl paling banyak empat (11110)."
+            },
+            {
+              "soal": "Wajah mana yang dinilai qabih (sah tetapi kurang indah)?",
+              "pilihan": [
+                "Khabn",
+                "Thayy",
+                "Khabl"
+              ],
+              "jawaban": 2,
+              "alasan": "Khabn hasan, thayy shalih, khabl qabih: empat huruf hidup beruntun terasa tergesa."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Mana bit khabl?",
-          "pilihan": [
-            "110110",
-            "101110",
-            "11110",
-            "1110"
-          ],
-          "jawaban": 2,
-          "alasan": "Khabl membuang huruf kedua dan keempat: 1010110 → 11110. 1110 terlalu pendek; watad 110 harus tetap utuh, dan di depannya harus ada dua huruf hidup sisa sabab."
+          "jenis": "tandai",
+          "petunjuk": "Tandai 1 dan 0, lalu sebut wajahnya. Empat butir pertama thayy (101110). Lalu satu khabn sebagai pembanding, dan tiga khabl (11110).",
+          "butir": [
+            "مُعْتَمَدٌ",
+            "مُخْتَلَقٌ",
+            "مُضْطَرِبٌ",
+            "أَرْبَعُهَا",
+            "فَكُنْيَةٌ",
+            "فَلَقَبٌ",
+            "وَفِئَةٌ",
+            "وَحَسَنٌ"
+          ]
         },
         {
           "jenis": "irama",
@@ -300,6 +557,55 @@
           ],
           "bahr": "rajaz",
           "makna": "Adapun huruf jar di bab ini ialah: مِنْ، إِلَى، ba', kaf, فِي، lam, عَنْ، dan عَلَى."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Thayy dan khabl sah. Tetapi satu huruf mati yang dibaca hidup, atau satu huruf hidup yang ditambah, merusaknya. Centang baris yang pincang.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "فَتِئَ وَانْفَكَّ وَزَالَ مَعْ بَرِحْ",
+                "أَرْبَعُهَا مِنْ بَعْدِ نَفْيٍ تَتَّضِحْ"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, bab Kana: khabl, thayy, khabn, dan utuh dalam satu bait."
+            },
+            {
+              "bait": [
+                "فَتِئَ وَانْفَكَّ وَزَالَ مَعَ بَرِحْ",
+                "أَرْبَعُهَا مِنْ بَعْدِ نَفْيٍ تَتَّضِحْ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). مَعْ (bentuk sukun yang dipakai penadzom) diganti مَعَ. Taf'ilah ketiga menjadi 111110: lima huruf hidup beruntun."
+            },
+            {
+              "bait": [
+                "الْمُعْرَبَاتُ كُلُّهَا قَدْ تُعْرَبُ",
+                "بِالْحَرَكَاتِ أَوْ حُرُوفٍ تَقْرُبُ"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, fashl al-mu'rabat: بِلْحَرَكَا = thayy."
+            },
+            {
+              "bait": [
+                "الْمُعْرَبَاتُ كُلُّهَا قَدْ تُعْرَبُ",
+                "بِحَرَكَاتٍ أَوْ حُرُوفٍ تَقْرُبُ"
+              ],
+              "catatan": "Lurus, tetapi bait latihan, bukan kutipan. بِالْحَرَكَاتِ diganti بِحَرَكَاتٍ: lam mati hilang, jadi thayy berubah menjadi khabl (بِحَرَكَا = 11110). Sah, walau kurang indah."
+            },
+            {
+              "bait": [
+                "الْمُعْرَبَاتُ كُلُّهَا قَدْ تُعْرَبُ",
+                "بِالْحَرَكَةِ أَوْ حُرُوفٍ تَقْرُبُ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). Jamak الْحَرَكَاتِ diganti mufrad الْحَرَكَةِ. Alif mad hilang, dan taf'ilah pertama syathr kedua tinggal 10111: ujungnya bukan 110."
+            },
+            {
+              "bait": [
+                "فَمَا بِمَدْحٍ أَوْ بِذَمٍّ مُشْعِرُ",
+                "فَهْوَ لَقَبٌ وَالِاسْمُ مَا لَا يُشْعِرُ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). فَلَقَبٌ diganti فَهْوَ لَقَبٌ. Maknanya sama, tetapi taf'ilah pertama syathr kedua menjadi 1011110: tujuh huruf yang tidak cocok dengan wajah mana pun."
+            }
+          ]
         }
       ],
       "patokan": "Empat wajah مُسْتَفْعِلُنْ ditulis dari ingatan (bit dan namanya), dan khabl pada dua bait taqthi' ditemukan sendiri."
@@ -391,6 +697,36 @@
           "petunjuk": "Giliran Anda: **syathr pertama**. Ada thayy di tengah, dan khabn + qath' di ujung: مَدَى الدَّوَامِ dibaca مَدَدْ دَوَامِي. Tandai, lalu beri nama tiap taf'ilah."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: وَالْفِعْلُ مَعْرُوفٌ بِقَدْ وَالسِّينِ. Dua taf'ilah pertama utuh. Taf'ilah ketiga, وَسْسِينِي, berpola **101010**. Hurufnya enam, tetapi ujungnya bukan 110. Bandingkan dengan مُسْتَفْعِلُنْ: nun di ujung hilang, dan lam yang tadinya hidup menjadi mati. Ujung syathr kedua, تَسْكِينِي, sama persis.",
+        "Contoh kedua menunjukkan dua bentuk ujung. قُرْآنِي = 101010: qath' saja. مَعَانِي = **11010**: sin hilang (khabn) dan ujungnya dipotong (qath'). Dua perubahan dalam satu taf'ilah: zihaf di depan, 'illah di belakang.",
+        "Contoh ketiga: أَوْ عَبْدِ زَيْدٍ. Empat taf'ilah di tengah utuh semua. Kedua ujungnya, زُجَاجِي dan بِسَاجِي, berpola 11010: khabn + qath'. Jadi bentuk ujung boleh berbeda dari bentuk tengah. Tengah mengikuti aturan zihaf, ujung mengikuti aturan 'illah.",
+        "Mengapa perubahan ini hanya muncul di ujung? Lihat qafiyahnya: ـينِ، ـانِ، ـاجِ، ـامِ. Sebelum huruf terakhir selalu ada huruf mad, dan huruf mad itu mati. Maka ujung bait berbunyi 10 10, bukan 110. Bentuk ujung sudah ditentukan sejak Anda memilih qafiyah. Bahkan ha saktah pun begitu: dalam bab al-Kalam, عَلَامَهْ di ujung juga 11010.",
+        "Jembatan ke tajwid: 'illah mirip waqf. Anda boleh mematikan huruf terakhir saat berhenti, tetapi tidak di tengah kalimat. Begitu pula 101010: sah di taf'ilah terakhir syathr, dan dihitung patah bila muncul di tengah. Penimbang di situs ini memeriksa posisi itu.",
+        "Satu catatan untuk menyusun. Dalam qasidah satu qafiyah, bentuk ujung yang dipilih harus tetap sampai akhir. Dalam urjuzah muzdawij seperti 'Imrithi, setiap bait punya qafiyah sendiri, sehingga ujung boleh utuh di satu bait dan maqthu' di bait lain."
+      ],
+      "keliru": [
+        {
+          "salah": "101010 di tengah syathr dianggap qath' yang sah.",
+          "benar": "Qath' hanya di taf'ilah terakhir syathr. Di tengah, 101010 dihitung patah.",
+          "sebab": "Seperti waqf: mematikan huruf terakhir hanya boleh di tempat berhenti, tidak di tengah kalimat."
+        },
+        {
+          "salah": "Qafiyah bermad diganti sinonim tanpa mad (الْإِنْعَامِ menjadi النِّعَمِ), dan ujungnya dikira tetap sama.",
+          "benar": "Tanpa huruf mad, ujung bait tidak lagi 101010 atau 11010. Kalau sisa syathr tidak disusun ulang, ujungnya patah.",
+          "sebab": "Huruf mad itu satu huruf mati. Menghapusnya mengubah bit di ujung, sama seperti mad thabi'i yang dibuang mengubah panjang bacaan."
+        },
+        {
+          "salah": "Isyba' di ujung bait dilupakan, sehingga إِنْعَامِ ditimbang 10101.",
+          "benar": "Harakat huruf terakhir bait dipanjangkan: إِنْعَامِي = **101010**.",
+          "sebab": "Mirip mad shilah: kasrah di ujung bait melahirkan ya yang dibaca walau tidak ditulis."
+        },
+        {
+          "salah": "Dalam qasidah satu qafiyah, ujung bait dibiarkan berganti antara utuh dan maqthu'.",
+          "benar": "Dalam qasidah satu qafiyah, bentuk ujung tetap sepanjang qasidah. Hanya urjuzah muzdawij yang boleh berganti per bait.",
+          "sebab": "'Illah, sekali dipilih, mengikat. Ini berbeda dengan zihaf, yang bebas di setiap taf'ilah."
+        }
+      ],
       "qaidah": [
         "**'Illah** = perubahan yang hanya terjadi di taf'ilah terakhir syathr ('arudh dan dharb). Di tengah syathr, bentuk 'illah dihitung patah.",
         "**Qath'** = buang nun di ujung, lalu sukunkan lamnya: مُسْتَفْعِلُنْ → مُسْتَفْعِلْ (**101010**), dibaca مَفْعُولُنْ. Bersama khabn: مُتَفْعِلْ (**11010**), dibaca فَعُولُنْ.",
@@ -400,26 +736,86 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Qath' (مُسْتَفْعِلْ, 101010) boleh muncul di mana?",
-          "pilihan": [
-            "Di taf'ilah mana saja",
-            "Hanya di taf'ilah terakhir syathr",
-            "Hanya di taf'ilah pertama syathr"
-          ],
-          "jawaban": 1,
-          "alasan": "Qath' adalah 'illah. 'Illah hanya di 'arudh dan dharb. Di tengah syathr, 101010 dihitung patah."
+          "jenis": "kenali",
+          "petunjuk": "Kenali bentuk ujung. Ingat dua pertanyaan: di mana posisinya, dan apa qafiyahnya?",
+          "soal": [
+            {
+              "soal": "Qath' (مُسْتَفْعِلْ, 101010) boleh muncul di mana?",
+              "pilihan": [
+                "Di taf'ilah mana saja",
+                "Hanya di taf'ilah terakhir syathr",
+                "Hanya di taf'ilah pertama syathr"
+              ],
+              "jawaban": 1,
+              "alasan": "Qath' adalah 'illah. 'Illah hanya di 'arudh dan dharb. Di tengah syathr, 101010 dihitung patah."
+            },
+            {
+              "soal": "Qafiyah mana yang membuat ujung bait rajaz menjadi maqthu'?",
+              "pilihan": [
+                "الْأَوَّلِ",
+                "الْإِسْلَامِ",
+                "الْمُرْسَلِ"
+              ],
+              "jawaban": 1,
+              "alasan": "الْإِسْلَامِ diakhiri لَامِي = 1010: alif mad mati sebelum huruf terakhir. الْأَوَّلِ dan الْمُرْسَلِ diakhiri 110, jadi ujungnya utuh."
+            },
+            {
+              "soal": "Ujung syathr مَعَانِي = 11010. Namanya?",
+              "pilihan": [
+                "Khabl",
+                "Khabn + qath'",
+                "Patah"
+              ],
+              "jawaban": 1,
+              "alasan": "Lima huruf, dan ujungnya 010, bukan 110. Sin hilang (khabn), nun dipotong dan lam disukunkan (qath'): مُتَفْعِلْ, dibaca فَعُولُنْ. Khabl justru berakhir 110 (11110)."
+            },
+            {
+              "soal": "مُسْتَفْعِلْ (101010) di kitab biasa ditulis dengan nama apa?",
+              "pilihan": [
+                "مَفْعُولُنْ",
+                "فَعُولُنْ",
+                "مُفْتَعِلُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "مُسْتَفْعِلْ diganti wazan seukuran مَفْعُولُنْ. فَعُولُنْ adalah nama khabn + qath' (11010), dan مُفْتَعِلُنْ nama thayy.",
+              "arab": true
+            },
+            {
+              "soal": "Pola 101010 ditemukan di taf'ilah **pertama** syathr. Hukumnya?",
+              "pilihan": [
+                "Qath', sah",
+                "Patah",
+                "Khabn"
+              ],
+              "jawaban": 1,
+              "alasan": "Qath' adalah 'illah, hanya untuk taf'ilah terakhir syathr. Di posisi lain bentuk itu patah."
+            },
+            {
+              "soal": "Kata mana yang di ujung bait berpola khabn + qath' (11010)?",
+              "pilihan": [
+                "زُجَاجِ",
+                "الْأَوَّلِ",
+                "يَنْتَفِعْ"
+              ],
+              "jawaban": 0,
+              "alasan": "زُجَاجِي = 11010: dua huruf hidup, alif mad, lalu jim dan ya isyba'. الْأَوَّلِ dan يَنْتَفِعْ berujung 110, jadi taf'ilahnya utuh atau zihaf biasa.",
+              "arab": true
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Qafiyah mana yang membuat ujung bait rajaz menjadi maqthu'?",
-          "pilihan": [
-            "الْأَوَّلِ",
-            "الْإِسْلَامِ",
-            "الْمُرْسَلِ"
-          ],
-          "jawaban": 1,
-          "alasan": "الْإِسْلَامِ diakhiri لَامِي = 1010: alif mad mati sebelum huruf terakhir. الْأَوَّلِ dan الْمُرْسَلِ diakhiri 110, jadi ujungnya utuh."
+          "jenis": "tandai",
+          "petunjuk": "Tandai kata-kata ujung bait ini. Di drill ini isyba' ujung tidak ditulis, jadi butir berharakat kasrah berakhir dengan 1. Cari pola **10 1** di ujungnya: huruf mad yang mati, lalu huruf terakhir. Itulah benih qath'.",
+          "butir": [
+            "تَسْكِينِ",
+            "إِنْعَامِ",
+            "زُجَاجِ",
+            "مَعَانِي",
+            "عَلَامَهْ",
+            "لِلْكِتَابِ",
+            "الْقُرْآنِ",
+            "الْأَبْوَابِ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -430,6 +826,55 @@
           ],
           "bahr": "rajaz",
           "makna": "(Nadzom ini) melengkapi sebagian besar bab (dari kitab asalnya), sehingga ia menjadi seperti syarah bagi kitab itu."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "'Illah hanya di ujung, dan ia lahir dari qafiyah bermad. Centang baris yang pincang: ada yang memindahkan bentuk ujung ke tengah, ada yang membuang mad dari qafiyah.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "وَالْحَمْدُ لِلَّهِ مَدَى الدَّوَامِ",
+                "عَلَى جَزِيلِ الْفَضْلِ وَالْإِنْعَامِ"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, penutup."
+            },
+            {
+              "bait": [
+                "وَالْحَمْدُ لِلَّهِ مَدَى الدَّوَامِ",
+                "عَلَى جَزِيلِ الْفَضْلِ وَالنِّعَمِ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). الْإِنْعَامِ diganti النِّعَمِ. Maknanya dekat, tetapi alif mad hilang: ujung menjadi 1110, bukan 101010 atau 11010."
+            },
+            {
+              "bait": [
+                "مُتَمِّمًا لِلْأَبْوَابِ غَالِبًا",
+                "فَجَاءَ مِثْلَ الشَّرْحِ لِلْكِتَابِ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). Susunan لِغَالِبِ الْأَبْوَابِ dibalik, sehingga الْأَبْوَابِ (101010) pindah ke tengah syathr. Bentuk qath' di tengah dihitung patah."
+            },
+            {
+              "bait": [
+                "وَالْحَرْفُ لَمْ يَصْلُحْ لَهُ عَلَامَهْ",
+                "إِلَّا انْتِفَا قَبُولِهِ الْعَلَامَهْ"
+              ],
+              "catatan": "Lurus. Nazhm al-'Imrithi, bab al-Kalam (usul.ai/t/durra-bahiyya/2; syarah al-Bajuri). Kedua ujung عَلَامَهْ = 11010."
+            },
+            {
+              "bait": [
+                "وَالْفِعْلُ مَعْرُوفٌ بِقَدْ وَالسِّينِ",
+                "وَتَاءِ تَأْنِيثٍ مَعَ السُّكُونِ"
+              ],
+              "catatan": "Lurus, tetapi bait latihan, bukan kutipan. التَّسْكِينِ diganti السُّكُونِ. Masih ada mad sebelum huruf terakhir, jadi ujungnya tetap sah: kini khabn + qath'. Ridf waw pun boleh berpasangan dengan ridf ya (السِّينِ)."
+            },
+            {
+              "bait": [
+                "مُتَمِّمًا لِغَالِبِ الْأَبْوَابِ",
+                "فَجَاءَ مِثْلَ الشَّرْحِ لِلْكُتُبِ"
+              ],
+              "catatan": "Pincang (diubah, bukan kutipan). الْكِتَابِ diganti jamak الْكُتُبِ yang tanpa mad: ujung menjadi 1110."
+            }
+          ]
         },
         {
           "jenis": "susun",

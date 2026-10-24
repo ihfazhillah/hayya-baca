@@ -164,7 +164,9 @@ function kitabahSyathr(teks: string, akhirBait: boolean, mati: Set<Aturan>, tanp
     if (akhirKata && berikutHidup && !u.tanwin && (harakat === 'u' || harakat === 'i')) {
       const sebelumHidup = out.at(-2)?.bit === 1
       // Setelah huruf mati (وَجَاوِزْهُ) isyba' jarang tetapi dipakai penyair; tetap pilihan.
-      const haDhamir = u.dasar === 'ه' && u.panjang > 1 && (sebelumHidup || out.at(-2)?.bit === 0)
+      // Ha lafzh al-jalalah (لِلَّهِ، وَاللَّهِ) bagian dari kata, bukan dhamir.
+      const jalalah = /^(?:[وفبت]?ا?)?لله$/.test(u.kerangkaKata)
+      const haDhamir = u.dasar === 'ه' && u.panjang > 1 && !jalalah && (sebelumHidup || out.at(-2)?.bit === 0)
       const mimJamaah = u.dasar === 'م' && harakat === 'u' && /(هم|كم|تم)$/.test(u.kerangkaKata)
       if (haDhamir || mimJamaah) {
         out.push({ h: MAD_DARI[harakat], bit: 0, kata: u.kata, tambahan: 'isyba', opsional: true })
