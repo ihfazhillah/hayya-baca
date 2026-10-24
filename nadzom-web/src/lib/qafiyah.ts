@@ -56,6 +56,11 @@ function beda(a: Qafiyah, b: Qafiyah): string | null {
   return null
 }
 
+/** Ujung syathr dibandingkan dengan ujung acuan (mis. bait pola mu'aradhah); null bila sama. */
+export function bedaUjung(acuan: Huruf[], syathr: Huruf[]): string | null {
+  return beda(qafiyah(acuan), qafiyah(syathr))
+}
+
 export interface MasalahQafiyah {
   /** Nomor bait, mulai 1. */
   bait: number

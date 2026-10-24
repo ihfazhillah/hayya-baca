@@ -82,6 +82,10 @@ export type Tamrin =
       /** Rancangan makna per bait (Boss). */
       rancangan?: string[]
       judulDiwan?: string
+      /** Mu'aradhah: bait model yang dipinjam bahr dan qafiyahnya. Isian bisa dimulai dari bait ini. */
+      pola?: { bait: string[]; sumber: string }
+      /** Tangga latihan bertahap, ditampilkan berurutan. */
+      tangga?: string[]
     }
 
 export interface Pelajaran {

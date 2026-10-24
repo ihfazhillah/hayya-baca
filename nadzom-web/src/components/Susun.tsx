@@ -1,10 +1,11 @@
-import { useId, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 import type { Tamrin } from '@/content/jenis'
 import { kitabahBait } from '@/lib/kitabah'
 import { cariBahr } from '@/lib/bahr'
 import { timbangBait } from '@/lib/timbang'
 import { diwanQasidah, pisahQasidah } from '@/lib/latihan'
-import { periksaDharb, periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
+import { bedaUjung, periksaDharb, periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
+import { juzBentuk } from '@/lib/lagu'
 import type { HasilBait, Huruf } from '@/lib/jenis'
 import Teks from './Teks'
 import HasilTimbang from './HasilTimbang'
@@ -14,6 +15,8 @@ import Laci from './Laci'
 type TamrinSusun = Extract<Tamrin, { jenis: 'susun' }>
 
 export const JALUR = ['Makna', 'Qafiyah', 'Susun', 'Lagukan', "Taqthi'", 'Perbaiki', 'Diwan'] as const
+
+const rapikan = (s: string) => s.trim().replace(/\s+/g, ' ')
 
 interface Versi {
   bait: string[][]
@@ -33,9 +36,18 @@ export default function Susun({ t }: { t: TamrinSusun }) {
   const [galat, setGalat] = useState('')
   const [bank, setBank] = useState(false)
   const [buka, setBuka] = useState<number | null>(null)
+  const pola = useMemo(() => {
+    if (!t.pola) return null
+    const k = kitabahBait(t.pola.bait)
+    return k.ok ? timbangBait(k.syathr, bahr) : null
+  }, [t.pola, bahr])
 
   const timbang = () => {
     const bait = banyak ? pisahQasidah(teks) : [pisahQasidah(teks).flat()]
+    if (t.pola && bait.flat().map(rapikan).join('|') === t.pola.bait.map(rapikan).join('|')) {
+      setGalat('Masih sama dengan pola. Ganti minimal satu kata dulu.')
+      return
+    }
     const syathr: Huruf[][][] = []
     for (const [i, b] of bait.entries()) {
       const k = kitabahBait(b)
@@ -50,6 +62,14 @@ export default function Susun({ t }: { t: TamrinSusun }) {
     const hasil = syathr.map((s) => timbangBait(s, bahr))
     const qafiyah = banyak && t.qafiyah ? periksaQafiyah(syathr, t.qafiyah) : []
     if (banyak && t.qafiyah === 'satu') qafiyah.push(...periksaDharb(hasil))
+    const acuan = pola?.syathr.at(-1)?.huruf
+    if (acuan)
+      syathr.forEach((b, k) =>
+        b.forEach((s, i) => {
+          const m = bedaUjung(acuan, s)
+          if (m) qafiyah.push({ bait: k + 1, pesan: `Ujung syathr ${i + 1}: ${m}.` })
+        }),
+      )
     setVersi([...versi, { bait, hasil, qafiyah }])
     setCentang((c) => c.map((v, i) => v || JALUR[i] === "Taqthi'"))
   }
@@ -73,6 +93,32 @@ export default function Susun({ t }: { t: TamrinSusun }) {
           })}
         </ol>
       )}
+      {t.tangga && (
+        <ol className="rancangan">
+          {t.tangga.map((r, i) => <li key={i}><Teks>{r}</Teks></li>)}
+        </ol>
+      )}
+      {t.pola && (
+        <section className="kartu pola" aria-label="Pola mu'aradhah">
+          <span className="label">Pola mu'aradhah</span>
+          {t.pola.bait.map((b, i) => (
+            <div key={i} className="pola-syathr">
+              <p className="ar" dir="rtl" lang="ar">{b}</p>
+              {pola?.syathr[i] && (
+                <div className="pola-kotak-baris" dir="rtl" aria-label={`Kotak syathr ${i + 1}`}>
+                  {pola.syathr[i].potongan.map((p, x) => (
+                    <span key={x} className="pola-kotak">
+                      <span lang="ar">{pola.syathr[i].huruf.slice(p.mulai, p.akhir).map((h) => h.h).join('')}</span>
+                      <span className="juz-lagu" lang="ar">{juzBentuk(p.bit, p.bentuk).map((j) => j.lagu ?? j.bit).join(' ')}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          <span className="bantu">{t.pola.sumber}</span>
+        </section>
+      )}
       <div className="baris" role="group" aria-label="Tujuh tahap" style={{ gap: 'var(--s-2)' }}>
         {JALUR.map((j, i) => (
           <label key={j} className={`chip tahap${centang[i] ? ' ok' : ''}`}>
@@ -91,6 +137,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
       </div>
       <div className="baris">
         <button type="button" className="tombol utama" onClick={timbang} disabled={!teks.trim()}>Timbang</button>
+        {t.pola && <button type="button" className="tombol" onClick={() => setTeks(t.pola!.bait.join('\n'))}>Mulai dari pola</button>}
         {t.bankKata && <button type="button" className="tombol" onClick={() => setBank(!bank)} aria-expanded={bank}>{bank ? 'Tutup laci' : 'Buka laci kata'}</button>}
         {banyak && akhir && <span className={`chip ${akhir.bait.length >= jumlah ? 'ok' : ''}`}>{akhir.bait.length} dari {jumlah} bait</span>}
       </div>
@@ -110,6 +157,11 @@ export default function Susun({ t }: { t: TamrinSusun }) {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+      {akhir && !banyak && akhir.qafiyah.length > 0 && (
+        <div className="pesan salah">
+          <ul className="pesan-daftar">{akhir.qafiyah.map((m, i) => <li key={i}>{m.pesan}</li>)}</ul>
         </div>
       )}
       {akhir && !banyak && (

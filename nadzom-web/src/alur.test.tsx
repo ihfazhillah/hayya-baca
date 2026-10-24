@@ -110,6 +110,35 @@ describe('pelajaran 2: cetakan', () => {
   })
 })
 
+describe("pelajaran 3: mu'aradhah rajaz Khandaq menggantikan susun bebas", () => {
+  it('pola tampil berlagu; mulai dari pola, yang belum diganti ditolak, ganti satu kata lalu timbang, ujung lain ditandai', async () => {
+    const user = userEvent.setup()
+    buka('/modul/0/3')
+    const latihan = screen.getByRole('region', { name: 'Latihan' })
+    const pola = within(latihan).getByRole('region', { name: "Pola mu'aradhah" })
+    expect(within(pola).getByText('نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا')).toBeInTheDocument()
+    expect(within(pola).getAllByText('لَ لا نعم').length).toBeGreaterThan(0)
+
+    const isian = within(latihan).getByLabelText(/Bait Anda/) as HTMLTextAreaElement
+    const susun = within(isian.closest('.tumpuk') as HTMLElement)
+    await user.click(susun.getByRole('button', { name: 'Mulai dari pola' }))
+    expect(isian.value).toBe('نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا\nعَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا')
+    await user.click(susun.getByRole('button', { name: 'Timbang' }))
+    expect(susun.getByText(/Masih sama dengan pola/)).toBeInTheDocument()
+
+    await user.clear(isian)
+    await user.type(isian, 'نَحْنُ الَّذِينَ عَاهَدُوا مُحَمَّدَا\nعَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا')
+    await user.click(susun.getByRole('button', { name: 'Timbang' }))
+    expect(susun.getByText('patah 0')).toBeInTheDocument()
+    expect(susun.queryByText(/Ujung syathr/)).toBeNull()
+
+    await user.clear(isian)
+    await user.type(isian, 'بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ\nمُصَلِّيًا عَلَى النَّبِيِّ الْمُرْسَلِ')
+    await user.click(susun.getByRole('button', { name: 'Timbang' }))
+    expect(susun.getByText(/Ujung syathr 1: rawiy ل berbeda dari د/)).toBeInTheDocument()
+  })
+})
+
 describe('alat timbang', () => {
   it('contoh bawaan langsung tertimbang: rajaz, 0 patah', () => {
     buka('/timbang')

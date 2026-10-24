@@ -171,6 +171,34 @@
       "arti": "harapan",
       "laci": "qafiyah",
       "dari": "Rancangan Boss 1"
+    },
+    {
+      "teks": "أَبَدَا",
+      "arti": "selamanya",
+      "catatan": "Qafiyah ـدَا, dari pola Khandaq.",
+      "laci": "qafiyah",
+      "dari": "Mu'aradhah Khandaq"
+    },
+    {
+      "teks": "الْهُدَى",
+      "arti": "petunjuk",
+      "catatan": "Alif maqshurah: rawiy د berfathah, sama dengan ـدَا.",
+      "laci": "qafiyah",
+      "dari": "Mu'aradhah Khandaq"
+    },
+    {
+      "teks": "تَرْشُدَا",
+      "arti": "(agar) engkau terbimbing",
+      "catatan": "Mis. حَتَّى تَرْشُدَا; alifnya alif ithlaq.",
+      "laci": "qafiyah",
+      "dari": "Mu'aradhah Khandaq"
+    },
+    {
+      "teks": "عَاهَدُوا",
+      "arti": "mereka berjanji setia",
+      "catatan": "Lagunya sama dengan بَايَعُوا (لا نعم).",
+      "laci": "wazan",
+      "dari": "Mu'aradhah Khandaq"
     }
   ]
 }

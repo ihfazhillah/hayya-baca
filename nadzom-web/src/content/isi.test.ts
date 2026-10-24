@@ -61,6 +61,7 @@ for (const modul of MODUL) {
             }
             if (t.jenis === 'taqthi' || t.jenis === 'irama') expect(timbang(t.bait, t.bahr).patah, t.bait.join(' / ')).toBe(0)
             if (t.jenis === 'susun' && t.rancangan) expect(t.rancangan.length).toBe(t.jumlah ?? 1)
+            if (t.jenis === 'susun' && t.pola) expect(timbang(t.pola.bait, t.bahr).patah, "pola mu'aradhah lurus").toBe(0)
             if (t.jenis === 'cetakan') {
               for (let i = 0; i < Math.max(...t.kotak.map((k) => k.contoh.length)); i++) {
                 let baris = t.cetakan
