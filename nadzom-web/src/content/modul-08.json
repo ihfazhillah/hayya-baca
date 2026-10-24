@@ -70,6 +70,36 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. وَرِبْحُهُ: هُ setelah huruf hidup dibaca panjang, رِبْحُهُو. الْخَيْرِ → لْخَيْرِ: hamzah washal gugur. Ujungnya خُسْرَانُو."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, kunci basith: إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ. Di bawahnya tertulis timbangannya: مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُ. Ada dua nama taf'ilah yang bergantian. Di rajaz dan kamil hanya ada satu nama yang diulang.",
+        "مُسْتَفْعِلُنْ sudah Anda kenal dari rajaz: 1010110, dua sabab lalu satu watad. فَاعِلُنْ lebih pendek: فَا = 10, عِلُنْ = 110, jadi **10110**. Satu sabab lalu satu watad. Itulah langkah pendek basith.",
+        "Sekarang contoh kedua, bait pembuka al-Busti. Hudhud memotong syathr pertamanya menjadi زِيَادَتُلْ | مَرْءِ فِي | دُنْيَاهُ نُقْ | صَانُو. Taf'ilah pertama 110110: مُسْتَفْعِلُنْ yang kehilangan sin. Ini khabn, sama dengan yang Anda temui di rajaz. Taf'ilah kedua مَرْءِ فِي = 10110, فَاعِلُنْ utuh.",
+        "Taf'ilah ketiga دُنْيَاهُ نُقْ kembali utuh, 1010110. Ujungnya صَانُو = 1010. Ini bukan فَاعِلُنْ lagi: huruf hidup terakhirnya hilang, dan namanya فَعْلُنْ (qath'). Al-Busti memakai ujung ini di semua bait qashidahnya.",
+        "Mengapa ujung syathr pertama bait ini juga 1010? Karena bait pembuka ber-**tasri'**: kedua syathrnya berqafiyah ـانُ, jadi ujung syathr pertama mengikuti ujung bait. Di bait kedua tidak ada tasri'. Ujung syathr pertamanya تَلَهُو = 1110, yaitu فَعِلُنْ.",
+        "Dari contoh-contoh ini kita tarik kaidahnya. Basith adalah مُسْتَفْعِلُنْ فَاعِلُنْ, dua kali per syathr. مُسْتَفْعِلُنْ boleh di-khabn (110110). فَاعِلُنْ di tengah boleh utuh (10110) atau di-khabn (1110). Ujung syathr pertama (**'arudh**) selalu فَعِلُنْ. Ujung bait (**dharb**) فَعِلُنْ atau فَعْلُنْ."
+      ],
+      "keliru": [
+        {
+          "salah": "Menimbang ujung syathr pertama basith sebagai فَاعِلُنْ (10110), karena di kunci panjang tertulis فَاعِلُنْ empat kali.",
+          "benar": "'Arudh basith tam selalu فَعِلُنْ (1110). Pada bait ber-tasri' ia mengikuti bentuk dharb.",
+          "sebab": "Kitab-kitab 'arudh mencatat 'arudh basith tam selalu makhbunah. فَاعِلُنْ utuh hanya ada di tengah syathr."
+        },
+        {
+          "salah": "Menyangka bait basith adalah rajaz, karena dibuka dengan مُسْتَفْعِلُنْ.",
+          "benar": "Lihat taf'ilah kedua. Di basith ia 10110 atau 1110, di rajaz 1010110 lagi.",
+          "sebab": "Rajaz mengulang satu taf'ilah. Basith menyelang dua taf'ilah."
+        },
+        {
+          "salah": "Membaca دُنْيَاهُ dengan ha panjang: دُنْيَاهُو.",
+          "benar": "دُنْيَاهُ = 10101. Ha-nya hidup tetapi tidak dipanjangkan.",
+          "sebab": "Sama dengan mad shilah dalam tajwid riwayat Hafs: ha dhamir tidak dipanjangkan bila huruf sebelumnya mati, di sini alif mad."
+        },
+        {
+          "salah": "Menulis فَاعِلُنْ = 11010.",
+          "benar": "فَاعِلُنْ = 10110: sabab dulu, baru watad. 11010 adalah فَعُولُنْ milik thawil.",
+          "sebab": "Alif mad pada فَا membuat suku pertama panjang, jadi bitnya 1 lalu 0."
+        }
+      ],
       "qaidah": [
         "**فَاعِلُنْ** = 10 110 = **10110**. Dengan khabn (huruf kedua dibuang) menjadi **فَعِلُنْ** = 1110.",
         "**Basith** = مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَاعِلُنْ dalam satu syathr. Taf'ilah terakhir syathr pertama biasanya فَعِلُنْ (1110).",
@@ -79,16 +109,141 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Mana timbangan فَاعِلُنْ?",
-          "pilihan": [
-            "10110",
-            "1110",
-            "11010",
-            "1010110"
+          "jenis": "kenali",
+          "petunjuk": "Kenali bagian-bagian basith. Jawab semua soal, lalu lihat skor Anda.",
+          "soal": [
+            {
+              "soal": "Mana timbangan فَاعِلُنْ?",
+              "pilihan": [
+                "10110",
+                "1110",
+                "11010",
+                "1010110"
+              ],
+              "jawaban": 0,
+              "alasan": "فَا = 10, عِلُنْ = 110. 1110 adalah فَعِلُنْ (khabn); 11010 adalah فَعُولُنْ milik thawil; 1010110 adalah مُسْتَفْعِلُنْ."
+            },
+            {
+              "soal": "Taf'ilah kedua dalam syathr basith, sesudah مُسْتَفْعِلُنْ yang pertama, adalah…",
+              "pilihan": [
+                "فَاعِلُنْ",
+                "مُسْتَفْعِلُنْ",
+                "مُتَفَاعِلُنْ",
+                "فَعُولُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "Basith menyelang مُسْتَفْعِلُنْ dan فَاعِلُنْ. مُسْتَفْعِلُنْ lagi berarti rajaz, مُتَفَاعِلُنْ kamil, فَعُولُنْ thawil.",
+              "arab": true
+            },
+            {
+              "soal": "زِيَادَتُلْ = 110110. Ini مُسْتَفْعِلُنْ dengan zihaf apa?",
+              "pilihan": [
+                "Khabn: huruf kedua (sin) dibuang",
+                "Thayy: huruf keempat (fa) dibuang",
+                "Qath': ujungnya dipotong"
+              ],
+              "jawaban": 0,
+              "alasan": "مُسْتَفْعِلُنْ 1010110 tanpa sin menjadi مُتَفْعِلُنْ 110110. Thayy menghasilkan 101110."
+            },
+            {
+              "soal": "Pada bait basith tanpa tasri', ujung syathr pertama ('arudh) berbentuk…",
+              "pilihan": [
+                "1110 (فَعِلُنْ)",
+                "10110 (فَاعِلُنْ)",
+                "1010 (فَعْلُنْ)",
+                "1010110 (مُسْتَفْعِلُنْ)"
+              ],
+              "jawaban": 0,
+              "alasan": "'Arudh basith tam selalu makhbunah: فَعِلُنْ. 1010 hanya muncul di syathr pertama bila bait ber-tasri' dan dharbnya 1010."
+            },
+            {
+              "soal": "Ujung bait al-Busti صَانُو = 1010 disebut…",
+              "pilihan": [
+                "فَعْلُنْ, فَاعِلُنْ yang terkena qath'",
+                "فَعِلُنْ, فَاعِلُنْ yang terkena khabn",
+                "فَاعِلُنْ utuh"
+              ],
+              "jawaban": 0,
+              "alasan": "فَاعِلُنْ 10110 dibuang huruf terakhirnya lalu huruf sebelumnya disukunkan: 1010, dibaca فَعْلُنْ."
+            },
+            {
+              "soal": "Berapa taf'ilah dalam satu bait basith tam?",
+              "pilihan": [
+                "8",
+                "6",
+                "4",
+                "12"
+              ],
+              "jawaban": 0,
+              "alasan": "Empat per syathr, dua syathr per bait. Karena itu namanya basith, yang terbentang."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada kata dan frasa dari dua bait pertama al-Busti, dari yang pendek ke yang panjang. Huruf terakhir butir dibaca tanpa isyba'.",
+          "butir": [
+            "خُسْرَانُ",
+            "دُنْيَاهُ",
+            "زِيَادَةُ",
+            "وَرِبْحُهُ",
+            "فِي دُنْيَاهُ",
+            "زِيَادَةُ الْمَرْءِ",
+            "غَيْرَ مَحْضِ الْخَيْرِ",
+            "وَكُلُّ وِجْدَانِ حَظٍّ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait kedua al-Busti sendiri. Tanwin di حَظٍّ dibaca حَظْظِنْ. Ujung syathr pertama لَهُ dibaca لَهُو.",
+          "bait": [
+            "وَكُلُّ وِجْدَانِ حَظٍّ لَا ثَبَاتَ لَهُ",
+            "فَإِنَّ مَعْنَاهُ فِي التَّحْقِيقِ فُقْدَانُ"
           ],
-          "jawaban": 0,
-          "alasan": "فَا = 10, عِلُنْ = 110. 1110 adalah فَعِلُنْ (khabn); 11010 adalah فَعُولُنْ milik thawil; 1010110 adalah مُسْتَفْعِلُنْ."
+          "bahr": "basith",
+          "makna": "Setiap keberuntungan yang tidak kekal, hakikatnya adalah kehilangan."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lima baris basith. Tiga diambil dari Nuniyah al-Busti apa adanya, dua diubah sedikit. Tandai yang pincang, lalu baca catatannya.",
+          "bahr": "basith",
+          "baris": [
+            {
+              "bait": [
+                "يَا عَامِرًا لِخَرَابِ الدَّهْرِ مُجْتَهِدًا",
+                "بِاللَّهِ هَلْ لِخَرَابِ الْعُمْرِ عُمْرَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 3 (Wikisource ar, عنوان الحكم; sama di mawdoo3.com, شرح قصيدة عنوان الحكم). 'Arudhnya تَهِدَنْ = 1110, فَعِلُنْ."
+            },
+            {
+              "bait": [
+                "وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ مُسْتَمْسِكًا",
+                "فَإِنَّهُ الرُّكْنُ إِنْ خَانَتْكَ أَرْكَانُ"
+              ],
+              "catatan": "Diubah dari bait 12: مُعْتَصِمًا diganti مُسْتَمْسِكًا. Maknanya sama, tetapi 'arudhnya menjadi تَمْسِكَنْ = 10110, فَاعِلُنْ utuh. 'Arudh basith harus فَعِلُنْ (1110)."
+            },
+            {
+              "bait": [
+                "دَعِ التَّكَاسُلَ فِي الْخَيْرَاتِ تَطْلُبُهَا",
+                "فَلَيْسَ يَسْعَدُ بِالْخَيْرَاتِ كَسْلَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 32 (Wikisource ar, عنوان الحكم; sama di mawdoo3.com, شرح قصيدة عنوان الحكم). فَاعِلُنْ kedua di kedua syathr di-khabn: 1110."
+            },
+            {
+              "bait": [
+                "زِيَادَةُ الْإِنْسَانِ فِي دُنْيَاهُ نُقْصَانُ",
+                "وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ"
+              ],
+              "catatan": "Diubah dari bait 1: الْمَرْءِ diganti الْإِنْسَانِ. Maknanya sama, tetapi ada satu suku panjang tambahan (إِنْ). Tempat فَاعِلُنْ terisi bunyi sepanjang مُسْتَفْعِلُنْ: langkah rajaz menyelinap ke basith."
+            },
+            {
+              "bait": [
+                "وَلِلْأُمُورِ مَوَاقِيتٌ مُقَدَّرَةٌ",
+                "وَكُلُّ أَمْرٍ لَهُ حَدٌّ وَمِيزَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 42 (Wikisource ar, عنوان الحكم; sama di mawdoo3.com, شرح قصيدة عنوان الحكم). Tanwin مَوَاقِيتٌ dibaca مَوَاقِيتُنْ."
+            }
+          ]
         },
         {
           "jenis": "irama",
@@ -109,16 +264,6 @@
           ],
           "bahr": "basith",
           "makna": "Bertambahnya milik seseorang di dunia sejatinya adalah kekurangan; dan labanya, selain kebaikan yang murni, adalah kerugian."
-        },
-        {
-          "jenis": "taqthi",
-          "petunjuk": "Timbang bait kedua al-Busti sendiri. Tanwin di حَظٍّ dibaca حَظْظِنْ. Ujung syathr pertama لَهُ dibaca لَهُو.",
-          "bait": [
-            "وَكُلُّ وِجْدَانِ حَظٍّ لَا ثَبَاتَ لَهُ",
-            "فَإِنَّ مَعْنَاهُ فِي التَّحْقِيقِ فُقْدَانُ"
-          ],
-          "bahr": "basith",
-          "makna": "Setiap keberuntungan yang tidak kekal, hakikatnya adalah kehilangan."
         }
       ],
       "patokan": "Kunci basith dihafal dan dilagukan; syathr kedua bait pembuka dan bait kedua al-Busti ditandai sendiri sampai benar.",
@@ -206,6 +351,35 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. فَطَالَمَا اسْتَعْبَدَ: hamzah washal gugur dan alif مَا ikut gugur, jadi فَطَالَمَسْتَعْبَدَ. الْإِنْسَانَ إِحْسَانُ: dua kata yang berbunyi mirip, polanya pun mirip."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, bait ketujuh al-Busti. Ujungnya إِحْسَانُ. Rawiynya nun. Sebelum nun ada alif, itulah ridf. Nun berharakat dhammah, jadi di ujung bait terdengar ـسَانُو.",
+        "Lalu contoh kedua, bait ketiga Nuniyah Ibnul Qayyim. Ujungnya kata yang sama, الْإِحْسَانِ. Rawiynya nun, ridfnya alif. Tetapi nunnya berharakat kasrah, jadi terdengar ـسَانِي. Katanya sama, majranya berbeda.",
+        "Dari mana bedanya? Dari i'rab. Di al-Busti, إِحْسَانُ adalah fa'il dari اسْتَعْبَدَ, maka marfu'. الْإِنْسَانَ sebelumnya adalah maf'ul bih yang didahulukan. Di Ibnul Qayyim, الْإِحْسَانِ adalah mudhaf ilaih sesudah مَجْلِسِ, maka majrur. Majra adalah harakat i'rab yang terdengar di qafiyah.",
+        "Sekarang timbang keduanya. Bait al-Busti lurus sebagai basith: أَحْسِنْ إِلَنْ = 1010110, نَاسِ تَسْ = 10110, dan seterusnya. Bait Ibnul Qayyim, bila dipaksa ditimbang basith, patah di empat tempat. Bait itu tidak salah. Ia kamil: مُتَفَاعِلُنْ tiga kali per syathr.",
+        "Jadi dua qashidah bisa sama-sama nuniyah tanpa menjadi kembar. Nama nuniyah hanya menyebut rawiy. Untuk menyebut wadah lengkapnya, sebut juga bahr dan majranya: Nuniyah al-Busti basith ـانُ, Nuniyah Ibnul Qayyim kamil ـانِ."
+      ],
+      "keliru": [
+        {
+          "salah": "Menganggap semua nuniyah memakai bahr yang sama.",
+          "benar": "Nuniyah hanya berarti rawiynya nun. Bahrnya harus ditimbang sendiri.",
+          "sebab": "Nama qashidah diambil dari huruf rawiy, seperti lamiyah dan mimiyah, bukan dari bahr."
+        },
+        {
+          "salah": "Memasukkan الْإِيمَانِ ke qashidah yang majranya dhammah, karena rawiy dan ridfnya sama.",
+          "benar": "Pakai bentuk marfu' إِيمَانُ, dan susun kalimatnya agar kata itu memang marfu' menurut nahwu.",
+          "sebab": "Majra mengikuti i'rab. Harakat rawiy yang berganti di tengah qashidah disebut iqwa', cacat qafiyah."
+        },
+        {
+          "salah": "Membaca فَطَالَمَا اسْتَعْبَدَ dengan alif مَا tetap panjang.",
+          "benar": "Alif مَا gugur karena bertemu sukun sesudah hamzah washal: فَطَالَمَسْتَعْبَدَ.",
+          "sebab": "Sama dengan iltiqa' as-sakinain dalam tajwid: mad thabi'i di ujung kata gugur dalam washal bila bertemu huruf sukun."
+        },
+        {
+          "salah": "Membaca قُلُوبَهُمُ di ujung syathr dengan mim sukun: قُلُوبَهُمْ.",
+          "benar": "Di ujung syathr ini mim jama' dibaca dhammah panjang: قُلُوبَهُمُو, sehingga بَهُمُو = 1110.",
+          "sebab": "Penyair memakai shilah mim jama', seperti bacaan Ibnu Katsir. Tanpa shilah, 'arudh kekurangan satu huruf hidup."
+        }
+      ],
       "qaidah": [
         "Nama qashidah mengikuti rawiy. Dua-duanya **nuniyah**, karena rawiynya nun.",
         "Majra berbeda: Ibnul Qayyim نِ (kasrah), al-Busti نُ (dhammah). Kata ujung tidak bisa dipindah begitu saja dari satu qashidah ke qashidah lain.",
@@ -214,38 +388,78 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Kata mana yang cocok menutup bait baru dalam Nuniyah al-Busti?",
-          "pilihan": [
-            "إِيمَانُ",
-            "الْإِيمَانِ",
-            "إِيمَانَا"
-          ],
-          "jawaban": 0,
-          "alasan": "Majra al-Busti dhammah: ـانُ. الْإِيمَانِ cocok untuk Ibnul Qayyim, إِيمَانَا untuk qashidah bermajra fathah."
+          "jenis": "kenali",
+          "petunjuk": "Bandingkan dua nuniyah: rawiy, ridf, majra, dan bahr.",
+          "soal": [
+            {
+              "soal": "Apa huruf rawiy Nuniyah al-Busti?",
+              "pilihan": [
+                "ن",
+                "ا",
+                "س",
+                "و"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy adalah huruf terakhir yang menjadi dasar qafiyah: nun. Alif sebelumnya ridf, waw yang terdengar sesudahnya wasl dari isyba'.",
+              "arab": true
+            },
+            {
+              "soal": "Apa yang SAMA dari Nuniyah Ibnul Qayyim dan Nuniyah al-Busti?",
+              "pilihan": [
+                "Bahrnya",
+                "Rawiy dan ridfnya",
+                "Majranya",
+                "Semuanya sama"
+              ],
+              "jawaban": 1,
+              "alasan": "Rawiy ن dan ridf alif sama. Bahr (kamil dan basith) dan majra (kasrah dan dhammah) berbeda."
+            },
+            {
+              "soal": "Kata mana yang cocok menutup bait baru dalam Nuniyah al-Busti?",
+              "pilihan": [
+                "إِيمَانُ",
+                "الْإِيمَانِ",
+                "إِيمَانَا"
+              ],
+              "jawaban": 0,
+              "alasan": "Majra al-Busti dhammah: ـانُ. الْإِيمَانِ cocok untuk Ibnul Qayyim, إِيمَانَا untuk qashidah bermajra fathah."
+            },
+            {
+              "soal": "Dalam فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ, mengapa إِحْسَانُ marfu'?",
+              "pilihan": [
+                "Fa'il dari اسْتَعْبَدَ",
+                "Mubtada'",
+                "Na'at bagi الْإِنْسَانَ"
+              ],
+              "jawaban": 0,
+              "alasan": "الْإِنْسَانَ maf'ul bih yang didahulukan; إِحْسَانُ fa'il yang diakhirkan. Penyair memindahkan fa'il ke ujung agar ia menjadi qafiyah."
+            },
+            {
+              "soal": "Bait وَأَتَتْ شُهُودُ الْوَصْلِ… ditimbang basith dan patah di empat tempat. Apa artinya?",
+              "pilihan": [
+                "Bait itu bukan basith; ia kamil",
+                "Bait itu salah dan harus diperbaiki",
+                "Ibnul Qayyim keliru menimbang"
+              ],
+              "jawaban": 0,
+              "alasan": "Bait itu lurus dalam kamil. Patah karena ditimbang dengan bahr yang salah. Rawiy yang sama tidak menjamin bahr yang sama."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Apa yang SAMA dari Nuniyah Ibnul Qayyim dan Nuniyah al-Busti?",
-          "pilihan": [
-            "Bahrnya",
-            "Rawiy dan ridfnya",
-            "Majranya",
-            "Semuanya sama"
-          ],
-          "jawaban": 1,
-          "alasan": "Rawiy ن dan ridf alif sama. Bahr (kamil dan basith) dan majra (kasrah dan dhammah) berbeda."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "Dalam فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ, mengapa إِحْسَانُ marfu'?",
-          "pilihan": [
-            "Fa'il dari اسْتَعْبَدَ",
-            "Mubtada'",
-            "Na'at bagi الْإِنْسَانَ"
-          ],
-          "jawaban": 0,
-          "alasan": "الْإِنْسَانَ maf'ul bih yang didahulukan; إِحْسَانُ fa'il yang diakhirkan. Penyair memindahkan fa'il ke ujung agar ia menjadi qafiyah."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada kata dan frasa dari bait 7 dan bait 12 al-Busti. Ingat: hamzah washal di tengah kalimat gugur. Huruf terakhir butir dibaca tanpa isyba'.",
+          "butir": [
+            "إِحْسَانُ",
+            "فَطَالَمَا",
+            "قُلُوبَهُمُ",
+            "مُعْتَصِمًا",
+            "بِحَبْلِ اللَّهِ",
+            "أَحْسِنْ إِلَى النَّاسِ",
+            "فَإِنَّهُ الرُّكْنُ",
+            "فَطَالَمَا اسْتَعْبَدَ",
+            "الْإِنْسَانَ إِحْسَانُ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -256,6 +470,58 @@
           ],
           "bahr": "basith",
           "makna": "Genggamlah tali Allah erat-erat, berpeganglah padanya. Dialah sandaran ketika sandaran-sandaran lain mengkhianatimu."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lima baris ditimbang sebagai **basith**, seolah semuanya dari Nuniyah al-Busti. Ada yang lurus, ada yang pincang, dan satu baris sebenarnya dari qashidah lain. Tandai yang pincang.",
+          "bahr": "basith",
+          "baris": [
+            {
+              "bait": [
+                "زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ",
+                "وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 1."
+            },
+            {
+              "bait": [
+                "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+                "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+              ],
+              "catatan": "Bait asli Ibnul Qayyim (Nuniyah bait 3), lurus sebagai kamil. Sebagai basith ia patah: rawiy sama, wadah lain."
+            },
+            {
+              "bait": [
+                "أَحْسِنْ إِلَى النَّاسِ تَسْتَعْبِدْ قُلُوبَهُمُ",
+                "فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 7."
+            },
+            {
+              "bait": [
+                "دَعِ التَّكَاسُلَ فِي الْخَيْرَاتِ تَطْلُبُهَا",
+                "فَلَيْسَ يَسْعَدُ بِالْخَيْرَاتِ الْكَسْلَانُ"
+              ],
+              "catatan": "Diubah dari bait 32: كَسْلَانُ diberi الْ. Alif-lam menambah satu huruf mati: تِ menjadi تِلْ, sehingga مُسْتَفْعِلُنْ ketiga kelebihan bunyi. Maknanya pun berubah: tanpa الْ, كَسْلَانُ berarti pemalas mana pun."
+            },
+            {
+              "bait": [
+                "وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ مُعْتَصِمًا",
+                "فَإِنَّهُ الرُّكْنُ إِنْ خَانَتْكَ أَرْكَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 12."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama bait ketujuh al-Busti. Lalu lagukan dari ingatan bait Ibnul Qayyim yang Anda olah di Modul 6. Ujungnya serumpun (ـانُو dan ـانِي), langkahnya lain.",
+          "bait": [
+            "أَحْسِنْ إِلَى النَّاسِ تَسْتَعْبِدْ قُلُوبَهُمُ",
+            "فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ"
+          ],
+          "bahr": "basith",
+          "makna": "Berbuat baiklah kepada manusia, niscaya engkau memikat hati mereka. Betapa sering kebaikan menawan hati manusia."
         }
       ],
       "patokan": "Satu tabel perbandingan dua nuniyah di Diwan (rawiy, ridf, majra, bahr, ujung bait) dan bait وَاشْدُدْ يَدَيْكَ ditandai sendiri."
@@ -329,6 +595,36 @@
           "petunjuk": "Giliran Anda: **syathr pertama** bait al-Busti. وَكُلُّ → وَكُلْلُ. حَظٍّ → حَظْظِنْ. لَهُ di ujung syathr dibaca لَهُو."
         }
       },
+      "syarh": [
+        "Perhatikan contoh bait وَاشْدُدْ يَدَيْكَ. وَشْدُدْ يَدَيْ = 1010110, lalu كَبِحَبْ = 1110. Taf'ilah kedua ini فَاعِلُنْ yang di-khabn menjadi فَعِلُنْ. Jadi di tengah syathr pun فَاعِلُنْ boleh memendek. Telinga Anda perlu mengenal kedua bentuknya: 10110 dan 1110.",
+        "Lalu bait peragaan, bait kedua al-Busti. Di syathr kedua, kata فُقْدَانُ terbelah. فُقْ menutup مُسْتَفْعِلُنْ ketiga, دَانُو menjadi ujung bait. Batas taf'ilah tidak harus jatuh di batas kata.",
+        "Sekarang draf pertama Hudhud: وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ. Taf'ilah pertama وَلْعِلْمُ تَا lurus. Sesudahnya جُنْ لِلْ إِنْ, tiga suku panjang berderet: 101010. Tempat itu meminta 10110, yang punya watad. Tanpa watad, irama tersandung.",
+        "Draf kedua hanya mengganti bagian itu: وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهْوَ عُنْوَانُ. Sekarang وَلْعِلْمُ لِلْ = 1010110, مَرْءِ تَا = 10110, جُنْ وَهْوَ عُنْ = 1010110, وَانُو = 1010. Lurus, dan maknanya tetap.",
+        "Perhatikan وَهْوَ. Ha-nya disukunkan setelah waw 'athaf, bacaan yang sah dan lazim dalam syair. Bila dibaca وَهُوَ, ada tiga huruf hidup beruntun dan taf'ilah ketiga patah. Pilihan bacaan kecil seperti ini sering menyelamatkan bait.",
+        "Kaidahnya: kunci kata qafiyah dulu, lalu isi taf'ilah dari belakang ke depan. Kalau patah, lihat taf'ilah yang ditandai dan ganti kata di sana saja."
+      ],
+      "keliru": [
+        {
+          "salah": "Mengganti seluruh bait ketika satu taf'ilah patah.",
+          "benar": "Ganti satu atau dua kata di taf'ilah yang patah saja. Bagian lain biarkan.",
+          "sebab": "Bagian lain sudah lurus. Mengubahnya hanya membuka tempat patah yang baru."
+        },
+        {
+          "salah": "Menulis يُكْرِمْهُ اللَّهُ karena terasa lebih lazim.",
+          "benar": "Di bait latihan dipakai يُكْرِمْهُ الْإِلَهُ: لْ إِلَا memberi watad yang dibutuhkan مُسْتَفْعِلُنْ.",
+          "sebab": "Lafzh al-jalalah dibaca dengan lam bersyaddah dan alif mad, jadi suku panjangnya beruntun. Hamzah berharakat pada الْإِلَهُ menambah satu huruf hidup."
+        },
+        {
+          "salah": "Menutup bait dengan عُنْوَانُهُ, memakai dhamir.",
+          "benar": "Ujung bait harus 1010 seperti seluruh qashidah: عُنْوَانُ saja.",
+          "sebab": "Dhamir menambah satu huruf hidup. Dharb menjadi 10110, bentuk yang tidak sah untuk dharb basith, dan bunyi ujungnya tidak lagi ـانُو."
+        },
+        {
+          "salah": "Menganggap batas taf'ilah harus sama dengan batas kata.",
+          "benar": "Yang ditimbang adalah bunyi bersambung. فُقْ | دَانُو boleh terbelah.",
+          "sebab": "Sama seperti washal dalam tilawah: huruf-huruf yang tersambung dihitung bersama, tidak peduli batas tulisan."
+        }
+      ],
       "qaidah": [
         "Susun dari ujung: kunci kata qafiyah ـانُ (ujung 1010), lalu isi taf'ilah sebelum-sebelumnya.",
         "Satu kata boleh terbelah antara dua taf'ilah, seperti فُقْ | دَانُو. Yang ditimbang bunyinya, bukan batas kata.",
@@ -337,15 +633,174 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Draf: وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ patah. Taf'ilah mana yang perlu diperbaiki?",
-          "pilihan": [
-            "Taf'ilah kedua: تَاجُنْ لِلْ… terlalu banyak suku panjang",
-            "Taf'ilah terakhir: عُنْوَانُ salah majra",
-            "Taf'ilah pertama: وَالْعِلْمُ terlalu pendek"
+          "jenis": "kenali",
+          "petunjuk": "Sebelum menyusun, pastikan bahan-bahannya Anda kenali.",
+          "soal": [
+            {
+              "soal": "Dalam وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ, potongan كَبِحَبْ = 1110 adalah…",
+              "pilihan": [
+                "فَعِلُنْ: فَاعِلُنْ yang di-khabn",
+                "مُتَفْعِلُنْ: مُسْتَفْعِلُنْ yang di-khabn",
+                "فَعْلُنْ: فَاعِلُنْ yang di-qath'"
+              ],
+              "jawaban": 0,
+              "alasan": "Posisinya taf'ilah kedua, tempat فَاعِلُنْ. Alif فَاعِلُنْ dibuang: 1110."
+            },
+            {
+              "soal": "Kata mana yang bisa menutup bait basith Anda, mengikuti al-Busti?",
+              "pilihan": [
+                "بُرْهَانُ",
+                "بُرْهَانِ",
+                "بُرْهَانَا"
+              ],
+              "jawaban": 0,
+              "alasan": "Majra al-Busti dhammah dan ujungnya 1010: ـانُ.",
+              "arab": true
+            },
+            {
+              "soal": "Bacaan mana yang membuat draf kedua lurus?",
+              "pilihan": [
+                "وَهْوَ",
+                "وَهُوَ"
+              ],
+              "jawaban": 0,
+              "alasan": "وَهْوَ = 101. وَهُوَ = 111 menambah satu huruf hidup dan mematahkan taf'ilah ketiga.",
+              "arab": true
+            },
+            {
+              "soal": "Langkah pertama menyusun bait basith menurut pelajaran ini adalah…",
+              "pilihan": [
+                "Mengunci kata qafiyah di ujung",
+                "Menulis taf'ilah pertama",
+                "Menghitung jumlah kata"
+              ],
+              "jawaban": 0,
+              "alasan": "Ujung bait paling ketat aturannya: majra, ridf, dan bentuk 1010. Setelah ujungnya terkunci, bagian depan lebih leluasa."
+            },
+            {
+              "soal": "Draf: وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ patah. Taf'ilah mana yang perlu diperbaiki?",
+              "pilihan": [
+                "Taf'ilah kedua: تَاجُنْ لِلْ… terlalu banyak suku panjang",
+                "Taf'ilah terakhir: عُنْوَانُ salah majra",
+                "Taf'ilah pertama: وَالْعِلْمُ terlalu pendek"
+              ],
+              "jawaban": 0,
+              "alasan": "مُسْتَفْعِلُنْ pertama (وَلْعِلْمُ تَا) lurus, ujung عُنْوَانُ juga benar. Di posisi فَاعِلُنْ (10110) muncul 101010: suku panjang berderet tanpa watad."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada bahan-bahan dari laci dan dari draf Hudhud. Bandingkan وَهُوَ dan وَهْوَ. Huruf terakhir butir dibaca tanpa isyba'.",
+          "butir": [
+            "وَالْعِلْمُ",
+            "حَظٍّ",
+            "وَهُوَ",
+            "وَهْوَ عُنْوَانُ",
+            "فِي التَّحْقِيقِ",
+            "لَا ثَبَاتَ لَهُ",
+            "لِلْمَرْءِ تَاجٌ",
+            "مَنْ يَطْلُبِ الْعِلْمَ",
+            "يُكْرِمْهُ الْإِلَهُ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait 17 al-Busti sendiri. يَسْلَمْ majzum karena jawab syarth مَنْ. غَوَائِلِهِمْ di ujung syathr pertama: mim jama' tetap sukun. وَهْوَ: ha disukunkan.",
+          "bait": [
+            "مَنْ سَالَمَ النَّاسَ يَسْلَمْ مِنْ غَوَائِلِهِمْ",
+            "وَعَاشَ وَهْوَ قَرِيرُ الْعَيْنِ جَذْلَانُ"
           ],
-          "jawaban": 0,
-          "alasan": "مُسْتَفْعِلُنْ pertama (وَلْعِلْمُ تَا) lurus, ujung عُنْوَانُ juga benar. Di posisi فَاعِلُنْ (10110) muncul 101010: suku panjang berderet tanpa watad."
+          "bahr": "basith",
+          "makna": "Siapa berdamai dengan manusia, ia selamat dari kejahatan mereka, dan hidup dengan mata sejuk dan hati gembira."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Draf-draf bait latihan tentang ilmu, dicampur satu bait asli al-Busti. Tandai yang pincang. Lalu baca catatannya: setiap draf pincang hanya berbeda satu kata dari versi yang lurus.",
+          "bahr": "basith",
+          "baris": [
+            {
+              "bait": [
+                "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+                "وَالْعِلْمُ تَاجٌ لِلْإِنْسَانِ وَعُنْوَانُ"
+              ],
+              "catatan": "Bait latihan, draf pertama Hudhud. تَاجٌ لِلْإِنْسَانِ memberi 101010 di tempat فَاعِلُنْ."
+            },
+            {
+              "bait": [
+                "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+                "وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهْوَ عُنْوَانُ"
+              ],
+              "catatan": "Bait latihan, versi yang sudah diperbaiki."
+            },
+            {
+              "bait": [
+                "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ اللَّهُ بِهِ",
+                "وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهْوَ عُنْوَانُ"
+              ],
+              "catatan": "Bait latihan: الْإِلَهُ diganti اللَّهُ. Hamzah berharakat hilang, suku panjang berderet, مُسْتَفْعِلُنْ ketiga patah."
+            },
+            {
+              "bait": [
+                "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+                "وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهُوَ عُنْوَانُ"
+              ],
+              "catatan": "Bait latihan: وَهْوَ dibaca وَهُوَ. Tiga huruf hidup beruntun, taf'ilah ketiga patah."
+            },
+            {
+              "bait": [
+                "وَاشْدُدْ يَدَيْكَ بِحَبْلِ اللَّهِ مُعْتَصِمًا",
+                "فَإِنَّهُ الرُّكْنُ إِنْ خَانَتْكَ أَرْكَانُ"
+              ],
+              "catatan": "Asli: Nuniyah al-Busti bait 12."
+            },
+            {
+              "bait": [
+                "مَنْ يَطْلُبِ الْعِلْمَ يُكْرِمْهُ الْإِلَهُ بِهِ",
+                "وَالْعِلْمُ لِلْمَرْءِ تَاجٌ وَهْوَ عُنْوَانُهُ"
+              ],
+              "catatan": "Bait latihan: dhamir هُ ditambahkan di ujung. Dharb menjadi 10110, padahal dharb basith hanya 1110 atau 1010."
+            }
+          ]
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Cetakan syathr kedua dengan qafiyah ـانُ. Isi tiga kotak, lengkap dengan harakat. Buat **tiga baris** berbeda; setiap baris harus lurus. (Bait latihan, bukan kutipan.)",
+          "cetakan": "وَالْ{1} لِلْمَرْءِ {2} وَهْوَ {3}",
+          "kotak": [
+            {
+              "petunjuk": "Kata sesudah الْ, pola 101, marfu' sebagai mubtada'. Pakai huruf qamariyah, mis. عِلْمُ، حِلْمُ",
+              "pola": "101",
+              "contoh": [
+                "عِلْمُ",
+                "حِلْمُ",
+                "فِقْهُ",
+                "جُودُ"
+              ]
+            },
+            {
+              "petunjuk": "Khabar nakirah bertanwin dhammah, pola 1010 dengan tanwin, mis. تَاجٌ، كَنْزٌ",
+              "pola": "1010",
+              "contoh": [
+                "تَاجٌ",
+                "كَنْزٌ",
+                "نُورٌ",
+                "حِصْنٌ"
+              ]
+            },
+            {
+              "petunjuk": "Kata qafiyah ـانُ berwazan فُعْلَانٌ atau مِفْعَالٌ, tanpa tanwin, mis. عُنْوَانُ، بُرْهَانُ",
+              "pola": "101010",
+              "contoh": [
+                "عُنْوَانُ",
+                "بُرْهَانُ",
+                "مِيزَانُ",
+                "سُلْطَانُ"
+              ]
+            }
+          ],
+          "bahr": "basith",
+          "jumlah": 3
         },
         {
           "jenis": "susun",

@@ -78,6 +78,36 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. بَيْنِي وَبَيْنَكَ: cari مُتَفَاعِلُنْ utuh (1110110). حُرْمَةُ الْقُرْآنِ → حُرْمَتُلْقُرْآنِي."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, pembuka Nuniyah Ibnu Zaidun: أَضْحَى التَّنَائِي بَدِيلًا مِنْ تَدَانِينَا. Bahrnya basith, seperti al-Busti di Modul 8. Rawiynya nun. Sesudah nun terdengar alif: ـِينَا. Alif itu wasl, sambungan suara, bukan rawiy.",
+        "Lalu contoh kedua, pembuka Andalusiyyah Ahmad Syauqi: يَا نَائِحَ الطَّلْحِ أَشْبَاهٌ عَوَادِينَا. Lebih dari delapan abad kemudian, bahrnya sama (basith), rawiynya sama (nun), ujungnya sama (ـِينَا). Temanya pun dekat: rindu dan jauh dari tanah air. Tetapi tidak ada satu bait pun yang disalin. Inilah mu'aradhah.",
+        "Contoh ketiga, pembuka Nuniyah al-Qahthani: يَا مُنْزِلَ الْآيَاتِ وَالْفُرْقَانِ. Hudhud menimbangnya: kamil, rawiy nun, majra kasrah, ridf alif. Wadah ini sama dengan Nuniyah Ibnul Qayyim yang Anda olah di Modul 6. Wadah ini pula yang akan dipakai Nuniyah Kecil Anda.",
+        "Jadi yang dipinjam dalam mu'aradhah ada tiga: bahr, rawiy, dan majra, beserta ridf bila ada. Yang tidak dipinjam: bait, susunan kalimat, dan makna rinci. Tema biasanya dekat, tetapi boleh bergeser.",
+        "Mengapa ridf ikut dijaga? Karena alif sebelum nun terdengar di setiap ujung bait. Bila satu bait berakhir ـانِ dan bait lain ـِينِ, telinga langsung merasakannya. Alif sebagai ridf tidak boleh bergantian dengan ya atau waw.",
+        "Bedakan ridf dari **ta'sis**. Ridf menempel langsung pada rawiy, seperti alif dalam الْقُرْآنِ. Ta'sis adalah alif yang dipisah satu huruf hidup (dakhil) dari rawiy, seperti alif dalam الْعَاقِلُ. Qafiyah ـانِ Anda ber-ridf, tanpa ta'sis."
+      ],
+      "keliru": [
+        {
+          "salah": "Mengira mu'aradhah cukup dengan tema yang sama.",
+          "benar": "Mu'aradhah meminjam wadah: bahr, rawiy, dan majra. Tema yang sama dengan wadah lain bukan mu'aradhah.",
+          "sebab": "Yang membuat pendengar teringat qashidah asal adalah irama dan bunyi ujungnya, bukan hanya temanya."
+        },
+        {
+          "salah": "Mengambil satu atau dua bait qashidah asal, lalu menambah sedikit.",
+          "benar": "Semua bait harus baru. Bila mengutip, sebutkan sumbernya.",
+          "sebab": "Memakai bait orang lain sebagai milik sendiri disebut sariqah dalam kritik syair."
+        },
+        {
+          "salah": "Menyebut alif dalam ـانِ sebagai ta'sis.",
+          "benar": "Alif yang langsung sebelum rawiy adalah ridf. Ta'sis berjarak satu huruf hidup dari rawiy, seperti di الْعَاقِلُ.",
+          "sebab": "Ridf dan ta'sis sama-sama alif, tetapi letaknya berbeda, dan pemeriksa qafiyah memperlakukannya berbeda."
+        },
+        {
+          "salah": "Menulis bait berrawiy nun dalam basith, lalu menyebutnya mu'aradhah atas Nuniyah Ibnul Qayyim.",
+          "benar": "Wadah Ibnul Qayyim adalah kamil ـانِ. Basith ber-rawiy nun lebih dekat ke al-Busti atau Ibnu Zaidun.",
+          "sebab": "Rawiy yang sama tidak cukup; bahr adalah separuh wadah."
+        }
+      ],
       "qaidah": [
         "**Mu'aradhah**: menyusun qashidah baru dengan bahr, rawiy, dan majra qashidah terdahulu, biasanya dengan tema yang dekat. Ia penghormatan sekaligus latihan.",
         "Contoh masyhur: Ahmad Syauqi menulis nuniyah Andalusiyyah mengikuti **Nuniyah Ibnu Zaidun**: sama-sama basith, rawiy nun, ujung ـِينَا.",
@@ -86,37 +116,89 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Dalam mu'aradhah, apa yang harus sama dengan qashidah asal?",
-          "pilihan": [
-            "Bahr, rawiy, dan majra",
-            "Bait pertamanya",
-            "Jumlah baitnya",
-            "Hanya temanya"
-          ],
-          "jawaban": 0,
-          "alasan": "Mu'aradhah mengikuti wadah: bahr dan qafiyah. Bait dan maknanya baru; jumlah bait bebas, tema biasanya dekat tetapi tidak wajib sama."
+          "jenis": "kenali",
+          "petunjuk": "Kenali wadah: bahr, rawiy, ridf, ta'sis, dan wasl.",
+          "soal": [
+            {
+              "soal": "Dalam mu'aradhah, apa yang harus sama dengan qashidah asal?",
+              "pilihan": [
+                "Bahr, rawiy, dan majra",
+                "Bait pertamanya",
+                "Jumlah baitnya",
+                "Hanya temanya"
+              ],
+              "jawaban": 0,
+              "alasan": "Mu'aradhah mengikuti wadah: bahr dan qafiyah. Bait dan maknanya baru; jumlah bait bebas, tema biasanya dekat tetapi tidak wajib sama."
+            },
+            {
+              "soal": "Nuniyah Andalusiyyah Syauqi, mu'aradhah atas Ibnu Zaidun, ditulis dalam bahr apa?",
+              "pilihan": [
+                "Kamil",
+                "Basith",
+                "Rajaz"
+              ],
+              "jawaban": 1,
+              "alasan": "Ia mengikuti Nuniyah Ibnu Zaidun, yang ditulis dalam basith: مُسْتَفْعِلُنْ فَاعِلُنْ dua kali per syathr. Timbang sendiri bait pertamanya di contoh."
+            },
+            {
+              "soal": "Dalam تَدَانِينَا di ujung bait Ibnu Zaidun, alif terakhir adalah…",
+              "pilihan": [
+                "Wasl",
+                "Rawiy",
+                "Ridf"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiynya nun. Alif sesudahnya menyambung suara: wasl. Ya sebelum nun adalah ridf."
+            },
+            {
+              "soal": "Alif dalam الْقُرْآنِ, tepat sebelum nun, disebut…",
+              "pilihan": [
+                "Ridf",
+                "Ta'sis",
+                "Wasl"
+              ],
+              "jawaban": 0,
+              "alasan": "Huruf mad yang langsung sebelum rawiy adalah ridf. Ta'sis harus dipisah satu huruf hidup dari rawiy."
+            },
+            {
+              "soal": "Kata mana yang punya ta'sis, bila rawiynya lam?",
+              "pilihan": [
+                "الْعَاقِلُ",
+                "الْقُرْآنُ",
+                "الدِّينُ"
+              ],
+              "jawaban": 0,
+              "alasan": "Dalam الْعَاقِلُ, alif dipisah dari rawiy lam oleh qaf (dakhil). Itulah ta'sis. Dua kata lain tidak berrawiy lam.",
+              "arab": true
+            },
+            {
+              "soal": "Kata mana yang boleh menjadi qafiyah Nuniyah Kecil?",
+              "pilihan": [
+                "الْأَحْزَانِ",
+                "الْأَحْزَانُ",
+                "الدِّينِ",
+                "أَحْزَانَا"
+              ],
+              "jawaban": 0,
+              "alasan": "Wadahnya: rawiy nun, majra kasrah, ridf alif. الْأَحْزَانُ majranya dhammah, أَحْزَانَا fathah, dan الدِّينِ ber-ridf ya, yang tidak boleh berganti dengan alif.",
+              "arab": true
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Nuniyah Andalusiyyah Syauqi, mu'aradhah atas Ibnu Zaidun, ditulis dalam bahr apa?",
-          "pilihan": [
-            "Kamil",
-            "Basith",
-            "Rajaz"
-          ],
-          "jawaban": 1,
-          "alasan": "Ia mengikuti Nuniyah Ibnu Zaidun, yang ditulis dalam basith: مُسْتَفْعِلُنْ فَاعِلُنْ dua kali per syathr. Timbang sendiri bait pertamanya di contoh."
-        },
-        {
-          "jenis": "irama",
-          "petunjuk": "Putar irama pembuka Nuniyah al-Qahthani. Lagukan berulang sampai nada kamil ـانِ menempel di telinga: inilah nada Nuniyah Kecil Anda.",
-          "bait": [
-            "يَا مُنْزِلَ الْآيَاتِ وَالْفُرْقَانِ",
-            "بَيْنِي وَبَيْنَكَ حُرْمَةُ الْقُرْآنِ"
-          ],
-          "bahr": "kamil",
-          "makna": "Wahai Yang menurunkan ayat-ayat dan al-Furqan, antara aku dan Engkau ada kehormatan Al-Qur'an."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda kata-kata ـانِ, calon qafiyah Nuniyah Kecil Anda. Ujung dibaca tanpa isyba': ـانِ = 101. Perhatikan hamzah washal di awal frasa.",
+          "butir": [
+            "أَمَانِ",
+            "الْقُرْآنِ",
+            "الْإِيمَانِ",
+            "الْفُرْقَانِ",
+            "وَالْإِحْسَانِ",
+            "مِنْ عَدْنَانِ",
+            "بِلَا خُسْرَانِ",
+            "مِنَ الشَّيْطَانِ",
+            "حُرْمَةُ الْقُرْآنِ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -127,6 +209,58 @@
           ],
           "bahr": "kamil",
           "makna": "Engkaulah yang membentuk rupaku dan menciptakanku, dan menunjukiku kepada syariat-syariat iman."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lima baris ditimbang sebagai **kamil**, wadah Nuniyah Kecil. Ada bait asli al-Qahthani, ada yang diubah sedikit, dan satu bait nuniyah dari wadah lain. Tandai yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "وَجَبَرْتَنِي وَسَتَرْتَنِي وَنَصَرْتَنِي",
+                "وَغَمَرْتَنِي بِالْفَضْلِ وَالْإِحْسَانِ"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 13 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya)."
+            },
+            {
+              "bait": [
+                "أَحْسِنْ إِلَى النَّاسِ تَسْتَعْبِدْ قُلُوبَهُمُ",
+                "فَطَالَمَا اسْتَعْبَدَ الْإِنْسَانَ إِحْسَانُ"
+              ],
+              "catatan": "Bait asli al-Busti (bait 7), lurus sebagai basith. Sebagai kamil ia pincang. Rawiynya nun, tetapi bahr dan majranya lain: ini bukan mu'aradhah atas Ibnul Qayyim."
+            },
+            {
+              "bait": [
+                "وَاكْشِفْ بِهِ ضُرِّي وَحَقِّقْ تَوْبَتِي",
+                "وَارْبَحْ بِهِ بَيْعِي بِغَيْرِ خُسْرَانِ"
+              ],
+              "catatan": "Diubah dari bait 5 al-Qahthani: بِلَا diganti بِغَيْرِ. Maknanya sama, tetapi ada satu huruf hidup tambahan (رِ), dan dharbnya menjadi 1101010."
+            },
+            {
+              "bait": [
+                "وَكَلَامُهُ الْقُرْآنُ أَنْزَلَ آيَهُ",
+                "وَحْيًا عَلَى الْمَبْعُوثِ مِنْ عَدْنَانِ"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 47 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya)."
+            },
+            {
+              "bait": [
+                "وَهُوَ الْمَصُونُ مِنَ الْأَبَاطِلِ كُلِّهَا",
+                "وَمِنَ الزِّيَادَةِ فِيهِ وَالنُّقْصَانِ"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 52 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya). وَهُوَ di sini dibaca utuh: وَهُوَلْ = 1110, awal مُتَفَاعِلُنْ."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama pembuka Nuniyah al-Qahthani. Lagukan berulang sampai nada kamil ـانِ menempel di telinga: inilah nada Nuniyah Kecil Anda.",
+          "bait": [
+            "يَا مُنْزِلَ الْآيَاتِ وَالْفُرْقَانِ",
+            "بَيْنِي وَبَيْنَكَ حُرْمَةُ الْقُرْآنِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Wahai Yang menurunkan ayat-ayat dan al-Furqan, antara aku dan Engkau ada kehormatan Al-Qur'an."
         }
       ],
       "patokan": "Rancangan lima makna dibaca dan disesuaikan; lima kata qafiyah ـانِ yang berbeda dipilih dari laci, satu untuk setiap bait.",
@@ -202,6 +336,35 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. وَاعْصِمْ → وَعْصِمْ: alif washal tidak dibaca. مِنَ الشَّيْطَانِ → مِنَشْشَيْطَانِي: nun مِنْ diberi fathah sebelum hamzah washal, lam syamsiyah lebur."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, bait al-Qahthani: أَنْتَ الَّذِي عَلَّمْتَنِي وَرَحِمْتَنِي. Syathr pertamanya dibangun dari fi'il bersambung dhamir. عَلَّمْتَنِي = 1010110 (مُتَفَاعِلُنْ dengan idhmar), وَرَحِمْتَنِي = 1110110 (مُتَفَاعِلُنْ utuh). Satu fi'il dengan dua dhamir sudah mengisi satu taf'ilah.",
+        "Syathr keduanya ditutup وَاعِيَ الْقُرْآنِ. وَاعِيَ adalah maf'ul kedua dari جَعَلْتَ, dan ia mudhaf kepada الْقُرْآنِ. Karena mudhaf ilaih, الْقُرْآنِ majrur. Majranya kasrah, cocok dengan wadah. Di sinilah nahwu menjaga qafiyah.",
+        "Contoh kedua, bait Ibnul Qayyim: حُبُّ الْكِتَابِ وَحُبُّ أَلْحَانِ الْغِنَا. Ujungnya يَجْتَمِعَانِ, fi'il mudhari' dengan alif itsnain. Nun-nya nun i'rab yang memang berharakat kasrah. Jadi qafiyah ـانِ tidak hanya dari isim majrur. Fi'il seperti يَجْتَمِعَانِ dan يَشْتَبِهَانِ juga bisa.",
+        "Lalu bait peragaan: اشْرَحْ بِهِ صَدْرِي لِمَعْرِفَةِ الْهُدَى. Polanya doa: fi'il amr, lalu بِهِ, lalu objek. Syathr kedua mengulang pola yang sama: وَاعْصِمْ بِهِ قَلْبِي مِنَ الشَّيْطَانِ. الشَّيْطَانِ majrur oleh مِنْ. Pola ini mudah dipinjam untuk bait doa Anda dengan kata lain.",
+        "Terakhir, rencana Hudhud. Lima makna dan lima kata qafiyah dipilih sebelum menulis. Kata berpola 101010 seperti الْفُرْقَانِ mengisi ujung bait sendirian. Kata berpola 11010 seperti أَمَانِ butuh satu huruf hidup di depannya, sehingga ujungnya menjadi 111010."
+      ],
+      "keliru": [
+        {
+          "salah": "Membiarkan kata qafiyah marfu', misalnya الْقُرْآنُ sebagai mubtada' di ujung bait.",
+          "benar": "Susun kalimat agar kata qafiyah majrur: sesudah huruf jar, sebagai mudhaf ilaih, atau na'at bagi kata majrur. Atau pakai fi'il seperti يَجْتَمِعَانِ.",
+          "sebab": "Majra kasrah wajib di semua bait. Satu bait ber-majra dhammah di tengah qashidah kasrah adalah iqwa'."
+        },
+        {
+          "salah": "Mengulang الْقُرْآنِ di dua bait berdekatan dengan makna yang sama.",
+          "benar": "Pakai kata lain dari laci: الْفُرْقَانِ, الْبُرْهَانِ, التِّبْيَانِ.",
+          "sebab": "Pengulangan seperti itu disebut ita', cacat qafiyah yang dicatat ulama 'arudh."
+        },
+        {
+          "salah": "Menulis وَاعِيًا لِلْقُرْآنِ alih-alih وَاعِيَ الْقُرْآنِ.",
+          "benar": "Pakai idhafah: وَاعِيَ الْقُرْآنِ. Maknanya sama, timbangannya pas.",
+          "sebab": "Tanwin dan lam jar menambah satu suku panjang, sehingga ujung bait kelebihan. Idhafah membuang tanwin."
+        },
+        {
+          "salah": "Memutus kalimat di ujung bait lalu menyambungnya di bait berikutnya.",
+          "benar": "Selesaikan i'rab setiap bait di bait itu sendiri.",
+          "sebab": "Bait yang maknanya bergantung pada bait sesudahnya (tadhmin) dianggap cacat dalam qashidah."
+        }
+      ],
       "qaidah": [
         "Urutan kerja: rancangan makna → lima kata qafiyah → susun bait 1 (boleh ber-tasri') → timbang dan perbaiki → bait 2, dan seterusnya.",
         "Setiap bait berdiri sendiri dalam i'rab. Jangan biarkan satu kalimat terputus di ujung bait lalu bersambung ke bait berikutnya.",
@@ -210,15 +373,165 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Bait 3 Anda ditutup الْقُرْآنِ, padahal bait 1 juga ditutup الْقُرْآنِ dengan makna yang sama. Apa masalahnya?",
-          "pilihan": [
-            "Tidak ada masalah",
-            "Ita': kata qafiyah diulang dalam jarak dekat",
-            "Iqwa': majranya berbeda"
+          "jenis": "kenali",
+          "petunjuk": "Periksa bahan Nuniyah Kecil: i'rab kata qafiyah, ridf, dan pola ujung.",
+          "soal": [
+            {
+              "soal": "Dalam وَجَعَلْتَ صَدْرِي وَاعِيَ الْقُرْآنِ, mengapa الْقُرْآنِ majrur?",
+              "pilihan": [
+                "Mudhaf ilaih",
+                "Sesudah huruf jar",
+                "Na'at bagi kata majrur"
+              ],
+              "jawaban": 0,
+              "alasan": "وَاعِيَ adalah mudhaf, الْقُرْآنِ mudhaf ilaih. Tidak ada huruf jar di sini."
+            },
+            {
+              "soal": "Dalam وَاعْصِمْ بِهِ قَلْبِي مِنَ الشَّيْطَانِ, mengapa الشَّيْطَانِ majrur?",
+              "pilihan": [
+                "Sesudah huruf jar مِنْ",
+                "Mudhaf ilaih",
+                "Badal"
+              ],
+              "jawaban": 0,
+              "alasan": "مِنْ huruf jar. Nunnya diberi fathah karena bertemu sukun sesudah hamzah washal."
+            },
+            {
+              "soal": "Kata mana yang cocok menutup bait Nuniyah Kecil?",
+              "pilihan": [
+                "يَجْتَمِعَانِ",
+                "يَجْتَمِعُونَ",
+                "اجْتَمَعَا"
+              ],
+              "jawaban": 0,
+              "alasan": "يَجْتَمِعَانِ: rawiy nun berharakat kasrah, ridf alif. يَجْتَمِعُونَ ber-ridf waw dan majranya fathah. اجْتَمَعَا tidak berrawiy nun.",
+              "arab": true
+            },
+            {
+              "soal": "أَمَانِ = 11010. Agar pas di ujung bait kamil, di depannya perlu…",
+              "pilihan": [
+                "Satu huruf hidup, sehingga ujungnya 111010",
+                "Satu huruf sukun, sehingga ujungnya 011010",
+                "Tidak perlu apa-apa"
+              ],
+              "jawaban": 0,
+              "alasan": "Dharb kamil di wadah ini 101010 atau 111010. أَمَانِ hanya lima bit, jadi satu huruf hidup sebelumnya ikut mengisi dharb."
+            },
+            {
+              "soal": "Bait 1 Anda ber-tasri': kedua syathrnya berakhir ـانِ. Apakah bait 2 juga harus ber-tasri'?",
+              "pilihan": [
+                "Tidak, cukup syathr kedua yang berakhir ـانِ",
+                "Ya, semua bait harus ber-tasri'",
+                "Ya, bila temanya berganti"
+              ],
+              "jawaban": 0,
+              "alasan": "Tasri' adalah hiasan bait pembuka. Sesudahnya, qafiyah hanya dijaga di ujung bait."
+            },
+            {
+              "soal": "Bait 3 Anda ditutup الْقُرْآنِ, padahal bait 1 juga ditutup الْقُرْآنِ dengan makna yang sama. Apa masalahnya?",
+              "pilihan": [
+                "Tidak ada masalah",
+                "Ita': kata qafiyah diulang dalam jarak dekat",
+                "Iqwa': majranya berbeda"
+              ],
+              "jawaban": 1,
+              "alasan": "Mengulang kata qafiyah dengan makna yang sama dalam jarak dekat disebut ita'. Ganti dengan الْفُرْقَانِ, الْبُرْهَانِ, atau kata lain dari laci."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda frasa-frasa al-Qahthani yang bisa menjadi model bait Anda, dari yang pendek ke yang panjang. Huruf terakhir butir dibaca tanpa isyba'.",
+          "butir": [
+            "وَجَبَرْتَنِي",
+            "أَنْتَ الَّذِي",
+            "وَاعِيَ الْقُرْآنِ",
+            "حُرْمَةُ الْقُرْآنِ",
+            "وَاعْصِمْ بِهِ قَلْبِي",
+            "مِنْ حَيْرَةِ الْخِذْلَانِ",
+            "وَحْيًا عَلَى الْمَبْعُوثِ",
+            "بِالْفَضْلِ وَالْإِحْسَانِ",
+            "لِشَرَائِعِ الْإِيمَانِ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait al-Qahthani ini sendiri. Syathr pertamanya tiga fi'il dengan dhamir: setiap kata satu مُتَفَاعِلُنْ utuh. بِالْفَضْلِ وَالْإِحْسَانِ: hamzah washal gugur, jadi بِلْفَضْلِ وَلْإِحْسَانِي.",
+          "bait": [
+            "وَجَبَرْتَنِي وَسَتَرْتَنِي وَنَصَرْتَنِي",
+            "وَغَمَرْتَنِي بِالْفَضْلِ وَالْإِحْسَانِ"
           ],
-          "jawaban": 1,
-          "alasan": "Mengulang kata qafiyah dengan makna yang sama dalam jarak dekat disebut ita'. Ganti dengan الْفُرْقَانِ, الْبُرْهَانِ, atau kata lain dari laci."
+          "bahr": "kamil",
+          "makna": "Engkau menambal kekuranganku, menutupi aibku, dan menolongku, dan Engkau melimpahiku dengan karunia dan kebaikan."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Enam baris kamil. Yang asli diambil dari Nuniyah al-Qahthani; sisanya diubah satu kata, seperti kesalahan yang mungkin muncul di draf Anda. Tandai yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "أَنْتَ الَّذِي آوَيْتَنِي وَحَبَوْتَنِي",
+                "وَهَدَيْتَنِي مِنْ حَيْرَةِ الْخِذْلَانِ"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 14 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya)."
+            },
+            {
+              "bait": [
+                "أَنْتَ الَّذِي آوَيْتَ وَحَبَوْتَنِي",
+                "وَهَدَيْتَنِي مِنْ حَيْرَةِ الْخِذْلَانِ"
+              ],
+              "catatan": "Diubah: آوَيْتَنِي dipendekkan menjadi آوَيْتَ. Hilang dua huruf (نِي), taf'ilah kedua kekurangan bunyi."
+            },
+            {
+              "bait": [
+                "أَنْتَ الَّذِي عَلَّمْتَنِي وَرَحِمْتَنِي",
+                "وَجَعَلْتَ صَدْرِي وَاعِيًا لِلْقُرْآنِ"
+              ],
+              "catatan": "Diubah dari bait 11: وَاعِيَ الْقُرْآنِ diganti وَاعِيًا لِلْقُرْآنِ. Tanwin menambah satu suku panjang, ujung bait kelebihan."
+            },
+            {
+              "bait": [
+                "وَلَأَتْلُوَنَّ حُرُوفَ وَحْيِكَ فِي الدُّجَى",
+                "وَلَأُحْرِقَنَّ بِنُورِهِ شَيْطَانِي"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 33 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya). Lima مُتَفَاعِلُنْ utuh, lalu dharb 101010."
+            },
+            {
+              "bait": [
+                "وَجَبَرْتَنِي وَسَتَرْتَنِي وَنَصَرْتَنِي",
+                "وَغَمَرْتَنِي بِالْفَضْلِ وَبِالْإِحْسَانِ"
+              ],
+              "catatan": "Diubah dari bait 13: بِ diulang sebelum الْإِحْسَانِ. Satu huruf hidup tambahan, taf'ilah kedua patah."
+            },
+            {
+              "bait": [
+                "وَاكْشِفْ بِهِ ضُرِّي وَحَقِّقْ تَوْبَتِي",
+                "وَارْبَحْ بِهِ بَيْعِي بِلَا خُسْرَانِ"
+              ],
+              "catatan": "Asli: Nuniyah al-Qahthani bait 5 (Wikisource ar, نونية القحطاني; sama di OpenITI, 0378IbnSalihQahtani.QasidaNuniyya)."
+            }
+          ]
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Cetakan syathr kedua untuk bait doa Anda (bait 5), meniru pola وَاعْصِمْ بِهِ قَلْبِي مِنَ الشَّيْطَانِ. Isi kotak dengan kata ـانِ sesudah الْ. Kata itu majrur oleh مِنْ, jadi majranya otomatis kasrah. Buat **tiga baris** berbeda. (Bait latihan, bukan kutipan.)",
+          "cetakan": "وَاحْفَظْ بِهِ قَلْبِي مِنَ الْ{1}",
+          "kotak": [
+            {
+              "petunjuk": "Kata ـانِ berpola 101010 (dengan isyba'), huruf qamariyah, mis. خُسْرَانِ، عِصْيَانِ",
+              "pola": "101010",
+              "contoh": [
+                "خُسْرَانِ",
+                "عِصْيَانِ",
+                "هِجْرَانِ",
+                "كُفْرَانِ",
+                "حِرْمَانِ"
+              ]
+            }
+          ],
+          "bahr": "kamil",
+          "jumlah": 3
         },
         {
           "jenis": "susun",
