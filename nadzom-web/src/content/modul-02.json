@@ -89,6 +89,35 @@
           "petunjuk": "Giliran Anda: **syathr pertama**. رِضًا → رِضَنْ (alif tidak dibaca). Ujung سُخْطِ dipanjangkan menjadi سُخْطِي. Ketuk kotak di bawah setiap huruf."
         }
       },
+      "syarh": [
+        "Perhatikan **contoh pertama**, bait 1 Alfiyah. Mata melihat مُحَمَّدٌ: empat huruf dengan dua tanda. Telinga mendengar مُ · حَمْ · مَ · دُنْ: mim dua kali, dan nun di ujung. Kitabahnya مُحَمْمَدُنْ = 110110, satu taf'ilah مُتَفْعِلُنْ penuh dalam satu kata. رَبِّي pun begitu: رَبْ · بِي.",
+        "Lalu **contoh kedua**, bait 3. أَلْفِيَّهْ di ujung: ya bertasydid menjadi يْيَ, sehingga terdengar أَلْ · فِيْ · يَهْ, tiga suku panjang. Di syathr kedua ada syaddah jenis lain: النَّحْوِ. Lam syamsiyah lebur ke nun, dan nun itu bertasydid: نْنَحْوِ. Di tulisan keduanya tampak berbeda; di timbangan sama-sama dua huruf.",
+        "Sekarang **contoh ketiga**, bait 5. رِضًا dan فَائِقَةً memperlihatkan dua hal sekaligus. Tanwin dibaca nun mati, dan alif penyangga tanwin fathah tidak dibaca: رِضَنْ = 110, bukan رِضَا. Ta marbuthah di tengah bait dibaca ta: فَائِقَتَنْ = 101110.",
+        "Satu kelalaian menggeser semuanya. Baca أَلْفِيَّهْ tanpa syaddah: أَلْفِيَهْ = 10110, kurang satu huruf mati, dan taf'ilah terakhir patah. Baca فَائِقَةً tanpa tanwin: suku pendek bertumpuk dan taf'ilah pertama patah. Bait klasik yang tampak pincang hampir selalu karena pembacanya, bukan penyairnya.",
+        "Kaidahnya sudah Anda praktikkan di tajwid. Syaddah adalah dua huruf: yang pertama sakinah, yang kedua berharakat; karena itu Anda menahannya sejenak. Tanwin adalah nun sakinah yang tidak ditulis. Bedanya, dalam kitabah 'arudhiyyah keduanya **harus ditulis**."
+      ],
+      "keliru": [
+        {
+          "salah": "مُحَمَّدٌ ditulis مُحَمَدُنْ: syaddah dihitung satu huruf.",
+          "benar": "مُحَمْمَدُنْ = 110110.",
+          "sebab": "Dalam tajwid huruf bertasydid ditahan sejenak karena memang dua huruf: yang pertama sakinah, yang kedua berharakat."
+        },
+        {
+          "salah": "رِضًا di tengah syathr dibaca رِضَا, alifnya dihitung huruf mad.",
+          "benar": "رِضَنْ: alif setelah tanwin fathah hanya penyangga tulisan.",
+          "sebab": "Alif itu hanya dibaca saat waqaf; saat washal yang terdengar nun tanwin, sama seperti dalam tajwid."
+        },
+        {
+          "salah": "Lam syamsiyah ikut dihitung: النَّحْوِ → لْنَحْوِ.",
+          "benar": "نْنَحْوِ: lam lebur, nun bertasydid.",
+          "sebab": "Idgham syamsiyah dalam tajwid: lam tidak terdengar, huruf sesudahnya dibaca dua kali."
+        },
+        {
+          "salah": "Ta marbuthah di tengah bait dibaca ha: فَائِقَهْ.",
+          "benar": "Di tengah dibaca ta (فَائِقَتَنْ); hanya di ujung bait yang diwaqafkan menjadi ha sakinah (أَلْفِيَّهْ).",
+          "sebab": "Hukumnya sama dengan washal dan waqaf dalam tajwid."
+        }
+      ],
       "qaidah": [
         "**Syaddah** = dua huruf: yang pertama mati (**0**), yang kedua hidup (**1**). مُحَمَّدٌ → مُحَمْمَدُنْ.",
         "**Lam syamsiyah** lebur dan huruf sesudahnya bersyaddah: النَّحْوِ → نْنَحْوِ. Lam qamariyah tetap dibaca: الْقَوْلُ → لْقَوْلُ.",
@@ -98,49 +127,90 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "مُحَمَّدٌ di tengah syathr ditulis dalam kitabah 'arudhiyyah sebagai?",
-          "pilihan": [
-            "مُحَمَدُنْ",
-            "مُحَمْمَدُنْ",
-            "مُحَمْمَدٌ",
-            "مُحَمَّدُ"
-          ],
-          "jawaban": 1,
-          "alasan": "Syaddah menjadi dua mim (مْ مَ) dan tanwin menjadi نْ. Timbangannya 110110. Pilihan pertama lupa syaddah, pilihan ketiga masih menulis tanwin sebagai tanda, pilihan keempat membuang nun."
+          "jenis": "kenali",
+          "petunjuk": "Enam soal kitabah: syaddah, tanwin, lam syamsiyah. Baca keras dengan tajwid sebelum memilih.",
+          "soal": [
+            {
+              "soal": "مُحَمَّدٌ di tengah syathr ditulis dalam kitabah 'arudhiyyah sebagai?",
+              "pilihan": [
+                "مُحَمَدُنْ",
+                "مُحَمْمَدُنْ",
+                "مُحَمْمَدٌ",
+                "مُحَمَّدُ"
+              ],
+              "jawaban": 1,
+              "alasan": "Syaddah menjadi dua mim (مْ مَ) dan tanwin menjadi نْ. Timbangannya 110110. Pilihan pertama lupa syaddah, pilihan ketiga masih menulis tanwin sebagai tanda, pilihan keempat membuang nun.",
+              "arab": true
+            },
+            {
+              "soal": "رَبِّي dalam kitabah 'arudhiyyah?",
+              "pilihan": [
+                "رَبِي",
+                "رَبْبِي",
+                "رَبْبِيِ"
+              ],
+              "jawaban": 1,
+              "alasan": "Ba bertasydid menjadi بْ بِ, ya sesudahnya mad. رَبْ · بِي = dua suku panjang (1010).",
+              "arab": true
+            },
+            {
+              "soal": "رِضًا di tengah syathr dibaca?",
+              "pilihan": [
+                "رِضَا, alifnya dibaca panjang",
+                "رِضَنْ",
+                "رِضَانْ"
+              ],
+              "jawaban": 1,
+              "alasan": "Alif setelah tanwin fathah hanya penyangga tulisan. Yang terdengar: رِ ضَنْ, pendek lalu panjang (110)."
+            },
+            {
+              "soal": "أَلْفِيَّهْ di ujung syathr, timbangannya?",
+              "pilihan": [
+                "101010",
+                "10110",
+                "1010110"
+              ],
+              "jawaban": 0,
+              "alasan": "أَلْ (10) فِيْ (10) يَهْ (10): ya bertasydid menjadi يْيَ. Kalau syaddah dilupakan, terbaca أَلْفِيَهْ = 10110, kurang satu huruf mati."
+            },
+            {
+              "soal": "مَقَاصِدُ النَّحْوِ. Bagaimana النَّحْوِ ditulis setelah disambung?",
+              "pilihan": [
+                "مَقَاصِدُ أَلنَّحْوِ",
+                "مَقَاصِدُلْنَحْوِ",
+                "مَقَاصِدُنْنَحْوِ"
+              ],
+              "jawaban": 2,
+              "alasan": "Hamzah washal gugur, dan lam syamsiyah lebur ke nun: نْنَحْوِ. Pilihan kedua membaca lam padahal tidak terdengar.",
+              "arab": true
+            },
+            {
+              "soal": "تَمْيِيزٌ dari bait 10 Alfiyah, timbangannya?",
+              "pilihan": [
+                "10110",
+                "101010",
+                "1010"
+              ],
+              "jawaban": 1,
+              "alasan": "تَمْ · يِي · زُنْ: tiga suku panjang. Tanwin menjadi نْ dan menutup suku terakhir. Tanpa tanwin terbaca 10101, kurang satu huruf mati."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "رِضًا di tengah syathr dibaca?",
-          "pilihan": [
-            "رِضَا, alifnya dibaca panjang",
-            "رِضَنْ",
-            "رِضَانْ"
-          ],
-          "jawaban": 1,
-          "alasan": "Alif setelah tanwin fathah hanya penyangga tulisan. Yang terdengar: رِ ضَنْ, pendek lalu panjang (110)."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "أَلْفِيَّهْ di ujung syathr, timbangannya?",
-          "pilihan": [
-            "101010",
-            "10110",
-            "1010110"
-          ],
-          "jawaban": 0,
-          "alasan": "أَلْ (10) فِيْ (10) يَهْ (10): ya bertasydid menjadi يْيَ. Kalau syaddah dilupakan, terbaca أَلْفِيَهْ = 10110, kurang satu huruf mati."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "مَقَاصِدُ النَّحْوِ. Bagaimana النَّحْوِ ditulis setelah disambung?",
-          "pilihan": [
-            "مَقَاصِدُ أَلنَّحْوِ",
-            "مَقَاصِدُلْنَحْوِ",
-            "مَقَاصِدُنْنَحْوِ"
-          ],
-          "jawaban": 2,
-          "alasan": "Hamzah washal gugur, dan lam syamsiyah lebur ke nun: نْنَحْوِ. Pilihan kedua membaca lam padahal tidak terdengar."
+          "jenis": "tandai",
+          "petunjuk": "Kata dan frasa dari bait pelajaran ini. Setiap syaddah dua huruf (**0** lalu **1**), setiap tanwin نْ (**0**). Mulai dari yang pendek.",
+          "butir": [
+            "رَبِّي",
+            "رِضًا",
+            "مُحَمَّدٌ",
+            "مُسْتَوْجِبٌ",
+            "فَائِقَةً",
+            "أَلْفِيَّةَ",
+            "ثُمَّ حَرْفٌ",
+            "مَقَاصِدُ النَّحْوِ",
+            "تَمْيِيزٌ حَصَلْ",
+            "بِالْجَرِّ وَالتَّنْوِينِ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -151,6 +221,59 @@
           ],
           "bahr": "rajaz",
           "makna": "Aku memohon pertolongan Allah dalam menyusun seribu bait ini, yang menghimpun inti-inti ilmu nahwu."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Bait 10 Alfiyah, tanda-tanda isim. Hitung syaddahnya (الْجَرِّ، التَّنْوِينِ، النِّدَا، تَمْيِيزٌ) dan tanwinnya (مُسْنَدٍ، تَمْيِيزٌ) sebelum menimbang.",
+          "bait": [
+            "بِالْجَرِّ وَالتَّنْوِينِ وَالنِّدَا وَأَلْ",
+            "وَمُسْنَدٍ لِلِاسْمِ تَمْيِيزٌ حَصَلْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Isim dikenali dengan jar, tanwin, nida', alif-lam, dan dengan adanya sesuatu yang disandarkan kepadanya. Dengan tanda-tanda itulah isim dibedakan."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Sebagian baris diubah: satu syaddah atau satu tanwin dihilangkan. Lagukan, centang yang pincang, lalu periksa.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ"
+              ],
+              "catatan": "Asli: Alfiyah bait 3."
+            },
+            {
+              "bait": [
+                "وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَهْ"
+              ],
+              "catatan": "Baris latihan: syaddah أَلْفِيَّهْ dihilangkan. أَلْفِيَهْ = 10110, kurang satu huruf mati: taf'ilah ketiga patah."
+            },
+            {
+              "bait": [
+                "فَائِقَةً أَلْفِيَّةَ ابْنِ مُعْطِي"
+              ],
+              "catatan": "Asli: Alfiyah bait 5."
+            },
+            {
+              "bait": [
+                "فَائِقَةَ أَلْفِيَّةِ ابْنِ مُعْطِي"
+              ],
+              "catatan": "Baris latihan: tanwin فَائِقَةً dihilangkan (dibaca idhafah). فَائِقَتَ أَلْ: nun penutup hilang, taf'ilah pertama menjadi 10111: patah."
+            },
+            {
+              "bait": [
+                "مَقَاصِدُ نَحْوٍ بِهَا مَحْوِيَّهْ"
+              ],
+              "catatan": "Baris latihan: النَّحْوِ diganti نَحْوٍ. Syaddah lam syamsiyah hilang, sehingga مَقَاصِدُ نَحْ hanya 11011: patah."
+            },
+            {
+              "bait": [
+                "مُسْتَوْجِبٌ ثَنَائِيَ الْجَمِيلَا"
+              ],
+              "catatan": "Asli: Alfiyah bait 6. مُسْتَوْجِبُنْ = 1010110, persis مُسْتَفْعِلُنْ."
+            }
+          ]
         }
       ],
       "patokan": "Bait 1, 3, dan 5 Alfiyah ditulis ulang dalam kitabah 'arudhiyyah di kertas (setiap syaddah dua huruf, setiap tanwin نْ), lalu dicocokkan dengan hasil taqthi': tidak ada selisih."
@@ -247,6 +370,35 @@
           "petunjuk": "Giliran Anda: **syathr kedua**. وَآلِهِ: آ = ءَا. هِ bertemu hamzah washal الْمُسْتَكْمِلِينَ, jadi tidak dipanjangkan: هِلْ. الشَّرَفَا: lam syamsiyah lebur, alif di ujung dibaca."
         }
       },
+      "syarh": [
+        "Perhatikan **contoh pertama**, bait 2 Alfiyah: عَلَى النَّبِيِّ. Mata melihat alif maqshurah, hamzah washal, dan lam. Telinga hanya mendengar عَلَنْنَبِيْيِ. Hamzah washal gugur karena di tengah kalam; alif maqshurah gugur karena bertemu lam mati; lam lebur ke nun. Tiga huruf tertulis, tidak satu pun dibaca.",
+        "Lalu **contoh kedua**, bait 11: وَيَا افْعَلِي. Polanya sama. Hamzah washal افْعَلِي gugur, alif يَا bertemu fa sukun, maka alif itu pun gugur. Yang terdengar وَيَفْعَلِي = 110110.",
+        "**Contoh ketiga**, rajaz kaum Anshar: بَايَعُوا. Alif setelah waw jama'ah hanya pembeda tulisan (alif fariqah), tidak pernah dibaca. Yang ditimbang بَايَعُو = 10110.",
+        "**Contoh keempat**, rajaz Masjid Nabawi, memperlihatkan arah sebaliknya: huruf yang dibaca tetapi tidak ditulis. هَذَا dibaca هَاذَا karena ada alif khanjariyah: 1010, dua suku panjang. Sebelum الْحِمَالُ, alif ذَا gugur seperti contoh pertama: هَاذَلْحِمَالُ.",
+        "Semua contoh itu kembali ke satu kaidah: **yang diucapkan ditulis, yang tidak diucapkan tidak ditulis**. Bila dua sukun bertemu, salah satunya mengalah: huruf mad dibuang (عَلَنْ، فِلْ), atau huruf mati diberi harakat penyambung (حَرْفُنِلْكَلِمْ). Ini hukum iltiqa' as-sakinain yang Anda kenal dari nahwu dan tajwid."
+      ],
+      "keliru": [
+        {
+          "salah": "Membaca hamzah washal di tengah kalam: كَاسْتَقِمْ → كَإِسْتَقِمْ.",
+          "benar": "كَسْتَقِمْ: hamzah washal gugur, alif kaf pun gugur.",
+          "sebab": "Hamzah washal hanya dibaca di awal ucapan, sama seperti saat Anda menyambung ayat."
+        },
+        {
+          "salah": "Huruf mad sebelum الْ tetap dihitung: عَلَى النَّبِيِّ → عَلَا نْنَبِيْيِ.",
+          "benar": "عَلَنْنَبِيْيِ: alif maqshurah gugur.",
+          "sebab": "Dua sukun bertemu, dan huruf mad mengalah, seperti فِي الْأَرْضِ dibaca fil-ardhi."
+        },
+        {
+          "salah": "Alif setelah waw jama'ah ikut ditimbang: بَايَعُوا dibaca بَايَعُوَا.",
+          "benar": "بَايَعُو.",
+          "sebab": "Alif fariqah hanya pembeda tulisan antara waw jama'ah dan waw asli kata."
+        },
+        {
+          "salah": "هَذَا ditimbang menurut tulisan: هَ · ذَا = 110.",
+          "benar": "هَاذَا = 1010.",
+          "sebab": "Alif khanjariyah dibaca walau tidak ditulis di rasm biasa, sama seperti pada ذَلِكَ dan اللَّه."
+        }
+      ],
       "qaidah": [
         "**Hamzah washal** (ال، ابْن، اسْم، fi'il amr seperti اسْتَقِمْ) hanya dibaca di awal ucapan. Di tengah kalam ia gugur: كَاسْتَقِمْ → كَسْتَقِمْ.",
         "**Huruf mad sebelum hamzah washal** gugur karena bertemu sukun: عَلَى النَّبِيِّ → عَلَنْنَبِيْيِ، وَيَا افْعَلِي → وَيَفْعَلِي، فِي الْ → فِلْ.",
@@ -256,59 +408,90 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ. Bagaimana كَاسْتَقِمْ ditulis?",
-          "pilihan": [
-            "كَاسْتَقِمْ, alif kaf dibaca",
-            "كَسْتَقِمْ",
-            "كَإِسْتَقِمْ"
-          ],
-          "jawaban": 1,
-          "alasan": "Hamzah washal اسْتَقِمْ gugur di tengah kalam, dan alif mad sebelumnya pun gugur karena bertemu sin sukun. كَسْ تَ قِمْ = panjang, pendek, panjang."
+          "jenis": "kenali",
+          "petunjuk": "Enam soal tentang huruf yang tertulis tetapi tidak dibaca, dan sebaliknya.",
+          "soal": [
+            {
+              "soal": "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ. Bagaimana كَاسْتَقِمْ ditulis?",
+              "pilihan": [
+                "كَاسْتَقِمْ, alif kaf dibaca",
+                "كَسْتَقِمْ",
+                "كَإِسْتَقِمْ"
+              ],
+              "jawaban": 1,
+              "alasan": "Hamzah washal اسْتَقِمْ gugur di tengah kalam, dan alif mad sebelumnya pun gugur karena bertemu sin sukun. كَسْ تَ قِمْ = panjang, pendek, panjang.",
+              "arab": true
+            },
+            {
+              "soal": "وَيَا افْعَلِي dalam kitabah 'arudhiyyah?",
+              "pilihan": [
+                "وَيَافْعَلِي",
+                "وَيَفْعَلِي",
+                "وَيَا إِفْعَلِي"
+              ],
+              "jawaban": 1,
+              "alasan": "Hamzah washal افْعَلِي gugur, lalu alif mad يَا bertemu fa sukun dan ikut gugur: وَيَفْعَلِي.",
+              "arab": true
+            },
+            {
+              "soal": "بَايَعُوا مُحَمَّدَا. Bacaan yang ditimbang?",
+              "pilihan": [
+                "بَايَعُوا مُحَمْمَدَا, alif dibaca",
+                "بَايَعُو مُحَمْمَدَا",
+                "بَايَعُ مُحَمَّدَا"
+              ],
+              "jawaban": 1,
+              "alasan": "Waw jama'ah adalah mad (عُو), alif sesudahnya hanya tulisan. Syaddah مُحَمَّدَا tetap dua huruf. Alif di ujung مُحَمَّدَا dibaca, karena itu alif ithlaq di ujung syathr."
+            },
+            {
+              "soal": "هَذَا di awal syathr, timbangannya?",
+              "pilihan": [
+                "110 (هَ ذَا)",
+                "1010 (هَا ذَا)",
+                "10110"
+              ],
+              "jawaban": 1,
+              "alasan": "Ada alif khanjariyah setelah ha: هَاذَا. Dua suku panjang. Kalau dibaca menurut tulisan saja, satu huruf mati hilang dan bait Masjid Nabawi itu tampak pincang padahal tidak."
+            },
+            {
+              "soal": "ثُمَّ حَرْفٌ الْكَلِمْ. Tanwin bertemu hamzah washal. Hasilnya?",
+              "pilihan": [
+                "حَرْفُنْ لْكَلِمْ",
+                "حَرْفُنِلْكَلِمْ",
+                "حَرْفُلْكَلِمْ"
+              ],
+              "jawaban": 1,
+              "alasan": "Nun tanwin mati bertemu lam mati. Dua sukun tidak boleh bertemu, maka nun diberi kasrah: نِلْ. Persis seperti membaca خَيْرًا الْوَصِيَّةُ dalam tajwid.",
+              "arab": true
+            },
+            {
+              "soal": "سِوَاهُمَا الْحَرْفُ (Alfiyah bait 12). Bacaan yang ditimbang?",
+              "pilihan": [
+                "سِوَاهُمَا الْحَرْفُ",
+                "سِوَاهُمَلْحَرْفُ",
+                "سِوَاهُمُلْحَرْفُ"
+              ],
+              "jawaban": 1,
+              "alasan": "Hamzah washal gugur, lalu alif هُمَا bertemu lam sukun dan ikut gugur. Lam qamariyah tetap dibaca: مَلْ. Pilihan ketiga mengganti harakat mim; yang diberi harakat penyambung hanya huruf mati, bukan huruf mad.",
+              "arab": true
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "وَيَا افْعَلِي dalam kitabah 'arudhiyyah?",
-          "pilihan": [
-            "وَيَافْعَلِي",
-            "وَيَفْعَلِي",
-            "وَيَا إِفْعَلِي"
-          ],
-          "jawaban": 1,
-          "alasan": "Hamzah washal افْعَلِي gugur, lalu alif mad يَا bertemu fa sukun dan ikut gugur: وَيَفْعَلِي."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "بَايَعُوا مُحَمَّدَا. Bacaan yang ditimbang?",
-          "pilihan": [
-            "بَايَعُوا مُحَمْمَدَا, alif dibaca",
-            "بَايَعُو مُحَمْمَدَا",
-            "بَايَعُ مُحَمَّدَا"
-          ],
-          "jawaban": 1,
-          "alasan": "Waw jama'ah adalah mad (عُو), alif sesudahnya hanya tulisan. Syaddah مُحَمَّدَا tetap dua huruf. Alif di ujung مُحَمَّدَا dibaca, karena itu alif ithlaq di ujung syathr."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "هَذَا di awal syathr, timbangannya?",
-          "pilihan": [
-            "110 (هَ ذَا)",
-            "1010 (هَا ذَا)",
-            "10110"
-          ],
-          "jawaban": 1,
-          "alasan": "Ada alif khanjariyah setelah ha: هَاذَا. Dua suku panjang. Kalau dibaca menurut tulisan saja, satu huruf mati hilang dan bait Masjid Nabawi itu tampak pincang padahal tidak."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "ثُمَّ حَرْفٌ الْكَلِمْ. Tanwin bertemu hamzah washal. Hasilnya?",
-          "pilihan": [
-            "حَرْفُنْ لْكَلِمْ",
-            "حَرْفُنِلْكَلِمْ",
-            "حَرْفُلْكَلِمْ"
-          ],
-          "jawaban": 1,
-          "alasan": "Nun tanwin mati bertemu lam mati. Dua sukun tidak boleh bertemu, maka nun diberi kasrah: نِلْ. Persis seperti membaca خَيْرًا الْوَصِيَّةُ dalam tajwid."
+          "jenis": "tandai",
+          "petunjuk": "Frasa dari bait pelajaran ini. Yang tidak diucapkan tidak diberi kotak; yang diucapkan walau tidak tertulis (alif khanjariyah) tetap diberi tanda. Mulai dari yang pendek.",
+          "butir": [
+            "هَذَا",
+            "بَايَعُوا",
+            "كَاسْتَقِمْ",
+            "مَا اهْتَدَيْنَا",
+            "هَذَا الْحِمَالُ",
+            "سِوَاهُمَا الْحَرْفُ",
+            "وَيَا افْعَلِي",
+            "عَلَى النَّبِيِّ",
+            "حَرْفٌ الْكَلِمْ",
+            "وَآلِهِ الْمُسْتَكْمِلِينَ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -319,6 +502,59 @@
           ],
           "bahr": "rajaz",
           "makna": "Kalam menurut kami adalah lafaz yang memberi faedah, seperti \"Istaqim!\". Kalim itu ada tiga: isim, fi'il, lalu huruf."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Rajaz kaum Anshar di Khandaq. Cari alif waw jama'ah, hamzah washal الَّذِينَ dan الْجِهَادِ, dan alif عَلَى yang gugur.",
+          "bait": [
+            "نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا",
+            "عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Kamilah yang telah berbaiat kepada Muhammad, untuk berjihad selama kami masih hidup."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Bait asli dan ubahannya. Bacalah dengan washal yang benar, centang yang pincang, lalu periksa.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "مُصَلِّيًا عَلَى النَّبِيِّ الْمُصْطَفَى"
+              ],
+              "catatan": "Asli: Alfiyah bait 2."
+            },
+            {
+              "bait": [
+                "بِتَا فَعَلْتَ وَأَتَتْ وَيَا افْعَلِي"
+              ],
+              "catatan": "Asli: Alfiyah bait 11. Alif يَا gugur: وَيَفْعَلِي."
+            },
+            {
+              "bait": [
+                "بِتَا فَعَلْتَ وَأَتَتْ وَيَاءِ افْعَلِي"
+              ],
+              "catatan": "Baris latihan: يَا diganti يَاءِ (dengan hamzah). Hamzah itu huruf hidup, jadi alif sebelumnya tidak bertemu sukun dan tidak gugur. Suku-sukunya bertambah dan taf'ilah kedua patah."
+            },
+            {
+              "bait": [
+                "هَذَا الْحِمَالُ لَا حِمَالَ خَيْبَرْ"
+              ],
+              "catatan": "Asli: rajaz Masjid Nabawi, Shahih al-Bukhari no. 3906."
+            },
+            {
+              "bait": [
+                "هَذَا الْحِمْلُ لَا حِمَالَ خَيْبَرْ"
+              ],
+              "catatan": "Baris latihan: الْحِمَالُ (حِ · مَا · لُ) diganti الْحِمْلُ (حِمْ · لُ), semakna. Satu suku hilang setelah هَاذَلْ, taf'ilah pertama tinggal 101010: patah."
+            },
+            {
+              "bait": [
+                "نَحْنُ الَّذِينَ قَدْ بَايَعُوا مُحَمَّدَا"
+              ],
+              "catatan": "Baris latihan: قَدْ ditambahkan. Satu suku panjang berlebih di taf'ilah kedua: patah."
+            }
+          ]
         }
       ],
       "patokan": "Lima jebakan (hamzah washal, mad yang gugur, harakat penyambung, alif waw jama'ah, alif khanjariyah) masing-masing ditunjuk di satu bait asli, ditulis kitabahnya, dan dicocokkan dengan taqthi'."
@@ -429,6 +665,35 @@
           "petunjuk": "Giliran Anda: **syathr pertama**. وَاللَّهُ = وَلْلَاهُ: hamzah washal gugur, ada alif khanjariyah. بِهِبَاتٍ: ha di sini bukan dhamir, jadi tidak dipanjangkan. Tanwin بِهِبَاتِنْ."
         }
       },
+      "syarh": [
+        "Perhatikan **contoh pertama**, bait 7: لِي وَلَهُ فِي. Ha dhamir لَهُ diapit لَ dan فِ, dua huruf hidup. Maka ia dipanjangkan: وَلَهُو. Ini mad shilah shughra yang Anda kenal. Tanpa waw itu, muncul tiga suku pendek beruntun yang tidak punya tempat dalam rajaz.",
+        "Lalu **contoh kedua**, bait 4: ujung مُوجَزِ dan مُنْجَزِ. Harakat terakhir setiap syathr dipanjangkan: مُوجَزِي، مُنْجَزِي. Huruf mad yang lahir dari isyba' ujung ini kelak disebut **wasl** di bab qafiyah. Bila harakat ujungnya fathah, penyair biasanya sudah menuliskan alifnya (الشَّرَفَا، تَفْضِيلَا).",
+        "**Contoh ketiga**, bait 6, berjalan ke arah sebaliknya: harakat dibuang. وَهْوَ dengan ha sukun. Setelah وَ، فَ، لَ, orang Arab boleh membaca وَهْوَ dan وَهْيَ. Kalau dibaca وَهُوَ, lima huruf hidup berturut-turut (وَهُوَبِسَ) dan taf'ilah pertama patah. Ibnu Malik memilih bacaan bersukun demi timbangan.",
+        "**Contoh keempat**, bait 9, mengumpulkan beberapa hal. وَاحِدُهُ كَلِمَةٌ: ha dhamir diapit dua huruf hidup, dipanjangkan menjadi وَاحِدُهُو. Di syathr kedua, وَكِلْمَةٌ ditulis dengan lam sukun, lughah yang sah; dengan كَلِمَةٌ syathr itu patah. Di ujung, عَمّْ dan يُؤَمّْ diwaqafkan, sehingga syaddahnya hanya terdengar satu huruf mati.",
+        "Kesimpulannya: tulisan tidak menunjukkan semua panjang dan pendek. Ada bunyi yang ditambah (isyba') dan ada harakat yang dibuang (taskin). Harakat di kitab nadzom adalah bagian dari timbangan; jangan diganti dengan bacaan yang Anda kira lebih fasih."
+      ],
+      "keliru": [
+        {
+          "salah": "Ujung syathr ditimbang apa adanya: مَالِكِ = 101.",
+          "benar": "مَالِكِي = 10110: harakat terakhir dipanjangkan.",
+          "sebab": "Ujung syathr adalah tempat lagu berhenti; harakat di sana selalu ditarik menjadi huruf mad (ya, waw, atau alif)."
+        },
+        {
+          "salah": "Ha dhamir selalu dipanjangkan, termasuk pada وَآلِهِ الْمُسْتَكْمِلِينَ.",
+          "benar": "Tidak dipanjangkan bila sesudahnya huruf mati atau hamzah washal: وَآلِهِلْمُسْ.",
+          "sebab": "Sama dengan mad shilah dalam tajwid: لَهُ الْمُلْكُ tidak dibaca لَهُو."
+        },
+        {
+          "salah": "Mengoreksi وَهْوَ di kitab menjadi وَهُوَ karena dianggap salah cetak.",
+          "benar": "Ikuti harakat kitab; وَهْوَ adalah bacaan yang dikenal.",
+          "sebab": "Taskin ha setelah waw 'athaf dibaca oleh Qalun, Abu 'Amr, dan al-Kisa'i, mis. وَهْوَ بِكُلِّ شَيْءٍ عَلِيمٌ."
+        },
+        {
+          "salah": "Syaddah di ujung bait yang diwaqafkan dihitung dua huruf: عَمّْ = عَمْمِ.",
+          "benar": "عَمّْ terdengar satu huruf mati: 10.",
+          "sebab": "Waqaf membuang harakat huruf terakhir, sehingga huruf kedua dari syaddah tidak lagi terdengar sebagai huruf hidup."
+        }
+      ],
       "qaidah": [
         "**Isyba' di ujung syathr**: harakat terakhir selalu dipanjangkan. مَالِكِ → مَالِكِي، مُوجَزِ → مُوجَزِي. Fathah di ujung biasanya sudah ditulis dengan alif (الشَّرَفَا).",
         "**Isyba' ha dhamir**: هُ atau هِ yang diapit dua huruf hidup dipanjangkan, seperti mad shilah. Tidak dipanjangkan bila bertemu sukun atau hamzah washal.",
@@ -438,37 +703,75 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Ujung syathr أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ ditimbang sebagai?",
-          "pilihan": [
-            "مَالِكْ",
-            "مَالِكِ",
-            "مَالِكِي"
-          ],
-          "jawaban": 2,
-          "alasan": "Harakat terakhir syathr dipanjangkan (isyba'): مَا لِ كِي = panjang, pendek, panjang (10110 di ujung taf'ilah)."
+          "jenis": "kenali",
+          "petunjuk": "Lima soal tentang isyba', taskin, dan waqaf.",
+          "soal": [
+            {
+              "soal": "Ujung syathr أَحْمَدُ رَبِّي اللَّهَ خَيْرَ مَالِكِ ditimbang sebagai?",
+              "pilihan": [
+                "مَالِكْ",
+                "مَالِكِ",
+                "مَالِكِي"
+              ],
+              "jawaban": 2,
+              "alasan": "Harakat terakhir syathr dipanjangkan (isyba'): مَا لِ كِي = panjang, pendek, panjang (10110 di ujung taf'ilah).",
+              "arab": true
+            },
+            {
+              "soal": "Kapan ha dhamir (هُ، هِ) di tengah syathr dipanjangkan?",
+              "pilihan": [
+                "Selalu",
+                "Ketika diapit dua huruf hidup",
+                "Hanya di ujung bait"
+              ],
+              "jawaban": 1,
+              "alasan": "Seperti mad shilah: وَلَهُ فِي → وَلَهُو فِي. Kalau sesudahnya hamzah washal atau huruf mati (وَآلِهِ الْمُسْتَكْمِلِينَ), tidak dipanjangkan."
+            },
+            {
+              "soal": "Bait 6 Alfiyah: وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا. Seorang pelajar menimbang dengan وَهُوَ dan mendapat patah. Apa yang salah?",
+              "pilihan": [
+                "Baitnya memang pincang",
+                "Ia mengganti harakat kitab: وَهْوَ bersukun",
+                "Rajaz tidak menerima kata هُوَ"
+              ],
+              "jawaban": 1,
+              "alasan": "Kitab menulis وَهْوَ. Dengan ha sukun, وَهْوَبِسَبْ = 101110 (thayy), sah. Dengan وَهُوَ, lima huruf hidup berturut-turut dan taf'ilah pertama patah."
+            },
+            {
+              "soal": "وَآلِهِ الْمُسْتَكْمِلِينَ (bait 2). Apakah هِ dipanjangkan?",
+              "pilihan": [
+                "Ya: وَآلِهِي",
+                "Tidak: bertemu hamzah washal, dibaca وَآلِهِلْ"
+              ],
+              "jawaban": 1,
+              "alasan": "Isyba' ha dhamir hanya bila sesudahnya huruf hidup. Di sini sesudahnya lam sukun (setelah hamzah washal gugur)."
+            },
+            {
+              "soal": "Bait 9 menulis وَكِلْمَةٌ, bukan وَكَلِمَةٌ. Mengapa?",
+              "pilihan": [
+                "Salah cetak",
+                "Lughah yang sah dengan lam sukun; dengan كَلِمَةٌ syathr itu patah",
+                "Agar qafiyahnya sama"
+              ],
+              "jawaban": 1,
+              "alasan": "وَكِلْمَتُنْ = 110110 (khabn). وَكَلِمَتُنْ = 111110: lima huruf hidup beruntun, patah. Seperti وَهْوَ, penyair memilih bacaan yang pas dengan timbangan."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Kapan ha dhamir (هُ، هِ) di tengah syathr dipanjangkan?",
-          "pilihan": [
-            "Selalu",
-            "Ketika diapit dua huruf hidup",
-            "Hanya di ujung bait"
-          ],
-          "jawaban": 1,
-          "alasan": "Seperti mad shilah: وَلَهُ فِي → وَلَهُو فِي. Kalau sesudahnya hamzah washal atau huruf mati (وَآلِهِ الْمُسْتَكْمِلِينَ), tidak dipanjangkan."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "Bait 6 Alfiyah: وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا. Seorang pelajar menimbang dengan وَهُوَ dan mendapat patah. Apa yang salah?",
-          "pilihan": [
-            "Baitnya memang pincang",
-            "Ia mengganti harakat kitab: وَهْوَ bersukun",
-            "Rajaz tidak menerima kata هُوَ"
-          ],
-          "jawaban": 1,
-          "alasan": "Kitab menulis وَهْوَ. Dengan ha sukun, وَهْوَبِسَبْ = 101110 (thayy), sah. Dengan وَهُوَ, lima huruf hidup berturut-turut dan taf'ilah pertama patah."
+          "jenis": "tandai",
+          "petunjuk": "Butir yang memuat isyba' atau taskin. Waw isyba' muncul sebagai huruf tambahan: beri tanda **0**. Bandingkan وَهْوَ dengan وَهُوَ.",
+          "butir": [
+            "وَهْوَ",
+            "وَهُوَ",
+            "عَمّْ",
+            "بِهِبَاتٍ",
+            "وَكِلْمَةٌ",
+            "وَلَهُ فِي",
+            "لِي وَلَهُ فِي",
+            "وَهْوَ بِسَبْقٍ",
+            "وَاحِدُهُ كَلِمَةٌ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -479,6 +782,49 @@
           ],
           "bahr": "rajaz",
           "makna": "Satuannya disebut kalimah; adapun qaul, ia mencakup semuanya. Kadang kata \"kalimah\" dipakai untuk maksud kalam."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Setiap pasangan berisi bait asli dan ubahannya. Bacalah persis seperti tertulis, centang yang pincang, lalu periksa.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا"
+              ],
+              "catatan": "Asli: Alfiyah bait 6."
+            },
+            {
+              "bait": [
+                "وَهُوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا"
+              ],
+              "catatan": "Baris latihan: ha diberi dhammah. Lima huruf hidup berturut-turut (وَهُوَبِسَ), taf'ilah pertama patah."
+            },
+            {
+              "bait": [
+                "وَكِلْمَةٌ بِهَا كَلَامٌ قَدْ يُؤَمّْ"
+              ],
+              "catatan": "Asli: Alfiyah bait 9."
+            },
+            {
+              "bait": [
+                "وَكَلِمَةٌ بِهَا كَلَامٌ قَدْ يُؤَمّْ"
+              ],
+              "catatan": "Baris latihan: كِلْمَةٌ diganti كَلِمَةٌ. Satu huruf mati hilang, taf'ilah pertama 111110: patah."
+            },
+            {
+              "bait": [
+                "وَاحِدُهُ كَلِمَةٌ وَالْقَوْلُ عَمّْ"
+              ],
+              "catatan": "Asli: Alfiyah bait 9. وَاحِدُهُو dengan isyba'."
+            },
+            {
+              "bait": [
+                "وَاحِدُ كَلِمَةٌ وَالْقَوْلُ عَمّْ"
+              ],
+              "catatan": "Baris latihan: dhamir هُ dibuang. Bersama dhamir hilang pula waw isyba', dan taf'ilah pertama tinggal 1011: patah."
+            }
+          ]
         },
         {
           "jenis": "susun",

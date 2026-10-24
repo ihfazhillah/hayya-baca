@@ -42,7 +42,7 @@ export function qafiyah(huruf: Huruf[]): Qafiyah {
   const sebelum = huruf[i - 1]
   if (sebelum && sebelum.bit === 0 && sebelum.tambahan !== 'syaddah' && 'اوي'.includes(sebelum.h[0]) && huruf[i - 2]?.bit === 1) q.ridf = sebelum.h[0]
   const alif = huruf[i - 2]
-  if (!q.ridf && sebelum?.bit === 1 && alif?.bit === 0 && alif.h[0] === 'ا' && alif.kata === sebelum.kata) q.tasis = true
+  if (!q.ridf && sebelum?.bit === 1 && alif?.bit === 0 && alif.h[0] === 'ا' && alif.kata === r.kata) q.tasis = true
   return q
 }
 

@@ -89,6 +89,11 @@ describe('qafiyah: rawiy, harakatnya, dan ridf', () => {
     expect(periksaQafiyah([b1, tanpa], 'satu')[0].pesan).toMatch(/ta'sis/)
   })
 
+  it('alif ta\'sis harus sekata dengan rawiy (قَالَ ذَا bukan ta\'sis)', () => {
+    const [s1] = k(['فَأَجَابَهُمْ قَالَ ذَا', 'لَا'])
+    expect(qafiyah(s1).tasis).toBeUndefined()
+  })
+
   it('qafiyah muqayyadah: rawiy bersukun (الزُّبُرْ)', () => {
     const [, s2] = k(['دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ', 'قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'])
     expect(qafiyah(s2)).toEqual({ rawiy: 'ر', harakat: 'sukun' })

@@ -73,48 +73,140 @@
           "petunjuk": "Giliran Anda: **syathr pertama**. Ia tidak berqafiyah, jadi cukup ditimbang. وَأَتَتْ: tiga huruf hidup sebelum sukun. أَنَّهُ di ujung syathr dibaca أَنْنَهُو."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama, bait ketiga Nuniyah. Ujungnya الْإِحْسَانِ, dibaca ـسَانِي. Mulailah dari belakang. Ya terakhir tidak tertulis; ia lahir dari kasrah yang dipanjangkan. Huruf ini disebut **wasl**. Sebelumnya ada ن berkasrah: inilah **rawiy**, huruf yang berulang di ujung setiap bait dan memberi nama qashidah: nuniyah.",
+        "Harakat rawiy, di sini kasrah, disebut **majra**. Ia seperti harakat i'rab di ujung kalimat: kalau satu bait berakhir نِ dan bait lain نُ, telinga langsung merasakan janggal. Cacat ini disebut **iqwa'**. Di Nuniyah, kasrah itu terjaga ribuan bait.",
+        "Satu langkah lagi ke belakang: alif dalam ـسَا. Huruf mad tepat sebelum rawiy disebut **ridf**. Dalam tajwid Anda mengenalnya sebagai mad thabi'i. Karena bait pertama memakai ridf alif (الْأَرْكَانِ، يَدَانِ), setiap bait harus beridf alif juga: الْإِحْسَانِ، الْإِيمَانِ، الْخَصْمَانِ.",
+        "Contoh kedua, bait 97, juga berakhir الْإِحْسَانِ. Kata الْإِيمَانِ di depannya tidak ikut diperiksa, dan ujung syathr pertama (تَابِعٌ) pun bebas. Qafiyah qashidah hanya mengikat ujung syathr kedua, kecuali bait pertama yang ber-tasri'.",
+        "Ada satu bagian lagi yang tidak muncul di Nuniyah tetapi perlu dikenal: **ta'sis**. Ta'sis adalah alif yang berjarak satu huruf hidup dari rawiy, seperti جَاهِلُ: alif, lalu ه (disebut dakhil), lalu rawiy ل. Bandingkan الْأَمَاكِنِ: alif, ك, lalu rawiy ن berkasrah. Rawiy dan majranya sama dengan Nuniyah, tetapi alif di sana bukan ridf, melainkan ta'sis. Karena itu الْأَمَاكِنِ tidak boleh menutup bait dalam qashidah ـانِ.",
+        "Ringkasnya, baca ujung bait dari belakang: wasl (bila ada), rawiy, majranya, lalu periksa huruf tepat sebelum rawiy (ridf) dan alif dua huruf sebelum rawiy (ta'sis). Semuanya harus sama dengan bait pertama."
+      ],
+      "keliru": [
+        {
+          "salah": "Menyebut ya di ujung يَدَانِي sebagai rawiy.",
+          "benar": "Rawiy = ن. Ya itu wasl, lahir dari isyba' kasrah.",
+          "sebab": "Ya itu tidak tertulis; ia hanya kasrah yang dipanjangkan, mirip shilah ha' dhamir dalam tajwid."
+        },
+        {
+          "salah": "Mencampur ـانِ dan ـانُ karena hurufnya sama.",
+          "benar": "Majra harus tetap: semua نِ.",
+          "sebab": "Itu iqwa', seperti salah i'rab yang terdengar jelas di ujung kalimat."
+        },
+        {
+          "salah": "Menutup bait nuniyah ـانِ dengan الدِّينِ atau الْيَقِينِ karena sama-sama ـنِ.",
+          "benar": "Ridf alif tidak boleh diganti ya atau waw: pakai الْإِيمَانِ، الْبُرْهَانِ.",
+          "sebab": "Ridf waw dan ya boleh saling bergantian, tetapi alif berdiri sendiri."
+        },
+        {
+          "salah": "Menganggap الْأَمَاكِنِ cocok dengan الْأَرْكَانِ karena sama-sama punya alif dan nun berkasrah.",
+          "benar": "Di الْأَمَاكِنِ alif berjarak satu huruf (كِ) dari rawiy: itu ta'sis, bukan ridf.",
+          "sebab": "Dalam sharaf, الْأَمَاكِنُ berwazan أَفَاعِلُ (jamak taksir): alifnya di tengah, bukan tepat sebelum huruf akhir seperti فُعْلَانٌ."
+        }
+      ],
       "qaidah": [
         "**Rawiy**: huruf tumpuan qafiyah, berulang di ujung setiap bait. Qashidah dinamai dengan rawiynya: nuniyah (nun), lamiyah (lam), mimiyah (mim).",
         "**Majra**: harakat rawiy. Harus sama di semua bait. Mencampur نِ dengan نُ dalam satu qashidah adalah cacat yang disebut **iqwa'**.",
         "**Ridf**: huruf mad (ا، و، ي) tepat sebelum rawiy. Ridf alif tidak boleh berganti. Ridf waw dan ya boleh saling bergantian (الْعُيُونِ dengan الْمُبِينِ).",
-        "**Wasl**: huruf mad yang terdengar setelah rawiy berharakat (ya isyba' setelah نِ). Ia bukan rawiy."
+        "**Wasl**: huruf mad yang terdengar setelah rawiy berharakat (ya isyba' setelah نِ). Ia bukan rawiy.",
+        "**Ta'sis**: alif yang dipisah satu huruf hidup (dakhil) dari rawiy, seperti جَاهِلُ، الْأَمَاكِنِ. Kalau bait pertama memakai ta'sis, semua bait memakainya; kalau tidak, tidak boleh ada. Ta'sis dan ridf tidak bercampur."
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Rawiy bait yang berakhir يَدَانِ adalah?",
-          "pilihan": [
-            "ي isyba' di ujung",
-            "ن",
-            "ا",
-            "د"
-          ],
-          "jawaban": 1,
-          "alasan": "Rawiy adalah ن. Ya isyba' adalah wasl, alif adalah ridf, dan dal hanya bagian kata."
+          "jenis": "kenali",
+          "petunjuk": "Kenali bagian-bagian ujung bait: rawiy, majra, ridf, wasl, ta'sis.",
+          "soal": [
+            {
+              "soal": "Rawiy bait yang berakhir يَدَانِ adalah?",
+              "pilihan": [
+                "ي isyba' di ujung",
+                "ن",
+                "ا",
+                "د"
+              ],
+              "jawaban": 1,
+              "alasan": "Rawiy adalah ن. Ya isyba' adalah wasl, alif adalah ridf, dan dal hanya bagian kata."
+            },
+            {
+              "soal": "Majra Nuniyah Ibnul Qayyim adalah?",
+              "pilihan": [
+                "fathah",
+                "kasrah",
+                "dhammah",
+                "sukun"
+              ],
+              "jawaban": 1,
+              "alasan": "Semua baitnya berakhir ـانِ: nun berkasrah, dibaca panjang ـانِي."
+            },
+            {
+              "soal": "Bait pertama berakhir الْأَرْكَانِ. Kata mana yang TIDAK boleh menutup bait lain dalam qashidah ini?",
+              "pilihan": [
+                "الْإِيمَانِ",
+                "الْبُرْهَانِ",
+                "الدِّينِ",
+                "الْفُرْقَانِ"
+              ],
+              "jawaban": 2,
+              "alasan": "الدِّينِ juga berakhir نِ, tetapi ridfnya ya, bukan alif. Ridf alif tidak boleh berganti. Selain itu, ujungnya lebih pendek dari ujung bait-bait nuniyah ini."
+            },
+            {
+              "soal": "Ya yang terdengar di ujung الْإِحْسَانِي disebut?",
+              "pilihan": [
+                "rawiy",
+                "wasl",
+                "ridf",
+                "ta'sis"
+              ],
+              "jawaban": 1,
+              "alasan": "Wasl adalah huruf mad setelah rawiy berharakat. Ridf ada sebelum rawiy."
+            },
+            {
+              "soal": "Dalam جَاهِلُ (rawiy ل), alif disebut?",
+              "pilihan": [
+                "ridf",
+                "ta'sis",
+                "wasl",
+                "rawiy"
+              ],
+              "jawaban": 1,
+              "alasan": "Alif berjarak satu huruf hidup (ه, dakhil) dari rawiy: ta'sis. Ridf harus tepat sebelum rawiy."
+            },
+            {
+              "soal": "Kata mana yang memakai ta'sis?",
+              "pilihan": [
+                "الْأَمَاكِنِ",
+                "الْأَرْكَانِ",
+                "الْإِيمَانِ",
+                "يَدَانِ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "الْأَمَاكِنِ: alif, كِ, lalu rawiy ن. Tiga lainnya beridf alif: alif tepat sebelum ن."
+            },
+            {
+              "soal": "Mencampur نِ dan نُ di ujung bait dalam satu qashidah disebut?",
+              "pilihan": [
+                "iqwa'",
+                "ita'",
+                "idhmar"
+              ],
+              "jawaban": 0,
+              "alasan": "Iqwa' = majra berganti. Ita' = kata qafiyah berulang. Idhmar adalah zihaf, bukan cacat qafiyah."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "Majra Nuniyah Ibnul Qayyim adalah?",
-          "pilihan": [
-            "fathah",
-            "kasrah",
-            "dhammah",
-            "sukun"
-          ],
-          "jawaban": 1,
-          "alasan": "Semua baitnya berakhir ـانِ: nun berkasrah, dibaca panjang ـانِي."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "Bait pertama berakhir الْأَرْكَانِ. Kata mana yang TIDAK boleh menutup bait lain dalam qashidah ini?",
-          "pilihan": [
-            "الْإِيمَانِ",
-            "الْبُرْهَانِ",
-            "الدِّينِ",
-            "الْفُرْقَانِ"
-          ],
-          "jawaban": 2,
-          "alasan": "الدِّينِ juga berakhir نِ, tetapi ridfnya ya, bukan alif. Ridf alif tidak boleh berganti. Selain itu, ujungnya lebih pendek dari ujung bait-bait nuniyah ini."
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada kata-kata ujung bait. Setelah benar, sebutkan rawiy dan ridfnya dalam hati. Huruf terakhir tidak dipanjangkan di drill ini.",
+          "butir": [
+            "يَدَانِ",
+            "الْأَرْكَانِ",
+            "الْخَصْمَانِ",
+            "الْإِحْسَانِ",
+            "حَقٌّ جَرَى",
+            "شُهُودُ الْوَصْلِ",
+            "تَشْهَدُ أَنَّهُ",
+            "الْأَمَاكِنِ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -125,6 +217,58 @@
           ],
           "bahr": "kamil",
           "makna": "Atau para sahabatnya sesudah beliau, atau orang yang mengikuti mereka di atas iman dan ihsan: di mana mereka mengatakannya?"
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Ujung bait sebagian baris diubah. Lagukan dulu, centang yang pincang, lalu periksa.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+                "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 3."
+            },
+            {
+              "bait": [
+                "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+                "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ وَالْعِرْفَانِ"
+              ],
+              "catatan": "Baris latihan: وَالْعِرْفَانِ ditambahkan. Qafiyahnya tetap ـانِ, tetapi taf'ilah terakhir menjadi terlalu panjang. Ujung bait hanya muat satu potongan 6 bit."
+            },
+            {
+              "bait": [
+                "أَنَّى وَقَاضِي الْحُسْنِ نَفَّذَ حُكْمَهَا",
+                "فَلِذَا أَقَرَّ بِذَلِكَ الْخَصْمَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 2."
+            },
+            {
+              "bait": [
+                "أَنَّى وَقَاضِي الْحُسْنِ نَفَّذَ حُكْمَهَا",
+                "فَلِذَا أَقَرَّ بِهِ الْخَصْمَانِ"
+              ],
+              "catatan": "Baris latihan: بِذَلِكَ diganti بِهِ. Dua huruf hilang, taf'ilah kedua dan ujung bait sama-sama kekurangan."
+            },
+            {
+              "bait": [
+                "أَوْ صَحْبُهُ مِنْ بَعْدِهِ أَوْ تَابِعٌ",
+                "لَهُمُ عَلَى الْإِيمَانِ وَالْإِحْسَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 97."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama bait ketiga. Dengarkan ujungnya: ـسَا (ridf) · نِ (rawiy berkasrah) · ي (wasl).",
+          "bait": [
+            "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+            "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Lalu para saksi pertemuan datang dan bersaksi bahwa ia benar, terjadi di majelis kebaikan."
         }
       ],
       "patokan": "Ujung tiga bait dibedah: rawiy, majra, ridf, dan wasl disebut untuk masing-masing. Bait أَوْ صَحْبُهُ ditandai sendiri sampai benar."
@@ -207,6 +351,36 @@
           "petunjuk": "Giliran Anda: **syathr pertama**. وَانْصُرْ di awal bait: alif washal tidak dibaca, jadi وَنْصُرْ. اللَّهِ → لْلَاهِ. وَالسُّنَنَ الَّتِي: dua lam syamsiyah lebur."
         }
       },
+      "syarh": [
+        "Perhatikan contoh pertama: جَاءَتْ عَنِ الْمَبْعُوثِ بِالْفُرْقَانِ. Taf'ilah terakhir adalah فُرْقَانِي = 101010. Satu kata mengisi seluruh مُتْفَاعِلْ. Kata seperti ini paling nyaman untuk qafiyah: tinggal diletakkan di ujung.",
+        "Contoh kedua: بِالْوَحْيِ لَا بِزَخَارِفِ الْهَذَيَانِ. Ujungnya هَذَيَانِي = 111010. Ini juga satu kata penuh, tetapi bentuknya utuh: هَ ذَ يَ tiga huruf hidup. Mashdar berwazan فَعَلَانٌ (هَذَيَانٌ، جَرَيَانٌ، طَيَرَانٌ) selalu memberi 111010.",
+        "Sekarang bandingkan dengan يَدَانِ di bait pembuka Nuniyah. يَدَانِي = 11010, kurang satu huruf hidup. Ibnul Qayyim mendahuluinya dengan ذَاكَ, sehingga كَ ikut mengisi ujung: كَيَدَانِي = 111010. Jadi kata berpola 11010 bisa dipakai, asal kata sebelumnya berakhir huruf hidup.",
+        "Itulah sebabnya الْبَيَانِ gagal di peragaan. Sebelum بَيَانِي ada بِلْ, yang berakhir sukun. Sharafnya benar, qafiyahnya benar, tetapi ujung bait kekurangan satu harakat.",
+        "Perhatikan juga i'rab kata-kata qafiyah ini. الْفُرْقَانِ dan الْهَذَيَانِ majrur karena huruf jar dan idhafah. Tetapi الْخَصْمَانِ di bait 2 marfu', dan يَدَانِ di bait 1 juga marfu'. Keduanya tetap berakhir نِ karena nun mutsanna selalu berkasrah. Begitu pula fi'il mudhari' mutsanna seperti يَجْتَمِعَانِ.",
+        "Dari sini laci ـانِ dibagi menurut pola. **101010**: فُعْلَانِ، فَعْلَانِ، أَفْعَالِ، إِفْعَالِ (الْقُرْآنِ، الرَّحْمَنِ، الْأَحْزَانِ، الْإِيمَانِ). **111010**: فَعَلَانِ (الْهَذَيَانِ). **11010**: فَعَالِ dan mutsanna pendek (أَمَانِ، بَيَانِ، يَدَانِ), yang butuh satu huruf hidup di depannya."
+      ],
+      "keliru": [
+        {
+          "salah": "Memasang الْبَيَانِ setelah بِالْ: بِالْبَيَانِ di ujung bait.",
+          "benar": "Setelah huruf mati, pakai kata 101010 (بِالْفُرْقَانِ). Kata 11010 hanya setelah huruf hidup (ذَاكَ يَدَانِ).",
+          "sebab": "بِلْ berakhir sukun, sehingga بَيَانِي tidak mendapat huruf hidup tambahan."
+        },
+        {
+          "salah": "Mengira kata qafiyah ـانِ harus selalu majrur.",
+          "benar": "Mutsanna marfu' pun berakhir نِ: الْخَصْمَانِ، يَدَانِ، يَجْتَمِعَانِ.",
+          "sebab": "Dalam nahwu, nun mutsanna selalu berkasrah apa pun i'rabnya; yang berubah hanya alif dan ya sebelumnya."
+        },
+        {
+          "salah": "Mengubah i'rab demi qafiyah: بِالْفُرْقَانُ.",
+          "benar": "Setelah huruf jar, isim majrur: بِالْفُرْقَانِ.",
+          "sebab": "Majra harus kasrah, dan i'rab harus benar. Kalau kata marfu' (bukan mutsanna), cari susunan lain."
+        },
+        {
+          "salah": "Menutup tiga bait berturut-turut dengan الْقُرْآنِ.",
+          "benar": "Ganti dengan الْفُرْقَانِ، الْبُرْهَانِ، atau kata lain dari laci.",
+          "sebab": "Kata qafiyah yang sama dengan makna yang sama dalam jarak dekat adalah cacat ita'."
+        }
+      ],
       "qaidah": [
         "Ujung bait nuniyah ini 6 bit dan selalu berakhir **1010** (ـَانِي): مُتَفَاعِلْ 111010 atau مُتْفَاعِلْ 101010.",
         "Kata berpola **101010** (الْقُرْآنِ، الْإِيمَانِ) mengisi ujung itu sendirian. Kata berpola **11010** (يَدَانِ، أَمَانِ) butuh satu huruf hidup lagi dari kata sebelumnya: ذَاكَ يَدَانِ → كَيَدَانِي = 111010.",
@@ -215,39 +389,92 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "جَاءَتْ عَنِ الْمَبْعُوثِ بِـ… Kata mana yang bisa menutup bait ini dalam Nuniyah Ibnul Qayyim?",
-          "pilihan": [
-            "الْفُرْقَانِ",
-            "الْفُرْقَانُ",
-            "الْكُتُبِ",
-            "الدِّينِ"
-          ],
-          "jawaban": 0,
-          "alasan": "الْفُرْقَانُ salah majra (dhammah) dan salah i'rab setelah بِـ. الْكُتُبِ rawiynya ba. الدِّينِ ridfnya ya, bukan alif."
+          "jenis": "kenali",
+          "petunjuk": "Pilih kata qafiyah yang tepat dan kenali polanya.",
+          "soal": [
+            {
+              "soal": "جَاءَتْ عَنِ الْمَبْعُوثِ بِـ… Kata mana yang bisa menutup bait ini dalam Nuniyah Ibnul Qayyim?",
+              "pilihan": [
+                "الْفُرْقَانِ",
+                "الْفُرْقَانُ",
+                "الْكُتُبِ",
+                "الدِّينِ"
+              ],
+              "jawaban": 0,
+              "alasan": "الْفُرْقَانُ salah majra (dhammah) dan salah i'rab setelah بِـ. الْكُتُبِ rawiynya ba. الدِّينِ ridfnya ya, bukan alif.",
+              "arab": true
+            },
+            {
+              "soal": "بِالْوَحْيِ لَا بِزَخَارِفِ … Kata mana yang menutup bait ini dengan lurus?",
+              "pilihan": [
+                "الْهَذَيَانِ",
+                "الْبَيَانِ",
+                "الْأَقْوَالِ"
+              ],
+              "jawaban": 0,
+              "alasan": "الْهَذَيَانِ = هَذَيَانِي 111010, pas. الْبَيَانِ benar qafiyahnya tetapi polanya 11010: timbangan patah. الْأَقْوَالِ rawiynya lam.",
+              "arab": true
+            },
+            {
+              "soal": "Kata mana yang berpola 101010 sehingga bisa mengisi seluruh ujung bait sendirian?",
+              "pilihan": [
+                "يَدَانِ",
+                "الْقُرْآنِ",
+                "الْهَذَيَانِ",
+                "أَمَانِ"
+              ],
+              "jawaban": 1,
+              "alasan": "قُرْآنِي = قُرْ آ نِي = 101010. يَدَانِ dan أَمَانِ = 11010; الْهَذَيَانِ = 111010.",
+              "arab": true
+            },
+            {
+              "soal": "Kata mana yang berpola 11010 dan butuh huruf hidup di depannya?",
+              "pilihan": [
+                "أَمَانِ",
+                "الْإِحْسَانِ",
+                "الْهَذَيَانِ",
+                "الْأَحْزَانِ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "أَمَانِي = 11010. الْإِحْسَانِ dan الْأَحْزَانِ = 101010, الْهَذَيَانِ = 111010."
+            },
+            {
+              "soal": "Mengapa الْخَصْمَانِ (marfu') boleh menutup bait yang majranya kasrah?",
+              "pilihan": [
+                "Nun mutsanna selalu berkasrah",
+                "Karena darurat syair",
+                "Karena ia mudhaf ilaih"
+              ],
+              "jawaban": 0,
+              "alasan": "الْخَصْمَانِ fa'il dari أَقَرَّ, marfu' dengan alif. Nunnya tetap berkasrah."
+            },
+            {
+              "soal": "الْقُرْآنِ sudah menutup bait 1. Untuk bait 2 dengan makna serupa, lebih baik memakai?",
+              "pilihan": [
+                "الْفُرْقَانِ",
+                "الْقُرْآنِ",
+                "الْقُرْآنُ"
+              ],
+              "jawaban": 0,
+              "arab": true,
+              "alasan": "Mengulang الْقُرْآنِ adalah ita'. الْقُرْآنُ salah majra."
+            }
+          ]
         },
         {
-          "jenis": "pilih",
-          "soal": "بِالْوَحْيِ لَا بِزَخَارِفِ … Kata mana yang menutup bait ini dengan lurus?",
-          "pilihan": [
-            "الْهَذَيَانِ",
-            "الْبَيَانِ",
-            "الْأَقْوَالِ"
-          ],
-          "jawaban": 0,
-          "alasan": "الْهَذَيَانِ = هَذَيَانِي 111010, pas. الْبَيَانِ benar qafiyahnya tetapi polanya 11010: timbangan patah. الْأَقْوَالِ rawiynya lam."
-        },
-        {
-          "jenis": "pilih",
-          "soal": "Kata mana yang berpola 101010 sehingga bisa mengisi seluruh ujung bait sendirian?",
-          "pilihan": [
-            "يَدَانِ",
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada isi laci ـانِ. Kelompokkan: mana yang 101010, 111010, dan 11010? Huruf terakhir tidak dipanjangkan di drill ini.",
+          "butir": [
             "الْقُرْآنِ",
+            "بِالْفُرْقَانِ",
+            "مِنْ أَحْزَانِ",
             "الْهَذَيَانِ",
-            "أَمَانِ"
-          ],
-          "jawaban": 1,
-          "alasan": "قُرْآنِي = قُرْ آ نِي = 101010. يَدَانِ dan أَمَانِ = 11010; الْهَذَيَانِ = 111010."
+            "أَمَانِ",
+            "الْبَيَانِ",
+            "ذَاكَ يَدَانِ",
+            "خَيْرُ أَمَانِ"
+          ]
         },
         {
           "jenis": "taqthi",
@@ -258,6 +485,66 @@
           ],
           "bahr": "kamil",
           "makna": "Dalam semua urusanmu, berpeganglah pada wahyu, bukan pada igauan yang dihias-hias."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Kata qafiyah di beberapa baris diganti. Semuanya benar qafiyahnya; yang diuji hanya timbangannya. Centang yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "وَانْصُرْ كِتَابَ اللَّهِ وَالسُّنَنَ الَّتِي",
+                "جَاءَتْ عَنِ الْمَبْعُوثِ بِالْفُرْقَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 190."
+            },
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَسِّكًا",
+                "بِالْوَحْيِ لَا بِزَخَارِفِ الْبَيَانِ"
+              ],
+              "catatan": "Baris latihan: الْهَذَيَانِ (111010) diganti الْبَيَانِ. Sebelumnya فِلْ berakhir sukun, jadi ujung bait tinggal بَيَانِي = 11010."
+            },
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَسِّكًا",
+                "بِالْوَحْيِ لَا بِزَخَارِفِ الْهَذَيَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 189."
+            },
+            {
+              "bait": [
+                "أَوْ صَحْبُهُ مِنْ بَعْدِهِ أَوْ تَابِعٌ",
+                "لَهُمُ عَلَى الْإِيمَانِ وَالْأَمَانِ"
+              ],
+              "catatan": "Baris latihan: الْإِحْسَانِ (101010) diganti الْأَمَانِ (11010) setelah وَلْ yang sukun. Kurang satu huruf hidup."
+            },
+            {
+              "bait": [
+                "حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ",
+                "مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 1. يَدَانِ (11010) lurus karena didahului كَ yang hidup."
+            }
+          ]
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "Isi kotak dengan kata qafiyah ـانِ yang mengisi ujung bait sendirian (101010 atau 111010), lengkap dengan harakat dan alif lam. Buat **dua baris berbeda**, semuanya 0 patah.",
+          "cetakan": "بِالْوَحْيِ لَا بِزَخَارِفِ {1}",
+          "kotak": [
+            {
+              "petunjuk": "Isim majrur berakhir ـانِ, pola 101010 atau 111010, mis. الْهَذَيَانِ، الْبُهْتَانِ",
+              "pola": "101010",
+              "contoh": [
+                "الْهَذَيَانِ",
+                "الْبُهْتَانِ",
+                "الشَّيْطَانِ"
+              ]
+            }
+          ],
+          "bahr": "kamil",
+          "jumlah": 2
         }
       ],
       "patokan": "Laci ـانِ Anda berisi minimal 10 kata, masing-masing dengan arti dan polanya (101010 atau 11010)."
@@ -365,6 +652,30 @@
           "petunjuk": "Giliran Anda: **syathr kedua** bait 2 Ibnul Qayyim. فَلِذَا = فَ لِ ذَا = 1110: tiga huruf hidup lalu alif, pembuka مُتَفَاعِلُنْ utuh. Ujungnya الْخَصْمَانِ → لْخَصْمَانِي."
         }
       },
+      "syarh": [
+        "Perhatikan tiga contoh berurutan: bait 1, 2, 3 Nuniyah. Ujungnya يَدَانِ، الْخَصْمَانِ، الْإِحْسَانِ. Tiga kata berbeda, satu bunyi: rawiy ن, majra kasrah, ridf alif, wasl ya isyba', tanpa ta'sis.",
+        "Bait 1 ber-tasri': syathr pertamanya juga berakhir ـانِ (الْأَرْكَانِ). Di bait 2 dan 3, syathr pertama bebas: حُكْمَهَا dan أَنَّهُ. Qafiyah qashidah hanya mengikat ujung syathr kedua.",
+        "Lihat polanya. يَدَانِ (11010) didahului كَ dari ذَاكَ, jadi ujungnya 111010. الْخَصْمَانِ dan الْإِحْسَانِ (101010) berdiri sendiri. Ibnul Qayyim mencampur keduanya, karena ujung bait boleh مُتَفَاعِلْ (111010) atau مُتْفَاعِلْ (101010).",
+        "Sekarang draf latihan di peragaan. Draf pertama dibuka dengan نُورُ الْقُرْآنِ: نُورُلْقُرْآ = 10101010, sabab berderet tanpa watad. Perbaikannya bukan mengganti makna, tetapi mengganti kata dengan sinonim yang sepola: الْكِتَابِ.",
+        "Urutan kerjanya: makna dulu, lalu tiga kata qafiyah dari laci, baru isi bait. Seperti menyusun kalimat bahasa Arab: Anda tahu khabar yang mau disampaikan sebelum memilih kata, dan ujung bait adalah tempat yang paling sempit."
+      ],
+      "keliru": [
+        {
+          "salah": "Memakai الْقُرْآنِ untuk menutup ketiga bait.",
+          "benar": "Tiga bait, tiga kata qafiyah berbeda.",
+          "sebab": "Pengulangan kata qafiyah dengan makna yang sama dalam jarak dekat adalah ita'."
+        },
+        {
+          "salah": "Memberi qafiyah ـانِ di syathr pertama setiap bait, lalu kehabisan kata.",
+          "benar": "Tasri' cukup di bait pertama; bait berikutnya hanya syathr kedua.",
+          "sebab": "Qafiyah qashidah mengikat ujung bait, bukan ujung setiap syathr (berbeda dengan muzdawij di Babak 1)."
+        },
+        {
+          "salah": "Menyusun isi bait dulu, mencari kata qafiyah belakangan.",
+          "benar": "Kunci tiga kata qafiyah dulu, baru isi bait.",
+          "sebab": "Ujung bait paling sempit polanya. Kalau ujungnya sudah terkunci, hasyw lebih mudah diatur."
+        }
+      ],
       "qaidah": [
         "Satu qashidah = satu bahr, satu rawiy, satu majra, satu ridf. Tentukan keempatnya sebelum bait pertama.",
         "Pilih kata qafiyah untuk semua bait **sebelum** menyusun isinya. Tiga bait, tiga kata berbeda.",
@@ -373,16 +684,117 @@
       ],
       "tamarin": [
         {
-          "jenis": "pilih",
-          "soal": "Bait pertama Anda berakhir الرَّحْمَنِ. Bait kedua boleh berakhir dengan?",
-          "pilihan": [
-            "أَمَانِ",
-            "أَمَانُ",
-            "يَمِينِ",
-            "الْقَمَرِ"
+          "jenis": "kenali",
+          "petunjuk": "Periksa rencana qashidah Anda sebelum menyusun.",
+          "soal": [
+            {
+              "soal": "Bait pertama Anda berakhir الرَّحْمَنِ. Bait kedua boleh berakhir dengan?",
+              "pilihan": [
+                "أَمَانِ",
+                "أَمَانُ",
+                "يَمِينِ",
+                "الْقَمَرِ"
+              ],
+              "jawaban": 0,
+              "alasan": "أَمَانِ: rawiy ن, majra kasrah, ridf alif. أَمَانُ salah majra; يَمِينِ ridfnya ya; الْقَمَرِ rawiynya ra.",
+              "arab": true
+            },
+            {
+              "soal": "Bait 2 Anda berakhir الْأَمَاكِنِ, bait 1 berakhir الرَّحْمَنِ. Masalahnya?",
+              "pilihan": [
+                "Ta'sis muncul, padahal bait 1 beridf alif",
+                "Rawiy berbeda",
+                "Majra berbeda"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy ن dan majra kasrah sama. Tetapi alif di الْأَمَاكِنِ adalah ta'sis (berjarak satu huruf), bukan ridf."
+            },
+            {
+              "soal": "Ujung bait 1 Anda 101010 (الرَّحْمَنِ). Ujung bait 2 boleh?",
+              "pilihan": [
+                "101010 atau 111010",
+                "Hanya 101010",
+                "Hanya 111010"
+              ],
+              "jawaban": 0,
+              "alasan": "Qath' tetap, idhmar boleh berganti: كَيَدَانِي (111010) dan إِحْسَانِي (101010) bercampur di Nuniyah."
+            },
+            {
+              "soal": "Apakah syathr pertama bait 2 harus berakhir ـانِ?",
+              "pilihan": [
+                "Tidak, hanya bait pertama yang ber-tasri'",
+                "Ya, setiap syathr"
+              ],
+              "jawaban": 0,
+              "alasan": "Lihat bait 2 Nuniyah: syathr pertamanya berakhir حُكْمَهَا."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada frasa dari draf latihan. Bandingkan نُورُ الْكِتَابِ dengan نُورُ الْقُرْآنِ.",
+          "butir": [
+            "الرَّحْمَنِ",
+            "نُورُ الْكِتَابِ",
+            "نُورُ الْقُرْآنِ",
+            "رَبِّ اجْعَلِ",
+            "السَّكِينَةَ",
+            "وَجَلَاءَ مَا",
+            "فِي جَوْفِ الدُّجَى",
+            "وَهْيَ خَيْرُ أَمَانِ"
+          ]
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Tiga bait pembuka Nuniyah dan dua baris latihan. Centang yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ",
+                "مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 1."
+            },
+            {
+              "bait": [
+                "نُورُ الْقُرْآنِ يُضِيءُ قَلْبَ الْمُؤْمِنِ",
+                "وَيَزِيدُهُ حُبًّا إِلَى الرَّحْمَنِ"
+              ],
+              "catatan": "Bait latihan, bukan kutipan: draf pertama dari peragaan. نُورُلْقُرْآ = 10101010, tidak ada watad."
+            },
+            {
+              "bait": [
+                "أَنَّى وَقَاضِي الْحُسْنِ نَفَّذَ حُكْمَهَا",
+                "فَلِذَا أَقَرَّ بِذَلِكَ الْخَصْمَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 2."
+            },
+            {
+              "bait": [
+                "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+                "حَقٌّ جَرَى فِي مَجْلِسِ الْأَمَانِ"
+              ],
+              "catatan": "Baris latihan: الْإِحْسَانِ diganti الْأَمَانِ. Qafiyahnya benar, tetapi سِلْ sebelumnya sukun, jadi ujung bait tinggal 11010."
+            },
+            {
+              "bait": [
+                "وَأَتَتْ شُهُودُ الْوَصْلِ تَشْهَدُ أَنَّهُ",
+                "حَقٌّ جَرَى فِي مَجْلِسِ الْإِحْسَانِ"
+              ],
+              "catatan": "Asli: Nuniyah Ibnul Qayyim, bait 3."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama bait 2 Nuniyah. Rasakan bahwa syathr pertama bebas (حُكْمَهَا) dan qafiyah baru terdengar di ujung bait.",
+          "bait": [
+            "أَنَّى وَقَاضِي الْحُسْنِ نَفَّذَ حُكْمَهَا",
+            "فَلِذَا أَقَرَّ بِذَلِكَ الْخَصْمَانِ"
           ],
-          "jawaban": 0,
-          "alasan": "أَمَانِ: rawiy ن, majra kasrah, ridf alif. أَمَانُ salah majra; يَمِينِ ridfnya ya; الْقَمَرِ rawiynya ra."
+          "bahr": "kamil",
+          "makna": "Bagaimana mungkin dibatalkan, padahal hakim keindahan sudah menjalankan putusannya? Karena itu kedua pihak yang bersengketa pun mengakuinya."
         },
         {
           "jenis": "susun",
