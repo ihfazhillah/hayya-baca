@@ -72,12 +72,12 @@ const THAWIL_DHARB = [...MAFAILUN.slice(0, 2), b('مَفَاعِي', '11010', 'h
 
 /** Wafir tam: 'arudh dan dharb selalu maqthufah. 'Ashb (huruf kelima disukunkan) sangat lazim. */
 const MUFAALATUN = [
-  b('مُفَاعَلَتُنْ', '1101110'),
-  b('مُفَاعَلْتُنْ', '1101010', "'ashb", { namaLain: 'مَفَاعِيلُنْ', nilai: 'hasan' }),
-  b('مُفَاعَتُنْ', '110110', "'aql", { namaLain: 'مَفَاعِلُنْ', nilai: 'qabih' }),
-  b('مُفَاعَلْتُ', '110101', 'naqsh', { namaLain: 'مَفَاعِيلُ', nilai: 'qabih' }),
+  b('مُفَاعَلَتُنْ', '1101110', undefined, { lagu: 'نعم لَ لَ لا' }),
+  b('مُفَاعَلْتُنْ', '1101010', "'ashb", { namaLain: 'مَفَاعِيلُنْ', nilai: 'hasan', lagu: 'نعم لا لا' }),
+  b('مُفَاعَتُنْ', '110110', "'aql", { namaLain: 'مَفَاعِلُنْ', nilai: 'qabih', lagu: 'نعم لَ لا' }),
+  b('مُفَاعَلْتُ', '110101', 'naqsh', { namaLain: 'مَفَاعِيلُ', nilai: 'qabih', lagu: 'نعم لا لَ' }),
 ]
-const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, namaLain: 'فَعُولُنْ' })]
+const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, namaLain: 'فَعُولُنْ', lagu: 'نعم لا' })]
 
 /** Mujtats: selalu majzu', dua taf'ilah per syathr. */
 const MUSTAFILUN_MUJTATS = [
@@ -183,6 +183,11 @@ export const BAHR = {
     namaAr: 'الْوَافِر',
     kunci: ['بُحُورُ الشِّعْرِ وَافِرُهَا جَمِيلُ', 'مُفَاعَلَتُنْ مُفَاعَلَتُنْ فَعُولُ'],
     kunciMakna: 'Di antara bahr-bahr syair, wafir itu indah.',
+    dengar: {
+      youtube: 'v-Arfui_3ts',
+      judul: 'Tanghim tafshili bahr wafir, satu surah',
+      sumber: "Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 47",
+    },
     slot: [
       [MUFAALATUN, MUFAALATUN, WAFIR_AKHIR],
       [MUFAALATUN, MUFAALATUN, WAFIR_AKHIR],

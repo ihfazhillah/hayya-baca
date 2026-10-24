@@ -39,6 +39,16 @@
           "makna": "Di antara bahr-bahr syair, wafir itu indah. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr wafir (miftah al-buhur) yang masyhur.",
           "catatan": "Hanya tiga taf'ilah per syathr, dan yang terakhir selalu pendek: فَعُولُنْ."
+        },
+        {
+          "bait": [
+            "وَزَائِرَتِي كَأَنَّ بِهَا حَيَاءً",
+            "فَلَيْسَ تَزُورُ إِلَّا فِي الظَّلَامِ"
+          ],
+          "bahr": "wafir",
+          "makna": "Tamuku yang datang (demam) seakan-akan pemalu: ia tidak berkunjung kecuali di waktu gelap.",
+          "sumber": "Al-Mutanabbi, qashidah tentang demam yang menimpanya di Mesir. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 47.",
+          "catatan": "Syathr pertama utuh: نعم لَ لَ لا · نعم لَ لَ لا · نعم لا. Di syathr kedua taf'ilah tengahnya kena 'ashb (رُإِلْلَافِظْ), dilagukan نعم لا لا."
         }
       ],
       "bahts": {
@@ -68,11 +78,11 @@
           },
           {
             "tampil": "kelompok",
-            "kata": "Tiga hidup lalu satu mati (1110) adalah blok baru: **fashilah shughra**, seperti عَلَتُنْ. Jadi مُفَاعَلَتُنْ = مُفَا (110, watad) + عَلَتُنْ (1110, fashilah)."
+            "kata": "Tiga hidup lalu satu mati (1110) adalah blok baru: **fashilah shughra**, seperti عَلَتُنْ. Jadi مُفَاعَلَتُنْ = مُفَا (110, watad) + عَلَتُنْ (1110, fashilah). Lagunya: watad = نعم, fashilah = **لَ لَ لا** (dua pendek, satu panjang). Jadi مُفَاعَلَتُنْ = نعم لَ لَ لا."
           },
           {
             "tampil": "mizan",
-            "kata": "شَكَوْ تُإِلَى = 1101110 = **مُفَاعَلَتُنْ** utuh. وَكِي عِنْ سُو = 1101010: huruf kelimanya disukunkan, jadi **مُفَاعَلْتُنْ**. ءَحِفْ ظِي = 11010 = **فَعُولُنْ**."
+            "kata": "شَكَوْ تُإِلَى = 1101110 = **مُفَاعَلَتُنْ** utuh. وَكِي عِنْ سُو = 1101010: huruf kelimanya disukunkan, jadi **مُفَاعَلْتُنْ**. ءَحِفْ ظِي = 11010 = **فَعُولُنْ**. Dengarkan: 'ashb mengubah لَ لَ لا menjadi لا لا, sehingga مُفَاعَلْتُنْ dilagukan نعم لا لا."
           },
           {
             "tampil": "teks",

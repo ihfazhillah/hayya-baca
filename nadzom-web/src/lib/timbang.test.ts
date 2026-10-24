@@ -336,7 +336,7 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
   })
 
   it('bahr yang sudah dilagukan: semua bentuknya punya lagu dan video nagham', () => {
-    for (const kode of ['rajaz', 'kamil', 'basith', 'thawil'] as const) {
+    for (const kode of ['rajaz', 'kamil', 'basith', 'thawil', 'wafir'] as const) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
       expect(BAHR[kode].dengar?.youtube, kode).toBeTruthy()
     }
@@ -348,6 +348,7 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
     expect(laguBahr(BAHR.kamil)).toBe('لَ لَ لا نعم لَ لَ لا نعم لَ لَ لا نعم')
     expect(laguBahr(BAHR.basith)).toBe('لا لا نعم لا نعم لا لا نعم لَ نعم')
     expect(laguBahr(BAHR.thawil)).toBe('نعم لا نعم لا لا نعم لا نعم لَ لا')
+    expect(laguBahr(BAHR.wafir)).toBe('نعم لَ لَ لا نعم لَ لَ لا نعم لا')
   })
 
   it('مُتَفَاعِلُنْ = sabab tsaqil (لَ لَ) · sabab · watad, bukan لَ + dua watad', () => {
