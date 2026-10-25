@@ -66,6 +66,16 @@ describe('Masuk', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('minta bantuan Ayah')
   })
 
+  it('anak bisa keluar dari Beranda lalu kembali ke halaman Masuk', async () => {
+    localStorage.setItem('penerbit.token', 'anak')
+    pasangFetch({ 'GET /api/penerbit/me/': { body: ME_PENULIS } })
+    tampil()
+    const u = userEvent.setup()
+    await u.click(await screen.findByRole('button', { name: 'Keluar' }))
+    expect(await screen.findByLabelText('Nama pengguna')).toBeInTheDocument()
+    expect(getToken()).toBeNull()
+  })
+
   it('penulis yang membuka /ortu dikembalikan ke Beranda', async () => {
     localStorage.setItem('penerbit.token', 'anak')
     pasangFetch({ 'GET /api/penerbit/me/': { body: ME_PENULIS } })
@@ -86,6 +96,8 @@ describe('Masuk', () => {
     await u.click(await screen.findByRole('button', { name: 'Lihat sebagai anak' }))
     expect(await screen.findByRole('heading', { name: 'Beranda' })).toBeInTheDocument()
     expect(screen.getByText(/Mode simulasi/)).toBeInTheDocument()
+    // Saat simulasi, keluar lewat banner — bukan logout akun orang tua.
+    expect(screen.queryByRole('button', { name: 'Keluar' })).not.toBeInTheDocument()
     expect(localStorage.getItem('penerbit.simulasi')).toBe('1')
     await u.click(screen.getByRole('button', { name: 'Kembali ke Pojok Orang Tua' }))
     expect(await screen.findByRole('heading', { name: 'Dasbor' })).toBeInTheDocument()

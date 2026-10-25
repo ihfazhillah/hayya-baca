@@ -10,6 +10,7 @@ export function NavPenulis({ titik = [], poin }: {
   poin?: number
 }) {
   const { me } = useMe()
+  const { logout } = useAuth()
   const cocok = useLocation().pathname.match(/^\/modul\/(\d+)/)
   const nomorModul = cocok ? Number(cocok[1]) : undefined
   return (
@@ -24,6 +25,7 @@ export function NavPenulis({ titik = [], poin }: {
         <div className="nav-links">
           <NavLink to="/naskah">Ruang Penulis</NavLink>
           <span>{me?.penulis?.nama}{poin !== undefined ? ` · ${poin} poin` : ''}</span>
+          {!me?.sedang_simulasi && <button className="btn btn-ghost" onClick={logout}>Keluar</button>}
         </div>
       </div>
       <div className="nav-baris-modul">
