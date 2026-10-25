@@ -372,6 +372,6 @@ describe('tebak bahr (spec 077)', () => {
     await user.click(screen.getByRole('button', { name: 'Rajaz' }))
     expect(screen.getByText('Belum tepat. Coba pilihan lain.')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Khafif' }))
-    expect(document.querySelector('.pesan.ok')?.textContent).toContain('مُسْتَفْعِ لُنْ')
+    expect(document.querySelector('.pesan.ok')?.textContent).toContain('Khafif. Syathr pertama: فَاعِلَاتُنْ')
   })
 })
