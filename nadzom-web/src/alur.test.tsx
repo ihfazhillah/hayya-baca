@@ -376,6 +376,15 @@ describe('tebak bahr (spec 077)', () => {
   })
 })
 
+describe('panen sesudah Jilid 1 (spec 077)', () => {
+  it('di luar mode salim, potongan berzihaf hasan pun bisa dipanen dengan nama zihafnya', async () => {
+    const user = userEvent.setup()
+    render(<Panen t={{ jenis: 'panen', petunjuk: 'Panen.', bait: ['كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ'], bahr: 'rajaz', jumlah: 1, kotak: false, sumber: 'Alfiyah 8' }} />)
+    await user.click(screen.getByRole('button', { name: 'كَلَامُنَا' }))
+    expect(document.body.textContent).toContain('110110 · satu مُتَفْعِلُنْ (khabn)')
+  })
+})
+
 describe('panen dari bait sendiri di alat timbang (spec 077)', () => {
   it('bait yang ditempel bisa dipanen; kotak taf\'ilah tersembunyi kecuali diminta', async () => {
     const user = userEvent.setup()

@@ -32,13 +32,13 @@
           "jilid": 2,
           "judul": "Wajah Rajaz",
           "fokus": "Taf'ilah berubah satu per satu: khabn, thayy, khabl, lalu qath'",
-          "hasil": "Bait #1 direvisi dengan khabn"
+          "hasil": "Bait #1 v3 dengan khabn, Bait #3 maqthu'"
         },
         {
           "nomor": 4,
           "jilid": 2,
           "judul": "Teknik Revisi",
-          "fokus": "Laci wazan, tangga perbaikan: buang, geser, ganti sewazan, ganti semakna",
+          "fokus": "Laci wazan sharaf, tangga revisi: buang, geser, ganti sewazan, ganti semakna; panen tanpa kotak",
           "hasil": "Revisi Bait #1–#2"
         },
         {
@@ -75,29 +75,29 @@
           "nomor": 16,
           "jilid": 2,
           "judul": "Mutaqarib",
-          "fokus": "فَعُولُنْ empat kali, qabdh",
-          "hasil": "2 bait"
+          "fokus": "فَعُولُنْ empat kali, utuh dulu; lalu qabdh dan ujung فَعَلْ",
+          "hasil": "2 bait mutaqarib satu qafiyah"
         },
         {
           "nomor": 6,
           "jilid": 2,
           "judul": "Kamil",
-          "fokus": "مُتَفَاعِلُنْ utuh dulu, lalu idhmar",
-          "hasil": "1 bait kamil"
+          "fokus": "مُتَفَاعِلُنْ utuh dulu, lalu idhmar, lalu menyusun bertahap",
+          "hasil": "2 bait kamil"
         },
         {
           "nomor": 7,
           "jilid": 2,
           "judul": "Laci ـانِ",
-          "fokus": "Majra, wasl, ta'sis, iqwa', ita'",
+          "fokus": "Memperdalam qafiyah satu: majra, wasl, ta'sis, iqwa', ita'",
           "hasil": "3 bait kamil"
         },
         {
           "nomor": 10,
           "jilid": 2,
           "judul": "Wafir",
-          "fokus": "Cermin kamil, qathf baku di ujung, lalu 'ashb",
-          "hasil": "2 bait wafir"
+          "fokus": "Cermin kamil: مُفَاعَلَتُنْ utuh dengan ujung baku مُفَاعَلْ, lalu 'ashb",
+          "hasil": "2 bait wafir satu qafiyah"
         },
         {
           "nomor": 12,
@@ -149,14 +149,14 @@
           "nomor": 17,
           "jilid": 3,
           "judul": "Khafif",
-          "fokus": "فَاعِلَاتُنْ مُسْتَفْعِ لُنْ فَاعِلَاتُنْ, watad mafruq",
+          "fokus": "فَاعِلَاتُنْ مُسْتَفْعِ لُنْ فَاعِلَاتُنْ: watad mafruq, lalu khabn",
           "hasil": "2 bait khafif"
         },
         {
           "nomor": 15,
           "jilid": 3,
           "judul": "Mujtats",
-          "fokus": "Selalu majzu', watad mafruq",
+          "fokus": "Khafif yang dibalik, selalu majzu': watad mafruq di pembuka, lalu khabn",
           "hasil": "4 bait pendek"
         },
         {

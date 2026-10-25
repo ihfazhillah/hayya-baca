@@ -6,6 +6,7 @@ import { timbangBait } from '@/lib/timbang'
 import { simpanKata } from '@/lib/laciSaya'
 import Teks from './Teks'
 import KotakTafilah from './KotakTafilah'
+import { useJilid } from './Jilid'
 
 type TamrinPanen = Extract<Tamrin, { jenis: 'panen' }>
 
@@ -25,7 +26,17 @@ export default function Panen({ t }: { t: TamrinPanen }) {
     const k = kitabahBait(t.bait)
     return k.ok ? timbangBait(k.syathr, bahr) : null
   }, [t.bait, bahr])
-  const utuh = useMemo(() => new Map(bahr.slot.flat(2).filter((b) => !b.zihaf).map((b) => [b.bit, b.nama])), [bahr])
+  const { salim } = useJilid()
+  /** Jilid 1: hanya taf'ilah utuh. Sesudahnya, bentuk hasyw yang berubah pun boleh dipanen, dengan nama zihafnya. */
+  const utuh = useMemo(
+    () =>
+      new Map(
+        bahr.slot.flat(2)
+          .filter((b) => !b.zihaf || (!salim && !b.illah && b.nilai !== 'qabih'))
+          .map((b) => [b.bit, b.zihaf ? `${b.nama} (${b.zihaf})` : `${b.nama} utuh`] as const),
+      ),
+    [bahr, salim],
+  )
   const kata = t.bait.map((s) => s.split(/\s+/))
   const [pilih, setPilih] = useState<{ s: number; i: number }[]>([])
   const [arti, setArti] = useState('')
@@ -42,7 +53,7 @@ export default function Panen({ t }: { t: TamrinPanen }) {
     setPilih(pilih.some((p) => p.s === s && p.i === i) ? pilih.filter((p) => !(p.s === s && p.i === i)) : [...pilih, { s, i }])
   const simpan = () => {
     if (!nama || !arti.trim()) return
-    setJumlahLaci(simpanKata({ teks, arti: arti.trim(), pola, cocok: `satu ${nama} utuh`, sumber: [t.sumber] }))
+    setJumlahLaci(simpanKata({ teks, arti: arti.trim(), pola, cocok: `satu ${nama}`, sumber: [t.sumber] }))
     if (!panen.includes(teks)) setPanen([...panen, teks])
     setPilih([])
     setArti('')
@@ -74,7 +85,7 @@ export default function Panen({ t }: { t: TamrinPanen }) {
       {pilih.length > 0 && !berurutan && <div className="pesan info">Pilih kata yang berurutan dalam satu syathr.</div>}
       {teks && (
         <div className={`pesan ${nama ? 'ok' : 'info'}`}>
-          <span className="ar-in" lang="ar">{teks}</span> = <span dir="ltr">{`${pola} · ${nama ? `satu ${nama} utuh` : "belum satu taf'ilah"}`}</span>
+          <span className="ar-in" lang="ar">{teks}</span> = <span dir="ltr">{`${pola} · ${nama ? `satu ${nama}` : "belum satu taf'ilah"}`}</span>
         </div>
       )}
       <div className="baris" style={{ alignItems: 'flex-end' }}>
