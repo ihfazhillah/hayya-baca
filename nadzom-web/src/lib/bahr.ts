@@ -87,7 +87,7 @@ const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, na
 const MUSTAFILUN_MUJTATS = [
   b('مُسْتَفْعِلُنْ', '1010110', undefined, { lagu: 'لا لا نعم' }),
   b('مُتَفْعِلُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan', lagu: 'لَ لا نعم' }),
-  b('مُسْتَفْعِلُ', '101011', 'kaff', { nilai: 'qabih', lagu: 'لا لا لَ لَ' }),
+  b('مُسْتَفْعِلُ', '101011', 'kaff', { nilai: 'shalih', lagu: 'لا لا لَ لَ' }),
   b('مُتَفْعِلُ', '11011', 'syakl', { nilai: 'qabih', lagu: 'لَ لا لَ لَ' }),
 ]
 
