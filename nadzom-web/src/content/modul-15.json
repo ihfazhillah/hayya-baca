@@ -845,6 +845,45 @@
           "jumlah": 3
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus tapi salah.** Semua bait mujtats ini lurus. Nilai setiap bait: benar, salah i'rab, maknanya rusak, atau keluar dari tema sesi ini, yaitu nasihat thalabul ilmi.",
+          "bahr": "mujtats",
+          "baris": [
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ جِدَّا",
+                "وَاصْعَدْ بِهِ لِلْمَعَالِي"
+              ],
+              "salah": null,
+              "alasan": "Benar. طَالِبَ munada mudhaf, maka manshub. اصْعَدْ fi'il amr, dan لِلْمَعَالِي jar majrur: naiklah dengan ilmu menuju derajat yang tinggi."
+            },
+            {
+              "bait": [
+                "يَا طَالِبُ الْعِلْمِ جِدَّا",
+                "وَاصْعَدْ بِهِ لِلْمَعَالِي"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. طَالِبُ di sini munada yang mudhaf kepada الْعِلْمِ, dan munada mudhaf selalu manshub: يَا طَالِبَ. Dhammah dan fathah sama-sama satu huruf hidup, maka timbangan diam."
+            },
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ جِدَّا",
+                "وَاهْبِطْ بِهِ لِلْمَعَالِي"
+              ],
+              "salah": "makna",
+              "alasan": "Maknanya rusak. اهْبِطْ berarti turunlah. Turun menuju derajat yang tinggi adalah dua arah yang bertentangan. Wazannya sama dengan اصْعَدْ, dan i'rabnya pun benar."
+            },
+            {
+              "bait": [
+                "فِي السُّوقِ خُبْزٌ كَثِيرٌ",
+                "يُبَاعُ بَيْنَ الرِّجَالِ"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Nahwunya benar: خُبْزٌ mubtada' yang diakhirkan, فِي السُّوقِ khabarnya, كَثِيرٌ na't, dan يُبَاعُ fi'il majhul yang na'ib fa'il-nya kembali kepada roti. Qafiyahnya ـالِ. Tetapi bait ini tentang roti di pasar, bukan nasihat thalabul ilmi."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Mu'aradhah** doa al-Basthi. Mulai dari pola, naiki tangganya, timbang setiap langkah. Qafiyah ـَاتِي tetap.",
           "bahr": "mujtats",
@@ -892,7 +931,10 @@
               "Calon kata"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "panen",
@@ -911,24 +953,24 @@
     }
   ],
   "laci": [
-    { "teks": "إِنْ لَمْ يَكُنْ", "arti": "kalau tidak ada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "al-Khalil bin Ahmad" },
-    { "teks": "وَاللَّهُ فِي", "arti": "dan Allah dalam", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110: وَلْلَاهُفِي.", "dari": "Abu Nuwas" },
-    { "teks": "إِنْ شِئْتَ يَا", "arti": "jika engkau mau, wahai", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu al-Abbar" },
-    { "teks": "يَا رَبِّ هَبْ", "arti": "ya Tuhanku, anugerahkanlah", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110. Lanjutkan dengan لِي dan objeknya di taf'ilah kedua.", "dari": "Laci mujtats" },
-    { "teks": "تُهْدَى إِلَى", "arti": "dipersembahkan kepada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "asy-Syarif al-Murtadha" },
-    { "teks": "يَرْتَاحُ إِنْ", "arti": "ia bergembira bila", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu Zakur" },
-    { "teks": "كَفَاكَ", "arti": "cukuplah bagimu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn), disambung satu suku panjang", "catatan": "كَفَاكَخَلْ = 110110.", "dari": "al-Khalil bin Ahmad" },
-    { "teks": "فَلَا يَغُرَّكَ", "arti": "maka jangan sampai memperdayamu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn)", "catatan": "فَلَايَغُرْ = 110110, lalu رَكَ masuk taf'ilah kedua.", "dari": "al-Khalil bin Ahmad" },
-    { "teks": "لِلْمَعَالِي", "arti": "menuju derajat tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Bait latihan mujtats" },
-    { "teks": "فِي اللَّيَالِي", "arti": "di malam-malam", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "فِلْلَيَالِي = 1011010.", "dari": "Laci mujtats" },
-    { "teks": "لِلْعَوَالِي", "arti": "menuju yang tinggi-tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010. Jamak فَوَاعِل dari عَالِيَة.", "dari": "Laci mujtats" },
-    { "teks": "الْمَعَالِي", "arti": "derajat-derajat yang tinggi", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Jamak مَفَاعِل (naqish) dari مَعْلَاة.", "dari": "Laci mujtats" },
-    { "teks": "الْأَمَالِي", "arti": "imla'-imla' (catatan majelis guru)", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Nama kitab kumpulan pelajaran yang didiktekan.", "dari": "Laci mujtats" },
-    { "teks": "الْكَمَالِ", "arti": "kesempurnaan", "laci": "qafiyah", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Mufrad فَعَال; tetap satu qafiyah dengan ـالِي.", "dari": "Laci mujtats" },
-    { "teks": "نَجَاتِي", "arti": "keselamatanku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010, seperti مَمَاتِي.", "dari": "Mu'aradhah al-Basthi" },
-    { "teks": "حَيَاتِي", "arti": "hidupku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi" },
-    { "teks": "صَلَاتِي", "arti": "shalatku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi" },
-    { "teks": "أَنِيسِي", "arti": "teman akrabku", "laci": "qafiyah", "cocok": "ujung bait ـيسِ, فَعِلَاتُنْ setelah satu huruf hidup", "catatan": "Wazan فَعِيل.", "dari": "Ibnu al-Mu'tazz" },
-    { "teks": "فَالْعِلْمُ نُورٌ", "arti": "ilmu itu cahaya", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh, lalu رُنْ membuka taf'ilah kedua", "catatan": "فَلْعِلْمُنُو = 1010110.", "dari": "Cetakan mujtats" }
+    { "teks": "إِنْ لَمْ يَكُنْ", "arti": "kalau tidak ada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "al-Khalil bin Ahmad", "tema": ["ilmu", "sabar", "doa", "akhlak", "iman", "waktu", "adab"] },
+    { "teks": "وَاللَّهُ فِي", "arti": "dan Allah dalam", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110: وَلْلَاهُفِي.", "dari": "Abu Nuwas", "tema": ["iman"] },
+    { "teks": "إِنْ شِئْتَ يَا", "arti": "jika engkau mau, wahai", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu al-Abbar", "tema": ["ilmu", "sabar", "doa", "akhlak", "iman", "waktu", "adab"] },
+    { "teks": "يَا رَبِّ هَبْ", "arti": "ya Tuhanku, anugerahkanlah", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110. Lanjutkan dengan لِي dan objeknya di taf'ilah kedua.", "dari": "Laci mujtats", "tema": ["doa"] },
+    { "teks": "تُهْدَى إِلَى", "arti": "dipersembahkan kepada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "asy-Syarif al-Murtadha", "tema": ["ilmu", "sabar", "doa", "akhlak", "iman", "waktu", "adab"] },
+    { "teks": "يَرْتَاحُ إِنْ", "arti": "ia bergembira bila", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu Zakur", "tema": ["ilmu", "sabar", "doa", "akhlak", "iman", "waktu", "adab"] },
+    { "teks": "كَفَاكَ", "arti": "cukuplah bagimu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn), disambung satu suku panjang", "catatan": "كَفَاكَخَلْ = 110110.", "dari": "al-Khalil bin Ahmad", "tema": ["akhlak"] },
+    { "teks": "فَلَا يَغُرَّكَ", "arti": "maka jangan sampai memperdayamu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn)", "catatan": "فَلَايَغُرْ = 110110, lalu رَكَ masuk taf'ilah kedua.", "dari": "al-Khalil bin Ahmad", "tema": ["akhlak", "iman"] },
+    { "teks": "لِلْمَعَالِي", "arti": "menuju derajat tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Bait latihan mujtats", "tema": ["ilmu"] },
+    { "teks": "فِي اللَّيَالِي", "arti": "di malam-malam", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "فِلْلَيَالِي = 1011010.", "dari": "Laci mujtats", "tema": ["waktu"] },
+    { "teks": "لِلْعَوَالِي", "arti": "menuju yang tinggi-tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010. Jamak فَوَاعِل dari عَالِيَة.", "dari": "Laci mujtats", "tema": ["ilmu"] },
+    { "teks": "الْمَعَالِي", "arti": "derajat-derajat yang tinggi", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Jamak مَفَاعِل (naqish) dari مَعْلَاة.", "dari": "Laci mujtats", "tema": ["ilmu"] },
+    { "teks": "الْأَمَالِي", "arti": "imla'-imla' (catatan majelis guru)", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Nama kitab kumpulan pelajaran yang didiktekan.", "dari": "Laci mujtats", "tema": ["ilmu"] },
+    { "teks": "الْكَمَالِ", "arti": "kesempurnaan", "laci": "qafiyah", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Mufrad فَعَال; tetap satu qafiyah dengan ـالِي.", "dari": "Laci mujtats", "tema": ["akhlak"] },
+    { "teks": "نَجَاتِي", "arti": "keselamatanku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010, seperti مَمَاتِي.", "dari": "Mu'aradhah al-Basthi", "tema": ["doa", "iman"] },
+    { "teks": "حَيَاتِي", "arti": "hidupku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi", "tema": ["waktu"] },
+    { "teks": "صَلَاتِي", "arti": "shalatku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi", "tema": ["iman", "doa"] },
+    { "teks": "أَنِيسِي", "arti": "teman akrabku", "laci": "qafiyah", "cocok": "ujung bait ـيسِ, فَعِلَاتُنْ setelah satu huruf hidup", "catatan": "Wazan فَعِيل.", "dari": "Ibnu al-Mu'tazz", "tema": ["ilmu"] },
+    { "teks": "فَالْعِلْمُ نُورٌ", "arti": "ilmu itu cahaya", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh, lalu رُنْ membuka taf'ilah kedua", "catatan": "فَلْعِلْمُنُو = 1010110.", "dari": "Cetakan mujtats", "tema": ["ilmu"] }
   ]
 }

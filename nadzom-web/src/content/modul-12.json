@@ -396,7 +396,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · kamil · bait 1–2"
+          "judulDiwan": "Nuniyah Kecil · kamil · bait 1–2",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -425,7 +428,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · wafir · bait 1–2"
+          "judulDiwan": "Nuniyah Kecil · wafir · bait 1–2",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Bahr dipilih dan dicatat di Diwan; 12–20 kata ujung terkumpul; bait 1–2 tersusun sesuai rancangan, setiap bait 0 patah, qafiyahnya sama, tashih i'rab dicentang, dan tersimpan di Diwan.",
@@ -756,7 +762,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · kamil · bait 1–5"
+          "judulDiwan": "Nuniyah Kecil · kamil · bait 1–5",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -788,7 +797,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · wafir · bait 1–5"
+          "judulDiwan": "Nuniyah Kecil · wafir · bait 1–5",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Bait 3–5 tersusun sesuai rancangan dan ditimbang bersama bait 1–2: setiap bait 0 patah, kelima ujungnya satu qafiyah dan satu dharb, tidak ada kata ujung yang terulang, setiap bait selesai maknanya sendiri, tashih i'rab dicentang, dan tersimpan di Diwan."
@@ -1072,6 +1084,53 @@
           "sumber": "al-Mutanabbi (w. 354 H), qashidah Sya'b Bawwan, bait 27. Teks: https://www.aldiwan.net/poem10596.html. Harakat dilengkapi penyusun."
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus tapi salah.** Semua bait kamil ini lurus dan berqafiyah ـانِ. Nilai setiap bait: benar, salah i'rab, maknanya rusak, atau keluar dari tema Nuniyah Kecil, yaitu Al-Qur'an: dibaca, dihafal, diamalkan, dan didoakan.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "وَاكْشِفْ بِهِ ضُرِّي وَحَقِّقْ تَوْبَتِي",
+                "وَارْبَحْ بِهِ بَيْعِي بِلَا خُسْرَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Nuniyah al-Qahthani, bait 5: doa agar dengan Al-Qur'an kesusahan dihilangkan, taubat diwujudkan, dan jual beli dengan Allah tidak merugi."
+            },
+            {
+              "bait": [
+                "وَاكْشِفْ بِهِ ضُرِّي وَحَقِّقْ تَوْبَتِي",
+                "وَارْبَحْ بِهِ بَيْعِي بِلَا إِيمَانِ"
+              ],
+              "salah": "makna",
+              "alasan": "Maknanya rusak. Nahwunya sama dengan bait asli; hanya kata ujungnya diganti. Doa itu kini meminta untung tanpa iman, padahal iman adalah modal jual beli dengan Allah. Kata pengganti bisa sewazan dan berqafiyah, tetapi maknanya Anda periksa sendiri."
+            },
+            {
+              "bait": [
+                "يَتْلُو الْكِتَابُ بِلَيْلِهِ وَنَهَارِهِ",
+                "وَيَزِيدُهُ نُورًا عَلَى الْإِيمَانِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. Pelaku يَتْلُو adalah dhamir هُوَ, yaitu sang pemuda; الْكِتَابَ maf'ul bih dan harus manshub. Dengan dhammah, الْكِتَابُ terbaca sebagai fa'il: Kitab itulah yang membaca. Timbangan tidak melihat bedanya."
+            },
+            {
+              "bait": [
+                "الْخُبْزُ وَاللَّحْمُ الطَّرِيُّ طَعَامُنَا",
+                "وَالْمَاءُ نَشْرَبُهُ مَعَ الْإِخْوَانِ"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Nahwunya benar: الْخُبْزُ mubtada', طَعَامُنَا khabar; الْمَاءُ mubtada', dan jumlah نَشْرَبُهُ khabarnya. Qafiyahnya pun ـانِ. Tetapi bait ini tentang makan dan minum, bukan tentang Al-Qur'an."
+            },
+            {
+              "bait": [
+                "وَهُوَ الْمَصُونُ مِنَ الْأَبَاطِلِ كُلِّهَا",
+                "وَمِنَ الزِّيَادَةِ فِيهِ وَالنُّقْصَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Nuniyah al-Qahthani, bait 52. هُوَ mubtada', الْمَصُونُ khabar; كُلِّهَا taukid bagi الْأَبَاطِلِ, maka ikut majrur."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Kartu kamil.** Tempel **kelima bait** dari Diwan sesi 2. Timbang, perbaiki yang patah, baca laporan qafiyah dan dharb, periksa ita' dan tadhmin, centang tashih i'rab, lalu salin ke Diwan sebagai satu qashidah.",
           "bahr": "kamil",
@@ -1101,7 +1160,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · kamil"
+          "judulDiwan": "Nuniyah Kecil · kamil",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -1133,7 +1195,10 @@
             ]
           },
           "tashih": true,
-          "judulDiwan": "Nuniyah Kecil · wafir"
+          "judulDiwan": "Nuniyah Kecil · wafir",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Lima bait satu bahr dan satu qafiyah, setiap bait 0 patah, laporan qafiyah dan dharb bersih, tidak ada ita' atau tadhmin, keempat butir tashih i'rab dicentang, lalu tersimpan di Diwan sebagai Nuniyah Kecil beserta bahr pilihan dan sisa kata ujung."
@@ -1147,7 +1212,11 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, pembuka syathr",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 1 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "يَا مَنْ هَدَى",
@@ -1156,7 +1225,11 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, pembuka syathr",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 1 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "نُورَ الْهُدَى",
@@ -1165,7 +1238,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar",
       "catatan": "Pola 1010110. Hamzah washal gugur: نُورَلْهُدَى.",
       "dari": "Rancangan Boss 2, bait 1 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَهِدَايَةً",
@@ -1174,7 +1250,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Tanwin dibaca nun mati.",
       "dari": "Rancangan Boss 2, bait 1 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "جَعَلَ الْكِتَابَ",
@@ -1183,7 +1262,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh, lalu بَ membuka taf'ilah berikutnya",
       "catatan": "Pola 1110110 lalu 1. جَعَلَلْكِتَا adalah satu taf'ilah.",
       "dari": "Rancangan Boss 2, bait 1 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "فِي اللَّيْلِ إِذْ",
@@ -1192,7 +1274,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, pembuka syathr",
       "catatan": "Pola 1010110. Dibaca فِلْلَيْلِ إِذْ.",
       "dari": "Rancangan Boss 2, bait 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "يَتْلُو الْكِتَابَ",
@@ -1201,7 +1286,11 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, lalu بَ membuka taf'ilah berikutnya",
       "catatan": "Pola 1010110 lalu 1.",
       "dari": "Rancangan Boss 2, bait 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "بِتِلَاوَةٍ",
@@ -1210,7 +1299,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Wazan فِعَالَة dengan بِ.",
       "dari": "Rancangan Boss 2, bait 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَسَكِينَةً",
@@ -1219,7 +1311,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110.",
       "dari": "Rancangan Boss 2, bait 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "قَلْبُ الْفَتَى",
@@ -1228,7 +1323,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "حِفْظُ الْكِتَابِ",
@@ -1237,7 +1335,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, lalu بِ membuka taf'ilah berikutnya",
       "catatan": "Pola 1010110 lalu 1.",
       "dari": "Rancangan Boss 2, bait 3 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَبِحِفْظِهَا",
@@ -1246,7 +1347,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Dhamir هَا kembali ke ayat.",
       "dari": "Rancangan Boss 2, bait 3 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَمُرَدِّدًا",
@@ -1255,7 +1359,11 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Hal, manshub.",
       "dari": "Rancangan Boss 2, bait 3 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu",
+        "sabar"
+      ]
     },
     {
       "teks": "بِتَكَرُّرٍ",
@@ -1264,7 +1372,11 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Wazan تَفَعُّل dengan بِ, seperti laci Modul 6.",
       "dari": "Rancangan Boss 2, bait 3 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu",
+        "sabar"
+      ]
     },
     {
       "teks": "وَمُذَاكِرًا",
@@ -1273,7 +1385,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Hal, manshub.",
       "dari": "Rancangan Boss 2, bait 3 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "لَيْسَ الْقِرَاءَةُ",
@@ -1282,7 +1397,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, lalu ءَةُ membuka مُتَفَاعِلُنْ berikutnya",
       "catatan": "Pola 1010110 lalu 11: dua huruf hidup, awal taf'ilah utuh.",
       "dari": "Rancangan Boss 2, bait 4 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "عَمَلًا بِمَا",
@@ -1291,7 +1409,11 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110.",
       "dari": "Rancangan Boss 2, bait 4 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "akhlak",
+        "ilmu"
+      ]
     },
     {
       "teks": "بِتَخَلُّقٍ",
@@ -1300,7 +1422,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110.",
       "dari": "Rancangan Boss 2, bait 4 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "أَخْلَاقُنَا",
@@ -1309,7 +1434,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 4 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "وَتَخَلَّقُوا",
@@ -1318,7 +1446,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110. Fi'il amr jamak.",
       "dari": "Rancangan Boss 2, bait 4 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "يَا رَبَّنَا",
@@ -1327,7 +1458,10 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, pembuka doa",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 5 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَشَفِيعَنَا",
@@ -1336,7 +1470,11 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110.",
       "dari": "Rancangan Boss 2, bait 5 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "نُورًا لَنَا",
@@ -1345,7 +1483,11 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar",
       "catatan": "Pola 1010110.",
       "dari": "Rancangan Boss 2, bait 5 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "يَوْمَ الْقِيَامَةِ",
@@ -1354,7 +1496,11 @@
       "cocok": "satu مُتْفَاعِلُنْ, idhmar, lalu مَةِ membuka مُتَفَاعِلُنْ berikutnya",
       "catatan": "Pola 1010110 lalu 11.",
       "dari": "Rancangan Boss 2, bait 5 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman",
+        "waktu"
+      ]
     },
     {
       "teks": "تَبَارَكَ مَنْ",
@@ -1363,7 +1509,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh, pembuka syathr",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 1 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "أَنَارَ لَنَا",
@@ -1372,7 +1521,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 1 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "بِنُورِ هُدًى",
@@ -1381,7 +1533,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110. Tanwin dibaca nun mati.",
       "dari": "Rancangan Boss 2, bait 1 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "مُنَزَّلَةً",
@@ -1390,7 +1545,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110. Na'at atau hal muannats, mis. untuk آيَاتٍ.",
       "dari": "Rancangan Boss 2, bait 1 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "كِتَابُ اللَّهِ",
@@ -1399,7 +1557,11 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb, lalu هِ membuka taf'ilah berikutnya",
       "catatan": "Pola 1101010 lalu 1.",
       "dari": "Rancangan Boss 2, bait 1 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman",
+        "ilmu"
+      ]
     },
     {
       "teks": "يُؤَانِسُنِي",
@@ -1408,7 +1570,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "بِتَرْتِيلٍ",
@@ -1417,7 +1582,10 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb",
       "catatan": "Pola 1101010.",
       "dari": "Rancangan Boss 2, bait 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "سَكِينَتُنَا",
@@ -1426,7 +1594,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "أَنِيسُ اللَّيْلِ",
@@ -1435,7 +1606,11 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb, lalu لِ membuka taf'ilah berikutnya",
       "catatan": "Pola 1101010 lalu 1.",
       "dari": "Rancangan Boss 2, bait 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "waktu",
+        "iman"
+      ]
     },
     {
       "teks": "إِذَا جَنَّ الدُّجَى",
@@ -1444,7 +1619,10 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb, lalu watad دُجَى",
       "catatan": "Pola 1101010 lalu 110, pembuka taf'ilah berikutnya.",
       "dari": "Rancangan Boss 2, bait 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "أُرَدِّدُهَا",
@@ -1453,7 +1631,11 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 3 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu",
+        "sabar"
+      ]
     },
     {
       "teks": "وَتَحْرُسُنِي",
@@ -1462,7 +1644,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110. Fa'il-nya muannats: ayat-ayat.",
       "dari": "Rancangan Boss 2, bait 3 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَمَنْ حَفِظَ الْكِتَابَ",
@@ -1471,7 +1656,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh, lalu كِتَابَ membuka taf'ilah berikutnya",
       "catatan": "Pola 1101110 lalu 1101.",
       "dari": "Rancangan Boss 2, bait 3 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "عَلَى مَهَلٍ",
@@ -1480,7 +1668,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 3 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "عَمِلْتُ بِمَا",
@@ -1489,7 +1680,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 4 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "بِأَخْلَاقٍ",
@@ -1498,7 +1692,10 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb",
       "catatan": "Pola 1101010.",
       "dari": "Rancangan Boss 2, bait 4 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "تِلَاوَتُنَا",
@@ -1507,7 +1704,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 4 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بِلَا عَمَلٍ",
@@ -1516,7 +1716,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 4 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "فَيَا رَبِّي",
@@ -1525,7 +1728,10 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb, pembuka doa",
       "catatan": "Pola 1101010.",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "سَأَلْتُكَ أَنْ",
@@ -1534,7 +1740,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110. Sesudah أَنْ, fi'il mudhari' manshub.",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "يَكُونُ لَنَا",
@@ -1543,7 +1752,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110.",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "شَفِيعًا لِي",
@@ -1552,7 +1764,10 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb",
       "catatan": "Pola 1101010.",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "بِيَوْمِ الْحَشْرِ",
@@ -1561,7 +1776,11 @@
       "cocok": "satu مُفَاعَلْتُنْ, 'ashb, lalu رِ membuka taf'ilah berikutnya",
       "catatan": "Pola 1101010 lalu 1.",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman",
+        "waktu"
+      ]
     },
     {
       "teks": "التِّبْيَانِ",
@@ -1570,7 +1789,11 @@
       "cocok": "ujung bait kamil ـانِ, mengisi 101010 sendirian",
       "catatan": "Alif lam yang mati menutup taf'ilah sebelumnya; sisanya 101010, مُتْفَاعِلْ. Tambahan untuk laci ـانِ Modul 7.",
       "dari": "Laci kata ujung Boss 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "الرِّضْوَانِ",
@@ -1579,7 +1802,11 @@
       "cocok": "ujung bait kamil ـانِ, mengisi 101010 sendirian",
       "catatan": "Alif lam yang mati menutup taf'ilah sebelumnya; sisanya 101010, مُتْفَاعِلْ. Tambahan untuk laci ـانِ Modul 7.",
       "dari": "Laci kata ujung Boss 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "الْمِيزَانِ",
@@ -1588,7 +1815,10 @@
       "cocok": "ujung bait kamil ـانِ, mengisi 101010 sendirian",
       "catatan": "Alif lam yang mati menutup taf'ilah sebelumnya; sisanya 101010, مُتْفَاعِلْ. Tambahan untuk laci ـانِ Modul 7.",
       "dari": "Laci kata ujung Boss 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْإِيقَانِ",
@@ -1597,7 +1827,10 @@
       "cocok": "ujung bait kamil ـانِ, mengisi 101010 sendirian",
       "catatan": "Alif lam yang mati menutup taf'ilah sebelumnya; sisanya 101010, مُتْفَاعِلْ. Tambahan untuk laci ـانِ Modul 7.",
       "dari": "Laci kata ujung Boss 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْأَذْهَانِ",
@@ -1606,7 +1839,10 @@
       "cocok": "ujung bait kamil ـانِ, mengisi 101010 sendirian",
       "catatan": "Alif lam yang mati menutup taf'ilah sebelumnya; sisanya 101010, مُتْفَاعِلْ. Tambahan untuk laci ـانِ Modul 7.",
       "dari": "Laci kata ujung Boss 2 (kamil)",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْبَيَانِ",
@@ -1615,7 +1851,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْأَمَانِ",
@@ -1624,7 +1863,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "اللِّسَانِ",
@@ -1633,7 +1875,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "الْجِنَانِ",
@@ -1642,7 +1887,11 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "الزَّمَانِ",
@@ -1651,7 +1900,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "الْجَنَانِ",
@@ -1660,7 +1912,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْحِسَانِ",
@@ -1669,7 +1924,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْمَكَانِ",
@@ -1678,7 +1936,16 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "الْعِيَانِ",
@@ -1687,7 +1954,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْحَنَانِ",
@@ -1696,7 +1966,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْمَثَانِي",
@@ -1705,7 +1978,10 @@
       "cocok": "ujung bait wafir ـانِ, مُفَاعَلْ 11010",
       "catatan": "Lam yang mati (atau yang lebur) menutup taf'ilah sebelumnya; sisanya فَعَالِ, 11010. Tidak pas di ujung kamil.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "كَفَانِي",
@@ -1714,7 +1990,11 @@
       "cocok": "ujung bait wafir ـانِي, مُفَاعَلْ 11010 sendirian",
       "catatan": "Fi'il dengan ya mutakallim: rawiy nun berkasrah, ya sesudahnya wasl. Pola 11010. Seperti كَفَانِي di qashidah al-Mutanabbi.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "هَدَانِي",
@@ -1723,7 +2003,10 @@
       "cocok": "ujung bait wafir ـانِي, مُفَاعَلْ 11010 sendirian",
       "catatan": "Fi'il dengan ya mutakallim: rawiy nun berkasrah, ya sesudahnya wasl. Pola 11010. Seperti كَفَانِي di qashidah al-Mutanabbi.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "دَعَانِي",
@@ -1732,7 +2015,10 @@
       "cocok": "ujung bait wafir ـانِي, مُفَاعَلْ 11010 sendirian",
       "catatan": "Fi'il dengan ya mutakallim: rawiy nun berkasrah, ya sesudahnya wasl. Pola 11010. Seperti كَفَانِي di qashidah al-Mutanabbi.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "حَبَانِي",
@@ -1741,7 +2027,10 @@
       "cocok": "ujung bait wafir ـانِي, مُفَاعَلْ 11010 sendirian",
       "catatan": "Fi'il dengan ya mutakallim: rawiy nun berkasrah, ya sesudahnya wasl. Pola 11010. Seperti كَفَانِي di qashidah al-Mutanabbi.",
       "dari": "Laci kata ujung Boss 2 (wafir)",
-      "bahr": "wafir"
+      "bahr": "wafir",
+      "tema": [
+        "doa"
+      ]
     }
   ]
 }

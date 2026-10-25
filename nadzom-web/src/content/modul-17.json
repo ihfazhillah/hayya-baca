@@ -730,6 +730,50 @@
           "jumlah": 3
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus tapi salah.** Semua baris khafif ini lurus. Nilai setiap baris: benar, salah i'rab, maknanya rusak, atau keluar dari tema sesi ini, yaitu doa dan sabar dalam cobaan.",
+          "bahr": "khafif",
+          "baris": [
+            {
+              "bait": [
+                "لَوْ أَطَعْنَا لِلصَّبْرِ عِنْدَ الرَّزَايَا",
+                "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Ibnu al-Mu'tazz: seandainya kita menaati kesabaran ketika musibah, kita tidak akan membedakan kesusahan dari kelapangan. Jawab لَوْ dinafikan dengan مَا tanpa lam, dan itu lazim."
+            },
+            {
+              "bait": [
+                "يَا إِلَهِي زِدْنِي هُدًى فِي الْبَلَاءُ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. الْبَلَاءُ didahului فِي, huruf jar, maka harus majrur: فِي الْبَلَاءِ. Di ujung syathr dhammah dan kasrah sama-sama dipanjangkan, maka timbangan diam."
+            },
+            {
+              "bait": [
+                "يَا إِلَهِي زِدْنِي عَمًى فِي الْبَلَاءِ"
+              ],
+              "salah": "makna",
+              "alasan": "Maknanya rusak. عَمًى berarti kebutaan. Doa ini kini meminta ditambah buta, kebalikan dari هُدًى. I'rabnya benar: maf'ul bih kedua dari زِدْ, isim maqshur yang harakatnya tidak tampak."
+            },
+            {
+              "bait": [
+                "يَا إِلَهِي زِدْنِي هُدًى فِي الْبَلَاءِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. هُدًى maf'ul bih kedua dari زِدْنِي, isim maqshur yang harakatnya tidak tampak; فِي الْبَلَاءِ jar majrur. Ya Tuhanku, tambahkanlah aku petunjuk ketika cobaan."
+            },
+            {
+              "bait": [
+                "قَدْ أَكَلْنَا خُبْزًا وَلَحْمًا شَهِيًّا",
+                "ثُمَّ نِمْنَا مِنْ بَعْدِ طُولِ الْعَشَاءِ"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Nahwunya benar: خُبْزًا maf'ul bih, لَحْمًا ma'thuf kepadanya, شَهِيًّا na't bagi لَحْمًا. Qafiyahnya ـاءِ. Tetapi bait ini bercerita tentang makan malam lalu tidur, bukan doa dan sabar dalam cobaan."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Mu'aradhah** bait sabar Ibnu al-Mu'tazz. Mulai dari pola, naiki tangganya, timbang setiap langkah. Qafiyah ـَاءِ tetap.",
           "bahr": "khafif",
@@ -777,7 +821,10 @@
               "Calon kata"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "panen",
@@ -796,24 +843,24 @@
     }
   ],
   "laci": [
-    { "teks": "يَا إِلَهِي", "arti": "wahai Tuhanku", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Alif setelah lam dibaca: إِلَاهِي.", "dari": "Cetakan khafif" },
-    { "teks": "رَبِّ يَسِّرْ", "arti": "Tuhanku, mudahkanlah", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Laci khafif" },
-    { "teks": "قَدْ طَلَبْنَا", "arti": "kami telah menuntut", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Lanjutkan dengan objeknya di taf'ilah tengah.", "dari": "Laci khafif" },
-    { "teks": "لَوْ أَطَعْنَا", "arti": "seandainya kita menaati", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Ibnu al-Mu'tazz" },
-    { "teks": "مَا عَرَفْنَا", "arti": "kita tidak mengenal", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Ibnu al-Mu'tazz" },
-    { "teks": "صَبْرُ قَلْبِي", "arti": "kesabaran hatiku", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Laci khafif" },
-    { "teks": "حُسْنُ قَوْلٍ", "arti": "ucapan yang baik", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Tema akhlak.", "dari": "Laci khafif" },
-    { "teks": "بِيَقِينٍ", "arti": "dengan keyakinan", "laci": "hasyw", "cocok": "satu فَعِلَاتُنْ (khabn)", "catatan": "111010.", "dari": "Laci khafif" },
-    { "teks": "زِدْنِي هُدًى", "arti": "tambahkan aku petunjuk", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Cetakan khafif" },
-    { "teks": "هَبْ لِي تُقًى", "arti": "anugerahkan aku takwa", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Cetakan khafif" },
-    { "teks": "وَاغْفِرْ لَنَا", "arti": "dan ampunilah kami", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110. Hamzah washal gugur setelah wawu: وَغْفِرْلَنَا.", "dari": "Laci khafif" },
-    { "teks": "وَارْحَمْ أَبِي", "arti": "dan rahmatilah ayahku", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Laci khafif" },
-    { "teks": "دَوْمًا لَنَا", "arti": "selalu bagi kami", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Laci khafif" },
-    { "teks": "مِنْ هَنَاءِ", "arti": "dari kesenangan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "10 1 10 1, lalu isyba'.", "dari": "Mu'aradhah khafif" },
-    { "teks": "لِلدُّعَاءِ", "arti": "untuk berdoa", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "لِدْدُعَاءِي.", "dari": "Laci khafif" },
-    { "teks": "بِالرَّجَاءِ", "arti": "dengan penuh harap", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "بِرْرَجَاءِي.", "dari": "Laci khafif" },
-    { "teks": "فِي الْبَلَاءِ", "arti": "dalam cobaan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "فِلْبَلَاءِي: ya فِي gugur sebelum hamzah washal.", "dari": "Cetakan khafif" },
-    { "teks": "وَالْوَفَاءِ", "arti": "dan kesetiaan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "Tema akhlak.", "dari": "Laci khafif" },
-    { "teks": "وَالْحَيَاءِ", "arti": "dan rasa malu", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "Tema akhlak.", "dari": "Laci khafif" }
+    { "teks": "يَا إِلَهِي", "arti": "wahai Tuhanku", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Alif setelah lam dibaca: إِلَاهِي.", "dari": "Cetakan khafif", "tema": ["doa"] },
+    { "teks": "رَبِّ يَسِّرْ", "arti": "Tuhanku, mudahkanlah", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Laci khafif", "tema": ["doa"] },
+    { "teks": "قَدْ طَلَبْنَا", "arti": "kami telah menuntut", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Lanjutkan dengan objeknya di taf'ilah tengah.", "dari": "Laci khafif", "tema": ["ilmu", "doa"] },
+    { "teks": "لَوْ أَطَعْنَا", "arti": "seandainya kita menaati", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Ibnu al-Mu'tazz", "tema": ["sabar"] },
+    { "teks": "مَا عَرَفْنَا", "arti": "kita tidak mengenal", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Ibnu al-Mu'tazz", "tema": ["ilmu", "sabar", "doa", "akhlak", "iman", "waktu", "adab"] },
+    { "teks": "صَبْرُ قَلْبِي", "arti": "kesabaran hatiku", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Laci khafif", "tema": ["sabar"] },
+    { "teks": "حُسْنُ قَوْلٍ", "arti": "ucapan yang baik", "laci": "hasyw", "cocok": "pembuka فَاعِلَاتُنْ utuh", "catatan": "1011010. Tema akhlak.", "dari": "Laci khafif", "tema": ["akhlak", "adab"] },
+    { "teks": "بِيَقِينٍ", "arti": "dengan keyakinan", "laci": "hasyw", "cocok": "satu فَعِلَاتُنْ (khabn)", "catatan": "111010.", "dari": "Laci khafif", "tema": ["iman"] },
+    { "teks": "زِدْنِي هُدًى", "arti": "tambahkan aku petunjuk", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Cetakan khafif", "tema": ["doa"] },
+    { "teks": "هَبْ لِي تُقًى", "arti": "anugerahkan aku takwa", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Cetakan khafif", "tema": ["doa"] },
+    { "teks": "وَاغْفِرْ لَنَا", "arti": "dan ampunilah kami", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110. Hamzah washal gugur setelah wawu: وَغْفِرْلَنَا.", "dari": "Laci khafif", "tema": ["doa"] },
+    { "teks": "وَارْحَمْ أَبِي", "arti": "dan rahmatilah ayahku", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Laci khafif", "tema": ["doa"] },
+    { "teks": "دَوْمًا لَنَا", "arti": "selalu bagi kami", "laci": "hasyw", "cocok": "taf'ilah tengah مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Laci khafif", "tema": ["doa", "waktu"] },
+    { "teks": "مِنْ هَنَاءِ", "arti": "dari kesenangan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "10 1 10 1, lalu isyba'.", "dari": "Mu'aradhah khafif", "tema": ["sabar"] },
+    { "teks": "لِلدُّعَاءِ", "arti": "untuk berdoa", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "لِدْدُعَاءِي.", "dari": "Laci khafif", "tema": ["doa"] },
+    { "teks": "بِالرَّجَاءِ", "arti": "dengan penuh harap", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "بِرْرَجَاءِي.", "dari": "Laci khafif", "tema": ["doa"] },
+    { "teks": "فِي الْبَلَاءِ", "arti": "dalam cobaan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "فِلْبَلَاءِي: ya فِي gugur sebelum hamzah washal.", "dari": "Cetakan khafif", "tema": ["sabar", "doa"] },
+    { "teks": "وَالْوَفَاءِ", "arti": "dan kesetiaan", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "Tema akhlak.", "dari": "Laci khafif", "tema": ["akhlak"] },
+    { "teks": "وَالْحَيَاءِ", "arti": "dan rasa malu", "laci": "qafiyah", "cocok": "ujung bait ـَاءِ, فَاعِلَاتُنْ dengan kasrah dipanjangkan", "catatan": "Tema akhlak.", "dari": "Laci khafif", "tema": ["akhlak", "adab"] }
   ]
 }

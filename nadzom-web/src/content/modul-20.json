@@ -834,7 +834,10 @@
             "Periksa ita' dengan mata: adakah kata qafiyah yang diulang dengan makna sama?",
             "Periksa tadhmin: bacalah setiap bait sendiri-sendiri. Adakah bait yang maknanya menggantung?",
             "Perbaiki setiap cacat, timbang ulang, lalu simpan versi baru di Diwan di bawah versi lama, dengan nama cacat yang diperbaiki."
-          ]
+          ],
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -850,7 +853,10 @@
             "Sebutkan wajah dan jenis qafiyahnya. Dharb thawil مَفَاعِلُنْ dengan qafiyah muthlaqah biasanya mutadarik; bila jenisnya berganti antarbait, periksa dharbnya.",
             "Periksa ita' dan tadhmin dengan mata.",
             "Perbaiki, timbang ulang, simpan versi baru di Diwan."
-          ]
+          ],
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Setidaknya satu qashidah lama di Diwan sudah diperiksa: wajah dan jenis qafiyahnya tertulis, setiap cacat (iqwa', ikfa', ita', sinad, tadhmin) dicatat, dan versi perbaikannya lolos pemeriksa qafiyah."
@@ -863,7 +869,10 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mu'assasah: ta'sis ا, dakhil ر, rawiy م. Pasangan: الْعَزَائِمُ، الْعَظَائِمُ.",
       "dari": "al-Mutanabbi",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْعَزَائِمُ",
@@ -871,7 +880,10 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mu'assasah, sama dengan الْمَكَارِمُ.",
       "dari": "al-Mutanabbi",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "وَمَنْزِلِ",
@@ -879,7 +891,8 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mujarradah, rawiy ل kasrah, mutadarik.",
       "dari": "Imru'ul Qais",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": []
     },
     {
       "teks": "فَحَوْمَلِ",
@@ -887,7 +900,8 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mujarradah, mutadarik: وْ مَ لِ ي.",
       "dari": "Imru'ul Qais",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": []
     },
     {
       "teks": "فَمُقَامُهَا",
@@ -895,7 +909,8 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mardufah dengan wasl ha dan khuruj alif: rawiy م.",
       "dari": "Labid",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": []
     },
     {
       "teks": "فَرِجَامُهَا",
@@ -903,7 +918,8 @@
       "laci": "qafiyah",
       "catatan": "Pasangan فَمُقَامُهَا. Ridf ا, rawiy م, wasl ه, khuruj ا.",
       "dari": "Labid",
-      "bahr": "kamil"
+      "bahr": "kamil",
+      "tema": []
     },
     {
       "teks": "بِدَمِ",
@@ -911,7 +927,8 @@
       "laci": "qafiyah",
       "catatan": "Muthlaqah mujarradah, rawiy م kasrah. Setelah huruf mati (مُقْلَتِنْ) memberi mutarakib.",
       "dari": "al-Burdah",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": []
     },
     {
       "teks": "سَلَمِ",
@@ -919,7 +936,8 @@
       "laci": "qafiyah",
       "catatan": "Pasangan بِدَمِ di mathla' Burdah.",
       "dari": "al-Burdah",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": []
     }
   ]
 }

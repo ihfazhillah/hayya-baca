@@ -10,7 +10,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Wazan مُتَفَعِّل bertanwin: مُتَأَدْدِبَنْ = 1110110.",
       "dari": "Modul 18",
-      "bahr": "kamilMajzu"
+      "bahr": "kamilMajzu",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "مُتَقَلِّبَا",
@@ -19,7 +22,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh, ujung bait",
       "catatan": "Pola 1110110. Abu al-'Atahiyah menutup baitnya dengan kata ini.",
       "dari": "Abu al-'Atahiyah",
-      "bahr": "kamilMajzu"
+      "bahr": "kamilMajzu",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "وَإِذَا دَنَا",
@@ -28,7 +34,16 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "Pola 1110110.",
       "dari": "Modul 18",
-      "bahr": "kamilMajzu"
+      "bahr": "kamilMajzu",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "طَلَبُ الْعُلَا",
@@ -37,7 +52,10 @@
       "cocok": "satu مُتَفَاعِلُنْ utuh",
       "catatan": "طَلَبُلْ عُلَا = 1110110.",
       "dari": "Modul 18",
-      "bahr": "kamilMajzu"
+      "bahr": "kamilMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "إِلَى أَجَلٍ",
@@ -46,7 +64,10 @@
       "cocok": "satu مُفَاعَلَتُنْ utuh",
       "catatan": "Pola 1101110. Satu potongan seperti ini dalam qashidah sudah cukup untuk membedakan wafir majzu' dari hazaj.",
       "dari": "Modul 18",
-      "bahr": "wafirMajzu"
+      "bahr": "wafirMajzu",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "فَمَطْبُوعٌ",
@@ -55,7 +76,10 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010.",
       "dari": "Dinisbatkan kepada 'Ali bin Abi Thalib",
-      "bahr": "hazaj"
+      "bahr": "hazaj",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَمَسْمُوعٌ",
@@ -64,7 +88,10 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010. Wazan مَفْعُول bertanwin didahului wawu.",
       "dari": "Dinisbatkan kepada 'Ali bin Abi Thalib",
-      "bahr": "hazaj"
+      "bahr": "hazaj",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "أَيَا قَلْبِي",
@@ -73,7 +100,10 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010. Ganti قَلْبِي dengan kata 1010 lain: عِلْمِي، نَفْسِي.",
       "dari": "Abu Firas al-Hamdani",
-      "bahr": "hazaj"
+      "bahr": "hazaj",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "عَلَى عَمْدٍ",
@@ -82,7 +112,16 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010.",
       "dari": "Mahmud al-Warraq",
-      "bahr": "hazaj"
+      "bahr": "hazaj",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "قِيَاسٍ",
@@ -91,7 +130,10 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010. Wazan فِعَال bertanwin.",
       "dari": "Abu al-'Atahiyah",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "كِتَابٍ",
@@ -100,7 +142,10 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010, sewazan dengan قِيَاسٍ.",
       "dari": "Modul 18",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "سُؤَالٍ",
@@ -109,7 +154,11 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010. Wazan فُعَال.",
       "dari": "Modul 18",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     },
     {
       "teks": "زَمَانِي",
@@ -118,7 +167,10 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010. Qafiyah ـانِي, rawiy nun, ridf alif.",
       "dari": "al-Imam asy-Syafi'i",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "هُدَاكَا",
@@ -127,7 +179,11 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010. Qafiyah ـاكَا, berpasangan dengan رَجَاكَا، سِوَاكَا.",
       "dari": "Abu al-'Atahiyah",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "رَجَاكَا",
@@ -136,7 +192,10 @@
       "cocok": "ujung mukhalla' مُتَفْعِلْ (فَعُولُنْ)",
       "catatan": "Pola 11010. Qafiyah ـاكَا.",
       "dari": "Abu al-'Atahiyah",
-      "bahr": "basithMajzu"
+      "bahr": "basithMajzu",
+      "tema": [
+        "doa"
+      ]
     }
   ],
   "pelajaran": [
@@ -1070,6 +1129,45 @@
           ]
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus tapi salah.** Semua bait mukhalla' al-basith ini lurus dan berqafiyah ـاكَا. Nilai setiap bait: benar, salah i'rab, maknanya rusak, atau keluar dari tema sesi ini, yaitu doa dan harapan kepada Allah.",
+          "bahr": "basithMajzu",
+          "baris": [
+            {
+              "bait": [
+                "يَا رَبِّ أَرْجُوكَ لَا سِوَاكَ",
+                "وَلَمْ يَخِبْ سَعْيُ مَنْ رَجَاكَا"
+              ],
+              "salah": null,
+              "alasan": "Benar. سَعْيُ fa'il dari يَخِبْ, maka marfu'; ia mudhaf kepada مَنْ. Aku berharap kepada-Mu, bukan kepada selain-Mu, dan tidak sia-sia usaha orang yang berharap kepada-Mu."
+            },
+            {
+              "bait": [
+                "يَا رَبِّ أَرْجُوكَ لَا سِوَاكَ",
+                "وَلَمْ يَخِبْ سَعْيَ مَنْ رَجَاكَا"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. سَعْيُ adalah fa'il dari يَخِبْ, maka harus marfu'. خَابَ fi'il lazim, tidak punya maf'ul bih yang bisa menashabkannya. Dhammah dan fathah sama-sama satu huruf hidup, maka timbangan diam."
+            },
+            {
+              "bait": [
+                "يَا رَبِّ أَرْجُوكَ لَا سِوَاكَ",
+                "وَلَمْ يَخِبْ سَعْيُ مَنْ عَصَاكَا"
+              ],
+              "salah": "makna",
+              "alasan": "Maknanya rusak. عَصَاكَا berarti mendurhakai-Mu. Bait ini kini berkata usaha pendurhaka tidak pernah sia-sia, kebalikan dari maksud doa: yang tidak sia-sia adalah orang yang berharap kepada-Mu. I'rabnya benar."
+            },
+            {
+              "bait": [
+                "فِي السُّوقِ بِعْنَا لَهُ ثِيَابًا",
+                "وَقَدْ رَبِحْنَا بِهَا هُنَاكَا"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Nahwunya benar: ثِيَابًا maf'ul bih dari بِعْنَا, dan هُنَاكَ zharf makan yang mabni, alifnya alif ithlaq. Qafiyahnya ـاكَا. Tetapi bait ini tentang berdagang pakaian, bukan doa dan harapan kepada Allah."
+            }
+          ]
+        },
+        {
           "jenis": "cetakan",
           "petunjuk": "**Satu kotak.** Isi ujung syathr Abu al-'Atahiyah dengan sumber ilmu yang lain. Pakai kata berpola 11010, misalnya فِعَال atau فُعَال bertanwin. Buat **tiga baris berbeda**.",
           "cetakan": "وَإِنَّمَا الْعِلْمُ مِنْ {1}",
@@ -1096,7 +1194,10 @@
           "jumlah": 2,
           "qafiyah": "satu",
           "tashih": true,
-          "judulDiwan": "Dua bait majzu'"
+          "judulDiwan": "Dua bait majzu'",
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Bait asy-Syafi'i dan doa Abu al-'Atahiyah ditimbang sendiri sampai lurus. Tiga baris cetakan lurus. Dua bait majzu' satu bahr dan satu qafiyah tersimpan di Diwan, 0 patah, dengan nama bahr yang dipilih."

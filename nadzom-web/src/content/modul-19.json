@@ -852,7 +852,10 @@
             "Kembalikan setiap darurah ke bentuk biasa dan timbang. Yang patah menunjukkan darurah yang menopang wazan.",
             "Untuk setiap darurah penopang, coba tangga Modul 4: buang, geser, ganti sewazan, ganti semakna.",
             "Putuskan: buang darurah yang punya pengganti, pertahankan yang perlu. Di Diwan, tulis versi baru di bawah versi lama, beserta alasan setiap darurah yang tersisa."
-          ]
+          ],
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "irama",
@@ -876,7 +879,11 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pengganti الْعُلَمَا tanpa qashr. Pola 1010110.",
       "dari": "Bait latihan Modul 19",
-      "bahr": "rajaz"
+      "bahr": "rajaz",
+      "tema": [
+        "iman",
+        "ilmu"
+      ]
     },
     {
       "teks": "قَدْ أَرْشَدَا",
@@ -885,7 +892,10 @@
       "cocok": "ujung syathr, satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Qafiyah ـدَا tanpa darurah. Pasangan: الْهُدَى، اهْتَدَى.",
       "dari": "Bait latihan Modul 19",
-      "bahr": "rajaz"
+      "bahr": "rajaz",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وُرَّاثُ مَنْ",
@@ -894,7 +904,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
       "dari": "Bait latihan Modul 19",
-      "bahr": "rajaz"
+      "bahr": "rajaz",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "أُولُو النُّهَى",
@@ -903,7 +916,10 @@
       "cocok": "satu مُتَفْعِلُنْ (khabn)",
       "catatan": "Waw kedua dalam أُولُو tidak dibaca. Pola 110110. Isim maqshur النُّهَى tidak perlu dipotong.",
       "dari": "Modul 19",
-      "bahr": "rajaz"
+      "bahr": "rajaz",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "خَيْرُ الْوَرَى",
@@ -912,42 +928,78 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pengganti خَيْرُ الْأَنْبِيَا tanpa qashr. Pola 1010110.",
       "dari": "Modul 19",
-      "bahr": "rajaz"
+      "bahr": "rajaz",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَهْوَ",
       "arti": "dan dia (laki-laki)",
       "laci": "umum",
       "catatan": "Taskin ringan: lughah dan qira'ah. Pola 101. Boleh, tapi jangan di setiap bait.",
-      "dari": "Alfiyah bait 6"
+      "dari": "Alfiyah bait 6",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "فَهْوَ",
       "arti": "maka dia (laki-laki)",
       "laci": "umum",
       "catatan": "Taskin ringan, seperti di al-Baiquniyyah. Pola 101.",
-      "dari": "al-Baiquniyyah"
+      "dari": "al-Baiquniyyah",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "وَهْيَ",
       "arti": "dan dia (perempuan)",
       "laci": "umum",
       "catatan": "Taskin ringan. Pola 101.",
-      "dari": "Modul 19"
+      "dari": "Modul 19",
+      "tema": [
+        "ilmu",
+        "sabar",
+        "doa",
+        "akhlak",
+        "iman",
+        "waktu",
+        "adab"
+      ]
     },
     {
       "teks": "كُتْبِي",
       "arti": "buku-bukuku",
       "laci": "umum",
       "catatan": "Takhfif jamak فُعُل: lughah yang sah. Pola 1010.",
-      "dari": "Ibnu al-Mu'tazz"
+      "dari": "Ibnu al-Mu'tazz",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "رُسْلُنَا",
       "arti": "rasul-rasul Kami",
       "laci": "umum",
       "catatan": "Takhfif jamak فُعُل, qira'ah Abu 'Amr. Pola 10110.",
-      "dari": "Modul 19"
+      "dari": "Modul 19",
+      "tema": [
+        "iman"
+      ]
     }
   ]
 }

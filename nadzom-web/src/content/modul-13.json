@@ -364,7 +364,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -389,7 +392,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Bahr dipilih dan dicatat; rancangan tiga bait tertulis di buku catatan, satu gagasan per bait; qafiyah ditetapkan dan 8–12 kata ujung terkumpul; bait 1 lurus, tashih i'rab dicentang, dan tersimpan di Diwan."
@@ -717,7 +723,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -743,7 +752,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Bait 2 dan 3 tersusun dari rancangan Anda sendiri dan ditimbang bersama bait 1: setiap bait 0 patah, ketiga ujungnya satu qafiyah dan satu bentuk dharb, tanpa tanwin di qafiyah, tidak ada kata ujung yang terulang, setiap bait selesai maknanya, tashih i'rab dicentang, dan tersimpan di Diwan."
@@ -1035,6 +1047,61 @@
           "makna": "Bila aku di rumah, ilmu ada di sana bersamaku. Bila aku di pasar, ilmu pun ada di pasar."
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus tapi salah.** Semua bait basith ini lurus. Nilai setiap bait: benar, salah i'rab, maknanya rusak, atau keluar dari tema Boss 3, yaitu nasihat thalabul ilmi.",
+          "bahr": "basith",
+          "baris": [
+            {
+              "bait": [
+                "الْعِلْمُ زَيْنٌ وَتَشْرِيفٌ لِصَاحِبِهِ",
+                "فَاطْلُبْ هُدِيتَ فُنُونَ الْعِلْمِ وَالْأَدَبَا"
+              ],
+              "salah": null,
+              "alasan": "Benar. Abu al-Aswad ad-Du'ali. الْعِلْمُ mubtada', زَيْنٌ khabar, dan وَتَشْرِيفٌ ma'thuf kepadanya. فُنُونَ maf'ul bih dari اطْلُبْ; الْأَدَبَا manshub karena ma'thuf kepada فُنُونَ, dan alifnya alif ithlaq."
+            },
+            {
+              "bait": [
+                "الْعِلْمُ زَيْنًا وَتَشْرِيفٌ لِصَاحِبِهِ",
+                "فَاطْلُبْ هُدِيتَ فُنُونَ الْعِلْمِ وَالْأَدَبَا"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. زَيْنًا adalah khabar dari mubtada' الْعِلْمُ, maka harus marfu': زَيْنٌ. Tidak ada 'amil yang menashabkannya, dan ma'thufnya, وَتَشْرِيفٌ, tetap marfu'. Tanwin fathah dan tanwin dhammah sama-sama nun mati, maka timbangan diam."
+            },
+            {
+              "bait": [
+                "الْعِلْمُ شَيْنٌ وَتَشْرِيفٌ لِصَاحِبِهِ",
+                "فَاطْلُبْ هُدِيتَ فُنُونَ الْعِلْمِ وَالْأَدَبَا"
+              ],
+              "salah": "makna",
+              "alasan": "Maknanya rusak. I'rabnya benar, tetapi شَيْنٌ berarti aib, lawan dari زَيْنٌ. Syathr pertama kini berkata ilmu adalah aib sekaligus kemuliaan, dua sifat yang saling meniadakan, dan syathr kedua menyuruh mencari sesuatu yang baru saja disebut aib."
+            },
+            {
+              "bait": [
+                "الْمَالُ زَيْنٌ وَتَشْرِيفٌ لِصَاحِبِهِ",
+                "فَاجْمَعْ هُدِيتَ فُنُونَ الْمَالِ وَالذَّهَبَا"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Nahwunya benar dan maknanya utuh: harta adalah perhiasan, maka kumpulkanlah. Tetapi temanya harta, bukan thalabul ilmi; Abu al-Aswad sendiri berpesan agar ilmu tidak disamakan dengan mutiara atau emas."
+            },
+            {
+              "bait": [
+                "يَا جَامِعَ الْعِلْمِ نِعْمَ الذُّخْرُ تَجْمَعُهُ",
+                "لَا تَعْدِلَنَّ بِهِ دُرًّا وَلَا ذَهَبَا"
+              ],
+              "salah": null,
+              "alasan": "Benar. Abu al-Aswad ad-Du'ali. جَامِعَ munada mudhaf, maka manshub. الذُّخْرُ fa'il dari نِعْمَ. تَعْدِلَنَّ fi'il mudhari' dengan nun taukid sesudah لَا nahi."
+            },
+            {
+              "bait": [
+                "يَا جَامِعُ الْعِلْمِ نِعْمَ الذُّخْرُ تَجْمَعُهُ",
+                "لَا تَعْدِلَنَّ بِهِ دُرًّا وَلَا ذَهَبَا"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. جَامِعُ di sini munada yang mudhaf kepada الْعِلْمِ, dan munada mudhaf selalu manshub: يَا جَامِعَ. Dhammah hanya untuk munada mufrad 'alam atau nakirah maqshudah, seperti يَا زَيْدُ."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Kartu basith.** Tempel **ketiga bait** dari Diwan sesi 2. Timbang, perbaiki yang patah, baca laporan qafiyah dan dharb, bandingkan dengan rancangan di buku catatan, periksa ita' dan tadhmin, centang tashih i'rab, lalu salin ke Diwan sebagai satu qashidah.",
           "bahr": "basith",
@@ -1058,7 +1125,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         },
         {
           "jenis": "susun",
@@ -1084,7 +1154,10 @@
               "Pola mu'aradhah"
             ]
           },
-          "tashih": true
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true
         }
       ],
       "patokan": "Tiga bait satu bahr dan satu qafiyah, setiap bait 0 patah, laporan qafiyah dan dharb bersih, tidak ada ita' atau tadhmin, keempat butir tashih i'rab dicentang, setiap bait sesuai rancangan, lalu tersimpan di Diwan sebagai satu qashidah beserta bahr, qafiyah, rancangan, dan sisa kata ujung."
@@ -1098,7 +1171,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh, pembuka syathr",
       "catatan": "Pola 1010110. Tanwin dibaca nun mati: يَا طَالِبَنْ.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "فَاصْبِرْ عَلَى",
@@ -1107,7 +1183,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110. Hamzah washal gugur sesudah fa: فَصْبِرْ عَلَى.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "فِي حَلْقَةٍ",
@@ -1116,7 +1195,11 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110: فِي حَلْقَتِنْ.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     },
     {
       "teks": "دَائِمًا",
@@ -1125,7 +1208,11 @@
       "cocok": "satu فَاعِلُنْ utuh",
       "catatan": "Pola 10110: دَائِمَنْ. Hal atau zharf.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "sabar",
+        "waktu"
+      ]
     },
     {
       "teks": "مُخْلِصًا",
@@ -1134,7 +1221,11 @@
       "cocok": "satu فَاعِلُنْ utuh",
       "catatan": "Pola 10110: مُخْلِصَنْ. Hal.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "iman",
+        "akhlak"
+      ]
     },
     {
       "teks": "سَهَرًا",
@@ -1143,7 +1234,11 @@
       "cocok": "'arudh فَعِلُنْ, bentuk baku",
       "catatan": "Pola 1110: سَهَرَنْ. Di 'arudh tanwin tetap dibaca.",
       "dari": "Laci tema Boss 3",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "sabar",
+        "waktu"
+      ]
     },
     {
       "teks": "بِجِدٍّ",
@@ -1152,7 +1247,10 @@
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "Pola 11010: بِجِدْدِنْ. Dal bersyaddah dua huruf.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "تَوَاضَعْ",
@@ -1161,7 +1259,11 @@
       "cocok": "satu فَعُولُنْ utuh, pembuka syathr",
       "catatan": "Fi'il amr wazan تَفَاعَلْ: 11010, watad pembuka thawil.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "adab",
+        "akhlak"
+      ]
     },
     {
       "teks": "شُيُوخٍ",
@@ -1170,7 +1272,11 @@
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "Jamak فُعُولٌ: شُيُوخِنْ = 11010.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "adab",
+        "ilmu"
+      ]
     },
     {
       "teks": "وَأُسْتَاذٍ",
@@ -1179,7 +1285,11 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010: وَأُسْتَاذِنْ. Tanpa wawu tidak bisa membuka taf'ilah thawil.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "adab",
+        "ilmu"
+      ]
     },
     {
       "teks": "فَلَا تَسْأَمْ",
@@ -1188,7 +1298,10 @@
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "Pola 1101010. لَا nahiyah, maka تَسْأَمْ majzum.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "بِمَجْلِسٍ",
@@ -1197,7 +1310,11 @@
       "cocok": "'arudh مَفَاعِلُنْ, bentuk baku",
       "catatan": "Pola 110110: بِمَجْلِسِنْ.",
       "dari": "Laci tema Boss 3",
-      "bahr": "thawil"
+      "bahr": "thawil",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     }
   ]
 }
