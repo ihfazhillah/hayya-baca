@@ -62,10 +62,9 @@ for (const modul of MODUL) {
           expect(jenis.size, 'ragam tamrin').toBeGreaterThanOrEqual(3)
         })
 
-        if (modul.salim) {
-          it('Jilid 1 (salim): setiap bait rajaz yang dipakai, ditanyakan, atau dijadikan pola utuh semua', () => {
+        if (modul.salim || (modul.salimP1 && p.nomor === 1)) {
+          it('salim (Jilid 1, atau pelajaran pembuka bahr di Jilid 2): setiap bait yang dipakai, ditanyakan, atau dijadikan pola utuh semua', () => {
             const cek = (bait: string[], kode: KodeBahr, asal: string) => {
-              if (kode !== 'rajaz') return
               expect(berubah(bait, kode), `${asal}: ${bait.join(' / ')}`).toBe(0)
             }
             for (const c of p.amtsilah) if (!c.patah) cek(c.bait, c.bahr, 'amtsilah')

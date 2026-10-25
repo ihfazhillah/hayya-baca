@@ -137,6 +137,8 @@ export interface Modul {
   nomor: number
   /** Jilid 1 (spec 077): semua bait rajaz utuh, dan checker menolak taf'ilah yang berubah. */
   salim?: true
+  /** Jilid 2 (spec 077): pelajaran 1 membuka bahr baru dengan bait salim saja (bentuk baku dihitung utuh). */
+  salimP1?: true
   /** Nama tampilan selain "Modul N", mis. "Boss 1" atau "Bonus". */
   label?: string
   judul: string
