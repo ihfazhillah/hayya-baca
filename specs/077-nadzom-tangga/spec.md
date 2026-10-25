@@ -1,6 +1,6 @@
 # 077 · Tangga course nadzom: salim dulu, bantuan bertahap, sampai mandiri
 
-Status: draf, menunggu persetujuan pemilik.
+Status: disetujui pemilik (2026-10-25); Fase A–E terpasang dan dideploy 2026-10-26.
 Sumber: audit pedagogi tiga agent atas Modul 0–15 (2026-10-25). Galat fakta dari audit sudah
 diperbaiki dalam 14 commit `fix(nadzom)` pada hari yang sama. Spec ini hanya mengatur **struktur**.
 
