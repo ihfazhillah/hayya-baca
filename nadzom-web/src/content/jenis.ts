@@ -91,6 +91,8 @@ export type Tamrin =
       /** Tangga latihan bertahap, ditampilkan berurutan. Butir bercalon: pilih sendiri mana yang sewazan dengan `ganti`. */
       tangga?: (string | { teks: string; ganti: string; calon: string[] })[]
     }
+  /** Tebak bahr (spec 077): bait asing tanpa petunjuk; pilih bahrnya, mesin menunjukkan timbangannya. */
+  | { jenis: 'tebak'; petunjuk: string; pilihan: KodeBahr[]; baris: { bait: string[]; bahr: KodeBahr; sumber: string }[] }
   /** Panen laci: pilih kata berurutan dari bait yang pas mengisi satu taf'ilah, beri arti, simpan ke Laci saya (spec 077). */
   | {
       jenis: 'panen'

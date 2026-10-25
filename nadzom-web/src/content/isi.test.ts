@@ -1,7 +1,7 @@
 /** Test isi: setiap bait di data course ditimbang ulang oleh mesin. Isi dan mesin tidak boleh berbeda. */
 import { describe, expect, it } from 'vitest'
 import { kitabahBait } from '@/lib/kitabah'
-import { timbangBait } from '@/lib/timbang'
+import { tebakBahr, timbangBait } from '@/lib/timbang'
 import { cariBahr } from '@/lib/bahr'
 import { BABAK, BANK_KATA, MODUL } from '.'
 import type { KodeBahr } from './jenis'
@@ -109,6 +109,15 @@ for (const modul of MODUL) {
               const pg = pola(g.ganti)
               expect(g.calon.some((c) => pola(c) === pg), `ada calon sewazan dengan ${g.ganti}`).toBe(true)
               expect(g.calon.some((c) => pola(c) !== pg), `ada calon pengecoh untuk ${g.ganti}`).toBe(true)
+            }
+            if (t.jenis === 'tebak') {
+              expect(t.baris.length, 'tebak: minimal 5 bait').toBeGreaterThanOrEqual(5)
+              for (const b of t.baris) {
+                expect(t.pilihan, `pilihan memuat ${b.bahr}`).toContain(b.bahr)
+                expect(timbang(b.bait, b.bahr).patah, `tebak lurus: ${b.bait[0]}`).toBe(0)
+                const k = kitabahBait(b.bait)
+                if (k.ok) expect(tebakBahr(k.syathr).bahr.kode, `mesin setuju: ${b.bait[0]}`).toBe(b.bahr)
+              }
             }
             if (t.jenis === 'panen') {
               expect(timbang(t.bait, t.bahr).patah, 'bait panen lurus').toBe(0)

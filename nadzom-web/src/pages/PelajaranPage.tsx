@@ -18,6 +18,7 @@ import Kenali from '@/components/Kenali'
 import TandaiDrill from '@/components/TandaiDrill'
 import CariPincang from '@/components/CariPincang'
 import Panen from '@/components/Panen'
+import TebakBahr from '@/components/TebakBahr'
 import { Jilid } from '@/components/Jilid'
 
 const ANGKA = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
@@ -69,6 +70,7 @@ const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = {
   susun: 'Susun sendiri',
   irama: 'Dengar dan lagukan',
   panen: 'Panen laci',
+  tebak: 'Tebak bahr',
 }
 
 function TamrinIrama({ t }: { t: Extract<Tamrin, { jenis: 'irama' }> }) {
@@ -105,6 +107,7 @@ function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
       {t.jenis === 'tandai' && <TandaiDrill petunjuk={t.petunjuk} butir={t.butir} />}
       {t.jenis === 'pincang' && <CariPincang petunjuk={t.petunjuk} bahr={t.bahr} baris={t.baris} />}
       {t.jenis === 'panen' && <Panen t={t} />}
+      {t.jenis === 'tebak' && <TebakBahr petunjuk={t.petunjuk} pilihan={t.pilihan} baris={t.baris} />}
     </article>
   )
 }

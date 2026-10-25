@@ -17,6 +17,7 @@ import Kenali from './components/Kenali'
 import Cetakan from './components/Cetakan'
 import Laci from './components/Laci'
 import Panen from './components/Panen'
+import TebakBahr from './components/TebakBahr'
 import { Jilid } from './components/Jilid'
 import { bacaLaci, imporMarkdown, keMarkdown } from './lib/laciSaya'
 
@@ -361,5 +362,16 @@ describe('Boss: bantuan menipis dan tashih i\'rab (spec 077)', () => {
     const tashih = screen.getByRole('group', { name: "Tashih i'rab" })
     for (const c of within(tashih).getAllByRole('checkbox')) await user.click(c)
     expect(screen.getByRole('button', { name: 'Salin Markdown' })).toBeInTheDocument()
+  })
+})
+
+describe('tebak bahr (spec 077)', () => {
+  it('pilih bahr bait asing; jawaban benar membuka timbangan mesin', async () => {
+    const user = userEvent.setup()
+    render(<TebakBahr petunjuk="Bahr apa?" pilihan={['rajaz', 'khafif']} baris={[{ bait: ['كَيْفَ تَرْقَى رُقِيَّكَ الْأَنْبِيَاءُ', 'يَا سَمَاءً مَا طَاوَلَتْهَا سَمَاءُ'], bahr: 'khafif', sumber: 'al-Bushiri, Hamziyyah' }]} />)
+    await user.click(screen.getByRole('button', { name: 'Rajaz' }))
+    expect(screen.getByText('Belum tepat. Coba pilihan lain.')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Khafif' }))
+    expect(document.querySelector('.pesan.ok')?.textContent).toContain('مُسْتَفْعِ لُنْ')
   })
 })
