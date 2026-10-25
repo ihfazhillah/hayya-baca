@@ -35,14 +35,14 @@ export default function CariSalah({ petunjuk, bahr, baris }: Props) {
       <ul className="bait-daftar">
         {baris.map((b, i) => (
           <li key={i} className={periksa ? (nilai[i] === kunci[i] ? 'ok' : 'salah') : ''}>
+            <div className="bait-teks" dir="rtl" lang="ar">{b.bait.map((s, k) => <span key={k}>{s}</span>)}</div>
             <div className="baris-antara">
               <span className={`chip ${lurus[i] ? 'ok' : 'salah'}`}>{lurus[i] ? 'lurus' : 'patah'}</span>
-              <select aria-label={`Penilaian baris ${i + 1}`} value={nilai[i]} onChange={(e) => { setPeriksa(false); setNilai(nilai.map((v, k) => (k === i ? e.target.value : v))) }}>
+              <select style={{ width: 'auto', flex: '0 1 220px' }} aria-label={`Penilaian baris ${i + 1}`} value={nilai[i]} onChange={(e) => { setPeriksa(false); setNilai(nilai.map((v, k) => (k === i ? e.target.value : v))) }}>
                 <option value="">nilai baris ini</option>
                 {PILIHAN.map((p) => <option key={p.nilai} value={p.nilai}>{p.label}</option>)}
               </select>
             </div>
-            <div className="bait-teks" dir="rtl" lang="ar">{b.bait.map((s, k) => <span key={k}>{s}</span>)}</div>
             {periksa && <p className="redup kecil"><Teks>{b.alasan}</Teks></p>}
           </li>
         ))}

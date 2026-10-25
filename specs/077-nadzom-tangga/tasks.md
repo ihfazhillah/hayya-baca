@@ -42,4 +42,4 @@
 
 ## Sisa
 - [x] Audit akhir lintas modul (nahwu baris buatan, istilah sebelum waktunya, rujukan silang)
-- [ ] Review tampilan di browser
+- [x] Review tampilan di browser (2026-10-26: cetakan, panen, tebak, lurus tapi salah, susun + salin untuk diperiksa)

@@ -176,7 +176,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         <div className="kartu" role="group" aria-label="Tashih i'rab">
           <span className="label">Tashih i'rab sebelum salin ke Diwan</span>
           {TASHIH.map((x, i) => (
-            <label key={i} className="baris" style={{ cursor: 'pointer', alignItems: 'flex-start' }}>
+            <label key={i} className="baris" style={{ cursor: 'pointer', alignItems: 'flex-start', flexWrap: 'nowrap' }}>
               <input type="checkbox" checked={periksa[i]} onChange={() => setPeriksa(periksa.map((v, k) => (k === i ? !v : v)))} />
               <span>{x}</span>
             </label>
