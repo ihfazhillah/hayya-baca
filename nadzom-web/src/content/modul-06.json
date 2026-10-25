@@ -38,7 +38,7 @@
           "bahr": "kamil",
           "makna": "Wajah mereka putih bersih, keturunan mereka mulia, hidung mereka mancung (tanda harga diri): mereka dari generasi yang paling utama.",
           "sumber": "Hassan bin Tsabit memuji keluarga Ghassan. Dicontohkan di Lisan Mubin (lm.edu.sa), 'Ilmul 'Arudh Level 1, pelajaran 48.",
-          "catatan": "Kunci dilagukan لَ لَ لا نعم tiga kali. Dalam bait ini hanya taf'ilah tengah yang utuh (هِكَرِيمَتُنْ dan فِمِنَطْطِرَا); empat lainnya mudhmar, dilagukan لا لا نعم. Para pengajar tetap melagukan hasyw dengan bentuk utuhnya."
+          "catatan": "Kunci dilagukan لَ لَ لا نعم tiga kali. Dalam bait ini hanya taf'ilah tengah yang utuh (هِكَرِيمَتُنْ dan فِمِنَطْطِرَا); empat lainnya mudhmar, dilagukan لا لا نعم."
         }
       ],
       "bahts": {
@@ -60,7 +60,7 @@
           },
           {
             "tampil": "tanda",
-            "kata": "Beri tanda 1 dan 0. Perhatikan مَحَبْبَةِ ثَا: ada bagian بَةِ yang dua-duanya hidup. Di rajaz bagian seperti ini jarang; di kamil ia justru ciri utama."
+            "kata": "Beri tanda 1 dan 0. Perhatikan مَحَبْبَةِ ثَا: بَ dan ةِ hidup, lalu ثَا: tiga huruf hidup lalu satu mati, 1110. Dalam rajaz yang utuh tiga huruf hidup tidak pernah berderet; di kamil مُتَفَا (1110) justru ciri utama."
           },
           {
             "tampil": "kelompok",
@@ -89,7 +89,7 @@
         "Pecahlah مُتَفَاعِلُنْ menjadi blok. مُتَ (11) adalah **sabab tsaqil**: dua huruf hidup tanpa sukun. فَا (10) adalah sabab khafif yang sudah Anda kenal di rajaz. عِلُنْ (110) adalah watad. Bandingkan dengan مُسْتَفْعِلُنْ = 10 10 110. Bedanya hanya di blok pertama: مُسْ (10) di rajaz, مُتَ (11) di kamil.",
         "Lalu contoh kedua, bait pembuka Nuniyah: حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ. Taf'ilah pertama حُكْمُلْمَحَبْ = 1010110. Huruf keduanya (كْ) mati, jadi ini belum مُتَفَاعِلُنْ yang utuh. Bentuk ini dibahas di pelajaran 2.",
         "Taf'ilah kedua dimulai dari بَةِ: بَ hidup, ةِ hidup, lalu ثَا = 10, lalu بِتُلْ = 110. Hasilnya بَةِثَابِتُلْ = 1110110, utuh. Di sinilah sabab tsaqil terdengar: pendek, pendek, panjang. Ta marbutah di tengah kalam dibaca ta berharakat, jadi ia dihitung 1.",
-        "Ujung bait berbeda. أَرْكَانِي = 101010 dan كَيَدَانِي = 111010. Keduanya lebih pendek dari مُتَفَاعِلُنْ: watad عِلُنْ (110) dipotong menjadi عِلْ (10). 'Illah ini disebut **qath'**. Seperti waqaf mematikan huruf terakhir, qath' mematikan ujung taf'ilah. Ibnul Qayyim memakainya di setiap bait Nuniyah.",
+        "Ujung bait berbeda. أَرْكَانِي = 101010 dan كَيَدَانِي = 111010. Keduanya lebih pendek dari مُتَفَاعِلُنْ: watad عِلُنْ (110) dipotong menjadi عِلْ (10). 'Illah ini disebut **qath'**. Seperti waqaf mematikan huruf terakhir, qath' mematikan ujung taf'ilah. Ibnul Qayyim memakainya di ujung setiap bait Nuniyah (dharb). أَرْكَانِي di ujung syathr pertama ('arudh) ikut dipotong hanya karena bait pembuka ini ber-tasri': kedua syathrnya berqafiyah sama. Di bait-bait berikutnya 'arudh kamil utuh, مُتَفَاعِلُنْ atau مُتْفَاعِلُنْ.",
         "Kesimpulannya: tiga huruf hidup lalu satu sukun di awal taf'ilah adalah sidik jari kamil. Rajaz tidak pernah memuat 1110110. Kalau Anda menemukannya, Anda sedang membaca kamil."
       ],
       "keliru": [
@@ -118,7 +118,8 @@
         "**Sabab tsaqil** = 11, dua huruf hidup berturut-turut (لَكَ، بِكَ). Sabab tsaqil + sabab khafif = 1110.",
         "**مُتَفَاعِلُنْ** = 11 10 110 = **1110110**. Kamil = مُتَفَاعِلُنْ tiga kali dalam satu syathr.",
         "Kunci kamil: كَمَلَ الْجَمَالُ مِنَ الْبُحُورِ الْكَامِلُ. Hafalkan dan lagukan, seperti kunci rajaz di Babak 1.",
-        "Ujung bait Nuniyah Ibnul Qayyim selalu dipotong ('illah qath'): مُتَفَاعِلْ (111010) atau مُتْفَاعِلْ (101010). Karena itu kata seperti يَدَانِي dan أَرْكَانِي pas di sana."
+        "Ujung bait Nuniyah Ibnul Qayyim selalu dipotong ('illah qath'): مُتَفَاعِلْ (111010) atau مُتْفَاعِلْ (101010). Karena itu kata seperti يَدَانِي dan أَرْكَانِي pas di sana.",
+        "**'Arudh kamil** (ujung syathr pertama) utuh: مُتَفَاعِلُنْ atau مُتْفَاعِلُنْ. Hanya di bait pembuka yang ber-tasri' (kedua syathr berqafiyah sama) ia ikut bentuk dharb, seperti أَرْكَانِي."
       ],
       "tamarin": [
         {
