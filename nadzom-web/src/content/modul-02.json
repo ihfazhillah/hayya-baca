@@ -564,7 +564,7 @@
       "judul": "Isyba', lalu Bait #2",
       "ringkas": "Harakat yang dipanjangkan, harakat yang disukunkan, lalu menyusun bait kedua.",
       "menit": 30,
-      "analogi": "Anda sudah kenal mad shilah: إِنَّهُ كَانَ dibaca إِنَّهُو كَانَ. Syi'ir memakai hal yang sama, ditambah satu kebiasaan: harakat terakhir setiap syathr selalu dipanjangkan. Sebaliknya, kadang harakat disukunkan: وَهُوَ menjadi وَهْوَ. Dua-duanya bunyi yang tidak terlihat di tulisan.",
+      "analogi": "Anda sudah kenal mad shilah: إِنَّهُ كَانَ dibaca إِنَّهُو كَانَ. Syi'ir memakai hal yang sama, ditambah satu kebiasaan: harakat terakhir di ujung syathr dipanjangkan. Sebaliknya, kadang harakat disukunkan: وَهُوَ menjadi وَهْوَ. Dua-duanya bunyi yang tidak terlihat di tulisan.",
       "amtsilah": [
         {
           "bait": [
@@ -695,7 +695,7 @@
         }
       ],
       "qaidah": [
-        "**Isyba' di ujung syathr**: harakat terakhir selalu dipanjangkan. مَالِكِ → مَالِكِي، مُوجَزِ → مُوجَزِي. Fathah di ujung biasanya sudah ditulis dengan alif (الشَّرَفَا).",
+        "**Isyba' di ujung syathr**: bila huruf terakhir berharakat, harakatnya dipanjangkan. Huruf yang sukun tidak dipanjangkan, dan tanwin di ujung syathr pertama tetap dibaca nun. مَالِكِ → مَالِكِي، مُوجَزِ → مُوجَزِي. Fathah di ujung biasanya sudah ditulis dengan alif (الشَّرَفَا).",
         "**Isyba' ha dhamir**: هُ atau هِ yang diapit dua huruf hidup dipanjangkan, seperti mad shilah. Tidak dipanjangkan bila bertemu sukun atau hamzah washal.",
         "**Taskin**: وَهُوَ dan وَهِيَ setelah وَ، فَ، لَ boleh dibaca وَهْوَ، وَهْيَ. Ikuti harakat kitab; penyair memilihnya demi timbangan.",
         "**Waqf di ujung bait**: ta marbuthah → ha sakinah; syaddah di ujung (عَمّْ) terdengar satu huruf mati.",
