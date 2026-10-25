@@ -44,6 +44,45 @@ Isi 'arudh course (076) sudah benar dan kuat. Yang bermasalah adalah urutan dan 
 | 3 · Jilid 3 | Qathrun Nada | Ramal majzu' dan mujtats (bukan lagi "bonus"), bentuk majzu' dan wajah ujung lain, darurah syi'riyyah, jenis dan 'uyub qafiyah, menebak bahr bait asing, **ujian akhir bebas** | Ujian akhir tanpa rancangan; menebak bahr 8 dari 10 bait acak |
 | 4 · Mandiri | Alfiyah | Di luar aplikasi: halaman "Langkah berikutnya" berisi tangga kitab, sisa bahr, dan jadwal muraja'ah | — |
 
+## Urutan bahr: dari mudah ke sulit, dalam menimbang dan menulis
+
+Permintaan pemilik (2026-10-25). Bahr dinilai dengan enam ukuran, dari sudut penulis 'ajam yang mufradatnya terbatas:
+
+1. **Susunan taf'ilah.** Satu taf'ilah yang berulang (shafi) lebih mudah daripada dua taf'ilah berselang (mumtazij).
+2. **Panjang syathr.** Syathr pendek berarti lebih sedikit kata yang harus dicari.
+3. **Kelonggaran zihaf.** Makin banyak wajah yang sah, makin banyak kata yang muat.
+4. **Aturan wajib di ujung.** Contohnya 'arudh yang wajib berubah, atau dharb yang harus tetap. Makin banyak aturan, makin sulit.
+5. **Watad mafruq** (مُسْتَفْعِ لُنْ). Watad jenis ini membingungkan pemotongan taf'ilah.
+6. **Keakraban telinga.** Contohnya nada nasyid dan nada nadzom pesantren.
+
+| Urutan | Bahr | Alasan singkat |
+|---|---|---|
+| 1 | Rajaz | Shafi, paling longgar ("himar asy-syu'ara'"), bahr nadzom ilmi yang sudah akrab |
+| 2 | Ramal majzu' | Shafi, hanya dua taf'ilah per syathr, akrab sebagai nada nasyid |
+| 3 | Mutaqarib | Shafi, taf'ilah pendek فَعُولُنْ, satu zihaf utama (qabdh) |
+| 4 | Kamil | Shafi; idhmar membuatnya mirip rajaz. Tantangannya tiga huruf hidup beruntun |
+| 5 | Wafir | Cermin kamil (110 1110). Qathf wajib di ujung, dan wafir majzu' mirip hazaj |
+| 6 | Basith | Mumtazij, delapan taf'ilah, 'arudh wajib makhbunah |
+| 7 | Thawil | Mumtazij, paling panjang; 'arudh wajib maqbudhah, dharb harus tetap |
+| 8 | Khafif | Mumtazij dengan watad mafruq di tengah |
+| 9 | Mujtats | Watad mafruq, selalu majzu', jarang dipakai |
+
+Akibatnya pada babak:
+
+- **Babak 1 · Rajaz** (Jilid 1, lalu awal Jilid 2). Boss 1.
+- **Babak 2 · Satu taf'ilah berulang:** ramal majzu' → mutaqarib → kamil → wafir. Boss 2 adalah Nuniyah kecil, dengan kamil atau wafir.
+- **Babak 3 · Dua taf'ilah berselang:** basith → thawil. Boss 3 adalah Ta'lim (basith atau thawil). Perbandingan dua Nuniyah (kamil dan basith) dipindah ke sini sebagai jembatan.
+- **Babak 4 · Jilid 3:** khafif dan mujtats (watad mafruq), bentuk majzu', darurah, 'uyub qafiyah, tebak bahr, lalu ujian akhir.
+
+Nomor modul tidak berubah. Urutannya diatur `peta.json`. Mutaqarib dan khafif perlu ditambahkan ke mesin lebih dulu, termasuk test mesinnya.
+
+## Jawaban pemilik (2026-10-25)
+
+1. Mode salim **ketat**.
+2. Jilid 3 dikerjakan **sekarang juga**, berurutan setelah Fase C.
+3. Tangga kitab: usulan audit.
+4. Perbaikan fakta dideploy (selesai).
+
 ## Keputusan yang diusulkan
 
 1. **Mode salim.** Tamrin di Jilid 1 diberi tanda `salim: true`.
