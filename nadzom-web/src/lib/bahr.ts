@@ -90,6 +90,25 @@ const MUSTAFILUN_MUJTATS = [
   b('مُتَفْعِلُ', '11011', 'syakl', { nilai: 'qabih', lagu: 'لَ لا لَ لَ' }),
 ]
 
+/** Mutaqarib tam: فَعُولُنْ empat kali. 'Arudh shahihah atau mahdzufah; dharb shahih, maqshur, mahdzuf, atau abtar. */
+const MUTAQARIB_ARUDH = [...FAULUN, b('فَعَلْ', '110', 'hadzf', { illah: true, namaLain: 'فَعُو', lagu: 'نعم' })]
+const MUTAQARIB_DHARB = [
+  ...FAULUN,
+  b('فَعُولْ', '1100', 'qashr', { illah: true, lagu: 'نعام' }),
+  b('فَعَلْ', '110', 'hadzf', { illah: true, namaLain: 'فَعُو', lagu: 'نعم' }),
+  b('فَعْ', '10', 'batr', { illah: true, lagu: 'لا' }),
+]
+
+/** Khafif tam: فَاعِلَاتُنْ مُسْتَفْعِ لُنْ فَاعِلَاتُنْ; watad mafruq di tengah (تَفْعِ). Tasy'ith di ujung berlaku seperti zihaf. */
+const MUSTAFI_LUN = [
+  b('مُسْتَفْعِ لُنْ', '1010110', undefined, { lagu: 'لا لا نعم' }),
+  b('مُتَفْعِ لُنْ', '110110', 'khabn', { namaLain: 'مَفَاعِلُنْ', nilai: 'hasan', lagu: 'لَ لا نعم' }),
+]
+const FAILATUN_KHAFIF = [...FAILATUN, b('فَاعِلَاتُ', '101101', 'kaff', { nilai: 'shalih', lagu: 'لا نعم لَ' })]
+const TASYITH = b('فَالَاتُنْ', '101010', "tasy'ith", { illah: true, namaLain: 'مَفْعُولُنْ', lagu: 'لا لا لا' })
+const KHAFIF_ARUDH = [...FAILATUN, TASYITH]
+const KHAFIF_DHARB = [...FAILATUN, TASYITH, ...FAILUN]
+
 const KUNCI_RAMAL: [string, string] = ['رَمَلُ الْأَبْحُرِ تَرْوِيهِ الثِّقَاتُ', 'فَاعِلَاتُنْ فَاعِلَاتُنْ فَاعِلَاتُ']
 const MAKNA_RAMAL = 'Ramal di antara bahr-bahr: para perawi tepercaya meriwayatkannya.'
 
@@ -222,10 +241,32 @@ export const BAHR = {
       [MUSTAFILUN_MUJTATS, FAILATUN],
     ],
   },
+  mutaqarib: {
+    kode: 'mutaqarib',
+    nama: 'Mutaqarib',
+    namaAr: 'الْمُتَقَارِب',
+    kunci: ['عَنِ الْمُتَقَارِبِ قَالَ الْخَلِيلُ', 'فَعُولُنْ فَعُولُنْ فَعُولُنْ فَعُولُ'],
+    kunciMakna: "Tentang mutaqarib (yang berdekatan), al-Khalil berkata: فَعُولُنْ empat kali.",
+    slot: [
+      [FAULUN, FAULUN, FAULUN, MUTAQARIB_ARUDH],
+      [FAULUN, FAULUN, FAULUN, MUTAQARIB_DHARB],
+    ],
+  },
+  khafif: {
+    kode: 'khafif',
+    nama: 'Khafif',
+    namaAr: 'الْخَفِيف',
+    kunci: ['يَا خَفِيفًا خَفَّتْ بِهِ الْحَرَكَاتُ', 'فَاعِلَاتُنْ مُسْتَفْعِ لُنْ فَاعِلَاتُ'],
+    kunciMakna: 'Wahai khafif (yang ringan), harakat-harakat menjadi ringan karenamu.',
+    slot: [
+      [FAILATUN_KHAFIF, MUSTAFI_LUN, KHAFIF_ARUDH],
+      [FAILATUN_KHAFIF, MUSTAFI_LUN, KHAFIF_DHARB],
+    ],
+  },
 } satisfies Record<string, Bahr>
 
 /** Urutan juga pemecah seri saat menebak: rajaz didahulukan dari kamil yang semuanya mudhmar. */
-export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats]
+export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats, BAHR.mutaqarib, BAHR.khafif]
 
 export function cariBahr(kode: string): Bahr | undefined {
   return DAFTAR_BAHR.find((x) => x.kode === kode)

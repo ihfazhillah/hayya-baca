@@ -335,10 +335,12 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
     }
   })
 
+  const BELUM_ADA_NAGHAM: string[] = ['mutaqarib', 'khafif']
   it('setiap bahr: semua bentuknya punya lagu dan video nagham', () => {
     for (const kode of Object.keys(BAHR) as (keyof typeof BAHR)[]) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
-      expect(BAHR[kode].dengar?.youtube, kode).toBeTruthy()
+      // Spec 077: nagham Lisan Mubin untuk mutaqarib dan khafif belum ditemukan; jangan dipakai di modul sebelum ada.
+      if (!BELUM_ADA_NAGHAM.includes(kode)) expect(BAHR[kode].dengar?.youtube, kode).toBeTruthy()
     }
   })
 
@@ -373,5 +375,31 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
   it('taf\'ilah patah (bit tidak sama dengan bentuk terdekat) tetap dipecah dari bitnya sendiri', () => {
     const utuh = BAHR.rajaz.slot[0][0][0]
     expect(juzBentuk('10110', utuh).map((j) => j.bit).join('')).toBe('10110')
+  })
+})
+
+describe('bahr baru untuk Jilid 3 (spec 077): mutaqarib dan khafif', () => {
+  it('kunci mutaqarib: فَعُولُنْ empat kali, tanpa patah', () => {
+    const h = timbangBait(kitabahOk(BAHR.mutaqarib.kunci), BAHR.mutaqarib)
+    expect(h.patah).toBe(0)
+    expect(h.syathr[0].potongan).toHaveLength(4)
+  })
+
+  it('mutaqarib: dharb mahdzuf فَعَلْ dan qabdh di hasyw sah', () => {
+    const h = timbangBait(kitabahOk(['إِذَا كُنْتَ فِي نِعْمَةٍ فَارْعَهَا', 'فَإِنَّ الْمَعَاصِي تُزِيلُ النِّعَمْ']), BAHR.mutaqarib)
+    expect(h.patah).toBe(0)
+    expect(h.syathr[1].potongan.at(-1)?.bentuk.bit).toBe('110')
+  })
+
+  it('kunci khafif: فَاعِلَاتُنْ مُسْتَفْعِ لُنْ فَاعِلَاتُنْ (syathr pertama berujung khabn), tanpa patah', () => {
+    const h = timbangBait(kitabahOk(BAHR.khafif.kunci), BAHR.khafif)
+    expect(h.patah).toBe(0)
+    expect(h.syathr[1].potongan.map((p) => p.bentuk.nama)).toEqual(['فَاعِلَاتُنْ', 'مُسْتَفْعِ لُنْ', 'فَاعِلَاتُنْ'])
+  })
+
+  it('khafif: Hamziyyah al-Bushiri lurus dan ditebak sebagai khafif', () => {
+    const bait = ['كَيْفَ تَرْقَى رُقِيَّكَ الْأَنْبِيَاءُ', 'يَا سَمَاءً مَا طَاوَلَتْهَا سَمَاءُ']
+    expect(timbangBait(kitabahOk(bait), BAHR.khafif).patah).toBe(0)
+    expect(tebakBahr(kitabahOk(bait)).bahr.kode).toBe('khafif')
   })
 })

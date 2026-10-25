@@ -38,7 +38,7 @@ export interface DengarBahr {
 }
 
 export interface Bahr {
-  kode: 'rajaz' | 'ramalMajzu' | 'ramal' | 'kamil' | 'basith' | 'thawil' | 'wafir' | 'mujtats'
+  kode: 'rajaz' | 'ramalMajzu' | 'ramal' | 'kamil' | 'basith' | 'thawil' | 'wafir' | 'mujtats' | 'mutaqarib' | 'khafif'
   nama: string
   namaAr: string
   /** Kunci bahr (miftah al-buhur), dua syathr. */
