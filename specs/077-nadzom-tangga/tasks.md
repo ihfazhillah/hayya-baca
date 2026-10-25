@@ -12,6 +12,7 @@
 - [ ] A6 Isi M0 (P1 tanpa al-Buhturi, P2 cetakan rajaz salim, P3 mu'aradhah bait salim + tangga bercalon)
 - [ ] A7 Isi M1–M2 salim, laci hasyw dan qafiyah dipindah ke depan Bait #2
 - [ ] A8 Laci: kata ujung ـدَا dan ـلِ, frasa hasyw tema belajar/doa
+- [ ] A8b Laci saya: tamrin `panen` (kotak terlihat), penyimpanan browser + ekspor/impor Markdown, tampil di Susun/Cetakan
 - [ ] A9 Review tampilan, deploy
 
 ## Fase B · Jilid 2

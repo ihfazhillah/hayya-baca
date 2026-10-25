@@ -82,6 +82,7 @@ Nomor modul tidak berubah. Urutannya diatur `peta.json`. Mutaqarib dan khafif pe
 2. Jilid 3 dikerjakan **sekarang juga**, berurutan setelah Fase C.
 3. Tangga kitab: usulan audit.
 4. Perbaikan fakta dideploy (selesai).
+5. **Salim ketat penuh dengan bait asli.** Temuannya: dari sekitar 40 bait rajaz di M0–M2, hanya 2 yang utuh, dan tidak ada satu pun dari Alfiyah. Pemilik tetap memilih Jilid 1 salim penuh, dengan alasan "kita harus bertahap untuk bisa mendapatkan insting". Contohnya dicari dari diwan dan mutun ulama terdahulu yang memang lengkap, bukan bait buatan. Ghazal yang sopan boleh dipakai. Riset dijalankan dua agent (mutun ilmiyyah, dan diwan/syawahid), dan setiap bait diverifikasi mesin.
 
 ## Keputusan yang diusulkan
 
@@ -131,7 +132,19 @@ Nomor modul tidak berubah. Urutannya diatur `peta.json`. Mutaqarib dan khafif pe
     (at-Tabrizi) → ar-Ramizah al-Khazrajiyyah dengan syarah ad-Damamini. Ditambah daftar bahr yang belum
     dipelajari dan saran mu'aradhah rutin. (Pertanyaan 3.)
 
+13. **Laci sendiri: memanen kata dari bait yang didengar dan dibaca.** Permintaan pemilik (2026-10-25): mengumpulkan laci sendiri adalah keterampilan yang harus diasah sampai menjadi insting. Laci bawaan hanya penopang awal, dan perlahan diganti oleh laci milik pelajar.
+    - **Tamrin `panen`.** Dari satu bait, pelajar memilih potongan yang mengisi satu slot: satu taf'ilah utuh, ujung bait, atau pembuka. Mesin menampilkan kotak taf'ilah dan menolak potongan yang tidak pas. Pelajar menulis arti dan "cocok untuk", lalu menyimpannya.
+    - **Bertahap:**
+      - Jilid 1: memanen dari bait pelajaran, dengan kotak taf'ilah sudah terlihat.
+      - Jilid 2: memanen dari bait yang ditempel sendiri di Checker (dari kitab atau dari yang didengar), dengan kotak taf'ilah disembunyikan dulu.
+      - Jilid 3: memanen tanpa kotak; pelajar memotong sendiri.
+    - **Laci saya** tampil di samping laci bawaan di Susun dan Cetakan. Patokan beberapa pelajaran mewajibkan memakai minimal satu kata dari laci sendiri.
+    - **Penyimpanan:** di browser (`nadzom.laci.v1`), ditambah ekspor dan impor Markdown, seperti Diwan disalin. Ini satu-satunya data pelajar yang disimpan aplikasi selain tanda selesai.
+
 ## Kasus tepi
+
+- **Laci saya hilang** bila data browser dibersihkan. Karena itu tombol ekspor selalu terlihat, dan muncul pengingat setelah setiap 10 kata baru.
+- **Duplikat:** kata yang sama dari dua sumber digabung menjadi satu entri dengan dua sumber.
 
 - **Mode salim dan contoh klasik.** Syahid yang ditampilkan untuk didengar (amtsilah, dengar) boleh berzihaf, asal tidak dijadikan pola, tidak ditanyakan, dan tidak ditimbang dalam mode salim. Test isi memeriksa bahwa pola, taqthi', dan cetakan di Jilid 1 utuh semua.
 - **Isyba' ha opsional.** Mesin memilih bacaan yang lurus. Di mode salim, bacaan yang membuat semua taf'ilah utuh harus dipilih lebih dulu. Ini perlu dicek di `timbangBait`.
