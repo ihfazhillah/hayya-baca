@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { kitabahBait } from '@/lib/kitabah'
 import { tebakBahr, timbangBait } from '@/lib/timbang'
 import { cariBahr } from '@/lib/bahr'
-import { BABAK, BANK_KATA, MODUL } from '.'
+import { BABAK, BANK_KATA, MODUL, urutanModul } from '.'
 import type { KodeBahr } from './jenis'
 
 function timbang(bait: string[], kode: KodeBahr) {
@@ -151,4 +151,30 @@ describe('peta', () => {
     const diPeta = BABAK.flatMap((b) => b.modul.map((m) => m.nomor))
     for (const m of MODUL) expect(diPeta, `Modul ${m.nomor}`).toContain(m.nomor)
   })
+})
+
+/** Darurah isyba' ha sesudah huruf mati baru diajarkan di Modul 19. Sebelumnya, tak ada bait yang lurus hanya karenanya. */
+describe("darurah belum dipakai sebelum Modul 19", () => {
+  const tanpaDarurah = (bait: string[], kode: KodeBahr) => {
+    const k = kitabahBait(bait)
+    if (!k.ok) return 0
+    const syathr = k.syathr.map((s) => s.filter((h, i) => !(h.opsional && s[i - 1]?.bit === 0)))
+    return timbangBait(syathr, cariBahr(kode)!).patah
+  }
+  for (const m of MODUL.filter((x) => urutanModul(x.nomor) < urutanModul(19))) {
+    it(`Modul ${m.nomor}`, () => {
+      const bait: [string[], KodeBahr][] = []
+      for (const p of m.pelajaran) {
+        for (const c of p.amtsilah) if (!c.patah) bait.push([c.bait, c.bahr])
+        bait.push([p.bahts.bait, p.bahts.bahr])
+        for (const t of p.tamarin) {
+          if (t.jenis === 'taqthi' || t.jenis === 'irama' || t.jenis === 'panen') bait.push([t.bait, t.bahr])
+          if (t.jenis === 'susun' && t.pola) bait.push([t.pola.bait, t.bahr])
+          if (t.jenis === 'tebak') for (const b of t.baris) bait.push([b.bait, b.bahr])
+        }
+      }
+      const kena = bait.filter(([b, k]) => timbang(b, k).patah === 0 && tanpaDarurah(b, k) > 0).map(([b]) => b.join(' / '))
+      expect(kena).toEqual([])
+    })
+  }
 })
