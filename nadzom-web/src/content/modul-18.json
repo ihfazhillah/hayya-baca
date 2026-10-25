@@ -309,7 +309,7 @@
         "Contoh kedua dari qashidah yang sama. Keempat taf'ilahnya utuh: وَدَعِلْ كَبِي، رَلِشَأْ نِهِي، كَبِرَلْ كَبِي، رُعَنِلْ أَدَبْ. Bacalah keras-keras. Kecepatan tiga huruf hidup beruntun terasa lebih jelas karena syathrnya pendek.",
         "Contoh ketiga, bait peragaan Abu al-'Atahiyah. Ia memakai kamil majzu' untuk nasihat zuhud. Pesan singkat cocok dengan bahr pendek: satu syathr, satu gagasan.",
         "Contoh keempat dari Ibnu al-Mu'tazz: dharb **maqthu'**. حَسَرَاتِي = 111010, مُتَفَاعِلْ. Seluruh qashidahnya memakai dharb ini: الْحَجَبَاتِ، الْحَسَنَاتِ، الْعَثَرَاتِ. Bentuk dharb dipilih di bait pertama, lalu dipertahankan sampai akhir qashidah.",
-        "Bedanya dengan rajaz. Kamil majzu' yang penuh idhmar berbunyi مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ. Rajaz punya tiga مُسْتَفْعِلُنْ per syathr; kamil majzu' hanya dua. Hitung taf'ilahnya dulu, lalu cari satu مُتَفَاعِلُنْ utuh di qashidah itu."
+        "Bedanya dengan rajaz. Kamil majzu' yang penuh idhmar berbunyi مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ. Rajaz pun punya wajah majzu' yang baku, dua مُسْتَفْعِلُنْ per syathr, jadi menghitung taf'ilah tidak cukup. Dua مُسْتَفْعِلُنْ tanpa satu pun مُتَفَاعِلُنْ utuh = rajaz majzu' (sama seperti di bahr tam, Modul 8). Satu مُتَفَاعِلُنْ utuh memutuskan kamil majzu'. Cari satu مُتَفَاعِلُنْ utuh di qashidah itu."
       ],
       "keliru": [
         {
@@ -333,7 +333,7 @@
         "**Kamil majzu'** = مُتَفَاعِلُنْ مُتَفَاعِلُنْ dalam setiap syathr. Idhmar boleh di mana saja, sama seperti kamil tam.",
         "**Dharb** kamil majzu' yang kita pakai: shahih مُتَفَاعِلُنْ (1110110) atau maqthu' مُتَفَاعِلْ (111010). Kitab 'arudh menyebut juga murafal مُتَفَاعِلَاتُنْ dan mudzayyal مُتَفَاعِلَانْ, tetapi keduanya jarang.",
         "Bentuk dharb dipilih di bait pertama dan dipertahankan sampai akhir qashidah.",
-        "Kamil majzu' yang penuh idhmar berbunyi seperti مُسْتَفْعِلُنْ. Hitung taf'ilahnya: rajaz tiga per syathr, kamil majzu' dua."
+        "Kamil majzu' yang penuh idhmar berbunyi مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ, sama dengan rajaz majzu', wajah rajaz yang baku. Menghitung taf'ilah tidak cukup. Dua مُسْتَفْعِلُنْ tanpa satu pun مُتَفَاعِلُنْ utuh = rajaz majzu' (sama seperti di bahr tam, Modul 8). Satu مُتَفَاعِلُنْ utuh memutuskan kamil majzu'."
       ],
       "tamarin": [
         {
@@ -391,14 +391,14 @@
               "alasan": "لَا تَسْهُ عَنْ = 1010110. Di kamil, pola ini adalah مُتَفَاعِلُنْ dengan idhmar."
             },
             {
-              "soal": "Satu bait berbunyi مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ di setiap syathr. Rajaz atau kamil majzu'?",
+              "soal": "Sebuah qashidah berbunyi مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ di setiap syathr, tanpa satu pun مُتَفَاعِلُنْ utuh. Rajaz majzu' atau kamil majzu'?",
               "pilihan": [
+                "Rajaz majzu', karena tidak ada مُتَفَاعِلُنْ utuh",
                 "Kamil majzu', karena hanya dua taf'ilah per syathr",
-                "Rajaz, karena bunyinya مُسْتَفْعِلُنْ",
                 "Tidak bisa ditimbang"
               ],
               "jawaban": 0,
-              "alasan": "Rajaz tiga taf'ilah per syathr. Dua مُسْتَفْعِلُنْ adalah kamil majzu' dengan idhmar."
+              "alasan": "Dua مُسْتَفْعِلُنْ tanpa satu pun مُتَفَاعِلُنْ utuh = rajaz majzu' (sama seperti di bahr tam, Modul 8). Satu مُتَفَاعِلُنْ utuh memutuskan kamil majzu'."
             }
           ]
         },

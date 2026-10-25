@@ -634,7 +634,7 @@
           "bahr": "thawil",
           "makna": "Ketahuilah, ilmu tidak akan kau raih kecuali dengan enam perkara. Akan kuberitahukan semuanya kepadamu dengan jelas.",
           "sumber": "Az-Zarnuji, Ta'lim al-Muta'allim, fasal tentang niat dan syarat belajar; dinisbatkan kepada Sayyidina 'Ali bin Abi Thalib. Teks dicocokkan dengan kutipan NU Online (Khutbah Jumat: Syarat Mencari Ilmu).",
-          "catatan": "Penisbatan kepada 'Ali masyhur di kitab-kitab adab, tetapi tanpa sanad. Ujung baitnya بِبَيَانِي = 11010: bentuk dharb ketiga, dibahas di pelajaran ini."
+          "catatan": "Penisbatan kepada 'Ali masyhur di kitab-kitab adab, tetapi tanpa sanad. Taf'ilah ujungnya, بَيَانِي dari بِبَيَانِ, = 11010: bentuk dharb ketiga, dibahas di pelajaran ini."
         },
         {
           "bait": [
@@ -678,7 +678,7 @@
         "langkah": [
           {
             "tampil": "teks",
-            "kata": "Lihat dulu ujung bait Ta'lim. بِبَيَانِي = 11010. Ini مَفَاعِيلُنْ yang kehilangan sabab terakhirnya. Namanya **hadzf**, sebuah 'illah, dan hasilnya dibaca فَعُولُنْ.",
+            "kata": "Lihat dulu ujung bait Ta'lim. بَيَانِي (dari بِبَيَانِ) = 11010. Ini مَفَاعِيلُنْ yang kehilangan sabab terakhirnya. Namanya **hadzf**, sebuah 'illah, dan hasilnya dibaca فَعُولُنْ.",
             "papan": "مَفَاعِيلُنْ 1101010 menjadi مَفَاعِي 11010, dibaca فَعُولُنْ\nhadzf · 'illah · surah ketiga thawil\nsekali dipakai di dharb, tetap sampai akhir"
           },
           {
@@ -776,7 +776,7 @@
           "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
           "soal": [
             {
-              "soal": "Dharb بِبَيَانِي berbentuk…",
+              "soal": "Dharb بَيَانِي (dari بِبَيَانِ) berbentuk…",
               "pilihan": [
                 "فَعُولُنْ = 11010, dengan hadzf",
                 "مَفَاعِلُنْ = 110110",
@@ -884,7 +884,7 @@
               ]
             },
             {
-              "petunjuk": "Sesudah وَ: kata فِعْلٍ bertanwin kasrah, misalnya حِرْصٍ، صَبْرٍ",
+              "petunjuk": "Sesudah وَ: kata فَعْلٍ/فِعْلٍ/فُعْلٍ bertanwin kasrah, misalnya حِرْصٍ، صَبْرٍ",
               "pola": "1010",
               "contoh": [
                 "حِرْصٍ",
@@ -904,7 +904,7 @@
               ]
             },
             {
-              "petunjuk": "Sesudah وَ: kata فُعْلَةٍ bertanwin kasrah, misalnya بُلْغَةٍ، هِمَّةٍ",
+              "petunjuk": "Sesudah وَ: kata فُعْلَةٍ/فِعْلَةٍ bertanwin kasrah, misalnya بُلْغَةٍ، هِمَّةٍ",
               "pola": "10110",
               "contoh": [
                 "بُلْغَةٍ",
@@ -974,7 +974,7 @@
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Anak tangga 4: mu'aradhah dengan calon.** Bait Ta'lim menjadi pola. Di setiap butir tangga ada tiga calon, dan satu di antaranya pincang. Pilih sendiri, timbang, lalu susun **satu bait** pembuka versi Anda.",
+          "petunjuk": "**Anak tangga 4: mu'aradhah dengan calon.** Bait Ta'lim menjadi pola. Di setiap butir tangga ada tiga calon: ada yang sewazan, ada yang pincang. Pilih sendiri, timbang, lalu susun **satu bait** pembuka versi Anda.",
           "bahr": "thawil",
           "makna": "Usul makna: hafalan, membaca kitab gundul, atau menulis nadzom tidak diraih kecuali dengan sekian perkara.",
           "bankKata": true,
@@ -1011,7 +1011,7 @@
               "ganti": "مَجْمُوعِهَا",
               "calon": [
                 "تَفْصِيلِهَا",
-                "شُرُوطِهَا",
+                "عَدَدِهَا",
                 "تَعْدَادِهَا"
               ]
             },
@@ -1072,9 +1072,9 @@
             {
               "bait": [
                 "إِذَا لَمْ يَكُنْ عَوْنٌ مِنَ اللَّهِ لِلْفَتَى",
-                "فَأَكْثَرُ مَا يَجْنِي عَلَيْهِ الِاجْتِهَادُ"
+                "فَأَوَّلُ مَا يَجْنِي عَلَيْهِ الِاجْتِهَادُ"
               ],
-              "catatan": "Pincang, diubah, bukan kutipan. Ganti اجْتِهَادُهُ dengan الِاجْتِهَادُ: dhamir hilang, alif-lam masuk, dan polanya bergeser."
+              "catatan": "Pincang, diubah, bukan kutipan. Riwayat yang masyhur: «فَأَوَّلُ مَا يَجْنِي عَلَيْهِ اجْتِهَادُهُ». Ganti اجْتِهَادُهُ dengan الِاجْتِهَادُ: dhamir hilang, alif-lam masuk, dan polanya bergeser."
             },
             {
               "bait": [
@@ -1244,7 +1244,7 @@
       "arti": "dan tekad",
       "laci": "wazan",
       "cocok": "'arudh مَفَاعِلُنْ",
-      "catatan": "وَ + فِعْلَةٍ: وَهِمْمَتِنْ = 110110, seperti وَبُلْغَةٍ.",
+      "catatan": "وَ + فِعْلَةٍ: وَهِمْمَتِنْ = 110110, sepola dengan وَبُلْغَةٍ (فُعْلَةٍ).",
       "tema": [
         "ilmu"
       ]

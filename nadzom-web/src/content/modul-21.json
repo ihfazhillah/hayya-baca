@@ -124,7 +124,7 @@
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama, Alfiyah bab al-'Athf. Syathr pertamanya 21 tanda: tiga kali 1010110, dibuka sabab, tanpa 1110 sama sekali. Taf'ilah terakhirnya, ـيَانِنْ أَوْ نَسَقْ, masih مُسْتَفْعِلُنْ utuh. Inilah rajaz. Syathr keduanya hanya 18 tanda karena thayy dan khabn, tetapi tetap tidak punya 1110 di awal taf'ilah.",
+        "Perhatikan contoh pertama, Alfiyah bab al-'Athf. Syathr pertamanya 21 tanda: tiga kali 1010110, dibuka sabab, tanpa 1110 sama sekali. Taf'ilah terakhirnya, نِنْ أَوْ نَسَقْ, masih مُسْتَفْعِلُنْ utuh. Inilah rajaz. Syathr keduanya hanya 18 tanda karena thayy dan khabn, tetapi tetap tidak punya 1110 di awal taf'ilah.",
         "Contoh kedua, Abu Tammam. Panjangnya juga 21, sama dengan rajaz. Tetapi setiap taf'ilah dibuka tiga huruf hidup, misalnya قُسِمَلْ di awal syathr pertama dan فَذَهَبْ di awal syathr kedua. Tiga kali 1110110 per syathr. 1110 yang berulang di awal setiap taf'ilah adalah tanda kamil. Panjang yang sama tidak berarti bahr yang sama; pertanyaan kedua yang memisahkan.",
         "Contoh ketiga, al-Mutanabbi. Panjangnya 19. Polanya 1101110 dua kali, lalu 11010. 1110 ada, tetapi didahului watad: مُفَاعَلَتُنْ = 110 lalu 1110. Ujungnya تَرَانِي dan الْهَبَاءِ, masing-masing مُفَاعَلْ, 11010. Inilah wafir. Kamil dan wafir sama-sama punya 1110; letaknya yang berbeda.",
         "Contoh keempat, al-Bushiri, dan bait peragaan Abu al-Aswad: dua bait basith. Panjangnya 23, dan 1110 hanya ada di ujung: ـنَ لَهُو dan يَنَمِي. Di tengah syathr tidak ada tiga huruf hidup beruntun, karena taf'ilahnya utuh. Bila فَاعِلُنْ di tengah terkena khabn, 1110 muncul juga di tengah, tetapi ujungnya tetap فَعِلُنْ.",
@@ -150,7 +150,7 @@
       ],
       "qaidah": [
         "**Pertanyaan 1, panjang syathr.** Sekitar 14 tanda: bahr pendek. 19 sampai 21: rajaz, kamil, wafir, khafif, mutaqarib. 23 sampai 24: basith dan thawil.",
-        "**Pertanyaan 2, letak 1110.** Di awal setiap taf'ilah: kamil. Setelah 110: wafir. Hanya di ujung syathr: basith. Tidak ada sama sekali: rajaz, thawil, mutaqarib, khafif, dan yang lain.",
+        "**Pertanyaan 2, letak 1110.** Di awal setiap taf'ilah: kamil. Setelah 110: wafir. Hanya di ujung syathr: basith. Tidak ada sama sekali: rajaz, thawil, mutaqarib, khafif, dan yang lain. Hati-hati: khafif makhbun, فَعِلَاتُنْ = 111010, lazim dan juga dibuka 1110, tetapi taf'ilahnya enam tanda, bukan tujuh.",
         "**Pertanyaan 3, pembuka.** Watad 110: thawil, mutaqarib, wafir, hazaj. Sabab 10: rajaz, basith, khafif, ramal, mujtats. Lihat dua taf'ilah pertama, bukan satu suku saja, karena khabn bisa membuat sabab tampak seperti watad.",
         "**Pertanyaan 4, ujung.** مُفَاعَلْ 11010: wafir. فَعِلُنْ 1110: basith. 'Arudh مَفَاعِلُنْ 110110: thawil. فَاعِلَاتُنْ 1011010: khafif, ramal, mujtats. مُسْتَفْعِلُنْ atau مَفْعُولُنْ: rajaz.",
         "Timbang dengan bahr yang Anda duga **setelah** keempat pertanyaan terjawab, bukan sebelumnya."
@@ -437,8 +437,8 @@
           },
           {
             "tampil": "teks",
-            "kata": "Inilah pecinya. Rajaz tidak bisa menghasilkan 1110110 sebagai satu taf'ilah. Zihaf rajaz memendekkan: khabn menjadi 110110, thayy menjadi 101110, enam tanda. Kamil tidak pernah memendekkan hasywnya; idhmar hanya mematikan huruf kedua, jadi setiap taf'ilah tetap tujuh tanda.",
-            "papan": "kamil: 1110110 atau 1010110, selalu 7 tanda\nrajaz: 1010110, 110110, 101110, atau 11110\n\nsatu 1110110 utuh = kamil"
+            "kata": "Inilah pecinya. Rajaz tidak bisa menghasilkan 1110110 sebagai satu taf'ilah. Zihaf rajaz memendekkan: khabn menjadi 110110, thayy menjadi 101110, enam tanda. Idhmar kamil hanya mematikan huruf kedua, jadi taf'ilahnya tetap tujuh tanda. Dalam praktik kamil hampir selalu tujuh tanda; waqsh dan khazl (Modul 6) ada tetapi qabih dan jarang, jadi 101110 hampir pasti rajaz.",
+            "papan": "kamil: 1110110 atau 1010110, hampir selalu 7 tanda\nrajaz: 1010110, 110110, 101110, atau 11110\n\nsatu 1110110 utuh = kamil"
           },
           {
             "tampil": "mizan",
@@ -474,7 +474,7 @@
         },
         {
           "salah": "Rajaz dengan thayy, seperti هَاكَ حُرُو, disebut kamil karena ada 1110.",
-          "benar": "Hitung tanda taf'ilahnya. Thayy membuat enam tanda, 101110. Kamil selalu tujuh.",
+          "benar": "Hitung tanda taf'ilahnya. Thayy membuat enam tanda, 101110. Dalam praktik kamil hampir selalu tujuh tanda; waqsh dan khazl (Modul 6) ada tetapi qabih dan jarang, jadi 101110 hampir pasti rajaz.",
           "sebab": "Zihaf rajaz membuang huruf; idhmar kamil hanya mematikan huruf. Panjang taf'ilah membuka rahasianya."
         },
         {
@@ -489,7 +489,7 @@
         }
       ],
       "qaidah": [
-        "**Rajaz atau kamil ber-idhmar**: cari satu taf'ilah 1110110. Ada berarti kamil. Kamil selalu tujuh tanda per taf'ilah hasyw; rajaz yang berzihaf enam atau lima.",
+        "**Rajaz atau kamil ber-idhmar**: cari satu taf'ilah 1110110. Ada berarti kamil. Rajaz yang berzihaf enam atau lima tanda per taf'ilah. Dalam praktik kamil hampir selalu tujuh tanda; waqsh dan khazl (Modul 6) ada tetapi qabih dan jarang, jadi 101110 hampir pasti rajaz.",
         "**Mutaqarib atau thawil**: keduanya dibuka فَعُولُنْ. Mutaqarib 20 tanda, langkahnya lima-lima. Thawil 23 sampai 24, langkahnya lima-tujuh, dan 'arudhnya مَفَاعِلُنْ.",
         "**Hazaj atau wafir majzu'**: keduanya 14 tanda dan dibuka watad. Ada 1110 berarti wafir majzu'. Tidak ada sama sekali: hazaj, sampai bait lain membuktikan sebaliknya.",
         "**Tam atau majzu'**: hitung taf'ilahnya. Kamil dan wafir tam tiga per syathr, majzu'-nya dua. Basith tam empat, majzu'-nya tiga."
@@ -515,7 +515,7 @@
                 "Kamil"
               ],
               "jawaban": 0,
-              "alasan": "Taf'ilah pertama dan ketiga hanya enam tanda: thayy dan khabn. Kamil selalu tujuh."
+              "alasan": "Taf'ilah pertama dan ketiga hanya enam tanda: thayy dan khabn. Dalam praktik kamil hampir selalu tujuh tanda; waqsh dan khazl (Modul 6) ada tetapi qabih dan jarang, jadi 101110 hampir pasti rajaz."
             },
             {
               "soal": "Dua bait dibuka 11010. Bait A 20 tanda, bait B 23 tanda. Mana thawil?",
@@ -867,7 +867,7 @@
         "Perhatikan contoh pertama dan bait peragaan, dua bait dari qashidah yang sama. سَائِلُوهُو = 1011010, كَلْلِمُوهُو = 1011010. Setiap taf'ilah adalah satu fi'il amr dengan dhamir, dan setiap fi'il itu berwazan فَاعِلُوهُ atau فَعِّلُوهُ, yang keduanya 1011010. Abu al-'Atahiyah memilih bahr yang wadahnya pas untuk kata-katanya.",
         "Contoh kedua, juga Abu al-'Atahiyah, dalam mujtats. لَا تَدْفَعُلْ = 1010110, lalu مَوْتَ عَمْ مَنْ = 1011010. Taf'ilah keduanya sama dengan ramal; taf'ilah pertamanya yang berbeda. Di mujtats, watad taf'ilah pertama ada di ujung; di ramal, di tengah.",
         "Contoh ketiga, kamil majzu'. أَحْدِثْ لِرَبْ = 1010110, sama dengan pembuka mujtats. Taf'ilah keduanya بِكَ تَوْبَتَنْ = 1110110, utuh, dan syathr keduanya utuh semua. Satu taf'ilah pertama tidak cukup bila ia berzihaf. Lihat taf'ilah kedua.",
-        "Satu lagi di keluarga pendek: **basith majzu'**. Mukhalla'-nya sekitar 16 tanda, dan polanya 110110 10110 11010. Tiga taf'ilah, bukan dua. Bila Anda menghitung 16, atau tiga taf'ilah yang tidak sama panjang, ingat basith majzu'.",
+        "Satu lagi di keluarga pendek: **basith majzu'**. Mukhalla'-nya 16–17 tanda, dan polanya 110110 10110 11010. Tiga taf'ilah, bukan dua. Bila Anda menghitung 16, atau tiga taf'ilah yang tidak sama panjang, ingat basith majzu'.",
         "Untuk sepuluh bait terakhir: jangan menebak dari rasa, meskipun telinga Anda sudah lebih tajam. Tulis keempat jawaban di kertas untuk setiap bait. Bila dua jawaban bertentangan, periksa ulang tanda Anda; biasanya ada syaddah atau hamzah washal yang terlewat."
       ],
       "keliru": [
@@ -890,7 +890,7 @@
       "qaidah": [
         "**Keluarga pendek** dibedakan dari taf'ilah pertama dan kedua: ramal majzu' 1011010 1011010; mujtats 1010110 1011010; kamil majzu' 1110110 1110110; wafir majzu' 1101110 1101110; hazaj 1101010 1101010.",
         "Bila taf'ilah pertama berzihaf, lihat taf'ilah kedua. Bila keduanya berzihaf, lihat syathr yang lain.",
-        "**Basith majzu'** tiga taf'ilah per syathr; mukhalla'-nya 16 tanda dengan ujung 11010.",
+        "**Basith majzu'** tiga taf'ilah per syathr; mukhalla'-nya 16–17 tanda dengan ujung 11010.",
         "Dalam ujian, jawab sekali. Empat pertanyaan di kertas, lalu satu pilihan."
       ],
       "tamarin": [

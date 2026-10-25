@@ -109,7 +109,7 @@
         "Perhatikan contoh pertama, mathla' Imru'ul Qais. Ujungnya فَحَوْمَلِ, dibaca فَحَوْمَلِي. Rawiy ل berharakat kasrah, jadi qafiyahnya **muthlaqah**. Huruf sebelum rawiy adalah م berharakat; tidak ada huruf mad di sana dan tidak ada alif dua huruf sebelumnya. Qafiyah tanpa ridf dan tanpa ta'sis disebut **mujarradah**.",
         "Contoh kedua, Nuniyah Ibnul Qayyim, yang Anda bedah di Modul 7. Rawiy ن berkasrah, didahului alif: ridf. Qafiyah ber-ridf disebut **mardufah**. Contoh ketiga, al-Mutanabbi. Ujung الْمَكَارِمُ: alif, lalu ر, lalu rawiy م. Alif berjarak satu huruf hidup itu ta'sis; huruf di antaranya disebut **dakhil**. Qafiyah ber-ta'sis disebut **mu'assasah**.",
         "Contoh keempat dari Alfiyah: الْكَلِمْ. Rawiy م mati. Qafiyah dengan rawiy mati disebut **muqayyadah**, seperti yang Anda pelajari di ramal majzu'. Sebelum م ada لِ berharakat, tanpa ridf: muqayyadah mujarradah. Muqayyadah juga bisa mardufah (ridf lalu rawiy mati, seperti بِعُسْفَانْ di Modul 14) atau mu'assasah, tetapi keduanya jarang.",
-        "Jadi ada enam wajah: muthlaqah mujarradah, muthlaqah mardufah, muthlaqah mu'assasah, muqayyadah mujarradah, muqayyadah mardufah, muqayyadah mu'assasah. Wajah yang dipilih di bait pertama mengikat seluruh qashidah. Itulah sebabnya pemeriksa qafiyah membandingkan setiap bait dengan bait pertama.",
+        "Jadi ada enam wajah dasar: muthlaqah mujarradah, muthlaqah mardufah, muthlaqah mu'assasah, muqayyadah mujarradah, muqayyadah mardufah, muqayyadah mu'assasah. Kitab qafiyah menghitung sembilan, karena wasl pada ketiga wajah muthlaqah bisa berupa huruf mad atau ha. Wajah yang dipilih di bait pertama mengikat seluruh qashidah. Itulah sebabnya pemeriksa qafiyah membandingkan setiap bait dengan bait pertama.",
         "Contoh kelima, Labid, memperlihatkan nama-nama huruf yang paling lengkap. Huruf qafiyah ada enam: **rawiy**, **wasl**, **khuruj** (sesudah rawiy), dan **ridf**, **ta'sis**, **dakhil** (sebelum rawiy). Harakatnya juga enam: **majra** (harakat rawiy), **nafadz** (harakat ha wasl), **hadzw** (harakat sebelum ridf), **rass** (fathah sebelum alif ta'sis), **isyba'** (harakat dakhil), dan **taujih** (harakat sebelum rawiy yang mati).",
         "Hati-hati dengan nama **isyba'** di sini. Di Modul 2, isyba' berarti memanjangkan harakat. Dalam ilmu qafiyah, isyba' adalah nama harakat dakhil: kasrah ر dalam الْمَكَارِمُ. Nama sama, arti lain, seperti istilah yang berbeda antara nahwu dan tajwid. Untuk menyusun, Anda tidak perlu menghafal keenam nama harakat; yang wajib dijaga adalah rawiy, majra, ridf, dan ta'sis. Nama lainnya membantu Anda membaca kitab qafiyah."
       ],
@@ -138,7 +138,7 @@
       "qaidah": [
         "**Muthlaqah**: rawiy berharakat, diikuti wasl. **Muqayyadah**: rawiy mati.",
         "**Mujarradah**: tanpa ridf dan tanpa ta'sis. **Mardufah**: ada ridf, huruf mad tepat sebelum rawiy. **Mu'assasah**: ada ta'sis, alif yang dipisah satu huruf hidup (dakhil) dari rawiy.",
-        "Enam wajah: muthlaqah atau muqayyadah, dikali mujarradah, mardufah, atau mu'assasah. Wajah bait pertama mengikat seluruh qashidah.",
+        "Enam wajah dasar: muthlaqah atau muqayyadah, dikali mujarradah, mardufah, atau mu'assasah. Kitab menghitung sembilan karena wasl muthlaqah bisa mad atau ha. Wajah bait pertama mengikat seluruh qashidah.",
         "**Huruf qafiyah**: rawiy, wasl (mad atau ha setelah rawiy), khuruj (mad setelah ha wasl), ridf, ta'sis, dakhil.",
         "**Harakat qafiyah**: majra (rawiy), nafadz (ha wasl), hadzw (sebelum ridf), rass (sebelum ta'sis), isyba' (dakhil), taujih (sebelum rawiy mati). Yang wajib dijaga saat menyusun: majra, dan ada tidaknya ridf dan ta'sis."
       ],
@@ -374,7 +374,7 @@
           },
           {
             "tampil": "teks",
-            "kata": "Mutaradif hanya ada pada qafiyah muqayyadah mardufah: ridf lalu rawiy mati, seperti syahid kitab 'arudh di Modul 14. Ia muncul di dharb yang sangat panjang (tasbigh).",
+            "kata": "Mutaradif hanya ada pada qafiyah muqayyadah mardufah: ridf lalu rawiy mati, seperti syahid kitab 'arudh di Modul 14. Ia muncul di dharb yang berakhir dua sukun: musabbagh, mudzayyal, atau maqshur.",
             "papan": "يَا خَلِيلَيَّ ارْبَعَا فَاسْـ / ـتَخْبِرَا رَسْمًا بِعُسْفَانْ\nبِعُسْفَانْ: ا (0) نْ (0) = mutaradif\n(al-'Iqd al-Farid, juz 5, bab 'arudh)"
           }
         ],
@@ -636,7 +636,7 @@
           {
             "tampil": "teks",
             "kata": "Cacat qafiyah yang lain mengikuti pola yang sama: satu unsur ujung bait tidak setia kepada bait pertama.",
-            "papan": "iqwa' = majra berganti (dَ dengan dُ, atau dِ dengan dُ)\nikfa' = rawiy berganti ke huruf yang makhrajnya dekat (ن dengan م)\nita' = kata qafiyah diulang dengan makna sama, dalam jarak dekat\nsinad = unsur sebelum rawiy berganti (ridf, ta'sis, atau harakatnya)\ntadhmin = makna bait bergantung pada bait sesudahnya"
+            "papan": "iqwa' = majra kasrah bertukar dengan dhammah (dِ dengan dُ)\nishraf = majra berganti dan salah satunya fathah (dَ dengan dُ atau dِ)\nikfa' = rawiy berganti ke huruf yang makhrajnya dekat (ن dengan م)\nita' = kata qafiyah diulang dengan makna sama, dalam jarak dekat\nsinad = unsur sebelum rawiy berganti (ridf, ta'sis, atau harakatnya)\ntadhmin = makna bait bergantung pada bait sesudahnya"
           },
           {
             "tampil": "teks",
@@ -653,7 +653,7 @@
         "Perhatikan contoh pertama dan kedua, dua bait berurutan dari an-Nabighah. Bait 2 berakhir قَدِ, bait 3 berakhir الْأَسْوَدُ. Rawiynya sama, د, tetapi majranya berganti dari kasrah ke dhammah. Inilah **iqwa'**. Para ulama qafiyah menjadikan bait ini syahid karena penyairnya justru seorang hakim syair. Iqwa' adalah cacat qafiyah yang paling mudah terdengar.",
         "Contoh ketiga dari Taj al-'Arus: هَيِّنُ dan الطُّعَيِّمُ. Rajaz masythur menuntut setiap syathr berqafiyah sama. Di sini rawiy berganti dari ن ke م, dua huruf yang makhrajnya berdekatan dan sama-sama ghunnah. Pergantian rawiy dengan huruf yang dekat makhrajnya disebut **ikfa'**. Bila hurufnya berjauhan, ulama menyebutnya ijazah, dan itu lebih buruk lagi. Bagi kita keduanya satu hukum: rawiy tidak boleh berganti.",
         "**Ita'** adalah mengulang kata qafiyah dengan lafaz dan makna yang sama dalam jarak dekat. Anda sudah diperingatkan di Modul 7: jangan menutup tiga bait dengan الْقُرْآنِ. Ulama membolehkan pengulangan setelah jarak yang jauh, sebagian menyebut tujuh bait. Bila lafaznya sama tetapi maknanya berbeda (عَيْنٌ mata dan عَيْنٌ mata air), itu bukan ita', melainkan jinas.",
-        "**Sinad** adalah berubahnya sesuatu sebelum rawiy. Bentuk yang paling sering: satu bait ber-ridf dan bait lain tidak (sinad ridf), atau satu bait ber-ta'sis dan bait lain tidak (sinad ta'sis). Di Modul 7, menutup nuniyah ـانِ dengan الدِّينِ adalah sinad ridf, dan dengan الْأَمَاكِنِ adalah sinad ta'sis. Ada pula sinad harakat: hadzw atau taujih berganti, misalnya qafiyah muqayyadah yang taujihnya fathah lalu kasrah. Sinad harakat lebih halus dan ulama berbeda pendapat tentang beratnya.",
+        "**Sinad** adalah berubahnya sesuatu sebelum rawiy. Bentuk yang paling sering: satu bait ber-ridf dan bait lain tidak (sinad ridf), atau satu bait ber-ta'sis dan bait lain tidak (sinad ta'sis), atau ridf alif bertukar dengan ridf ya/waw. Di Modul 7, menutup nuniyah ـانِ dengan الدِّينِ adalah sinad ridf, dan dengan الْأَمَاكِنِ adalah sinad ta'sis. Ada pula sinad harakat: hadzw atau taujih berganti, misalnya qafiyah muqayyadah yang taujihnya fathah lalu kasrah. Sinad harakat lebih halus dan ulama berbeda pendapat tentang beratnya.",
         "Contoh keempat dan kelima, an-Nabighah lagi. Bait pertama berakhir إِنِّي: sesungguhnya aku... dan khabarnya, شَهِدْتُ, baru datang di bait berikutnya. Bait yang maknanya tidak selesai sampai bait sesudahnya disebut **tadhmin**. Dalam qashidah, tadhmin dinilai cacat, karena setiap bait qashidah semestinya bisa dikutip sendiri. Semakin erat ketergantungannya, seperti إِنَّ dan khabarnya, semakin berat cacatnya.",
         "Contoh keenam memperlihatkan sisi lain. Dalam Alfiyah, إِنْ عَرِيَا menunggu jawabannya di bait 20: مِنْ نُونِ تَوْكِيدٍ مُبَاشِرٍ وَمِنْ نُونِ إِنَاثٍ. Dalam nadzom ilmi, tadhmin lazim dan tidak dicela, karena yang dituju adalah kaidah yang utuh, bukan bait yang dikutip sendiri. Untuk Diwan Anda: qashidah, hindari tadhmin; nadzom ilmi, boleh, tetapi usahakan setiap bait tetap bisa dipahami."
       ],
@@ -683,7 +683,7 @@
         "**Iqwa'**: majra berganti dengan rawiy yang sama (قَدِ dengan الْأَسْوَدُ).",
         "**Ikfa'**: rawiy berganti ke huruf yang dekat makhrajnya (هَيِّنُ dengan الطُّعَيِّمُ). Bila hurufnya berjauhan disebut ijazah.",
         "**Ita'**: kata qafiyah diulang, lafaz dan maknanya sama, dalam jarak dekat.",
-        "**Sinad**: sesuatu sebelum rawiy berganti: ridf ada dan tidak ada, ta'sis ada dan tidak ada, atau harakat sebelum rawiy (hadzw, taujih, isyba') berubah.",
+        "**Sinad**: sesuatu sebelum rawiy berganti: ridf ada dan tidak ada, ta'sis ada dan tidak ada, ridf alif bertukar dengan ya/waw, atau harakat sebelum rawiy (hadzw, taujih, isyba') berubah.",
         "**Tadhmin**: makna bait bergantung pada bait sesudahnya. Cacat dalam qashidah, lazim dalam nadzom ilmi.",
         "Pemeriksa qafiyah Hudhud menangkap iqwa', ikfa'/ijazah, dan sinad ridf/ta'sis. Ita', tadhmin, dan sinad harakat diperiksa dengan mata Anda sendiri."
       ],

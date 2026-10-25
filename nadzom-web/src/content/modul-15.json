@@ -269,11 +269,11 @@
             },
             {
               "bait": [
-                "كُلُّ عَيْشٍ مَا لَمْ تُطَبْهُ حِمَامٌ",
-                "كُلُّ شَمْسٍ مَا لَمْ تَكُنْهَا ظَلَامُ"
+                "عِيدَ قَيْسٌ مِنْ حُبِّ لُبْنَى وَلُبْنَى",
+                "دَاءُ قَيْسٍ وَالْحُبُّ دَاءٌ شَدِيدُ"
               ],
               "bahr": "khafif",
-              "sumber": "Al-Mutanabbi; https://www.aldiwan.net/poem10141.html"
+              "sumber": "Qais bin Dzarih; https://www.aldiwan.net/poem4880.html"
             },
             {
               "bait": [
@@ -439,7 +439,7 @@
           },
           {
             "tampil": "bahr",
-            "kata": "Khabn di mujtats **hasan**, di kedua taf'ilah. Pada taf'ilah pertama ada juga **kaff** (membuang nun لُنْ: 101011) dan **syakl** (khabn dan kaff bersama: 11011). Keduanya qabih: kenali bila bertemu, jangan dipakai."
+            "kata": "Khabn di mujtats **hasan**, di kedua taf'ilah. Pada taf'ilah pertama ada juga **kaff** (membuang nun لُنْ: 101011) dan **syakl** (khabn dan kaff bersama: 11011). Kaff dinilai shalih, sama seperti di khafif: cukup dikenali. Syakl qabih: kenali bila bertemu, jangan dipakai."
           }
         ],
         "giliran": {
@@ -463,7 +463,7 @@
         },
         {
           "salah": "Menganggap semua perubahan yang sah di rajaz juga sah di pembuka mujtats.",
-          "benar": "Hanya khabn yang hasan. Thayy patah; kaff dan syakl qabih.",
+          "benar": "Hanya khabn yang hasan. Kaff shalih, syakl qabih, dan thayy patah.",
           "sebab": "Pembuka mujtats adalah مُسْتَفْعِ لُنْ dengan watad mafruq, bukan مُسْتَفْعِلُنْ rajaz."
         },
         {
@@ -475,7 +475,7 @@
       "qaidah": [
         "**Khabn** di mujtats: مُسْتَفْعِ لُنْ (1010110) menjadi مُتَفْعِ لُنْ (110110); فَاعِلَاتُنْ (1011010) menjadi فَعِلَاتُنْ (111010). Keduanya hasan.",
         "Khabn boleh di kedua taf'ilah, termasuk di ujung syathr.",
-        "**Kaff** (مُسْتَفْعِ لُ, 101011) dan **syakl** (مُتَفْعِ لُ, 11011) pada taf'ilah pertama dinilai qabih: cukup dikenali.",
+        "**Kaff** (مُسْتَفْعِ لُ, 101011) pada taf'ilah pertama dinilai shalih, sama seperti di khafif; **syakl** (مُتَفْعِ لُ, 11011) qabih. Keduanya cukup dikenali.",
         "**Thayy patah** di taf'ilah pertama, karena fa-nya bagian dari watad mafruq.",
         "Hafalkan kuncinya: إِنْ جُثَّتِ الْحَرَكَاتُ، مُسْتَفْعِلُنْ فَاعِلَاتُ."
       ],
@@ -517,12 +517,12 @@
             {
               "soal": "Kaff dan syakl pada taf'ilah pertama mujtats dinilai?",
               "pilihan": [
-                "Qabih",
-                "Hasan",
-                "Wajib"
+                "Kaff shalih, syakl qabih",
+                "Keduanya hasan",
+                "Keduanya wajib"
               ],
               "jawaban": 0,
-              "alasan": "Boleh dikenali, tetapi dihindari di bait sendiri."
+              "alasan": "Kaff shalih, sama seperti di khafif; syakl qabih. Keduanya cukup dikenali, dan di bait sendiri cukup khabn."
             },
             {
               "soal": "Mengapa kunci mujtats baru ditimbang di pelajaran ini?",
@@ -623,7 +623,7 @@
         },
         {
           "jenis": "irama",
-          "petunjuk": "Putar bait ketiga al-Khalil. Lagukan bersamanya tiga kali, dan dengarkan di mana suku panjang pembuka menjadi pendek.",
+          "petunjuk": "Putar bait ketiga al-Khalil. Lagukan bersamanya tiga kali, dan dengarkan di mana suku panjang pembuka menjadi pendek. Catatan: mesin memanjangkan ha فِيهِ menjadi فِيهِي, sehingga taf'ilah kedua syathr pertama utuh. Isyba' ha setelah huruf mati itu darurah (Modul 19). Bacaan biasa, هِوَتَأْوِي = 111010, adalah khabn.",
           "bait": [
             "تَظَلُّ فِيهِ وَتَأْوِي",
             "حَتَّى يَجِيئَكَ مَوْتُ"
@@ -657,7 +657,7 @@
           "bahr": "mujtats",
           "makna": "Engkau bernaung dan berlindung di dalamnya sampai ajal datang menjemputmu.",
           "sumber": "Al-Khalil bin Ahmad al-Farahidi. Ibnu Hibban, Raudhat al-'Uqala' dan ats-Tsiqat; adz-Dzahabi, Tarikh al-Islam. Dicocokkan lewat turath.io. Ibnu Hibban dalam ats-Tsiqat: حَتَّى يَجِيئَكَ مَوْتُكَ; al-Ashbahani, Siyar as-Salaf: مُوَيْتُ.",
-          "catatan": "مَوْتُ ber-ridf waw lin, berqafiyah dengan زَيْتُ dan بُيَيْتُ yang ber-ridf ya lin."
+          "catatan": "مَوْتُ ber-ridf waw lin, berqafiyah dengan زَيْتُ dan بُيَيْتُ yang ber-ridf ya lin. Mesin menimbang فِيهِ dengan ha dipanjangkan (فِيهِي), darurah yang dibahas di Modul 19; dibaca biasa, taf'ilah kedua syathr pertama makhbun."
         },
         {
           "bait": [

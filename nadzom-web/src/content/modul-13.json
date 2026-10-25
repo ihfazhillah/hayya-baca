@@ -446,7 +446,7 @@
           "bahr": "thawil",
           "makna": "Siapa yang terlewat belajar di masa mudanya, bertakbirlah empat kali atasnya, seperti menshalatkan jenazahnya.",
           "sumber": "Diwan al-Imam asy-Syafi'i, qashidah «اصبر على مر الجفا من معلم», bait 3. Teks: https://www.aldiwan.net/poem24719.html; harakat dilengkapi penyusun.",
-          "catatan": "Model penutup berupa peringatan: مَنْ syarat, lalu jawabnya dengan فَ. Dharb مَفَاعِلُنْ: لِوَفَاتِهِي."
+          "catatan": "Model penutup berupa peringatan: مَنْ syarat, lalu jawabnya dengan فَ. Dharb مَفَاعِلُنْ: وَفَاتِهِي."
         }
       ],
       "bahts": {
@@ -865,6 +865,11 @@
           {
             "tampil": "mizan",
             "kata": "قَلْ بِي وِ عَا = 1010110, utuh. ءُنْ لَ هُو = 10110, فَاعِلُنْ utuh. لَا بَطْ نُ صُنْ = 1010110, utuh. دُو قِي = 1010, dharb فَعْلُنْ. Lalu telusuri sebab kasrahnya: صُنْدُوقِ mudhaf ilaih dari بَطْنُ, dan بَطْنُ di-'athf-kan pada وِعَاءٌ dengan لَا."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Kartu sesi ini juga meminta **syarh singkat** sebelum Diwan. Tulis seperti syarah matan: kedudukan kata yang penting, lalu makna setiap syathr. Bait yang belum bisa Anda syarah belum matang. Contohnya untuk bait asy-Syafi'i ini:",
+            "papan": "syathr 1: عِلْمِي mubtada', مَعِي khabar. حَيْثُمَا syarthiyyah; يَمَّمْتُ fi'il syarth.\n  يَنْفَعُنِي jawab, marfu': sesudah syarth madhi, rafa' jawab boleh.\n  Makna: ilmuku bersamaku; ke mana pun aku menuju, ia memberiku manfaat.\nsyathr 2: قَلْبِي mubtada', وِعَاءٌ khabar, لَهُ sifat bagi وِعَاءٌ.\n  لَا 'athf: بَطْنُ ma'thuf pada وِعَاءٌ, صُنْدُوقِ mudhaf ilaih.\n  Makna: hatiku wadahnya, bukan perut sebuah peti."
           },
           {
             "tampil": "teks",

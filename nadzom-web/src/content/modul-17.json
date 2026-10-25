@@ -14,13 +14,13 @@
       "amtsilah": [
         {
           "bait": [
-            "لَوْ أَطَعْنَا لِلصَّبْرِ عِنْدَ الرَّزَايَا",
-            "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءِ"
+            "كَيْفَ بُعْدِي لَا ذُقْتُمُ الْبَيْنَ أَنْتُمْ",
+            "خَبِّرُونِي مُذْ بِنْتُ عَنْكُمْ وَبِنْتُمْ"
           ],
           "bahr": "khafif",
-          "makna": "Seandainya kita menaati kesabaran ketika ditimpa musibah, kita tidak akan merasakan beda antara kesulitan dan kelapangan.",
-          "sumber": "Ibnu al-Mu'tazz, qashidah «فك حرا للوجد قيد البكاء». https://www.aldiwan.net/poem27332.html. Harakat dilengkapi.",
-          "catatan": "Enam taf'ilah utuh. Bait sabar yang menjadi pola mu'aradhah di Pelajaran 3."
+          "makna": "Bagaimana keadaanku sejak berpisah? Semoga kalian tidak pernah merasakan perpisahan. Kabarkanlah kepadaku, sejak aku berpisah dari kalian dan kalian berpisah dariku.",
+          "sumber": "Abu Tammam, qashidah «كيف بعدي لا ذقتم البين أنتم». https://www.aldiwan.net/poem30104.html. Harakat dilengkapi.",
+          "catatan": "Enam taf'ilah utuh. Bait sabar Ibnu al-Mu'tazz yang menjadi pola mu'aradhah di Pelajaran 3 ditimbang di sana."
         },
         {
           "bait": [
@@ -34,13 +34,13 @@
         },
         {
           "bait": [
-            "أَذْكَرَتْهُ أَيَّامُ هَذَا التَّنَائِي",
-            "مَا مَضَى مِنْ أَيَّامِ ذَاكَ التَّدَانِي"
+            "مَا بِعَيْنِي هَذَا الْغَزَالِ الْغَرِيرِ",
+            "مِنْ فُتُونٍ مُسْتَجْلَبٍ مِنْ فُتُورِ"
           ],
           "bahr": "khafif",
-          "makna": "Hari-hari perpisahan ini mengingatkannya pada hari-hari kebersamaan yang telah berlalu.",
-          "sumber": "Asy-Syarif ar-Radhi, qashidah «ما أقل اعتبارنا بالزمان». https://www.aldiwan.net/poem29740.html. Harakat dilengkapi.",
-          "catatan": "Dua syathr yang sejajar: أَيَّامُ هَذَا dan أَيَّامِ ذَاكَ sama-sama mengisi taf'ilah tengah."
+          "makna": "Betapa besar pesona di kedua mata kijang muda yang lugu ini, pesona yang terpancar dari sayunya.",
+          "sumber": "Al-Buhturi, qashidah «ما بعيني هذا الغزال الغرير». https://www.aldiwan.net/poem63566.html. Harakat dilengkapi.",
+          "catatan": "Taf'ilah tengah kedua syathr mudah dikenali: هَاذَلْغَزَا dan مُسْتَجْلَبِنْ sama-sama 1010110."
         },
         {
           "bait": [
@@ -54,16 +54,16 @@
       ],
       "bahts": {
         "bait": [
-          "لَوْ أَطَعْنَا لِلصَّبْرِ عِنْدَ الرَّزَايَا",
-          "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءِ"
+          "كَيْفَ بُعْدِي لَا ذُقْتُمُ الْبَيْنَ أَنْتُمْ",
+          "خَبِّرُونِي مُذْ بِنْتُ عَنْكُمْ وَبِنْتُمْ"
         ],
         "bahr": "khafif",
-        "makna": "Seandainya kita menaati kesabaran ketika ditimpa musibah, kita tidak akan merasakan beda antara kesulitan dan kelapangan.",
+        "makna": "Bagaimana keadaanku sejak berpisah? Semoga kalian tidak pernah merasakan perpisahan. Kabarkanlah kepadaku, sejak aku berpisah dari kalian dan kalian berpisah dariku.",
         "syathr": 0,
         "langkah": [
           {
             "tampil": "bait",
-            "kata": "Bait sabar dari Ibnu al-Mu'tazz. Syathrnya sepanjang syathr ramal tam, tetapi lagunya berbelok di tengah. Kita timbang **syathr pertama**."
+            "kata": "Bait Abu Tammam. Syathrnya sepanjang syathr ramal tam, tetapi lagunya berbelok di tengah. Kita timbang **syathr pertama**."
           },
           {
             "tampil": "irama",
@@ -71,7 +71,7 @@
           },
           {
             "tampil": "kitabah",
-            "kata": "لِلصَّبْرِ: lam jar, lalu lam ta'rif yang melebur ke shad karena huruf syamsiyyah, jadi لِصْصَبْرِ. الرَّزَايَا: sama, دَرْرَزَايَا."
+            "kata": "ذُقْتُمُ الْبَيْنَ: mim jama' diberi dhammah supaya bisa bersambung, lalu hamzah washal gugur: ذُقْتُمُلْبَيْنَ. أَنْتُمْ di ujung syathr: mim mati, tidak dipanjangkan."
           },
           {
             "tampil": "tanda",
@@ -83,7 +83,7 @@
           },
           {
             "tampil": "mizan",
-            "kata": "لَوْ أَطَعْنَا = 1011010, **فَاعِلَاتُنْ**. لِصْصَبْرِعِنْ = 1010110, bunyi مُسْتَفْعِلُنْ. دَرْرَزَايَا = 1011010, فَاعِلَاتُنْ lagi."
+            "kata": "كَيْفَ بُعْدِي = 1011010, **فَاعِلَاتُنْ**. لَاذُقْتُمُلْ = 1010110, bunyi مُسْتَفْعِلُنْ. بَيْنَأَنْتُمْ = 1011010, فَاعِلَاتُنْ lagi."
           },
           {
             "tampil": "teks",
@@ -97,15 +97,15 @@
         ],
         "giliran": {
           "syathr": 1,
-          "petunjuk": "Giliran Anda: **syathr kedua**. عَرَفْنَاهُ: ha dhamir setelah alif tidak dipanjangkan. شِدَّةً: syaddah dua huruf, ta marbutah dibaca ت, tanwin menjadi نْ. رَخَاءِ di ujung bait: kasrah dipanjangkan."
+          "petunjuk": "Giliran Anda: **syathr kedua**. خَبِّرُونِي: ba bersyaddah dua huruf, خَبْبِرُونِي. بِنْتُ: ta berharakat, dihitung hidup. وَبِنْتُمْ di ujung bait: mim mati, tidak dipanjangkan."
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama, bait Ibnu al-Mu'tazz. لَوْ أَطَعْنَا = لَوْ 10, أَ 1, طَعْ 10, نَا 10, jadi 1011010: **فَاعِلَاتُنْ**, taf'ilah ramal yang Anda kenal sejak Modul 14. Taf'ilah ketiga, دَرْرَزَايَا, juga فَاعِلَاتُنْ. Di tengahnya لِصْصَبْرِعِنْ = 1010110. Telinga Anda yang terlatih rajaz akan berkata: itu مُسْتَفْعِلُنْ.",
+        "Perhatikan contoh pertama, bait Abu Tammam. كَيْفَ بُعْدِي = كَيْ 10, فَ 1, بُعْ 10, دِي 10, jadi 1011010: **فَاعِلَاتُنْ**, taf'ilah ramal yang Anda kenal sejak Modul 14. Taf'ilah ketiga, بَيْنَأَنْتُمْ, juga فَاعِلَاتُنْ. Di tengahnya لَاذُقْتُمُلْ = 1010110. Telinga Anda yang terlatih rajaz akan berkata: itu مُسْتَفْعِلُنْ.",
         "Telinga Anda benar soal bunyi, tetapi kitab menulisnya **مُسْتَفْعِ لُنْ**, terpisah. Di rajaz, مُسْتَفْعِلُنْ terdiri dari dua sabab lalu watad majmu': مُسْ, تَفْ, عِلُنْ. Di khafif, taf'ilah ini terdiri dari sabab مُسْ, lalu **watad mafruq** تَفْعِ (hidup, mati, hidup), lalu sabab لُنْ. Mafruq artinya terbelah: huruf matinya ada di tengah, bukan di ujung.",
         "Mengapa susunan ini penting? Anda sudah tahu dari Modul 3 bahwa zihaf hanya menyentuh sabab, tidak pernah watad. Di rajaz, sabab-nya مُسْ dan تَفْ, maka sin boleh dibuang (khabn) dan fa juga boleh dibuang (thayy). Di khafif, fa berada di dalam watad تَفْعِ. Karena itu thayy **tidak** boleh di khafif. Bila Anda membawa kebiasaan rajaz ke sini dan menulis 101110 di taf'ilah tengah, timbangan akan menyatakannya patah.",
         "Contoh kedua, Abu al-'Atahiyah, mengajarkan hal baru. Syathr pertama berakhir di tengah kata: كَانَ لِي ظِلْ, lalu syathr kedua dimulai dengan لٌ. Satu kata ظِلٌّ terbelah dua oleh batas syathr. Bait seperti ini disebut **mudawwar**, dan sering terjadi di khafif karena syathrnya panjang dan mengalir. Saat menimbang, potong kata itu tepat di tempat yang ditulis penyair.",
-        "Contoh ketiga dan keempat memperlihatkan taf'ilah tengah yang mudah dikenali. أَيْيَامُهَا dan أَيْيَامِذَا dalam bait ar-Radhi sama-sama 1010110: dua suku panjang, satu huruf hidup, lalu satu suku panjang. Syathr al-Bushiri مِنْ فَخَارٍ مَا لَمْ تَنَلْهُ النِّسَاءُ juga utuh semua, dan Anda akan mendengar mathla' qashidah itu di Pelajaran 2.",
+        "Contoh ketiga dan keempat memperlihatkan taf'ilah tengah yang mudah dikenali. هَاذَلْغَزَا dan مُسْتَجْلَبِنْ dalam bait al-Buhturi sama-sama 1010110: dua suku panjang, satu huruf hidup, lalu satu suku panjang. Syathr al-Bushiri مِنْ فَخَارٍ مَا لَمْ تَنَلْهُ النِّسَاءُ juga utuh semua, dan Anda akan mendengar mathla' qashidah itu di Pelajaran 2.",
         "Satu kabar baik: khafif tidak punya bentuk ujung yang wajib. Di basith Anda wajib memakai 'arudh فَعِلُنْ, dan di thawil 'arudh مَفَاعِلُنْ. Di khafif, 'arudh dan dharb boleh tetap فَاعِلَاتُنْ yang utuh, seperti di keempat contoh ini."
       ],
       "keliru": [
@@ -176,7 +176,7 @@
               "alasan": "Di rajaz, fa ada di sabab تَفْ. Di khafif, fa bagian dari watad mafruq تَفْعِ."
             },
             {
-              "soal": "لِصْصَبْرِعِنْ (1010110) dalam bait Ibnu al-Mu'tazz adalah?",
+              "soal": "لَاذُقْتُمُلْ (1010110) dalam bait Abu Tammam adalah?",
               "pilihan": [
                 "مُسْتَفْعِ لُنْ yang utuh",
                 "فَاعِلَاتُنْ",
@@ -208,13 +208,13 @@
         },
         {
           "jenis": "taqthi",
-          "petunjuk": "Timbang bait asy-Syarif ar-Radhi. هَذَا: alif setelah ha dibaca. التَّنَائِي dan التَّدَانِي: lam ta'rif melebur ke ta.",
+          "petunjuk": "Timbang bait al-Buhturi. هَذَا: alif setelah ha dibaca, dan alif ذَا gugur sebelum lam ta'rif: هَاذَلْغَزَالِ. فُتُونٍ: tanwin menjadi نْ. فُتُورِ di ujung bait: kasrah dipanjangkan.",
           "bait": [
-            "أَذْكَرَتْهُ أَيَّامُ هَذَا التَّنَائِي",
-            "مَا مَضَى مِنْ أَيَّامِ ذَاكَ التَّدَانِي"
+            "مَا بِعَيْنِي هَذَا الْغَزَالِ الْغَرِيرِ",
+            "مِنْ فُتُونٍ مُسْتَجْلَبٍ مِنْ فُتُورِ"
           ],
           "bahr": "khafif",
-          "makna": "Hari-hari perpisahan ini mengingatkannya pada hari-hari kebersamaan yang telah berlalu."
+          "makna": "Betapa besar pesona di kedua mata kijang muda yang lugu ini, pesona yang terpancar dari sayunya."
         },
         {
           "jenis": "irama",
@@ -233,31 +233,31 @@
           "baris": [
             {
               "bait": [
-                "لَوْ أَطَعْنَا لِلصَّبْرِ عِنْدَ الرَّزَايَا",
-                "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءِ"
+                "كَيْفَ بُعْدِي لَا ذُقْتُمُ الْبَيْنَ أَنْتُمْ",
+                "خَبِّرُونِي مُذْ بِنْتُ عَنْكُمْ وَبِنْتُمْ"
               ],
-              "catatan": "Bait Ibnu al-Mu'tazz, asli."
+              "catatan": "Bait Abu Tammam, asli."
             },
             {
               "bait": [
-                "لَوْ أَطَعْنَا الصَّبْرَ عِنْدَ الرَّزَايَا",
-                "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءِ"
+                "كَيْفَ بُعْدِي لَا ذُقْتُمُ الْفِرَاقَ أَنْتُمْ",
+                "خَبِّرُونِي مُذْ بِنْتُ عَنْكُمْ وَبِنْتُمْ"
               ],
-              "catatan": "لِلصَّبْرِ diganti الصَّبْرَ. Nahwunya sah, tetapi satu suku panjang hilang dan taf'ilah tengah bergeser. Diubah, bukan kutipan."
+              "catatan": "الْبَيْنَ diganti الْفِرَاقَ. Maknanya sama dan nahwunya sah, tetapi satu huruf hidup bertambah dan syathr pertama patah. Diubah, bukan kutipan."
             },
             {
               "bait": [
-                "كُلُّ عَيْشٍ مَا لَمْ تُطَبْهُ حِمَامٌ",
-                "كُلُّ شَمْسٍ مَا لَمْ تَكُنْهَا ظَلَامُ"
+                "عِيدَ قَيْسٌ مِنْ حُبِّ لُبْنَى وَلُبْنَى",
+                "دَاءُ قَيْسٍ وَالْحُبُّ دَاءٌ شَدِيدُ"
               ],
-              "catatan": "Bait al-Mutanabbi, asli. https://www.aldiwan.net/poem10141.html."
+              "catatan": "Bait Qais bin Dzarih, asli. https://www.aldiwan.net/poem4880.html."
             },
             {
               "bait": [
-                "لَوْ أَطَعْنَا لِلصَّبْرِ عِنْدَ الرَّزَايَا",
-                "مَا عَرَفْنَاهُ شِدَّةً مِنْ رَخَاءٍ وَهَنَاءِ"
+                "كَيْفَ بُعْدِي لَا ذُقْتُمُ الْبَيْنَ أَنْتُمْ",
+                "خَبِّرُونِي مُذْ بِنْتُ عَنْكُمْ وَبِنْتُمْ عَنِّي"
               ],
-              "catatan": "وَهَنَاءِ ditambahkan untuk melengkapi makna. Syathr kedua kelebihan. Diubah, bukan kutipan."
+              "catatan": "عَنِّي ditambahkan untuk melengkapi makna. Syathr kedua kelebihan. Diubah, bukan kutipan."
             },
             {
               "bait": [
@@ -281,7 +281,7 @@
           "sumber": "Al-Buhturi, qashidah «يا مغاني الأحباب صرت رسوما». https://www.aldiwan.net/poem65684.html. Harakat dilengkapi."
         }
       ],
-      "patokan": "Kedua syathr bait ar-Radhi ditimbang sendiri sampai benar, Anda bisa menjelaskan dengan kata sendiri mengapa thayy patah di tengah khafif, dan tiga potongan bait al-Buhturi tersimpan di Laci saya."
+      "patokan": "Kedua syathr bait al-Buhturi ditimbang sendiri sampai benar, Anda bisa menjelaskan dengan kata sendiri mengapa thayy patah di tengah khafif, dan tiga potongan bait al-Buhturi tersimpan di Laci saya."
     },
     {
       "nomor": 2,
@@ -376,7 +376,7 @@
           },
           {
             "tampil": "timbang",
-            "kata": "Sekarang bandingkan dengan thayy. Bait ar-Radhi diubah: أَيَّامِ ذَا diganti لَحْظَةِ ذَا (10 1 1 10). Di rajaz itu thayy yang sah. Di khafif, fa-nya bagian dari watad mafruq: patah.",
+            "kata": "Sekarang bandingkan dengan thayy. Satu bait asy-Syarif ar-Radhi, «أَذْكَرَتْهُ أَيَّامُ هَذَا التَّنَائِي», diubah: أَيَّامِ ذَا diganti لَحْظَةِ ذَا (10 1 1 10). Di rajaz itu thayy yang sah. Di khafif, fa-nya bagian dari watad mafruq: patah.",
             "bait": [
               "أَذْكَرَتْهُ أَيَّامُ هَذَا التَّنَائِي",
               "مَا مَضَى مِنْ لَحْظَةِ ذَاكَ التَّدَانِي"
@@ -586,7 +586,7 @@
           "bahr": "khafif",
           "makna": "Seandainya kita menaati kesabaran ketika ditimpa musibah, kita tidak akan merasakan beda antara kesulitan dan kelapangan.",
           "sumber": "Ibnu al-Mu'tazz, qashidah «فك حرا للوجد قيد البكاء». https://www.aldiwan.net/poem27332.html. Harakat dilengkapi.",
-          "catatan": "Pola mu'aradhah pelajaran ini. Qafiyah: rawiy hamzah berharakat kasrah, didahului ridf alif (ـَاءِ)."
+          "catatan": "Pola mu'aradhah pelajaran ini. Qafiyah: rawiy hamzah berharakat kasrah, didahului ridf alif (ـَاءِ). Dibaca biasa, taf'ilah tengah syathr kedua, هُشِدْدَتَنْ, makhbun; mesin memanjangkan ha عَرَفْنَاهُ, darurah yang dibahas di Modul 19."
         },
         {
           "bait": [
@@ -629,7 +629,7 @@
           },
           {
             "tampil": "mizan",
-            "kata": "مَاعَرَفْنَا = 1011010, هُشِدْدَتَنْ = 10 10 1 10 = مُسْتَفْعِ لُنْ, مِنْهَنَاءِي = 1011010."
+            "kata": "مَاعَرَفْنَا = 1011010, هُشِدْدَتَنْ = 1 10 1 10 = 110110, **khabn** (مُتَفْعِ لُنْ). Mesin bisa memanjangkan ha عَرَفْنَاهُ menjadi هُو sehingga taf'ilah ini utuh, tetapi isyba' ha setelah alif adalah darurah (Modul 19); bacaan biasanya khabn. مِنْهَنَاءِي = 1011010."
           },
           {
             "tampil": "teks",
@@ -639,7 +639,7 @@
         ],
         "giliran": {
           "syathr": 0,
-          "petunjuk": "Giliran Anda: tandai **syathr pertama** lagi tanpa melihat Pelajaran 1, dan sebutkan di mana watad mafruq berada."
+          "petunjuk": "Giliran Anda: tandai **syathr pertama** dan sebutkan di mana watad mafruq berada."
         }
       },
       "syarh": [

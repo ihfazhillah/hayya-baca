@@ -72,8 +72,8 @@
           },
           {
             "tampil": "teks",
-            "kata": "Bantuan di ujian ini. Yang diberikan tinggal tiga. Yang dicabut: rancangan, usul qafiyah, contoh bait, laci tema, pola mu'aradhah, dan tangga calon. Laci bawaan tetap terbuka, disaring untuk bahr Anda, di samping Laci saya.",
-            "papan": "diberi: Timbangan · Pemeriksa qafiyah · Laci saya\ndicabut: Rancangan · Usul qafiyah · Contoh bait · Laci tema · Pola mu'aradhah · Tangga calon"
+            "kata": "Bantuan di ujian ini. Yang diberikan tinggal tiga. Yang dicabut: rancangan, usul qafiyah, contoh bait, laci bawaan, laci tema, pola mu'aradhah, dan tangga calon. Laci yang terbuka hanya Laci saya: kata-kata yang Anda panen dan timbang sendiri sepanjang course.",
+            "papan": "diberi: Timbangan · Pemeriksa qafiyah · Laci saya\ndicabut: Rancangan · Usul qafiyah · Contoh bait · Laci bawaan · Laci tema · Pola mu'aradhah · Tangga calon"
           }
         ],
         "giliran": {
@@ -85,7 +85,7 @@
         "Perhatikan contoh pertama. Bait pembuka qashidah ini tidak berbasa-basi: تَعَلَّمْ. Pokoknya disampaikan di bait 1, dan sebabnya di syathr yang sama: tidak ada orang yang lahir berilmu. Untuk qashidah 4–7 bait, bait 1 sebaiknya sudah menyebut tema. Tidak ada ruang untuk pembukaan panjang.",
         "Contoh kedua dan ketiga adalah sepasang. Bait 2 berkata: orang besar tanpa ilmu menjadi kecil. Bait 3 membaliknya: orang kecil yang berilmu menjadi besar. Kata-katanya pun dipantulkan: كَبِيرَ dan صَغِيرٌ, lalu صَغِيرَ dan كَبِيرٌ. Pasangan seperti ini memudahkan rancangan: satu gagasan, dua bait.",
         "Ketiga ujungnya: جَاهِلُ، الْجَحَافِلُ، الْمَحَافِلُ. Rawiy ل berdhammah, dan alif ta'sis dua huruf sebelumnya. Penyair memilih qafiyah yang kata-katanya banyak: فَاعِل dan jamak فَعَالِل. Pilih qafiyah Anda dengan cara yang sama. Sebelum menulis bait 1, kumpulkan dua belas kata ujung. Bila tidak sampai dua belas, ganti qafiyahnya sekarang, bukan di bait 5.",
-        "Memilih bahr. Rajaz untuk nadzom ilmi dan kaidah. Thawil dan basith untuk nasihat yang tenang dan panjang. Kamil dan wafir untuk nada yang mengalir. Mutaqarib dan bahr pendek seperti ramal majzu' dan mujtats untuk doa dan hikmah singkat. Pilih bahr yang sudah pernah Anda tulis sampai lurus, bukan yang paling indah di telinga.",
+        "Memilih bahr. Rajaz untuk nadzom ilmi dan kaidah. Thawil dan basith untuk nasihat yang tenang dan panjang. Kamil dan wafir untuk nada yang mengalir. Mutaqarib dan bahr pendek seperti ramal majzu' dan mujtats untuk doa dan hikmah singkat. Bahr majzu' dari Modul 18, yaitu kamil majzu', wafir majzu', mukhalla' al-basith, hazaj, dan rajaz majzu', juga punya kartunya sendiri. Pilih bahr yang sudah pernah Anda tulis sampai lurus, bukan yang paling indah di telinga.",
         "Rancangan ditulis dalam bahasa Indonesia, satu baris per bait. Bila Anda menulis rancangan langsung dalam bahasa Arab, Anda akan terikat pada kata-kata yang belum tentu masuk wazan. Makna dulu; kata dicari kemudian, dari laci."
       ],
       "keliru": [
@@ -109,7 +109,7 @@
         "**Lembar rencana** sebelum bait 1: tema, bahr, qafiyah dengan rawiy, harakat, dan ridf atau ta'sis-nya, minimal 12 kata ujung, lalu 4–7 baris rancangan berbahasa Indonesia.",
         "**Bait 1 mengunci** bahr, qafiyah, dan bentuk dharb. Bait berikutnya mengikutinya.",
         "**Satu baris rancangan, satu bait.** Setiap bait selesai maknanya sendiri; hindari tadhmin.",
-        "Bantuan ujian: timbangan, pemeriksa qafiyah, Laci saya, dan laci bawaan yang tersaring untuk bahr Anda. Selebihnya dicabut."
+        "Bantuan ujian: timbangan, pemeriksa qafiyah, dan Laci saya. Laci bawaan dan selebihnya dicabut."
       ],
       "tamarin": [
         {
@@ -163,7 +163,7 @@
                 "Pola mu'aradhah"
               ],
               "jawaban": 2,
-              "alasan": "Pola, rancangan, usul qafiyah, contoh bait, laci tema, dan tangga calon dicabut."
+              "alasan": "Pola, rancangan, usul qafiyah, contoh bait, laci bawaan, laci tema, dan tangga calon dicabut."
             }
           ]
         },
@@ -280,7 +280,7 @@
         "Perhatikan contoh pertama. Bait 1 berisi satu peristiwa lengkap: mengadu, kepada siapa, tentang apa, dan jawabannya. Syathr kedua فَأَرْشَدَنِي sudah membawa arah. Bait pembuka yang baik membuat pendengar ingin mendengar bait berikutnya.",
         "Contoh kedua menutup qashidah dengan alasan: ilmu itu cahaya, dan cahaya Allah tidak diberikan kepada pelaku maksiat. Ujungnya لِعَاصِي berpasangan dengan الْمَعَاصِي: rawiy ص, kasrah, alif ridf. Dua kata dari akar yang sama, tetapi maknanya berbeda: maksiat dan pelaku maksiat. Karena itu bukan ita'.",
         "Qashidah Anda 4–7 bait. Kebanyakan qashidah pendek punya tiga bagian: pembuka yang menyebut tema, isi yang memberi alasan atau contoh, dan penutup berupa doa, nasihat, atau kesimpulan. Rancangan Anda dari sesi 1 sebaiknya sudah memperlihatkan ketiganya.",
-        "Di setiap kartu, laci yang terbuka adalah Laci saya dan laci bawaan yang disaring untuk bahr kartu itu. Tidak ada laci tema dan tidak ada calon. Bila sebuah kata tidak ada di laci, Anda yang mencarinya: dari matan, dari Al-Qur'an, atau dari bait yang pernah Anda baca."
+        "Di setiap kartu, laci yang terbuka hanya Laci saya; laci bawaan sudah dicabut. Tidak ada laci tema dan tidak ada calon. Bila sebuah kata tidak ada di laci, Anda yang mencarinya: dari matan, dari Al-Qur'an, atau dari bait yang pernah Anda baca."
       ],
       "keliru": [
         {
@@ -377,7 +377,7 @@
           "bahr": "rajaz",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -389,13 +389,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Rajaz · draf"
+          "judulDiwan": "Ujian Akhir · Rajaz · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -403,7 +405,7 @@
           "bahr": "ramalMajzu",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -415,13 +417,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Ramal majzu' · draf"
+          "judulDiwan": "Ujian Akhir · Ramal majzu' · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -429,7 +433,7 @@
           "bahr": "mutaqarib",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -441,13 +445,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Mutaqarib · draf"
+          "judulDiwan": "Ujian Akhir · Mutaqarib · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -455,7 +461,7 @@
           "bahr": "kamil",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -467,13 +473,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Kamil · draf"
+          "judulDiwan": "Ujian Akhir · Kamil · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -481,7 +489,7 @@
           "bahr": "wafir",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -493,13 +501,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Wafir · draf"
+          "judulDiwan": "Ujian Akhir · Wafir · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -507,7 +517,7 @@
           "bahr": "basith",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -519,13 +529,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Basith · draf"
+          "judulDiwan": "Ujian Akhir · Basith · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -533,7 +545,7 @@
           "bahr": "thawil",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -545,13 +557,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Thawil · draf"
+          "judulDiwan": "Ujian Akhir · Thawil · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -559,7 +573,7 @@
           "bahr": "khafif",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -571,13 +585,15 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Khafif · draf"
+          "judulDiwan": "Ujian Akhir · Khafif · draf",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
@@ -585,7 +601,7 @@
           "bahr": "mujtats",
           "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -597,13 +613,155 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
             ]
           },
           "tashih": true,
-          "judulDiwan": "Ujian Akhir · Mujtats · draf"
+          "judulDiwan": "Ujian Akhir · Mujtats · draf",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 10 · Kamil majzu'.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "kamilMajzu",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Kamil majzu' · draf",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 11 · Wafir majzu'.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "wafirMajzu",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Wafir majzu' · draf",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 12 · Mukhalla' al-basith.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "basithMajzu",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Mukhalla' al-basith · draf",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 13 · Hazaj.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "hazaj",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Hazaj · draf",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 14 · Rajaz majzu'.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "rajazMajzu",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Rajaz majzu' · draf",
+          "laci": "saya"
         }
       ],
       "patokan": "Satu kartu selesai: 4–7 bait dalam bahr pilihan Anda, setiap bait 0 patah, pemeriksa qafiyah tidak menandai apa pun, dan draf tersimpan di Diwan."
@@ -778,11 +936,11 @@
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 1 · Rajaz.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 1 · Rajaz.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "rajaz",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -794,6 +952,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -803,15 +962,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Rajaz"
+          "judulDiwan": "Ujian Akhir · Rajaz",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 2 · Ramal majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 2 · Ramal majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "ramalMajzu",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -823,6 +983,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -832,15 +993,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Ramal majzu'"
+          "judulDiwan": "Ujian Akhir · Ramal majzu'",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 3 · Mutaqarib.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 3 · Mutaqarib.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "mutaqarib",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -852,6 +1014,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -861,15 +1024,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Mutaqarib"
+          "judulDiwan": "Ujian Akhir · Mutaqarib",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 4 · Kamil.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 4 · Kamil.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "kamil",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -881,6 +1045,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -890,15 +1055,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Kamil"
+          "judulDiwan": "Ujian Akhir · Kamil",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 5 · Wafir.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 5 · Wafir.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "wafir",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -910,6 +1076,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -919,15 +1086,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Wafir"
+          "judulDiwan": "Ujian Akhir · Wafir",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 6 · Basith.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 6 · Basith.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "basith",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -939,6 +1107,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -948,15 +1117,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Basith"
+          "judulDiwan": "Ujian Akhir · Basith",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 7 · Thawil.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 7 · Thawil.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "thawil",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -968,6 +1138,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -977,15 +1148,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Thawil"
+          "judulDiwan": "Ujian Akhir · Thawil",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 8 · Khafif.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 8 · Khafif.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "khafif",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -997,6 +1169,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -1006,15 +1179,16 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Khafif"
+          "judulDiwan": "Ujian Akhir · Khafif",
+          "laci": "saya"
         },
         {
           "jenis": "susun",
-          "petunjuk": "**Kartu 9 · Mujtats.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "petunjuk": "**Kartu 9 · Mujtats.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
           "bahr": "mujtats",
           "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
           "bankKata": true,
-          "jumlah": 4,
+          "jumlah": 7,
           "qafiyah": "satu",
           "bantuan": {
             "diberi": [
@@ -1026,6 +1200,7 @@
               "Rancangan",
               "Usul qafiyah",
               "Contoh bait",
+              "Laci bawaan",
               "Laci tema",
               "Pola mu'aradhah",
               "Tangga calon"
@@ -1035,7 +1210,163 @@
           "arti": true,
           "syarh": true,
           "periksa": true,
-          "judulDiwan": "Ujian Akhir · Mujtats"
+          "judulDiwan": "Ujian Akhir · Mujtats",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 10 · Kamil majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "kamilMajzu",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Kamil majzu'",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 11 · Wafir majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "wafirMajzu",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Wafir majzu'",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 12 · Mukhalla' al-basith.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "basithMajzu",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Mukhalla' al-basith",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 13 · Hazaj.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "hazaj",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Hazaj",
+          "laci": "saya"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 14 · Rajaz majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Minimal **4 bait**, paling banyak 7. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "rajazMajzu",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 7,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci bawaan",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Rajaz majzu'",
+          "laci": "saya"
         }
       ],
       "patokan": "Satu qashidah 4–7 bait dalam bahr, tema, dan qafiyah pilihan sendiri: 0 patah di setiap bait, pemeriksa qafiyah bersih, sesuai rancangan sendiri, tashih i'rab dicentang, arti dan syarh terisi, tersimpan di Diwan, dan dibacakan kepada ustadz atau diperiksa lewat Salin untuk diperiksa."
