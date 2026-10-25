@@ -321,7 +321,7 @@
         "Taf'ilah lain disusun dari blok yang sama. فَاعِلَاتُنْ = 10 110 10 = **1011010**.",
         "**Ramal majzu'** = فَاعِلَاتُنْ dua kali dalam satu syathr.",
         "Huruf mad sebelum hamzah washal gugur: فِي الْقَلْبِ → فِلْقَلْبِ, عَلَى الْ → عَلَلْ.",
-        "Cetakan = kerangka yang sudah lurus. Kata pengganti yang polanya sama dengan kata contoh menjaga baris tetap lurus, selama tidak bersebelahan dengan hamzah washal dan tidak di ujung bait (di sana bunyinya bisa berubah)."
+        "Cetakan = kerangka yang sudah lurus. Kata pengganti yang polanya sama dengan kata contoh menjaga baris tetap lurus. Hati-hati dua hal: kata yang diawali hamzah washal (hamzahnya gugur bila disambung), dan huruf mad di ujung kata yang bertemu الْ (madnya gugur, seperti فِي الْقَلْبِ)."
       ],
       "tamarin": [
         {
@@ -463,7 +463,7 @@
                 "نُورٌ",
                 "خَيْرٌ",
                 "حُبٌّ",
-                "رَبٌّ"
+                "نَفْعٌ"
               ]
             }
           ],
