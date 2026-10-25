@@ -335,7 +335,7 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
     }
   })
 
-  const BELUM_ADA_NAGHAM: string[] = ['mutaqarib', 'khafif']
+  const BELUM_ADA_NAGHAM: string[] = ['mutaqarib', 'khafif', 'kamilMajzu', 'wafirMajzu', 'basithMajzu', 'hazaj']
   it('setiap bahr: semua bentuknya punya lagu dan video nagham', () => {
     for (const kode of Object.keys(BAHR) as (keyof typeof BAHR)[]) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
@@ -418,5 +418,25 @@ describe('bentuk baku (spec 077): perubahan yang wajib di ujung dihitung utuh', 
   it('khabn di hasyw basith tetap berubah', () => {
     const h = timbangBait(kitabahOk(['زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ', 'وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ']), BAHR.basith)
     expect(h.syathr[0].potongan[0]).toMatchObject({ status: 'berubah', bentuk: { zihaf: 'khabn' } })
+  })
+})
+
+describe("bentuk majzu' dan hazaj (spec 077, Jilid 3)", () => {
+  it("mizan setiap bahr majzu' lurus dengan bahrnya sendiri", () => {
+    for (const k of ['kamilMajzu', 'wafirMajzu', 'basithMajzu'] as const) {
+      expect(timbangBait(kitabahOk(BAHR[k].kunci), BAHR[k]).patah, k).toBe(0)
+    }
+    expect(timbangBait(kitabahOk(BAHR.hazaj.kunci), BAHR.hazaj).patah).toBe(0)
+  })
+
+  it("wafir majzu' yang semuanya ber-'ashb ditebak sebagai hazaj; dengan satu مُفَاعَلَتُنْ utuh, wafir majzu'", () => {
+    expect(tebakBahr(kitabahOk(['مَفَاعِيلُنْ مَفَاعِيلُنْ', 'مَفَاعِيلُنْ مَفَاعِيلُنْ'])).bahr.kode).toBe('hazaj')
+    expect(tebakBahr(kitabahOk(['مُفَاعَلَتُنْ مَفَاعِيلُنْ', 'مَفَاعِيلُنْ مَفَاعِيلُنْ'])).bahr.kode).toBe('wafirMajzu')
+  })
+
+  it("mukhalla' al-basith: kedua ujung فَعُولُنْ", () => {
+    const h = timbangBait(kitabahOk(['مُسْتَفْعِلُنْ فَاعِلُنْ فَعُولُنْ', 'مُسْتَفْعِلُنْ فَاعِلُنْ فَعُولُنْ']), BAHR.basithMajzu)
+    expect(h.patah).toBe(0)
+    expect(h.syathr.map((s) => s.potongan.at(-1)?.bentuk.zihaf)).toEqual(["khabn + qath' (mukhalla')", "khabn + qath' (mukhalla')"])
   })
 })

@@ -110,6 +110,30 @@ const TASYITH = b('فَالَاتُنْ', '101010', "tasy'ith", { illah: true, n
 const KHAFIF_ARUDH = [...FAILATUN, TASYITH]
 const KHAFIF_DHARB = [...FAILATUN, TASYITH, ...FAILUN]
 
+/** Kamil majzu': dua مُتَفَاعِلُنْ per syathr; dharb shahih, murafal, mudzayyal, atau maqthu'. */
+const KAMIL_MAJZU_DHARB = [
+  ...MUTAFAILUN,
+  b('مُتَفَاعِلَاتُنْ', '11101010', 'tarfil', { illah: true, lagu: 'لَ لَ لا لا لا' }),
+  b('مُتَفَاعِلَانْ', '1110100', 'tadzyil', { illah: true, lagu: 'لَ لَ لا لال' }),
+  b('مُتَفَاعِلْ', '111010', "qath'", { illah: true, namaLain: 'فَعِلَاتُنْ', lagu: 'لَ لَ لا لا' }),
+]
+/** Hazaj: selalu majzu', dua مَفَاعِيلُنْ; kaff dan qabdh di hasyw; dharb shahih atau mahdzuf. */
+const MAFAILUN_HAZAJ = [
+  b('مَفَاعِيلُنْ', '1101010', undefined, { lagu: 'نعم لا لا' }),
+  b('مَفَاعِيلُ', '110101', 'kaff', { nilai: 'hasan', lagu: 'نعم لا لَ' }),
+  b('مَفَاعِلُنْ', '110110', 'qabdh', { nilai: 'qabih', lagu: 'نعم لَ لا' }),
+]
+const HAZAJ_DHARB = [MAFAILUN_HAZAJ[0], b('فَعُولُنْ', '11010', 'hadzf', { illah: true, namaLain: 'مَفَاعِي', lagu: 'نعم لا' })]
+/** Basith majzu': مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ; mukhalla' bila 'arudh dan dharb مُتَفْعِلْ (فَعُولُنْ). */
+const MUKHALLA = b('مُتَفْعِلْ', '11010', "khabn + qath' (mukhalla')", { illah: true, namaLain: 'فَعُولُنْ', lagu: 'لَ لا لا' })
+const BASITH_MAJZU_ARUDH = [...MUSTAFILUN.slice(0, 2), MUKHALLA]
+const BASITH_MAJZU_DHARB = [
+  ...MUSTAFILUN.slice(0, 2),
+  b('مُسْتَفْعِلَانْ', '10101100', 'tadzyil', { illah: true, lagu: 'لا لا نعام' }),
+  b('مُسْتَفْعِلْ', '101010', "qath'", { illah: true, namaLain: 'مَفْعُولُنْ', lagu: 'لا لا لا' }),
+  MUKHALLA,
+]
+
 const KUNCI_RAMAL: [string, string] = ['رَمَلُ الْأَبْحُرِ تَرْوِيهِ الثِّقَاتُ', 'فَاعِلَاتُنْ فَاعِلَاتُنْ فَاعِلَاتُ']
 const MAKNA_RAMAL = 'Ramal di antara bahr-bahr: para perawi tepercaya meriwayatkannya.'
 
@@ -264,10 +288,54 @@ export const BAHR = {
       [FAILATUN_KHAFIF, MUSTAFI_LUN, KHAFIF_DHARB],
     ],
   },
+  kamilMajzu: {
+    kode: 'kamilMajzu',
+    nama: "Kamil majzu'",
+    namaAr: 'الْكَامِل الْمَجْزُوء',
+    kunci: ['مُتَفَاعِلُنْ مُتَفَاعِلُنْ', 'مُتَفَاعِلُنْ مُتَفَاعِلُنْ'],
+    kunciMakna: "Mizan kamil majzu': dua مُتَفَاعِلُنْ per syathr.",
+    slot: [
+      [MUTAFAILUN, MUTAFAILUN],
+      [MUTAFAILUN, KAMIL_MAJZU_DHARB],
+    ],
+  },
+  wafirMajzu: {
+    kode: 'wafirMajzu',
+    nama: "Wafir majzu'",
+    namaAr: 'الْوَافِر الْمَجْزُوء',
+    kunci: ['مُفَاعَلَتُنْ مُفَاعَلَتُنْ', 'مُفَاعَلَتُنْ مُفَاعَلَتُنْ'],
+    kunciMakna: "Mizan wafir majzu': dua مُفَاعَلَتُنْ per syathr. Bila semuanya ber-'ashb, bunyinya sama dengan hazaj.",
+    slot: [
+      [MUFAALATUN, MUFAALATUN],
+      [MUFAALATUN, MUFAALATUN],
+    ],
+  },
+  basithMajzu: {
+    kode: 'basithMajzu',
+    nama: "Basith majzu'",
+    namaAr: 'الْبَسِيط الْمَجْزُوء',
+    kunci: ['مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ', 'مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ'],
+    kunciMakna: "Mizan basith majzu'. Bila kedua ujungnya مُتَفْعِلْ (فَعُولُنْ), namanya mukhalla' al-basith.",
+    slot: [
+      [MUSTAFILUN, FAILUN_ASLI, BASITH_MAJZU_ARUDH],
+      [MUSTAFILUN, FAILUN_ASLI, BASITH_MAJZU_DHARB],
+    ],
+  },
+  hazaj: {
+    kode: 'hazaj',
+    nama: 'Hazaj',
+    namaAr: 'الْهَزَج',
+    kunci: ['عَلَى الْأَهْزَاجِ تَسْهِيلُ', 'مَفَاعِيلُنْ مَفَاعِيلُ'],
+    kunciMakna: "Pada hazaj ada kemudahan: مَفَاعِيلُنْ dua kali per syathr, selalu majzu'.",
+    slot: [
+      [MAFAILUN_HAZAJ, MAFAILUN_HAZAJ],
+      [MAFAILUN_HAZAJ, HAZAJ_DHARB],
+    ],
+  },
 } satisfies Record<string, Bahr>
 
 /** Urutan juga pemecah seri saat menebak: rajaz didahulukan dari kamil yang semuanya mudhmar. */
-export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats, BAHR.mutaqarib, BAHR.khafif]
+export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats, BAHR.mutaqarib, BAHR.khafif, BAHR.kamilMajzu, BAHR.wafirMajzu, BAHR.basithMajzu, BAHR.hazaj]
 
 export function cariBahr(kode: string): Bahr | undefined {
   return DAFTAR_BAHR.find((x) => x.kode === kode)

@@ -32,7 +32,7 @@ export default function Rujukan() {
 
       <section className="bagian" aria-label="Kunci bahr">
         <div className="bagian-judul"><h2>Kunci bahr</h2></div>
-        {DAFTAR_BAHR.filter((b) => b.kode !== 'ramalMajzu').map((b) => {
+        {DAFTAR_BAHR.filter((b) => !b.kode.endsWith('Majzu')).map((b) => {
           const k = kitabahBait(b.kunci)
           const h = k.ok ? timbangBait(k.syathr, b) : null
           return (
