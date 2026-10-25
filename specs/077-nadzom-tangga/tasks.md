@@ -30,3 +30,10 @@
 - [ ] C5 Deploy
 
 ## Fase D · Jilid 3 (menunggu)
+
+## Fase E · Dari lurus ke benar dan sesuai
+- [ ] E1 Test gagal: kotak bertipe menolak kata salah peran; isi sesuai makna; label i'rab; arti wajib; salin untuk diperiksa
+- [ ] E2 Skema: kotak `peran`/`jenis`/`terima`, laci `tema`, tamrin "lurus tapi salah", syarh bait
+- [ ] E3 Komponen Cetakan, Susun, SalinDiwan
+- [ ] E4 Isi: Jilid 1 (laci tema, kotak bertipe, isi sesuai makna), Jilid 2 (label i'rab, lurus tapi salah), Jilid 3 dan Boss (syarh bait, salin untuk diperiksa)
+- [ ] E5 Deploy

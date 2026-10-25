@@ -163,3 +163,19 @@ Nomor modul tidak berubah. Urutannya diatur `peta.json`. Mutaqarib dan khafif pe
 1. **Mode salim:** ketat (berubah = belum lulus) atau lunak (berubah boleh, hanya diberi catatan)? Usul: **ketat** di Jilid 1.
 2. **Jilid 3:** materi baru (bentuk majzu', khafif dan mutaqarib, darurah, 'uyub qafiyah) dikerjakan sekarang, atau setelah Antum menyelesaikan Jilid 1–2? Usul: **setelahnya**, supaya isinya dibentuk oleh pengalaman Jilid 1–2.
 3. **Tangga kitab:** ada kitab 'arudh yang Antum sudah punya atau ingin pakai (mis. Syafi al-'Alil)?
+
+## Fase E · Dari "lurus" ke "benar dan sesuai" (disetujui pemilik, 2026-10-25)
+
+Masalahnya: mesin hanya memeriksa wazan. Kotak cetakan bisa diisi kata yang lurus tetapi salah nahwu, tanpa
+makna, atau keluar tema. Kebenaran makna dipindah bertahap: mula-mula dijaga desain latihan dan diperiksa mesin,
+lalu diperiksa diri sendiri, terakhir oleh pembaca luar.
+
+| Tahap | Alat | Siapa yang memeriksa |
+|---|---|---|
+| Jilid 1 | **Laci per tema** (medan makna: ilmu, sabar, doa, akhlak); **kotak bertipe** dengan pilihan tertutup (jenis kata dan perannya tertulis, pilihan salah tempat ditolak dengan alasan); **isi sesuai makna** (tugas terjemah balik, jawaban yang diterima tertulis di data) | Mesin |
+| Jilid 2 | **Label i'rab per kotak** (peran kotak tertulis di data, harakat akhir harus cocok); **wajib tulis arti** sebelum baris disimpan dan arti ikut tersalin ke Diwan; **latihan "lurus tapi salah"** di setiap modul; **ganti dalam medan makna** (sinonim atau lawan kata dari bait asli) | Mesin dan diri sendiri |
+| Jilid 3, Boss, Ujian Akhir | **Syarh bait sendiri** (i'rab singkat dan makna per syathr); tashih i'rab (sudah ada); **Salin untuk diperiksa** (bait, arti, syarh, dan timbangan dalam satu teks) | Diri sendiri dan pembaca luar |
+
+- **Pembaca luar:** keduanya, dengan peran berbeda. Claude untuk umpan balik cepat kapan saja: i'rab, kolokasi, apakah makna sampai. Ustadz atau teman untuk Boss dan Ujian Akhir, sebagai penilai akhir, karena setoran kepada guru bersanad dan ada adabnya.
+- **Kosakata dari sumber yang dikenal:** Al-Qur'an, hadits, dan matan. Laci saya diberi tanda sumber.
+- **Kapan dikerjakan:** setelah semua modul Fase A–D selesai ditulis, supaya tidak bentrok dengan agent penulis modul.
