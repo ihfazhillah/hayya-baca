@@ -292,7 +292,7 @@
         },
         {
           "jenis": "cetakan",
-          "petunjuk": "Isi kotak dari laci jamak **مَفَاعِل / فَعَائِل** untuk ujung bait. Buat **tiga baris berbeda**; semuanya harus lurus.",
+          "petunjuk": "Isi kotak dari laci jamak **مَفَاعِل / فَعَائِل** untuk ujung bait. Buat **tiga baris berbeda**; semuanya harus lurus. Kata di kotak majrur oleh بِ: tentukan perannya, periksa harakat akhirnya, lalu tulis arti barisnya sebelum menyimpan.",
           "cetakan": "وَزَيِّنِ الْقُلُوبَ بِالْ{1}",
           "kotak": [
             {
@@ -302,11 +302,22 @@
                 "فَضَائِلِ",
                 "مَكَارِمِ",
                 "مَحَاسِنِ"
+              ],
+              "jenis": "jamak taksir ghairu munsharif yang ber-الْ",
+              "peran": "majrur",
+              "harakat": "i",
+              "tolak": [
+                {
+                  "kata": "فَضَائِلَ",
+                  "alasan": "Lurus, tetapi harakatnya salah. Isim ghairu munsharif dijarkan dengan fathah hanya bila tanpa الْ dan tidak di-idhafah-kan. Di sini ia ber-الْ, maka majrur dengan kasrah: بِالْفَضَائِلِ."
+                }
               ]
             }
           ],
           "bahr": "rajaz",
-          "jumlah": 3
+          "jumlah": 3,
+          "makna": "Dan hiasilah hati dengan sifat-sifat yang baik.",
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -893,6 +904,61 @@
           "sumber": "Mulhat al-I'rab, al-Hariri, bab Kam. Teks: OpenITI 0516IbnCaliHariri.MulhatIcrab (github.com/OpenITI/RELEASE); harakat ditambahkan."
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus, tapi benar?** Sebelum revisi, latih mata pemeriksa. Semua baris ini lurus. Bayangkan semuanya calon bait untuk satu nazham ilmu: kaidah, istilah, dan adab belajar. Tandai setiap baris: benar, salah i'rab, rusak makna, atau keluar tema. Baris yang diubah dari aslinya disebut dalam penjelasan.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "وَالْوَاوُ فِي جَمْعِ الذُّكُورِ السَّالِمِ",
+                "كَالصَّالِحُونَ هُمْ أُولُو الْمَكَارِمِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Nazhm al-'Imrithi bab 'Alamat ar-Raf', tanpa perubahan. Dalam contohnya, الصَّالِحُونَ dan أُولُو sama-sama marfu' dengan waw."
+            },
+            {
+              "bait": [
+                "وَمُرْسَلٌ مِنْهُ الصَّحَابِيَّ سَقَطْ",
+                "وَقُلْ غَرِيبٌ مَا رَوَى رَاوٍ فَقَطْ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. Diubah dari al-Baiquniyyah bait 16: الصَّحَابِيُّ menjadi الصَّحَابِيَّ. Kata ini mubtada' dan سَقَطْ khabarnya; jumlah itu menjadi khabar bagi مُرْسَلٌ. Mubtada' marfu', dan tidak ada 'amil yang menashabkannya. Hanya harakat akhir yang berganti, jadi timbangannya tetap lurus."
+            },
+            {
+              "bait": [
+                "وَالْكَذِبُ الْمُخْتَلَقُ الْمَصْنُوعُ",
+                "عَلَى النَّبِي فَذَلِكَ الْمَرْفُوعُ"
+              ],
+              "salah": "makna",
+              "alasan": "Rusak makna. Diubah dari al-Baiquniyyah bait 32: الْمَوْضُوعُ diganti الْمَرْفُوعُ. Sewazan, sama qafiyahnya, dan nahwunya benar, tetapi istilahnya salah. Dusta yang diada-adakan atas nama Nabi disebut maudhu'. Marfu' ialah hadits yang disandarkan kepada Nabi, dan ia bisa shahih."
+            },
+            {
+              "bait": [
+                "وَالنَّصُّ عُرْفًا كُلُّ لَفْظٍ وَارِدِ",
+                "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Nazhm al-Waraqat bait 97, tanpa perubahan. النَّصُّ mubtada', كُلُّ khabarnya, dan لَفْظٍ mudhaf ilaih."
+            },
+            {
+              "bait": [
+                "عَلَيْكَ بِالْإِبْكَارِ يَا مَنْ يَطْلُبُ",
+                "فَإِنَّهُ لِلرِّزْقِ نِعْمَ الْمَرْكَبُ"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Diubah dari bait latihan Hudhud: التَّكْرَارِ menjadi الْإِبْكَارِ, dan لِلْحِفْظِ menjadi لِلرِّزْقِ. Nahwunya benar dan maknanya utuh: berangkat pagi-pagi adalah kendaraan terbaik untuk mencari rezeki. Tetapi bait ini kini bicara rezeki, bukan ilmu dan belajar."
+            },
+            {
+              "bait": [
+                "وَافْتَتِحُوا مُضَارِعًا بِوَاحِدِ",
+                "مِنَ الْحُرُوفُ الْأَرْبَعِ الزَّوَائِدِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. Diubah dari Nazhm al-'Imrithi bab al-Af'al: الْحُرُوفِ menjadi الْحُرُوفُ. Kata ini majrur oleh مِنْ. Na't sesudahnya, الْأَرْبَعِ dan الزَّوَائِدِ, tetap majrur, sehingga kini man'ut dan na't-nya juga tidak sejalan."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Revisi Bait #1.** Ambil versi terakhir Bait #1 dari Diwan. Ikuti daftar periksa peragaan. Zihaf dan ujung maqthu' kini boleh, tetapi tidak wajib. Timbang, lalu catat versi baru di bawah versi lama.",
           "bahr": "rajaz",
@@ -907,7 +973,8 @@
             "Timbang. Bila patah, naiki tangga revisi: buang kata kecil, geser, ganti sewazan, ganti semakna.",
             "Periksa ujung: kedua syathr berujung sama. Bila Anda memakai kata ujung bermad, pasangannya juga bermad.",
             "Di Diwan, tulis nama wajah setiap taf'ilah dan kata yang diganti."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "susun",
@@ -917,7 +984,8 @@
           "bankKata": true,
           "qafiyah": "muzdawij",
           "judulDiwan": "Bait #2, revisi Modul 4",
-          "tashih": true
+          "tashih": true,
+          "arti": true
         }
       ],
       "patokan": "Bait #1 dan #2 direvisi, ditimbang ulang sampai 0 patah, dan versi barunya tercatat di Diwan di bawah versi lama, dengan nama wajah setiap taf'ilah. Tiga potongan dari panen tanpa kotak tersimpan di Laci saya, dan minimal satu di antaranya dipakai di Bait #2."
@@ -930,14 +998,20 @@
       "laci": "wazan",
       "cocok": "pembuka taf'ilah, 1010",
       "catatan": "Wazan فَعْلٌ, pola 1010, dua sabab.",
-      "dari": "Al-Baiquniyyah bait 4"
+      "dari": "Al-Baiquniyyah bait 4",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "ضَابِطٌ",
       "arti": "kuat hafalannya",
       "laci": "wazan",
       "catatan": "Wazan فَاعِلٌ, pola 10110. Pengganti sewazan: حَافِظٌ.",
-      "dari": "Al-Baiquniyyah bait 4"
+      "dari": "Al-Baiquniyyah bait 4",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مُعْتَمَدٌ",
@@ -945,14 +1019,20 @@
       "laci": "wazan",
       "cocok": "satu مُسْتَعِلُنْ",
       "catatan": "Wazan مُفْتَعَلٌ, pola 101110.",
-      "dari": "Al-Baiquniyyah bait 4"
+      "dari": "Al-Baiquniyyah bait 4",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مُعْتَبَرٌ",
       "arti": "diperhitungkan, diakui",
       "laci": "wazan",
       "cocok": "satu مُسْتَعِلُنْ",
-      "catatan": "Wazan مُفْتَعَلٌ, pola 101110."
+      "catatan": "Wazan مُفْتَعَلٌ, pola 101110.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مُنْتَخَبٌ",
@@ -973,7 +1053,11 @@
       "arti": "yang bersungguh-sungguh",
       "laci": "wazan",
       "cocok": "satu مُسْتَعِلُنْ",
-      "catatan": "Wazan مُفْتَعِلٌ, pola 101110. Cocok untuk tema thalabul ilmi."
+      "catatan": "Wazan مُفْتَعِلٌ, pola 101110. Cocok untuk tema thalabul ilmi.",
+      "tema": [
+        "ilmu",
+        "sabar"
+      ]
     },
     {
       "teks": "مُضَارِعًا",
@@ -981,7 +1065,10 @@
       "laci": "wazan",
       "cocok": "satu مُتَفْعِلُنْ",
       "catatan": "Wazan مُفَاعِلًا, pola 110110.",
-      "dari": "Nazhm al-'Imrithi, bab al-Af'al"
+      "dari": "Nazhm al-'Imrithi, bab al-Af'al",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الزَّوَائِدِ",
@@ -989,7 +1076,10 @@
       "laci": "wazan",
       "cocok": "ujung bait, satu مُتَفْعِلُنْ",
       "catatan": "Jamak فَوَاعِل; di ujung bait dibaca زَوَائِدِي = 110110.",
-      "dari": "Nazhm al-'Imrithi, bab al-Af'al"
+      "dari": "Nazhm al-'Imrithi, bab al-Af'al",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْمَكَارِمِ",
@@ -997,28 +1087,40 @@
       "laci": "wazan",
       "cocok": "ujung bait, satu مُتَفْعِلُنْ",
       "catatan": "Jamak مَفَاعِل; di ujung bait dibaca مَكَارِمِي = 110110.",
-      "dari": "Nazhm al-'Imrithi, bab 'Alamat ar-Raf'"
+      "dari": "Nazhm al-'Imrithi, bab 'Alamat ar-Raf'",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْفَضَائِلِ",
       "arti": "keutamaan-keutamaan",
       "laci": "wazan",
       "cocok": "ujung bait, satu مُتَفْعِلُنْ",
-      "catatan": "Jamak فَعَائِل, pola sama dengan مَفَاعِل."
+      "catatan": "Jamak فَعَائِل, pola sama dengan مَفَاعِل.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْمَحَاسِنِ",
       "arti": "kebaikan-kebaikan",
       "laci": "wazan",
       "cocok": "ujung bait, satu مُتَفْعِلُنْ",
-      "catatan": "Jamak مَفَاعِل."
+      "catatan": "Jamak مَفَاعِل.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْمُخْتَلَقُ",
       "arti": "yang diada-adakan",
       "laci": "wazan",
       "catatan": "Wazan مُفْتَعَل. Dalam bait, مُخْتَلَقُلْ = 101110, thayy.",
-      "dari": "Al-Baiquniyyah bait 32"
+      "dari": "Al-Baiquniyyah bait 32",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْمَصْنُوعُ",
@@ -1026,7 +1128,10 @@
       "laci": "wazan",
       "cocok": "ujung maqthu'",
       "catatan": "Wazan مَفْعُول, pola 101010 di ujung bait. Sewazan: الْمَوْضُوعُ، الْمَرْفُوعُ، الْمَقْطُوعُ.",
-      "dari": "Al-Baiquniyyah bait 32"
+      "dari": "Al-Baiquniyyah bait 32",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْمَوْضُوعُ",
@@ -1034,28 +1139,42 @@
       "laci": "wazan",
       "cocok": "ujung maqthu'",
       "catatan": "Wazan مَفْعُول, pasangan bunyi الْمَصْنُوعُ.",
-      "dari": "Al-Baiquniyyah bait 32"
+      "dari": "Al-Baiquniyyah bait 32",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْإِكْرَامِ",
       "arti": "pemuliaan",
       "laci": "wazan",
       "cocok": "ujung maqthu'",
-      "catatan": "Mashdar إِفْعَال setelah الْ. Sewazan: الْإِنْعَامِ، الْإِسْلَامِ، الْإِلْهَامِ."
+      "catatan": "Mashdar إِفْعَال setelah الْ. Sewazan: الْإِنْعَامِ، الْإِسْلَامِ، الْإِلْهَامِ.",
+      "tema": [
+        "akhlak",
+        "doa"
+      ]
     },
     {
       "teks": "الْإِسْلَامِ",
       "arti": "Islam",
       "laci": "wazan",
       "cocok": "ujung maqthu'",
-      "catatan": "Mashdar إِفْعَال setelah الْ."
+      "catatan": "Mashdar إِفْعَال setelah الْ.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْإِلْهَامِ",
       "arti": "ilham",
       "laci": "wazan",
       "cocok": "ujung maqthu'",
-      "catatan": "Mashdar إِفْعَال setelah الْ. Cocok untuk doa ilmu."
+      "catatan": "Mashdar إِفْعَال setelah الْ. Cocok untuk doa ilmu.",
+      "tema": [
+        "doa",
+        "ilmu"
+      ]
     },
     {
       "teks": "هُوَ",
@@ -1071,7 +1190,10 @@
       "laci": "hasyw",
       "cocok": "kata kecil, 1010",
       "catatan": "Wazan فَعْلًا, dua sabab.",
-      "dari": "Tuhfat al-Athfal bait 1"
+      "dari": "Tuhfat al-Athfal bait 1",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "وَقُلْ",
@@ -1095,13 +1217,19 @@
       "laci": "hasyw",
       "cocok": "pembuka syathr; bersama يَا genap dua taf'ilah",
       "catatan": "Dibaca عَلَيْكَبِتْ تَكْرَارِ. Bila diikuti يَا, genap dua taf'ilah: 110110 lalu 1010110.",
-      "dari": "Bait latihan Hudhud, Modul 4"
+      "dari": "Bait latihan Hudhud, Modul 4",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "تَكْرِيرِ",
       "arti": "pengulangan",
       "laci": "wazan",
-      "catatan": "Wazan تَفْعِيل, sewazan dengan تَكْرَارِ yang berwazan تَفْعَال: pola 10101 sebelum huruf sesudahnya."
+      "catatan": "Wazan تَفْعِيل, sewazan dengan تَكْرَارِ yang berwazan تَفْعَال: pola 10101 sebelum huruf sesudahnya.",
+      "tema": [
+        "ilmu"
+      ]
     }
   ]
 }

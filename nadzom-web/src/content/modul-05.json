@@ -572,6 +572,40 @@
           ]
         },
         {
+          "jenis": "cetakan",
+          "petunjuk": "Cetakan dari Dzat al-Amtsal. Dalam ta'ajjub مَا أَفْعَلَ, isim sesudah fi'il ta'ajjub adalah maf'ul bih, jadi manshub. Isi kotak dengan satu sikap baik saat ditimpa ujian, tentukan perannya, periksa harakat akhirnya, lalu tulis arti barisnya. Pasangan qafiyah الْبَلَاءِ tetap. Buat **dua baris berbeda**.",
+          "cetakan": "مَا أَكْرَمَ {1} عَلَى الْبَلَاءِ",
+          "kotak": [
+            {
+              "petunjuk": "Isim ber-الْ berwazan فَعْل, misalnya ganti الصَّبْرَ dengan الشُّكْرَ, الْحِلْمَ, atau الذِّكْرَ",
+              "pola": "الْ ditambah فَعْلَ, sewazan الصَّبْرَ",
+              "contoh": [
+                "الصَّبْرَ",
+                "الشُّكْرَ",
+                "الْحِلْمَ",
+                "الذِّكْرَ"
+              ],
+              "jenis": "isim ma'rifah ber-الْ berwazan فَعْل",
+              "peran": "maf'ul bih",
+              "harakat": "a",
+              "tolak": [
+                {
+                  "kata": "الصَّبْرُ",
+                  "alasan": "Lurus, tetapi i'rabnya salah. Sesudah مَا أَكْرَمَ, isim itu maf'ul bih dan manshub. Fa'il أَكْرَمَ adalah dhamir tersembunyi yang kembali kepada مَا."
+                },
+                {
+                  "kata": "الْعُجْبَ",
+                  "alasan": "Lurus dan manshub, tetapi maknanya rusak. Ujub, bangga diri, adalah penyakit hati, bukan sikap mulia ketika ditimpa ujian."
+                }
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "makna": "Alangkah mulianya satu sikap baik ketika ditimpa ujian.",
+          "arti": true,
+          "jumlah": 2
+        },
+        {
           "jenis": "susun",
           "petunjuk": "Susun **dua bait** berurutan dalam rajaz. Setiap bait: dua syathr dengan pasangan qafiyah yang sah. Bait kedua memakai rawiy lain dari bait pertama. Ambil pasangan dari laci qafiyah. Timbang, lalu catat di Diwan.",
           "bahr": "rajaz",
@@ -869,6 +903,61 @@
           "makna": "juga kepada keluarganya yang bercahaya, mulia, dan berbakti, serta para sahabatnya yang terpilih dan terbaik."
         },
         {
+          "jenis": "salah",
+          "petunjuk": "**Lurus, tapi benar?** Semua baris ini lurus. Bayangkan semuanya calon bait untuk satu nazham hikmah bagi penuntut ilmu. Tandai setiap baris: benar, salah i'rab, rusak makna, atau keluar tema. Baris yang diubah dari aslinya disebut dalam penjelasan.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "حَسْبُكَ مِمَّا تَبْتَغِيهِ الْقُوتُ",
+                "مَا أَكْثَرَ الْقُوتَ لِمَنْ يَمُوتُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Dzat al-Amtsal, tanpa perubahan. Hikmah qana'ah, pas untuk nasihat. الْقُوتَ di syathr kedua manshub sebagai maf'ul bih ta'ajjub."
+            },
+            {
+              "bait": [
+                "مَا أَشْرَفَ الْكَسْبُ مِنَ الْحَلَالِ",
+                "مَا أَكْرَمَ السَّعْيَ عَلَى الْعِيَالِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. Diubah dari Dzat al-Amtsal: الْكَسْبَ menjadi الْكَسْبُ. Dalam ta'ajjub مَا أَفْعَلَ, مَا mubtada', أَشْرَفَ fi'il madhi dengan fa'il dhamir tersembunyi, dan isim sesudahnya maf'ul bih, jadi manshub. Bandingkan syathr kedua: السَّعْيَ tetap manshub."
+            },
+            {
+              "bait": [
+                "رَضِيتُ بِاللَّهِ وَبِالْقَضَاءِ",
+                "مَا أَكْرَمَ الصَّبْرَ عَلَى الْبَلَاءِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Dzat al-Amtsal, tanpa perubahan. Rida kepada qadha dan sabar atas ujian: satu tema, dan الصَّبْرَ manshub sebagai maf'ul bih ta'ajjub."
+            },
+            {
+              "bait": [
+                "تَحَرَّ فِيمَا تَطْلُبُ الْبَلَاغَا",
+                "وَاغْتَنِمِ الْغَفْلَةَ وَالْفَرَاغَا"
+              ],
+              "salah": "makna",
+              "alasan": "Rusak makna. Diubah dari Dzat al-Amtsal: الصِّحَّةَ diganti الْغَفْلَةَ. Sewazan dan manshub dengan benar sebagai maf'ul bih, tetapi nasihatnya terbalik: kelalaian bukan sesuatu yang dimanfaatkan. Pasangan sehat dan waktu luang datang dari hadits tentang dua nikmat yang banyak dilalaikan manusia."
+            },
+            {
+              "bait": [
+                "لَمْ أَدْرِ جِنِّيٌّ سَبَانِي أَمْ بَشَرْ",
+                "أَمْ شَمْسُ ظُهْرٍ أَشْرَقَتْ لِي أَمْ قَمَرْ"
+              ],
+              "salah": "tema",
+              "alasan": "Keluar tema. Bait Ibnu 'Abd Rabbih ini asli dan benar, tetapi temanya pesona dan rindu. Dalam nazham hikmah bagi penuntut ilmu ia tidak punya tempat, walaupun timbangan dan qafiyahnya sempurna."
+            },
+            {
+              "bait": [
+                "إِذَا جَعَلْتَ الْهَمَّ هَمًّا وَاحِدَا",
+                "نَعِمْتَ بَالٌ وَغَنِيتَ رَاشِدَا"
+              ],
+              "salah": "i'rab",
+              "alasan": "Salah i'rab. Diubah dari Dzat al-Amtsal: بَالًا menjadi بَالٌ. Fa'il نَعِمْتَ sudah ada, yaitu ta. بَالًا adalah tamyiz yang menjelaskan sisi mana yang nyaman, yaitu hatimu, dan tamyiz manshub. Tanwin dhammah dan tanwin fathah sama timbangannya, jadi mesin tidak menangkap kesalahan ini."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "Susun **5 bait berurutan** dalam rajaz muzdawij. Ikuti rancangan, atau ganti dengan rancangan Anda sendiri. Pilih pasangan qafiyah per bait sebelum menyusun. Timbang setiap bait, periksa pasangannya, lalu salin kelimanya ke Diwan.",
           "bahr": "rajaz",
@@ -883,7 +972,8 @@
             "Nasihat: bersabar dalam belajar",
             "Doa penutup"
           ],
-          "judulDiwan": "Lima bait muzdawij"
+          "judulDiwan": "Lima bait muzdawij",
+          "arti": true
         }
       ],
       "patokan": "Lima bait rajaz muzdawij tersusun, setiap bait ditimbang dan pasangan qafiyahnya lolos, lalu disalin ke Diwan."
@@ -1218,7 +1308,8 @@
             "Susun bait pertama: kedua syathr berujung ra sukun. Timbang.",
             "Susun bait kedua dan ketiga. Ujung syathr pertama bebas; ujung bait kembali ke ra sukun dengan kata yang belum dipakai.",
             "Periksa: tidak ada kata ujung yang diulang, harakat rawiy tetap, dan bentuk ujung tidak berubah dari utuh ke maqthu'."
-          ]
+          ],
+          "arti": true
         }
       ],
       "patokan": "Tiga bait rajaz berqafiyah satu tersusun dan tercatat di Diwan: 0 patah, ujung setiap bait berrawiy dan berharakat sama dengan bait pertama, bentuk ujung tetap, dan tidak ada kata ujung yang diulang. Laci qafiyah Anda berisi minimal 12 kata untuk rawiy yang dipakai."
@@ -1230,49 +1321,70 @@
       "arti": "yang terpilih (Nabi)",
       "laci": "qafiyah",
       "catatan": "Pasangan ـفَى / ـفَا: الشَّرَفَا. Polanya 1010110 di awal kalam, satu مُسْتَفْعِلُنْ.",
-      "dari": "Alfiyah muqaddimah bait 2"
+      "dari": "Alfiyah muqaddimah bait 2",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الشَّرَفَا",
       "arti": "kemuliaan",
       "laci": "qafiyah",
       "catatan": "Pasangan الْمُصْطَفَى. Alif di ujung adalah alif ithlaq, bukan rawiy.",
-      "dari": "Alfiyah muqaddimah bait 2"
+      "dari": "Alfiyah muqaddimah bait 2",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "مُوجَزِ",
       "arti": "ringkas",
       "laci": "qafiyah",
       "catatan": "Pasangan مُنْجَزِ. Keduanya isim maf'ul, pola 1011.",
-      "dari": "Alfiyah muqaddimah bait 4"
+      "dari": "Alfiyah muqaddimah bait 4",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مُنْجَزِ",
       "arti": "yang ditepati",
       "laci": "qafiyah",
       "catatan": "Pasangan مُوجَزِ.",
-      "dari": "Alfiyah muqaddimah bait 4"
+      "dari": "Alfiyah muqaddimah bait 4",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْقُوتُ",
       "arti": "makanan pokok, bekal hidup",
       "laci": "qafiyah",
       "catatan": "Rawiy ت dhammah, ridf و. Pasangan: يَمُوتُ، يَفُوتُ.",
-      "dari": "Dzat al-Amtsal"
+      "dari": "Dzat al-Amtsal",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "يَمُوتُ",
       "arti": "mati",
       "laci": "qafiyah",
       "catatan": "Pasangan الْقُوتُ. Pola 1101.",
-      "dari": "Dzat al-Amtsal"
+      "dari": "Dzat al-Amtsal",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "أَلَمْ",
       "arti": "rasa sakit",
       "laci": "qafiyah",
       "catatan": "Rawiy م sukun. Pasangan يَنَمْ. Pola 110, satu watad.",
-      "dari": "Dzat al-Amtsal"
+      "dari": "Dzat al-Amtsal",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "يَنَمْ",
@@ -1287,7 +1399,11 @@
       "laci": "qafiyah",
       "catatan": "Rawiy ء kasrah, ridf ا. Pasangan الْبَلَاءِ. Wazan فَعَال.",
       "dari": "Dzat al-Amtsal",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "iman",
+        "sabar"
+      ]
     },
     {
       "teks": "الْبَلَاءِ",
@@ -1295,7 +1411,10 @@
       "laci": "qafiyah",
       "catatan": "Pasangan الْقَضَاءِ.",
       "dari": "Dzat al-Amtsal",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "الْحَلَالِ",
@@ -1303,7 +1422,10 @@
       "laci": "qafiyah",
       "catatan": "Rawiy ل kasrah, ridf ا. Pasangan الْعِيَالِ, bukan الْجَمِيلِ.",
       "dari": "Dzat al-Amtsal",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْعِيَالِ",
@@ -1311,7 +1433,10 @@
       "laci": "qafiyah",
       "catatan": "Pasangan الْحَلَالِ.",
       "dari": "Dzat al-Amtsal",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْبَلَاغَا",
@@ -1325,14 +1450,20 @@
       "arti": "waktu luang",
       "laci": "qafiyah",
       "catatan": "Pasangan الْبَلَاغَا.",
-      "dari": "Dzat al-Amtsal"
+      "dari": "Dzat al-Amtsal",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "رَاشِدَا",
       "arti": "lurus, mendapat petunjuk (hal)",
       "laci": "qafiyah",
       "catatan": "Wazan فَاعِلًا, pola 10110. Pasangan وَاحِدَا.",
-      "dari": "Dzat al-Amtsal"
+      "dari": "Dzat al-Amtsal",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "مَا أَكْرَمَ",
@@ -1366,21 +1497,31 @@
       "arti": "kesesatan",
       "laci": "qafiyah",
       "catatan": "Rawiy ل kasrah, ridf ا. Pasangan الْإِجْلَالِ: ilmu menjauhkan dari kesesatan dan membawa kemuliaan.",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْإِجْلَالِ",
       "arti": "pemuliaan, penghormatan",
       "laci": "qafiyah",
       "catatan": "Pasangan الضَّلَالِ.",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     },
     {
       "teks": "الْخِتَامِ",
       "arti": "penutup",
       "laci": "qafiyah",
       "catatan": "Rawiy م kasrah, ridf ا. Pasangan الْإِنْعَامِ untuk doa penutup, seperti حُسْنُ الْخِتَامِ.",
-      "cocok": "ujung maqthu', ridf alif"
+      "cocok": "ujung maqthu', ridf alif",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "بَشَرْ",
@@ -1428,7 +1569,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "al-'Iqd al-Farid, qasidah rajaz tam"
+      "dari": "al-'Iqd al-Farid, qasidah rajaz tam",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الظَّفَرْ",
@@ -1436,7 +1580,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "syair yang dinisbatkan kepada 'Ali bin Abi Thalib"
+      "dari": "syair yang dinisbatkan kepada 'Ali bin Abi Thalib",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "بِالشَّرَرْ",
@@ -1460,7 +1607,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "al-'Ajjaj"
+      "dari": "al-'Ajjaj",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "ذَكَرْ",
@@ -1476,7 +1626,12 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "Nazhm al-'Imrithi bait 193"
+      "dari": "Nazhm al-'Imrithi bait 193",
+      "tema": [
+        "waktu",
+        "doa",
+        "ilmu"
+      ]
     },
     {
       "teks": "السَّفَرْ",
@@ -1484,7 +1639,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "Nazhm al-'Imrithi bait 193"
+      "dari": "Nazhm al-'Imrithi bait 193",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْخَبَرْ",
@@ -1492,7 +1650,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
       "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
-      "dari": "Nazhm al-Waraqat bait 145"
+      "dari": "Nazhm al-Waraqat bait 145",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "ظَهَرْ",
@@ -1515,28 +1676,41 @@
       "arti": "pelajaran-pelajaran",
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
-      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu."
+      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "السَّهَرْ",
       "arti": "begadang",
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
-      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu."
+      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
+      "tema": [
+        "ilmu",
+        "waktu"
+      ]
     },
     {
       "teks": "الْأَثَرْ",
       "arti": "jejak, atsar",
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
-      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu."
+      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْبَصَرْ",
       "arti": "penglihatan",
       "laci": "qafiyah",
       "cocok": "ujung bait, rawiy ra sukun",
-      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu."
+      "catatan": "Keluarga ra sukun, huruf sebelumnya hidup. Cocok untuk qafiyah satu.",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "الْكَمَالِ",
@@ -1544,14 +1718,20 @@
       "laci": "qafiyah",
       "cocok": "ujung maqthu', ridf alif",
       "catatan": "Rawiy ل kasrah, ridf alif. Pasangan: الْجَمَالِ، الْحَلَالِ; bukan الْجَلِيلِ.",
-      "dari": "Tuhfat al-Athfal bait 4"
+      "dari": "Tuhfat al-Athfal bait 4",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْإِنْعَامِ",
       "arti": "pemberian nikmat",
       "laci": "qafiyah",
       "cocok": "ujung maqthu', ridf alif",
-      "catatan": "Rawiy م kasrah, ridf alif. Pasangan الْخِتَامِ untuk doa penutup."
+      "catatan": "Rawiy م kasrah, ridf alif. Pasangan الْخِتَامِ untuk doa penutup.",
+      "tema": [
+        "doa"
+      ]
     }
   ]
 }
