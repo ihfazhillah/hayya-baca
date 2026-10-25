@@ -111,7 +111,7 @@
         {
           "salah": "Kalau bait pertama memakai khabn di taf'ilah kedua, bait berikutnya dikira harus begitu juga.",
           "benar": "Zihaf tidak mengikat. Setiap taf'ilah di setiap bait bebas memilih utuh atau khabn.",
-          "sebab": "Yang mengikat hanya 'illah di ujung bait (Pelajaran 3). Zihaf seperti pilihan qira'ah yang boleh berganti di setiap ayat."
+          "sebab": "Yang mengikat hanya 'illah di ujung bait (Pelajaran 3). Zihaf seperti i'lal yang jaiz dalam sharaf: boleh dipakai di satu kata dan ditinggalkan di kata lain, tanpa mengikat yang sesudahnya."
         }
       ],
       "qaidah": [
@@ -322,7 +322,7 @@
           "bahr": "rajaz",
           "makna": "Semua kata mu'rab ada kalanya di-i'rab dengan harakat, atau dengan huruf yang menempati tempat harakat.",
           "sumber": "Nazhm al-'Imrithi, fashl al-mu'rabat. usul.ai/t/durra-bahiyya/8; dicocokkan dengan syarah al-Bajuri, Fath Rabb al-Bariyyah.",
-          "catatan": "بِلْحَرَكَا = 101110 (thayy). Kata berwazan seperti الْحَرَكَاتِ (empat huruf hidup beruntun bila didahului huruf mati) sering melahirkan thayy."
+          "catatan": "بِلْحَرَكَا = 101110 (thayy). Kata berwazan seperti الْحَرَكَاتِ (tiga huruf hidup beruntun, حَرَكَا, didahului huruf mati) sering melahirkan thayy."
         },
         {
           "bait": [
@@ -402,7 +402,7 @@
         "Perhatikan contoh pertama: إِنْ قُلْتَ بَكْرًا. Lima taf'ilahnya utuh. Yang keenam, دِنْفَغَلَطْ, hanya enam huruf: **101110**. Bandingkan dengan khabn (110110). Di sini dua bit pertama masih 10, jadi sin masih ada. Yang hilang huruf keempat, fa' yang mati. Inilah **thayy**.",
         "Contoh kedua: بِالْحَرَكَاتِ أَوْ. Taf'ilah pertama syathr kedua, بِلْحَرَكَا, juga 101110. Lihat sebabnya: wazan الْحَرَكَات memberi tiga huruf hidup beruntun (حَرَكَا) yang didahului lam mati. Kata yang memuat banyak huruf hidup beruntun seperti ini sering melahirkan thayy.",
         "Contoh ketiga mengumpulkan empat wajah dalam satu bait. فَتِئَوَنْ = **11110**: empat huruf hidup lalu satu mati. Huruf kedua dan keempat sama-sama hilang: inilah **khabl**. Lalu فَكْكَوَزَا = 101110 (thayy) dan لَمَعْبَرِحْ = 110110 (khabn). Di syathr kedua, أَرْبَعُهَا = thayy lagi, lalu dua taf'ilah utuh.",
-        "Contoh keempat: فَلَقَبٌ di awal syathr kedua. Kata ini sendirian sudah satu khabl: فَلَقَبُنْ = 11110. Bandingkan dengan وَفِئَةٌ di bait taqthi': sama-sama 11110. Isim berwazan فَعَلٌ atau فِعَلَةٌ yang bertanwin dan didahului huruf athaf mudah membentuk khabl.",
+        "Contoh keempat: فَلَقَبٌ di awal syathr kedua. Kata ini sendirian sudah satu khabl: فَلَقَبُنْ = 11110. Bandingkan dengan وَفِئَةٌ di bait taqthi': sama-sama 11110. Isim pendek yang semua hurufnya hidup, seperti wazan فَعَلٌ (لَقَبٌ) atau فِعَةٌ (فِئَةٌ), bila bertanwin dan didahului huruf athaf mudah membentuk khabl.",
         "Dari empat contoh ini lahir cara cepat. Hitung huruf satu taf'ilah. Tujuh: utuh. Enam: lihat dua bit pertama; 11 berarti khabn, 10 berarti thayy. Lima: khabl. Empat atau kurang, atau ujung yang bukan 110, berarti patah (kecuali 'illah di ujung syathr, Pelajaran 3).",
         "Jembatan ke tajwid: empat huruf hidup beruntun terasa seperti bacaan yang tergesa tanpa tempat bernapas. Karena itu ulama 'arudh menilai khabl **qabih**. Ia sah, tetapi telinga Arab lebih suka bila huruf hidup diselingi huruf mati. Thayy dinilai shalih dan khabn hasan."
       ],
