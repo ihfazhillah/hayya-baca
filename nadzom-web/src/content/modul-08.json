@@ -18,7 +18,7 @@
           "bahr": "basith",
           "makna": "Bahr basith: di sanalah harapan dibentangkan lebar. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr basith (miftah al-buhur) yang masyhur di kitab-kitab 'arudh.",
-          "catatan": "Nama basith artinya yang terbentang: baitnya panjang, delapan taf'ilah."
+          "catatan": "Basith artinya yang terbentang. Kitab 'arudh menyebut sebabnya: sabab-sababnya berderet di awal مُسْتَفْعِلُنْ dan فَاعِلُنْ (انْبِسَاطُ أَسْبَابِهِ)."
         },
         {
           "bait": [
@@ -96,7 +96,7 @@
         "Sekarang contoh kedua, bait pembuka al-Busti. Hudhud memotong syathr pertamanya menjadi زِيَادَتُلْ | مَرْءِ فِي | دُنْيَاهُ نُقْ | صَانُو. Taf'ilah pertama 110110: مُسْتَفْعِلُنْ yang kehilangan sin. Ini khabn, sama dengan yang Anda temui di rajaz. Taf'ilah kedua مَرْءِ فِي = 10110, فَاعِلُنْ utuh.",
         "Taf'ilah ketiga دُنْيَاهُ نُقْ kembali utuh, 1010110. Ujungnya صَانُو = 1010. Ini bukan فَاعِلُنْ lagi: huruf hidup terakhirnya hilang, dan namanya فَعْلُنْ (qath'). Al-Busti memakai ujung ini di semua bait qashidahnya.",
         "Mengapa ujung syathr pertama bait ini juga 1010? Karena bait pembuka ber-**tasri'**: kedua syathrnya berqafiyah ـانُ, jadi ujung syathr pertama mengikuti ujung bait. Di bait kedua tidak ada tasri'. Ujung syathr pertamanya تَلَهُو = 1110, yaitu فَعِلُنْ.",
-        "Dari contoh-contoh ini kita tarik kaidahnya. Basith adalah مُسْتَفْعِلُنْ فَاعِلُنْ, dua kali per syathr. مُسْتَفْعِلُنْ boleh di-khabn (110110). فَاعِلُنْ di tengah boleh utuh (10110) atau di-khabn (1110). Ujung syathr pertama (**'arudh**) selalu فَعِلُنْ. Ujung bait (**dharb**) فَعِلُنْ atau فَعْلُنْ."
+        "Dari contoh-contoh ini kita tarik kaidahnya. Basith adalah مُسْتَفْعِلُنْ فَاعِلُنْ, dua kali per syathr. مُسْتَفْعِلُنْ boleh di-khabn (110110). فَاعِلُنْ di tengah boleh utuh (10110) atau di-khabn (1110). Ujung syathr pertama (**'arudh**) selalu فَعِلُنْ, kecuali pada bait ber-tasri'. Ujung bait (**dharb**) فَعِلُنْ atau فَعْلُنْ."
       ],
       "keliru": [
         {
@@ -122,7 +122,7 @@
       ],
       "qaidah": [
         "**فَاعِلُنْ** = 10 110 = **10110**. Dengan khabn (huruf kedua dibuang) menjadi **فَعِلُنْ** = 1110.",
-        "**Basith** = مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَاعِلُنْ dalam satu syathr. Taf'ilah terakhir syathr pertama biasanya فَعِلُنْ (1110).",
+        "**Basith** = مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَاعِلُنْ dalam satu syathr. Taf'ilah terakhir syathr pertama selalu فَعِلُنْ (1110), kecuali pada bait ber-tasri' yang mengikuti bentuk dharb.",
         "مُسْتَفْعِلُنْ di basith menerima khabn (مُتَفْعِلُنْ 110110), seperti di rajaz.",
         "Ujung bait (dharb) boleh فَعِلُنْ (1110) atau فَعْلُنْ (1010, qath'). Satu qashidah memakai satu bentuk dharb: al-Busti memakai 1010 di semua bait.",
         "Kunci basith: إِنَّ الْبَسِيطَ لَدَيْهِ يُبْسَطُ الْأَمَلُ."
