@@ -4,6 +4,8 @@ import { teksKitabah } from '@/lib/latihan'
 import Papan from './Papan'
 import SalinDiwan from './SalinDiwan'
 import Irama from './Irama'
+import { useJilid } from './Jilid'
+import { belumUtuh } from '@/lib/timbang'
 
 interface Props {
   hasil: HasilBait
@@ -20,13 +22,15 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
   )
   const pilihan = hasil.syathr.flatMap((s) => s.bacaanPilihan)
   const [dengar, setDengar] = useState(false)
+  const { salim } = useJilid()
+  const belum = salim ? belumUtuh(hasil) : []
 
   return (
     <div className="tumpuk">
       <div className="baris">
         <span className="chip">{hasil.bahr.nama}</span>
         <span className={`chip ${hasil.patah === 0 ? 'ok' : 'salah'}`}>Patah: {hasil.patah}</span>
-        {berubah > 0 && <span className="chip">Berubah (sah): {berubah}</span>}
+        {berubah > 0 && (salim ? <span className="chip salah">Belum utuh: {berubah}</span> : <span className="chip">Berubah (sah): {berubah}</span>)}
         <button type="button" className="tombol kecil" onClick={() => setDengar(!dengar)} aria-expanded={dengar}>
           {dengar ? 'Tutup irama' : 'Dengar irama'}
         </button>
@@ -50,7 +54,17 @@ export default function HasilTimbang({ hasil, bait, salin, judulDiwan }: Props) 
           ))}
         </ul>
       )}
-      {berubah > 0 && hasil.patah === 0 && (
+      {belum.length > 0 && (
+        <ul className="qaidah">
+          {belum.map((b, i) => (
+            <li key={i}>
+              <span className="segel" aria-hidden="true">!</span>
+              <span>Syathr {b.syathr + 1}, taf'ilah {b.ke + 1} ({b.bit}) belum utuh. Di Jilid 1 setiap taf'ilah harus {b.utuh.nama} ({b.utuh.bit}).</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!salim && berubah > 0 && hasil.patah === 0 && (
         <p className="redup kecil">Taf'ilah "berubah" adalah zihaf atau 'illah yang sah, bukan pincang. Dibahas di Modul 3.</p>
       )}
       {pilihan.length > 0 && <p className="redup kecil">Dibaca dengan {pilihan.join(', ')} agar wazannya lurus.</p>}

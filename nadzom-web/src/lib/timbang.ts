@@ -139,6 +139,18 @@ function timbangDenganPilihan(huruf: Huruf[], slot: Bentuk[][]): HasilSyathr {
   return terbaik!
 }
 
+/** Taf'ilah yang berubah (zihaf/'illah), untuk mode salim Jilid 1: posisi dan bentuk utuh yang semestinya. */
+export function belumUtuh(hasil: HasilBait): { syathr: number; ke: number; bit: string; utuh: Bentuk }[] {
+  return hasil.syathr.flatMap((s, si) =>
+    s.potongan.flatMap((p, ke) => {
+      if (p.status !== 'berubah') return []
+      const slot = hasil.bahr.slot[si === hasil.syathr.length - 1 ? 1 : 0][ke] ?? hasil.bahr.slot[1][ke]
+      const utuh = slot?.find((b) => !b.zihaf) ?? p.bentuk
+      return [{ syathr: si, ke, bit: p.bit, utuh }]
+    }),
+  )
+}
+
 /** Coba semua bahr yang dikenal; ambil yang paling sedikit patah, lalu paling sedikit berubah. */
 export function tebakBahr(syathr: Huruf[][]): HasilBait {
   let terbaik: HasilBait | null = null

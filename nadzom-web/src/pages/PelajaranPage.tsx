@@ -17,6 +17,8 @@ import Irama from '@/components/Irama'
 import Kenali from '@/components/Kenali'
 import TandaiDrill from '@/components/TandaiDrill'
 import CariPincang from '@/components/CariPincang'
+import Panen from '@/components/Panen'
+import { Jilid } from '@/components/Jilid'
 
 const ANGKA = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
 const angka = (n: number) => String(n).split('').map((d) => ANGKA[Number(d)]).join('')
@@ -66,6 +68,7 @@ const NAMA_TAMRIN: Record<Tamrin['jenis'], string> = {
   cetakan: 'Isi cetakan',
   susun: 'Susun sendiri',
   irama: 'Dengar dan lagukan',
+  panen: 'Panen laci',
 }
 
 function TamrinIrama({ t }: { t: Extract<Tamrin, { jenis: 'irama' }> }) {
@@ -101,6 +104,7 @@ function KartuTamrin({ t, ke }: { t: Tamrin; ke: number }) {
       {t.jenis === 'kenali' && <Kenali petunjuk={t.petunjuk} soal={t.soal} />}
       {t.jenis === 'tandai' && <TandaiDrill petunjuk={t.petunjuk} butir={t.butir} />}
       {t.jenis === 'pincang' && <CariPincang petunjuk={t.petunjuk} bahr={t.bahr} baris={t.baris} />}
+      {t.jenis === 'panen' && <Panen t={t} />}
     </article>
   )
 }
@@ -122,7 +126,7 @@ export default function PelajaranPage() {
   }
 
   return (
-    <>
+    <Jilid.Provider value={{ salim: !!modul.salim, modul: modul.nomor }}>
       <section className="judul-halaman">
         <span className="label">
           <Link to="/">Peta</Link> · <Link to={`/modul/${modul.nomor}`}>{namaModul(modul)}: {modul.judul}</Link> · Pelajaran {p.nomor}
@@ -200,6 +204,6 @@ export default function PelajaranPage() {
         {sebelum ? <Link className="tombol" to={`/modul/${modul.nomor}/${sebelum.nomor}`}>← {sebelum.judul}</Link> : <span />}
         {berikut ? <Link className="tombol utama lanjut" to={`/modul/${modul.nomor}/${berikut.nomor}`}>{berikut.judul} →</Link> : <Link className="tombol lanjut" to="/">Kembali ke peta</Link>}
       </nav>
-    </>
+    </Jilid.Provider>
   )
 }

@@ -17,8 +17,24 @@ export const ISTILAH: Istilah[] = rujukan.istilah
 /** Laci: bank kata awal ditambah kata dari setiap modul, tanpa duplikat. */
 export const BANK_KATA: KataBank[] = [
   ...(rujukan.bankKata as KataBank[]),
-  ...MODUL.flatMap((m) => (m.laci ?? []).map((k) => ({ ...k, dari: k.dari ?? namaModul(m) }))),
+  ...MODUL.flatMap((m) =>
+    (m.laci ?? []).map((k) => ({
+      ...k,
+      dari: k.dari ?? namaModul(m),
+      modul: k.modul ?? m.nomor,
+      bahr: k.bahr ?? (k.laci === 'umum' ? undefined : m.pelajaran[0]?.bahts.bahr),
+    })),
+  ),
 ].filter((k, i, semua) => semua.findIndex((x) => x.teks === k.teks) === i)
+
+/** Urutan belajar sebuah modul di peta (-1 bila tidak ada). */
+export const urutanModul = (nomor: number) => URUTAN.indexOf(nomor)
+
+/** Laci untuk satu tamrin: kata dari modul yang sudah dibuka sampai `sampai`, dan dari bahr yang sama. */
+export function laciUntuk(sampai: number, bahr?: string): KataBank[] {
+  const batas = urutanModul(sampai)
+  return BANK_KATA.filter((k) => (k.modul === undefined || urutanModul(k.modul) <= batas) && (!bahr || !k.bahr || k.bahr === bahr))
+}
 
 export function cariModul(nomor: number): Modul | undefined {
   return MODUL.find((m) => m.nomor === nomor)

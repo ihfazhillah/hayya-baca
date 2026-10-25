@@ -84,8 +84,20 @@ export type Tamrin =
       judulDiwan?: string
       /** Mu'aradhah: bait model yang dipinjam bahr dan qafiyahnya. Isian bisa dimulai dari bait ini. */
       pola?: { bait: string[]; sumber: string }
-      /** Tangga latihan bertahap, ditampilkan berurutan. */
-      tangga?: string[]
+      /** Tangga latihan bertahap, ditampilkan berurutan. Butir bercalon: pilih sendiri mana yang sewazan dengan `ganti`. */
+      tangga?: (string | { teks: string; ganti: string; calon: string[] })[]
+    }
+  /** Panen laci: pilih kata berurutan dari bait yang pas mengisi satu taf'ilah, beri arti, simpan ke Laci saya (spec 077). */
+  | {
+      jenis: 'panen'
+      petunjuk: string
+      bait: string[]
+      bahr: KodeBahr
+      /** Berapa potongan satu taf'ilah utuh yang harus dipanen. */
+      jumlah: number
+      /** Tampilkan kotak taf'ilah sebagai bantuan (Jilid 1); disembunyikan di jilid berikutnya. */
+      kotak: boolean
+      sumber: string
     }
 
 export interface Pelajaran {
@@ -121,6 +133,8 @@ export interface Dengar {
 
 export interface Modul {
   nomor: number
+  /** Jilid 1 (spec 077): semua bait rajaz utuh, dan checker menolak taf'ilah yang berubah. */
+  salim?: true
   /** Nama tampilan selain "Modul N", mis. "Boss 1" atau "Bonus". */
   label?: string
   judul: string
@@ -157,6 +171,12 @@ export interface KataBank {
   laci?: JenisLaci
   /** Asal kata, mis. "Alfiyah bait 1". */
   dari?: string
+  /** Slot yang bisa diisi, mis. "satu مُسْتَفْعِلُنْ utuh" atau "ujung bait". */
+  cocok?: string
+  /** Modul asal (diisi saat laci digabung); laci hanya menampilkan modul yang sudah dibuka. */
+  modul?: number
+  /** Bahr asal; kata umum tanpa bahr tampil di semua bahr. */
+  bahr?: KodeBahr
 }
 
 export interface Istilah {

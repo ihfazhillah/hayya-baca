@@ -14,6 +14,11 @@ import Irama from './components/Irama'
 import CariPincang from './components/CariPincang'
 import TandaiDrill from './components/TandaiDrill'
 import Kenali from './components/Kenali'
+import Cetakan from './components/Cetakan'
+import Laci from './components/Laci'
+import Panen from './components/Panen'
+import { Jilid } from './components/Jilid'
+import { bacaLaci, imporMarkdown, keMarkdown } from './lib/laciSaya'
 
 function buka(path: string) {
   return render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>)
@@ -236,5 +241,75 @@ describe('tamrinat bertingkat', () => {
     await user.click(duaB)
     expect(screen.getByText('2 dari 2 soal')).toBeInTheDocument()
     expect(screen.getByText(/Benar pada percobaan pertama: 1 dari 2/)).toBeInTheDocument()
+  })
+})
+
+describe('Jilid 1: mode salim (spec 077)', () => {
+  const susun = { jenis: 'susun' as const, petunjuk: 'Susun satu bait.', bahr: 'rajaz' as const, makna: 'Bebas.', bankKata: true }
+  const salim = (anak: React.ReactNode) => <Jilid.Provider value={{ salim: true, modul: 0 }}>{anak}</Jilid.Provider>
+
+  it('taf\'ilah yang berubah belum lulus dan ditunjukkan bentuk utuhnya; bait utuh lulus', async () => {
+    const user = userEvent.setup()
+    render(salim(<Susun t={susun} />))
+    const isian = screen.getByLabelText(/Bait Anda/)
+    await user.type(isian, 'بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ\nمُصَلِّيًا عَلَى النَّبِيِّ الْمُرْسَلِ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.getByText('belum utuh 3')).toBeInTheDocument()
+    expect(screen.getAllByText(/belum utuh\. Di Jilid 1 setiap taf'ilah harus مُسْتَفْعِلُنْ \(1010110\)/).length).toBe(3)
+    await user.clear(isian)
+    await user.type(isian, 'دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ\nقَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.getByText('utuh semua')).toBeInTheDocument()
+  })
+
+  it('cetakan: baris lurus yang berubah tidak bisa disimpan di Jilid 1', async () => {
+    const user = userEvent.setup()
+    const t = { jenis: 'cetakan' as const, petunjuk: 'Isi.', cetakan: '{1} بَحْرٌ يَسْهُلُ', bahr: 'rajaz' as const, jumlah: 1, kotak: [{ petunjuk: 'Satu taf\'ilah lebih', pola: '1010110 10', contoh: ['فِي أَبْحُرِ الْأَرْجَازِ'] }] }
+    render(salim(<Cetakan t={t} />))
+    await user.type(screen.getByLabelText('Kotak 1'), 'وَفِي بُحُورِ الشِّعْرِ')
+    expect(screen.getByText(/belum utuh/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Simpan baris' })).toBeDisabled()
+  })
+
+  it('laci tersaring: hanya kata dari modul yang sudah dibuka dan bahr yang dilatih', async () => {
+    render(<Laci sampai={0} bahr="rajaz" />)
+    expect(screen.queryByText('يَدَانِ')).toBeNull()
+    expect(screen.queryByText('سَأُنْبِيكَ')).toBeNull()
+    expect(document.querySelectorAll('.laci tbody tr').length).toBeGreaterThan(0)
+  })
+})
+
+describe('panen laci sendiri (spec 077)', () => {
+  const t = { jenis: 'panen' as const, petunjuk: 'Panen.', bait: ['صُبْحٌ بَدَا بَدْرٌ هَدَى طَوْدٌ عَلَا', 'بَحْرٌ حَلَا غَيْثٌ هَمَى لَيْثٌ سَطَا'], bahr: 'rajaz' as const, jumlah: 1, kotak: true, sumber: 'Hazim al-Qarthajanni' }
+
+  it('pilih kata berurutan, pola dihitung; satu taf\'ilah utuh bisa disimpan ke Laci saya, lalu tampil di laci', async () => {
+    const user = userEvent.setup()
+    const { unmount } = render(<Panen t={t} />)
+    expect(screen.getByRole('region', { name: "Kotak taf'ilah" })).toBeInTheDocument()
+    await user.click(screen.getAllByRole('button', { name: 'صُبْحٌ' })[0])
+    expect(screen.getByText(/1010 · belum satu taf'ilah/)).toBeInTheDocument()
+    await user.click(screen.getAllByRole('button', { name: 'بَدَا' })[0])
+    expect(screen.getByText(/1010110 · satu مُسْتَفْعِلُنْ utuh/)).toBeInTheDocument()
+    await user.type(screen.getByLabelText('Arti'), 'fajar yang terbit')
+    await user.click(screen.getByRole('button', { name: 'Simpan ke Laci saya' }))
+    expect(screen.getByText('1 dari 1 panen')).toBeInTheDocument()
+    expect(localStorage.getItem('nadzom.laci.v1')).toContain('صُبْحٌ بَدَا')
+    unmount()
+    render(<Laci />)
+    expect(screen.getByRole('region', { name: 'Laci saya' })).toBeInTheDocument()
+    expect(screen.getByText('fajar yang terbit')).toBeInTheDocument()
+  })
+
+  it('laci saya bisa diekspor ke Markdown dan diimpor kembali', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('nadzom.laci.v1', JSON.stringify([{ teks: 'صُبْحٌ بَدَا', arti: 'fajar terbit', pola: '1010110', cocok: 'satu مُسْتَفْعِلُنْ utuh', sumber: ['Hazim'] }]))
+    const md = keMarkdown(bacaLaci())
+    expect(md).toContain('| صُبْحٌ بَدَا | 1010110 | fajar terbit |')
+    localStorage.clear()
+    expect(imporMarkdown(md)).toBe(1)
+    expect(bacaLaci()[0].arti).toBe('fajar terbit')
+    render(<Laci />)
+    await user.click(screen.getByRole('button', { name: 'Ekspor Laci saya' }))
+    expect((screen.getByLabelText('Markdown Laci saya') as HTMLTextAreaElement).value).toContain('صُبْحٌ بَدَا')
   })
 })

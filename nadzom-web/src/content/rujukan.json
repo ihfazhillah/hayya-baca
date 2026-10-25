@@ -91,114 +91,148 @@
       "arti": "dan bersabarlah atas",
       "catatan": "Satu مُسْتَفْعِلُنْ utuh.",
       "laci": "hasyw",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "لَا تَيْأَسَنْ",
       "arti": "jangan sekali-kali putus asa",
       "catatan": "Satu مُسْتَفْعِلُنْ utuh.",
       "laci": "hasyw",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "مَهَارَةٌ",
       "arti": "keterampilan",
       "catatan": "مُتَفْعِلُنْ (khabn).",
       "laci": "wazan",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "كَرِّرْ",
       "arti": "ulangilah",
       "catatan": "Syaddah dihitung dua huruf.",
       "laci": "umum",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "فَاصْبِرْ",
       "arti": "maka bersabarlah",
       "laci": "hasyw",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "أَعِدْ",
       "arti": "ulangilah",
       "catatan": "Satu watad.",
       "laci": "umum",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "دَرْسَكَ",
       "arti": "pelajaranmu",
       "laci": "wazan",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "حِفْظَكَ",
       "arti": "hafalanmu",
       "catatan": "Polanya sama dengan دَرْسَكَ; bisa saling tukar.",
       "laci": "wazan",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "يَا بُنَيَّ",
       "arti": "wahai anakku",
       "laci": "hasyw",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "صَبْرَا",
       "arti": "kesabaran",
       "catatan": "Berpasangan dengan ذِكْرَا.",
       "laci": "qafiyah",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "ذِكْرَا",
       "arti": "zikir, ingatan",
       "laci": "qafiyah",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "الْعَمَلْ",
       "arti": "amal",
       "catatan": "Berpasangan dengan الْأَمَلْ.",
       "laci": "qafiyah",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "الْأَمَلْ",
       "arti": "harapan",
       "laci": "qafiyah",
-      "dari": "Rancangan Boss 1"
+      "dari": "Rancangan Boss 1",
+      "modul": 11,
+      "bahr": "rajaz"
     },
     {
       "teks": "أَبَدَا",
       "arti": "selamanya",
       "catatan": "Qafiyah ـدَا, dari pola Khandaq.",
       "laci": "qafiyah",
-      "dari": "Mu'aradhah Khandaq"
+      "dari": "Mu'aradhah Khandaq",
+      "modul": 0,
+      "bahr": "rajaz"
     },
     {
       "teks": "الْهُدَى",
       "arti": "petunjuk",
       "catatan": "Alif maqshurah: rawiy د berfathah, sama dengan ـدَا.",
       "laci": "qafiyah",
-      "dari": "Mu'aradhah Khandaq"
+      "dari": "Mu'aradhah Khandaq",
+      "modul": 0,
+      "bahr": "rajaz"
     },
     {
       "teks": "تَرْشُدَا",
       "arti": "(agar) engkau terbimbing",
       "catatan": "Mis. حَتَّى تَرْشُدَا; alifnya alif ithlaq.",
       "laci": "qafiyah",
-      "dari": "Mu'aradhah Khandaq"
+      "dari": "Mu'aradhah Khandaq",
+      "modul": 0,
+      "bahr": "rajaz"
     },
     {
       "teks": "عَاهَدُوا",
       "arti": "mereka berjanji setia",
       "catatan": "Lagunya sama dengan بَايَعُوا (لا نعم).",
       "laci": "wazan",
-      "dari": "Mu'aradhah Khandaq"
+      "dari": "Mu'aradhah Khandaq",
+      "modul": 0,
+      "bahr": "rajaz"
     }
   ]
 }

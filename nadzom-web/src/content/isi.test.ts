@@ -12,6 +12,25 @@ function timbang(bait: string[], kode: KodeBahr) {
   return timbangBait(k.syathr, cariBahr(kode)!)
 }
 
+const berubah = (bait: string[], kode: KodeBahr) => timbang(bait, kode).syathr.flatMap((s) => s.potongan).filter((p) => p.status === 'berubah').length
+const pola = (teks: string) => {
+  const k = kitabahBait([teks], { tanpaAkhir: true })
+  return k.ok ? k.syathr[0].map((h) => h.bit).join('') : ''
+}
+/** Potongan kata berurutan yang tepat satu taf'ilah utuh (bahan panen). */
+function potonganUtuh(bait: string[], kode: KodeBahr): string[] {
+  const utuh = new Set(cariBahr(kode)!.slot.flat(2).filter((b) => !b.zihaf).map((b) => b.bit))
+  const hasil: string[] = []
+  for (const s of bait) {
+    const kata = s.split(/\s+/)
+    for (let i = 0; i < kata.length; i++) for (let j = i + 1; j <= kata.length; j++) {
+      const t = kata.slice(i, j).join(' ')
+      if (utuh.has(pola(t))) hasil.push(t)
+    }
+  }
+  return hasil
+}
+
 for (const modul of MODUL) {
   describe(`Modul ${modul.nomor}`, () => {
     for (const p of modul.pelajaran) {
@@ -43,6 +62,30 @@ for (const modul of MODUL) {
           expect(jenis.size, 'ragam tamrin').toBeGreaterThanOrEqual(3)
         })
 
+        if (modul.salim) {
+          it('Jilid 1 (salim): setiap bait rajaz yang dipakai, ditanyakan, atau dijadikan pola utuh semua', () => {
+            const cek = (bait: string[], kode: KodeBahr, asal: string) => {
+              if (kode !== 'rajaz') return
+              expect(berubah(bait, kode), `${asal}: ${bait.join(' / ')}`).toBe(0)
+            }
+            for (const c of p.amtsilah) if (!c.patah) cek(c.bait, c.bahr, 'amtsilah')
+            cek(p.bahts.bait, p.bahts.bahr, 'bahts')
+            for (const l of p.bahts.langkah) if (l.tampil === 'timbang' && l.bait && !l.patah) cek(l.bait, p.bahts.bahr, 'langkah')
+            for (const t of p.tamarin) {
+              if (t.jenis === 'taqthi' || t.jenis === 'irama' || t.jenis === 'panen') cek(t.bait, t.bahr, t.jenis)
+              if (t.jenis === 'pincang') for (const b of t.baris) if (timbang(b.bait, t.bahr).patah === 0) cek(b.bait, t.bahr, 'pincang lurus')
+              if (t.jenis === 'susun' && t.pola) cek(t.pola.bait, t.bahr, 'pola')
+              if (t.jenis === 'cetakan') {
+                for (let i = 0; i < Math.max(...t.kotak.map((k) => k.contoh.length)); i++) {
+                  let baris = t.cetakan
+                  t.kotak.forEach((k, j) => { baris = baris.replace(`{${j + 1}}`, k.contoh[i % k.contoh.length]) })
+                  cek([baris], t.bahr, 'cetakan')
+                }
+              }
+            }
+          })
+        }
+
         it('latihan: jawaban dalam rentang, bait taqthi\' lurus, contoh cetakan lurus', () => {
           for (const t of p.tamarin) {
             if (t.jenis === 'pilih') expect(t.jawaban).toBeLessThan(t.pilihan.length)
@@ -62,6 +105,16 @@ for (const modul of MODUL) {
             if (t.jenis === 'taqthi' || t.jenis === 'irama') expect(timbang(t.bait, t.bahr).patah, t.bait.join(' / ')).toBe(0)
             if (t.jenis === 'susun' && t.rancangan) expect(t.rancangan.length).toBe(t.jumlah ?? 1)
             if (t.jenis === 'susun' && t.pola) expect(timbang(t.pola.bait, t.bahr).patah, "pola mu'aradhah lurus").toBe(0)
+            if (t.jenis === 'susun') for (const g of t.tangga ?? []) {
+              if (typeof g === 'string') continue
+              const pg = pola(g.ganti)
+              expect(g.calon.some((c) => pola(c) === pg), `ada calon sewazan dengan ${g.ganti}`).toBe(true)
+              expect(g.calon.some((c) => pola(c) !== pg), `ada calon pengecoh untuk ${g.ganti}`).toBe(true)
+            }
+            if (t.jenis === 'panen') {
+              expect(timbang(t.bait, t.bahr).patah, 'bait panen lurus').toBe(0)
+              expect(new Set(potonganUtuh(t.bait, t.bahr)).size, "cukup potongan satu taf'ilah utuh").toBeGreaterThanOrEqual(t.jumlah)
+            }
             if (t.jenis === 'cetakan') {
               for (let i = 0; i < Math.max(...t.kotak.map((k) => k.contoh.length)); i++) {
                 let baris = t.cetakan

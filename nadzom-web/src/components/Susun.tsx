@@ -2,15 +2,16 @@ import { useId, useMemo, useState } from 'react'
 import type { Tamrin } from '@/content/jenis'
 import { kitabahBait } from '@/lib/kitabah'
 import { cariBahr } from '@/lib/bahr'
-import { timbangBait } from '@/lib/timbang'
+import { belumUtuh, timbangBait } from '@/lib/timbang'
 import { diwanQasidah, pisahQasidah } from '@/lib/latihan'
 import { bedaUjung, periksaDharb, periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
-import { juzBentuk } from '@/lib/lagu'
 import type { HasilBait, Huruf } from '@/lib/jenis'
 import Teks from './Teks'
 import HasilTimbang from './HasilTimbang'
 import SalinDiwan from './SalinDiwan'
 import Laci from './Laci'
+import KotakTafilah from './KotakTafilah'
+import { useJilid } from './Jilid'
 
 type TamrinSusun = Extract<Tamrin, { jenis: 'susun' }>
 
@@ -36,6 +37,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
   const [galat, setGalat] = useState('')
   const [bank, setBank] = useState(false)
   const [buka, setBuka] = useState<number | null>(null)
+  const { salim, modul } = useJilid()
   const pola = useMemo(() => {
     if (!t.pola) return null
     const k = kitabahBait(t.pola.bait)
@@ -75,6 +77,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
   }
   const akhir = versi.at(-1)
   const patahTotal = (v: Versi) => v.hasil.reduce((a, h) => a + h.patah, 0)
+  const belumTotal = (v: Versi) => (salim ? v.hasil.reduce((a, h) => a + belumUtuh(h).length, 0) : 0)
   const judulDiwan = t.judulDiwan ?? (banyak ? `Qasidah ${bahr.nama}` : 'Bait #1')
 
   return (
@@ -95,7 +98,19 @@ export default function Susun({ t }: { t: TamrinSusun }) {
       )}
       {t.tangga && (
         <ol className="rancangan">
-          {t.tangga.map((r, i) => <li key={i}><Teks>{r}</Teks></li>)}
+          {t.tangga.map((r, i) =>
+            typeof r === 'string' ? (
+              <li key={i}><Teks>{r}</Teks></li>
+            ) : (
+              <li key={i}>
+                <Teks>{r.teks}</Teks>
+                <div className="baris" style={{ gap: 'var(--s-2)' }} aria-label={`Calon pengganti ${r.ganti}`}>
+                  {r.calon.map((c) => <span key={c} className="chip ar-in" lang="ar">{c}</span>)}
+                </div>
+                <span className="bantu">Timbang sendiri: mana yang lagunya sama dengan <span className="ar-in" lang="ar">{r.ganti}</span>?</span>
+              </li>
+            ),
+          )}
         </ol>
       )}
       {t.pola && (
@@ -104,16 +119,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
           {t.pola.bait.map((b, i) => (
             <div key={i} className="pola-syathr">
               <p className="ar" dir="rtl" lang="ar">{b}</p>
-              {pola?.syathr[i] && (
-                <div className="pola-kotak-baris" dir="rtl" aria-label={`Kotak syathr ${i + 1}`}>
-                  {pola.syathr[i].potongan.map((p, x) => (
-                    <span key={x} className="pola-kotak">
-                      <span lang="ar">{pola.syathr[i].huruf.slice(p.mulai, p.akhir).map((h) => h.h).join('')}</span>
-                      <span className="juz-lagu" lang="ar">{juzBentuk(p.bit, p.bentuk).map((j) => j.lagu ?? j.bit).join(' ')}</span>
-                    </span>
-                  ))}
-                </div>
-              )}
+              {pola?.syathr[i] && <KotakTafilah syathr={pola.syathr[i]} label={`Kotak syathr ${i + 1}`} />}
             </div>
           ))}
           <span className="bantu">{t.pola.sumber}</span>
@@ -141,7 +147,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         {t.bankKata && <button type="button" className="tombol" onClick={() => setBank(!bank)} aria-expanded={bank}>{bank ? 'Tutup laci' : 'Buka laci kata'}</button>}
         {banyak && akhir && <span className={`chip ${akhir.bait.length >= jumlah ? 'ok' : ''}`}>{akhir.bait.length} dari {jumlah} bait</span>}
       </div>
-      {bank && <Laci />}
+      {bank && <Laci sampai={modul} bahr={modul === undefined ? undefined : t.bahr} />}
       {galat && <div className="pesan salah">{galat}</div>}
       {versi.length > 0 && (
         <div className="kartu">
@@ -151,6 +157,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
               <li key={i}>
                 <span className="chip">v{i + 1}</span>
                 <span className={`chip ${patahTotal(v) === 0 ? 'ok' : 'salah'}`}>patah {patahTotal(v)}</span>
+                {salim && patahTotal(v) === 0 && <span className={`chip ${belumTotal(v) === 0 ? 'ok' : 'salah'}`}>{belumTotal(v) === 0 ? 'utuh semua' : `belum utuh ${belumTotal(v)}`}</span>}
                 {banyak && <span className="chip">{v.bait.length} bait</span>}
                 {v.qafiyah.length > 0 && <span className="chip salah">qafiyah {v.qafiyah.length}</span>}
                 <span className="versi-bait" dir="rtl" lang="ar">{v.bait[0]?.[0]}</span>
