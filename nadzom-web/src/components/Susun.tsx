@@ -15,6 +15,13 @@ import { useJilid } from './Jilid'
 
 type TamrinSusun = Extract<Tamrin, { jenis: 'susun' }>
 
+const TASHIH = [
+  "Harakat akhir setiap kata sesuai i'rab-nya (fa'il marfu', maf'ul manshub, majrur setelah huruf jarr).",
+  'Mudhaf tidak bertanwin dan tidak ber-alif-lam.',
+  "Fi'il cocok dengan fa'il-nya (mudzakkar/muannats, mufrad/jama').",
+  'Harakat huruf ujung (majra) mengikuti i\'rab, bukan dipaksa demi qafiyah.',
+]
+
 export const JALUR = ['Makna', 'Qafiyah', 'Susun', 'Lagukan', "Taqthi'", 'Perbaiki', 'Diwan'] as const
 
 const rapikan = (s: string) => s.trim().replace(/\s+/g, ' ')
@@ -38,6 +45,8 @@ export default function Susun({ t }: { t: TamrinSusun }) {
   const [bank, setBank] = useState(false)
   const [buka, setBuka] = useState<number | null>(null)
   const { salim, modul } = useJilid()
+  const [periksa, setPeriksa] = useState<boolean[]>(() => TASHIH.map(() => false))
+  const bolehSalin = !t.tashih || periksa.every(Boolean)
   const pola = useMemo(() => {
     if (!t.pola) return null
     const k = kitabahBait(t.pola.bait)
@@ -84,6 +93,16 @@ export default function Susun({ t }: { t: TamrinSusun }) {
     <div className="tumpuk">
       <p><Teks>{t.petunjuk}</Teks></p>
       <p className="redup"><Teks>{t.makna}</Teks></p>
+      {t.bantuan && (
+        <section className="kartu" aria-label="Bantuan di Boss ini">
+          <span className="label">Bantuan di Boss ini</span>
+          <div className="baris" style={{ gap: 'var(--s-2)' }}>
+            {t.bantuan.diberi.map((b) => <span key={b} className="chip ok">{b}</span>)}
+            {t.bantuan.dicabut.map((b) => <span key={b} className="chip salah"><s>{b}</s></span>)}
+          </div>
+          <span className="bantu">Hijau: masih diberikan. Dicoret: dicabut di sini, kerjakan sendiri.</span>
+        </section>
+      )}
       {t.rancangan && (
         <ol className="rancangan">
           {t.rancangan.map((r, i) => {
@@ -149,6 +168,18 @@ export default function Susun({ t }: { t: TamrinSusun }) {
       </div>
       {bank && <Laci sampai={modul} bahr={modul === undefined ? undefined : t.bahr} />}
       {galat && <div className="pesan salah">{galat}</div>}
+      {t.tashih && versi.length > 0 && (
+        <div className="kartu" role="group" aria-label="Tashih i'rab">
+          <span className="label">Tashih i'rab sebelum salin ke Diwan</span>
+          {TASHIH.map((x, i) => (
+            <label key={i} className="baris" style={{ cursor: 'pointer', alignItems: 'flex-start' }}>
+              <input type="checkbox" checked={periksa[i]} onChange={() => setPeriksa(periksa.map((v, k) => (k === i ? !v : v)))} />
+              <span>{x}</span>
+            </label>
+          ))}
+          <span className="bantu">Timbangan hanya memeriksa wazan dan qafiyah. Lughah dan i'rab Anda periksa sendiri.</span>
+        </div>
+      )}
       {versi.length > 0 && (
         <div className="kartu">
           <span className="label">Versi</span>
@@ -172,7 +203,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         </div>
       )}
       {akhir && !banyak && (
-        <HasilTimbang key={versi.length} hasil={akhir.hasil[0]} bait={akhir.bait[0]} salin judulDiwan={`${judulDiwan} v${versi.length}`} />
+        <HasilTimbang key={versi.length} hasil={akhir.hasil[0]} bait={akhir.bait[0]} salin={bolehSalin} judulDiwan={`${judulDiwan} v${versi.length}`} />
       )}
       {akhir && banyak && (
         <div className="tumpuk" key={versi.length}>
@@ -205,7 +236,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
               )
             })}
           </ol>
-          <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanQasidah(judul, akhir.bait, akhir.hasil)} />
+          {bolehSalin && <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanQasidah(judul, akhir.bait, akhir.hasil)} />}
         </div>
       )}
     </div>

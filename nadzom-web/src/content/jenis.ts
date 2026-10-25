@@ -84,6 +84,10 @@ export type Tamrin =
       judulDiwan?: string
       /** Mu'aradhah: bait model yang dipinjam bahr dan qafiyahnya. Isian bisa dimulai dari bait ini. */
       pola?: { bait: string[]; sumber: string }
+      /** Boss (spec 077): bantuan yang masih diberikan dan yang dicabut di sini. */
+      bantuan?: { diberi: string[]; dicabut: string[] }
+      /** Daftar periksa tashih i'rab sebelum salin ke Diwan; mesin tidak memeriksa lughah. */
+      tashih?: true
       /** Tangga latihan bertahap, ditampilkan berurutan. Butir bercalon: pilih sendiri mana yang sewazan dengan `ganti`. */
       tangga?: (string | { teks: string; ganti: string; calon: string[] })[]
     }

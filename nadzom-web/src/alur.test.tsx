@@ -344,3 +344,22 @@ describe('langkah berikutnya (spec 077)', () => {
     expect(within(bagian).getByText(/mu'aradhah per bulan/)).toBeInTheDocument()
   })
 })
+
+describe('Boss: bantuan menipis dan tashih i\'rab (spec 077)', () => {
+  const t = {
+    jenis: 'susun' as const, petunjuk: 'Susun dua bait.', bahr: 'rajaz' as const, makna: 'Bebas.', bankKata: false, jumlah: 2, qafiyah: 'muzdawij' as const,
+    bantuan: { diberi: ['Tema'], dicabut: ['Rancangan per bait', 'Usul qafiyah'] }, tashih: true as const,
+  }
+  it('kartu bantuan menyebut yang diberi dan yang dicabut; salin ke Diwan baru muncul setelah tashih i\'rab dicentang', async () => {
+    const user = userEvent.setup()
+    render(<Susun t={t} />)
+    const kartu = screen.getByRole('region', { name: 'Bantuan di Boss ini' })
+    expect(within(kartu).getByText('Usul qafiyah')).toBeInTheDocument()
+    await user.type(screen.getByLabelText(/Bait-bait Anda/), 'دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ | قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ\nدَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ | قَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.queryByRole('button', { name: 'Salin Markdown' })).toBeNull()
+    const tashih = screen.getByRole('group', { name: "Tashih i'rab" })
+    for (const c of within(tashih).getAllByRole('checkbox')) await user.click(c)
+    expect(screen.getByRole('button', { name: 'Salin Markdown' })).toBeInTheDocument()
+  })
+})
