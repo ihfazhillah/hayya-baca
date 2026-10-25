@@ -25,7 +25,7 @@ export const BANK_KATA: KataBank[] = [
       ...k,
       dari: k.dari ?? namaModul(m),
       modul: k.modul ?? m.nomor,
-      bahr: k.bahr ?? (k.laci === 'umum' ? undefined : m.pelajaran[0]?.bahts.bahr),
+      bahr: k.bahr ?? (k.laci === 'umum' ? undefined : (m.pelajaran.find((p) => p.nomor === 1) ?? m.pelajaran[0])?.bahts.bahr),
     })),
   ),
 ].filter((k, i, semua) => semua.findIndex((x) => x.teks === k.teks) === i)
