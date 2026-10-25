@@ -4,7 +4,7 @@ import { latinKeHuruf } from './latin'
 import { slotSyathr, timbangBait, tebakBahr } from './timbang'
 import { BAHR } from './bahr'
 import { bitLagu, juzBentuk, laguBahr } from './lagu'
-import type { Huruf } from './jenis'
+import type { Bahr, Huruf } from './jenis'
 
 const bits = (h: Huruf[]) => h.map((x) => x.bit).join('')
 const tampil = (h: Huruf[]) => h.map((x) => x.h).join('')
@@ -340,7 +340,7 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
     for (const kode of Object.keys(BAHR) as (keyof typeof BAHR)[]) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
       // Spec 077: nagham Lisan Mubin untuk mutaqarib dan khafif belum ditemukan; jangan dipakai di modul sebelum ada.
-      if (!BELUM_ADA_NAGHAM.includes(kode)) expect(BAHR[kode].dengar?.youtube, kode).toBeTruthy()
+      if (!BELUM_ADA_NAGHAM.includes(kode)) expect((BAHR[kode] as Bahr).dengar?.youtube, kode).toBeTruthy()
     }
   })
 
