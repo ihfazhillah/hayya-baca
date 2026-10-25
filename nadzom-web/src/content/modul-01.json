@@ -655,7 +655,7 @@
         },
         {
           "jenis": "cetakan",
-          "petunjuk": "Ganti لَفْظٍ di Nazhm al-Waraqat bait 97 dengan kata lain yang selagu, لا لا. Buat **dua baris berbeda**; keduanya harus lurus dan utuh. Lagukan dulu sebelum menimbang.",
+          "petunjuk": "Ganti لَفْظٍ di Nazhm al-Waraqat bait 97 dengan kata lain yang selagu, لا لا. Buat **dua baris berbeda**; keduanya harus lurus dan utuh. Lagukan dulu sebelum menimbang. Tombol di bawah kotak memuat pilihan; sebagian lurus tetapi salah tempat.",
           "cetakan": "وَالنَّصُّ عُرْفًا كُلُّ {1} وَارِدِ",
           "kotak": [
             {
@@ -665,10 +665,72 @@
                 "لَفْظٍ",
                 "قَوْلٍ",
                 "نُطْقٍ"
+              ],
+              "jenis": "isim bertanwin kasrah",
+              "pilih": true,
+              "terima": [
+                "لَفْظٍ",
+                "قَوْلٍ",
+                "نُطْقٍ"
+              ],
+              "tolak": [
+                {
+                  "kata": "قَوْلٌ",
+                  "alasan": "Salah harakat: kata sesudah كُلُّ disandarkan kepadanya, jadi berakhir kasrah, yaitu قَوْلٍ."
+                },
+                {
+                  "kata": "يَأْتِي",
+                  "alasan": "Salah jenis: ini fi'il, sedangkan sesudah كُلُّ harus isim."
+                },
+                {
+                  "kata": "سَيْفٍ",
+                  "alasan": "Keluar tema: bait ini tentang lafaz dalam ushul fiqh; pedang tidak bermakna di sini."
+                }
               ]
             }
           ],
           "bahr": "rajaz",
+          "tema": "ilmu",
+          "jumlah": 2
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "**Isi sesuai makna.** Syathr pertama Alfiyah bait 705 dengan satu kotak kosong. Baca sasaran makna, pilih kata yang menghasilkan makna itu, lagukan, lalu tulis arti baris Anda sebelum menyimpan. Buat **dua baris berbeda**.",
+          "cetakan": "وَالشَّرْطُ يُغْنِي عَنْ {1} قَدْ عُلِمْ",
+          "kotak": [
+            {
+              "petunjuk": "Isim bertanwin kasrah, pola 11010 (pendek, panjang, panjang), yang berarti jawab syarat",
+              "pola": "11010",
+              "contoh": [
+                "جَوَابٍ",
+                "جَزَاءٍ"
+              ],
+              "jenis": "isim bertanwin kasrah",
+              "pilih": true,
+              "terima": [
+                "جَوَابٍ",
+                "جَزَاءٍ"
+              ],
+              "tolak": [
+                {
+                  "kata": "جَوَابٌ",
+                  "alasan": "Salah harakat: sesudah huruf jar عَنْ, isim berakhir kasrah, yaitu جَوَابٍ."
+                },
+                {
+                  "kata": "سُؤَالٍ",
+                  "alasan": "Maknanya rusak: syarat tidak mencukupkan dari pertanyaan. Sasaran makna adalah jawab syarat."
+                },
+                {
+                  "kata": "كِتَابٍ",
+                  "alasan": "Keluar tema: bait ini tentang syarat dan jawabnya dalam nahwu; kitab tidak ada hubungannya."
+                }
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "makna": "Syarat bisa mencukupkan dari jawabnya, bila jawab itu sudah diketahui.",
+          "arti": true,
+          "tema": "ilmu",
           "jumlah": 2
         },
         {
@@ -1008,7 +1070,8 @@
             "Buka **Bait #1 v1** Anda. Lagukan dengan لا لا نعم; tandai kata tempat lagu tersandung.",
             "Timbang. Ganti kata yang patah atau belum utuh dengan kata yang lagunya sama, dari laci Modul 0 dan 1 atau dari Laci saya.",
             "Periksa ujung: kedua syathr sebunyi, dan huruf sebelum huruf ujung hidup. Timbang lagi sampai **utuh semua**; inilah **Bait #1 v2**."
-          ]
+          ],
+          "tema": "doa"
         }
       ],
       "patokan": "Bait #1 v2 tercatat di Diwan di bawah v1: 0 patah, utuh semua, kedua syathr berakhir sebunyi, dengan catatan kata yang diganti. Minimal satu kata pengganti diambil dari Laci saya."
@@ -1021,7 +1084,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110, لا لا نعم.",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "زِدْ فِي تُقًى",
@@ -1029,7 +1095,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110. Tanwin تُقًى dibaca nun mati.",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "طِبْ ثُمَّ صِلْ",
@@ -1037,7 +1107,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110. Syaddah ثُمَّ memisah dua suku.",
-      "dari": "Tuhfatul Athfal bait 27"
+      "dari": "Tuhfatul Athfal bait 27",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "ضِفْ ذَا نِعَمْ",
@@ -1045,7 +1118,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
-      "dari": "Tuhfatul Athfal bait 27"
+      "dari": "Tuhfatul Athfal bait 27",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "وَالْعَكْسُ قَدْ",
@@ -1053,7 +1129,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110. Pembuka syathr: lam qamariyah tetap dibaca.",
-      "dari": "Alfiyah bait 705"
+      "dari": "Alfiyah bait 705",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَٱسْتَعْمَلُوا",
@@ -1061,7 +1140,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Satu kata, satu taf'ilah: وَسْ تَعْ مَ لُو.",
-      "dari": "Alfiyah bait 523"
+      "dari": "Alfiyah bait 523",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "فِيمَا سِوَى",
@@ -1069,7 +1151,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
-      "dari": "Alfiyah bait 872"
+      "dari": "Alfiyah bait 872",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مَا لَمْ يُخَفْ",
@@ -1077,7 +1162,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
-      "dari": "Alfiyah bait 872"
+      "dari": "Alfiyah bait 872",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "لَمْ يَحْتَمِلْ",
@@ -1085,7 +1173,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
-      "dari": "Nazhm al-Waraqat bait 97"
+      "dari": "Nazhm al-Waraqat bait 97",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "رُحْمَاكَ يَا",
@@ -1093,7 +1184,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110. Lanjutkan dengan nama Allah yang lagunya لا لا pendek: رَحْمَانُ، غَفَّارُ، تَوَّابُ.",
-      "dari": "Ibnu Zakur"
+      "dari": "Ibnu Zakur",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَاسْتَغْفَرَتْ",
@@ -1101,7 +1195,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Satu kata, satu taf'ilah.",
-      "dari": "ash-Shaghani"
+      "dari": "ash-Shaghani",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "مِنْ كُلِّ مَا",
@@ -1109,7 +1206,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pola 1010110.",
-      "dari": "ash-Shaghani"
+      "dari": "ash-Shaghani",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "قَدْ عُلِمْ",
@@ -1117,7 +1217,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Ujung ـمْ, huruf sebelum mim hidup. Pasangannya فُهِمْ.",
-      "dari": "Alfiyah bait 705"
+      "dari": "Alfiyah bait 705",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "فُهِمْ",
@@ -1125,7 +1228,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Ujung ـمْ, huruf sebelum mim hidup. Pasangannya عُلِمْ.",
-      "dari": "Alfiyah bait 705"
+      "dari": "Alfiyah bait 705",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "جَارِمُ",
@@ -1133,7 +1239,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Wazan فَاعِلُ, huruf sebelum mim hidup. Sewazan: نَادِمُ، آثِمُ.",
-      "dari": "Ibnu Zakur"
+      "dari": "Ibnu Zakur",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "نَادِمُ",
@@ -1141,7 +1250,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Wazan فَاعِلُ, huruf sebelum mim hidup. Pasangannya جَارِمُ.",
-      "dari": "Ibnu Zakur"
+      "dari": "Ibnu Zakur",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "قَدْ أَجْرَمَتْ",
@@ -1149,7 +1261,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Ujung ـمَتْ, huruf sebelum ta hidup. Sewazan: أَسْلَمَتْ.",
-      "dari": "ash-Shaghani"
+      "dari": "ash-Shaghani",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "لِلْأَوَّلِ",
@@ -1157,7 +1272,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Ujung ـلِ, huruf sebelum lam hidup; dipanjangkan menjadi ـلِي. Pasangannya الْأَشْهَلِ.",
-      "dari": "Alfiyah bait 872"
+      "dari": "Alfiyah bait 872",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَاحِدِ",
@@ -1165,7 +1283,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Wazan فَاعِلِ, huruf sebelum dal hidup. Pasangannya وَارِدِ.",
-      "dari": "Nazhm al-Waraqat bait 97"
+      "dari": "Nazhm al-Waraqat bait 97",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "النَّافِلَهْ",
@@ -1173,7 +1294,11 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "catatan": "Ujung ـلَهْ, huruf sebelum ha hidup. Sewazan: فَاعِلَهْ.",
-      "dari": "Alfiyah bait 523"
+      "dari": "Alfiyah bait 523",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     }
   ]
 }

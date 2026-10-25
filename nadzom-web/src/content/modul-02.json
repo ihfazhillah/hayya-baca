@@ -639,6 +639,48 @@
           ]
         },
         {
+          "jenis": "cetakan",
+          "petunjuk": "**Hamzah washal di dalam cetakan.** Syathr kedua al-Jazariyyah bait 107 dengan satu kotak. Isi kotak dengan isim ber-al yang menjadi objek يُحْسِنِ. Hamzah ال tidak dibaca: kasrah نِ langsung menyambung ke lam, atau ke huruf syamsiyah yang ditasydid. Tulis arti baris sebelum menyimpan. Buat **dua baris berbeda**.",
+          "cetakan": "مَنْ يُحْسِنِ {1} يَظْفَرْ بِالرَّشَدْ",
+          "kotak": [
+            {
+              "petunjuk": "Isim ber-al berakhir fathah, misalnya التَّجْوِيدَ. Dalam bacaan, lam atau huruf syamsiyah menutup نِ sebagai 0, lalu 10101",
+              "pola": "010101",
+              "contoh": [
+                "التَّجْوِيدَ",
+                "الْأَعْمَالَ",
+                "الْقُرْآنَ"
+              ],
+              "jenis": "isim ber-al berakhir fathah",
+              "pilih": true,
+              "terima": [
+                "التَّجْوِيدَ",
+                "الْقُرْآنَ",
+                "الْأَعْمَالَ",
+                "الْأَخْلَاقَ"
+              ],
+              "tolak": [
+                {
+                  "kata": "الْأَعْمَالُ",
+                  "alasan": "Salah harakat: amal di sini yang diperbagus, objek dari يُحْسِنِ, jadi berakhir fathah, yaitu الْأَعْمَالَ."
+                },
+                {
+                  "kata": "الْعِصْيَانَ",
+                  "alasan": "Maknanya rusak: orang yang pandai bermaksiat tidak meraih petunjuk."
+                },
+                {
+                  "kata": "الْبُنْيَانَ",
+                  "alasan": "Keluar tema: bait ini tentang ilmu dan amal yang membawa kepada petunjuk; bangunan tidak ada hubungannya."
+                }
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "arti": true,
+          "tema": "ilmu",
+          "jumlah": 2
+        },
+        {
           "jenis": "panen",
           "petunjuk": "Dari bait 872 Alfiyah, panen **dua** potongan yang tepat mengisi satu مُسْتَفْعِلُنْ utuh. Perhatikan: potongan yang memuat hamzah washal atau alif kecil tetap sah, asal dibaca dengan benar. Tulis artinya, lalu simpan ke Laci saya.",
           "bait": [
@@ -1028,7 +1070,8 @@
             "Susun **syathr pertama**: tiga kotak مُسْتَفْعِلُنْ. Dua kotak boleh diambil dari laci hasyw; kotak terakhir ditutup kata ujung pilihan Anda. Timbang: semua harus utuh.",
             "Susun **syathr kedua** dengan ujung dari keluarga yang sama. Pakai minimal satu potongan dari Laci saya, hasil panen Anda sendiri.",
             "Timbang bait penuh. Bila ada taf'ilah yang belum utuh, ganti satu kata dengan kata sewazan dari laci, lalu timbang lagi. Bait yang utuh semua adalah **Bait #2**."
-          ]
+          ],
+          "tema": "doa"
         }
       ],
       "patokan": "Bait #2 tersusun dan tercatat di Diwan: kedua syathr berujung huruf yang sama dengan huruf hidup sebelumnya, semua taf'ilah utuh, dan minimal satu potongan berasal dari Laci saya. Di bawahnya, tulis jebakan 'ajam yang ada di bait itu beserta kitabahnya, misalnya اللَّهُمَّ ditulis لْلَاهُمْمَ."
@@ -1041,7 +1084,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Tuhfatul Athfal bait 16",
-      "catatan": "Dibaca دُمْ طَيْيِبَنْ, pola 1010110. Cocok untuk nasihat."
+      "catatan": "Dibaca دُمْ طَيْيِبَنْ, pola 1010110. Cocok untuk nasihat.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "زِدْ فِي تُقًى",
@@ -1049,7 +1095,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Tuhfatul Athfal bait 16",
-      "catatan": "Dibaca زِدْ فِي تُقَنْ, pola 1010110. Cocok untuk nasihat dan doa."
+      "catatan": "Dibaca زِدْ فِي تُقَنْ, pola 1010110. Cocok untuk nasihat dan doa.",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "طِبْ ثُمَّ صِلْ",
@@ -1057,7 +1107,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Tuhfatul Athfal bait 27",
-      "catatan": "Dibaca طِبْ ثُمْمَ صِلْ, pola 1010110. Cocok untuk akhlak dan silaturahim."
+      "catatan": "Dibaca طِبْ ثُمْمَ صِلْ, pola 1010110. Cocok untuk akhlak dan silaturahim.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "عَلَّمْتَنِي",
@@ -1065,7 +1118,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Abu al-'Atahiyah, Dzat al-Amtsal",
-      "catatan": "Dibaca عَلْلَمْتَنِي, pola 1010110. Cocok untuk doa ilmu; bisa juga menutup syathr."
+      "catatan": "Dibaca عَلْلَمْتَنِي, pola 1010110. Cocok untuk doa ilmu; bisa juga menutup syathr.",
+      "tema": [
+        "doa",
+        "ilmu"
+      ]
     },
     {
       "teks": "مِنْ كُلِّ مَا",
@@ -1073,7 +1130,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "ash-Shaghani",
-      "catatan": "Dibaca مِنْ كُلْلِ مَا, pola 1010110. Cocok untuk istighfar dan syukur."
+      "catatan": "Dibaca مِنْ كُلْلِ مَا, pola 1010110. Cocok untuk istighfar dan syukur.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَاسْتَغْفَرَتْ",
@@ -1081,7 +1141,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "ash-Shaghani",
-      "catatan": "Dibaca وَسْتَغْفَرَتْ, pola 1010110. Pelakunya muannats, misalnya نَفْسٌ."
+      "catatan": "Dibaca وَسْتَغْفَرَتْ, pola 1010110. Pelakunya muannats, misalnya نَفْسٌ.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "رُحْمَاكَ يَا",
@@ -1089,7 +1152,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Ibnu Zakur",
-      "catatan": "Pola 1010110. Pembuka doa; diikuti nama Allah, seperti رُحْمَاكَ يَا رَحْمَانُ."
+      "catatan": "Pola 1010110. Pembuka doa; diikuti nama Allah, seperti رُحْمَاكَ يَا رَحْمَانُ.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "تَرْضَى الَّذِي",
@@ -1097,7 +1163,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Ibnu Duraid, al-Maqshurah",
-      "catatan": "Dibaca تَرْضَلْلَذِي: alif gugur. Pola 1010110. Cocok untuk sabar dan rida."
+      "catatan": "Dibaca تَرْضَلْلَذِي: alif gugur. Pola 1010110. Cocok untuk sabar dan rida.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "مِنْ دُونِهَا",
@@ -1105,7 +1174,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Hazim al-Qarthajanni",
-      "catatan": "Pola 1010110. Cocok untuk jalan menuju cita-cita."
+      "catatan": "Pola 1010110. Cocok untuk jalan menuju cita-cita.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "فِيمَا سِوَى",
@@ -1113,7 +1185,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Alfiyah bait 872",
-      "catatan": "Pola 1010110."
+      "catatan": "Pola 1010110.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مَا لَمْ يُخَفْ",
@@ -1121,7 +1196,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "Alfiyah bait 872",
-      "catatan": "Pola 1010110."
+      "catatan": "Pola 1010110.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "أَبْيَاتُهَا",
@@ -1129,7 +1207,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "al-Jazariyyah bait 107",
-      "catatan": "Pola 1010110. Cocok untuk penutup nadzom."
+      "catatan": "Pola 1010110. Cocok untuk penutup nadzom.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "لِلْمُصْطَفَى",
@@ -1137,7 +1218,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "al-Baiquniyyah bait 9",
-      "catatan": "Dibaca لِلْمُصْطَفَى, pola 1010110. Cocok untuk shalawat."
+      "catatan": "Dibaca لِلْمُصْطَفَى, pola 1010110. Cocok untuk shalawat.",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "مَا رَغْبَتِي",
@@ -1145,7 +1230,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "dari": "ash-Shaghani",
-      "catatan": "Pola 1010110. Cocok untuk zuhud, diikuti فِي dan yang tidak diinginkan."
+      "catatan": "Pola 1010110. Cocok untuk zuhud, diikuti فِي dan yang tidak diinginkan.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "بِالرَّشَدْ",
@@ -1153,7 +1241,11 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Jazariyyah bait 107",
-      "catatan": "Keluarga dal mati, sebelumnya hidup. Dibaca بِرْرَشَدْ, pola 10110: tambahkan satu sabab di depannya, seperti يَظْفَرْ بِالرَّشَدْ."
+      "catatan": "Keluarga dal mati, sebelumnya hidup. Dibaca بِرْرَشَدْ, pola 10110: tambahkan satu sabab di depannya, seperti يَظْفَرْ بِالرَّشَدْ.",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "بِالْعَدَدْ",
@@ -1161,7 +1253,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Jazariyyah bait 107",
-      "catatan": "Keluarga dal mati. Dibaca بِلْعَدَدْ, pola 10110."
+      "catatan": "Keluarga dal mati. Dibaca بِلْعَدَدْ, pola 10110.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْحَسَدْ",
@@ -1169,7 +1264,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Jauharat at-Tauhid bait 80",
-      "catatan": "Keluarga dal mati. Dalam bait: دَاءَ الْحَسَدْ, dibaca دَاءَلْحَسَدْ."
+      "catatan": "Keluarga dal mati. Dalam bait: دَاءَ الْحَسَدْ, dibaca دَاءَلْحَسَدْ.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "قُصِدْ",
@@ -1177,7 +1275,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Waraqat bait 201",
-      "catatan": "Keluarga dal mati. Pola 110; dalam bait: أَمْرٍ قَدْ قُصِدْ."
+      "catatan": "Keluarga dal mati. Pola 110; dalam bait: أَمْرٍ قَدْ قُصِدْ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "نِعَمْ",
@@ -1185,7 +1286,11 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Tuhfatul Athfal bait 27",
-      "catatan": "Keluarga mim mati. Pola 110; dalam bait: ضِفْ ذَا نِعَمْ."
+      "catatan": "Keluarga mim mati. Pola 110; dalam bait: ضِفْ ذَا نِعَمْ.",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "لِلْكَرَمْ",
@@ -1193,7 +1298,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Tuhfatul Athfal bait 27",
-      "catatan": "Keluarga mim mati. Pola 10110."
+      "catatan": "Keluarga mim mati. Pola 10110.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "عُلِمْ",
@@ -1201,7 +1309,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Alfiyah bait 705",
-      "catatan": "Keluarga mim mati. Pola 110; dalam bait: جَوَابٍ قَدْ عُلِمْ."
+      "catatan": "Keluarga mim mati. Pola 110; dalam bait: جَوَابٍ قَدْ عُلِمْ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "فُهِمْ",
@@ -1209,7 +1320,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Alfiyah bait 705",
-      "catatan": "Keluarga mim mati. Pola 110; dalam bait: الْمَعْنَى فُهِمْ."
+      "catatan": "Keluarga mim mati. Pola 110; dalam bait: الْمَعْنَى فُهِمْ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بِالنَّظَرْ",
@@ -1217,7 +1331,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Waraqat bait 33",
-      "catatan": "Keluarga ra mati. Dibaca بِنْنَظَرْ, pola 10110."
+      "catatan": "Keluarga ra mati. Dibaca بِنْنَظَرْ, pola 10110.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْمُعْتَبَرْ",
@@ -1225,7 +1342,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Waraqat bait 33",
-      "catatan": "Keluarga ra mati. Dalam bait: فَالْمُعْتَبَرْ = 1010110, satu taf'ilah penuh."
+      "catatan": "Keluarga ra mati. Dalam bait: فَالْمُعْتَبَرْ = 1010110, satu taf'ilah penuh.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "أَسْلَمَتْ",
@@ -1233,7 +1353,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "ash-Shaghani",
-      "catatan": "Keluarga ـمَتْ, wazan أَفْعَلَتْ, pola 10110. Pelakunya muannats."
+      "catatan": "Keluarga ـمَتْ, wazan أَفْعَلَتْ, pola 10110. Pelakunya muannats.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "أَجْرَمَتْ",
@@ -1241,7 +1364,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "ash-Shaghani",
-      "catatan": "Keluarga ـمَتْ, wazan أَفْعَلَتْ, pola 10110. Dalam bait: قَدْ أَجْرَمَتْ."
+      "catatan": "Keluarga ـمَتْ, wazan أَفْعَلَتْ, pola 10110. Dalam bait: قَدْ أَجْرَمَتْ.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَاسْتَسْلَمَتْ",
@@ -1249,7 +1375,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "ash-Shaghani",
-      "catatan": "Keluarga ـمَتْ. Dibaca وَسْتَسْلَمَتْ = 1010110, satu taf'ilah penuh."
+      "catatan": "Keluarga ـمَتْ. Dibaca وَسْتَسْلَمَتْ = 1010110, satu taf'ilah penuh.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "جَارِمُ",
@@ -1257,7 +1386,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Ibnu Zakur",
-      "catatan": "Keluarga ـمُ, wazan فَاعِل. Di ujung bait dibaca جَارِمُو, pola 10110. Pasangannya sewazan: نَادِمُ."
+      "catatan": "Keluarga ـمُ, wazan فَاعِل. Di ujung bait dibaca جَارِمُو, pola 10110. Pasangannya sewazan: نَادِمُ.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "نَادِمُ",
@@ -1265,7 +1397,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "Ibnu Zakur",
-      "catatan": "Keluarga ـمُ, wazan فَاعِل. Di ujung bait dibaca نَادِمُو."
+      "catatan": "Keluarga ـمُ, wazan فَاعِل. Di ujung bait dibaca نَادِمُو.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَاحِدِ",
@@ -1273,7 +1408,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Waraqat bait 97",
-      "catatan": "Keluarga ـدِ, wazan فَاعِل. Di ujung bait dibaca وَاحِدِي. Pasangannya sewazan: وَارِدِ."
+      "catatan": "Keluarga ـدِ, wazan فَاعِل. Di ujung bait dibaca وَاحِدِي. Pasangannya sewazan: وَارِدِ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَارِدِ",
@@ -1281,7 +1419,10 @@
       "laci": "qafiyah",
       "cocok": "ujung bait",
       "dari": "al-Waraqat bait 97",
-      "catatan": "Keluarga ـدِ, wazan فَاعِل. Di ujung bait dibaca وَارِدِي."
+      "catatan": "Keluarga ـدِ, wazan فَاعِل. Di ujung bait dibaca وَارِدِي.",
+      "tema": [
+        "ilmu"
+      ]
     }
   ]
 }

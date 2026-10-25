@@ -510,11 +510,11 @@
         },
         {
           "jenis": "cetakan",
-          "petunjuk": "**Satu kotak.** Isi kotak tengah dengan potongan Anda sendiri, lengkap dengan harakat. Buat **tiga baris berbeda**; setiap baris harus lurus dan ketiga taf'ilahnya utuh.",
+          "petunjuk": "**Satu kotak.** Isi kotak tengah, lengkap dengan harakat. Ketik sendiri atau pilih dari tombol di bawah kotak; ada pilihan yang lurus tetapi salah tempat, dan alasannya ditampilkan. Buat **tiga baris berbeda**; setiap baris harus lurus dan ketiga taf'ilahnya utuh.",
           "cetakan": "صُبْحٌ بَدَا {1} طَوْدٌ عَلَا",
           "kotak": [
             {
-              "petunjuk": "Satu مُسْتَفْعِلُنْ: isim satu suku bertanwin lalu fi'il berpola 110. Boleh juga potongan lain dari laci yang 1010110",
+              "petunjuk": "Satu مُسْتَفْعِلُنْ: isim satu suku bertanwin lalu fi'il berpola 110, yang melanjutkan gambaran terang dan agung seperti fajar dan gunung",
               "pola": "1010110",
               "contoh": [
                 "بَدْرٌ هَدَى",
@@ -522,6 +522,29 @@
                 "غَيْثٌ هَمَى",
                 "رُكْنٌ سَمَا",
                 "حِصْنٌ حَمَى"
+              ],
+              "jenis": "isim bertanwin lalu fi'il madhi",
+              "pilih": true,
+              "terima": [
+                "بَدْرٌ هَدَى",
+                "نَجْمٌ سَرَى",
+                "غَيْثٌ هَمَى",
+                "رُكْنٌ سَمَا",
+                "حِصْنٌ حَمَى"
+              ],
+              "tolak": [
+                {
+                  "kata": "شَمْسٌ سَرَتْ",
+                  "alasan": "Maknanya rusak: سَرَى berarti berjalan di malam hari, sedangkan matahari tidak berjalan di malam hari."
+                },
+                {
+                  "kata": "نَجْمٌ هَمَى",
+                  "alasan": "Maknanya rusak: هَمَى dipakai untuk hujan atau air mata yang tercurah, bukan untuk bintang."
+                },
+                {
+                  "kata": "ذِئْبٌ عَدَا",
+                  "alasan": "Keluar tema: baris ini merangkai gambaran yang terang dan agung, seperti fajar dan gunung. Serigala yang menerkam merusak rangkaian itu."
+                }
               ]
             }
           ],
@@ -530,7 +553,7 @@
         },
         {
           "jenis": "cetakan",
-          "petunjuk": "**Dua kotak.** Bantuan dikurangi satu: kini dua dari tiga taf'ilah Anda isi sendiri. Setiap kotak satu مُسْتَفْعِلُنْ. Buat **tiga baris berbeda**, semuanya lurus dan utuh.",
+          "petunjuk": "**Dua kotak.** Bantuan dikurangi satu: kini dua dari tiga taf'ilah Anda isi sendiri. Setiap kotak satu مُسْتَفْعِلُنْ. Buat **tiga baris berbeda**, semuanya lurus dan utuh. Tombol di bawah kotak memuat pilihan; sebagian lurus tetapi salah tempat.",
           "cetakan": "{1} {2} طَوْدٌ عَلَا",
           "kotak": [
             {
@@ -541,6 +564,25 @@
                 "نَجْمٌ سَرَى",
                 "بَحْرٌ حَلَا",
                 "دُمْ طَيِّبًا"
+              ],
+              "jenis": "isim bertanwin lalu fi'il madhi, atau frasa perintah",
+              "pilih": true,
+              "terima": [
+                "عِلْمٌ نَمَا",
+                "صُبْحٌ بَدَا",
+                "نَجْمٌ سَرَى",
+                "بَحْرٌ حَلَا",
+                "دُمْ طَيِّبًا"
+              ],
+              "tolak": [
+                {
+                  "kata": "عِلْمٌ نَمَتْ",
+                  "alasan": "Salah: عِلْمٌ mudzakkar, jadi fi'il sesudahnya tanpa ta ta'nits, yaitu نَمَا."
+                },
+                {
+                  "kata": "شَمْسٌ سَرَتْ",
+                  "alasan": "Maknanya rusak: سَرَى berarti berjalan di malam hari, sedangkan matahari tidak berjalan di malam hari."
+                }
               ]
             },
             {
@@ -551,11 +593,70 @@
                 "سَيْفٌ فَرَى",
                 "غَيْثٌ هَمَى",
                 "زِدْ فِي تُقًى"
+              ],
+              "jenis": "isim bertanwin lalu fi'il madhi, atau frasa perintah",
+              "pilih": true,
+              "terima": [
+                "قَلْبٌ صَفَا",
+                "بَدْرٌ هَدَى",
+                "سَيْفٌ فَرَى",
+                "غَيْثٌ هَمَى",
+                "زِدْ فِي تُقًى"
+              ],
+              "tolak": [
+                {
+                  "kata": "قَلْبٌ صَفَتْ",
+                  "alasan": "Salah: قَلْبٌ mudzakkar, jadi fi'il sesudahnya tanpa ta ta'nits, yaitu صَفَا."
+                },
+                {
+                  "kata": "نَجْمٌ هَمَى",
+                  "alasan": "Maknanya rusak: هَمَى dipakai untuk hujan atau air mata yang tercurah, bukan untuk bintang."
+                }
               ]
             }
           ],
           "bahr": "rajaz",
           "jumlah": 3
+        },
+        {
+          "jenis": "cetakan",
+          "petunjuk": "**Isi sesuai makna.** Baca sasaran makna di atas cetakan, lalu isi kotak tengah dengan potongan yang menghasilkan makna itu. Potongan yang lurus tetapi maknanya lain tidak diterima. Buat **dua baris berbeda**.",
+          "cetakan": "عِلْمٌ نَمَا {1} قَلْبٌ صَفَا",
+          "kotak": [
+            {
+              "petunjuk": "Satu مُسْتَفْعِلُنْ yang berarti takwa bertambah: isim bertanwin lalu fi'il, atau fi'il lalu isim ber-al",
+              "pola": "1010110",
+              "contoh": [
+                "تَقْوًى نَمَتْ",
+                "زَادَ التُّقَى"
+              ],
+              "jenis": "isim bertanwin lalu fi'il madhi, atau fi'il lalu isim",
+              "pilih": true,
+              "terima": [
+                "تَقْوًى نَمَتْ",
+                "تَقْوًى زَكَتْ",
+                "زَادَ التُّقَى"
+              ],
+              "tolak": [
+                {
+                  "kata": "تَقْوًى نَمَا",
+                  "alasan": "Salah: تَقْوًى muannats, jadi fi'il sesudahnya memakai ta ta'nits, yaitu نَمَتْ."
+                },
+                {
+                  "kata": "جَهْلٌ نَمَا",
+                  "alasan": "Maknanya terbalik: yang tumbuh di sini kebodohan, bukan takwa."
+                },
+                {
+                  "kata": "مَالٌ نَمَا",
+                  "alasan": "Keluar dari sasaran makna: yang bertambah di sini harta, bukan takwa."
+                }
+              ]
+            }
+          ],
+          "bahr": "rajaz",
+          "makna": "Ilmu tumbuh, takwa bertambah, hati pun jernih.",
+          "tema": "iman",
+          "jumlah": 2
         },
         {
           "jenis": "panen",
@@ -874,7 +975,8 @@
             "Ganti **satu taf'ilah**: potongan رُحْمَاكَ يَا adalah satu مُسْتَفْعِلُنْ. Ganti dengan potongan lain yang juga 1010110 dan tetap berupa seruan, dari laci atau susunan Anda sendiri.",
             "Ganti **syathr pertama** dengan kata Anda sendiri. Huruf ujung م tetap, dan huruf sebelumnya harus hidup. Kata berwazan فَاعِلُ paling aman.",
             "**Bait sendiri**: makna Anda di kedua syathr, rajaz utuh, dan kedua syathr berujung م. Inilah Bait #1."
-          ]
+          ],
+          "tema": "doa"
         }
       ],
       "patokan": "Pola Ibnu Zakur ditimbang sendiri, semua baris Cari yang pincang tepat, lalu Bait #1 lahir lewat empat tangga mu'aradhah: setiap tangga ditimbang, semua taf'ilah utuh, kedua syathr berujung م, dan setiap versi tercatat di Diwan Anda.",
@@ -917,7 +1019,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "بَدْرٌ هَدَى",
@@ -925,7 +1030,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "waktu",
+        "ilmu"
+      ]
     },
     {
       "teks": "نَجْمٌ سَرَى",
@@ -933,7 +1042,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "غَيْثٌ هَمَى",
@@ -941,7 +1053,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "رُكْنٌ سَمَا",
@@ -949,7 +1064,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "دُمْ طَيِّبًا",
@@ -957,7 +1075,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "زِدْ فِي تُقًى",
@@ -965,7 +1086,11 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "صِفْ ذَا ثَنَا",
@@ -973,7 +1098,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "رُحْمَاكَ يَا",
@@ -982,7 +1110,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Pembuka doa; disambung dengan nama Allah, misalnya رَحْمَانُ.",
       "bahr": "rajaz",
-      "dari": "Ibnu Zakur al-Fasi"
+      "dari": "Ibnu Zakur al-Fasi",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "مِنْ كُلِّ مَا",
@@ -990,7 +1121,10 @@
       "laci": "hasyw",
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "bahr": "rajaz",
-      "dari": "Radhiyuddin ash-Shaghani"
+      "dari": "Radhiyuddin ash-Shaghani",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَاسْتَغْفَرَتْ",
@@ -999,7 +1133,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "Satu kata, satu taf'ilah: وَسْ تَغْ فَرَتْ.",
       "bahr": "rajaz",
-      "dari": "Radhiyuddin ash-Shaghani"
+      "dari": "Radhiyuddin ash-Shaghani",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "جَارِمُ",
@@ -1008,7 +1145,10 @@
       "cocok": "ujung bait",
       "catatan": "Huruf ujung م, huruf sebelumnya hidup. Wazan فَاعِلُ; setelah إِنِّي menjadi نِي جَارِمُو = 1010110.",
       "bahr": "rajaz",
-      "dari": "Ibnu Zakur al-Fasi"
+      "dari": "Ibnu Zakur al-Fasi",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "نَادِمُ",
@@ -1017,7 +1157,10 @@
       "cocok": "ujung bait",
       "catatan": "Pasangan جَارِمُ: wazan فَاعِلُ, huruf ujung م.",
       "bahr": "rajaz",
-      "dari": "Ibnu Zakur al-Fasi"
+      "dari": "Ibnu Zakur al-Fasi",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "طَوْدٌ عَلَا",
@@ -1026,7 +1169,10 @@
       "cocok": "ujung bait",
       "catatan": "Satu مُسْتَفْعِلُنْ utuh. Huruf ujung ل, huruf sebelumnya hidup.",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "لَيْثٌ سَطَا",
@@ -1035,7 +1181,10 @@
       "cocok": "ujung bait",
       "catatan": "Satu مُسْتَفْعِلُنْ utuh. Huruf ujung ط, huruf sebelumnya hidup.",
       "bahr": "rajaz",
-      "dari": "Hazim al-Qarthajanni, Maqshurah"
+      "dari": "Hazim al-Qarthajanni, Maqshurah",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "ضَعْ ظَالِمَا",
@@ -1044,7 +1193,10 @@
       "cocok": "ujung bait",
       "catatan": "Satu مُسْتَفْعِلُنْ utuh. Huruf ujung م, huruf sebelumnya hidup.",
       "bahr": "rajaz",
-      "dari": "Tuhfatul Athfal bait 16"
+      "dari": "Tuhfatul Athfal bait 16",
+      "tema": [
+        "akhlak"
+      ]
     }
   ]
 }
