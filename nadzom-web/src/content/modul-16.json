@@ -294,14 +294,14 @@
         },
         {
           "jenis": "panen",
-          "petunjuk": "Panen dari bait Abu al-'Atahiyah. Kotak taf'ilah ditampilkan sebagai bantuan. Pilih kata yang pas mengisi **satu فَعُولُنْ utuh**, tulis artinya, lalu simpan ke Laci saya. Panen tiga potongan; syathr kedua paling mudah. مَجِيدُ dan حَمِيدُ baru utuh berkat isyba', jadi catat keduanya sebagai kata ujung bait.",
+          "petunjuk": "Panen dari bait Abu al-'Atahiyah. Pilih kata yang pas mengisi **satu فَعُولُنْ utuh**, tulis artinya, lalu simpan ke Laci saya. Panen tiga potongan; syathr kedua paling mudah. مَجِيدُ dan حَمِيدُ baru utuh berkat isyba', jadi catat keduanya sebagai kata ujung bait.",
           "bait": [
             "أَلَا إِنَّ رَبِّي قَوِيٌّ مَجِيدُ",
             "لَطِيفٌ جَلِيلٌ غَنِيٌّ حَمِيدُ"
           ],
           "bahr": "mutaqarib",
           "jumlah": 3,
-          "kotak": true,
+          "kotak": false,
           "sumber": "Abu al-'Atahiyah, qashidah «ألا إن ربي قوي مجيد»"
         },
         {
@@ -411,7 +411,7 @@
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama, kunci mutaqarib, yang ditunda di Pelajaran 1. عَنِ الْمُتَقَارِبِ ditulis عَنِلْمُتَقَارِبِ. Potongan pertama عَنِلْمُ = 1 10 1, potongan kedua تَقَارِ = 1 10 1. Keduanya kehilangan sabab penuh di ujung; yang tersisa hanya huruf hidup. Itu **qabdh**, dua kali berturut-turut. بِقَالَلْ dan خَلِيلُو kembali utuh. Jadi al-Khalil sendiri, dalam kunci ini, sudah memakai qabdh.",
+        "Perhatikan contoh pertama, kunci mutaqarib, yang ditunda di Pelajaran 1. عَنِ الْمُتَقَارِبِ ditulis عَنِلْمُتَقَارِبِ. Potongan pertama عَنِلْمُ = 1 10 1, potongan kedua تَقَارِ = 1 10 1. Keduanya kehilangan huruf mati di ujung sabab; yang tersisa hanya huruf hidup. Itu **qabdh**, dua kali berturut-turut. بِقَالَلْ dan خَلِيلُو kembali utuh. Jadi al-Khalil sendiri, dalam kunci ini, sudah memakai qabdh.",
         "Lalu contoh kedua, bait Ibn al-Hajj. وَقَلَّلَ adalah fi'il wazan فَعَّلَ dengan waw di depannya: وَ قَلْ لَ لَ. Tiga bit pertama 110 adalah watad. Bit keempat, لَ, hidup; lalu lam berikutnya juga hidup. Tidak ada huruf mati di posisi kelima, jadi taf'ilah ini berhenti di 1101. Syathr kedua mengulang polanya dengan وَكَثَّرَ. Fi'il wazan فَعَّلَ di awal kalimat hampir selalu memberi qabdh.",
         "Contoh ketiga memperlihatkan qabdh di tengah syathr. تَخَلَّلَ = تَ خَلْ لَ لَ. Tiga huruf pertama dan لَ yang pertama membentuk تَخَلْلَ = 1101. لَ yang kedua menjadi huruf pertama taf'ilah berikutnya, لَمِنْهَا = 11010. Qabdh boleh muncul di taf'ilah mana pun di hasyw.",
         "Contoh keempat memberi sebab yang paling sering: idhafah. خَيْرٌ dengan tanwin adalah 1010. وَخَيْرُ tanpa tanwin, karena mudhaf, menjadi وَ خَيْ رُ = 1101. Kalau mudhaf seperti كِتَابُ, عِبَادِ, atau رَسُولُ diikuti huruf hidup, hampir pasti lahir qabdh. Kalau diikuti hamzah washal, seperti رَسُولُ اللَّهِ, lam mati dari al- menutup taf'ilah dan ia kembali utuh: رَسُولُلْ.",
@@ -912,7 +912,7 @@
               "calon": [
                 "مُهَيْمِنٌ",
                 "عَزِيزٌ",
-                "رَحْمَانٌ"
+                "خَالِقٌ"
               ]
             },
             "Ganti **satu taf'ilah**: غَنِيٌّ adalah satu فَعُولُنْ. Ganti dengan asma'ul husna lain yang juga 11010, dari laci atau ingatan Anda.",
@@ -927,7 +927,8 @@
             },
             "Ganti **syathr pertama** dengan kata Anda sendiri: empat taf'ilah, فَعُولُنْ atau فَعُولُ, dan ujung yang dibaca dengan isyba'.",
             "**Bait sendiri**: makna Anda di kedua syathr, mutaqarib lurus, dan dharb berqafiyah ـِيدُ."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "susun",
@@ -937,7 +938,8 @@
           "bankKata": true,
           "jumlah": 2,
           "qafiyah": "satu",
-          "arti": true
+          "arti": true,
+          "tashih": true
         }
       ],
       "patokan": "Bait mu'aradhah dan dua bait sendiri lurus; kedua bait sendiri satu rawiy dan satu bentuk dharb; setiap taf'ilah dapat diberi nama utuh, qabdh, atau hadzf; minimal satu kata dari Laci saya terpakai."

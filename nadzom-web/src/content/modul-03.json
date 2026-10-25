@@ -513,7 +513,7 @@
         "Contoh kedua, 'Imrithi: lima taf'ilah utuh, dan hanya satu thayy, دِنْفَغَلَطْ = 101110. Bandingkan dengan khabn, 110110. Jumlah hurufnya sama, enam. Bedanya ada di dua bit pertama: 11 berarti khabn, 10 berarti thayy.",
         "Contoh ketiga menutup rajaz Khandaq. Keenam taf'ilahnya kini punya nama: utuh, khabn, khabn; khabn, khabn, thayy. Lihat ujungnya, نَاأَبَدَا: huruf ujung د didahului بَ yang hidup, jadi watad di ujung tetap 110. Thayy hanya menyentuh huruf keempat.",
         "Contoh keempat, bait 118. وَالْخَبَرُ berpola 101110 bersama lam berikutnya. Lam ta'rif yang mati mengisi sabab pertama, lalu خَبَرُ memberi tiga huruf hidup beruntun. Isim berwazan فَعَل yang ber-al, seperti الْخَبَرُ dan الْحَسَنُ, mudah membentuk thayy.",
-        "Contoh kelima dan keenam memperlihatkan **khabl**. كَلِمَةٌ sendirian sudah satu khabl: كَلِمَتُنْ = 11110. Begitu pula فَلَقَبٌ = فَلَقَبُنْ. Isim pendek yang semua hurufnya hidup, seperti لَقَبٌ yang berwazan فَعَلٌ dan فِئَةٌ yang berwazan فِعَةٌ, bila bertanwin dan didahului huruf athaf mudah membentuk khabl. كَلِمَةٌ yang berwazan فَعِلَةٌ pun begitu, tanpa huruf athaf.",
+        "Contoh kelima dan keenam memperlihatkan **khabl**. كَلِمَةٌ sendirian sudah satu khabl: كَلِمَتُنْ = 11110. Begitu pula فَلَقَبٌ = فَلَقَبُنْ. Isim pendek yang semua hurufnya hidup, seperti لَقَبٌ yang berwazan فَعَلٌ dan فِئَةٌ yang berwazan فِعَةٌ, bila bertanwin dan didahului satu huruf hidup seperti فَ atau وَ, mudah membentuk khabl. كَلِمَةٌ yang berwazan فَعِلَةٌ pun begitu, tanpa huruf athaf.",
         "Dari contoh-contoh ini lahir cara cepat. Hitung huruf satu taf'ilah. Tujuh berarti utuh. Enam: lihat dua bit pertama; 11 berarti khabn, 10 berarti thayy. Lima berarti khabl. Selain itu, atau bila ujungnya bukan 110, taf'ilah patah. Pengecualiannya hanya di ujung bait, yang dibahas di Pelajaran 3.",
         "Mengapa khabl dinilai qabih? Empat huruf hidup beruntun berat di lidah. Sharaf sendiri menghindarinya: pada ضَرَبْتُ, lam fi'il disukunkan supaya tidak terjadi empat huruf hidup beruntun. Khabl sah dalam rajaz, tetapi telinga Arab lebih suka huruf hidup diselingi huruf mati."
       ],
@@ -893,7 +893,7 @@
       "syarh": [
         "Perhatikan contoh pertama dan bait peragaan, dua bait dari qashidah yang sama. Dharb keduanya, مَوْجُودُو dan مَجْهُودُو, berpola **101010**. 'Arudh keduanya, الْهَوَى dan سَالِمٌ, tidak berqafiyah dan tetap utuh. Inilah rajaz tam biasa: 'arudh utuh, dan dharb mengikuti qafiyah.",
         "Contoh kedua, bait pembuka qashidah itu. Kedua syathrnya berujung ـودُ: مَعْمُودُ dan مَفْقُودُ. Karena berqafiyah sama, 'arudh boleh meminjam bentuk dharb, dan keduanya maqthu'. Bila syathr pertama tidak berqafiyah, 'arudh maqthu' dihitung patah.",
-        "Contoh ketiga adalah pembanding dari kitab yang sama. Huruf ujungnya ر, didahului ظَ yang hidup: النَّظَرْ berakhir 110, dan dharb utuh. Aturan Jilid 1 ternyata satu sisi dari kaidah ini. Huruf sebelum huruf ujung hidup berarti dharb utuh. Huruf itu mati berarti dharb maqthu'.",
+        "Contoh ketiga adalah pembanding dari kitab yang sama. Huruf ujungnya ر sukun, didahului نَ dan ظَ yang sama-sama hidup: النَّظَرْ berakhir 110. Dharb مِنْهُ فِي النَّظَرْ utuh bila dibaca مِنْهُو; tanpa pemanjangan ia khabn, juga sah (dibahas di Modul 19). Aturan Jilid 1 ternyata satu sisi dari kaidah ini. Huruf sebelum huruf ujung hidup (bila rawiy sukun, dua huruf sebelumnya hidup) berarti dharb utuh atau khabn. Huruf itu mati berarti dharb maqthu'.",
         "Contoh keempat dan kelima dari Alfiyah, sebuah urjuzah muzdawij. Setiap bait punya qafiyah sendiri, dan kedua syathrnya berujung sama. Karena itu qath' tampak di kedua ujung: إِعْرَابَا dan أَهَابَا, ٱتِّصَالِ dan ٱنْفِصَالِ. Di bait 21 yang Anda timbang di Pelajaran 1, ujungnya utuh: لِلْبِنَا dan يُسَكَّنَا. Dalam urjuzah muzdawij, satu bait boleh maqthu' dan bait lain utuh.",
         "Lihat juga bentuk ujungnya. إِعْرَابَا = 101010 adalah qath' saja. أَهَابَا dan فِصَالِي = **11010**: huruf kedua hilang juga. Inilah khabn bersama qath', مُتَفْعِلْ, yang di kitab ditulis فَعُولُنْ. Zihaf di depan, 'illah di belakang.",
         "Contoh keenam: huruf sebelum huruf ujung mati karena sukun, bukan karena mad. فِعْلَا dan سَهْلَا tetap memberi 101010. Qath' lahir dari huruf mati mana pun di tempat itu. Tetapi nama **ridf** hanya untuk huruf mad: alif, waw, atau ya. Di qashidah Ibnu 'Abd Rabbih, ridf waw dan ridf ya bergantian, مَجْهُودُ dan الْغِيدُ. Itu boleh. Ridf alif tidak boleh dicampur dengan keduanya.",
@@ -1199,7 +1199,8 @@
             "Susun **syathr kedua** dengan ujung dari keluarga yang sama. Pakai minimal satu potongan dari Laci saya.",
             "Timbang. 'Arudh dan dharb harus terbaca qath' atau khabn bersama qath'. Di Diwan, tulis nama setiap taf'ilah, lalu tunjuk ridf-nya."
           ],
-          "arti": true
+          "arti": true,
+          "tashih": true
         }
       ],
       "patokan": "Dharb maqthu' dan 'arudh utuh di qashidah Ibnu 'Abd Rabbih ditunjuk dengan namanya. Tiga baris cetakan lurus. Bait #3 tercatat di Diwan: muzdawij, kedua ujung maqthu' dengan ridf, tanpa patah, dan setiap taf'ilah diberi nama."

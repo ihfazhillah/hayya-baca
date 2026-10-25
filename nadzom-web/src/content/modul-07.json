@@ -6,7 +6,7 @@
     {
       "nomor": 1,
       "judul": "Majra, wasl, ta'sis",
-      "ringkas": "Rawiy, harakatnya, dan ridf sudah Anda jaga sejak Modul 5. Kini namanya dilengkapi: majra, wasl, dan ta'sis, ditambah cacat iqwa'.",
+      "ringkas": "Rawiy, harakatnya, dan ridf sudah Anda jaga sejak Modul 5. Majra sudah Anda centang sebagai butir tashih di Boss 1; kini dilengkapi wasl dan ta'sis, ditambah cacat iqwa'.",
       "menit": 25,
       "analogi": "Di Modul 5 Anda sudah memegang satu rawiy untuk tiga bait rajaz, dan di Modul 14 untuk empat bait ramal majzu'. Nuniyah Ibnul Qayyim memegangnya ribuan bait. Agar bisa memeriksa ujung bait sepanjang itu, setiap bagiannya perlu nama, seperti nahwu memberi nama setiap kedudukan kata: mubtada', khabar, fa'il. Nama membuat kesalahan mudah ditunjuk.",
       "amtsilah": [
@@ -59,7 +59,7 @@
           },
           {
             "tampil": "teks",
-            "kata": "Harakat rawiy, yang di Modul 5 Anda samakan di setiap bait, bernama **majra**. Di sini kasrah. Seluruh nuniyah ini berakhir نِ; tidak pernah نُ atau نَ.",
+            "kata": "Harakat rawiy, yang di Modul 5 Anda samakan di setiap bait, bernama **majra**, yang di Boss 1 Anda centang sebagai butir tashih. Di sini kasrah. Seluruh nuniyah ini berakhir نِ; tidak pernah نُ atau نَ.",
             "papan": "majra: kasrah → ـنِ"
           },
           {
@@ -75,7 +75,7 @@
       },
       "syarh": [
         "Perhatikan contoh pertama, bait ketiga Nuniyah. Ujungnya الْإِحْسَانِ, dibaca ـسَانِي. Mulailah dari belakang. Ya terakhir tidak tertulis; ia lahir dari kasrah yang dipanjangkan. Huruf ini disebut **wasl**. Di Modul 14 Anda menyebut qafiyah seperti ini muthlaqah; wasl adalah nama huruf panjangnya. Sebelumnya ada ن berkasrah: rawiy yang memberi nama qashidah, nuniyah.",
-        "Harakat rawiy, di sini kasrah, disebut **majra**. Ia seperti harakat i'rab di ujung kalimat: kalau satu bait berakhir نِ dan bait lain نُ, telinga langsung merasakan janggal. Cacat ini disebut **iqwa'**. Di Nuniyah, kasrah itu terjaga ribuan bait.",
+        "Harakat rawiy, di sini kasrah, disebut **majra**, yang di Boss 1 Anda centang sebagai butir tashih. Ia seperti harakat i'rab di ujung kalimat: kalau satu bait berakhir نِ dan bait lain نُ, telinga langsung merasakan janggal. Cacat ini disebut **iqwa'**. Di Nuniyah, kasrah itu terjaga ribuan bait.",
         "Satu langkah lagi ke belakang: alif dalam ـسَا, ridf yang sudah Anda kenal. Karena bait pertama memakai ridf alif (الْأَرْكَانِ، يَدَانِ), setiap bait harus beridf alif juga: الْإِحْسَانِ، الْإِيمَانِ، الْخَصْمَانِ.",
         "Contoh kedua, bait 97, juga berakhir الْإِحْسَانِ. Kata الْإِيمَانِ di depannya tidak ikut diperiksa, dan ujung syathr pertama (تَابِعٌ) pun bebas. Qafiyah qashidah hanya mengikat ujung syathr kedua, kecuali bait pertama yang ber-tashri'.",
         "Sekarang bagian yang di Modul 5 baru disebut namanya: **ta'sis**. Ingat وَاحِدَا dan رَاشِدَا: alifnya tidak tepat sebelum rawiy, ada satu huruf hidup di antaranya. Alif seperti itu adalah ta'sis, dan huruf hidup di antaranya disebut **dakhil**. Contoh lain جَاهِلُ: alif, lalu ه (dakhil), lalu rawiy ل. Bandingkan الْأَمَاكِنِ: alif, ك, lalu rawiy ن berkasrah. Rawiy dan majranya sama dengan Nuniyah, tetapi alif di sana bukan ridf, melainkan ta'sis. Karena itu الْأَمَاكِنِ tidak boleh menutup bait dalam qashidah ـانِ.",
@@ -536,7 +536,7 @@
           "kotak": [
             {
               "petunjuk": "Isim majrur berakhir ـانِ, pola 101010 atau 111010, mis. الْهَذَيَانِ، الْبُهْتَانِ",
-              "pola": "101010",
+              "pola": "101010 atau 111010",
               "contoh": [
                 "الْهَذَيَانِ",
                 "الْبُهْتَانِ",
@@ -727,7 +727,7 @@
         },
         {
           "salah": "Memberi qafiyah ـانِ di syathr pertama setiap bait, lalu kehabisan kata.",
-          "benar": "Tasri' cukup di bait pertama; bait berikutnya hanya syathr kedua.",
+          "benar": "Tashri' cukup di bait pertama; bait berikutnya hanya syathr kedua.",
           "sebab": "Qafiyah qashidah mengikat ujung bait, bukan ujung setiap syathr (berbeda dengan muzdawij di Babak 1)."
         },
         {
@@ -876,7 +876,7 @@
             "Tulis makna tiga bait dalam bahasa sendiri, satu kalimat per bait.",
             "Buka laci ـانِ. Pilih tiga kata ujung yang berbeda: kelompok 101010 atau 111010 berdiri sendiri; kelompok 11010 butuh satu huruf hidup sebelumnya.",
             {
-              "teks": "Bait 1 ber-tashri', jadi syathr pertamanya juga berujung ـانِ. Kata mana yang sewazan dengan الْأَرْكَانِ dan tetap beridf alif?",
+              "teks": "Bait 1 boleh ber-tashri'; bila begitu, syathr pertamanya juga berujung ـانِ. Kata mana yang sewazan dengan الْأَرْكَانِ dan tetap beridf alif?",
               "ganti": "الْأَرْكَانِ",
               "calon": [
                 "الْبُنْيَانِ",
@@ -902,11 +902,12 @@
                 "الْغُفْرَانِ"
               ]
             },
-            "Susun bait 1 dengan kedua syathr berujung ـانِ. Timbang. 'Arudhnya ikut maqthu' karena tashri'.",
+            "Susun bait 1. Bait 1 boleh ber-tashri': bila kedua syathr berujung ـانِ, 'arudhnya ikut maqthu'. Timbang.",
             "Susun bait 2 dan 3. Ujung syathr pertama bebas dan utuh; ujung bait kembali ke ـانِ dengan kata yang belum dipakai.",
             "Periksa qafiyah: rawiy ن, majra kasrah, ridf alif, tanpa ta'sis, dan tidak ada kata ujung yang diulang (ita')."
           ],
-          "arti": true
+          "arti": true,
+          "tashih": true
         }
       ],
       "patokan": "Tiga bait kamil berqafiyah ـانِ, setiap bait 0 patah atau patahnya tercatat, dan pemeriksa qafiyah tidak menemukan masalah.",

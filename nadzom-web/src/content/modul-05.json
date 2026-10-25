@@ -98,7 +98,7 @@
       },
       "syarh": [
         "Perhatikan contoh pertama, bait kedua Alfiyah. Syathr pertama berhenti di الْمُصْطَفَى, syathr kedua di الشَّرَفَا. Waqf-lah pada keduanya: yang terakhir terdengar adalah fa, lalu alif. Alif itu hanya memanjangkan fathah, seperti waqf pada tanwin fathah dalam tajwid: عَلِيمًا dibaca عَلِيمَا. Huruf yang dituju adalah **fa**. Itulah rawiy kedua syathr.",
-        "Lalu contoh kedua, bait sesudahnya. Ibnu Malik pindah ke أَلْفِيَّهْ dan مَحْوِيَّهْ. Bait 2 berhenti di fa, bait 3 berhenti di ya bersyaddah. Ini bukan cacat. Di dalam satu bait, dua syathr sama; dari bait ke bait, boleh berganti. Itulah **muzdawij**. Ha mati di ujungnya adalah ta marbutah yang diwaqafkan, jadi ekor juga. Itu dibahas lagi di pelajaran 2.",
+        "Lalu contoh kedua, bait sesudahnya. Ibnu Malik pindah ke أَلْفِيَّهْ dan مَحْوِيَّهْ. Bait 2 berhenti di fa, bait 3 berhenti di ya bersyaddah. Ini bukan cacat. Di dalam satu bait, dua syathr sama; dari bait ke bait, boleh berganti. Itulah **muzdawij**. Ha mati di ujungnya adalah ta marbutah yang diwaqafkan, jadi ekor juga. Itu dibahas lagi di pelajaran 3.",
         "Contoh ketiga: مُوجَزِ dan مُنْجَزِ. Saat dilagukan, kasrah di ujung dipanjangkan menjadi ـزِي. Pemanjangan ini disebut **isyba'**. Ya itu tidak tertulis dan bukan rawiy; rawiy-nya zai berharakat kasrah. Harakat itu datang dari i'rab: مُوجَزِ na'at bagi لَفْظٍ, مُنْجَزِ na'at bagi وَعْدٍ, keduanya majrur. Jadi nahwu ikut menjaga qafiyah.",
         "Contoh keempat dari Abu al-'Atahiyah: الْقُوتُ dan يَمُوتُ. Rawiy-nya ta berharakat dhammah. Perhatikan juga waw mad sebelum ta: ada di kedua kata. Huruf mad yang menempel pada rawiy ini juga harus dijaga. Namanya ridf, yang sudah Anda temui di Modul 3; di pelajaran 2 ia diperiksa sebagai syarat pasangan.",
         "Terakhir, bait peragaan: أَلَمْ dan يَنَمْ. Di sini rawiy-nya mati: mim sukun, tanpa ekor apa pun. Jadi rawiy bisa hidup, seperti fa pada الشَّرَفَا dan zai pada مُوجَزِ, atau mati, seperti mim pada أَلَمْ. Keduanya sah, asal dua syathr dalam satu bait sama.",
@@ -612,7 +612,8 @@
           "makna": "Usul makna: bait 1 tentang mencari rezeki yang halal, dengan pasangan الْحَلَالِ / الْعِيَالِ; bait 2 tentang memanfaatkan waktu luang, dengan pasangan الْبَلَاغَا / الْفَرَاغَا. Boleh tema lain.",
           "bankKata": true,
           "jumlah": 2,
-          "qafiyah": "muzdawij"
+          "qafiyah": "muzdawij",
+          "arti": true
         }
       ],
       "patokan": "Dua bait muzdawij tersusun, ditimbang, dan setiap pasangan qafiyahnya lolos pemeriksaan rawiy, harakat, dan ridf."
@@ -1080,8 +1081,8 @@
         "Perhatikan contoh pertama, bait pembuka. Kedua syathrnya berujung ra sukun: بَشَرْ dan قَمَرْ. Sampai di sini ia tampak seperti muzdawij. Bedanya baru terlihat di bait kedua.",
         "Contoh kedua: ujung syathr pertama طَرْفُهُ tidak berbunyi ra sama sekali. Ujung baitnya النَّظَرْ kembali ke ra sukun. Dalam qafiyah satu, yang diikat hanya dharb, ujung setiap bait. Ujung 'arudh hanya ikut di bait pembuka.",
         "Contoh ketiga: دَاثِرًا dan دَثَرْ, dua kata seakar. دَاثِرًا boleh berdiri di ujung syathr pertama karena tempat itu bebas. Di ujung bait, penyair memilih bentuk فَعَلْ, دَثَرْ, yang rawiy-nya ra sukun dan huruf sebelumnya hidup.",
-        "Contoh keempat adalah syahid pertama Anda di Modul 0, دَارٌ لِسَلْمَى. Ia ternyata bagian dari qasidah yang sama, dengan ujung الزُّبُرْ. Empat bait, empat kata ujung, satu rawiy: بَشَرْ، قَمَرْ، النَّظَرْ، دَثَرْ، الزُّبُرْ.",
-        "Lalu bentuk ujung. Semua dharb di qasidah ini utuh, karena huruf sebelum ra selalu hidup. Dalam qafiyah satu, bentuk ujung yang dipilih bait pertama harus tetap: ujung maqthu' tidak boleh bercampur dengan ujung utuh. Khabn boleh bergantian dengan utuh, karena khabn zihaf, bukan 'illah. Karena itulah 'illah disebut lazim: sekali dipakai di dharb, ia tetap sampai akhir qasidah.",
+        "Contoh keempat adalah syahid pertama Anda di Modul 0, دَارٌ لِسَلْمَى. Ia ternyata bagian dari qasidah yang sama, dengan ujung الزُّبُرْ. Empat bait, lima kata ujung, satu rawiy: بَشَرْ، قَمَرْ، النَّظَرْ، دَثَرْ، الزُّبُرْ.",
+        "Lalu bentuk ujung. Semua dharb di qasidah ini utuh atau khabn, karena dua huruf sebelum ra selalu hidup. Dharb مِنْهُ فِي النَّظَرْ utuh bila dibaca مِنْهُو; tanpa pemanjangan ia khabn, juga sah (dibahas di Modul 19). Dalam qafiyah satu, bentuk ujung yang dipilih bait pertama harus tetap: ujung maqthu' tidak boleh bercampur dengan ujung utuh. Khabn boleh bergantian dengan utuh, karena khabn zihaf, bukan 'illah. Karena itulah 'illah disebut lazim: sekali dipakai di dharb, ia tetap sampai akhir qasidah.",
         "Mengapa dilatih di rajaz dulu? Karena timbangannya sudah akrab, perhatian Anda bisa penuh ke qafiyah. Kesulitan qafiyah satu adalah mencari banyak kata dengan rawiy yang sama. Karena itu pilih rawiy yang kaya, seperti ra sukun setelah huruf hidup, dan kumpulkan 12 sampai 20 kata ujung sebelum menyusun."
       ],
       "keliru": [
@@ -1286,7 +1287,7 @@
           "qafiyah": "satu",
           "judulDiwan": "Tiga bait qafiyah satu",
           "tangga": [
-            "Pilih rawiy. Buka laci qafiyah ra sukun, atau kumpulkan sendiri 12 kata dengan rawiy pilihan Anda. Huruf sebelum rawiy harus hidup bila rawiy-nya sukun.",
+            "Pilih rawiy. Buka laci qafiyah ra sukun, atau kumpulkan sendiri 12 kata dengan rawiy pilihan Anda. Bila rawiy sukun, dua huruf sebelumnya harus hidup.",
             {
               "teks": "Uji ujung bait. Kata mana yang bisa menggantikan النَّظَرْ tanpa merusak timbangan? Timbang sendiri, lalu pastikan rawiy-nya tetap ra sukun.",
               "ganti": "النَّظَرْ",
@@ -1309,7 +1310,8 @@
             "Susun bait kedua dan ketiga. Ujung syathr pertama bebas; ujung bait kembali ke ra sukun dengan kata yang belum dipakai.",
             "Periksa: tidak ada kata ujung yang diulang, harakat rawiy tetap, dan bentuk ujung tidak berubah dari utuh ke maqthu'."
           ],
-          "arti": true
+          "arti": true,
+          "tashih": true
         }
       ],
       "patokan": "Tiga bait rajaz berqafiyah satu tersusun dan tercatat di Diwan: 0 patah, ujung setiap bait berrawiy dan berharakat sama dengan bait pertama, bentuk ujung tetap, dan tidak ada kata ujung yang diulang. Laci qafiyah Anda berisi minimal 12 kata untuk rawiy yang dipakai."

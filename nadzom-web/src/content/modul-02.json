@@ -812,12 +812,12 @@
       },
       "syarh": [
         "Perhatikan **contoh pertama**, bait 33 al-Waraqat: تَعْرِيفِهِ فَالْمُعْتَبَرْ. Ha dhamir diapit فِ dan فَ, dua huruf hidup. Maka ia dipanjangkan: تَعْرِيفِهِي. Ini mad shilah shughra yang Anda kenal. Bandingkan dengan لَهُ ٱسْتِحْقَاقُ di pelajaran lalu: sesudahnya huruf mati, jadi tidak dipanjangkan.",
-        "Lalu **contoh kedua**, bait 97: ujung وَارِدِ dan وَاحِدِ. Harakat terakhir setiap syathr dipanjangkan: وَارِدِي، وَاحِدِي. Tanpa ya itu, taf'ilah terakhir tidak utuh. Bila harakat ujungnya fathah, penadzom biasanya sudah menuliskan alifnya, seperti أَبَى dan الرَّدَى.",
+        "Lalu **contoh kedua**, bait 97: ujung وَارِدِ dan وَاحِدِ. Harakat terakhir setiap syathr dipanjangkan: وَارِدِي، وَاحِدِي. Tanpa ya itu, taf'ilah terakhir tidak utuh. Bila harakat ujungnya fathah, penadzom biasanya sudah menuliskan alifnya, seperti تَرْشُدَا dan فَافْهَمَا.",
         "**Contoh ketiga**, ash-Shaghani, memperlihatkan nasib tanwin di dua ujung. Di ujung syathr pertama, مَكْنُونَةٍ dibaca مَكْنُونَتِنْ: nun tetap terdengar, karena suara masih bersambung ke syathr kedua. Di ujung bait, مَخْزُونَةٍ dibaca مَخْزُونَتِي: tanwin tidak dibaca, harakatnya dipanjangkan. Ta marbuthah dalam kedua kata dibaca ta, karena harakatnya tetap dibaca.",
         "**Contoh keempat**, Ibnu Duraid. أَمْرَهُ di ujung syathr pertama dipanjangkan menjadi أَمْرَهُو, seperti ujung syathr lain. **Contoh kelima**, bait 523 Alfiyah, kebalikannya: ta marbuthah di ujung diwaqafkan menjadi ha mati, فَاعِلَهْ dan النَّافِلَهْ. Ujung yang mati tidak dipanjangkan.",
         "Lalu bait peragaan: **taskin**. فَهْوَ dengan ha mati. Setelah وَ، فَ، لَ, orang Arab boleh membaca وَهْوَ dan وَهْيَ, dan qari' seperti Qalun, Abu 'Amr, dan al-Kisa'i membacanya begitu. Kalau dibaca فَهُوَ, empat huruf hidup beruntun dan syathr itu patah. Hal yang sama berlaku bagi صَالِحْ di 'Aqidatul 'Awam: harakat di kitab nadzom adalah bagian dari timbangan.",
         "Sekarang **laci hasyw**. Penadzom menyimpan frasa pendek yang ukurannya sudah diketahui, lalu memakainya untuk mengisi celah. Di Jilid 1 ukurannya hanya satu: **satu مُسْتَفْعِلُنْ utuh**, 1010110. Semua frasa di laci modul ini dipanen dari bait yang sudah Anda timbang: دُمْ طَيِّبًا، زِدْ فِي تُقًى، مِنْ كُلِّ مَا، رُحْمَاكَ يَا، عَلَّمْتَنِي. Tiga kotak membentuk satu syathr. Frasa yang diawali hamzah washal berubah bunyi bila disambung; timbang ulang setelah menyambung.",
-        "Lalu **laci qafiyah**: kata ujung, dikumpulkan menurut huruf ujungnya. Di Jilid 1 ada dua syarat. Pertama, **muzdawij**: kedua syathr satu bait berakhir dengan huruf ujung yang sama, seperti بِالْعَدَدْ dan بِالرَّشَدْ di al-Jazariyyah. Kedua, **huruf sebelum huruf ujung harus hidup**: دَ dalam الْعَدَدْ, شَ dalam الرَّشَدْ. Bila huruf itu mati, misalnya huruf mad seperti pada الْكَمَالِ, taf'ilah terakhir tidak utuh. Itulah cara pertama memilih kata ujung.",
+        "Lalu **laci qafiyah**: kata ujung, dikumpulkan menurut huruf ujungnya. Di Jilid 1 ada dua syarat. Pertama, **muzdawij**: kedua syathr satu bait berakhir dengan huruf ujung yang sama, seperti بِالْعَدَدْ dan بِالرَّشَدْ di al-Jazariyyah. Kedua, **huruf sebelum huruf ujung harus hidup**: دَ dalam الْعَدَدْ, شَ dalam الرَّشَدْ. Bila huruf ujung mati (الرَّشَدْ), dua huruf sebelumnya harus hidup: رَ dan شَ. Bila huruf itu mati, misalnya huruf mad seperti pada الْكَمَالِ, taf'ilah terakhir tidak utuh. Itulah cara pertama memilih kata ujung.",
         "Kata berwazan sama memberi pola sama. وَارِدِ dan وَاحِدِ sama-sama فَاعِل; جَارِمُ dan نَادِمُ dari Ibnu Zakur pun begitu; أَسْلَمَتْ dan أَجْرَمَتْ sama-sama أَفْعَلَتْ. Bila satu kata dari keluarga itu pas di ujung, saudaranya hampir pasti pas juga. Karena itu laci qafiyah disusun per huruf ujung, lalu per wazan."
       ],
       "keliru": [
@@ -844,7 +844,7 @@
         {
           "salah": "Memilih kata ujung yang huruf sebelum huruf ujungnya mati, lalu heran taf'ilah terakhir tidak utuh.",
           "benar": "Pilih ujung yang huruf sebelumnya hidup: الرَّشَدْ، الْكَرَمْ، أَجْرَمَتْ.",
-          "sebab": "مُسْتَفْعِلُنْ berakhir dengan watad 110: dua huruf hidup lalu satu mati. Huruf ujung dan huruf sebelumnya mengisi watad itu."
+          "sebab": "مُسْتَفْعِلُنْ berakhir dengan watad 110: dua huruf hidup lalu satu mati. Huruf ujung dan huruf sebelumnya mengisi watad itu. Bila huruf ujung mati (الرَّشَدْ), dua huruf sebelumnya harus hidup: رَ dan شَ."
         }
       ],
       "qaidah": [

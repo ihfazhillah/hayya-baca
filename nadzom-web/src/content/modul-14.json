@@ -109,7 +109,7 @@
         {
           "salah": "Menganggap bait Alfiyah bukan rajaz karena taf'ilahnya tidak semuanya مُسْتَفْعِلُنْ.",
           "benar": "Khabn, thayy, dan khabl tetap rajaz.",
-          "sebab": "Wajah hanya membuang atau mengubah satu huruf mati dari sabab. Watad dan jumlah taf'ilah tetap."
+          "sebab": "Wajah hanya membuang huruf kedua satu atau dua sabab. Watad dan jumlah taf'ilah tetap."
         },
         {
           "salah": "Menebak bahr dari panjang tulisan.",
@@ -1082,10 +1082,10 @@
             },
             {
               "bait": [
-                "يَا إِلَهِي أَنْتَ حَسْبِي",
+                "يَا زَمَانِي أَنْتَ حَسْبِي",
                 "أَيُّ عَيْبٍ كَانَ ذَنْبِي"
               ],
-              "catatan": "Syathr pertama dan satu taf'ilah diganti; lurus. Bait latihan, bukan kutipan."
+              "catatan": "Seruan يَا صُرُوفَ الدَّهْرِ diganti يَا زَمَانِي, tetap keluhan kepada masa seperti aslinya, dan ذَنْبٍ diganti عَيْبٍ; lurus. Bait latihan, bukan kutipan."
             },
             {
               "bait": [
@@ -1096,14 +1096,14 @@
             },
             {
               "bait": [
-                "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+                "بَادِرِ الْخَيْرَاتِ دَهْرَا",
                 "وَاجْعَلِ الْإِخْلَاصَ ذُخْرَا"
               ],
               "catatan": "Bersegeralah kepada kebaikan sepanjang masa, dan jadikan ikhlas simpananmu. Bait latihan, bukan kutipan."
             },
             {
               "bait": [
-                "سَارِعِ الْخَيْرَاتِ دَهْرَا",
+                "بَادِرِ الْخَيْرَاتِ دَهْرَا",
                 "وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا"
               ],
               "catatan": "Draf yang sama dengan لَكَ: dua huruf hidup tambahan. Bait latihan, bukan kutipan."
@@ -1193,7 +1193,8 @@
             },
             "Ganti **syathr pertama** dengan kata Anda sendiri: dua potongan فَاعِلَاتُنْ dari laci atau dari cetakan tadi. Ujungnya tetap ـبِي, seperti حَسْبِي pada pola.",
             "**Bait sendiri**: makna Anda di kedua syathr, ramal majzu' lurus, dan kedua syathr berujung ـبِي dengan kata yang berbeda. Khabn boleh, tetapi coba utuh dulu."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "susun",
@@ -1210,7 +1211,8 @@
             "Susun syathr pertama. Ujungnya sama dengan ujung bait, dengan kata yang berbeda.",
             "Timbang. Bila patah, naiki tangga revisi: buang kata kecil, geser, ganti sewazan, ganti semakna.",
             "Centang tashih i'rab, lalu salin ke Diwan."
-          ]
+          ],
+          "arti": true
         }
       ],
       "patokan": "Tiga baris cetakan satu kotak dan tiga baris cetakan satu syathr lurus. Bait mu'aradhah dan satu bait sendiri tersimpan di Diwan dengan 0 patah, dan bait sendiri memakai minimal satu potongan dari Laci saya.",

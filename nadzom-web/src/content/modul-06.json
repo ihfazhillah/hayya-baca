@@ -456,7 +456,7 @@
         {
           "salah": "Membaca الضِّدَانِ tanpa syaddah, lalu merasa aman karena timbangan tetap lurus.",
           "benar": "الضِّدَّانِ dengan syaddah: ضِدْدَانِ.",
-          "sebab": "ضِدٌّ dari akar ض د د. Tanpa syaddah, taf'ilah itu menjadi 110110 (waqsh), bentuk yang dikenal tetapi buruk. Mesin meloloskannya, padahal bacaannya salah."
+          "sebab": "ضِدٌّ dari akar ض د د. Tanpa syaddah, taf'ilah itu menjadi 110110 (waqsh: huruf hidup kedua مُتَفَاعِلُنْ dibuang), bentuk yang dikenal tetapi buruk. Mesin meloloskannya, padahal bacaannya salah."
         },
         {
           "salah": "Mencap rajaz setiap bait yang semua taf'ilahnya 1010110.",
@@ -765,7 +765,7 @@
         {
           "salah": "Membuang وَ: بِتَفَكُّرٍ تَدَبُّرٍ وَتَقَرُّبٍ.",
           "benar": "بِتَفَكُّرٍ وَتَدَبُّرٍ وَتَقَرُّبٍ.",
-          "sebab": "Tanpa وَ, تَدَبْبُرِنْ = 110110: waqsh, sah tetapi qabih. Huruf وَ adalah sabab tsaqil yang membuka مُتَفَاعِلُنْ."
+          "sebab": "Tanpa وَ, تَدَبْبُرِنْ = 110110: waqsh (huruf hidup kedua مُتَفَاعِلُنْ dibuang), sah tetapi qabih. وَ bersama تَ membentuk sabab tsaqil (11) yang membuka مُتَفَاعِلُنْ."
         },
         {
           "salah": "Dalam mu'aradhah, mengganti وَيُؤْلِمُ dengan kata yang rawiynya lain, misalnya وَيُؤْذِي.",
@@ -1059,7 +1059,8 @@
             },
             "Susun baitnya dan timbang. Kalau patah, kembali ke anak tangga terakhir yang Anda ubah.",
             "Periksa: makna kedua syathr berlawanan seperti pola, i'rab setiap kata pengganti benar, dan ujung bait tetap mim dhammah."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "susun",
@@ -1075,7 +1076,8 @@
             "Isi syathr pertama dengan potongan satu taf'ilah dari laci, lalu timbang.",
             "Isi syathr kedua, timbang, dan beri nama setiap taf'ilah: utuh atau mudhmar."
           ],
-          "arti": true
+          "arti": true,
+          "tashih": true
         }
       ],
       "patokan": "Dua bait kamil 0 patah tercatat di Diwan: mu'aradhah al-Mutanabbi dan satu bait sendiri dengan laci. Setiap taf'ilah diberi nama, utuh atau mudhmar.",

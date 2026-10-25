@@ -110,7 +110,7 @@
         "Perhatikan contoh pertama, bait Hassan. Setiap taf'ilah dibuka watad: وَأَحْ، كَلَمْ، طُعَيْ. Inilah pembeda pertama dari kamil, yang dibuka dua huruf hidup. Sesudah watad datang سَنُمِنْ dan تَرَقَطْ: tiga huruf hidup lalu satu mati. Gabungannya 1101110, مُفَاعَلَتُنْ.",
         "Taf'ilah ketiga, طُعَيْنِي, hanya lima huruf: 11010. Ini bukan kekurangan. Di wafir tam, ujung kedua syathr selalu مُفَاعَلْ. Kitab 'arudh menyebutnya qathf, dan karena wajib, ia bentuk baku, bukan perubahan yang dipilih penyair. Kunci wafir pun ditutup فَعُولُ.",
         "Contoh kedua, bait asy-Syafi'i. يُخَاطِبُنِي = 1101110, satu kata utuh mengisi satu taf'ilah. Ya pada نِي gugur karena bertemu lam السَّفِيهُ yang mati, sehingga taf'ilah berakhir di نِسْ. Di syathr kedua, لَهُ dibaca لَهُو karena ha dhamir diapit dua huruf hidup, لَ dan مُ. Tanpa pemanjangan itu أَكُونَ لَهُ kekurangan satu huruf mati.",
-        "Contoh ketiga, bait al-Mutanabbi. Perhatikan فِي طَلَبِ الْ di kedua syathr: كَفِي طَلَبِلْ dan يَفِي طَلَبِلْ, keduanya 1101110. Ujungnya الْمَعَالِي dan الْمَعَاشِ, pola 11010. Kata wazan مَفَاعِل yang diawali الْ pas di ujung wafir, karena lam-nya menutup taf'ilah sebelumnya.",
+        "Contoh ketiga, bait al-Mutanabbi. Perhatikan فِي طَلَبِ الْ di kedua syathr: كَفِي طَلَبِلْ dan يَفِي طَلَبِلْ, keduanya 1101110. Ujungnya الْمَعَالِي (مَفَاعِل) dan الْمَعَاشِ (مَفْعَل), pola 11010. Kata seperti ini yang diawali الْ pas di ujung wafir, karena lam-nya menutup taf'ilah sebelumnya.",
         "Contoh keempat, bait Abu al-'Atahiyah. وَإِنَّ لِكُلِّ = وَإِنْ نَلِكُلْ = 1101110. Ujungnya لَحَدًّا dan حِسَابَا. Kedua syathr dibuka dengan frasa yang sama; bentuk ini mudah ditiru untuk nadzom nasihat.",
         "Bagaimana membedakan wafir dari mutaqarib, yang juga punya 11010? Hitung taf'ilahnya. Mutaqarib empat فَعُولُنْ per syathr. Wafir tiga per syathr, dan dua yang pertama panjang, tujuh huruf."
       ],
@@ -411,7 +411,7 @@
         "Perhatikan contoh pertama, bait Waki'. شَكَوْتُ إِلَى = 110 + 11 + 10, utuh. Ta pada شَكَوْتُ berharakat dhammah karena dhamir fa'il mutakallim; menyukunkannya salah nahwu dan merusak timbangan. Taf'ilah kedua, وَكِيعِنْ سُو = 110 10 10: nun tanwin mati di tempat huruf kelima. Itulah 'ashb.",
         "Contoh kedua, «وَنُورُ اللَّهِ لَا يُهْدَى لِعَاصِي». وَنُورُلْلَا = 1101010 dan هِلَا يُهْدَى = 1101010: kedua taf'ilah panjangnya ber-'ashb. Kalau Anda hanya mendengar dua taf'ilah itu, ia mirip hazaj, مَفَاعِيلُنْ مَفَاعِيلُنْ. Yang menandai wafir adalah **jumlah taf'ilahnya**: wafir tam tiga per syathr. Hazaj selalu dua per syathr, dan hazaj pun bisa berujung فَعُولُنْ, jadi ujung pendek bukan pembeda.",
         "Contoh ketiga, kunci wafir sendiri. بُحُورُشْشِعْ = 1101010, ber-'ashb; رِوَافِرُهَا = 1101110, utuh. Kunci bahr ini pun mencampur keduanya. Satu bait boleh memakai 'ashb di taf'ilah mana pun kecuali ujung.",
-        "Contoh keempat, «رَأَيْتُ الْعِلْمَ صَاحِبُهُ كَرِيمٌ». رَأَيْتُلْعِلْ = 1101010, ber-'ashb; مَصَاحِبُهُو = 1101110, utuh. Syathr kedua وَلَوْ وَلَدَتْ = utuh, هُوآبَاءُنْ = 'ashb. Pola utuh lalu 'ashb, atau sebaliknya, adalah wajah wafir yang paling sering.",
+        "Contoh keempat, «رَأَيْتُ الْعِلْمَ صَاحِبُهُ كَرِيمٌ». رَأَيْتُلْعِلْ = 1101010, ber-'ashb; مَصَاحِبُهُو = 1101110, utuh. Syathr kedua وَلَوْ وَلَدَتْ = utuh, هُآبَاءُنْ (هُ ءَا بَا ءُنْ) = 'ashb. Pola utuh lalu 'ashb, atau sebaliknya, adalah wajah wafir yang paling sering.",
         "Penilaian. 'Ashb **hasan**: sangat sering, dan tidak dianggap cacat. Dua perubahan lain مُفَاعَلَتُنْ, 'aql yang membuang lam dan naqsh yang menyukunkan lam lalu membuang nun, jarang dan dinilai **qabih**. Untuk menyusun, pakai yang utuh dan yang ber-'ashb saja.",
         "Wafir majzu', dengan dua taf'ilah per syathr, memang bisa ber-'ashb semua. Bunyinya lalu sama persis dengan hazaj. Dalam kasus itu, bait-bait lain dalam qashidah yang memutuskan: kalau ada satu saja 1101110, itu wafir. Bentuk majzu' dibahas di Jilid 3."
       ],
@@ -715,7 +715,7 @@
           },
           {
             "tampil": "timbang",
-            "kata": "Syathr kedua, draf pertama: وَأَدْعُو اللَّهَ أَنْ يُثِيبَا. Maknanya jelas, tetapi اللَّهَ menambah satu taf'ilah lebih dari yang muat.",
+            "kata": "Syathr kedua, draf pertama: وَأَدْعُو اللَّهَ أَنْ يُثِيبَا. Maknanya jelas, tetapi اللَّهَ menambah empat huruf, لْلَاهَ, lebih dari yang muat.",
             "bait": [
               "يُعَلِّمُنِي الْمُعَلِّمُ كُلَّ يَوْمٍ",
               "فَأَشْكُرُهُ وَأَدْعُو اللَّهَ أَنْ يُثِيبَا"
@@ -758,15 +758,15 @@
       "syarh": [
         "Perhatikan contoh pertama dan kedua, dua bait asy-Syafi'i. Ujung baitnya مُجِيبَا dan طِيبَا. Rawiy-nya ba, majra-nya fathah, ridf-nya ya, dan alif sesudah ba adalah wasl. Ujung syathr pertama, قُبْحٍ dan حِلْمًا, bebas.",
         "Contoh ketiga dan keempat, dua bait Hassan. النِّسَاءُ dan تَشَاءُ: rawiy hamzah, majra dhammah, ridf alif. Ridf alif tidak boleh berganti, jadi bait ketiga pun harus berujung alif lalu hamzah berharakat dhammah, misalnya السَّمَاءُ atau الدُّعَاءُ.",
-        "Ujung baku wafir membantu qafiyah. Karena dharb selalu 11010, kata wazan فَعِيلَا atau مُفِيلَا yang manshub dan beralif ithlaq pas di sana: مُجِيبَا، قَرِيبَا، حَبِيبَا، نَصِيبَا. Satu wazan memberi satu keluarga kata ujung.",
-        "Peragaan Hudhud memakai tangga revisi dari Modul 4. Draf وَأَدْعُو اللَّهَ kelebihan; anak tangga pertama, buang, sudah cukup. Doa أَنْ يُثِيبَا tetap jelas maknanya tanpa menyebut nama Allah.",
+        "Ujung baku wafir membantu qafiyah. Karena dharb selalu 11010, kata wazan فَعِيلَا atau مُفْعِل yang manshub dan beralif ithlaq pas di sana: مُجِيبَا، قَرِيبَا، حَبِيبَا، نَصِيبَا. Satu wazan memberi satu keluarga kata ujung.",
+        "Peragaan Hudhud memakai tangga revisi dari Modul 4. Draf وَأَدْعُو اللَّهَ kelebihan; anak tangga pertama, buang, sudah cukup. Nama Allah dibuang demi timbangan; yang diseru dalam أَدْعُو tetap dipahami sebagai Allah, dan Dia pelaku يُثِيبَ.",
         "Perhatikan juga i'rab kata ujung. Qafiyah ـيبَا menuntut kata manshub: khabar كَانَ seperti أَكُونَ لَهُ مُجِيبَا, maf'ul bih, hal, atau fi'il mudhari' manshub setelah أَنْ seperti يُثِيبَا. Kalau kata ujung marfu', majra-nya berubah dan qafiyahnya rusak. Mesin tidak memeriksa ini; Anda yang memeriksa."
       ],
       "keliru": [
         {
           "salah": "Bait pertama berujung مُجِيبَا, bait kedua berujung حَبِيبُ.",
           "benar": "Majra tetap fathah: حَبِيبَا.",
-          "sebab": "Mencampur fathah dengan dhammah pada rawiy adalah iqwa'. Periksa i'rabnya: kata ujung harus manshub."
+          "sebab": "Menurut al-Akhfasy, iqwa' adalah pergantian majra antara kasrah dan dhammah. Bila salah satunya fathah, seperti di sini, cacatnya disebut ishraf. Pemeriksa qafiyah menolak keduanya. Periksa i'rabnya: kata ujung harus manshub."
         },
         {
           "salah": "Setelah قَرِيبَا, bait berikutnya ditutup ثَوَابَا.",
@@ -782,7 +782,7 @@
       "qaidah": [
         "**Tangga bantuan**: cetakan satu kotak, cetakan satu syathr, mu'aradhah dengan pola, lalu bait sendiri dengan laci. Setiap anak tangga mencabut satu bantuan.",
         "**Dua bait satu qafiyah**: rawiy, majra, ridf, dan wasl sama di ujung kedua bait. Ujung syathr pertama bait kedua bebas.",
-        "Ujung wafir tam selalu **مُفَاعَلْ**, 11010. Cari kata ujung dari satu wazan: فَعِيلَا seperti قَرِيبَا، حَبِيبَا، نَصِيبَا; مُفِيلَا seperti مُجِيبَا، مُنِيبَا.",
+        "Ujung wafir tam selalu **مُفَاعَلْ**, 11010. Cari kata ujung dari satu wazan: فَعِيلَا seperti قَرِيبَا، حَبِيبَا، نَصِيبَا; مُفْعِل seperti مُجِيبَا، مُنِيبَا.",
         "Di dalam syathr, pakai utuh atau 'ashb sesukanya. Frasa 1101110 seperti أَخُو أَدَبٍ dan frasa 1101010 seperti أَخُو صَبْرٍ sama-sama sah di dua taf'ilah pertama.",
         "Kata ujung harus benar i'rabnya agar majra-nya tetap. Periksa dengan daftar tashih sebelum menyalin ke Diwan."
       ],
@@ -925,6 +925,7 @@
           "makna": "Usul makna: menghadapi teman yang berkata kasar dengan sabar dan doa. Boleh makna lain, asal qafiyah ـيبَا.",
           "bankKata": true,
           "judulDiwan": "Mu'aradhah bait asy-Syafi'i",
+          "arti": true,
           "pola": {
             "bait": [
               "يُخَاطِبُنِي السَّفِيهُ بِكُلِّ قُبْحٍ",

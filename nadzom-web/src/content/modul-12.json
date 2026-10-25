@@ -780,7 +780,7 @@
             "Bait 2 · Teman malam: tempel bait 2 Anda dari Diwan sesi sebelumnya.",
             "Bait 3 · Menghafal dan mengulang: ayat yang dijaga akan menjaga pemiliknya. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: أُرَدِّدُهَا، وَتَحْرُسُنِي، وَمَنْ حَفِظَ الْكِتَابَ، عَلَى مَهَلٍ.",
             "Bait 4 · Mengamalkan: Al-Qur'an tidak cukup dibaca; ia diikuti dalam akhlak dan amal. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: عَمِلْتُ بِمَا، بِأَخْلَاقٍ، تِلَاوَتُنَا، بِلَا عَمَلٍ.",
-            "Bait 5 · Doa: semoga Al-Qur'an menjadi penolong dan cahaya di hari kiamat. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: فَيَا رَبِّي، سَأَلْتُكَ أَنْ، يَكُونُ لَنَا، شَفِيعًا لِي، بِيَوْمِ الْحَشْرِ."
+            "Bait 5 · Doa: semoga Al-Qur'an menjadi penolong dan cahaya di hari kiamat. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: فَيَا رَبِّي، سَأَلْتُكَ أَنْ، يَكُونَ لَنَا، شَفِيعًا لِي، بِيَوْمِ الْحَشْرِ."
           ],
           "bantuan": {
             "diberi": [
@@ -1110,7 +1110,7 @@
                 "وَيَزِيدُهُ نُورًا عَلَى الْإِيمَانِ"
               ],
               "salah": "i'rab",
-              "alasan": "Salah i'rab. Pelaku يَتْلُو adalah dhamir هُوَ, yaitu sang pemuda; الْكِتَابَ maf'ul bih dan harus manshub. Dengan dhammah, الْكِتَابُ terbaca sebagai fa'il: Kitab itulah yang membaca. Timbangan tidak melihat bedanya."
+              "alasan": "Salah i'rab. Pelaku يَتْلُو adalah dhamir هُوَ, yaitu sang pembaca; الْكِتَابَ maf'ul bih dan harus manshub. Dengan dhammah, الْكِتَابُ terbaca sebagai fa'il: Kitab itulah yang membaca. Timbangan tidak melihat bedanya."
             },
             {
               "bait": [
@@ -1178,7 +1178,7 @@
             "Bait 2 · Teman malam: membacanya di malam hari mendatangkan ketenangan hati. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: يُؤَانِسُنِي، بِتَرْتِيلٍ، سَكِينَتُنَا، أَنِيسُ اللَّيْلِ، إِذَا جَنَّ الدُّجَى.",
             "Bait 3 · Menghafal dan mengulang: ayat yang dijaga akan menjaga pemiliknya. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: أُرَدِّدُهَا، وَتَحْرُسُنِي، وَمَنْ حَفِظَ الْكِتَابَ، عَلَى مَهَلٍ.",
             "Bait 4 · Mengamalkan: Al-Qur'an tidak cukup dibaca; ia diikuti dalam akhlak dan amal. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: عَمِلْتُ بِمَا، بِأَخْلَاقٍ، تِلَاوَتُنَا، بِلَا عَمَلٍ.",
-            "Bait 5 · Doa: semoga Al-Qur'an menjadi penolong dan cahaya di hari kiamat. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: فَيَا رَبِّي، سَأَلْتُكَ أَنْ، يَكُونُ لَنَا، شَفِيعًا لِي، بِيَوْمِ الْحَشْرِ."
+            "Bait 5 · Doa: semoga Al-Qur'an menjadi penolong dan cahaya di hari kiamat. Kata qafiyah: pilih sendiri dari daftar kata ujung. Laci: فَيَا رَبِّي، سَأَلْتُكَ أَنْ، يَكُونَ لَنَا، شَفِيعًا لِي، بِيَوْمِ الْحَشْرِ."
           ],
           "bantuan": {
             "diberi": [
@@ -1746,11 +1746,11 @@
       ]
     },
     {
-      "teks": "يَكُونُ لَنَا",
+      "teks": "يَكُونَ لَنَا",
       "arti": "ia menjadi bagi kami",
       "laci": "hasyw",
       "cocok": "satu مُفَاعَلَتُنْ utuh",
-      "catatan": "Pola 1101110.",
+      "catatan": "Pola 1101110. يَكُونَ manshub oleh أَنْ (dari سَأَلْتُكَ أَنْ).",
       "dari": "Rancangan Boss 2, bait 5 (wafir)",
       "bahr": "wafir",
       "tema": [

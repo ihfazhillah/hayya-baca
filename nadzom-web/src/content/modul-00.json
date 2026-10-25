@@ -514,7 +514,7 @@
           "cetakan": "صُبْحٌ بَدَا {1} طَوْدٌ عَلَا",
           "kotak": [
             {
-              "petunjuk": "Satu مُسْتَفْعِلُنْ: isim satu suku bertanwin lalu fi'il berpola 110, yang melanjutkan gambaran terang dan agung seperti fajar dan gunung",
+              "petunjuk": "Satu مُسْتَفْعِلُنْ: isim berwazan فَعْلٌ bertanwin lalu fi'il berpola 110, yang melanjutkan gambaran terang dan agung seperti fajar dan gunung",
               "pola": "1010110",
               "contoh": [
                 "بَدْرٌ هَدَى",
@@ -624,23 +624,23 @@
           "cetakan": "عِلْمٌ نَمَا {1} قَلْبٌ صَفَا",
           "kotak": [
             {
-              "petunjuk": "Satu مُسْتَفْعِلُنْ yang berarti takwa bertambah: isim bertanwin lalu fi'il, atau fi'il lalu isim ber-al",
+              "petunjuk": "Satu مُسْتَفْعِلُنْ yang berarti takwa bertambah: isim lalu fi'il, atau fi'il lalu isim ber-al",
               "pola": "1010110",
               "contoh": [
-                "تَقْوًى نَمَتْ",
+                "تَقْوَى نَمَتْ",
                 "زَادَ التُّقَى"
               ],
-              "jenis": "isim bertanwin lalu fi'il madhi, atau fi'il lalu isim",
+              "jenis": "isim lalu fi'il madhi, atau fi'il lalu isim",
               "pilih": true,
               "terima": [
-                "تَقْوًى نَمَتْ",
-                "تَقْوًى زَكَتْ",
+                "تَقْوَى نَمَتْ",
+                "تَقْوَى زَكَتْ",
                 "زَادَ التُّقَى"
               ],
               "tolak": [
                 {
-                  "kata": "تَقْوًى نَمَا",
-                  "alasan": "Salah: تَقْوًى muannats, jadi fi'il sesudahnya memakai ta ta'nits, yaitu نَمَتْ."
+                  "kata": "تَقْوَى نَمَا",
+                  "alasan": "Salah: تَقْوَى muannats (alif maqshurah ta'nits, tanpa tanwin), jadi fi'il sesudahnya memakai ta ta'nits, yaitu نَمَتْ."
                 },
                 {
                   "kata": "جَهْلٌ نَمَا",
@@ -674,7 +674,7 @@
       "patokan": "Set Kenali minimal 4 dari 5 benar, delapan butir Tandai benar, Tuhfah bait 16 ditimbang lurus, semua baris Cari yang pincang tepat, tiga baris cetakan satu kotak dan tiga baris cetakan dua kotak yang utuh semua, dan tiga potongan dipanen ke Laci saya.",
       "syarh": [
         "Perhatikan contoh pertama, bait Hazim «نَجْمٌ سَرَى سَيْفٌ فَرَى رُكْنٌ سَمَا». Timbang seperti di Pelajaran 1: نَجْ = 10, مُنْ = 10, سَرَى = 110. Satu مُسْتَفْعِلُنْ, tepat dua kata. Begitu pula سَيْفٌ فَرَى dan رُكْنٌ سَمَا. Hazim memuji dengan deretan gambar pendek, dan setiap gambar seukuran satu taf'ilah.",
-        "Rahasianya ada pada dua jenis kata. Isim satu suku yang bertanwin, seperti نَجْمٌ، سَيْفٌ، بَدْرٌ، عِلْمٌ, selalu 1010: dua sabab, لا لا. Fi'il madhi yang berakhir alif, seperti سَرَى، هَدَى، بَدَا، نَمَا, selalu 110: satu watad, نعم. Gabungkan keduanya, jadilah 1010110. Seperti wazan dalam sharaf, isinya bisa diganti tanpa merusak bentuknya.",
+        "Rahasianya ada pada dua jenis kata. Isim berwazan فَعْلٌ bertanwin, seperti نَجْمٌ، سَيْفٌ، بَدْرٌ، عِلْمٌ, selalu 1010: dua sabab, لا لا. Fi'il madhi yang berakhir alif, seperti سَرَى، هَدَى، بَدَا، نَمَا, selalu 110: satu watad, نعم. Gabungkan keduanya, jadilah 1010110. Seperti wazan dalam sharaf, isinya bisa diganti tanpa merusak bentuknya.",
         "Contoh kedua, bait 16 Tuhfatul Athfal, dibangun dengan cara lain. Di syathr kedua setiap taf'ilah satu frasa perintah: دُمْ طَيِّبًا، زِدْ فِي تُقًى، ضَعْ ظَالِمَا. Di syathr pertama batasnya tidak selalu jatuh di antara kata: taf'ilah kedua, كَمْ جَادَ شَخْ, berhenti di tengah شَخْصٌ. Keduanya sah; yang ditimbang adalah deretan 1 dan 0, bukan kata.",
         "Dari sini lahir **cetakan**: ambil bait yang lurus, cabut satu taf'ilah, dan yang tersisa adalah kerangka dengan satu kotak. Isi kotak itu dengan potongan apa pun yang 1010110, dan baris tetap lurus serta utuh. Setelah itu kotaknya dua: bantuan dikurangi satu, karena kini dua dari tiga taf'ilah adalah pilihan Anda.",
         "Ada dua jebakan. Pertama, tanwin: بَدْرُ هَدَى tanpa tanwin kehilangan satu 0, dan taf'ilahnya tidak utuh lagi. Kedua, sinonim: يَسْرِي semakna dengan سَرَى, tetapi polanya 1010, bukan 110. Setiap kali mengganti, timbang lagi.",
@@ -984,7 +984,7 @@
         "Perhatikan contoh pertama, doa Ibnu Zakur: «غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ». Kitabahnya غُفْرَانَكَلْلَاهُمْمَ إِنْنِي جَارِمُو. Tiga مُسْتَفْعِلُنْ: غُفْرَانَكَلْ, lalu لَاهُمْمَ إِنْ, lalu نِي جَارِمُو. Batas taf'ilah memotong kata, tetapi ketiganya utuh. Begitu pula syathr kedua.",
         "Kedua syathr berakhir dengan huruf yang sama, مُ: جَارِمُ dan نَادِمُ. Huruf terakhir yang diucapkan ini disebut **huruf ujung**, rawiy. Waw dari isyba' tidak dihitung sebagai huruf ujung; ia hanya pemanjangan.",
         "Sekarang lihat huruf sebelum huruf ujung: رِ pada جَارِمُ, دِ pada نَادِمُ. Keduanya hidup, dan itu bukan kebetulan. Taf'ilah terakhir harus ditutup watad, 110: dua huruf hidup lalu satu mati. Di sini رِ hidup, مُ hidup, dan waw isyba' mati. Kalau huruf sebelum huruf ujung mati, seperti ya mad pada أَثِيمُ, watad itu rusak dan taf'ilah terakhir tidak utuh.",
-        "Mengapa pola Ibnu Zakur, bukan ash-Shaghani? Keduanya utuh dan sama-sama bertema taubat. Tetapi huruf ujung ash-Shaghani, تْ pada أَجْرَمَتْ, mati; aturan kata ujungnya bergeser satu huruf, dan itu dibahas kemudian. Huruf ujung Ibnu Zakur hidup dan dipanjangkan, persis seperti aturan yang baru kita pelajari. Lagi pula kata ujungnya berwazan فَاعِلُ, wazan yang kata-katanya sangat banyak: ظَالِمُ، خَادِمُ، عَازِمُ، عَالِمُ، رَاحِمُ. Temanya pun doa, dekat dengan keseharian santri.",
+        "Mengapa pola Ibnu Zakur, bukan ash-Shaghani? Keduanya utuh dan sama-sama bertema taubat. Tetapi huruf ujung ash-Shaghani, تْ pada أَجْرَمَتْ, mati; aturan kata ujungnya bergeser satu huruf: bila huruf ujung mati, dua huruf sebelumnya, مَ dan رَ, harus hidup. Itu dibahas kemudian. Huruf ujung Ibnu Zakur hidup dan dipanjangkan, persis seperti aturan yang baru kita pelajari. Lagi pula kata ujungnya berwazan فَاعِلُ, wazan yang kata-katanya sangat banyak: ظَالِمُ، خَادِمُ، عَازِمُ، عَالِمُ، رَاحِمُ. Temanya pun doa, dekat dengan keseharian santri.",
         "Lalu mu'aradhah, empat anak tangga. **Satu kata**: ganti جَارِمُ dengan ظَالِمُ, sewazan dan maknanya dekat. **Satu taf'ilah**: ganti رُحْمَاكَ يَا dengan potongan lain yang juga 1010110. **Satu syathr**: tulis ulang syathr pertama dengan kata Anda. **Bait sendiri**: makna Anda, dengan timbangan dan huruf ujung pola. Setiap anak tangga ditimbang, setiap versi dicatat di Diwan.",
         "Ada dua jebakan di anak tangga pertama. أَثِيمُ semakna dengan جَارِمُ, tetapi huruf sebelum huruf ujungnya mati, jadi pincang. مُذْنِبُ polanya pas, tetapi huruf ujungnya ب, sehingga kedua syathr tidak berujung sama lagi. Pengganti yang baik harus lolos dua pemeriksaan: timbangan dan huruf ujung."
       ],
