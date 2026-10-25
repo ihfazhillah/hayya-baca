@@ -170,7 +170,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         {t.bankKata && <button type="button" className="tombol" onClick={() => setBank(!bank)} aria-expanded={bank}>{bank ? 'Tutup laci' : 'Buka laci kata'}</button>}
         {banyak && akhir && <span className={`chip ${akhir.bait.length >= jumlah ? 'ok' : ''}`}>{akhir.bait.length} dari {jumlah} bait</span>}
       </div>
-      {bank && <Laci sampai={modul} bahr={modul === undefined ? undefined : t.bahr} />}
+      {bank && <Laci sampai={modul} bahr={modul === undefined ? undefined : t.bahr} tema={t.tema} />}
       {galat && <div className="pesan salah">{galat}</div>}
       {t.tashih && versi.length > 0 && (
         <div className="kartu" role="group" aria-label="Tashih i'rab">
