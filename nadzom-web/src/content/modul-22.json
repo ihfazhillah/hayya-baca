@@ -1,0 +1,1044 @@
+{
+  "nomor": 22,
+  "label": "Ujian Akhir",
+  "judul": "Ujian Akhir",
+  "tujuan": "Satu qashidah 4–7 bait dengan tema, bahr, dan qafiyah pilihan sendiri, tanpa rancangan dan tanpa pola. Sesi 1: memilih dan menulis rancangan sendiri dalam bahasa Indonesia. Sesi 2: menyusun di kartu bahr pilihan. Sesi 3: revisi, tashih i'rab, arti dan syarh, Diwan, lalu diperiksa ustadz dan Claude. Bantuan yang tersisa hanya timbangan, pemeriksa qafiyah, dan Laci saya.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "versi": 2,
+      "judul": "Memilih dan merancang sendiri",
+      "ringkas": "Tidak ada rancangan, tidak ada pola. Anda memilih tema, bahr, dan qafiyah, lalu menulis rancangan sendiri: satu baris bahasa Indonesia untuk setiap bait, empat sampai tujuh baris.",
+      "menit": 30,
+      "analogi": "Di akhir mengaji sebuah kitab, ada santri yang diminta membaca di depan majelis tanpa didikte. Ia memilih bab sendiri, menyiapkan sendiri, lalu membaca. Gurunya hanya menyimak. Ujian akhir ini begitu. Alat Anda tinggal tiga: timbangan, pemeriksa qafiyah, dan Laci saya. Sisanya sudah ada di kepala Anda.",
+      "amtsilah": [
+        {
+          "bait": [
+            "تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا",
+            "وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Belajarlah, sebab tidak ada orang yang lahir sudah berilmu. Dan orang yang berilmu tidak sama dengan orang yang tidak tahu.",
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i; Diwan asy-Syafi'i di Wikisource, judul تعلم فليس المرء يولد عالما. Juga dikutip tanpa nama penyair dalam al-Jahizh, al-Bayan wa at-Tabyin, dan Ibnu 'Abdil Barr, Jami' Bayan al-'Ilm.",
+          "catatan": "Qashidah pendek yang utuh, bait 1. Bait pembuka langsung menyampaikan pokoknya: perintah belajar. Qafiyah ـاهِلُ, ber-ta'sis."
+        },
+        {
+          "bait": [
+            "وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ",
+            "صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْجَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang besar di tengah kaumnya, bila tak berilmu, menjadi kecil ketika pasukan-pasukan berkumpul di sekitarnya.",
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i, bait kedua «تعلم فليس المرء يولد عالما» (Wikisource, Diwan asy-Syafi'i); juga dalam al-Jahizh, al-Bayan wa at-Tabyin.",
+          "catatan": "Bait 2: akibat bila tidak berilmu. Ujungnya ـافِلُ, setia kepada bait 1: rawiy ل berdhammah, alif ta'sis."
+        },
+        {
+          "bait": [
+            "وَإِنَّ صَغِيرَ الْقَوْمِ إِنْ كَانَ عَالِمًا",
+            "كَبِيرٌ إِذَا رُدَّتْ إِلَيْهِ الْمَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang kecil di tengah kaumnya, bila ia berilmu, menjadi besar ketika majelis-majelis merujuk kepadanya.",
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i, bait ketiga qashidah تعلم فليس المرء يولد عالما; Wikisource, Diwan asy-Syafi'i.",
+          "catatan": "Bait 3: kebalikan bait 2. Tiga bait, tiga gagasan, satu qafiyah: rencana yang sederhana dan rapi."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا",
+          "وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ"
+        ],
+        "bahr": "thawil",
+        "makna": "Belajarlah, sebab tidak ada orang yang lahir sudah berilmu. Dan orang yang berilmu tidak sama dengan orang yang tidak tahu.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Qashidah pendek yang dinisbatkan kepada asy-Syafi'i ini hanya tiga bait, tetapi selesai: ada pokok, ada alasan, ada penutup. Kita bongkar rencananya dari belakang, seolah-olah penyairnya pernah menulis lembar rencana."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bait 1 lurus. Bait inilah yang mengunci tiga hal untuk seluruh qashidah: bahr thawil, qafiyah ـاهِلُ, dan dharb مَفَاعِلُنْ."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Rencana yang bisa kita tebak dari ketiga baitnya. Perhatikan: bahasa Indonesia, satu baris per bait, berisi makna, bukan kata Arab.",
+            "papan": "Tema: keutamaan ilmu\nBahr: thawil\nQafiyah: ـاهِلُ dan ـافِلُ, rawiy ل, dhammah, alif ta'sis\n\n1. Perintah belajar: tak ada yang lahir pandai\n2. Orang besar tanpa ilmu menjadi kecil\n3. Orang kecil yang berilmu menjadi besar"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Sekarang lembar Anda sendiri. Isi empat baris pertama sebelum menulis satu kata Arab pun. Kumpulkan minimal **12 kata ujung** untuk qafiyah Anda, dari Laci saya, dari matan yang Anda hafal, atau dari Al-Qur'an.",
+            "papan": "Tema: ...\nBahr: ...\nQafiyah: rawiy ..., harakat ..., ridf/ta'sis ...\nKata ujung (minimal 12): ...\n\n1. ...\n2. ...\n3. ...\n4. ...\n(5–7 bila perlu)"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Bantuan di ujian ini. Yang diberikan tinggal tiga. Yang dicabut: rancangan, usul qafiyah, contoh bait, laci tema, pola mu'aradhah, dan tangga calon. Laci bawaan tetap terbuka, disaring untuk bahr Anda, di samping Laci saya.",
+            "papan": "diberi: Timbangan · Pemeriksa qafiyah · Laci saya\ndicabut: Rancangan · Usul qafiyah · Contoh bait · Laci tema · Pola mu'aradhah · Tangga calon"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. الْمَرْءُ: hamzah washal gugur, ra mati. عَالِمًا di ujung syathr: tanwin dibaca نْ. Temukan 'arudh مَفَاعِلُنْ."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama. Bait pembuka qashidah ini tidak berbasa-basi: تَعَلَّمْ. Pokoknya disampaikan di bait 1, dan sebabnya di syathr yang sama: tidak ada orang yang lahir berilmu. Untuk qashidah 4–7 bait, bait 1 sebaiknya sudah menyebut tema. Tidak ada ruang untuk pembukaan panjang.",
+        "Contoh kedua dan ketiga adalah sepasang. Bait 2 berkata: orang besar tanpa ilmu menjadi kecil. Bait 3 membaliknya: orang kecil yang berilmu menjadi besar. Kata-katanya pun dipantulkan: كَبِيرَ dan صَغِيرٌ, lalu صَغِيرَ dan كَبِيرٌ. Pasangan seperti ini memudahkan rancangan: satu gagasan, dua bait.",
+        "Ketiga ujungnya: جَاهِلُ، الْجَحَافِلُ، الْمَحَافِلُ. Rawiy ل berdhammah, dan alif ta'sis dua huruf sebelumnya. Penyair memilih qafiyah yang kata-katanya banyak: فَاعِل dan jamak فَعَالِل. Pilih qafiyah Anda dengan cara yang sama. Sebelum menulis bait 1, kumpulkan dua belas kata ujung. Bila tidak sampai dua belas, ganti qafiyahnya sekarang, bukan di bait 5.",
+        "Memilih bahr. Rajaz untuk nadzom ilmi dan kaidah. Thawil dan basith untuk nasihat yang tenang dan panjang. Kamil dan wafir untuk nada yang mengalir. Mutaqarib dan bahr pendek seperti ramal majzu' dan mujtats untuk doa dan hikmah singkat. Pilih bahr yang sudah pernah Anda tulis sampai lurus, bukan yang paling indah di telinga.",
+        "Rancangan ditulis dalam bahasa Indonesia, satu baris per bait. Bila Anda menulis rancangan langsung dalam bahasa Arab, Anda akan terikat pada kata-kata yang belum tentu masuk wazan. Makna dulu; kata dicari kemudian, dari laci."
+      ],
+      "keliru": [
+        {
+          "salah": "Memilih qafiyah yang jarang, misalnya ـوجُ, karena indah, lalu macet di bait 3.",
+          "benar": "Kumpulkan minimal dua belas kata ujung sebelum bait 1. ـانِ، ـامُ، ـالِ، dan ـيرُ kaya kata.",
+          "sebab": "Qafiyah yang miskin memaksa Anda mengulang kata ujung (ita') atau mengganti majra (iqwa')."
+        },
+        {
+          "salah": "Menulis rancangan dalam bahasa Arab, lalu memaksa kalimat itu masuk wazan.",
+          "benar": "Tulis makna dalam bahasa Indonesia. Kata Arabnya dipilih saat menyusun, dari laci yang sudah ditimbang.",
+          "sebab": "Kalimat Arab yang sudah jadi jarang pas dengan taf'ilah. Makna lebih lentur daripada kata."
+        },
+        {
+          "salah": "Memilih bahr yang belum pernah Anda tulis karena terdengar paling megah.",
+          "benar": "Pilih bahr yang sudah pernah Anda susun sampai lurus di modulnya.",
+          "sebab": "Ujian ini menilai qashidah yang selesai dan benar, bukan keberanian."
+        }
+      ],
+      "qaidah": [
+        "**Lembar rencana** sebelum bait 1: tema, bahr, qafiyah dengan rawiy, harakat, dan ridf atau ta'sis-nya, minimal 12 kata ujung, lalu 4–7 baris rancangan berbahasa Indonesia.",
+        "**Bait 1 mengunci** bahr, qafiyah, dan bentuk dharb. Bait berikutnya mengikutinya.",
+        "**Satu baris rancangan, satu bait.** Setiap bait selesai maknanya sendiri; hindari tadhmin.",
+        "Bantuan ujian: timbangan, pemeriksa qafiyah, Laci saya, dan laci bawaan yang tersaring untuk bahr Anda. Selebihnya dicabut."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Keputusan sebelum menulis. Jawab satu per satu.",
+          "soal": [
+            {
+              "soal": "Anda ingin meringkas satu bab ilmu, misalnya hukum nun mati. Bahr yang paling lazim?",
+              "pilihan": [
+                "Rajaz",
+                "Wafir",
+                "Mujtats"
+              ],
+              "jawaban": 0,
+              "alasan": "Nadzom ilmi hampir selalu rajaz: longgar, dan setiap syathr mudah memuat satu istilah."
+            },
+            {
+              "soal": "Rancangan ditulis dalam bahasa apa?",
+              "pilihan": [
+                "Arab, supaya langsung dipakai",
+                "Indonesia, satu baris makna per bait"
+              ],
+              "jawaban": 1,
+              "alasan": "Makna dulu, kata kemudian."
+            },
+            {
+              "soal": "Bait 1 thawil Anda berdharb مَفَاعِلُنْ. Bait 4 boleh berdharb?",
+              "pilihan": [
+                "مَفَاعِيلُنْ, asal qafiyahnya sama",
+                "مَفَاعِلُنْ juga",
+                "Bebas"
+              ],
+              "jawaban": 1,
+              "alasan": "Bentuk dharb dikunci bait 1."
+            },
+            {
+              "soal": "Berapa kata ujung yang sebaiknya terkumpul sebelum bait 1?",
+              "pilihan": [
+                "Tiga",
+                "Minimal dua belas",
+                "Tidak perlu, dicari sambil jalan"
+              ],
+              "jawaban": 1,
+              "alasan": "Tujuh bait butuh tujuh kata ujung yang berbeda, ditambah cadangan untuk revisi."
+            },
+            {
+              "soal": "Mana yang **tidak** diberikan di ujian akhir?",
+              "pilihan": [
+                "Timbangan",
+                "Laci saya",
+                "Pola mu'aradhah"
+              ],
+              "jawaban": 2,
+              "alasan": "Pola, rancangan, usul qafiyah, contoh bait, laci tema, dan tangga calon dicabut."
+            }
+          ]
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Untuk qashidah 6 bait, qafiyah mana yang paling aman bagi penyusun 'ajam?",
+          "pilihan": [
+            "ـانِ: زَمَانِ، لِسَانِ، بَيَانِ، أَمَانِ، مَكَانِ، ...",
+            "ـوجُ: بُرُوجُ، ...",
+            "ـظُ: حِفْظُ، ..."
+          ],
+          "jawaban": 0,
+          "arab": true,
+          "alasan": "ـانِ menampung ratusan kata: mashdar, isim makan, jamak, dan mutsanna. Qafiyah yang miskin memaksa ita'."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait 3 qashidah ini. إِنْ كَانَ عَالِمًا: tanwin dibaca نْ. Sebutkan 'arudh dan dharbnya, lalu bandingkan dharbnya dengan bait 1.",
+          "bait": [
+            "وَإِنَّ صَغِيرَ الْقَوْمِ إِنْ كَانَ عَالِمًا",
+            "كَبِيرٌ إِذَا رُدَّتْ إِلَيْهِ الْمَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang kecil di tengah kaumnya, bila ia berilmu, menjadi besar ketika majelis-majelis merujuk kepadanya."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait 2. Lagukan bersamanya dan dengarkan ujungnya: الْجَحَافِلُ berbunyi sama dengan جَاهِلُ di bait 1. Begitulah qashidah Anda nanti harus terdengar.",
+          "bait": [
+            "وَإِنَّ كَبِيرَ الْقَوْمِ لَا عِلْمَ عِنْدَهُ",
+            "صَغِيرٌ إِذَا الْتَفَّتْ عَلَيْهِ الْجَحَافِلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Orang besar di tengah kaumnya, bila tak berilmu, menjadi kecil ketika pasukan-pasukan berkumpul di sekitarnya."
+        },
+        {
+          "jenis": "panen",
+          "petunjuk": "Panen tanpa kotak. Dari bait 1, potong sendiri **dua** potongan yang tepat satu taf'ilah utuh, فَعُولُنْ atau مَفَاعِيلُنْ. Simpan ke Laci saya; laci inilah salah satu dari tiga alat ujian Anda.",
+          "bait": [
+            "تَعَلَّمْ فَلَيْسَ الْمَرْءُ يُولَدُ عَالِمًا",
+            "وَلَيْسَ أَخُو عِلْمٍ كَمَنْ هُوَ جَاهِلُ"
+          ],
+          "bahr": "thawil",
+          "jumlah": 2,
+          "kotak": false,
+          "sumber": "Dinisbatkan kepada al-Imam asy-Syafi'i, «تعلم فليس المرء يولد عالما», bait 1"
+        }
+      ],
+      "patokan": "Lembar rencana selesai di catatan Anda: tema, bahr, qafiyah, minimal 12 kata ujung, dan 4–7 baris rancangan berbahasa Indonesia. Bait 3 ditimbang sendiri, dan dua potongan baru tersimpan di Laci saya."
+    },
+    {
+      "nomor": 2,
+      "versi": 2,
+      "judul": "Menyusun",
+      "ringkas": "Satu kartu untuk setiap bahr; kerjakan hanya kartu bahr pilihan Anda. Bait 1 sampai lurus dulu, lalu bait-bait berikutnya mengikuti lembar rencana Anda.",
+      "menit": 50,
+      "analogi": "Tukang kayu yang sudah lulus tidak lagi diberi gambar kerja oleh gurunya. Ia membuat gambarnya sendiri, lalu memotong kayu menurut gambar itu. Lembar rencana dari sesi 1 adalah gambar kerja Anda. Bila di tengah jalan sebuah bait tidak mau masuk, ubah katanya dulu; ubah rencananya hanya bila terpaksa.",
+      "amtsilah": [
+        {
+          "bait": [
+            "شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي",
+            "فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي"
+          ],
+          "bahr": "wafir",
+          "makna": "Aku mengadu kepada Waki' tentang hafalanku yang buruk. Ia menunjukkanku jalan: tinggalkan maksiat.",
+          "sumber": "Masyhur dinisbatkan kepada al-Imam asy-Syafi'i (Diwan asy-Syafi'i, Wikisource: شكوت إلى وكيع سوء حفظي; al-Diwan). Kitab-kitab yang lebih tua (al-Khathib, al-Jami' li Akhlaq ar-Rawi 2/258) menyebutnya \"li ba'dhihim\" tanpa nama.",
+          "catatan": "Qashidah dua bait yang utuh. Bait 1: keluhan. Wafir, qafiyah ـاصِي."
+        },
+        {
+          "bait": [
+            "وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ",
+            "وَنُورُ اللَّهِ لَا يُهْدَى لِعَاصِي"
+          ],
+          "bahr": "wafir",
+          "makna": "Ia mengabarkan kepadaku bahwa ilmu itu cahaya, dan cahaya Allah tidak dianugerahkan kepada orang yang bermaksiat.",
+          "sumber": "Bait kedua menurut Diwan asy-Syafi'i (Wikisource). Riwayat lain: «وَقَالَ اعْلَمْ بِأَنَّ الْعِلْمَ فَضْلٌ ... وَفَضْلُ اللَّهِ لَا يُؤْتَاهُ عَاصِ» (Ibnul Qayyim, ad-Da' wa ad-Dawa').",
+          "catatan": "Bait 2: jawaban sang guru. Dua bait, satu gagasan yang selesai."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي",
+          "فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي"
+        ],
+        "bahr": "wafir",
+        "makna": "Aku mengadu kepada Waki' tentang hafalanku yang buruk. Ia menunjukkanku jalan: tinggalkan maksiat.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Qashidah terpendek yang tetap utuh: dua bait. Bait 1 bertanya, bait 2 menjawab. Hudhud tidak menyusun contoh untuk Anda di ujian ini. Kita hanya melihat bagaimana sebuah qashidah selesai."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Lurus. Bait ini mengunci wafir, qafiyah ـاصِي dengan ridf alif, dan dharb مُفَاعَلْ."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Urutan kerja Anda di kartu: bait 1 dulu sampai lurus. Lalu salin ujungnya ke lembar rencana. Setiap bait berikutnya ditimbang bersama bait 1, supaya pemeriksa qafiyah membandingkannya.",
+            "papan": "1. bait 1 sampai lurus\n2. catat: rawiy, majra, ridf/ta'sis, bentuk dharb\n3. bait 2, timbang bersama bait 1\n4. bait 3 dan seterusnya, satu per satu\n5. simpan draf ke Diwan"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Bila sebuah bait patah, tangga revisi Modul 4 masih milik Anda: buang kata kecil, geser posisi, ganti sewazan, ganti semakna. Bedanya, kini tidak ada calon yang disodorkan. Calon dicari di laci.",
+            "papan": "buang · geser · ganti sewazan · ganti semakna"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. وَكِيعٍ: tanwin dibaca نْ. سُوءَ: wawu mad, hamzah hidup. Temukan taf'ilah yang ber-'ashb."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama. Bait 1 berisi satu peristiwa lengkap: mengadu, kepada siapa, tentang apa, dan jawabannya. Syathr kedua فَأَرْشَدَنِي sudah membawa arah. Bait pembuka yang baik membuat pendengar ingin mendengar bait berikutnya.",
+        "Contoh kedua menutup qashidah dengan alasan: ilmu itu cahaya, dan cahaya Allah tidak diberikan kepada pelaku maksiat. Ujungnya لِعَاصِي berpasangan dengan الْمَعَاصِي: rawiy ص, kasrah, alif ridf. Dua kata dari akar yang sama, tetapi maknanya berbeda: maksiat dan pelaku maksiat. Karena itu bukan ita'.",
+        "Qashidah Anda 4–7 bait. Kebanyakan qashidah pendek punya tiga bagian: pembuka yang menyebut tema, isi yang memberi alasan atau contoh, dan penutup berupa doa, nasihat, atau kesimpulan. Rancangan Anda dari sesi 1 sebaiknya sudah memperlihatkan ketiganya.",
+        "Di setiap kartu, laci yang terbuka adalah Laci saya dan laci bawaan yang disaring untuk bahr kartu itu. Tidak ada laci tema dan tidak ada calon. Bila sebuah kata tidak ada di laci, Anda yang mencarinya: dari matan, dari Al-Qur'an, atau dari bait yang pernah Anda baca."
+      ],
+      "keliru": [
+        {
+          "salah": "Menulis ketujuh bait sekaligus, lalu menimbang semuanya di akhir.",
+          "benar": "Bait 1 sampai lurus, baru bait 2. Timbang setiap kali satu bait bertambah.",
+          "sebab": "Bila bait 1 berubah bahr atau dharb, semua bait sesudahnya ikut salah."
+        },
+        {
+          "salah": "Mengubah rancangan setiap kali sebuah bait sulit masuk wazan.",
+          "benar": "Ganti kata dulu: sewazan, lalu semakna. Ubah rancangan hanya bila maknanya memang tidak bisa diungkapkan dalam bahr itu.",
+          "sebab": "Rancangan adalah tujuan. Wazan adalah jalannya. Yang disesuaikan lebih dulu adalah jalannya."
+        },
+        {
+          "salah": "Mengerjakan dua kartu bahr sekaligus untuk berjaga-jaga.",
+          "benar": "Satu bahr, satu kartu. Bahr sudah dipilih di sesi 1.",
+          "sebab": "Satu qashidah, satu bahr. Dua draf setengah jadi tidak sama dengan satu qashidah yang selesai."
+        }
+      ],
+      "qaidah": [
+        "Kerjakan **satu kartu**: bahr pilihan Anda dari sesi 1.",
+        "Bait 1 sampai lurus dulu. Setiap bait baru ditimbang bersama bait-bait sebelumnya di kotak yang sama.",
+        "Bila patah, pakai tangga revisi: buang, geser, ganti sewazan, ganti semakna. Calon dicari sendiri di laci.",
+        "Minimal 4 bait, paling banyak 7. Simpan draf ke Diwan sebelum menutup halaman."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Cara kerja di kartu. Jawab satu per satu.",
+          "soal": [
+            {
+              "soal": "Bait 3 patah satu taf'ilah. Langkah pertama?",
+              "pilihan": [
+                "Ubah rancangan bait 3",
+                "Cari kata sewazan di laci untuk taf'ilah yang patah",
+                "Pindah ke bahr lain"
+              ],
+              "jawaban": 1,
+              "alasan": "Tangga revisi dimulai dari kata, bukan dari rencana."
+            },
+            {
+              "soal": "Pemeriksa qafiyah menandai bait 4: ujung lain. Apa yang dibandingkan?",
+              "pilihan": [
+                "Bait 4 dengan bait 3",
+                "Bait 4 dengan bait 1",
+                "Bait 4 dengan pola"
+              ],
+              "jawaban": 1,
+              "alasan": "Bait 1 adalah acuan rawiy, majra, ridf, dan bentuk dharb."
+            },
+            {
+              "soal": "الْمَعَاصِي dan لِعَاصِي di ujung dua bait berurutan termasuk?",
+              "pilihan": [
+                "Ita'",
+                "Bukan ita', karena maknanya berbeda"
+              ],
+              "jawaban": 1,
+              "alasan": "Satu maksiat, satu pelaku maksiat. Ita' adalah kata yang sama dengan makna yang sama."
+            },
+            {
+              "soal": "Anda selesai 5 bait dan lurus semua. Apa berikutnya?",
+              "pilihan": [
+                "Langsung ke sesi 3",
+                "Simpan draf ke Diwan, lalu baca ulang terhadap rancangan",
+                "Tambah dua bait lagi supaya tujuh"
+              ],
+              "jawaban": 1,
+              "alasan": "Draf disimpan dulu. Lima bait sudah memenuhi syarat; tambah hanya bila rancangan memang meminta."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Pemanasan: timbang bait 2 qashidah ini. Sebutkan taf'ilah yang ber-'ashb dan bentuk dharbnya.",
+          "bait": [
+            "وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ",
+            "وَنُورُ اللَّهِ لَا يُهْدَى لِعَاصِي"
+          ],
+          "bahr": "wafir",
+          "makna": "Ia mengabarkan kepadaku bahwa ilmu itu cahaya, dan cahaya Allah tidak dianugerahkan kepada orang yang bermaksiat."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait 1 dan lagukan bersamanya. Setelah itu lagukan bait 1 Anda sendiri dengan cara yang sama, tanpa mesin. Bila tersandung, di situ periksa dulu.",
+          "bait": [
+            "شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي",
+            "فَأَرْشَدَنِي إِلَى تَرْكِ الْمَعَاصِي"
+          ],
+          "bahr": "wafir",
+          "makna": "Aku mengadu kepada Waki' tentang hafalanku yang buruk. Ia menunjukkanku jalan: tinggalkan maksiat."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 1 · Rajaz.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "rajaz",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Rajaz · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 2 · Ramal majzu'.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "ramalMajzu",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Ramal majzu' · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 3 · Mutaqarib.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "mutaqarib",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Mutaqarib · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 4 · Kamil.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "kamil",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Kamil · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 5 · Wafir.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "wafir",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Wafir · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 6 · Basith.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "basith",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Basith · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 7 · Thawil.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "thawil",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Thawil · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 8 · Khafif.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "khafif",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Khafif · draf"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 9 · Mujtats.** Kerjakan hanya kartu bahr pilihan Anda; lewati yang lain. Tulis bait 1 sampai lurus, lalu bait-bait berikutnya mengikuti lembar rencana Anda. Minimal **4 bait**, paling banyak 7, semuanya di kotak yang sama.",
+          "bahr": "mujtats",
+          "makna": "Tema, bahr, dan qafiyah pilihan Anda sendiri. Rancangan maknanya Anda tulis sendiri di sesi 1, dalam bahasa Indonesia, satu baris per bait. Ikuti lembar itu; tidak ada rancangan dari Hudhud.",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "judulDiwan": "Ujian Akhir · Mujtats · draf"
+        }
+      ],
+      "patokan": "Satu kartu selesai: 4–7 bait dalam bahr pilihan Anda, setiap bait 0 patah, pemeriksa qafiyah tidak menandai apa pun, dan draf tersimpan di Diwan."
+    },
+    {
+      "nomor": 3,
+      "versi": 2,
+      "judul": "Revisi, syarh, lalu Diwan",
+      "ringkas": "Draf ditimbang ulang, diperiksa terhadap rancangan sendiri, ditashih i'rab-nya, diberi arti dan syarh singkat, lalu disalin ke Diwan dan diserahkan untuk diperiksa.",
+      "menit": 35,
+      "analogi": "Ulama dulu menulis matan, lalu menulis syarahnya sendiri, atau menyerahkannya kepada murid dan guru untuk dibaca. Kitab yang tidak pernah dibacakan kepada orang lain tidak bersanad. Qashidah Anda pun baru selesai ketika ada yang menyimaknya: diri Anda lewat syarh, ustadz lewat setoran, dan Claude lewat pemeriksaan cepat.",
+      "amtsilah": [
+        {
+          "bait": [
+            "إِنْ لَمْ يَكُنْ لَكَ لَحْمٌ",
+            "كَفَاكَ خَلٌّ وَزَيْتُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kalau engkau tidak punya daging, cukuplah bagimu cuka dan minyak zaitun.",
+          "sumber": "Al-Khalil bin Ahmad al-Farahidi, peletak ilmu 'arudh. Ibnu Hibban, Raudhat al-'Uqala' (bab dorongan bertawakal kepada Yang menjamin rezeki) dan ats-Tsiqat (biografi al-Khalil); adz-Dzahabi, Tarikh al-Islam, biografi al-Khalil. Dicocokkan lewat turath.io.",
+          "catatan": "Al-Khalil, peletak ilmu 'arudh, menulis bait sederhana seperti ini. Qashidah pendek tidak harus megah; yang penting selesai dan benar."
+        },
+        {
+          "bait": [
+            "إِنْ لَا يَكُنْ ذَا وَهَذَا",
+            "فَكِسْرَةٌ وَبُيَيْتُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kalau yang ini dan yang itu pun tidak ada, cukuplah sepotong roti dan sebuah rumah kecil.",
+          "sumber": "Al-Khalil bin Ahmad al-Farahidi. Ibnu Hibban, Raudhat al-'Uqala' dan ats-Tsiqat; adz-Dzahabi, Tarikh al-Islam. Dicocokkan lewat turath.io. Riwayat adz-Dzahabi: إِنْ لَا يَكُنْ ذَا وَلَا ذَا.",
+          "catatan": "Bait 2 menutup gagasan bait 1. Ujung زَيْتُ dan بُيَيْتُ: rawiy ت berdhammah, didahului ya mati."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "إِنْ لَمْ يَكُنْ لَكَ لَحْمٌ",
+          "كَفَاكَ خَلٌّ وَزَيْتُ"
+        ],
+        "bahr": "mujtats",
+        "makna": "Kalau engkau tidak punya daging, cukuplah bagimu cuka dan minyak zaitun.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait al-Khalil bin Ahmad. Kita pakai bait ini untuk memperagakan apa yang Anda kerjakan sendiri di sesi ini: timbang ulang, periksa qafiyah, tashih, lalu syarh."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Pertama, timbang ulang. Lurus, dengan khabn di dua taf'ilah. Timbang ulang draf Anda juga, meskipun kemarin sudah lurus: satu harakat yang Anda ubah semalam bisa mengubah segalanya."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Kedua, qafiyah. Bandingkan ujung setiap bait dengan bait 1.",
+            "papan": "bait 1: وَزَيْتُ = rawiy ت, dhammah, ya mati sebelumnya\nbait 2: وَبُيَيْتُ = rawiy ت, dhammah, ya mati sebelumnya\nsama: tidak ada iqwa', tidak ada sinad"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Ketiga, tashih i'rab. Setiap kata ujung diperiksa: mengapa harakatnya begitu? Bila jawabannya \"karena qafiyah\", itu tanda bahaya.",
+            "papan": "كَفَاكَ: fi'il madhi, kaf maf'ul bih\nخَلٌّ: fa'il, marfu'\nوَزَيْتُ: ma'thuf kepada خَلٌّ, marfu'\n= majra dhammah karena i'rab, bukan dipaksa"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Keempat, syarh singkat. Tulis seperti syarah matan: kedudukan kata yang penting, lalu makna setiap syathr. Bait yang belum bisa Anda syarah belum matang.",
+            "papan": "syathr 1: إِنْ syarthiyyah; يَكُنْ majzum; لَحْمٌ isim يَكُنْ.\n  Makna: kalau engkau tidak punya daging,\nsyathr 2: jawab syarth tanpa fa karena fi'il madhi.\n  Makna: cuka dan minyak sudah mencukupimu."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Kelima, Diwan dan pembaca luar. Setelah tashih, arti, dan syarh terisi, salin ke Diwan. Lalu tekan **Salin untuk diperiksa** dan kirim teksnya kepada ustadz Anda, atau tempel ke Claude.",
+            "papan": "Diwan: qashidah, arti, syarh, timbangan\nSalin untuk diperiksa: ustadz (setoran) · Claude (umpan balik cepat)"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. لَحْمٌ di ujung syathr: tanwin dibaca نْ. Temukan taf'ilah yang terkena khabn."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama dan kedua. Al-Khalil menyusun dua bait mujtats tentang qana'ah: bila tidak ada daging, cuka dan minyak cukup; bila itu pun tidak ada, sepotong roti dan rumah kecil. Bahasanya sederhana, tetapi wazannya lurus, qafiyahnya setia, dan maknanya selesai dalam dua bait. Itulah ukuran qashidah ujian Anda: bukan kemegahan, tetapi selesai dan benar.",
+        "Revisi dimulai dari rancangan sendiri. Letakkan lembar rencana di samping draf. Untuk setiap bait, tanyakan: apakah bait ini menyampaikan baris rencananya? Bait yang lurus tetapi maknanya bergeser dari rencana diperbaiki sekarang, sebelum tashih.",
+        "Lalu tashih i'rab dan syarh. Mesin hanya memeriksa wazan dan qafiyah. Lughah dan i'rab Anda periksa sendiri, lewat daftar tashih dan lewat syarh singkat: kedudukan kata penting dan makna setiap syathr. Bila sebuah kata ujung berharakat dhammah hanya karena qafiyahnya dhammah, periksa ulang i'rab-nya.",
+        "Qashidah Anda belum selesai di Diwan. **Bacakan kepada ustadz** Anda, sebagai setoran, karena beliaulah penilai akhir. Untuk umpan balik cepat kapan saja, tekan **Salin untuk diperiksa** dan tempel teksnya ke Claude: i'rab, pilihan kata, dan apakah makna yang Anda maksud sampai. Keduanya tidak saling menggantikan.",
+        "Setelah ujian ini, buka halaman **Rujukan**, bagian **Langkah berikutnya**. Di sana ada tangga kitab: Mizan adz-Dzahab, lalu al-Kafi dengan al-Mukhtashar asy-Syafi, al-Kafi at-Tabrizi, dan ar-Ramizah dengan syarah ad-Damamini. Ada juga daftar bahr yang belum dipelajari dan kebiasaan yang menjaga keterampilan ini: muraja'ah Diwan, satu mu'aradhah sebulan, dan panen laci dari setiap bait yang Anda baca."
+      ],
+      "keliru": [
+        {
+          "salah": "Mengubah harakat akhir kata ujung supaya qafiyahnya cocok, misalnya fa'il dibaca kasrah.",
+          "benar": "Susun ulang kalimatnya sampai kata ujung itu memang berhak atas harakat qafiyah.",
+          "sebab": "Itu salah i'rab, bukan darurah. Mesin tidak menangkapnya; ustadz pasti menangkapnya."
+        },
+        {
+          "salah": "Menganggap qashidah selesai karena 0 patah dan qafiyah pas.",
+          "benar": "Selesai berarti juga sesuai rancangan, benar i'rab-nya, sudah disyarah, dan sudah dibacakan kepada pembaca luar.",
+          "sebab": "Wazan hanya satu dari empat syarat. Tiga lainnya diperiksa oleh Anda sendiri dan pembaca luar."
+        },
+        {
+          "salah": "Meminta Claude memperbaiki qashidah, lalu menyalin hasilnya ke Diwan.",
+          "benar": "Minta pemeriksaan dan alasan. Perbaiki sendiri, timbang lagi, dan simpan sebagai versi baru.",
+          "sebab": "Diwan adalah catatan perjalanan Anda. Qashidah yang disusun orang lain bukan milik Anda."
+        }
+      ],
+      "qaidah": [
+        "Urutan revisi: **timbang ulang**, **cocokkan dengan rancangan**, **periksa qafiyah**, **tashih i'rab**, **arti dan syarh**, lalu **Diwan**.",
+        "Harakat ujung mengikuti i'rab. Bila i'rab tidak memberi harakat qafiyah, susun ulang kalimatnya.",
+        "**Pembaca luar**: ustadz untuk setoran dan penilaian akhir; Claude untuk umpan balik cepat lewat Salin untuk diperiksa.",
+        "Setelah course: halaman Rujukan, bagian Langkah berikutnya."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Revisi akhir. Jawab satu per satu.",
+          "soal": [
+            {
+              "soal": "Bait 5 Anda lurus, tetapi isinya bukan baris 5 rancangan. Apa yang dilakukan?",
+              "pilihan": [
+                "Biarkan, karena lurus",
+                "Perbaiki atau ganti baitnya supaya sesuai rancangan",
+                "Hapus baris 5 dari rancangan"
+              ],
+              "jawaban": 1,
+              "alasan": "Rancangan adalah ukuran makna di ujian ini."
+            },
+            {
+              "soal": "Kata ujung bait 3 adalah fa'il, tetapi Anda baca kasrah supaya cocok dengan qafiyah ـانِ. Ini?",
+              "pilihan": [
+                "Darurah yang boleh",
+                "Salah i'rab; susun ulang kalimatnya"
+              ],
+              "jawaban": 1,
+              "alasan": "Darurah syi'riyyah tidak mencakup mengubah i'rab."
+            },
+            {
+              "soal": "Siapa penilai akhir qashidah ujian Anda?",
+              "pilihan": [
+                "Mesin timbangan",
+                "Claude",
+                "Ustadz, lewat setoran"
+              ],
+              "jawaban": 2,
+              "alasan": "Mesin memeriksa wazan, Claude memberi umpan balik cepat, ustadz menilai."
+            },
+            {
+              "soal": "Ke mana setelah ujian ini, untuk melanjutkan ilmu 'arudh?",
+              "pilihan": [
+                "Halaman Rujukan, bagian Langkah berikutnya",
+                "Mengulang Modul 0"
+              ],
+              "jawaban": 0,
+              "alasan": "Di sana ada tangga kitab, bahr yang belum dipelajari, dan kebiasaan rutin."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Pemanasan: timbang bait 2 al-Khalil. بُيَيْتُ adalah tashghir بَيْت: بُ يَيْ تُو. Sebutkan taf'ilah yang terkena khabn.",
+          "bait": [
+            "إِنْ لَا يَكُنْ ذَا وَهَذَا",
+            "فَكِسْرَةٌ وَبُيَيْتُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kalau yang ini dan yang itu pun tidak ada, cukuplah sepotong roti dan sebuah rumah kecil."
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Syarh singkat yang diminta sebelum salin ke Diwan berisi?",
+          "pilihan": [
+            "Terjemah kata per kata",
+            "Kedudukan kata penting dan makna setiap syathr",
+            "Nama bahr dan taf'ilahnya saja"
+          ],
+          "jawaban": 1,
+          "alasan": "Seperti syarah matan: i'rab singkat untuk kata yang penting, lalu makna per syathr. Timbangan sudah dicatat mesin."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 1 · Rajaz.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "rajaz",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Rajaz"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 2 · Ramal majzu'.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "ramalMajzu",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Ramal majzu'"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 3 · Mutaqarib.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "mutaqarib",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Mutaqarib"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 4 · Kamil.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "kamil",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Kamil"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 5 · Wafir.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "wafir",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Wafir"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 6 · Basith.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "basith",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Basith"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 7 · Thawil.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "thawil",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Thawil"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 8 · Khafif.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "khafif",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Khafif"
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Kartu 9 · Mujtats.** Hanya kartu bahr yang Anda pilih di sesi 1. Tempel draf terakhir dari Diwan, timbang ulang, perbaiki, lalu centang tashih i'rab. Tulis arti dan syarh singkat sebelum menyalin ke Diwan.",
+          "bahr": "mujtats",
+          "makna": "Qashidah Anda dari sesi 2. Ukurannya rancangan Anda sendiri: apakah setiap bait menyampaikan baris rencananya?",
+          "bankKata": true,
+          "jumlah": 4,
+          "qafiyah": "satu",
+          "bantuan": {
+            "diberi": [
+              "Timbangan",
+              "Pemeriksa qafiyah",
+              "Laci saya"
+            ],
+            "dicabut": [
+              "Rancangan",
+              "Usul qafiyah",
+              "Contoh bait",
+              "Laci tema",
+              "Pola mu'aradhah",
+              "Tangga calon"
+            ]
+          },
+          "tashih": true,
+          "arti": true,
+          "syarh": true,
+          "periksa": true,
+          "judulDiwan": "Ujian Akhir · Mujtats"
+        }
+      ],
+      "patokan": "Satu qashidah 4–7 bait dalam bahr, tema, dan qafiyah pilihan sendiri: 0 patah di setiap bait, pemeriksa qafiyah bersih, sesuai rancangan sendiri, tashih i'rab dicentang, arti dan syarh terisi, tersimpan di Diwan, dan dibacakan kepada ustadz atau diperiksa lewat Salin untuk diperiksa."
+    }
+  ]
+}

@@ -1,0 +1,1171 @@
+{
+  "nomor": 21,
+  "judul": "Tebak Bahr",
+  "tujuan": "Menebak bahr bait yang belum pernah didengar, tanpa petunjuk. Pelajaran 1 memberi empat pertanyaan berurutan: panjang syathr, letak 1110, pembuka watad atau sabab, dan bentuk ujung. Pelajaran 2 membedakan pasangan yang paling sering tertukar: rajaz dan kamil ber-idhmar, mutaqarib dan thawil, hazaj dan wafir majzu', serta bahr tam dan majzu'-nya. Pelajaran 3 membedakan bahr pendek, lalu ujian sepuluh bait acak dengan patokan 8 benar pada percobaan pertama.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "versi": 2,
+      "judul": "Empat pertanyaan untuk bait asing",
+      "ringkas": "Bait yang belum pernah Anda dengar tidak ditebak dari rasanya. Ajukan empat pertanyaan berurutan: berapa panjang syathrnya, di mana 1110, dibuka watad atau sabab, dan bagaimana ujungnya.",
+      "menit": 35,
+      "analogi": "Dokter yang baik tidak menebak penyakit dari wajah pasien. Ia bertanya berurutan: sejak kapan, di mana sakitnya, ada demam atau tidak. Setiap jawaban mencoret beberapa kemungkinan, sampai tersisa satu. Menebak bahr juga begitu. Telinga boleh punya dugaan, tetapi empat pertanyaan inilah yang memutuskan.",
+      "amtsilah": [
+        {
+          "bait": [
+            "الْعَطْفُ إِمَّا ذُو بَيَانٍ أَوْ نَسَقْ",
+            "وَالْغَرَضُ الْآنَ بَيَانُ مَا سَبَقْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "'Athf itu ada dua: 'athf bayan atau 'athf nasaq. Yang dibahas sekarang adalah yang pertama.",
+          "sumber": "Alfiyah, bab العَطْفُ, bait 534. https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json Harakat dilengkapi.",
+          "catatan": "Syathr pertama 21 tanda, tiga taf'ilah 1010110. Syathr kedua lebih pendek karena thayy dan khabn."
+        },
+        {
+          "bait": [
+            "قُسِمَ الْحَيَاءُ عَلَى الْأَنَامِ جَمِيعِهِمْ",
+            "فَذَهَبْتَ أَنْتَ فَقُدْتَهُ بِزِمَامِهِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Rasa malu dibagi-bagikan kepada seluruh manusia, lalu engkau datang dan menuntunnya dengan tali kekangnya: engkau mengambil bagian terbesarnya.",
+          "sumber": "Abu Tammam, qashidah «قل للأمير أبي سعيد ذي الندى». https://www.aldiwan.net/poem30355.html Harakat dilengkapi.",
+          "catatan": "Setiap taf'ilah dibuka 1110."
+        },
+        {
+          "bait": [
+            "وَإِنَّ مِنَ الْعَجَائِبِ أَنْ تَرَانِي",
+            "فَتَعْدِلَ بِي أَقَلَّ مِنَ الْهَبَاءِ"
+          ],
+          "bahr": "wafir",
+          "makna": "Sungguh mengherankan, engkau melihatku lalu menganggapku lebih kecil daripada debu.",
+          "sumber": "al-Mutanabbi, qashidah «أتنكر يا ابن إسحاق إخائي». https://www.aldiwan.net/poem9444.html Harakat dilengkapi.",
+          "catatan": "110 lalu 1110, dua kali; ujungnya 11010."
+        },
+        {
+          "bait": [
+            "لَا تُنْكِرِ الْوَحْيَ مِنْ رُؤْيَاهُ إِنَّ لَهُ",
+            "قَلْبًا إِذَا نَامَتِ الْعَيْنَانِ لَمْ يَنَمِ"
+          ],
+          "bahr": "basith",
+          "makna": "Jangan ingkari wahyu yang datang lewat mimpi beliau, karena beliau memiliki hati yang tidak tidur ketika kedua matanya tidur.",
+          "sumber": "al-Bushiri, al-Burdah (al-Kawakib ad-Durriyyah) «أمن تذكر جيران بذي سلم». https://www.aldiwan.net/poem18097.html Harakat dilengkapi.",
+          "catatan": "Panjang, dan 1110 hanya di ujung kedua syathr."
+        },
+        {
+          "bait": [
+            "فَكِلْهُ إِلَى صَرْفِ اللَّيَالِي فَإِنَّهَا",
+            "سَتُبْدِي لَهُ مَا لَمْ يَكُنْ فِي حِسَابِهِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Serahkan dia kepada perputaran malam, sebab malam-malam itu akan menampakkan kepadanya apa yang tidak pernah ia perhitungkan.",
+          "sumber": "Diwan al-Imam asy-Syafi'i, qashidah «بلوت بني الدنيا فلم أرى فيهم». https://www.aldiwan.net/poem24729.html Harakat dilengkapi.",
+          "catatan": "Dibuka watad; 110 muncul lagi setelah lima tanda, lalu setelah tujuh."
+        },
+        {
+          "bait": [
+            "مِنَ الْكَاظِمِي الْغَيْظِ وَالْمُحْسِنِينَ",
+            "إِذَا بَرَّحَتْ بِالصُّدُورِ الْحُقُودِ"
+          ],
+          "bahr": "mutaqarib",
+          "makna": "Termasuk orang-orang yang menahan amarah dan berbuat ihsan, ketika dendam menyesakkan dada.",
+          "sumber": "Ibn al-Khayyath ad-Dimasyqi, qashidah «عسى باخل بلقاء يجود». https://poetry.dctabudhabi.ae/diwan/poem/47370 Harakat dilengkapi.",
+          "catatan": "Dibuka watad; 110 muncul lagi setiap lima tanda."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "قَدْ يَجْمَعُ الْمَرْءُ مَالًا ثُمَّ يُسْلَبُهُ",
+          "عَمَّا قَلِيلٍ فَيَلْقَى الذُّلَّ وَالْحَرَبَا"
+        ],
+        "bahr": "basith",
+        "makna": "Kadang seseorang mengumpulkan harta, lalu tak lama kemudian harta itu dirampas, hingga ia menemui kehinaan dan kebinasaan.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait Abu al-Aswad ad-Du'ali, peletak dasar ilmu nahwu. Anggap Anda belum pernah mendengarnya. Kita tidak menebak dari rasa. Kita bertanya empat kali."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "**Pertanyaan 1: berapa panjang syathrnya?** Tulis seperti diucapkan, tandai 1 dan 0, lalu hitung. Syathr pertama ini 23 tanda."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Panjang syathr memisahkan bahr menjadi tiga keluarga. Angkanya bergeser satu atau dua karena zihaf, tetapi keluarganya tetap.",
+            "papan": "sekitar 14 tanda: ramal majzu', mujtats, kamil majzu', wafir majzu', hazaj\nsekitar 16: basith majzu' (mukhalla')\nsekitar 19 sampai 21: rajaz, kamil, wafir, khafif, mutaqarib\nsekitar 23 sampai 24: basith, thawil\n\nbait ini: 23 tanda = basith atau thawil"
+          },
+          {
+            "tampil": "teks",
+            "kata": "**Pertanyaan 2: di mana 1110?** Tiga huruf hidup lalu satu mati. Di bait ini 1110 hanya ada sekali, tepat di ujung syathr: ـلَبُهُو dari يُسْلَبُهُ.",
+            "papan": "1110 di awal setiap taf'ilah = kamil\n110 lalu 1110 = wafir\n1110 hanya di ujung syathr = basith\n\nbait ini: 1110 di ujung = basith"
+          },
+          {
+            "tampil": "teks",
+            "kata": "**Pertanyaan 3: dibuka watad atau sabab?** قَدْ يَجْ = 10 10, dua sabab. Thawil selalu dibuka watad, 110. Jadi thawil sudah gugur.",
+            "papan": "dibuka watad 110: thawil, mutaqarib, wafir, hazaj\ndibuka sabab 10: rajaz, basith, khafif, ramal, mujtats\ndibuka 111: kamil\n\nbait ini: 10 10 = sabab"
+          },
+          {
+            "tampil": "teks",
+            "kata": "**Pertanyaan 4: bagaimana ujungnya?** Ujung syathr kedua وَالْحَرَبَا juga 1110. Basith punya 'arudh baku فَعِلُنْ, dan dharb yang paling sering pun فَعِلُنْ. Keempat jawaban menunjuk satu bahr.",
+            "papan": "panjang 23: basith atau thawil\n1110 di ujung: basith\ndibuka sabab: bukan thawil\nujung فَعِلُنْ: basith"
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Baru sekarang kita timbang dengan basith: مُسْتَفْعِلُنْ فَاعِلُنْ مُسْتَفْعِلُنْ فَعِلُنْ. Semuanya utuh. Timbangan membenarkan empat pertanyaan tadi."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Basith. Kalau Anda ragu di salah satu pertanyaan, pertanyaan lain biasanya memutuskan. Itu sebabnya keempatnya diajukan, bukan hanya satu."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. Hitung tandanya, lalu cari 1110. عَمَّا: syaddah menjadi مْمَا. قَلِيلٍ: tanwin dibaca نْ."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, Alfiyah bab al-'Athf. Syathr pertamanya 21 tanda: tiga kali 1010110, dibuka sabab, tanpa 1110 sama sekali. Taf'ilah terakhirnya, ـيَانِنْ أَوْ نَسَقْ, masih مُسْتَفْعِلُنْ utuh. Inilah rajaz. Syathr keduanya hanya 18 tanda karena thayy dan khabn, tetapi tetap tidak punya 1110 di awal taf'ilah.",
+        "Contoh kedua, Abu Tammam. Panjangnya juga 21, sama dengan rajaz. Tetapi setiap taf'ilah dibuka tiga huruf hidup, misalnya قُسِمَلْ di awal syathr pertama dan فَذَهَبْ di awal syathr kedua. Tiga kali 1110110 per syathr. 1110 yang berulang di awal setiap taf'ilah adalah tanda kamil. Panjang yang sama tidak berarti bahr yang sama; pertanyaan kedua yang memisahkan.",
+        "Contoh ketiga, al-Mutanabbi. Panjangnya 19. Polanya 1101110 dua kali, lalu 11010. 1110 ada, tetapi didahului watad: مُفَاعَلَتُنْ = 110 lalu 1110. Ujungnya تَرَانِي dan الْهَبَاءِ, masing-masing مُفَاعَلْ, 11010. Inilah wafir. Kamil dan wafir sama-sama punya 1110; letaknya yang berbeda.",
+        "Contoh keempat, al-Bushiri, dan bait peragaan Abu al-Aswad: dua bait basith. Panjangnya 23, dan 1110 hanya ada di ujung: ـنَ لَهُو dan يَنَمِي. Di tengah syathr tidak ada tiga huruf hidup beruntun, karena taf'ilahnya utuh. Bila فَاعِلُنْ di tengah terkena khabn, 1110 muncul juga di tengah, tetapi ujungnya tetap فَعِلُنْ.",
+        "Contoh kelima dan keenam sama-sama dibuka watad: فَكِلْهُو = 11010 dan مِنَلْ كَا = 11010. Lalu jalannya berpisah. Bait asy-Syafi'i melanjutkan dengan 1101010, tujuh tanda, lalu 11010 lagi: watad muncul setelah lima tanda, lalu setelah tujuh. Itulah thawil, 23 tanda. Bait Ibn al-Khayyath melanjutkan dengan 11010 lagi dan lagi: watad setiap lima tanda. Itulah mutaqarib, 20 tanda.",
+        "Jadi urutannya: **panjang** menentukan keluarga, **1110** memisahkan kamil, wafir, dan basith, **pembuka** memisahkan watad dan sabab, dan **ujung** memastikan. Tidak setiap bait membutuhkan keempatnya. Tetapi biasakan mengajukan semuanya, supaya satu jawaban yang meleset tertangkap oleh jawaban yang lain."
+      ],
+      "keliru": [
+        {
+          "salah": "Menebak thawil karena bait dibuka إِذَا atau أَلَا.",
+          "benar": "Pembuka watad juga dimiliki mutaqarib, wafir, dan hazaj. Hitung panjangnya dan lihat taf'ilah kedua.",
+          "sebab": "Pertanyaan 3 hanya mencoret bahr yang dibuka sabab. Ia tidak memutuskan sendirian."
+        },
+        {
+          "salah": "Menghitung huruf yang tertulis: alif washal, lam syamsiyah, dan syaddah dihitung seperti di mushaf.",
+          "benar": "Hitung setelah ditulis seperti diucapkan: hamzah washal dan alif lam syamsiyah gugur, syaddah menjadi dua huruf, tanwin menjadi نْ.",
+          "sebab": "Bahr dibangun dari bunyi. Panjang yang dihitung dari tulisan bisa meleset tiga atau empat tanda dan memindahkan bait ke keluarga yang salah."
+        },
+        {
+          "salah": "Melihat 1110 di ujung syathr lalu menebak kamil.",
+          "benar": "1110 di ujung saja adalah فَعِلُنْ basith. Kamil punya 1110 di awal setiap taf'ilah.",
+          "sebab": "Pertanyaan 2 bukan hanya ada atau tidak, tetapi di mana."
+        }
+      ],
+      "qaidah": [
+        "**Pertanyaan 1, panjang syathr.** Sekitar 14 tanda: bahr pendek. 19 sampai 21: rajaz, kamil, wafir, khafif, mutaqarib. 23 sampai 24: basith dan thawil.",
+        "**Pertanyaan 2, letak 1110.** Di awal setiap taf'ilah: kamil. Setelah 110: wafir. Hanya di ujung syathr: basith. Tidak ada sama sekali: rajaz, thawil, mutaqarib, khafif, dan yang lain.",
+        "**Pertanyaan 3, pembuka.** Watad 110: thawil, mutaqarib, wafir, hazaj. Sabab 10: rajaz, basith, khafif, ramal, mujtats. Lihat dua taf'ilah pertama, bukan satu suku saja, karena khabn bisa membuat sabab tampak seperti watad.",
+        "**Pertanyaan 4, ujung.** مُفَاعَلْ 11010: wafir. فَعِلُنْ 1110: basith. 'Arudh مَفَاعِلُنْ 110110: thawil. فَاعِلَاتُنْ 1011010: khafif, ramal, mujtats. مُسْتَفْعِلُنْ atau مَفْعُولُنْ: rajaz.",
+        "Timbang dengan bahr yang Anda duga **setelah** keempat pertanyaan terjawab, bukan sebelumnya."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Skor dihitung dari jawaban benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Satu syathr 23 tanda. Bahr mana yang masih mungkin?",
+              "pilihan": [
+                "Basith atau thawil",
+                "Rajaz atau kamil",
+                "Ramal majzu' atau mujtats"
+              ],
+              "jawaban": 0,
+              "alasan": "23 sampai 24 tanda adalah keluarga panjang: empat taf'ilah, dua panjang dan dua pendek."
+            },
+            {
+              "soal": "Satu syathr: 1110110 1110110 1110110. Bahr?",
+              "pilihan": [
+                "Rajaz",
+                "Kamil",
+                "Wafir"
+              ],
+              "jawaban": 1,
+              "alasan": "1110 di awal setiap taf'ilah: مُتَفَاعِلُنْ tiga kali."
+            },
+            {
+              "soal": "Satu syathr: 1101110 1101110 11010. Bahr?",
+              "pilihan": [
+                "Kamil",
+                "Wafir",
+                "Hazaj"
+              ],
+              "jawaban": 1,
+              "alasan": "110 lalu 1110 adalah مُفَاعَلَتُنْ, dan 11010 di ujung adalah مُفَاعَلْ."
+            },
+            {
+              "soal": "Bait 23 tanda, dibuka 10 10. Bahr mana yang gugur?",
+              "pilihan": [
+                "Basith",
+                "Thawil",
+                "Keduanya masih mungkin"
+              ],
+              "jawaban": 1,
+              "alasan": "Thawil selalu dibuka فَعُولُنْ, watad 110."
+            },
+            {
+              "soal": "Dua bait sama-sama dibuka 11010. Yang satu 20 tanda, yang lain 23. Mana mutaqarib?",
+              "pilihan": [
+                "Yang 20 tanda",
+                "Yang 23 tanda"
+              ],
+              "jawaban": 0,
+              "alasan": "Mutaqarib empat kali فَعُولُنْ = 20. Thawil menyelipkan مَفَاعِيلُنْ, tujuh tanda, dua kali: 23."
+            },
+            {
+              "soal": "Ujung kedua syathr 1110. Bahr apa yang paling mungkin?",
+              "pilihan": [
+                "Basith",
+                "Kamil",
+                "Khafif"
+              ],
+              "jawaban": 0,
+              "alasan": "فَعِلُنْ adalah 'arudh baku basith, dan dharbnya yang paling sering."
+            }
+          ]
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Pola satu syathr: 11010 1101010 11010 110110. Bahr apa?",
+          "pilihan": [
+            "Mutaqarib",
+            "Thawil",
+            "Hazaj"
+          ],
+          "jawaban": 1,
+          "alasan": "Watad di awal, lalu taf'ilah tujuh tanda, lalu lima, lalu 'arudh مَفَاعِلُنْ 110110: فَعُولُنْ مَفَاعِيلُنْ فَعُولُنْ مَفَاعِلُنْ."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait ini sebagai khafif. Sebelum menimbang, jawab empat pertanyaan: panjangnya 21, tanpa 1110, dibuka sabab, ujungnya فَاعِلَاتُنْ. Yang membedakannya dari rajaz: taf'ilah pertama 1011010, watadnya di tengah.",
+          "bait": [
+            "شُكْرُهُ فِي الْمَنْثُورِ دُرٌّ نَثِيرٌ",
+            "مَدْحُهُ فِي الْمَنْظُومِ دُرٌّ نَظِيمُ"
+          ],
+          "bahr": "khafif",
+          "makna": "Ucapan syukur kepadanya dalam prosa adalah mutiara yang bertaburan, dan pujian kepadanya dalam syair adalah mutiara yang teruntai."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait thawil ini dan lagukan bersamanya. Dengarkan watad di awal dan langkah lima, tujuh, lima, enam. Bandingkan dengan mutaqarib yang melangkah lima, lima, lima, lima.",
+          "bait": [
+            "لَهُ مِنْ رَسُولِ اللَّهِ قُرْبَى قَرِيبَةٌ",
+            "وَمِنْ نُصْرَةِ الْإِسْلَامِ مَجْدٌ مُؤَثَّلُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Ia memiliki kekerabatan yang dekat dengan Rasulullah, dan kemuliaan yang mengakar karena membela Islam."
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "Sembilan bait asing dari sembilan bahr. Untuk setiap bait, jawab empat pertanyaan di kertas lebih dulu: panjang, letak 1110, pembuka, ujung. Baru pilih. Skor dihitung dari percobaan pertama.",
+          "pilihan": [
+            "rajaz",
+            "ramalMajzu",
+            "mutaqarib",
+            "kamil",
+            "wafir",
+            "basith",
+            "thawil",
+            "khafif",
+            "mujtats"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "الدَّهْرُ مَدٌّ وَجَزْرُ",
+                "وَالْعَيْشُ حُلْوٌ وَمُرٌّ"
+              ],
+              "bahr": "mujtats",
+              "sumber": "asy-Syarif al-'Uqaili, qashidah «الدهر مد وجزر». https://www.aldiwan.net/poem59984.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "كَأَنَّكَ لَسْتَ تَعْلَمُ أَيُّ حَثٍّ",
+                "يَحُثُّ بِكَ الشُّرُوقُ وَلَا الْغُرُوبُ"
+              ],
+              "bahr": "wafir",
+              "sumber": "Abu al-'Atahiyah, qashidah «ألا لله أنت متى تتوب». https://www.aldiwan.net/poem10330.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "إِذَا الْمَرْءُ لَمْ يَنْفَعْكَ حَيًّا فَنَفْعُهُ",
+                "قَلِيلٌ إِذَا رُصَّتْ عَلَيْهِ الصَّفَائِحُ"
+              ],
+              "bahr": "thawil",
+              "sumber": "Ka'b bin Zuhair, qashidah «لأي زمان يخبأ المرء نفعه». https://www.aldiwan.net/poem21892.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "يَا أَيُّهَا الْمَشْغُوفُ بِالْحُبِّ التَّعِبْ",
+                "كَمْ أَنْتَ فِي تَقْرِيبِ مَا لَا يَقْتَرِبْ"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Ibnu 'Abd Rabbih, al-'Iqd al-Farid j.5, contoh rajaz tam (satu qashidah dengan دار لسلمى); rajaz masythur, dua baris berurutan. https://ar.wikisource.org/wiki/العقد_الفريد/الجزء_الخامس/3 Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "فَالْعَوَادِي مَوْصُولَةٌ كَالْأَيَادِي",
+                "وَالرَّزَايَا مِثْلُ الْعَطَايَا جِسَامُ"
+              ],
+              "bahr": "khafif",
+              "sumber": "Ibn Hayyus, qashidah «لا تجز في الذي بلغت الأنام». https://www.aldiwan.net/poem11812.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَالْمَرْءُ مَا عَاشَ مَمْدُودٌ لَهُ أَمَلٌ",
+                "لَا تَنْتَهِي الْعَيْنُ حَتَّى يَنْتَهِي الْأَثَرُ"
+              ],
+              "bahr": "basith",
+              "sumber": "Ka'b bin Zuhair, qashidah «لو كنت أعجب من شيء لأعجبني». https://www.aldiwan.net/poem21864.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَدَّعُوهُ فَارَقُوهُ",
+                "أَسْلَمُوهُ خَلَّفُوهُ"
+              ],
+              "bahr": "ramalMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «يسلم المرء أخوه». https://www.aldiwan.net/poem63192.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "مَعَانٍ حَكَتْ فِي قُلُوبِ الْأَنَامِ",
+                "مَنَالَ الْأَمَانِي وَنَيْلَ الْأَمَانِ"
+              ],
+              "bahr": "mutaqarib",
+              "sumber": "Shafiyy ad-Din al-Hilli, qashidah «معان حكت في قلوب الأنام». https://www.aldiwan.net/poem40677.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَإِذَا هُمُ قَحَطُوا فَأَعْشَبُ مَرْبَعٍ",
+                "وَإِذَا هُمُ فَزِعُوا فَأَقْرَبُ مَفْزَعِ"
+              ],
+              "bahr": "kamil",
+              "sumber": "al-Buhturi, qashidah «بين الشقيقة فاللوى فالأجرع». https://www.aldiwan.net/poem64692.html Harakat dilengkapi."
+            }
+          ]
+        }
+      ],
+      "patokan": "Bait peragaan ditimbang sendiri dengan empat pertanyaan tertulis. Minimal 7 dari 9 bait Tebak bahr benar pada percobaan pertama, dan untuk setiap bait Anda bisa menyebut pertanyaan mana yang memutuskan."
+    },
+    {
+      "nomor": 2,
+      "versi": 2,
+      "judul": "Pasangan yang mirip",
+      "ringkas": "Tiga pasangan yang paling sering tertukar: rajaz dan kamil yang ber-idhmar, mutaqarib dan thawil, hazaj dan wafir majzu' yang ber-'ashb. Lalu bahr tam dan majzu'-nya.",
+      "menit": 35,
+      "analogi": "Di pondok ada dua santri kembar. Dari jauh, cara berjalan mereka sama. Tetapi yang satu selalu memakai peci putih. Begitu peci itu terlihat sekali saja, Anda tahu siapa dia. Setiap pasangan bahr yang mirip punya peci seperti itu: satu taf'ilah, satu ujung, atau satu panjang yang hanya dimiliki salah satunya.",
+      "amtsilah": [
+        {
+          "bait": [
+            "حُبُّ الْكِتَابِ وَحُبُّ أَلْحَانِ الْغِنَا",
+            "فِي قَلْبِ عَبْدٍ لَيْسَ يَجْتَمِعَانِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Cinta kepada Kitab Allah dan cinta kepada lagu-lagu nyanyian tidak akan berkumpul dalam hati seorang hamba.",
+          "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), pasal tentang nyanyian di surga (bait 5180 menurut penomoran Wikisource ar, القصيدة النونية); juga dikutip di usul.ai (kajian nyanyian dan alat musik). Harakat dari penyusun.",
+          "catatan": "Hampir semua taf'ilah ber-idhmar dan berbunyi seperti rajaz. Satu yang utuh memutuskan."
+        },
+        {
+          "bait": [
+            "هَاكَ حُرُوفَ الْجَرِّ وَهْيَ مِنْ إِلَى",
+            "حَتَّى خَلَا حَاشَا عَدَا فِي عَنْ عَلَى"
+          ],
+          "bahr": "rajaz",
+          "makna": "Inilah huruf-huruf jarr: مِنْ، إِلَى، حَتَّى، خَلَا، حَاشَا، عَدَا، فِي، عَنْ، عَلَى.",
+          "sumber": "Alfiyah, bab حُرُوفُ الجَرِّ, bait 364. https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json Harakat dilengkapi.",
+          "catatan": "Rajaz dengan thayy di awal: هَاكَ حُرُو = 101110, enam tanda."
+        },
+        {
+          "bait": [
+            "وَفِي الشَّامِ قَدْ ظَلَّلَتْهُ الْغَمَامُ",
+            "فَيَا شَرَّفَ اللَّهُ تِلْكَ الشَّآمَا"
+          ],
+          "bahr": "mutaqarib",
+          "makna": "Di negeri Syam awan menaungi beliau; maka semoga Allah memuliakan negeri Syam itu.",
+          "sumber": "Ibn al-Hajj an-Numairi, qashidah «رعى الله نجدا وحيا الخياما». https://poetry.dctabudhabi.ae/diwan/poem/122065 Harakat dilengkapi.",
+          "catatan": "Mutaqarib: فَعُولُنْ empat kali, 20 tanda."
+        },
+        {
+          "bait": [
+            "نَبِيٌّ أَتَانَا بَعْدَ يَأْسٍ وَفَتْرَةٍ",
+            "مِنَ الرُّسْلِ وَالْأَوْثَانِ فِي الْأَرْضِ تُعْبَدُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Seorang nabi datang kepada kami setelah putus asa dan masa kosong dari para rasul, ketika berhala-berhala disembah di bumi.",
+          "sumber": "Hassan bin Tsabit, qashidah «شق له من إسمه كي يجله». https://www.aldiwan.net/poem21418.html Harakat dilengkapi.",
+          "catatan": "Thawil: dibuka فَعُولُنْ yang sama, lalu مَفَاعِيلُنْ."
+        },
+        {
+          "bait": [
+            "إِذَا بَعُدَ الْكَلَامُ دَنَتْ",
+            "عَلَيَّ مَسَافَةُ الْكَلِمِ"
+          ],
+          "bahr": "wafirMajzu",
+          "makna": "Bila kata-kata menjauh, jarak ucapan terasa dekat bagiku.",
+          "sumber": "asy-Syarif ar-Radhi, «لأمر يا بني جشم», bait 15. https://www.aldiwan.net/poem29770.html",
+          "catatan": "Wafir majzu': مُفَاعَلَتُنْ utuh di keempat taf'ilah."
+        },
+        {
+          "bait": [
+            "عَرَفْتُ الشَّرَّ لَا لِلشَّرْ",
+            "رِ لَكِنْ لِتَوَقِّيهِ"
+          ],
+          "bahr": "hazaj",
+          "makna": "Aku mengenal keburukan bukan untuk berbuat buruk, tetapi untuk menjaga diri darinya.",
+          "sumber": "Abu Firas al-Hamdani, «عرفت الشر لا للشر», bait 1. https://www.aldiwan.net/poem24815.html",
+          "catatan": "Hazaj: tidak ada 1110 sama sekali; satu kaff di syathr kedua."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "شَتَّانَ بَيْنَ الْحَالَتَيْنِ فَإِنْ تُرِدْ",
+          "جَمْعًا فَمَا الضِّدَّانِ يَجْتَمِعَانِ"
+        ],
+        "bahr": "kamil",
+        "makna": "Betapa jauh beda dua keadaan itu. Bila engkau ingin mengumpulkan keduanya, dua hal yang berlawanan tidak akan pernah berkumpul.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait Nuniyah Ibnul Qayyim yang Anda kenal dari Modul 6. Lagukan sekali tanpa melihat timbangan. Telinga Anda kemungkinan besar mendengar rajaz: لا لا نعم, lagi dan lagi."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Pertanyaan 1: syathr pertama 21 tanda. Rajaz dan kamil sama-sama mungkin."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Pertanyaan 2: cari 1110. شَتْتَا نَ بَيْ = 1010110, bukan 1110. نَلْ حَا لَ تَيْ = 1010110 lagi. Tetapi lalu نِ فَإِنْ تُرِدْ: نِ، فَ، إِ hidup berturut-turut, lalu نْ mati. 1110110, tujuh tanda.",
+            "papan": "شَتْتَا نَ بَيْ = 10 10 1 10\nنَلْ حَا لَ تَيْ = 10 10 1 10\nنِ فَ إِنْ تُ رِدْ = 1 1 10 1 10"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Inilah pecinya. Rajaz tidak bisa menghasilkan 1110110 sebagai satu taf'ilah. Zihaf rajaz memendekkan: khabn menjadi 110110, thayy menjadi 101110, enam tanda. Kamil tidak pernah memendekkan hasywnya; idhmar hanya mematikan huruf kedua, jadi setiap taf'ilah tetap tujuh tanda.",
+            "papan": "kamil: 1110110 atau 1010110, selalu 7 tanda\nrajaz: 1010110, 110110, 101110, atau 11110\n\nsatu 1110110 utuh = kamil"
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Timbang sebagai kamil: مُتْفَاعِلُنْ مُتْفَاعِلُنْ مُتَفَاعِلُنْ. Dua ber-idhmar, satu utuh. Satu taf'ilah utuh saja sudah cukup untuk seluruh qashidah."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Timbangan lengkap. Syathr kedua juga hampir semuanya idhmar, dan dharbnya maqthu': يَجْتَمِعَانِ berakhir 111010. Qath' ini pun milik kamil, bukan rajaz, karena masih ada 111 di dalamnya."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Bila satu bait kamil kebetulan ber-idhmar di keenam taf'ilahnya, bait itu memang tidak bisa dibedakan dari rajaz, dan Checker akan menebak rajaz. Yang memutuskan adalah bait lain dalam qashidah itu.",
+            "papan": "tidak ada 1110110 di seluruh bait\n= dengarkan sebagai rajaz,\n  tetapi baca bait lain sebelum memastikan"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. جَمْعًا: tanwin dibaca نْ. الضِّدَّانِ: lam syamsiyah lebur, syaddah menjadi دْدَا. Temukan 111 di ujung."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, Nuniyah Ibnul Qayyim. Syathr pertamanya: 1010110, lalu 1110110, lalu 1010110. Dua taf'ilah ber-idhmar mengapit satu yang utuh. Syathr keduanya ber-idhmar dua kali, dengan dharb maqthu' 111010. Kalau Anda hanya mendengar syathr kedua, hampir pasti Anda menyangka rajaz. Taf'ilah kedua syathr pertama itulah yang memutuskan.",
+        "Contoh kedua, Alfiyah bab huruf jarr. Syathr pertama dibuka هَاكَ حُرُو = 101110. Ada 1110 di situ, tetapi taf'ilahnya hanya enam tanda: مُسْتَعِلُنْ, thayy. Syathr pertamanya 19 tanda, syathr keduanya 21 tanpa zihaf. Jadi: 1110 di dalam taf'ilah enam tanda adalah rajaz yang berzihaf; 1110 di awal taf'ilah tujuh tanda adalah kamil.",
+        "Contoh ketiga dan keempat dibuka persis sama: وَفِشْ شَا = 11010 dan نَبِيْيُنْ = 11010. Pada taf'ilah kedua jalannya berpisah: mutaqarib melangkah lima tanda lagi, 11010, sedangkan thawil tujuh tanda, 1101010. Hasilnya, syathr mutaqarib 20 tanda dan syathr thawil 23. Lalu lihat ujung syathr pertama: الْغَمَامُ = فَعُولُنْ, sedangkan وَفَتْرَةٍ = مَفَاعِلُنْ, 110110. 'Arudh thawil selalu مَفَاعِلُنْ.",
+        "Contoh kelima dan keenam sama-sama 14 tanda dan dibuka watad. Bait asy-Syarif ar-Radhi punya 1110 di setiap taf'ilah: إِذَا بَعُدَلْ = 1101110. Bait Abu Firas tidak punya 1110 sama sekali: عَرَفْتُشْ شَرْ = 1101010. Ini pelajaran Modul 18: satu مُفَاعَلَتُنْ utuh berarti wafir majzu'. Bila semua taf'ilah 1101010, satu bait tidak bisa memutuskan, dan Checker memilih hazaj.",
+        "Pasangan terakhir: **tam dan majzu'**. Kamil tam 21 tanda per syathr, kamil majzu' 14. Wafir tam 19, wafir majzu' 14. Basith tam 23, basith majzu' sekitar 16 sampai 19. Di sini pertanyaan pertama yang bekerja. Taf'ilahnya sama; yang berbeda hanya jumlahnya. Maka jangan menyebut kamil majzu' sebagai kamil yang patah."
+      ],
+      "keliru": [
+        {
+          "salah": "Bait yang terdengar لا لا نعم langsung disebut rajaz.",
+          "benar": "Cari satu taf'ilah 1110110 di mana pun dalam bait. Satu saja cukup untuk kamil.",
+          "sebab": "Idhmar membuat مُتَفَاعِلُنْ berbunyi persis مُسْتَفْعِلُنْ. Telinga tidak bisa membedakan; hanya taf'ilah utuh yang bisa."
+        },
+        {
+          "salah": "Rajaz dengan thayy, seperti هَاكَ حُرُو, disebut kamil karena ada 1110.",
+          "benar": "Hitung tanda taf'ilahnya. Thayy membuat enam tanda, 101110. Kamil selalu tujuh.",
+          "sebab": "Zihaf rajaz membuang huruf; idhmar kamil hanya mematikan huruf. Panjang taf'ilah membuka rahasianya."
+        },
+        {
+          "salah": "Bait yang dibuka فَعُولُنْ disebut mutaqarib tanpa menghitung panjangnya.",
+          "benar": "Hitung: 20 tanda mutaqarib, 23 sampai 24 thawil. Lihat juga 'arudh: thawil مَفَاعِلُنْ, mutaqarib فَعُولُنْ atau فَعُو.",
+          "sebab": "Kedua bahr dibuka taf'ilah yang sama. Taf'ilah kedua dan ujunglah yang berbeda."
+        },
+        {
+          "salah": "Satu bait 14 tanda yang semuanya 1101010 dipastikan wafir majzu'.",
+          "benar": "Sebut hazaj untuk bait itu, lalu baca bait lain dalam qashidahnya. Satu مُفَاعَلَتُنْ utuh mengubah jawabannya.",
+          "sebab": "مُفَاعَلْتُنْ dan مَفَاعِيلُنْ sama-sama 1101010."
+        }
+      ],
+      "qaidah": [
+        "**Rajaz atau kamil ber-idhmar**: cari satu taf'ilah 1110110. Ada berarti kamil. Kamil selalu tujuh tanda per taf'ilah hasyw; rajaz yang berzihaf enam atau lima.",
+        "**Mutaqarib atau thawil**: keduanya dibuka فَعُولُنْ. Mutaqarib 20 tanda, langkahnya lima-lima. Thawil 23 sampai 24, langkahnya lima-tujuh, dan 'arudhnya مَفَاعِلُنْ.",
+        "**Hazaj atau wafir majzu'**: keduanya 14 tanda dan dibuka watad. Ada 1110 berarti wafir majzu'. Tidak ada sama sekali: hazaj, sampai bait lain membuktikan sebaliknya.",
+        "**Tam atau majzu'**: hitung taf'ilahnya. Kamil dan wafir tam tiga per syathr, majzu'-nya dua. Basith tam empat, majzu'-nya tiga."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Setiap soal adalah satu pasangan. Jawab dengan peci yang memutuskan.",
+          "soal": [
+            {
+              "soal": "Satu syathr 21 tanda: 1010110 1010110 1110110. Bahr?",
+              "pilihan": [
+                "Rajaz",
+                "Kamil"
+              ],
+              "jawaban": 1,
+              "alasan": "Taf'ilah ketiga 1110110 utuh. Rajaz tidak pernah punya taf'ilah itu."
+            },
+            {
+              "soal": "Satu syathr 19 tanda: 101110 1010110 110110. Bahr?",
+              "pilihan": [
+                "Rajaz",
+                "Kamil"
+              ],
+              "jawaban": 0,
+              "alasan": "Taf'ilah pertama dan ketiga hanya enam tanda: thayy dan khabn. Kamil selalu tujuh."
+            },
+            {
+              "soal": "Dua bait dibuka 11010. Bait A 20 tanda, bait B 23 tanda. Mana thawil?",
+              "pilihan": [
+                "A",
+                "B"
+              ],
+              "jawaban": 1,
+              "alasan": "Thawil menyelipkan dua مَفَاعِيلُنْ tujuh tanda: 5 + 7 + 5 + 6 = 23."
+            },
+            {
+              "soal": "Satu bait 14 tanda per syathr: 1101010 1101110. Bahr?",
+              "pilihan": [
+                "Hazaj",
+                "Wafir majzu'"
+              ],
+              "jawaban": 1,
+              "alasan": "Taf'ilah kedua 1101110 adalah مُفَاعَلَتُنْ utuh. Hazaj tidak punya tiga huruf hidup beruntun."
+            },
+            {
+              "soal": "Satu bait 14 tanda, keempat taf'ilahnya 1101010. Sikap yang benar?",
+              "pilihan": [
+                "Pasti wafir majzu'",
+                "Sebut hazaj, lalu periksa bait lain dalam qashidahnya",
+                "Bait ini patah"
+              ],
+              "jawaban": 1,
+              "alasan": "Bait seperti ini cocok dengan keduanya. Checker memilih hazaj; satu مُفَاعَلَتُنْ di bait lain mengubah jawabannya."
+            },
+            {
+              "soal": "Satu syathr 14 tanda: 1110110 1110110. Bahr?",
+              "pilihan": [
+                "Kamil yang patah",
+                "Kamil majzu'",
+                "Rajaz"
+              ],
+              "jawaban": 1,
+              "alasan": "Dua مُتَفَاعِلُنْ per syathr adalah kamil majzu', bahr tersendiri."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait Abu Firas ini sebagai hazaj. Lalu jawab: adakah satu taf'ilah 1101110? Bila tidak, mengapa bait ini tetap disebut hazaj?",
+          "bait": [
+            "أَمَا شَيَّعْتُ أَمْثَالِي",
+            "إِلَى ضِيقٍ مِنَ الْمَضْجَعْ"
+          ],
+          "bahr": "hazaj",
+          "makna": "Bukankah aku telah mengantar orang-orang seperti diriku menuju sempitnya liang kubur?"
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait wafir majzu' ini. Taf'ilah pertama setiap syathr ber-'ashb dan berbunyi seperti hazaj. Dengarkan taf'ilah kedua: di situ tiga huruf hidup beruntun, غَايَتَنَا dan وَالْحَذَرُ.",
+          "bait": [
+            "أَلَيْسَ الْمَوْتُ غَايَتَنَا",
+            "فَأَيْنَ الْخَوْفُ وَالْحَذَرُ"
+          ],
+          "bahr": "wafirMajzu",
+          "makna": "Bukankah kematian adalah tujuan akhir kita? Lalu di mana rasa takut dan kewaspadaan?"
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "Dua belas bait dari tiga pasangan yang mirip. Untuk setiap bait, cari pecinya: taf'ilah utuh yang memutuskan, panjang syathr, atau ujungnya. Skor dihitung dari percobaan pertama.",
+          "pilihan": [
+            "rajaz",
+            "kamil",
+            "kamilMajzu",
+            "mutaqarib",
+            "thawil",
+            "wafirMajzu",
+            "hazaj"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "أَوْ صَحْبُهُ مِنْ بَعْدِهِ أَوْ تَابِعٌ",
+                "لَهُمُ عَلَى الْإِيمَانِ وَالْإِحْسَانِ"
+              ],
+              "bahr": "kamil",
+              "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), bait 97. Teks: Wikisource ar, القصيدة النونية. Harakat dari penyusun."
+            },
+            {
+              "bait": [
+                "لَئِنْ كُنْتَ فِي السِّنِّ تِرْبَ الْهِلَالِ",
+                "لَقَدْ فُقْتَ فِي الْحُسْنِ بَدْرَ الْكَمَالِ"
+              ],
+              "bahr": "mutaqarib",
+              "sumber": "Ibn Zaidun, qashidah «لئن كنت في السن ترب الهلال». https://www.aldiwan.net/poem11873.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "رَأَيْتُ الْعَقْلَ عَقْلَيْنِ",
+                "فَمَطْبُوعٌ وَمَسْمُوعُ"
+              ],
+              "bahr": "hazaj",
+              "sumber": "Dinisbatkan kepada 'Ali bin Abi Thalib, «رأيت العقل عقلين», bait 1. https://www.aldiwan.net/poem30983.html"
+            },
+            {
+              "bait": [
+                "مَا خِلْتُ أَنَّ الدَّهْرَ يُثْنِينِي عَلَى",
+                "ضَرَّاءَ لَا يَرْضَى بِهَا ضَبُّ الْكُدَى"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Ibnu Duraid, al-Maqshurah. https://ar.wikisource.org/wiki/مقصورة_ابن_دريد Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "فَلَا تَكْتُمُنَّ اللَّهَ مَا فِي نُفُوسِكُمْ",
+                "لِيَخْفَى وَمَهْمَا يُكْتَمِ اللَّهُ يَعْلَمِ"
+              ],
+              "bahr": "thawil",
+              "sumber": "Zuhair bin Abi Sulma, Mu'allaqah «أمن أم أوفى دمنة لم تكلم». https://www.aldiwan.net/poem25065.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "لَا تَسْهُ عَنْ أَدَبِ الصَّغِيـ",
+                "ـرِ وَإِنْ بَكَى أَلَمَ التَّعَبْ"
+              ],
+              "bahr": "kamilMajzu",
+              "sumber": "Mahmud al-Warraq, qashidah «لا تسه عن أدب الصغير», bait 1. https://www.aldiwan.net/poem68666.html"
+            },
+            {
+              "bait": [
+                "فَإِذَا سَطَا مَلَأَ الْقُلُوبَ مَهَابَةً",
+                "وَإِذَا سَخَا مَلَأَ الْعُيُونَ مَوَاهِبَا"
+              ],
+              "bahr": "kamil",
+              "sumber": "Shafiyy ad-Din al-Hilli, qashidah «أسلبن من فوق النهود ذوائبا». https://www.aldiwan.net/poem41382.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَقُلْ لِذَوِي الْغُرُورِ بِهَا",
+                "رُوَيْدَكُمُ أَلَا انْتَظِرُوا"
+              ],
+              "bahr": "wafirMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «ألا يا أيها البشر», bait 21. https://www.aldiwan.net/poem62097.html"
+            },
+            {
+              "bait": [
+                "يُلَاقِي الْفَتَى عَيْشَهُ بِالضَّلَالِ",
+                "وَيَبْقَى عَلَيْهِ إِلَى أَنْ يَمُوتَا"
+              ],
+              "bahr": "mutaqarib",
+              "sumber": "Abu al-'Ala' al-Ma'arri, qashidah «أصمت الشهور فهلا صمت». https://www.aldiwan.net/poem22183.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "لَا تَحْسَبَنْ أَنِّي أُهَاجِي مَنْ هَجَا",
+                "أَوْ أَقْتَفِي غَيْرَ التَّغَاضِي مَنْهَجَا"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Radhiyuddin ash-Shaghani (w. 650 H), urjuzah «أقول والدمع يسحّ جونه». https://poetry.dct.gov.ae/diwan/poem/85000 Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "غِنَى النَّفْسِ لِمَنْ يَعْقِـ",
+                "ـلُ خَيْرٌ مِنْ غِنَى الْمَالِ"
+              ],
+              "bahr": "hazaj",
+              "sumber": "Abu Firas al-Hamdani, «غنى النفس لمن يعقل», bait 1. https://www.aldiwan.net/poem25165.html"
+            },
+            {
+              "bait": [
+                "وَمَا مَوْتُ مَنْ قَدْ مَاتَ قَبْلِي بِضَائِرِي",
+                "وَلَا عَيْشُ مَنْ قَدْ عَاشَ بَعْدِي بِمُخْلِدِي"
+              ],
+              "bahr": "thawil",
+              "sumber": "Diwan al-Imam asy-Syafi'i, qashidah «تمنى رجال أن أموت وإن أمت». https://www.aldiwan.net/poem24707.html Harakat dilengkapi."
+            }
+          ]
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "Tam atau majzu'? Sembilan bait. Hitung tanda dan taf'ilah setiap syathr dulu, baru lihat taf'ilahnya. Skor dihitung dari percobaan pertama.",
+          "pilihan": [
+            "kamil",
+            "kamilMajzu",
+            "wafir",
+            "wafirMajzu",
+            "basith",
+            "basithMajzu",
+            "mujtats"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "ذَهَبَ الشَّبَابُ بِلَهْوِهِ",
+                "وَأَتَى الْمَشِيبُ مُؤَدِّبَا"
+              ],
+              "bahr": "kamilMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «أين المفر من القضاء», bait 8. https://www.aldiwan.net/poem10381.html"
+            },
+            {
+              "bait": [
+                "عَلَيْكَ مِنَ الْأُمُورِ بِمَا يُؤَدِّي",
+                "إِلَى سُنَنِ السَّلَامَةِ وَالْخَلَاصِ"
+              ],
+              "bahr": "wafir",
+              "sumber": "Syair yang dinisbatkan kepada al-Husain bin 'Ali, qashidah «عليك من الأمور بما يؤدي». https://www.aldiwan.net/poem50294.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "مَاذَا وُقُوفِي عَلَى رَبْعٍ عَفَا",
+                "مُخْلَوْلَقٍ دَارِسٍ مُسْتَعْجَمِ"
+              ],
+              "bahr": "basithMajzu",
+              "sumber": "al-Muraqqisy al-Akbar, «ماذا وقوفي على ربع عفا». https://www.aldiwan.net/poem1878.html"
+            },
+            {
+              "bait": [
+                "وَلَرُبَّمَا مُحِقَ الْكَثِيرُ وَرُبَّمَا",
+                "كَثُرَ الْقَلِيلُ إِلَى الْقَلِيلِ إِذَا جُمِعْ"
+              ],
+              "bahr": "kamil",
+              "sumber": "Abu al-'Atahiyah, qashidah «الشيء محروص عليه إذا امتنع». https://www.aldiwan.net/poem62160.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "أَيَا مَنْ خَلْفَهُ الْأَجَلُ",
+                "وَمَنْ قُدَّامَهُ الْأَمَلُ"
+              ],
+              "bahr": "wafirMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «أيا من خلفه الأجل», bait 1. https://www.aldiwan.net/poem63052.html"
+            },
+            {
+              "bait": [
+                "مَا يَدْفَعُ الْمَوْتَ أَرْصَادٌ وَلَا حَرَسٌ",
+                "مَا يَغْلِبُ الْمَوْتَ لَا جِنٌّ وَلَا أَنَسُ"
+              ],
+              "bahr": "basith",
+              "sumber": "Abu al-'Atahiyah, qashidah «ما يدفع الموت أرصاد ولا حرس». https://www.aldiwan.net/poem62122.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "يَرْتَاحُ إِنْ عَنَّ بَحْثٌ",
+                "مِنْ ذِي ذَكَاءٍ وَظَرْفِ"
+              ],
+              "bahr": "mujtats",
+              "sumber": "Ibn Zakur, qashidah «شاقتك آرام إلف». https://www.aldiwan.net/poem19496.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "لَا يَمْلَأُ الرِّزْقُ الْمُنَى",
+                "فَالْحَيُّ ذُو حَسَرَاتِ"
+              ],
+              "bahr": "kamilMajzu",
+              "sumber": "Ibnu al-Mu'tazz, qashidah «ولقد غدوت على طمر», bait 20. https://www.aldiwan.net/poem27191.html"
+            },
+            {
+              "bait": [
+                "وَإِنَّمَا الْعِلْمُ مِنْ قِيَاسٍ",
+                "وَمِنْ عِيَانٍ وَمِنْ سَمَاعِ"
+              ],
+              "bahr": "basithMajzu",
+              "sumber": "Abu al-'Atahiyah, «وإنما العلم من قياس», bait 1. https://www.aldiwan.net/poem62166.html"
+            }
+          ]
+        }
+      ],
+      "patokan": "Bait Ibnul Qayyim ditimbang sendiri, dan Anda bisa menunjuk taf'ilah utuh yang membuatnya kamil. Minimal 10 dari 12 bait di tebak pasangan dan 7 dari 9 bait di tebak tam atau majzu' benar pada percobaan pertama."
+    },
+    {
+      "nomor": 3,
+      "versi": 2,
+      "judul": "Sepuluh bait acak",
+      "ringkas": "Bahr pendek dibedakan dari taf'ilah pertamanya. Lalu pemanasan sembilan bait, dan ujian sepuluh bait acak dari semua bahr yang sudah dipelajari.",
+      "menit": 40,
+      "analogi": "Setoran hafalan di depan guru tidak bisa diulang dengan membuka mushaf. Yang dinilai adalah bacaan pertama. Tebak bahr terakhir ini juga begitu: jawaban pertama yang dihitung. Karena itu kerjakan pelan. Empat pertanyaan di kertas lebih cepat daripada menebak dua kali.",
+      "amtsilah": [
+        {
+          "bait": [
+            "سَائِلُوهُ كَلِّمُوهُ",
+            "حَرِّكُوهُ لَقِّنُوهُ"
+          ],
+          "bahr": "ramalMajzu",
+          "makna": "Mereka menanyainya, mengajaknya bicara, menggerakkannya, dan menalqinkannya.",
+          "sumber": "Abu al-'Atahiyah, qashidah «يسلم المرء أخوه». https://www.aldiwan.net/poem63192.html Harakat dilengkapi.",
+          "catatan": "Ramal majzu': 1011010 dua kali per syathr."
+        },
+        {
+          "bait": [
+            "لَا تَدْفَعُ الْمَوْتَ عَمَّنْ",
+            "حَلَّ الْحُصُونَ الْحُصُونُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Benteng-benteng tidak dapat menolak kematian dari orang yang berlindung di dalamnya.",
+          "sumber": "Abu al-'Atahiyah, qashidah «سكر الشباب جنون». https://www.aldiwan.net/poem63129.html Harakat dilengkapi.",
+          "catatan": "Mujtats: 1010110 lalu 1011010."
+        },
+        {
+          "bait": [
+            "أَحْدِثْ لِرَبِّكَ تَوْبَةً",
+            "فَسَبِيلُهَا لَكَ مُمْكِنُ"
+          ],
+          "bahr": "kamilMajzu",
+          "makna": "Perbaruilah taubat kepada Tuhanmu, karena jalannya terbuka bagimu.",
+          "sumber": "Abu al-'Atahiyah, «يا أيها المتسمن», bait 8. https://www.aldiwan.net/poem63142.html",
+          "catatan": "Kamil majzu': taf'ilah pertama ber-idhmar, sisanya 1110110."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "اِرْفَعُوهُ غَسِّلُوهُ",
+          "كَفِّنُوهُ حَنِّطُوهُ"
+        ],
+        "bahr": "ramalMajzu",
+        "makna": "Angkatlah dia, mandikanlah dia, kafanilah dia, dan berilah dia wewangian.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait Abu al-'Atahiyah tentang pengurusan jenazah. Empat perintah, satu per taf'ilah. Bahr pendek sering dipakai untuk rangkaian seperti ini."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Pertanyaan 1: 14 tanda. Keluarga pendek. Ada lima calon."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Di keluarga pendek, taf'ilah pertama hampir selalu sudah memutuskan, karena setiap calon dibuka dengan pola yang berbeda.",
+            "papan": "1011010 1011010 = ramal majzu'\n1010110 1011010 = mujtats\n1110110 1110110 = kamil majzu'\n1101110 1101110 = wafir majzu'\n1101010 1101010 = hazaj"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Pertanyaan 2: tidak ada 1110. Kamil majzu' dan wafir majzu' utuh gugur. Pertanyaan 3: اِرْفَعُو = 10 lalu 110: dibuka sabab, watad di tengah taf'ilah. Hazaj dan wafir majzu' yang dibuka watad gugur.",
+            "papan": "اِرْ فَ عُو هُو غَسْ = 10 1 10 10 ... \nwatad di tengah taf'ilah: فَاعِلَاتُنْ"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tinggal ramal majzu' dan mujtats. Bedanya di taf'ilah pertama: mujtats dibuka مُسْتَفْعِلُنْ dengan watad di ujung, 1010110. Bait ini dibuka 1011010, watad di tengah. Kedua taf'ilahnya sama: ramal majzu'.",
+            "papan": "ramal majzu': فَاعِلَاتُنْ فَاعِلَاتُنْ\nmujtats: مُسْتَفْعِلُنْ فَاعِلَاتُنْ\n\nbait ini: 1011010 1011010"
+          },
+          {
+            "tampil": "mizan",
+            "kata": "Timbang sebagai ramal majzu': اِرْفَعُوهُو = فَاعِلَاتُنْ, غَسْسِلُوهُو = فَاعِلَاتُنْ. Utuh semua."
+          },
+          {
+            "tampil": "bahr",
+            "kata": "Ramal majzu'. Hati-hati dengan satu jebakan: kamil majzu' yang ber-idhmar di taf'ilah pertama juga dibuka 1010110, seperti mujtats. Lihat taf'ilah kedua: mujtats 1011010, kamil majzu' 1110110."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. كَفِّنُوهُ dan حَنِّطُوهُ: syaddah menjadi dua huruf, dan ha dhamir di ujung kata dibaca panjang, هُو. Tentukan bahrnya dari taf'ilah pertama."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama dan bait peragaan, dua bait dari qashidah yang sama. سَائِلُوهُو = 1011010, كَلْلِمُوهُو = 1011010. Setiap taf'ilah adalah satu fi'il amr dengan dhamir, dan setiap fi'il itu berwazan فَاعِلُوهُ atau فَعِّلُوهُ, yang keduanya 1011010. Abu al-'Atahiyah memilih bahr yang wadahnya pas untuk kata-katanya.",
+        "Contoh kedua, juga Abu al-'Atahiyah, dalam mujtats. لَا تَدْفَعُلْ = 1010110, lalu مَوْتَ عَمْ مَنْ = 1011010. Taf'ilah keduanya sama dengan ramal; taf'ilah pertamanya yang berbeda. Di mujtats, watad taf'ilah pertama ada di ujung; di ramal, di tengah.",
+        "Contoh ketiga, kamil majzu'. أَحْدِثْ لِرَبْ = 1010110, sama dengan pembuka mujtats. Taf'ilah keduanya بِكَ تَوْبَتَنْ = 1110110, utuh, dan syathr keduanya utuh semua. Satu taf'ilah pertama tidak cukup bila ia berzihaf. Lihat taf'ilah kedua.",
+        "Satu lagi di keluarga pendek: **basith majzu'**. Mukhalla'-nya sekitar 16 tanda, dan polanya 110110 10110 11010. Tiga taf'ilah, bukan dua. Bila Anda menghitung 16, atau tiga taf'ilah yang tidak sama panjang, ingat basith majzu'.",
+        "Untuk sepuluh bait terakhir: jangan menebak dari rasa, meskipun telinga Anda sudah lebih tajam. Tulis keempat jawaban di kertas untuk setiap bait. Bila dua jawaban bertentangan, periksa ulang tanda Anda; biasanya ada syaddah atau hamzah washal yang terlewat."
+      ],
+      "keliru": [
+        {
+          "salah": "Semua bait 14 tanda yang dibuka sabab disebut ramal majzu'.",
+          "benar": "Lihat taf'ilah pertama. 1011010 ramal majzu', 1010110 mujtats atau kamil majzu' ber-idhmar.",
+          "sebab": "Ramal majzu' dan mujtats sama-sama 14 tanda dan berbagi فَاعِلَاتُنْ di taf'ilah kedua."
+        },
+        {
+          "salah": "Bait kamil majzu' yang taf'ilah pertamanya ber-idhmar disebut mujtats.",
+          "benar": "Lihat taf'ilah kedua: mujtats 1011010, kamil majzu' 1110110 atau 1010110.",
+          "sebab": "Pembukanya sama-sama 1010110. Yang memutuskan adalah taf'ilah sesudahnya."
+        },
+        {
+          "salah": "Mencoba-coba semua pilihan sampai benar, lalu menganggap skor sudah tercapai.",
+          "benar": "Yang dihitung hanya jawaban pertama. Jawab sekali, setelah empat pertanyaan.",
+          "sebab": "Tujuan pelajaran ini adalah cara menimbang, bukan menghafal jawaban."
+        }
+      ],
+      "qaidah": [
+        "**Keluarga pendek** dibedakan dari taf'ilah pertama dan kedua: ramal majzu' 1011010 1011010; mujtats 1010110 1011010; kamil majzu' 1110110 1110110; wafir majzu' 1101110 1101110; hazaj 1101010 1101010.",
+        "Bila taf'ilah pertama berzihaf, lihat taf'ilah kedua. Bila keduanya berzihaf, lihat syathr yang lain.",
+        "**Basith majzu'** tiga taf'ilah per syathr; mukhalla'-nya 16 tanda dengan ujung 11010.",
+        "Dalam ujian, jawab sekali. Empat pertanyaan di kertas, lalu satu pilihan."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Keluarga pendek. Jawab dari pola tanda.",
+          "soal": [
+            {
+              "soal": "1011010 1011010. Bahr?",
+              "pilihan": [
+                "Ramal majzu'",
+                "Mujtats",
+                "Hazaj"
+              ],
+              "jawaban": 0,
+              "alasan": "Dua فَاعِلَاتُنْ."
+            },
+            {
+              "soal": "1010110 1011010. Bahr?",
+              "pilihan": [
+                "Ramal majzu'",
+                "Mujtats",
+                "Kamil majzu'"
+              ],
+              "jawaban": 1,
+              "alasan": "مُسْتَفْعِلُنْ lalu فَاعِلَاتُنْ."
+            },
+            {
+              "soal": "1010110 1110110. Bahr?",
+              "pilihan": [
+                "Mujtats",
+                "Kamil majzu'",
+                "Rajaz"
+              ],
+              "jawaban": 1,
+              "alasan": "Taf'ilah kedua مُتَفَاعِلُنْ utuh; yang pertama ber-idhmar."
+            },
+            {
+              "soal": "110110 10110 11010. Bahr?",
+              "pilihan": [
+                "Basith majzu' (mukhalla')",
+                "Mutaqarib",
+                "Wafir majzu'"
+              ],
+              "jawaban": 0,
+              "alasan": "مُتَفْعِلُنْ فَاعِلُنْ مُتَفْعِلْ: tiga taf'ilah, ujungnya 11010."
+            },
+            {
+              "soal": "1101010 1101110. Bahr?",
+              "pilihan": [
+                "Hazaj",
+                "Wafir majzu'"
+              ],
+              "jawaban": 1,
+              "alasan": "Taf'ilah kedua مُفَاعَلَتُنْ utuh."
+            }
+          ]
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Anda menghitung 22 tanda, padahal tidak ada bahr yang Anda kenal dengan 22 tanda tanpa zihaf. Langkah pertama yang paling tepat?",
+          "pilihan": [
+            "Langsung memilih basith atau thawil",
+            "Periksa ulang tanda: syaddah, tanwin, hamzah washal, lam syamsiyah, isyba' di ujung",
+            "Menyimpulkan bait itu patah"
+          ],
+          "jawaban": 1,
+          "alasan": "Selisih satu tanda biasanya kesalahan kitabah, bukan bahr baru. Thawil dengan dharb مَفَاعِيلُنْ memang 24, tetapi periksa dulu tanda Anda."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait Alfiyah ini sebagai rajaz. Sebelum menimbang, jawab empat pertanyaan. Syathr pertama utuh; syathr kedua tidak. Apakah 1110 di syathr kedua membuatnya kamil?",
+          "bait": [
+            "الْعَطْفُ إِمَّا ذُو بَيَانٍ أَوْ نَسَقْ",
+            "وَالْغَرَضُ الْآنَ بَيَانُ مَا سَبَقْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "'Athf itu ada dua: 'athf bayan atau 'athf nasaq. Yang dibahas sekarang adalah yang pertama."
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "Pemanasan: sembilan bait dari bahr yang berbeda-beda. Pilihan memuat semua bahr course. Jawab dengan empat pertanyaan.",
+          "pilihan": [
+            "rajaz",
+            "ramalMajzu",
+            "mutaqarib",
+            "kamil",
+            "wafir",
+            "basith",
+            "thawil",
+            "khafif",
+            "mujtats",
+            "kamilMajzu",
+            "wafirMajzu",
+            "basithMajzu",
+            "hazaj"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "تُهْدَى إِلَى اللَّهِ بِرًّا",
+                "وَالْبِرُّ لِلَّهِ يُهْدَى"
+              ],
+              "bahr": "mujtats",
+              "sumber": "asy-Syarif al-Murtadha, qashidah «أما رأيت ضحيا». https://www.aldiwan.net/poem47867.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَإِنْ كَانَ ذَنْبِي كُلَّ ذَنْبٍ فَإِنَّهُ",
+                "مَحَا الذَّنْبَ كُلَّ الْمَحْوِ مَنْ جَاءَ تَائِبَا"
+              ],
+              "bahr": "thawil",
+              "sumber": "al-Mutanabbi, qashidah «ألا ما لسيف الدولة اليوم عاتبا». https://www.aldiwan.net/poem9456.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَكَذَاكَ لَمْ يَزَلِ الزَّمَا",
+                "نُ بِأَهْلِهِ مُتَقَلِّبَا"
+              ],
+              "bahr": "kamilMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «أين المفر من القضاء», bait 5. https://www.aldiwan.net/poem10381.html"
+            },
+            {
+              "bait": [
+                "وَلِمَنْ يَضِيقُ عَنِ الْمَكَارِمِ ضِيقَةٌ",
+                "وَلِمَنْ تَفَسَّحَ فِي الْمَكَارِمِ مُتَّسَعْ"
+              ],
+              "bahr": "kamil",
+              "sumber": "Abu al-'Atahiyah, qashidah «الشيء محروص عليه إذا امتنع». https://www.aldiwan.net/poem62160.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَلَكِنَّ ذَاتَ النَّبِيِّ الشَّرِيفِ",
+                "مِنَ الشَّمْسِ أَجْلَى وَأَعْلَى مَقَامَا"
+              ],
+              "bahr": "mutaqarib",
+              "sumber": "Ibn al-Hajj an-Numairi, qashidah «رعى الله نجدا وحيا الخياما». https://poetry.dctabudhabi.ae/diwan/poem/122065 Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "أَلْقَتْ تَوَالِي خَيْلِهِ أَعْرَافَهَا",
+                "مِنْ فَوْقِ أَصْلَاءِ الْهَوَادِي وَالْعُكَى"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Hazim al-Qarthajanni, Maqshurah «لله ما قد هجت يا يوم النوى». https://poetry.dct.gov.ae/diwan/poem/81735 Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "تَمْضِي اللَّيَالِي وَلَا يَدْرُونَ عِدَّتَهَا",
+                "مَا لَمْ تَكُنْ مِنْ لَيَالِي الْأَشْهُرِ الْحُرُمِ"
+              ],
+              "bahr": "basith",
+              "sumber": "al-Bushiri, al-Burdah (al-Kawakib ad-Durriyyah) «أمن تذكر جيران بذي سلم». https://www.aldiwan.net/poem18097.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "يَا كَرِيمَ الدِّينِ الْمُرَجَّى إِذَا لَمْ",
+                "يَبْقَ خُلْقٌ يُرْجَى لَدَيْهِ السَّمَاحُ"
+              ],
+              "bahr": "khafif",
+              "sumber": "Sibth Ibn at-Ta'awidzi, qashidah «ياكريم الدين المرجى إذا لم». https://www.aldiwan.net/poem32112.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَإِنْ تَكُ مُنْيَةٌ عَجِلَتْ بِشَيْءٍ",
+                "تُسَرُّ بِهِ فَإِنَّ لَهَا ذَهَابَا"
+              ],
+              "bahr": "wafir",
+              "sumber": "Abu al-'Atahiyah, qashidah «أذل الحرص والطمع الرقابا». https://www.aldiwan.net/poem10327.html Harakat dilengkapi."
+            }
+          ]
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "**Ujian: sepuluh bait acak.** Bait-bait ini belum pernah muncul di course, kecuali bait hazaj dan bait basith majzu', yang memang jarang. Jawab sekali untuk setiap bait. Patokannya 8 dari 10 benar pada percobaan pertama; skornya muncul setelah soal terakhir.",
+          "pilihan": [
+            "rajaz",
+            "ramalMajzu",
+            "mutaqarib",
+            "kamil",
+            "wafir",
+            "basith",
+            "thawil",
+            "khafif",
+            "mujtats",
+            "kamilMajzu",
+            "wafirMajzu",
+            "basithMajzu",
+            "hazaj"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "غَابُوا فَعَيْشِي نَاصِبٌ مِنْ بَعْدِهِمْ",
+                "دَامَتْ لَهُمْ نُعْمَى وَعَيْشٌ رَافِغُ"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Ibnu Duraid. https://www.aldiwan.net/poem67859.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "قَنِعْتُ بِالْقُوتِ مِنْ زَمَانِي",
+                "وَصُنْتُ نَفْسِي عَنِ الْهَوَانِ"
+              ],
+              "bahr": "basithMajzu",
+              "sumber": "Diwan al-Imam asy-Syafi'i, «قنعت بالقوت من زماني», bait 1. https://www.aldiwan.net/poem24630.html"
+            },
+            {
+              "bait": [
+                "إِذَا ضَاقَ صَدْرُ الْمَرْءِ عَنْ سِرِّ نَفْسِهِ",
+                "فَصَدْرُ الَّذِي يُسْتَوْدَعُ السِّرَّ أَضْيَقُ"
+              ],
+              "bahr": "thawil",
+              "sumber": "Diwan al-Imam asy-Syafi'i, qashidah «إذا المرء أفشى سره بلسانه». https://www.aldiwan.net/poem24661.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "حَرِّفُوهُ وَجِّهُوهُ",
+                "مَدِّدُوهُ غَمِّضُوهُ"
+              ],
+              "bahr": "ramalMajzu",
+              "sumber": "Abu al-'Atahiyah, qashidah «يسلم المرء أخوه». https://www.aldiwan.net/poem63192.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "وَلَقَدْ حَفِظْتُ لَهُ فَأَيْنَ حِفَاظُهُ",
+                "وَلَقَدْ وَفَيْتُ لَهُ فَأَيْنَ وَفَاؤُهُ"
+              ],
+              "bahr": "kamil",
+              "sumber": "asy-Syarif ar-Radhi, qashidah «أترى السحاب إذا سرت عشراؤه». https://www.aldiwan.net/poem30778.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "الْأَغَرُّ الْوَضَّاحُ تُورِي يَدَاهُ",
+                "حِينَ يَكْبُو زَنْدُ الْأَغَمِّ الْبَهِيمِ"
+              ],
+              "bahr": "khafif",
+              "sumber": "al-Buhturi, qashidah «أيما خلة ووصل قديم». https://www.aldiwan.net/poem66652.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "أَيَا قَلْبِي أَمَا تَخْشَعْ",
+                "وَيَا عِلْمِي أَمَا تَنْفَعْ"
+              ],
+              "bahr": "hazaj",
+              "sumber": "Abu Firas al-Hamdani, «أيا قلبي أما تخشع», bait 1. https://www.aldiwan.net/poem25231.html"
+            },
+            {
+              "bait": [
+                "الْمَوْتُ نَوْمٌ طَوِيلٌ لَا هُبُوبَ لَهُ",
+                "وَالنَّوْمُ مَوْتٌ قَصِيرٌ بَعْثُهُ أَمَمُ"
+              ],
+              "bahr": "basith",
+              "sumber": "Abu al-'Ala' al-Ma'arri, qashidah «الموت نوم طويل لا هبوب له». https://www.aldiwan.net/poem23300.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "أَمِنْ كُلِّ شَيْءٍ بَلَغْتَ الْمُرَادَا",
+                "وَفِي كُلِّ شَأْوٍ شَأَوْتَ الْعِبَادَا"
+              ],
+              "bahr": "mutaqarib",
+              "sumber": "al-Mutanabbi, qashidah «أمن كل شيء بلغت المرادا». https://www.aldiwan.net/poem9547.html Harakat dilengkapi."
+            },
+            {
+              "bait": [
+                "يَجُودُ سَحَابُهُنَّ وَلَا انْقِشَاعٌ",
+                "وَيَزْخَرُ بَحْرُهُنَّ وَلَا نُضُوبُ"
+              ],
+              "bahr": "wafir",
+              "sumber": "al-Bushiri, qashidah «بمدح المصطفى تحيا القلوب». https://www.aldiwan.net/poem18034.html Harakat dilengkapi."
+            }
+          ]
+        }
+      ],
+      "patokan": "Bait peragaan ditimbang sendiri. Di tebak terakhir, **8 dari 10 benar pada percobaan pertama**. Bila belum, ulangi pelajaran 1 dan 2, lalu coba lagi esok hari, bukan langsung."
+    }
+  ]
+}
