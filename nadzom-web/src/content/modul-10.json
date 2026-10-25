@@ -862,10 +862,13 @@
             {
               "petunjuk": "Maf'ul bih manshub, ujung baku 11010",
               "pola": "11010",
-              "contoh": ["ثَوَابَا", "نَصِيبَا", "جَزَاءً"]
+              "contoh": ["ثَوَابَا", "نَصِيبَا", "جَزَاءً"],
+              "peran": "maf'ul bih",
+              "harakat": "a"
             }
           ],
           "bahr": "wafir",
+          "arti": true,
           "jumlah": 3
         },
         {
@@ -877,6 +880,43 @@
           ],
           "bahr": "wafir",
           "makna": "Ia makin bertambah bodoh, dan aku makin bertambah sabar, seperti kayu gaharu yang makin harum ketika dibakar."
+        },
+        {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam wafir, jadi timbangan tidak menolong di sini. Temanya satu: akhlak penuntut ilmu, yaitu sabar kepada orang yang kasar dan adab kepada guru. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema.",
+          "bahr": "wafir",
+          "baris": [
+            {
+              "bait": ["يُخَاطِبُنِي السَّفِيهَ بِكُلِّ قُبْحٍ", "فَأَكْرَهُ أَنْ أَكُونَ لَهُ مُجِيبَا"],
+              "salah": "i'rab",
+              "alasan": "Yang menyapa adalah orang bodoh itu, jadi السَّفِيهُ fa'il dari يُخَاطِبُ, dan ya pada يُخَاطِبُنِي maf'ul bih. Fa'il marfu': السَّفِيهُ, bukan السَّفِيهَ."
+            },
+            {
+              "bait": ["يُعَلِّمُنِي الْمُعَلِّمُ كُلَّ يَوْمٍ", "فَأَشْكُرُهُ وَأَدْعُو أَنْ يُثِيبَا"],
+              "salah": null,
+              "alasan": "Benar. Bait Hudhud: الْمُعَلِّمُ fa'il marfu', كُلَّ يَوْمٍ zharaf manshub, dan يُثِيبَا manshub oleh أَنْ dengan alif ithlaq."
+            },
+            {
+              "bait": ["يَزِيدُ سَفَاهَةً فَأَزِيدُ جَهْلًا", "كَعُودٍ زَادَهُ الْإِحْرَاقُ طِيبَا"],
+              "salah": "makna",
+              "alasan": "I'rabnya benar, جَهْلًا tamyiz manshub seperti حِلْمًا. Tetapi kini penyair membalas kebodohan dengan kebodohan, lalu menyamakan dirinya dengan gaharu yang makin harum. Perumpamaannya tidak lagi cocok, jadi maknanya rusak."
+            },
+            {
+              "bait": ["يُخَاطِبُنِي السَّفِيهُ بِكُلِّ قُبْحٍ", "فَأَكْرَهُ أَنْ أَكُونُ لَهُ مُجِيبَا"],
+              "salah": "i'rab",
+              "alasan": "أَنْ adalah huruf nashab. Fi'il mudhari' sesudahnya manshub: أَكُونَ dengan fathah, bukan أَكُونُ."
+            },
+            {
+              "bait": ["يُحَدِّثُنِي الْمُسَافِرُ عَنْ طَعَامٍ", "وَعَنْ سُوقٍ يَبِيعُ بِهِ الزَّبِيبَا"],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: seorang musafir bercerita tentang makanan dan pasar tempat ia menjual kismis. Qafiyahnya pun ـيبَا. Tetapi isinya tentang dagang, bukan sabar atau adab kepada guru, jadi keluar tema."
+            },
+            {
+              "bait": ["يُخَاطِبُنِي السَّفِيهُ بِكُلِّ قُبْحٍ", "فَأَكْرَهُ أَنْ أَكُونَ لَهُ مُجِيبَا"],
+              "salah": null,
+              "alasan": "Benar. Bait asli asy-Syafi'i."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -921,6 +961,7 @@
           "jumlah": 2,
           "qafiyah": "satu",
           "tashih": true,
+          "arti": true,
           "judulDiwan": "Dua bait wafir",
           "tangga": [
             "Pilih qafiyah. Keluarga ـيبَا di laci: مُجِيبَا، قَرِيبَا، حَبِيبَا، نَصِيبَا، مُنِيبَا، لَبِيبَا، ذُنُوبَا. Tambahkan sendiri sampai 12: عَجِيبَا، رَقِيبَا، طَبِيبَا، أَدِيبَا، غَرِيبَا، قُلُوبَا.",
@@ -935,25 +976,25 @@
     }
   ],
   "laci": [
-    { "teks": "أَخُو أَدَبٍ", "arti": "orang yang beradab", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110. أَخُو + kata 1110 bertanwin.", "dari": "Modul 10" },
-    { "teks": "أَخُو وَرَعٍ", "arti": "orang yang wara'", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10" },
-    { "teks": "أَخُو كَرَمٍ", "arti": "orang yang dermawan", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10" },
-    { "teks": "أَخُو عَمَلٍ", "arti": "orang yang beramal", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10" },
-    { "teks": "عَلَى عَمَلٍ", "arti": "di atas amal", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110: عَلَى 110 + عَمَلٍ 1110.", "dari": "Modul 10" },
-    { "teks": "وَعَلَّمَنِي", "arti": "dan ia mengajariku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110, sekeluarga dengan فَأَرْشَدَنِي.", "dari": "Modul 10" },
-    { "teks": "وَأَدَّبَنِي", "arti": "dan ia mendidik adabku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10" },
-    { "teks": "فَأَرْشَدَنِي", "arti": "lalu ia menunjukiku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Bait Waki'" },
-    { "teks": "يَنَالُ غَدًا", "arti": "kelak ia meraih", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110; tanwin غَدًا dibaca نْ.", "dari": "Modul 10" },
-    { "teks": "يُخَاطِبُنِي", "arti": "ia menyapaku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110. Sebelum kata berhamzah washal, ya-nya gugur.", "dari": "asy-Syafi'i" },
-    { "teks": "أَخُو صَبْرٍ", "arti": "orang yang sabar", "laci": "hasyw", "cocok": "satu مُفَاعَلْتُنْ, 'ashb", "catatan": "Pola 1101010. Sah di dua taf'ilah pertama setelah Pelajaran 2.", "dari": "Modul 10" },
-    { "teks": "إِلَى رَبِّي", "arti": "kepada Tuhanku", "laci": "hasyw", "cocok": "satu مُفَاعَلْتُنْ, 'ashb", "catatan": "Pola 1101010.", "dari": "Modul 10" },
-    { "teks": "دُعَائِي", "arti": "doaku", "laci": "wazan", "cocok": "ujung syathr pertama, مُفَاعَلْ", "catatan": "Pola 11010. Ujung 'arudh, bebas dari qafiyah.", "dari": "Modul 10" },
-    { "teks": "مُجِيبَا", "arti": "yang menanggapi, yang mengabulkan", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Rawiy ب fathah, ridf ya.", "dari": "asy-Syafi'i" },
-    { "teks": "قَرِيبَا", "arti": "dekat", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10" },
+    { "teks": "أَخُو أَدَبٍ", "arti": "orang yang beradab", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110. أَخُو + kata 1110 bertanwin.", "dari": "Modul 10", "tema": ["adab"] },
+    { "teks": "أَخُو وَرَعٍ", "arti": "orang yang wara'", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10", "tema": ["akhlak", "iman"] },
+    { "teks": "أَخُو كَرَمٍ", "arti": "orang yang dermawan", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10", "tema": ["akhlak"] },
+    { "teks": "أَخُو عَمَلٍ", "arti": "orang yang beramal", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10", "tema": ["iman"] },
+    { "teks": "عَلَى عَمَلٍ", "arti": "di atas amal", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110: عَلَى 110 + عَمَلٍ 1110.", "dari": "Modul 10", "tema": ["iman"] },
+    { "teks": "وَعَلَّمَنِي", "arti": "dan ia mengajariku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110, sekeluarga dengan فَأَرْشَدَنِي.", "dari": "Modul 10", "tema": ["ilmu"] },
+    { "teks": "وَأَدَّبَنِي", "arti": "dan ia mendidik adabku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Modul 10", "tema": ["adab"] },
+    { "teks": "فَأَرْشَدَنِي", "arti": "lalu ia menunjukiku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110.", "dari": "Bait Waki'", "tema": ["ilmu"] },
+    { "teks": "يَنَالُ غَدًا", "arti": "kelak ia meraih", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110; tanwin غَدًا dibaca نْ.", "dari": "Modul 10", "tema": ["waktu"] },
+    { "teks": "يُخَاطِبُنِي", "arti": "ia menyapaku", "laci": "hasyw", "cocok": "satu مُفَاعَلَتُنْ utuh", "catatan": "Pola 1101110. Sebelum kata berhamzah washal, ya-nya gugur.", "dari": "asy-Syafi'i", "tema": ["sabar"] },
+    { "teks": "أَخُو صَبْرٍ", "arti": "orang yang sabar", "laci": "hasyw", "cocok": "satu مُفَاعَلْتُنْ, 'ashb", "catatan": "Pola 1101010. Sah di dua taf'ilah pertama setelah Pelajaran 2.", "dari": "Modul 10", "tema": ["sabar"] },
+    { "teks": "إِلَى رَبِّي", "arti": "kepada Tuhanku", "laci": "hasyw", "cocok": "satu مُفَاعَلْتُنْ, 'ashb", "catatan": "Pola 1101010.", "dari": "Modul 10", "tema": ["doa"] },
+    { "teks": "دُعَائِي", "arti": "doaku", "laci": "wazan", "cocok": "ujung syathr pertama, مُفَاعَلْ", "catatan": "Pola 11010. Ujung 'arudh, bebas dari qafiyah.", "dari": "Modul 10", "tema": ["doa"] },
+    { "teks": "مُجِيبَا", "arti": "yang menanggapi, yang mengabulkan", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Rawiy ب fathah, ridf ya.", "dari": "asy-Syafi'i", "tema": ["doa"] },
+    { "teks": "قَرِيبَا", "arti": "dekat", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10", "tema": ["doa"] },
     { "teks": "حَبِيبَا", "arti": "kekasih, yang dicintai", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10" },
-    { "teks": "نَصِيبَا", "arti": "bagian", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10" },
-    { "teks": "مُنِيبَا", "arti": "yang kembali bertaubat", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Cocok untuk doa.", "dari": "Modul 10" },
-    { "teks": "لَبِيبَا", "arti": "berakal, cerdas", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10" },
-    { "teks": "ذُنُوبَا", "arti": "dosa-dosa", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Ridf waw, boleh bergantian dengan ridf ya.", "dari": "Modul 10" }
+    { "teks": "نَصِيبَا", "arti": "bagian", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10", "tema": ["iman"] },
+    { "teks": "مُنِيبَا", "arti": "yang kembali bertaubat", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Cocok untuk doa.", "dari": "Modul 10", "tema": ["doa", "iman"] },
+    { "teks": "لَبِيبَا", "arti": "berakal, cerdas", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010.", "dari": "Modul 10", "tema": ["ilmu"] },
+    { "teks": "ذُنُوبَا", "arti": "dosa-dosa", "laci": "qafiyah", "cocok": "ujung bait ـيبَا", "catatan": "Pola 11010. Ridf waw, boleh bergantian dengan ridf ya.", "dari": "Modul 10", "tema": ["doa"] }
   ]
 }

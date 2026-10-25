@@ -1018,18 +1018,21 @@
           "cetakan": "رَبِّ زِدْنِي {1}",
           "kotak": [
             {
-              "petunjuk": "Satu فَاعِلَاتُنْ: kata 101 lalu kata 1010 bertanwin, mudhaf dan mudhaf ilaih. Mis. نُورَ عِلْمٍ",
+              "petunjuk": "Satu فَاعِلَاتُنْ: kata 101 lalu kata 1010 bertanwin, mudhaf dan mudhaf ilaih. Mis. نُورَ عِلْمٍ Yang diperiksa peran dan harakatnya adalah kata kedua: mudhaf ilaih, majrur, berakhir kasrah.",
               "pola": "1011010",
               "contoh": [
                 "نُورَ عِلْمٍ",
                 "فَهْمَ دَرْسٍ",
                 "حُسْنَ خُلْقٍ",
                 "صَبْرَ قَلْبٍ"
-              ]
+              ],
+              "peran": "mudhaf ilaih",
+              "harakat": "i"
             }
           ],
           "bahr": "ramalMajzu",
-          "jumlah": 3
+          "jumlah": 3,
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -1104,6 +1107,53 @@
                 "وَاجْعَلِ الْإِخْلَاصَ لَكَ ذُخْرَا"
               ],
               "catatan": "Draf yang sama dengan لَكَ: dua huruf hidup tambahan. Bait latihan, bukan kutipan."
+            }
+          ]
+        },
+        {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua baris di bawah lurus dalam ramal majzu', jadi timbangan tidak menolong di sini. Temanya satu: doa memohon cahaya hati, ilmu, dan ampunan. Beri label setiap baris: benar, salah i'rab, maknanya rusak, atau keluar tema. Periksa dulu harakat akhir kata yang diubah, lalu maknanya, lalu temanya.",
+          "bahr": "ramalMajzu",
+          "baris": [
+            {
+              "bait": [
+                "رَبِّ زِدْنِي نُورُ قَلْبِي",
+                "وَاغْفِرِ اللَّهُمَّ ذَنْبِي"
+              ],
+              "salah": "i'rab",
+              "alasan": "نُورَ adalah maf'ul bih kedua dari زِدْنِي: ya mutakallim maf'ul pertama, dan yang diminta ditambah adalah maf'ul kedua. Maf'ul bih manshub, jadi harus نُورَ dengan fathah, bukan نُورُ."
+            },
+            {
+              "bait": [
+                "رَبِّ زِدْنِي نُورَ قَلْبِي",
+                "وَاغْفِرِ اللَّهُمَّ ذَنْبِي"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait Hudhud: نُورَ maf'ul bih manshub, قَلْبِي mudhaf ilaih, dan kedua syathr sama-sama doa."
+            },
+            {
+              "bait": [
+                "رَبِّ زِدْنِي جَهْلَ قَلْبِي",
+                "وَاغْفِرِ اللَّهُمَّ ذَنْبِي"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar, جَهْلَ manshub seperti نُورَ. Tetapi doanya meminta tambahan kebodohan hati. Tidak ada orang yang berdoa begitu, jadi maknanya rusak."
+            },
+            {
+              "bait": [
+                "رَبِّ زِدْنِي حُسْنَ ثَوْبِي",
+                "وَاغْفِرِ اللَّهُمَّ ذَنْبِي"
+              ],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: memohon pakaian yang lebih bagus. Tetapi permintaan itu urusan penampilan, bukan cahaya hati atau ilmu. Dalam bait bertema ini, ia keluar tema."
+            },
+            {
+              "bait": [
+                "رَبِّ هَبْ لِي نُورَ عِلْمٍ",
+                "وَاغْفِرِ اللَّهُمَّ ذَنْبِي"
+              ],
+              "salah": null,
+              "alasan": "Benar. هَبْ fi'il amr, لِي jar majrur, نُورَ maf'ul bih manshub, عِلْمٍ mudhaf ilaih majrur. Temanya doa memohon ilmu."
             }
           ]
         },
@@ -1517,7 +1567,8 @@
             "Doa penutup"
           ],
           "judulDiwan": "Empat bait ramal majzu'",
-          "tashih": true
+          "tashih": true,
+          "arti": true
         }
       ],
       "patokan": "Empat bait ramal majzu', satu qafiyah, semuanya 0 patah, tersimpan di Diwan. Tulis di catatan wajah qafiyah dan bentuk ujung bait yang Anda pilih.",
@@ -1538,7 +1589,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, pembuka syathr",
       "catatan": "Pola 1011010: رَبِّ 101, زِدْنِي 1010. Tema doa.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "رَبِّ أَصْلِحْ",
@@ -1547,7 +1601,11 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, pembuka syathr",
       "catatan": "Pola 1011010: رَبِّ 101, أَصْلِحْ 1010. Tema doa dan akhlak.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "doa",
+        "akhlak"
+      ]
     },
     {
       "teks": "رَبِّ هَبْ لِي",
@@ -1556,7 +1614,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, pembuka syathr",
       "catatan": "Pola 1011010. Tema doa.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "خَيْرُ صَحْبِي",
@@ -1565,7 +1626,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, ujung bait qafiyah ـبِي",
       "catatan": "Pola 1011010. Tema akhlak: memilih teman.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "رَبِّ صَبْرًا",
@@ -1574,7 +1638,11 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, di tengah bait",
       "catatan": "Pola 1011010; tanwin dibaca نْ. Tema sabar.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "doa",
+        "sabar"
+      ]
     },
     {
       "teks": "نُورَ عِلْمٍ",
@@ -1583,7 +1651,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, maf'ul setelah fi'il doa",
       "catatan": "Pola 1011010: mudhaf manshub lalu mudhaf ilaih bertanwin. Tema ilmu.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "فَهْمَ دَرْسٍ",
@@ -1592,7 +1663,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, maf'ul setelah fi'il doa",
       "catatan": "Pola 1011010. Tema ilmu.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "حِفْظُ دَرْسٍ",
@@ -1601,7 +1675,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, awal kalimat ismiyyah",
       "catatan": "Pola 1011010; marfu', cocok sebagai mubtada'. Tema ilmu.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "حُسْنَ خُلْقٍ",
@@ -1610,7 +1687,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, maf'ul setelah fi'il doa",
       "catatan": "Pola 1011010. Tema akhlak.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "صَبْرَ قَلْبٍ",
@@ -1619,7 +1699,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, maf'ul setelah fi'il doa",
       "catatan": "Pola 1011010. Tema sabar.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "كُنْ صَبُورًا",
@@ -1628,7 +1711,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh",
       "catatan": "Pola 1011010: كُنْ 10, صَبُورًا 11010. Tema sabar.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "كُنْ حَلِيمًا",
@@ -1637,7 +1723,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh",
       "catatan": "Pola 1011010. Tema akhlak.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "كُلَّ يَوْمٍ",
@@ -1646,7 +1735,11 @@
       "cocok": "satu فَاعِلَاتُنْ utuh",
       "catatan": "Pola 1011010; zharaf. Tema ilmu: mengulang pelajaran setiap hari.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "waktu",
+        "ilmu"
+      ]
     },
     {
       "teks": "طُولَ عُمْرِي",
@@ -1655,7 +1748,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh",
       "catatan": "Pola 1011010; zharaf. Di ujung bait menjadi qafiyah ـرِي.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "إِنَّ صَبْرِي",
@@ -1664,7 +1760,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, pembuka syathr",
       "catatan": "Pola 1011010. Tema sabar.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "وَتَوَاضَعْ",
@@ -1673,7 +1772,11 @@
       "cocok": "satu فَعِلَاتُنْ, khabn",
       "catatan": "Pola 111010, dibuka dua huruf hidup. Tema akhlak.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "akhlak",
+        "adab"
+      ]
     },
     {
       "teks": "نُورُ قَلْبِي",
@@ -1682,7 +1785,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, ujung bait qafiyah ـبِي",
       "catatan": "Pola 1011010. Rawiy ب kasrah dipanjangkan, tanpa ridf.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "ذِكْرُ رَبِّي",
@@ -1691,7 +1797,11 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, ujung bait qafiyah ـبِي",
       "catatan": "Pola 1011010. Pasangan: نُورُ قَلْبِي، زَادُ دَرْبِي.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "فَهْوَ حَسْبِي",
@@ -1700,7 +1810,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, ujung bait qafiyah ـبِي",
       "catatan": "Dibaca فَهْوَ dengan ha sukun, seperti di Modul 2. Pola 1011010.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "زَادُ دَرْبِي",
@@ -1709,7 +1822,10 @@
       "cocok": "satu فَاعِلَاتُنْ utuh, ujung bait qafiyah ـبِي",
       "catatan": "Pola 1011010. Tema ilmu: ilmu sebagai bekal.",
       "dari": "Laci tema ramal majzu'",
-      "bahr": "ramalMajzu"
+      "bahr": "ramalMajzu",
+      "tema": [
+        "ilmu"
+      ]
     }
   ]
 }

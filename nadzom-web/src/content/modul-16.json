@@ -784,7 +784,7 @@
           "cetakan": "بِحَلٍّ وَعَقْدٍ {1} وَفَضْلٍ",
           "kotak": [
             {
-              "petunjuk": "وَ + isim فَعْلٍ atau فِعْلٍ bertanwin kasrah, misalnya ganti وَعَزْمٍ dengan وَعِلْمٍ",
+              "petunjuk": "وَ + isim فَعْلٍ atau فِعْلٍ bertanwin kasrah, misalnya ganti وَعَزْمٍ dengan وَعِلْمٍ Ia di-'athaf-kan pada بِحَلٍّ, maka ikut majrur dan berakhir kasrah.",
               "pola": "11010",
               "contoh": [
                 "وَعَزْمٍ",
@@ -792,11 +792,14 @@
                 "وَحِلْمٍ",
                 "وَصَبْرٍ",
                 "وَزُهْدٍ"
-              ]
+              ],
+              "peran": "majrur",
+              "harakat": "i"
             }
           ],
           "bahr": "mutaqarib",
-          "jumlah": 3
+          "jumlah": 3,
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -833,6 +836,61 @@
           ],
           "bahr": "mutaqarib",
           "jumlah": 2
+        },
+        {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam mutaqarib, jadi timbangan tidak menolong di sini. Temanya satu: menjaga nikmat dengan syukur dan taat. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema. Periksa dulu harakat akhir kata yang diubah, lalu maknanya, lalu temanya.",
+          "bahr": "mutaqarib",
+          "baris": [
+            {
+              "bait": [
+                "إِذَا كُنْتَ فِي نِعْمَةٌ فَارْعَهَا",
+                "فَإِنَّ الْمَعَاصِي تُزِيلُ النِّعَمْ"
+              ],
+              "salah": "i'rab",
+              "alasan": "نِعْمَةٍ didahului huruf jar فِي, jadi majrur dengan kasrah. نِعْمَةٌ yang marfu' salah i'rab, walau timbangannya sama."
+            },
+            {
+              "bait": [
+                "وَمَا يَكْفُرُ الْعُرْفَ إِلَّا شَقِيٌّ",
+                "وَمَا يَشْكُرُ اللَّهَ إِلَّا سَعِيدُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait asli Abu al-'Atahiyah. Dalam istitsna' mufarragh, kata sesudah إِلَّا mengisi tempat fa'il: شَقِيٌّ dan سَعِيدُ marfu'."
+            },
+            {
+              "bait": [
+                "إِذَا كُنْتَ فِي نِعْمَةٍ فَارْعَهَا",
+                "فَإِنَّ الْمَعَاصِي تَزِيدُ النِّعَمْ"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar. Tetapi تَزِيدُ membuat syathr kedua berkata maksiat menambah nikmat. Itu bertentangan dengan perintah menjaga nikmat di syathr pertama, jadi maknanya rusak. Bait aslinya تُزِيلُ, menghilangkan."
+            },
+            {
+              "bait": [
+                "إِذَا كُنْتَ فِي سَفَرٍ فَارْكَبَنْ",
+                "وَإِنَّ الْحِصَانَ سَرِيعُ الْقَدَمْ"
+              ],
+              "salah": "tema",
+              "alasan": "I'rabnya benar: ارْكَبَنْ fi'il amr dengan nun taukid khafifah, الْحِصَانَ isim inna manshub, سَرِيعُ khabarnya. Maknanya juga jelas: kalau bepergian, naiklah kendaraan, karena kuda itu cepat. Tetapi isinya tentang perjalanan, bukan nikmat dan syukur."
+            },
+            {
+              "bait": [
+                "إِذَا كُنْتَ فِي نِعْمَةٍ فَارْعَهَا",
+                "فَإِنَّ الْمَعَاصِي تُزِيلُ النِّعَمْ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait asli: نِعْمَةٍ majrur oleh فِي, الْمَعَاصِي isim inna, dan تُزِيلُ النِّعَمْ khabarnya."
+            },
+            {
+              "bait": [
+                "وَمَا يَكْفُرُ الْعُرْفَ إِلَّا شَقِيٌّ",
+                "وَمَا يَشْكُرُ اللَّهَ إِلَّا سَعِيدِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Kalimatnya nafi dan tidak menyebut mustatsna minhu, jadi kata sesudah إِلَّا menempati fa'il dari يَشْكُرُ. Fa'il marfu': سَعِيدُ, bukan سَعِيدِ."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -878,7 +936,8 @@
           "makna": "Usul tema: ilmu, sabar, syukur, atau doa. Misalnya bait pertama menyebut nikmat ilmu, bait kedua memohon agar tetap terjaga.",
           "bankKata": true,
           "jumlah": 2,
-          "qafiyah": "satu"
+          "qafiyah": "satu",
+          "arti": true
         }
       ],
       "patokan": "Bait mu'aradhah dan dua bait sendiri lurus; kedua bait sendiri satu rawiy dan satu bentuk dharb; setiap taf'ilah dapat diberi nama utuh, qabdh, atau hadzf; minimal satu kata dari Laci saya terpakai."
@@ -891,42 +950,60 @@
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "وَ + فِعْلٍ bertanwin, pola 11010. Pengganti sewazan: وَحِلْمٍ, وَزُهْدٍ.",
-      "dari": "Cetakan al-Buhturi"
+      "dari": "Cetakan al-Buhturi",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَصَبْرٍ",
       "arti": "dan kesabaran",
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Pola 11010. Majrur karena di-'athaf-kan pada isim majrur, seperti dalam bait al-Buhturi."
+      "catatan": "Pola 11010. Majrur karena di-'athaf-kan pada isim majrur, seperti dalam bait al-Buhturi.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "وَحِلْمٍ",
       "arti": "dan kesantunan",
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Pola 11010."
+      "catatan": "Pola 11010.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "وَزُهْدٍ",
       "arti": "dan zuhud",
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Pola 11010."
+      "catatan": "Pola 11010.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "بِعِلْمٍ",
       "arti": "dengan ilmu",
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "بِ + فِعْلٍ bertanwin, pola 11010. Pembuka syathr yang mudah."
+      "catatan": "بِ + فِعْلٍ bertanwin, pola 11010. Pembuka syathr yang mudah.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "إِلَهِي",
       "arti": "wahai Tuhanku",
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh, pembuka doa",
-      "catatan": "إِ لَا هِي, pola 11010. Alif khanjariyah pada lam dibaca panjang."
+      "catatan": "إِ لَا هِي, pola 11010. Alif khanjariyah pada lam dibaca panjang.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "أَجِرْنِي",
@@ -934,56 +1011,81 @@
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "Fi'il amr + ya mutakallim, pola 11010.",
-      "dari": "ash-Shahib al-Anshari"
+      "dari": "ash-Shahib al-Anshari",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "دُعَاءٌ",
       "arti": "doa",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فُعَالٌ bertanwin, pola 11010."
+      "catatan": "Wazan فُعَالٌ bertanwin, pola 11010.",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "حَيَاءٌ",
       "arti": "rasa malu",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعَالٌ bertanwin, pola 11010."
+      "catatan": "Wazan فَعَالٌ bertanwin, pola 11010.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "وَفَاءٌ",
       "arti": "kesetiaan, menepati janji",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعَالٌ bertanwin, pola 11010."
+      "catatan": "Wazan فَعَالٌ bertanwin, pola 11010.",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "رَحِيمٌ",
       "arti": "Maha Penyayang",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعِيلٌ bertanwin, pola 11010. Tanpa tanwin, sebagai mudhaf, menjadi 1101: qabdh."
+      "catatan": "Wazan فَعِيلٌ bertanwin, pola 11010. Tanpa tanwin, sebagai mudhaf, menjadi 1101: qabdh.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "حَلِيمٌ",
       "arti": "Maha Penyantun; orang yang santun",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعِيلٌ bertanwin, pola 11010."
+      "catatan": "Wazan فَعِيلٌ bertanwin, pola 11010.",
+      "tema": [
+        "iman",
+        "akhlak"
+      ]
     },
     {
       "teks": "صَبُورٌ",
       "arti": "sangat sabar",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعُولٌ bertanwin, pola 11010: wazan yang namanya sama dengan taf'ilahnya."
+      "catatan": "Wazan فَعُولٌ bertanwin, pola 11010: wazan yang namanya sama dengan taf'ilahnya.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "شَكُورٌ",
       "arti": "sangat bersyukur",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "Wazan فَعُولٌ bertanwin, pola 11010."
+      "catatan": "Wazan فَعُولٌ bertanwin, pola 11010.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "سَعِيدُ",
@@ -991,42 +1093,60 @@
       "laci": "qafiyah",
       "cocok": "ujung bait, فَعُولُنْ dengan isyba', qafiyah ـِيدُ",
       "catatan": "Pola 1101, menjadi 11010 dengan isyba'. Harus marfu' di posisinya, misalnya khabar atau fa'il.",
-      "dari": "Abu al-'Atahiyah"
+      "dari": "Abu al-'Atahiyah",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "رَشِيدُ",
       "arti": "yang lurus, yang terbimbing",
       "laci": "qafiyah",
       "cocok": "ujung bait, فَعُولُنْ dengan isyba', qafiyah ـِيدُ",
-      "catatan": "Pola 1101 + isyba'. Pasangan سَعِيدُ dan حَمِيدُ."
+      "catatan": "Pola 1101 + isyba'. Pasangan سَعِيدُ dan حَمِيدُ.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "مُفِيدُ",
       "arti": "yang bermanfaat",
       "laci": "qafiyah",
       "cocok": "ujung bait, فَعُولُنْ dengan isyba', qafiyah ـِيدُ",
-      "catatan": "Isim fa'il مُفْعِلٌ dari أَفَادَ, pola 1101 + isyba'. Cocok untuk ilmu: عِلْمٌ مُفِيدُ."
+      "catatan": "Isim fa'il مُفْعِلٌ dari أَفَادَ, pola 1101 + isyba'. Cocok untuk ilmu: عِلْمٌ مُفِيدُ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "شَهِيدُ",
       "arti": "Maha Menyaksikan",
       "laci": "qafiyah",
       "cocok": "ujung bait, فَعُولُنْ dengan isyba', qafiyah ـِيدُ",
-      "catatan": "Pola 1101 + isyba'. Pengganti sewazan untuk حَمِيدُ dalam mu'aradhah."
+      "catatan": "Pola 1101 + isyba'. Pengganti sewazan untuk حَمِيدُ dalam mu'aradhah.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "هِمَمْ",
       "arti": "tekad, cita-cita (jamak هِمَّة)",
       "laci": "qafiyah",
       "cocok": "ujung mahdzuf فَعَلْ, rawiy mim mati",
-      "catatan": "Pola 110. Hanya di dharb mahdzuf, setelah taf'ilah utuh. Pasangan نِعَمْ, نِقَمْ, حِكَمْ."
+      "catatan": "Pola 110. Hanya di dharb mahdzuf, setelah taf'ilah utuh. Pasangan نِعَمْ, نِقَمْ, حِكَمْ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "حِكَمْ",
       "arti": "hikmah-hikmah",
       "laci": "qafiyah",
       "cocok": "ujung mahdzuf فَعَلْ, rawiy mim mati",
-      "catatan": "Pola 110. Jamak حِكْمَة, diwaqafkan."
+      "catatan": "Pola 110. Jamak حِكْمَة, diwaqafkan.",
+      "tema": [
+        "ilmu"
+      ]
     }
   ]
 }

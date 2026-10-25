@@ -541,11 +541,69 @@
                 "الْهَذَيَانِ",
                 "الْبُهْتَانِ",
                 "الشَّيْطَانِ"
-              ]
+              ],
+              "peran": "mudhaf ilaih",
+              "harakat": "i"
             }
           ],
           "bahr": "kamil",
-          "jumlah": 2
+          "jumlah": 2,
+          "arti": true
+        },
+        {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam kamil dan berqafiyah ـانِ, jadi timbangan dan qafiyah tidak menolong di sini. Temanya satu: berpegang pada wahyu. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَسِّكًا",
+                "بِالْوَحْيِ لَا بِزَخَارِفِ الْهَذَيَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait asli Ibnul Qayyim: مُتَمَسِّكًا khabar كُنْ, manshub."
+            },
+            {
+              "bait": [
+                "وَانْصُرْ كِتَابُ اللَّهِ وَالسُّنَنَ الَّتِي",
+                "جَاءَتْ عَنِ الْمَبْعُوثِ بِالْفُرْقَانِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "كِتَابَ adalah maf'ul bih dari انْصُرْ, jadi manshub: كِتَابَ. Lihat juga السُّنَنَ yang di-'athaf-kan padanya, tetap manshub. كِتَابُ yang marfu' salah i'rab."
+            },
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَسِّكًا",
+                "بِالْوَهْمِ لَا بِزَخَارِفِ الْهَذَيَانِ"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar. Tetapi kini bait menyuruh berpegang pada waham, bukan pada igauan. Dua-duanya batil, sehingga perbandingan yang menjadi inti bait hilang. Maknanya rusak."
+            },
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَهِّلًا",
+                "فِي السُّوقِ عِنْدَ تَخَيُّرِ الْأَلْوَانِ"
+              ],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: bersikaplah tenang dalam segala urusan, di pasar ketika memilih warna. Qafiyahnya pun ـانِ. Tetapi isinya tentang belanja, bukan berpegang pada wahyu, jadi keluar tema."
+            },
+            {
+              "bait": [
+                "كُنْ فِي أُمُورِكَ كُلِّهَا مُتَمَسِّكٌ",
+                "بِالْوَحْيِ لَا بِزَخَارِفِ الْهَذَيَانِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "كُنْ menashabkan khabarnya. مُتَمَسِّكًا khabar كُنْ, jadi manshub dengan tanwin fathah. مُتَمَسِّكٌ yang marfu' salah i'rab."
+            },
+            {
+              "bait": [
+                "وَانْصُرْ كِتَابَ اللَّهِ وَالسُّنَنَ الَّتِي",
+                "جَاءَتْ عَنِ الْمَبْعُوثِ بِالْفُرْقَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait asli Ibnul Qayyim."
+            }
+          ]
         }
       ],
       "patokan": "Laci ـانِ Anda berisi minimal 10 kata, masing-masing dengan arti dan polanya (101010 atau 11010)."
@@ -847,7 +905,8 @@
             "Susun bait 1 dengan kedua syathr berujung ـانِ. Timbang. 'Arudhnya ikut maqthu' karena tashri'.",
             "Susun bait 2 dan 3. Ujung syathr pertama bebas dan utuh; ujung bait kembali ke ـانِ dengan kata yang belum dipakai.",
             "Periksa qafiyah: rawiy ن, majra kasrah, ridf alif, tanpa ta'sis, dan tidak ada kata ujung yang diulang (ita')."
-          ]
+          ],
+          "arti": true
         }
       ],
       "patokan": "Tiga bait kamil berqafiyah ـانِ, setiap bait 0 patah atau patahnya tercatat, dan pemeriksa qafiyah tidak menemukan masalah.",
@@ -861,7 +920,10 @@
       "laci": "qafiyah",
       "catatan": "إِيمَانِي = 101010.",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 21, 97"
+      "dari": "Nuniyah Ibnul Qayyim bait 21, 97",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْإِحْسَانِ",
@@ -869,14 +931,22 @@
       "laci": "qafiyah",
       "catatan": "إِحْسَانِي = 101010.",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 3, 97"
+      "dari": "Nuniyah Ibnul Qayyim bait 3, 97",
+      "tema": [
+        "iman",
+        "akhlak"
+      ]
     },
     {
       "teks": "الْقُرْآنِ",
       "arti": "Al-Qur'an",
       "laci": "qafiyah",
       "catatan": "قُرْآنِي = 101010.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "iman",
+        "ilmu"
+      ]
     },
     {
       "teks": "الْفُرْقَانِ",
@@ -884,7 +954,10 @@
       "laci": "qafiyah",
       "catatan": "فُرْقَانِي = 101010. Pengganti الْقُرْآنِ agar tidak terjadi ita'.",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 190"
+      "dari": "Nuniyah Ibnul Qayyim bait 190",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "الْبُرْهَانِ",
@@ -892,21 +965,32 @@
       "laci": "qafiyah",
       "catatan": "بُرْهَانِي = 101010.",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 96"
+      "dari": "Nuniyah Ibnul Qayyim bait 96",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "الرَّحْمَنِ",
       "arti": "Yang Maha Pengasih",
       "laci": "qafiyah",
       "catatan": "رَحْمَانِي = 101010. إِلَى الرَّحْمَنِ dibaca إِلَرْرَحْمَانِي.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "iman",
+        "doa"
+      ]
     },
     {
       "teks": "الْأَحْزَانِ",
       "arti": "duka-duka",
       "laci": "qafiyah",
       "catatan": "Jamak حُزْنٌ, wazan أَفْعَالٌ: أَحْزَانِي = 101010.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "الْبُطْلَانِ",
@@ -914,7 +998,10 @@
       "laci": "qafiyah",
       "catatan": "Wazan فُعْلَانٌ: بُطْلَانِي = 101010.",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 6"
+      "dari": "Nuniyah Ibnul Qayyim bait 6",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "سُلْطَانِ",
@@ -922,7 +1009,10 @@
       "laci": "qafiyah",
       "catatan": "سُلْطَانِي = 101010. Tanpa alif lam, kata sebelumnya harus berakhir huruf mati (مَجْلِسٍ سُلْطَانِ).",
       "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 4"
+      "dari": "Nuniyah Ibnul Qayyim bait 4",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "الْأَبْدَانِ",
@@ -936,21 +1026,31 @@
       "arti": "pengenalan, makrifat",
       "laci": "qafiyah",
       "catatan": "عِرْفَانِي = 101010.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "iman",
+        "ilmu"
+      ]
     },
     {
       "teks": "الْغُفْرَانِ",
       "arti": "ampunan",
       "laci": "qafiyah",
       "catatan": "غُفْرَانِي = 101010. Cocok untuk bait doa.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "الْإِتْقَانِ",
       "arti": "kesungguhan dan ketelitian kerja",
       "laci": "qafiyah",
       "catatan": "إِتْقَانِي = 101010.",
-      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "الْخَصْمَانِ",
@@ -966,7 +1066,10 @@
       "laci": "qafiyah",
       "catatan": "Wazan فَعَلَانٌ: هَذَيَانِي = 111010, tiga huruf hidup sendiri.",
       "cocok": "ujung bait ـانِ, mengisi 111010 sendirian",
-      "dari": "Nuniyah Ibnul Qayyim bait 189"
+      "dari": "Nuniyah Ibnul Qayyim bait 189",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "يَدَانِ",
@@ -981,21 +1084,30 @@
       "arti": "rasa aman",
       "laci": "qafiyah",
       "catatan": "أَمَانِي = 11010: خَيْرُ أَمَانِ menjadi رُأَمَانِي.",
-      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "لِسَانِ",
       "arti": "lisan",
       "laci": "qafiyah",
       "catatan": "لِسَانِي = 11010.",
-      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "بَيَانِ",
       "arti": "penjelasan",
       "laci": "qafiyah",
       "catatan": "بَيَانِي = 11010. Dengan alif lam (الْبَيَانِ) setelah huruf mati, ujung bait kurang satu huruf hidup.",
-      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مُتَمَسِّكًا",
@@ -1003,7 +1115,10 @@
       "laci": "wazan",
       "catatan": "Wazan مُتَفَعِّلًا (isim fa'il dari تَفَعَّلَ, sebagai hal). مُتَمَسْسِكَنْ = 1110110.",
       "dari": "Nuniyah Ibnul Qayyim bait 189",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "iman"
+      ]
     }
   ]
 }

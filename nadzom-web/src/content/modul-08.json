@@ -1179,11 +1179,14 @@
                 "تَعَبُ",
                 "ضَجَرُ",
                 "كَبَدُ"
-              ]
+              ],
+              "peran": "khabar",
+              "harakat": "u"
             }
           ],
           "bahr": "basith",
-          "jumlah": 3
+          "jumlah": 3,
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -1229,6 +1232,61 @@
           ],
           "bahr": "basith",
           "jumlah": 2
+        },
+        {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam basith, jadi timbangan tidak menolong di sini. Temanya satu: ilmu dan waktu belajar. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema.",
+          "bahr": "basith",
+          "baris": [
+            {
+              "bait": [
+                "الْعِلْمُ قِسْمَانِ ذَا نَفْعًا وَذَا ضَرَرُ",
+                "فَاطْلُبْ مِنَ الْعِلْمِ مَا تَزْكُو بِهِ الْفِكَرُ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Dalam ذَا نَفْعٌ, ذَا mubtada' dan نَفْعٌ khabarnya. Khabar marfu', seperti ضَرَرُ di pasangannya. نَفْعًا yang manshub salah i'rab."
+            },
+            {
+              "bait": [
+                "فَاحْفَظْ دُرُوسَكَ فِي صُبْحٍ وَفِي سَحَرٍ",
+                "فَالْعِلْمُ يَبْقَى وَيَمْضِي اللَّهْوُ وَالسَّمَرُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. دُرُوسَكَ maf'ul bih manshub, الْعِلْمُ mubtada' marfu', اللَّهْوُ fa'il marfu'."
+            },
+            {
+              "bait": [
+                "الْجَوُّ يَوْمَانِ ذَا صَحْوٌ وَذَا مَطَرُ",
+                "وَالثَّوْبُ ثَوْبَانِ ذَا صُوفٌ وَذَا وَبَرُ"
+              ],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: cuaca dua macam, cerah dan hujan; pakaian dua macam, wol dan bulu unta. Tetapi isinya cuaca dan pakaian, bukan ilmu, jadi keluar tema."
+            },
+            {
+              "bait": [
+                "الْعِلْمُ قِسْمَانِ ذَا نَفْعٌ وَذَا ضَرَرُ",
+                "فَاطْلُبْ مِنَ الْعِلْمِ مَا تَشْقَى بِهِ الْفِكَرُ"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar. Tetapi syathr kedua kini menyuruh mencari ilmu yang membuat pikiran sengsara, padahal syathr pertama baru saja membedakan ilmu yang bermanfaat dari yang berbahaya. Perintahnya berbalik, jadi maknanya rusak."
+            },
+            {
+              "bait": [
+                "الْعِلْمُ قِسْمَانِ ذَا نَفْعٌ وَذَا ضَرَرُ",
+                "فَاطْلُبْ مِنَ الْعِلْمِ مَا تَزْكُو بِهِ الْفِكَرُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait latihan Pelajaran 3: ذَا mubtada', نَفْعٌ dan ضَرَرُ khabar marfu'."
+            },
+            {
+              "bait": [
+                "فَاحْفَظْ دُرُوسَكَ فِي صُبْحٍ وَفِي سَحَرٍ",
+                "فَالْعِلْمَ يَبْقَى وَيَمْضِي اللَّهْوُ وَالسَّمَرُ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Sesudah fa, الْعِلْمُ menjadi mubtada' dan يَبْقَى khabarnya. Mubtada' marfu', jadi الْعِلْمُ, bukan الْعِلْمَ."
+            }
+          ]
         },
         {
           "jenis": "susun",
@@ -1301,7 +1359,8 @@
             "Susun bait pertama. Bila kedua syathrnya berakhir rawiy yang sama, ia ber-tasri'.",
             "Susun bait kedua. Ujung syathr pertama bebas, tetapi tetap فَعِلُنْ; ujung bait kembali ke rawiy dengan kata yang belum dipakai.",
             "Periksa: tidak ada kata qafiyah yang diulang, tidak ada tanwin di qafiyah, dan bentuk dharb sama di kedua bait."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "pincang",
@@ -1364,7 +1423,10 @@
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; di ujung bait ضَرَرُو = 1110.",
       "bahr": "basith",
-      "dari": "Bait latihan Modul 8"
+      "dari": "Bait latihan Modul 8",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "أَثَرُ",
@@ -1372,7 +1434,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; أَثَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "سَفَرُ",
@@ -1380,7 +1445,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; سَفَرُو = 1110. Cocok untuk safar menuntut ilmu.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "نَظَرُ",
@@ -1388,7 +1456,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; نَظَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "ثَمَرُ",
@@ -1396,7 +1467,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; ثَمَرُو = 1110. Buah ilmu adalah amal.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "عِبَرُ",
@@ -1404,7 +1478,11 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Jamak عِبْرَةٌ, wazan فِعَلٌ; عِبَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "سَهَرُ",
@@ -1412,7 +1490,11 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; سَهَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "ilmu",
+        "waktu"
+      ]
     },
     {
       "teks": "حَذَرُ",
@@ -1420,7 +1502,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; حَذَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "فِكَرُ",
@@ -1429,7 +1514,10 @@
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Jamak فِكْرَةٌ, wazan فِعَلٌ; فِكَرُو = 1110. Jangan tertukar dengan فِكْرُ = 1010.",
       "bahr": "basith",
-      "dari": "Bait latihan Modul 8"
+      "dari": "Bait latihan Modul 8",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "قَدَرُ",
@@ -1437,7 +1525,11 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; قَدَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "iman",
+        "sabar"
+      ]
     },
     {
       "teks": "ظَفَرُ",
@@ -1445,7 +1537,10 @@
       "laci": "qafiyah",
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; ظَفَرُو = 1110.",
-      "bahr": "basith"
+      "bahr": "basith",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "سَحَرُ",
@@ -1454,7 +1549,11 @@
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; سَحَرُو = 1110. Di 'arudh bait kedua dan seterusnya ia boleh bertanwin: سَحَرِنْ.",
       "bahr": "basith",
-      "dari": "Bait latihan Modul 8"
+      "dari": "Bait latihan Modul 8",
+      "tema": [
+        "waktu",
+        "doa"
+      ]
     },
     {
       "teks": "كَدَرُ",
@@ -1463,7 +1562,11 @@
       "cocok": "ujung فَعِلُنْ, rawiy ر dhammah",
       "catatan": "Wazan فَعَلٌ; pasangan صَفْوٌ.",
       "bahr": "basith",
-      "dari": "Asy-Syafi'i, الدهر يومان"
+      "dari": "Asy-Syafi'i, الدهر يومان",
+      "tema": [
+        "sabar",
+        "waktu"
+      ]
     },
     {
       "teks": "أَمْنٌ وَذَا",
@@ -1472,7 +1575,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "أَمْنُنْوَذَا = 1010110. Ganti أَمْنٌ dengan kata فَعْلٌ bertanwin lain: نَفْعٌ، خَيْرٌ، صَفْوٌ.",
       "bahr": "basith",
-      "dari": "Asy-Syafi'i, الدهر يومان"
+      "dari": "Asy-Syafi'i, الدهر يومان",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "قِسْمَانِ ذَا",
@@ -1481,7 +1587,10 @@
       "cocok": "satu مُسْتَفْعِلُنْ utuh",
       "catatan": "قِسْمَانِذَا = 1010110. Di dalam bait ia terbelah: قِسْ menutup taf'ilah pertama, مَانِذَا menjadi فَاعِلُنْ.",
       "bahr": "basith",
-      "dari": "Bait latihan Modul 8"
+      "dari": "Bait latihan Modul 8",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "مِنْ مُقْلَةٍ",
@@ -1516,7 +1625,10 @@
       "cocok": "ujung فَعْلُنْ, ridf alif, rawiy ن dhammah",
       "catatan": "Wazan فُعْلَانٌ, munsarif; tanwinnya gugur di qafiyah muthlaqah: نُقْصَانُو.",
       "bahr": "basith",
-      "dari": "Nuniyah al-Busti bait 1"
+      "dari": "Nuniyah al-Busti bait 1",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "إِحْسَانُ",
@@ -1525,7 +1637,10 @@
       "cocok": "ujung فَعْلُنْ, ridf alif, rawiy ن dhammah",
       "catatan": "Bentuk marfu' untuk al-Busti; untuk Ibnul Qayyim: الْإِحْسَانِ.",
       "bahr": "basith",
-      "dari": "Nuniyah al-Busti bait 7"
+      "dari": "Nuniyah al-Busti bait 7",
+      "tema": [
+        "akhlak"
+      ]
     }
   ]
 }

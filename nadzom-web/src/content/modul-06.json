@@ -859,11 +859,14 @@
                 "حُرٍّ",
                 "شَيْخٍ",
                 "طِفْلٍ"
-              ]
+              ],
+              "peran": "mudhaf ilaih",
+              "harakat": "i"
             }
           ],
           "bahr": "kamil",
-          "jumlah": 3
+          "jumlah": 3,
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -947,6 +950,61 @@
           ]
         },
         {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam kamil, jadi timbangan tidak menolong di sini. Temanya satu: nasihat akhlak, bahwa yang tampak berat bisa bermanfaat dan yang tampak menyenangkan bisa mencelakakan. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "وَمِنَ الْعَدَاوَةِ مَا يَنَالُكَ نَفْعَهُ",
+                "وَمِنَ الصَّدَاقَةِ مَا يَضُرُّ وَيُؤْلِمُ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Dalam مَا يَنَالُكَ نَفْعُهُ, kaf adalah maf'ul bih dan نَفْعُ adalah fa'il dari يَنَالُ: manfaatnyalah yang sampai kepadamu. Fa'il marfu', jadi نَفْعُهُ, bukan نَفْعَهُ."
+            },
+            {
+              "bait": [
+                "وَمِنَ الْمَشَقَّةِ مَا يَنَالُكَ أَجْرُهُ",
+                "وَمِنَ الرَّفَاهَةِ مَا يَضُرُّ وَيَهْدِمُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Mu'aradhah dari Pelajaran 3: أَجْرُهُ fa'il marfu', الْمَشَقَّةِ dan الرَّفَاهَةِ majrur oleh مِنَ. Ada kesusahan yang pahalanya sampai kepadamu, dan ada kemewahan yang mencelakakan."
+            },
+            {
+              "bait": [
+                "وَمِنَ الْمَشَقَّةِ مَا يَنَالُكَ لَوْنُهُ",
+                "وَمِنَ الرَّفَاهَةِ مَا يَضُرُّ وَيَهْدِمُ"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar, لَوْنُهُ fa'il marfu'. Tetapi kesusahan tidak punya warna yang sampai kepadamu. Kata itu tidak bersanding dengan الْمَشَقَّةِ, jadi maknanya rusak."
+            },
+            {
+              "bait": [
+                "وَمِنَ الْعَدَاوَةِ مَا يَنَالُكَ نَفْعُهُ",
+                "وَمِنَ الصَّدَاقَةِ مَا يَضُرُّ وَيُؤْلِمُ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait asli al-Mutanabbi."
+            },
+            {
+              "bait": [
+                "وَمِنَ الْفَوَاكِهِ مَا يَطِيبُ مَذَاقُهُ",
+                "وَمِنَ الْفَوَاكِهِ مَا يَمُرُّ وَيُؤْلِمُ"
+              ],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: ada buah yang enak rasanya dan ada yang pahit. Tetapi ini cerita tentang buah, bukan nasihat akhlak, jadi keluar tema."
+            },
+            {
+              "bait": [
+                "وَمِنَ الْعَدَاوَةُ مَا يَنَالُكَ نَفْعُهُ",
+                "وَمِنَ الصَّدَاقَةِ مَا يَضُرُّ وَيُؤْلِمُ"
+              ],
+              "salah": "i'rab",
+              "alasan": "الْعَدَاوَةِ didahului huruf jar مِنَ, jadi majrur dengan kasrah. الْعَدَاوَةُ yang marfu' salah i'rab."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Mu'aradhah dengan calon.** Pinjam bahr dan qafiyah bait al-Mutanabbi untuk makna Anda sendiri. Ikuti tangganya: di setiap anak tangga bercalon, timbang ketiga calon dan pilih yang sewazan; satu di antaranya pincang. Hasilnya satu bait kamil berujung mim dhammah. Timbang, lalu salin ke Diwan.",
           "bahr": "kamil",
@@ -1016,7 +1074,8 @@
             "Pilih kata ujung bait dulu. Laci memberi وَيَسْلَمُ، وَيُكْرِمُ، وَيَعْلَمُ (perlu satu huruf hidup sebelumnya), atau akhiri dengan mashdar تَفَعُّلٍ seperti cetakan satu syathr.",
             "Isi syathr pertama dengan potongan satu taf'ilah dari laci, lalu timbang.",
             "Isi syathr kedua, timbang, dan beri nama setiap taf'ilah: utuh atau mudhmar."
-          ]
+          ],
+          "arti": true
         }
       ],
       "patokan": "Dua bait kamil 0 patah tercatat di Diwan: mu'aradhah al-Mutanabbi dan satu bait sendiri dengan laci. Setiap taf'ilah diberi nama, utuh atau mudhmar.",
@@ -1034,56 +1093,81 @@
       "arti": "dan belajar",
       "laci": "hasyw",
       "catatan": "وَتَعَلْلُمِنْ = 1110110. Tanpa وَ menjadi 110110 (qabih).",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بِتَعَلُّمٍ",
       "arti": "dengan belajar",
       "laci": "hasyw",
       "catatan": "بِتَعَلْلُمِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَتَأَدُّبٍ",
       "arti": "dan beradab",
       "laci": "hasyw",
       "catatan": "وَتَأَدْدُبِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "وَتَوَاضُعٍ",
       "arti": "dan rendah hati",
       "laci": "hasyw",
       "catatan": "Wazan تَفَاعُلٍ: وَتَوَاضُعِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "بِتَصَبُّرٍ",
       "arti": "dengan bersabar",
       "laci": "hasyw",
       "catatan": "بِتَصَبْبُرِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "وَتَدَبُّرٍ",
       "arti": "dan merenungkan (ayat)",
       "laci": "hasyw",
       "catatan": "وَتَدَبْبُرِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "وَتَهَجُّدٍ",
       "arti": "dan shalat malam",
       "laci": "hasyw",
       "catatan": "وَتَهَجْجُدِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَتَوَكُّلٍ",
       "arti": "dan bertawakal",
       "laci": "hasyw",
       "catatan": "وَتَوَكْكُلِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَتَخَشُّعٍ",
@@ -1091,7 +1175,10 @@
       "laci": "hasyw",
       "catatan": "وَتَخَشْشُعِنْ = 1110110.",
       "dari": "Diwan yang dinisbatkan kepada 'Ali bin Abi Thalib",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "بِتَفَكُّرٍ",
@@ -1099,77 +1186,112 @@
       "laci": "hasyw",
       "catatan": "بِتَفَكْكُرِنْ = 1110110.",
       "dari": "Diwan yang dinisbatkan kepada 'Ali bin Abi Thalib",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu",
+        "iman"
+      ]
     },
     {
       "teks": "وَتَفَقُّهٍ",
       "arti": "dan mendalami agama",
       "laci": "hasyw",
       "catatan": "وَتَفَقْقُهِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَمُعَلِّمٍ",
       "arti": "dan seorang guru",
       "laci": "hasyw",
       "catatan": "Wazan مُفَعِّلٍ dengan وَ: وَمُعَلْلِمِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     },
     {
       "teks": "وَمُؤَدِّبٍ",
       "arti": "dan seorang pendidik adab",
       "laci": "hasyw",
       "catatan": "وَمُؤَدْدِبِنْ = 1110110.",
-      "cocok": "satu مُتَفَاعِلُنْ utuh"
+      "cocok": "satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "طَلَبَ الْعُلَا",
       "arti": "ia mencari ketinggian (derajat)",
       "laci": "hasyw",
       "catatan": "طَلَبَلْعُلَا = 1110110. Fi'il فَعَلَ diikuti lam mati.",
-      "cocok": "pembuka syathr, satu مُتَفَاعِلُنْ utuh"
+      "cocok": "pembuka syathr, satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "سَهِرَ الْفَتَى",
       "arti": "pemuda itu begadang",
       "laci": "hasyw",
       "catatan": "سَهِرَلْفَتَى = 1110110.",
-      "cocok": "pembuka syathr, satu مُتَفَاعِلُنْ utuh"
+      "cocok": "pembuka syathr, satu مُتَفَاعِلُنْ utuh",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "يَا رَبِّ هَبْ",
       "arti": "wahai Tuhanku, anugerahkanlah",
       "laci": "hasyw",
       "catatan": "يَارَبْبِهَبْ = 1010110: mudhmar. Pembuka doa.",
-      "cocok": "pembuka syathr, satu مُتْفَاعِلُنْ (mudhmar)"
+      "cocok": "pembuka syathr, satu مُتْفَاعِلُنْ (mudhmar)",
+      "tema": [
+        "doa"
+      ]
     },
     {
       "teks": "وَيَسْلَمُ",
       "arti": "dan ia selamat",
       "laci": "qafiyah",
       "catatan": "Rawiy mim dhammah. وَيَسْلَمُو = 110110 dengan isyba': butuh satu huruf hidup sebelumnya (يَضُرُّ وَيَسْلَمُ).",
-      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup"
+      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "وَيُكْرِمُ",
       "arti": "dan ia memuliakan",
       "laci": "qafiyah",
       "catatan": "Pola sama dengan وَيُؤْلِمُ: 11011.",
-      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup"
+      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup",
+      "tema": [
+        "akhlak"
+      ]
     },
     {
       "teks": "وَيَعْلَمُ",
       "arti": "dan ia mengetahui",
       "laci": "qafiyah",
       "catatan": "Pola 11011.",
-      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup"
+      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَيَهْدِمُ",
       "arti": "dan ia meruntuhkan",
       "laci": "qafiyah",
       "catatan": "Pola 11011. Pengganti وَيُؤْلِمُ dalam mu'aradhah al-Mutanabbi.",
-      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup"
+      "cocok": "ujung bait berrawiy mim dhammah, setelah huruf hidup",
+      "tema": [
+        "akhlak"
+      ]
     }
   ]
 }

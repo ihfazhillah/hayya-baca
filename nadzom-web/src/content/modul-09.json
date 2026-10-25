@@ -841,11 +841,14 @@
                 "فِقْهَ",
                 "فَهْمَ",
                 "خَيْرَ"
-              ]
+              ],
+              "peran": "maf'ul bih",
+              "harakat": "a"
             }
           ],
           "bahr": "thawil",
-          "jumlah": 3
+          "jumlah": 3,
+          "arti": true
         },
         {
           "jenis": "cetakan",
@@ -915,6 +918,61 @@
           "jumlah": 2
         },
         {
+          "jenis": "salah",
+          "petunjuk": "Lurus tapi salah. Semua bait di bawah lurus dalam thawil, jadi timbangan tidak menolong di sini. Temanya satu: syarat meraih ilmu. Beri label setiap bait: benar, salah i'rab, maknanya rusak, atau keluar tema.",
+          "bahr": "thawil",
+          "baris": [
+            {
+              "bait": [
+                "ذَكَاءٍ وَحِرْصٍ وَاضْطِرَابٍ وَبُلْغَةٍ",
+                "وَإِرْشَادِ أُسْتَاذٍ وَطُولِ زَمَانِ"
+              ],
+              "salah": "makna",
+              "alasan": "I'rabnya benar, اضْطِرَابٍ majrur seperti اصْطِبَارٍ. Tetapi kegelisahan dijadikan syarat ilmu, padahal yang dimaksud adalah kesabaran. Maknanya rusak."
+            },
+            {
+              "bait": [
+                "أَلَا لَا تَنَالُ الْعِلْمَ إِلَّا بِسِتَّةٍ",
+                "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Bait Ta'lim al-Muta'allim: fa'il تَنَالُ adalah dhamir أَنْتَ, dan الْعِلْمَ maf'ul bih manshub."
+            },
+            {
+              "bait": [
+                "أَلَا لَا تَنَالُ الْعِلْمُ إِلَّا بِسِتَّةٍ",
+                "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "Yang meraih adalah engkau, fa'il yang tersimpan dalam تَنَالُ. الْعِلْمَ maf'ul bih, jadi manshub. Ia juga tidak bisa menjadi fa'il, karena الْعِلْمُ mudzakkar sedangkan تَنَالُ di sini bukan untuk muannats. الْعِلْمُ yang marfu' salah i'rab."
+            },
+            {
+              "bait": [
+                "أَلَا لَا تَنَالُ الْمَالَ إِلَّا بِسِتَّةٍ",
+                "سَأُنْبِيكَ عَنْ مَجْمُوعِهَا بِبَيَانِ"
+              ],
+              "salah": "tema",
+              "alasan": "I'rab dan maknanya benar: harta tidak diraih kecuali dengan enam perkara. Tetapi yang dibahas kini harta, bukan ilmu, jadi keluar tema."
+            },
+            {
+              "bait": [
+                "ذَكَاءٍ وَحِرْصٍ وَاصْطِبَارٍ وَبُلْغَةٍ",
+                "وَإِرْشَادِ أُسْتَاذٌ وَطُولِ زَمَانِ"
+              ],
+              "salah": "i'rab",
+              "alasan": "إِرْشَادِ menjadi mudhaf, dan أُسْتَاذٍ mudhaf ilaih. Mudhaf ilaih selalu majrur, jadi أُسْتَاذٍ dengan kasrah, bukan أُسْتَاذٌ."
+            },
+            {
+              "bait": [
+                "ذَكَاءٍ وَحِرْصٍ وَاصْطِبَارٍ وَبُلْغَةٍ",
+                "وَإِرْشَادِ أُسْتَاذٍ وَطُولِ زَمَانِ"
+              ],
+              "salah": null,
+              "alasan": "Benar. Keenamnya majrur, sebagai rincian dari بِسِتَّةٍ di bait sebelumnya."
+            }
+          ]
+        },
+        {
           "jenis": "susun",
           "petunjuk": "**Anak tangga 4: mu'aradhah dengan calon.** Bait Ta'lim menjadi pola. Di setiap butir tangga ada tiga calon, dan satu di antaranya pincang. Pilih sendiri, timbang, lalu susun **satu bait** pembuka versi Anda.",
           "bahr": "thawil",
@@ -975,7 +1033,8 @@
             "Susun daftar: satu syarat per فَعُولُنْ, satu syarat dengan wawu per مَفَاعِيلُنْ. Pakai minimal satu potongan dari Laci saya.",
             "Semua syarat majrur, karena menjadi badal dari bilangan di bait 1.",
             "Periksa: kedua bait berakhir nun kasrah dengan alif sebelumnya, dan dharbnya 11010."
-          ]
+          ],
+          "arti": true
         },
         {
           "jenis": "pincang",
@@ -1057,7 +1116,10 @@
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "Wazan فَعَالٍ bertanwin: ذَكَائِنْ = 11010. Sekelompok: ثَبَاتٍ، صَلَاحٍ، وَقَارٍ.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَحِرْصٍ",
@@ -1065,28 +1127,41 @@
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "وَ + فِعْلٍ: وَحِرْصِنْ = 11010. Sekelompok: وَصَبْرٍ، وَفَهْمٍ، وَحِفْظٍ.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "ثَبَاتٍ",
       "arti": "keteguhan",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "ثَبَاتِنْ = 11010."
+      "catatan": "ثَبَاتِنْ = 11010.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "صَلَاحٍ",
       "arti": "kesalehan",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "صَلَاحِنْ = 11010."
+      "catatan": "صَلَاحِنْ = 11010.",
+      "tema": [
+        "akhlak",
+        "iman"
+      ]
     },
     {
       "teks": "وَصَبْرٍ",
       "arti": "dan sabar",
       "laci": "wazan",
       "cocok": "satu فَعُولُنْ utuh",
-      "catatan": "وَصَبْرِنْ = 11010."
+      "catatan": "وَصَبْرِنْ = 11010.",
+      "tema": [
+        "sabar"
+      ]
     },
     {
       "teks": "تَعَلَّمْ",
@@ -1094,7 +1169,10 @@
       "laci": "hasyw",
       "cocok": "satu فَعُولُنْ utuh",
       "catatan": "تَعَلْلَمْ = 11010: pembuka thawil yang pas.",
-      "dari": "asy-Syafi'i"
+      "dari": "asy-Syafi'i",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَإِرْشَادٍ",
@@ -1102,28 +1180,42 @@
       "laci": "wazan",
       "cocok": "satu مَفَاعِيلُنْ utuh",
       "catatan": "وَ + إِفْعَالٍ: وَإِرْشَادِنْ = 1101010. Sekelompok: وَإِخْلَاصٍ، وَإِتْقَانٍ.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "ilmu",
+        "adab"
+      ]
     },
     {
       "teks": "وَتَوْفِيقٍ",
       "arti": "dan taufiq",
       "laci": "wazan",
       "cocok": "satu مَفَاعِيلُنْ utuh",
-      "catatan": "وَ + تَفْعِيلٍ: وَتَوْفِيقِنْ = 1101010."
+      "catatan": "وَ + تَفْعِيلٍ: وَتَوْفِيقِنْ = 1101010.",
+      "tema": [
+        "doa",
+        "iman"
+      ]
     },
     {
       "teks": "وَإِخْلَاصٍ",
       "arti": "dan keikhlasan",
       "laci": "wazan",
       "cocok": "satu مَفَاعِيلُنْ utuh",
-      "catatan": "وَإِخْلَاصِنْ = 1101010."
+      "catatan": "وَإِخْلَاصِنْ = 1101010.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "وَتَكْرَارٍ",
       "arti": "dan pengulangan",
       "laci": "wazan",
       "cocok": "satu مَفَاعِيلُنْ utuh",
-      "catatan": "وَتَكْرَارِنْ = 1101010. Tanpa wawu, تَكْرَارِ tidak bisa membuka syathr."
+      "catatan": "وَتَكْرَارِنْ = 1101010. Tanpa wawu, تَكْرَارِ tidak bisa membuka syathr.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بِسِتَّةٍ",
@@ -1131,7 +1223,10 @@
       "laci": "wazan",
       "cocok": "'arudh مَفَاعِلُنْ",
       "catatan": "بِسِتْتَتِنْ = 110110. Sekelompok: بِأَرْبَعٍ، بِخَمْسَةٍ، بِسَبْعَةٍ. بِثَلَاثَةٍ tidak muat.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بِأَرْبَعٍ",
@@ -1139,14 +1234,20 @@
       "laci": "wazan",
       "cocok": "'arudh مَفَاعِلُنْ",
       "catatan": "بِأَرْبَعِنْ = 110110.",
-      "dari": "Cetakan Modul 9"
+      "dari": "Cetakan Modul 9",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "وَهِمَّةٍ",
       "arti": "dan tekad",
       "laci": "wazan",
       "cocok": "'arudh مَفَاعِلُنْ",
-      "catatan": "وَ + فِعْلَةٍ: وَهِمْمَتِنْ = 110110, seperti وَبُلْغَةٍ."
+      "catatan": "وَ + فِعْلَةٍ: وَهِمْمَتِنْ = 110110, seperti وَبُلْغَةٍ.",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "بَيَانِ",
@@ -1154,7 +1255,10 @@
       "laci": "qafiyah",
       "cocok": "ujung 11010, ridf alif, rawiy ن kasrah",
       "catatan": "Wazan فَعَالِ: بَيَانِي = 11010, dharb dengan hadzf.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "ilmu"
+      ]
     },
     {
       "teks": "زَمَانِ",
@@ -1162,21 +1266,30 @@
       "laci": "qafiyah",
       "cocok": "ujung 11010, ridf alif, rawiy ن kasrah",
       "catatan": "Wazan فَعَالِ: زَمَانِي = 11010. Pasangan بَيَانِ.",
-      "dari": "Ta'lim al-Muta'allim"
+      "dari": "Ta'lim al-Muta'allim",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "لِسَانِ",
       "arti": "lisan",
       "laci": "qafiyah",
       "cocok": "ujung 11010, ridf alif, rawiy ن kasrah",
-      "catatan": "Wazan فِعَالِ: لِسَانِي = 11010."
+      "catatan": "Wazan فِعَالِ: لِسَانِي = 11010.",
+      "tema": [
+        "adab"
+      ]
     },
     {
       "teks": "أَمَانِ",
       "arti": "rasa aman",
       "laci": "qafiyah",
       "cocok": "ujung 11010, ridf alif, rawiy ن kasrah",
-      "catatan": "Wazan فَعَالِ: أَمَانِي = 11010."
+      "catatan": "Wazan فَعَالِ: أَمَانِي = 11010.",
+      "tema": [
+        "iman"
+      ]
     },
     {
       "teks": "التَّوَانِي",
@@ -1184,7 +1297,10 @@
       "laci": "qafiyah",
       "cocok": "ujung 11010, ridf alif, rawiy ن kasrah",
       "catatan": "Sesudah huruf hidup, تَوَانِي = 11010.",
-      "dari": "Bait latihan Modul 9"
+      "dari": "Bait latihan Modul 9",
+      "tema": [
+        "waktu"
+      ]
     },
     {
       "teks": "الْمَحَافِلُ",
@@ -1192,7 +1308,10 @@
       "laci": "qafiyah",
       "cocok": "ujung مَفَاعِلُنْ, ta'sis, rawiy ل dhammah",
       "catatan": "Jamak مَفَاعِلُ: مَحَافِلُو = 110110. Pasangan جَاهِلُ، عَاقِلُ، فَضَائِلُ.",
-      "dari": "asy-Syafi'i"
+      "dari": "asy-Syafi'i",
+      "tema": [
+        "ilmu"
+      ]
     }
   ]
 }
