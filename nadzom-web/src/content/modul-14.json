@@ -6,8 +6,8 @@
   "pelajaran": [
     {
       "nomor": 1,
-      "judul": "Tiga wajah qafiyah",
-      "ringkas": "Rawiy yang dipanjangkan (muthlaqah), rawiy yang disukunkan (muqayyadah), dan ridf و/ي yang boleh bergantian.",
+      "judul": "Muthlaqah dan muqayyadah",
+      "ringkas": "Rawiy yang dipanjangkan (muthlaqah) dan rawiy yang disukunkan (muqayyadah), ditambah ridf و/ي yang boleh bergantian.",
       "menit": 30,
       "analogi": "Dalam tajwid, cara berhenti di ujung ayat memengaruhi bacaan: ada waqf dengan sukun, ada yang dibaca panjang. Ujung bait juga begitu. Yang membedakan di sini: penyair memilih satu cara di bait pertama, lalu wajib setia sampai bait terakhir.",
       "amtsilah": [
@@ -92,7 +92,7 @@
           },
           {
             "tampil": "teks",
-            "kata": "Qafiyah **muqayyadah** (rawiy sukun) tetap bisa di ramal majzu', asal taf'ilahnya cocok. Ada dua jalan. Tanpa ridf: ujungnya فَاعِلُنْ, seperti فِطْطَلَبْ. Dengan ridf: tambah satu huruf mati, فَاعِلَاتَانْ, seperti syahid kitab 'arudh di papan.",
+            "kata": "Qafiyah **muqayyadah** (rawiy sukun) tetap bisa di ramal majzu', asal taf'ilahnya cocok. Ada dua jalan. Tanpa ridf: ujungnya mengikuti hitungan biasa, فَاعِلُنْ seperti فِطْطَلَبْ, atau فَاعِلَاتُنْ utuh. Dengan ridf: tambah satu huruf mati, فَاعِلَاتَانْ, seperti syahid kitab 'arudh di papan.",
             "papan": "يَا خَلِيلَيَّ ارْبَعَا فَاسْـ / ـتَخْبِرَا رَسْمًا بِعُسْفَانْ\nمَنْ بِعُسْفَانْ = 10110100 = فَاعِلَاتَانْ (tasbigh)\n(al-'Iqd al-Farid, juz 5, bab 'arudh: adh-dharb al-musyba')"
           },
           {
@@ -124,7 +124,7 @@
         "Lihat huruf sebelum rawiy: و pada ثُبُوتُ. Huruf mad yang tepat sebelum rawiy disebut **ridf**. Contoh kedua berakhir الْعَنْكَبُوتُ: rawiy ت dhammah, ridf و. Dua bait itu satu qafiyah.",
         "Contoh ketiga, «مُقْفِرَاتٌ دَارِسَاتٌ / مِثْلَ آيَاتِ الزَّبُورِ», juga ber-ridf و dengan rawiy ر kasrah. Seandainya bait berikutnya berakhir الْكَبِيرِ (ridf ي), itu tetap sah. Ridf و dan ي boleh bergantian karena keduanya mad yang serumpun: dhammah dengan waw, kasrah dengan ya. Ridf alif tidak boleh dicampur dengan keduanya.",
         "Contoh keempat adalah bait latihan: «طَالِبَ الْعِلْمِ تَأَدَّبْ / كُنْ صَبُورًا فِي الطَّلَبْ». Ujungnya فِطْطَلَبْ: rawiy ب disukunkan. Qafiyah yang rawiy-nya mati disebut **muqayyadah**. Di ramal majzu', dharb jenis ini menjadi فَاعِلُنْ (10110).",
-        "Peragaan Hudhud menunjukkan jebakannya. Kalau ثُبُوتُ disukunkan menjadi ثُبُوتْ, dharb-nya فَاعِلَانْ (101100), bentuk yang tidak dipakai ramal majzu'. Jadi muqayyadah tidak bisa dibuat hanya dengan mensukunkan kata muthlaqah. Ia punya bentuknya sendiri: فَاعِلُنْ tanpa ridf, atau فَاعِلَاتَانْ dengan ridf (رِضْوَانْ).",
+        "Peragaan Hudhud menunjukkan jebakannya. Kalau ثُبُوتُ disukunkan menjadi ثُبُوتْ, dharb-nya فَاعِلَانْ (101100), bentuk yang tidak dipakai ramal majzu'. Jadi muqayyadah tidak bisa dibuat hanya dengan mensukunkan kata muthlaqah. Ia punya bentuknya sendiri: tanpa ridf (فَاعِلُنْ atau فَاعِلَاتُنْ utuh), atau فَاعِلَاتَانْ dengan ridf (رِضْوَانْ).",
         "Muthlaqah dan muqayyadah mirip washal dan waqaf dalam tajwid: ujung dibaca dengan harakat, atau dengan sukun. Bedanya, dalam qashidah pilihan itu dibuat sekali di bait pertama dan tidak berganti-ganti."
       ],
       "keliru": [
@@ -146,7 +146,7 @@
       ],
       "qaidah": [
         "**Muthlaqah**: rawiy berharakat lalu dipanjangkan. Fathah → ا (دَهْرَا), kasrah → ي (الزَّبُورِي), dhammah → و (ثُبُوتُو). Di ramal majzu' ujungnya biasanya فَاعِلَاتُنْ.",
-        "**Muqayyadah**: rawiy sukun. Di ramal majzu' hanya dua bentuk: **فَاعِلُنْ** tanpa ridf (فِطْطَلَبْ) atau **فَاعِلَاتَانْ** dengan ridf (بِعُسْفَانْ، رِضْوَانْ). فَاعِلَانْ (ثُبُوتْ، لِلْكِبَارْ) tidak termasuk.",
+        "**Muqayyadah**: rawiy sukun. Tanpa ridf, ujungnya mengikuti hitungan biasa: **فَاعِلُنْ** (فِطْطَلَبْ) atau فَاعِلَاتُنْ utuh (وَاجْتَهِدْ فِيهِ لِتُحْمَدْ). Dengan ridf, suku terakhirnya sangat panjang dan hanya muat di **فَاعِلَاتَانْ** (بِعُسْفَانْ، رِضْوَانْ). فَاعِلَانْ (ثُبُوتْ، لِلْكِبَارْ) tidak dipakai ramal majzu'.",
         "**Ridf** = huruf mad tepat sebelum rawiy. Ridf **و dan ي boleh bergantian** dalam satu qashidah (حَرِيرِ / الزَّبُورِ). Ridf **ا** harus tetap ا.",
         "Pilih wajah qafiyah di bait pertama, lalu setia sampai akhir: rawiy, harakat (atau sukun), dan jenis ridf-nya sama."
       ],
