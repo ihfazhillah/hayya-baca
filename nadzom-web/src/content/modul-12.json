@@ -892,7 +892,7 @@
           },
           {
             "tampil": "teks",
-            "kata": "Setelah kelima bait lulus timbangan dan tashih, salin ke Diwan sebagai satu qashidah. Di bawahnya catat bahr pilihan Anda dan kata ujung yang belum terpakai. Sisa daftar itu bahan Laci saya untuk Boss 3.",
+            "kata": "Setelah kelima bait lulus timbangan dan tashih, salin ke Diwan sebagai satu qashidah. Di bawahnya catat bahr pilihan Anda dan kata ujung yang belum terpakai. Sisa daftar itu bahan Laci saya untuk bait-bait berikutnya.",
             "papan": "Diwan · Nuniyah Kecil · 5 bait\nBahr pilihan\nKata ujung yang tersisa"
           }
         ],
@@ -1061,7 +1061,7 @@
         },
         {
           "jenis": "panen",
-          "petunjuk": "Panen untuk Laci saya dari bait al-Mutanabbi, bekal Boss 3. Kotak taf'ilah disembunyikan: potong sendiri satu مُفَاعَلَتُنْ utuh, beri arti, simpan.",
+          "petunjuk": "Panen untuk Laci saya dari bait al-Mutanabbi, bekal Laci saya untuk bait-bait berikutnya. Kotak taf'ilah disembunyikan: potong sendiri satu مُفَاعَلَتُنْ utuh, beri arti, simpan.",
           "bait": [
             "أُرُوضُ النَّاسِ مِنْ تُرْبٍ وَخَوْفٍ",
             "وَأَرْضُ أَبِي شُجَاعٍ مِنْ أَمَانِ"
