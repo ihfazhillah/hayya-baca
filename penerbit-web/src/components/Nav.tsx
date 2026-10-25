@@ -58,7 +58,7 @@ function BannerSimulasi() {
   )
 }
 
-/** Nav area Pemeriksa: Pojok Orang Tua + pilihan penulis bila lebih dari satu. */
+/** Nav area Pemeriksa: baris atas judul + akun (pilihan penulis, simulasi, keluar), baris bawah tautan halaman. */
 export function NavOrtu() {
   const { me, penulisDipilih, pilihPenulis, gantiSimulasi } = useMe()
   const { logout } = useAuth()
@@ -69,22 +69,13 @@ export function NavOrtu() {
   }
   const penulis = me?.pemeriksa ?? []
   return (
-    <nav className="nav tidak-dicetak">
+    <nav className="nav nav-ortu tidak-dicetak">
       <div className="nav-inner">
         <div className="nav-title">
           <span className="nav-course-label">Penerbit Rumah</span>
           <Link to="/ortu">Pojok Orang Tua</Link>
         </div>
         <div className="nav-links">
-          <NavLink to="/ortu/lembar">Pemeriksaan</NavLink>
-          <NavLink to="/ortu/pertanyaan">Pertanyaan</NavLink>
-          <NavLink to="/ortu/kartu-pamer">Kartu Pamer</NavLink>
-          <NavLink to="/ortu/soal">Soal Anak</NavLink>
-          <NavLink to="/ortu/naskah">Naskah</NavLink>
-          <NavLink to="/ortu/stiker">Stiker</NavLink>
-          <NavLink to="/ortu/prompt">Prompt</NavLink>
-          <NavLink to="/ortu/hadiah">Hadiah</NavLink>
-          <NavLink to="/ortu/cetak">Cetak</NavLink>
           {penulis.length > 1 && (
             <select
               aria-label="Pilih penulis"
@@ -99,6 +90,17 @@ export function NavOrtu() {
           )}
           <button className="btn btn-ghost" onClick={logout}>Keluar</button>
         </div>
+      </div>
+      <div className="nav-baris-ortu nav-links">
+        <NavLink to="/ortu/lembar">Pemeriksaan</NavLink>
+        <NavLink to="/ortu/pertanyaan">Pertanyaan</NavLink>
+        <NavLink to="/ortu/kartu-pamer">Kartu Pamer</NavLink>
+        <NavLink to="/ortu/soal">Soal Anak</NavLink>
+        <NavLink to="/ortu/naskah">Naskah</NavLink>
+        <NavLink to="/ortu/stiker">Stiker</NavLink>
+        <NavLink to="/ortu/prompt">Prompt</NavLink>
+        <NavLink to="/ortu/hadiah">Hadiah</NavLink>
+        <NavLink to="/ortu/cetak">Cetak</NavLink>
       </div>
     </nav>
   )

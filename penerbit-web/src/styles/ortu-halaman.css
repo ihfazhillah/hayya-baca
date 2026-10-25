@@ -2,7 +2,13 @@
 
 /* ---- Umum area Pemeriksa: padat, tenang (mock-up Ortu*: judul 28px, jarak antarbagian 24px) ---- */
 .area-ortu { background: var(--color-surface); min-height: 100vh; }
-.area-ortu .page { padding-top: calc(var(--nav-height) + var(--space-8)); }
+.area-ortu .page { padding-top: calc(var(--nav-height) + 40px + var(--space-8)); }
+.nav.nav-ortu { height: calc(var(--nav-height) + 40px); }
+.nav-ortu .nav-inner { height: var(--nav-height); }
+.nav-baris-ortu { max-width: var(--content-width); margin: 0 auto; height: 40px; padding: 0 var(--space-6);
+  display: flex; align-items: center; gap: var(--space-5); overflow-x: auto; scrollbar-width: none; }
+.nav-baris-ortu a.active { color: var(--color-accent); font-weight: 600; }
+@media (max-width: 640px) { .nav-baris-ortu { padding: 0 var(--space-4); gap: var(--space-4); } }
 .area-ortu .page-title { font-size: var(--text-3xl); margin-top: 0; }
 .area-ortu .page > * + * { margin-top: var(--space-6); }
 .area-ortu .page > .page-title + .kecil { margin-top: var(--space-1); }
@@ -14,7 +20,7 @@
 /* Kolom kiri dan kanan mulai di garis yang sama. */
 .area-ortu .dua-kolom { align-items: start; }
 .area-ortu .dua-kolom > * { margin-top: 0; }
-@media (min-width: 861px) { .kartu-hasil { position: sticky; top: calc(var(--nav-height) + var(--space-4)); } }
+@media (min-width: 861px) { .kartu-hasil { position: sticky; top: calc(var(--nav-height) + 40px + var(--space-4)); } }
 .kembali { display: inline-block; font-size: var(--text-sm); margin-bottom: var(--space-2); }
 .pesan-ok { color: var(--color-success); font-size: var(--text-sm); }
 .formulir { display: grid; gap: var(--space-3); align-content: start; }
@@ -98,7 +104,7 @@ details + details { margin-top: var(--space-2); }
 .jalur-ortu .punya { color: var(--color-success); font-weight: 600; }
 .jalur-ortu .diminta { color: var(--color-accent); font-weight: 600; }
 .panel-ortu > .kartu + .kartu { margin-top: var(--space-4); }
-@media (min-width: 861px) { .naskah-baca { align-self: start; position: sticky; top: calc(var(--nav-height) + var(--space-4)); } }
+@media (min-width: 861px) { .naskah-baca { align-self: start; position: sticky; top: calc(var(--nav-height) + 40px + var(--space-4)); } }
 .panel-ortu .kartu h2 { font-family: var(--font-display); font-size: var(--text-lg); margin: 0 0 var(--space-3); }
 
 /* Prompt anak */
