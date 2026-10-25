@@ -42,8 +42,8 @@ export default function Beranda() {
         {BABAK.map((b) => (
           <article className="babak" key={b.nomor}>
             <div className="babak-kepala">
-              <span className="segel" aria-hidden="true">{b.nomor === 4 ? '+' : b.nomor}</span>
-              <h2>{b.nomor === 4 ? b.judul : `Babak ${b.nomor}: ${b.judul}`}</h2>
+              <span className="segel" aria-hidden="true">{b.nomor}</span>
+              <h2>{`Babak ${b.nomor}: ${b.judul}`}</h2>
               <span className="babak-bahr"><Teks>{b.bahr}</Teks></span>
             </div>
             <p className="babak-ringkas">{b.ringkas}</p>
@@ -57,6 +57,7 @@ export default function Beranda() {
                       <span className="modul-judul">{judulPeta(m)}</span>
                       <span className="modul-fokus">{m.fokus} · hasil: {m.hasil}</span>
                     </span>
+                    {m.jilid && <span className="chip">Jilid {m.jilid}</span>}
                     <span className={aktif ? 'chip ok' : 'chip'}>{aktif ? 'Buka' : 'Segera'}</span>
                   </>
                 )

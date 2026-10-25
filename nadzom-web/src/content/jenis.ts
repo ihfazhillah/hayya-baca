@@ -154,6 +154,8 @@ export interface Modul {
 
 export interface ModulPeta {
   nomor: number
+  /** Jilid 1 (salim), 2 (perubahan bertahap), atau 3 (yang sulit), spec 077. */
+  jilid?: 1 | 2 | 3
   judul: string
   fokus: string
   hasil: string
