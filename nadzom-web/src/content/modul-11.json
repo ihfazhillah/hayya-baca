@@ -145,7 +145,7 @@
         "Contoh kedua: رَضِيتُ بِاللَّهِ وَبِالْقَضَاءِ / مَا أَكْرَمَ الصَّبْرَ عَلَى الْبَلَاءِ. Syathr kedua dibuka dengan ta'ajjub. Wazan مَا أَفْعَلَ yang diikuti kata ber-الْ selalu memberi مَا أَكْ رَمَصْ = 1010110, satu مُسْتَفْعِلُنْ utuh. Ini cetakan siap pakai: ganti dengan مَا أَحْسَنَ atau مَا أَعْظَمَ, dan ganti الصَّبْرَ dengan kata sepola.",
         "Contoh ketiga: النَّفْسُ أَعْدَى لَكَ مِمَّا تَحْسَبُ / حَسْبُكَ مِنْ عِلْمِكَ مَا تُجَرِّبُ. Syathr keduanya pas untuk bagian keterampilan (bait 7 dan 8): ilmu menjadi milikmu setelah kau coba sendiri. Perhatikan qafiyahnya: تَحْسَبُ dan تُجَرِّبُ sama-sama fi'il mudhari' marfu'. Harakat rawiy dhammah datang dari i'rab yang sama, jadi pasangan ini kokoh.",
         "Contoh keempat: تَحَرَّ فِيمَا تَطْلُبُ الْبَلَاغَا / وَاغْتَنِمِ الصِّحَّةَ وَالْفَرَاغَا. Ini bahan bait 4: pakai waktu sedikit demi sedikit. Kedua syathr dibuka fi'il amr (تَحَرَّ، اغْتَنِمْ). Nada perintah seperti ini cocok untuk nasihat ayah kepada anak.",
-        "Contoh kelima dan keenam untuk khatimah. Doa يَا رَبِّ أَسْعِدْنِي بِمَا عَلَّمْتَنِي bisa diubah menjadi doa untuk anak hanya dengan mengganti kata ganti: أَسْعِدْهُ، عَلَّمْتَهُ. Dalam syair, ha dhamir boleh dipanjangkan (ـهُو) walaupun huruf sebelumnya mati, jadi panjangnya sama dengan ـنِي dan timbangannya tetap lurus. Sesudah doa, shalawat mengikuti pola فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى.",
+        "Contoh kelima dan keenam untuk khatimah. Doa يَا رَبِّ أَسْعِدْنِي بِمَا عَلَّمْتَنِي bisa diubah menjadi doa untuk anak hanya dengan mengganti kata ganti: أَسْعِدْهُ، عَلَّمْتَهُ. Ha di sini dibaca pendek karena huruf sebelumnya mati (Modul 2), dan timbangannya tetap lurus: عِدْهُ بِمَا = 101110, مُسْتَعِلُنْ dengan thayy (Modul 3). Sesudah doa, shalawat mengikuti pola فَأَحْمَدُ اللَّهَ مُصَلِّيًا عَلَى.",
         "Terakhir, peragaan. Draf pertama memakai التَّكْرَارُ karena maknanya paling pas, dan syathr itu patah: وَتْ تَكْ رَا رُ adalah tiga suku panjang beruntun sebelum satu suku pendek. Hudhud tidak membuang maknanya; ia mengganti katanya dengan الْعَوْدُ لِلدَّرْسِ. Inilah pekerjaan inti Boss ini: makna dijaga, kata diganti, timbang lagi."
       ],
       "keliru": [
@@ -236,7 +236,7 @@
               ],
               "jawaban": 2,
               "arab": true,
-              "alasan": "ذِكْرَا: ra fathah, wazan فِعْل yang sama. صَبْرِ harakatnya kasrah. صَابِرَا punya alif yang berjarak satu huruf sebelum rawiy (ta'sis), صَبْرَا tidak."
+              "alasan": "ذِكْرَا: ra fathah, wazan فِعْل yang sama. صَبْرِ harakatnya kasrah. صَبُورَا punya huruf mad و tepat sebelum rawiy (ridf), صَبْرَا tidak."
             },
             {
               "soal": "Mengapa تَحْسَبُ dan تُجَرِّبُ sama harakat rawiy-nya?",
