@@ -110,6 +110,16 @@ for (const modul of MODUL) {
               expect(g.calon.some((c) => pola(c) === pg), `ada calon sewazan dengan ${g.ganti}`).toBe(true)
               expect(g.calon.some((c) => pola(c) !== pg), `ada calon pengecoh untuk ${g.ganti}`).toBe(true)
             }
+            if (t.jenis === 'salah') {
+              for (const b of t.baris) expect(timbang(b.bait, t.bahr).patah, `lurus tapi salah, harus lurus: ${b.bait[0]}`).toBe(0)
+              expect(t.baris.some((b) => b.salah === null), 'ada baris yang benar').toBe(true)
+              expect(t.baris.some((b) => b.salah !== null), 'ada baris yang salah').toBe(true)
+            }
+            if (t.jenis === 'cetakan') for (const [j, k] of t.kotak.entries()) for (const kata of k.terima ?? []) {
+              let baris = t.cetakan
+              t.kotak.forEach((x, n) => { baris = baris.replace(`{${n + 1}}`, n === j ? kata : x.contoh[0]) })
+              expect(timbang([baris], t.bahr).patah, `jawaban diterima harus lurus: ${baris}`).toBe(0)
+            }
             if (t.jenis === 'tebak') {
               expect(t.baris.length, 'tebak: minimal 5 bait').toBeGreaterThanOrEqual(5)
               for (const b of t.baris) {

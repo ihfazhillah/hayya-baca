@@ -28,14 +28,19 @@ interface Props {
   sampai?: number
   /** Saring: hanya kata dari bahr ini (dan kata umum). */
   bahr?: KodeBahr
+  /** Saring: hanya kata bertema ini (Fase E). */
+  tema?: string
 }
 
 /** Laci kata: Laci saya (hasil panen sendiri) lalu laci bawaan, dikelompokkan per laci, dengan pola bit dan asalnya. */
-export default function Laci({ kata, pilihLaci = true, sampai, bahr }: Props) {
+export default function Laci({ kata, pilihLaci = true, sampai, bahr, tema }: Props) {
   const id = useId()
   const [laci, setLaci] = useState<JenisLaci | 'semua'>('semua')
   const [cari, setCari] = useState('')
-  const sumber = useMemo(() => kata ?? (sampai === undefined ? BANK_KATA : laciUntuk(sampai, bahr)), [kata, sampai, bahr])
+  const sumber = useMemo(() => {
+    const dasar = kata ?? (sampai === undefined ? BANK_KATA : laciUntuk(sampai, bahr))
+    return tema ? dasar.filter((k) => k.tema?.includes(tema)) : dasar
+  }, [kata, sampai, bahr, tema])
   const isi = useMemo(() => sumber.map((k) => ({ ...k, pola: pola(k.teks) })), [sumber])
   const q = cari.trim().toLowerCase()
   const cocok = q

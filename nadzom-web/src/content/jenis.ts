@@ -64,8 +64,14 @@ export type Tamrin =
       petunjuk: string
       /** Teks cetakan; `{1}`, `{2}` = kotak isian. */
       cetakan: string
-      kotak: { petunjuk: string; pola: string; contoh: string[] }[]
+      kotak: KotakCetakan[]
       bahr: KodeBahr
+      /** Fase E: sasaran makna baris (tugas "isi sesuai makna"). */
+      makna?: string
+      /** Fase E: arti baris wajib ditulis sebelum disimpan. */
+      arti?: true
+      /** Laci hanya menampilkan kata bertema ini. */
+      tema?: string
       /** Berapa baris berbeda yang harus dibuat. */
       jumlah: number
     }
@@ -84,6 +90,14 @@ export type Tamrin =
       judulDiwan?: string
       /** Mu'aradhah: bait model yang dipinjam bahr dan qafiyahnya. Isian bisa dimulai dari bait ini. */
       pola?: { bait: string[]; sumber: string }
+      /** Fase E: arti bait wajib ditulis sebelum salin ke Diwan. */
+      arti?: true
+      /** Fase E: syarh singkat (i'rab dan makna) wajib sebelum salin ke Diwan. */
+      syarh?: true
+      /** Fase E: tombol "Salin untuk diperiksa" (ustadz atau Claude). */
+      periksa?: true
+      /** Laci hanya menampilkan kata bertema ini. */
+      tema?: string
       /** Boss (spec 077): bantuan yang masih diberikan dan yang dicabut di sini. */
       bantuan?: { diberi: string[]; dicabut: string[] }
       /** Daftar periksa tashih i'rab sebelum salin ke Diwan; mesin tidak memeriksa lughah. */
@@ -91,6 +105,8 @@ export type Tamrin =
       /** Tangga latihan bertahap, ditampilkan berurutan. Butir bercalon: pilih sendiri mana yang sewazan dengan `ganti`. */
       tangga?: (string | { teks: string; ganti: string; calon: string[] })[]
     }
+  /** Lurus tapi salah (Fase E): semua baris lurus; tandai mana yang salah i'rab, rusak makna, atau keluar tema. */
+  | { jenis: 'salah'; petunjuk: string; bahr: KodeBahr; baris: { bait: string[]; salah: JenisSalah | null; alasan: string }[] }
   /** Tebak bahr (spec 077): bait asing tanpa petunjuk; pilih bahrnya, mesin menunjukkan timbangannya. */
   | { jenis: 'tebak'; petunjuk: string; pilihan: KodeBahr[]; baris: { bait: string[]; bahr: KodeBahr; sumber: string }[] }
   /** Panen laci: pilih kata berurutan dari bait yang pas mengisi satu taf'ilah, beri arti, simpan ke Laci saya (spec 077). */
@@ -105,6 +121,28 @@ export type Tamrin =
       kotak: boolean
       sumber: string
     }
+
+export type JenisSalah = "i'rab" | 'makna' | 'tema'
+
+export type Harakat = 'u' | 'a' | 'i' | 'sukun'
+
+export interface KotakCetakan {
+  petunjuk: string
+  pola: string
+  contoh: string[]
+  /** Fase E: jenis kata yang diminta, mis. "isim nakirah bertanwin". */
+  jenis?: string
+  /** Fase E: peran i'rab kotak ini; pelajar memilih peran dan harakat akhirnya diperiksa. */
+  peran?: string
+  /** Harakat akhir yang semestinya (u = dhammah/marfu', a = fathah/manshub, i = kasrah/majrur). */
+  harakat?: Harakat
+  /** Tampilkan pilihan tertutup (terima + tolak) sebagai tombol. */
+  pilih?: true
+  /** Jawaban yang diterima; kata lain ditolak walau lurus. */
+  terima?: string[]
+  /** Kata yang lurus tetapi salah tempat, dengan alasannya. */
+  tolak?: { kata: string; alasan: string }[]
+}
 
 export interface Pelajaran {
   nomor: number
@@ -187,6 +225,8 @@ export interface KataBank {
   cocok?: string
   /** Modul asal (diisi saat laci digabung); laci hanya menampilkan modul yang sudah dibuka. */
   modul?: number
+  /** Medan makna, mis. ["sabar"], untuk laci per tema. */
+  tema?: string[]
   /** Bahr asal; kata umum tanpa bahr tampil di semua bahr. */
   bahr?: KodeBahr
 }

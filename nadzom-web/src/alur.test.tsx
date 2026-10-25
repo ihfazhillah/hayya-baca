@@ -18,6 +18,7 @@ import Cetakan from './components/Cetakan'
 import Laci from './components/Laci'
 import Panen from './components/Panen'
 import TebakBahr from './components/TebakBahr'
+import CariSalah from './components/CariSalah'
 import { Jilid } from './components/Jilid'
 import { bacaLaci, imporMarkdown, keMarkdown } from './lib/laciSaya'
 
@@ -395,5 +396,83 @@ describe('panen dari bait sendiri di alat timbang (spec 077)', () => {
     expect(within(panen).getByRole('region', { name: "Kotak taf'ilah" })).toBeInTheDocument()
     await user.click(within(panen).getByRole('button', { name: 'دَارٌ' }))
     expect(panen.textContent).toContain('belum satu taf\'ilah')
+  })
+})
+
+describe('Fase E: dari lurus ke benar dan sesuai (spec 077)', () => {
+  const cetakan = {
+    jenis: 'cetakan' as const, petunjuk: 'Isi.', cetakan: 'الْعِلْمُ {1} فِي الْقُلُوبِ يَسْطَعُ', bahr: 'rajaz' as const, jumlah: 1,
+    makna: 'Ilmu adalah cahaya yang bersinar di hati.', arti: true as const,
+    kotak: [{ petunjuk: 'Khabar', pola: '1010', contoh: ['نُورٌ'], jenis: 'isim nakirah', peran: 'khabar', harakat: 'u' as const, pilih: true as const,
+      terima: ['نُورٌ', 'ضِيَاءٌ'], tolak: [{ kata: 'نَارٌ', alasan: 'Lurus, tetapi maknanya keluar dari sasaran: api, bukan cahaya.' }] }],
+  }
+
+  it('kotak bertipe: pilihan tertutup, kata salah tempat ditolak dengan alasan, kata di luar daftar tidak diterima', async () => {
+    const user = userEvent.setup()
+    render(<Cetakan t={cetakan} />)
+    expect(screen.getByText(/Ilmu adalah cahaya yang bersinar di hati/)).toBeInTheDocument()
+    const isian = screen.getByLabelText('Kotak 1')
+    await user.click(screen.getByRole('button', { name: 'نَارٌ' }))
+    expect((isian as HTMLInputElement).value).toBe('نَارٌ')
+    expect(screen.getByText(/maknanya keluar dari sasaran/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Simpan baris' })).toBeDisabled()
+    await user.clear(isian)
+    await user.type(isian, 'خَيْرٌ')
+    expect(screen.getByText(/belum termasuk jawaban yang diterima/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Simpan baris' })).toBeDisabled()
+  })
+
+  it('label i\'rab dan harakat akhir diperiksa; arti wajib sebelum simpan', async () => {
+    const user = userEvent.setup()
+    render(<Cetakan t={{ ...cetakan, kotak: [{ ...cetakan.kotak[0], terima: undefined, tolak: undefined, pilih: undefined }] }} />)
+    const isian = screen.getByLabelText('Kotak 1')
+    await user.type(isian, 'نُورًا')
+    expect(screen.getByText(/harakat akhirnya fathah; khabar di sini marfu', harakat akhirnya dhammah/)).toBeInTheDocument()
+    await user.clear(isian)
+    await user.type(isian, 'نُورٌ')
+    await user.selectOptions(screen.getByLabelText("Peran kata di kotak 1"), "maf'ul bih")
+    expect(screen.getByText(/Peran kotak ini khabar/)).toBeInTheDocument()
+    await user.selectOptions(screen.getByLabelText("Peran kata di kotak 1"), 'khabar')
+    expect(screen.getByRole('button', { name: 'Simpan baris' })).toBeDisabled()
+    await user.type(screen.getByLabelText('Arti baris ini'), 'Ilmu adalah cahaya yang bersinar di hati.')
+    expect(screen.getByRole('button', { name: 'Simpan baris' })).toBeEnabled()
+  })
+
+  it('latihan lurus tapi salah: tandai jenis kesalahannya, lalu periksa', async () => {
+    const user = userEvent.setup()
+    render(<CariSalah petunjuk="Semua lurus. Mana yang salah?" bahr="rajaz" baris={[
+      { bait: ['الْعِلْمُ نُورٌ فِي الْقُلُوبِ يَسْطَعُ'], salah: null, alasan: 'Benar.' },
+      { bait: ['الْعِلْمُ نُورًا فِي الْقُلُوبِ يَسْطَعُ'], salah: "i'rab", alasan: 'Khabar harus marfu\'.' },
+    ]} />)
+    const pilih = screen.getAllByLabelText(/Penilaian baris/)
+    await user.selectOptions(pilih[0], 'benar')
+    await user.selectOptions(pilih[1], "i'rab")
+    await user.click(screen.getByRole('button', { name: 'Periksa' }))
+    expect(screen.getByText('2 dari 2 tepat')).toBeInTheDocument()
+    expect(screen.getByText(/Khabar harus marfu'/)).toBeInTheDocument()
+  })
+
+  it('susun Boss: arti dan syarh wajib sebelum salin; Salin untuk diperiksa memuat bait, arti, syarh, dan timbangan', async () => {
+    const user = userEvent.setup()
+    render(<Susun t={{ jenis: 'susun', petunjuk: 'Susun.', bahr: 'rajaz', makna: 'Bebas.', bankKata: false, arti: true, syarh: true, periksa: true }} />)
+    await user.type(screen.getByLabelText(/Bait Anda/), 'دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ\nقَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.queryByRole('button', { name: 'Salin Markdown' })).toBeNull()
+    await user.type(screen.getByLabelText('Arti bait Anda'), 'Rumah Salma, ketika Sulaima masih bertetangga.')
+    await user.type(screen.getByLabelText(/Syarh singkat/), 'دَارٌ khabar dari mubtada yang dibuang.')
+    expect(screen.getByRole('button', { name: 'Salin Markdown' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Salin untuk diperiksa' }))
+    const teks = (screen.getByLabelText('Teks untuk diperiksa') as HTMLTextAreaElement).value
+    expect(teks).toContain('دَارٌ لِسَلْمَى')
+    expect(teks).toContain('Rumah Salma')
+    expect(teks).toContain('khabar dari mubtada')
+    expect(teks).toContain('Rajaz')
+    expect(teks).toMatch(/i'rab/)
+  })
+
+  it('laci tema: hanya kata bertema yang diminta', () => {
+    render(<Laci kata={[{ teks: 'صَبْرٌ', arti: 'sabar', tema: ['sabar'] }, { teks: 'عِلْمٌ', arti: 'ilmu', tema: ['ilmu'] }]} tema="sabar" />)
+    expect(screen.getByText('sabar')).toBeInTheDocument()
+    expect(screen.queryByText('ilmu')).toBeNull()
   })
 })

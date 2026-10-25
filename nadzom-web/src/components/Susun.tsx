@@ -3,7 +3,7 @@ import type { Tamrin } from '@/content/jenis'
 import { kitabahBait } from '@/lib/kitabah'
 import { cariBahr } from '@/lib/bahr'
 import { belumUtuh, timbangBait } from '@/lib/timbang'
-import { diwanQasidah, pisahQasidah } from '@/lib/latihan'
+import { diwanMarkdown, diwanQasidah, pisahQasidah } from '@/lib/latihan'
 import { bedaUjung, periksaDharb, periksaQafiyah, type MasalahQafiyah } from '@/lib/qafiyah'
 import type { HasilBait, Huruf } from '@/lib/jenis'
 import Teks from './Teks'
@@ -46,7 +46,11 @@ export default function Susun({ t }: { t: TamrinSusun }) {
   const [buka, setBuka] = useState<number | null>(null)
   const { salim, modul } = useJilid()
   const [periksa, setPeriksa] = useState<boolean[]>(() => TASHIH.map(() => false))
-  const bolehSalin = !t.tashih || periksa.every(Boolean)
+  const [arti, setArti] = useState('')
+  const [syarh, setSyarh] = useState('')
+  const [teksPeriksa, setTeksPeriksa] = useState(false)
+  const bolehSalin = (!t.tashih || periksa.every(Boolean)) && (!t.arti || !!arti.trim()) && (!t.syarh || !!syarh.trim())
+  const catatanDiwan = () => [arti.trim() && `- Arti: ${arti.trim()}`, syarh.trim() && `- Syarh: ${syarh.trim()}`].filter(Boolean).map((x) => `${x}\n`).join('')
   const pola = useMemo(() => {
     if (!t.pola) return null
     const k = kitabahBait(t.pola.bait)
@@ -203,7 +207,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
         </div>
       )}
       {akhir && !banyak && (
-        <HasilTimbang key={versi.length} hasil={akhir.hasil[0]} bait={akhir.bait[0]} salin={bolehSalin} judulDiwan={`${judulDiwan} v${versi.length}`} />
+        <HasilTimbang key={versi.length} hasil={akhir.hasil[0]} bait={akhir.bait[0]} salin={bolehSalin && !t.arti && !t.syarh} judulDiwan={`${judulDiwan} v${versi.length}`} />
       )}
       {akhir && banyak && (
         <div className="tumpuk" key={versi.length}>
@@ -236,9 +240,54 @@ export default function Susun({ t }: { t: TamrinSusun }) {
               )
             })}
           </ol>
-          {bolehSalin && <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanQasidah(judul, akhir.bait, akhir.hasil)} />}
+          {bolehSalin && <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanQasidah(judul, akhir.bait, akhir.hasil) + catatanDiwan()} />}
+        </div>
+      )}
+      {akhir && (t.arti || t.syarh) && (
+        <div className="kartu tumpuk-kecil">
+          {t.arti && (
+            <>
+              <label htmlFor={`${id}-arti`}>Arti bait Anda</label>
+              <textarea id={`${id}-arti`} rows={2} value={arti} onChange={(e) => setArti(e.target.value)} placeholder="Makna yang Anda maksud, dalam bahasa Indonesia" />
+            </>
+          )}
+          {t.syarh && (
+            <>
+              <label htmlFor={`${id}-syarh`}>Syarh singkat: i'rab dan makna per syathr</label>
+              <textarea id={`${id}-syarh`} rows={4} value={syarh} onChange={(e) => setSyarh(e.target.value)} placeholder="Seperti syarah matan: kedudukan kata penting dan makna tiap syathr" />
+            </>
+          )}
+          <span className="bantu">Bait yang belum bisa Anda syarah belum matang. Ditulis dulu, baru disalin ke Diwan.</span>
+        </div>
+      )}
+      {akhir && !banyak && bolehSalin && (t.arti || t.syarh) && (
+        <SalinDiwan judulAwal={`${judulDiwan} v${versi.length}`} buatMd={(judul) => diwanMarkdown(judul, akhir.bait[0], akhir.hasil[0]) + catatanDiwan()} />
+      )}
+      {akhir && t.periksa && (
+        <div className="tumpuk-kecil">
+          <button type="button" className="tombol" onClick={() => setTeksPeriksa(!teksPeriksa)} aria-expanded={teksPeriksa}>Salin untuk diperiksa</button>
+          {teksPeriksa && (
+            <>
+              <textarea readOnly rows={10} aria-label="Teks untuk diperiksa" value={teksUntukDiperiksa(akhir, t.makna, arti, syarh)} onFocus={(e) => e.target.select()} />
+              <span className="bantu">Kirim ke ustadz atau tempel ke Claude. Wazan sudah ditimbang mesin; yang diminta adalah pemeriksaan i'rab, kata, makna, dan tema.</span>
+            </>
+          )}
         </div>
       )}
     </div>
   )
+}
+
+/** Fase E: satu teks untuk pembaca luar (ustadz atau Claude): bait, timbangan, maksud penulis, dan apa yang diminta. */
+function teksUntukDiperiksa(v: Versi, tema: string, arti: string, syarh: string): string {
+  const bahr = v.hasil[0]?.bahr.nama ?? '-'
+  return [
+    "Mohon periksa bait latihan saya. Wazannya sudah ditimbang mesin. Yang saya minta: i'rab, pilihan kata (apakah lazim dipakai orang Arab), apakah makna yang saya maksud sampai, dan kesesuaian dengan tema.",
+    '',
+    ...v.bait.flatMap((b, i) => [`Bait ${i + 1}:`, ...b.map((s) => `> ${s}`), `(${bahr}, patah ${v.hasil[i]?.patah ?? '?'}, pola ${v.hasil[i]?.syathr.map((s) => s.potongan.map((p) => p.bit).join(' ')).join(' / ') ?? '-'})`]),
+    '',
+    `Tema: ${tema}`,
+    arti.trim() ? `Arti yang saya maksud: ${arti.trim()}` : '',
+    syarh.trim() ? `Syarh saya: ${syarh.trim()}` : '',
+  ].filter((x, i, a) => x !== '' || a[i - 1] !== '').join('\n')
 }
