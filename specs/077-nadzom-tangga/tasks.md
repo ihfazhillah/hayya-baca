@@ -41,5 +41,5 @@
 - [x] E5 Deploy
 
 ## Sisa
-- [ ] Audit akhir lintas modul (nahwu baris buatan, istilah sebelum waktunya, rujukan silang)
+- [x] Audit akhir lintas modul (nahwu baris buatan, istilah sebelum waktunya, rujukan silang)
 - [ ] Review tampilan di browser
