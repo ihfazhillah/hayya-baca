@@ -6,6 +6,7 @@ import { tebakBahr, timbangBait } from '@/lib/timbang'
 import type { HasilBait } from '@/lib/jenis'
 import HasilTimbang from '@/components/HasilTimbang'
 import TaqthiBertahap from '@/components/TaqthiBertahap'
+import Panen from '@/components/Panen'
 
 const CONTOH = 'دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ\nقَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ'
 
@@ -17,6 +18,8 @@ export default function Checker() {
   const [teks, setTeks] = useState(CONTOH)
   const [kodeBahr, setKodeBahr] = useState('otomatis')
   const [mode, setMode] = useState<Mode>('cepat')
+  const [kotak, setKotak] = useState(false)
+  const [sumber, setSumber] = useState('')
   const [dikirim, setDikirim] = useState<{ teks: string; kodeBahr: string; mode: Mode; nonce: number }>({ teks: CONTOH, kodeBahr: 'otomatis', mode: 'cepat', nonce: 0 })
 
   const bait = pisahBait(dikirim.teks)
@@ -74,6 +77,23 @@ export default function Checker() {
           ? <div className="kartu"><TaqthiBertahap key={dikirim.nonce} bait={bait} bahr={bahr} /></div>
           : <HasilTimbang key={dikirim.nonce} hasil={hasil} bait={bait} salin />)}
       </section>
+
+      {hasil && !latin && hasil.patah === 0 && (
+        <section className="kartu tumpuk" aria-label="Panen dari bait ini">
+          <span className="label">Panen dari bait ini</span>
+          <div className="baris" style={{ alignItems: 'flex-end' }}>
+            <div className="isian" style={{ flex: '1 1 220px' }}>
+              <label htmlFor={`${idTeks}-sumber`}>Sumber bait</label>
+              <input id={`${idTeks}-sumber`} type="text" value={sumber} onChange={(e) => setSumber(e.target.value)} placeholder="mis. Alfiyah bait 25, atau nasyid yang didengar" />
+            </div>
+            <label className="baris" style={{ cursor: 'pointer' }}>
+              <input type="checkbox" checked={kotak} onChange={(e) => setKotak(e.target.checked)} />
+              <span>Tampilkan kotak taf'ilah (bantuan)</span>
+            </label>
+          </div>
+          <Panen key={`${dikirim.nonce}-${kotak}`} t={{ jenis: 'panen', petunjuk: "Pilih kata berurutan yang pas satu taf'ilah utuh, beri arti, simpan ke Laci saya.", bait, bahr: hasil.bahr.kode, jumlah: 1, kotak, sumber: sumber.trim() || 'bait sendiri' }} />
+        </section>
+      )}
     </>
   )
 }

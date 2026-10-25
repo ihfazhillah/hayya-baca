@@ -375,3 +375,16 @@ describe('tebak bahr (spec 077)', () => {
     expect(document.querySelector('.pesan.ok')?.textContent).toContain('Khafif. Syathr pertama: فَاعِلَاتُنْ')
   })
 })
+
+describe('panen dari bait sendiri di alat timbang (spec 077)', () => {
+  it('bait yang ditempel bisa dipanen; kotak taf\'ilah tersembunyi kecuali diminta', async () => {
+    const user = userEvent.setup()
+    buka('/timbang')
+    const panen = screen.getByRole('region', { name: 'Panen dari bait ini' })
+    expect(within(panen).queryByRole('region', { name: "Kotak taf'ilah" })).toBeNull()
+    await user.click(within(panen).getByRole('checkbox', { name: /Tampilkan kotak/ }))
+    expect(within(panen).getByRole('region', { name: "Kotak taf'ilah" })).toBeInTheDocument()
+    await user.click(within(panen).getByRole('button', { name: 'دَارٌ' }))
+    expect(panen.textContent).toContain('belum satu taf\'ilah')
+  })
+})
