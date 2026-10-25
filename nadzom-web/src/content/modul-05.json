@@ -189,7 +189,7 @@
                 "Tidak, karena jumlah hurufnya berbeda"
               ],
               "jawaban": 0,
-              "alasan": "Alif maqshurah dan alif ithlaq sama-sama hanya ekor bunyi. Bentuk tulisannya beda, bunyinya sama, rawiy-nya sama."
+              "alasan": "Di sini alif maqshurah pada الْمُصْطَفَى berlaku seperti alif ithlaq: ekor bunyi setelah rawiy ف. Bentuk tulisannya beda, bunyinya sama, rawiy-nya sama."
             },
             {
               "soal": "Syathr pertama berakhir أَلَمْ. Mana ujung syathr kedua yang berpasangan?",
@@ -648,7 +648,7 @@
           {
             "tampil": "teks",
             "kata": "Lalu pilih **pasangan qafiyah per bait**. Ini kelebihan muzdawij: setiap bait cukup dua kata yang berpasangan. Ambil dari laci.",
-            "papan": "1. ـرِهِ: تَقْدِيرِهِ / أُمُورِهِ\n2. ـفَى: الْمُصْطَفَى / الشَّرَفَا\n3. ـلَالِ: الْحَلَالِ / الْعِيَالِ\n4. ـلَاءِ: الْقَضَاءِ / الْبَلَاءِ\n5. ـرَهْ: الْبَرَرَهْ / الْخِيَرَهْ"
+            "papan": "1. ـرِهِ: تَقْدِيرِهِ / أُمُورِهِ\n2. ـرَهْ: الْبَرَرَهْ / الْخِيَرَهْ\n3. ـلَالِ: الضَّلَالِ / الْإِجْلَالِ\n4. ـلَاءِ: الْقَضَاءِ / الْبَلَاءِ\n5. ـامِ: الْخِتَامِ / الْإِنْعَامِ"
           },
           {
             "tampil": "bait",
@@ -1021,6 +1021,24 @@
       "arti": "meskipun sedikit",
       "laci": "hasyw",
       "dari": "Dzat al-Amtsal"
+    },
+    {
+      "teks": "الضَّلَالِ",
+      "arti": "kesesatan",
+      "laci": "qafiyah",
+      "catatan": "Rawiy ل kasrah, ridf ا. Pasangan الْإِجْلَالِ: ilmu menjauhkan dari kesesatan dan membawa kemuliaan."
+    },
+    {
+      "teks": "الْإِجْلَالِ",
+      "arti": "pemuliaan, penghormatan",
+      "laci": "qafiyah",
+      "catatan": "Pasangan الضَّلَالِ."
+    },
+    {
+      "teks": "الْخِتَامِ",
+      "arti": "penutup",
+      "laci": "qafiyah",
+      "catatan": "Rawiy م kasrah, ridf ا. Pasangan الْإِنْعَامِ untuk doa penutup (حُسْنُ الْخِتَامِ)."
     }
   ]
 }
