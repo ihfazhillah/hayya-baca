@@ -74,12 +74,12 @@ export interface MasalahQafiyah {
  * `muzdawij`: dua syathr setiap bait berqafiyah sama, bait berikutnya boleh berganti (Alfiyah).
  * `satu`: ujung setiap bait mengikuti ujung bait pertama (qashidah).
  */
-export function periksaQafiyah(bait: Huruf[][][], pola: 'muzdawij' | 'satu'): MasalahQafiyah[] {
+export function periksaQafiyah(bait: Huruf[][][], pola: 'muzdawij' | 'satu', istilah = true): MasalahQafiyah[] {
   const masalah: MasalahQafiyah[] = []
   if (pola === 'muzdawij') {
     bait.forEach((s, k) => {
       if (s.length < 2) return
-      const m = beda(qafiyah(s[0]), qafiyah(s[s.length - 1]))
+      const m = beda(qafiyah(s[0]), qafiyah(s[s.length - 1]), istilah)
       if (m) masalah.push({ bait: k + 1, pesan: `Dua syathr tidak berpasangan: ${m}.` })
     })
     return masalah
@@ -87,7 +87,7 @@ export function periksaQafiyah(bait: Huruf[][][], pola: 'muzdawij' | 'satu'): Ma
   const acuan = bait[0] ? qafiyah(bait[0][bait[0].length - 1]) : null
   if (!acuan) return masalah
   bait.slice(1).forEach((s, k) => {
-    const m = beda(acuan, qafiyah(s[s.length - 1]))
+    const m = beda(acuan, qafiyah(s[s.length - 1]), istilah)
     if (m) masalah.push({ bait: k + 2, pesan: `Ujung bait: ${m}.` })
   })
   return masalah

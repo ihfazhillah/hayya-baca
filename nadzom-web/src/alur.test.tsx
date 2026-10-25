@@ -274,6 +274,14 @@ describe('Jilid 1: mode salim (spec 077)', () => {
     expect(screen.getByText('utuh semua')).toBeInTheDocument()
   })
 
+  it('satu bait muzdawij: dua syathr yang ujungnya lain ditandai', async () => {
+    const user = userEvent.setup()
+    render(salim(<Susun t={{ ...susun, qafiyah: 'muzdawij' }} />))
+    await user.type(screen.getByLabelText(/Bait Anda/), 'دَارٌ لِسَلْمَى إِذْ سُلَيْمَى جَارَةٌ\nقَفْرٌ تَرَى آيَاتِهَا مِثْلَ الزُّبُرْ')
+    await user.click(screen.getByRole('button', { name: 'Timbang' }))
+    expect(screen.getByText(/Dua syathr tidak berpasangan/)).toBeInTheDocument()
+  })
+
   it('cetakan: baris lurus yang berubah tidak bisa disimpan di Jilid 1', async () => {
     const user = userEvent.setup()
     const t = { jenis: 'cetakan' as const, petunjuk: 'Isi.', cetakan: '{1} بَحْرٌ يَسْهُلُ', bahr: 'rajaz' as const, jumlah: 1, kotak: [{ petunjuk: 'Satu taf\'ilah lebih', pola: '1010110 10', contoh: ['فِي أَبْحُرِ الْأَرْجَازِ'] }] }

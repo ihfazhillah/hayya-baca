@@ -62,7 +62,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
     setGalat('')
     setBuka(null)
     const hasil = syathr.map((s) => timbangBait(s, bahr))
-    const qafiyah = banyak && t.qafiyah ? periksaQafiyah(syathr, t.qafiyah) : []
+    const qafiyah = t.qafiyah ? periksaQafiyah(syathr, t.qafiyah, !salim) : []
     if (banyak && t.qafiyah === 'satu') qafiyah.push(...periksaDharb(hasil))
     const acuan = pola?.syathr.at(-1)?.huruf
     if (acuan)
