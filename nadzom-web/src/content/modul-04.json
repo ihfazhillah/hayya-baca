@@ -92,7 +92,7 @@
       },
       "syarh": [
         "Perhatikan contoh pertama, bait pembuka Tuhfat al-Athfal. Inti kalimatnya: يَقُولُ رَاجِي رَحْمَةِ الْغَفُورِ سُلَيْمَانُ الْجَمْزُورِي. Dua kata ditambahkan: دَوْمًا (selalu) dan هُوَ. Tanpa keduanya, syathr kedua kehilangan enam huruf dan dua taf'ilahnya patah. Dengan keduanya, syathr itu lurus: دَوْمَنْسُلَيْ = 1010110, lalu مَانُهُوَلْ = 101110.",
-        "Lalu contoh kedua dari al-Baiquniyyah. Definisi gharib sebenarnya cukup: مَا رَوَى رَاوٍ. Tetapi syathr itu dibuka dengan وَقُلْ dan ditutup dengan فَقَطْ. Keduanya berpola **110**, satu watad. فَقَطْ juga membawa qafiyah ـقَطْ, pasangan سَقَطْ. Coba cabut وَقُلْ: taf'ilah pertama tinggal 110 dan patah.",
+        "Lalu contoh kedua dari al-Baiquniyyah. Definisi gharib sebenarnya cukup: مَا رَوَى رَاوٍ. Tetapi syathr itu dibuka dengan وَقُلْ dan ditutup dengan فَقَطْ. Keduanya berpola **110**, satu watad. فَقَطْ juga membawa qafiyah ـقَطْ, pasangan سَقَطْ. Coba cabut وَقُلْ: syathr kehilangan satu watad (110), seluruh susunannya bergeser, dan timbangannya patah.",
         "Contoh ketiga: فَلْتَعْرِفِ (ketahuilah). Kata perintah ini tidak menambah hukum izhar sedikit pun. Tetapi ia mengisi taf'ilah terakhir, dan sekaligus menjadi qafiyah bagi أَحْرُفِ. Inilah hasyw yang baik: menambal irama dan membawa qafiyah dalam satu kata.",
         "Lalu bait peragaan: مُطْلَقَا. Hukumnya sudah lengkap tanpa kata ini, tetapi مُطْلَقَا menambah warna makna: dalam keadaan apa pun. Polanya **10110**. Kata lain yang berpola sama (دَائِمَا، فَاعْلَمَا، يَا فَتَى) bisa menggantikannya. Tetapi دَوْمًا tidak bisa, walau maknanya mirip: polanya 1010, kurang satu huruf hidup.",
         "Jembatan ke nahwu: hasyw yang baik punya kedudukan i'rab yang jelas. مُطْلَقًا dan دَائِمًا menjadi hal atau sifat mashdar, قَطْعًا maf'ul muthlaq, dan فَاعْلَمْ kalimat sisipan (i'tiradhiyyah). Karena kedudukannya jelas, bait tetap benar secara nahwu walau kata itu hanya menambal.",
@@ -111,7 +111,7 @@
         },
         {
           "salah": "Dua atau tiga hasyw ditumpuk dalam satu syathr agar lurus.",
-          "benar": "Paling banyak satu hasyw per syathr. Kalau masih kurang, ubah susunan kalimatnya.",
+          "benar": "Sedikit hasyw lebih baik. Kalau satu syathr butuh banyak tambalan, ubah susunan kalimatnya.",
           "sebab": "Pembaca nadzom mencari hukum. Syathr yang penuh tambalan terasa kosong walau timbangannya lurus."
         },
         {
@@ -124,7 +124,7 @@
         "**Hasyw** (dalam arti penadzom) = kata atau frasa yang tidak menambah inti makna, tetapi menambal irama atau membawa qafiyah. Dalam istilah 'arudh, hasyw juga berarti taf'ilah selain 'arudh dan dharb.",
         "Simpan hasyw **beserta polanya**: فَقَطْ 110, دَوْمًا 1010, مُطْلَقَا 10110, كَمَا عُلِمْ 110110, فَلْيُعْلَمَا 1010110.",
         "Hasyw yang baik menambah warna: مُطْلَقًا (tanpa kecuali), قَطْعًا (pasti), دَوْمًا (selalu). Hasyw yang lemah hanya bunyi.",
-        "Paling banyak satu hasyw per syathr. Kalau satu syathr butuh dua, susunannya yang perlu diubah."
+        "Usahakan hasyw sedikit. Bila satu syathr memuat dua, pastikan masing-masing menambah makna (seperti دَوْمًا dan هُوَ di contoh pertama), bukan sekadar menambal."
       ],
       "tamarin": [
         {
@@ -192,7 +192,7 @@
                 "Biarkan pincang"
               ],
               "jawaban": 1,
-              "alasan": "Paling banyak satu hasyw per syathr. Susunan kata yang lain biasanya memberi ruang tanpa tambalan."
+              "alasan": "Hasyw sebaiknya sedikit dan bermakna. Susunan kata yang lain biasanya memberi ruang tanpa tambalan."
             }
           ]
         },
@@ -845,7 +845,7 @@
                 "سَمَّيْتُهُ بِتُحْفَةِ الْأَطْفَالِ",
                 "عَنْ شَيْخِنَا الْمِيهِيِّ الْكَامِلِ"
               ],
-              "catatan": "Pincang (diubah, bukan kutipan). ذِي الْكَمَالِ diganti الْكَامِلِ. Maknanya mirip, tetapi alif pindah ke depan, susunan huruf bergeser, dan taf'ilah kedua syathr kedua patah. Ridfnya pun hilang."
+              "catatan": "Pincang (diubah, bukan kutipan). ذِي الْكَمَالِ diganti الْكَامِلِ. Maknanya mirip, tetapi alif pindah ke depan, susunan huruf bergeser, dan taf'ilah kedua syathr kedua patah. Alif sebelum rawiy (ridf) pun hilang: alifnya kini berjarak satu huruf dari rawiy."
             },
             {
               "bait": [
