@@ -1,15 +1,343 @@
 {
   "nomor": 15,
-  "label": "Bonus",
+  "salimP1": true,
   "judul": "Mujtats",
-  "tujuan": "Bahr pendek kedua: مُسْتَفْعِلُنْ lalu فَاعِلَاتُنْ, dua taf'ilah per syathr. Contohnya bait zuhud al-Khalil bin Ahmad, peletak ilmu 'arudh, dan bait Ibnu al-Mu'tazz tentang buku. Dengan laci qafiyah ـالِي, Anda menyusun empat bait mujtats.",
+  "tujuan": "Saudara khafif yang \"dibalik\": مُسْتَفْعِ لُنْ lalu فَاعِلَاتُنْ, selalu majzu', dua taf'ilah per syathr. Watad mafruq yang Anda kenal di khafif kini berada di pembuka syathr. Contohnya bait zuhud al-Khalil bin Ahmad, peletak ilmu 'arudh, dan bait Ibnu al-Mu'tazz tentang buku. Hasilnya empat bait mujtats satu qafiyah, dengan tema saja.",
   "pelajaran": [
     {
       "nomor": 1,
-      "judul": "Kunci mujtats",
-      "ringkas": "مُسْتَفْعِلُنْ فَاعِلَاتُنْ: dua blok yang sudah Anda kenal, digabung pendek.",
-      "menit": 25,
-      "analogi": "Mujtats tidak membawa taf'ilah baru. مُسْتَفْعِلُنْ dari rajaz, فَاعِلَاتُنْ dari ramal. Seperti tarkib idhafi: dua kata yang sudah Anda kenal, digabung menjadi satu makna baru.",
+      "versi": 2,
+      "judul": "Kunci mujtats: khafif yang dibalik",
+      "ringkas": "مُسْتَفْعِ لُنْ فَاعِلَاتُنْ: dua taf'ilah khafif, urutannya dibalik dan syathrnya dipendekkan.",
+      "menit": 30,
+      "analogi": "Dalam nahwu, زَيْدٌ قَائِمٌ dan قَائِمٌ زَيْدٌ memakai dua kata yang sama, tetapi urutan mengubah susunannya: yang pertama mubtada' lalu khabar, yang kedua khabar didahulukan. Mujtats juga begitu. Ia memakai dua taf'ilah khafif, مُسْتَفْعِ لُنْ dan فَاعِلَاتُنْ, tetapi urutannya dibalik dan syathrnya dipotong pendek.",
+      "amtsilah": [
+        {
+          "bait": [
+            "فِي النَّاسِ خَيْرٌ كَثِيرٌ",
+            "وَالشَّرُّ فِي النَّاسِ أَكْثَرْ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Di antara manusia ada banyak kebaikan, tetapi keburukan di antara mereka lebih banyak.",
+          "sumber": "Manshur bin Isma'il al-Faqih, qashidah «في الناس خير كثير». https://poetry.dctabudhabi.ae/diwan/poem/82909. Harakat dilengkapi.",
+          "catatan": "Empat taf'ilah utuh. أَكْثَرْ diwaqafkan: bait muqayyadah."
+        },
+        {
+          "bait": [
+            "إِنْ لَمْ تُيَسِّرْ سَرَاحِي",
+            "يَا رَبِّ يَسِّرْ مَمَاتِي"
+          ],
+          "bahr": "mujtats",
+          "makna": "Jika Engkau tidak memudahkan kepergianku, ya Tuhan, mudahkanlah kematianku.",
+          "sumber": "'Abd al-Karim al-Basthi, qashidah «إن لم تيسر سراحي». https://poetry.dctabudhabi.ae/diwan/poem/53963. Harakat dilengkapi.",
+          "catatan": "Doa dalam empat taf'ilah utuh. Pola mu'aradhah di Pelajaran 3."
+        },
+        {
+          "bait": [
+            "الدَّهْرُ يَوْمٌ وَيَوْمُ",
+            "وَالْعَيْشُ عُذْرٌ وَلَوْمُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Masa itu hari demi hari, dan hidup itu antara dimaafkan dan dicela.",
+          "sumber": "Abu Tammam, qashidah «الدهر يوم ويوم». https://www.aldiwan.net/poem30111.html. Harakat dilengkapi.",
+          "catatan": "Dua syathr yang sejajar: الدَّهْرُ dan وَالْعَيْشُ membuka مُسْتَفْعِ لُنْ dengan cara yang sama."
+        },
+        {
+          "bait": [
+            "وَاللَّهُ فِي كُلِّ هَذَا",
+            "حَسْبِي وَنِعْمَ الْوَكِيلُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Allah dalam semua urusan ini cukup bagiku, dan Dialah sebaik-baik pelindung.",
+          "sumber": "Abu Nuwas, qashidah «يا من جداه قليل». https://www.aldiwan.net/poem65017.html. Harakat dilengkapi.",
+          "catatan": "Syathr kedua mengutip حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ (Ali 'Imran 173) dalam bentuk mufrad."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "فِي النَّاسِ خَيْرٌ كَثِيرٌ",
+          "وَالشَّرُّ فِي النَّاسِ أَكْثَرْ"
+        ],
+        "bahr": "mujtats",
+        "makna": "Di antara manusia ada banyak kebaikan, tetapi keburukan di antara mereka lebih banyak.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait pendek tentang manusia. Hanya dua taf'ilah per syathr, sependek ramal majzu'. Kita timbang **syathr pertama**."
+          },
+          {
+            "tampil": "irama",
+            "kata": "Dengar. Pembukanya seperti taf'ilah tengah khafif, لا لا نعم; penutupnya seperti ramal, لا نعم لا. Khafif terasa dibalik dan dipotong."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "فِي النَّاسِ: ya فِي gugur sebelum hamzah washal, lam ta'rif melebur ke nun: فِنْنَاسِ. خَيْرٌ dan كَثِيرٌ: tanwin menjadi نْ."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda 1 dan 0."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "فِنْنَاسِخَيْ = 10 10 1 10 = 1010110. رُنْكَثِيرُنْ = 10 1 10 10 = **فَاعِلَاتُنْ**. Perhatikan: taf'ilah pertama berhenti di tengah kata خَيْرٌ."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Taf'ilah pertama ditulis kitab **مُسْتَفْعِ لُنْ**, seperti di tengah khafif: sabab, watad mafruq, sabab. Timbangan di aplikasi menampilkannya tanpa spasi, tetapi aturannya aturan watad mafruq.",
+            "papan": "khafif   فَاعِلَاتُنْ · مُسْتَفْعِ لُنْ · فَاعِلَاتُنْ\nmujtats  مُسْتَفْعِ لُنْ · فَاعِلَاتُنْ\nمُسْ 10 · تَفْعِ 101 · لُنْ 10"
+          },
+          {
+            "tampil": "bahr",
+            "kata": "مُسْتَفْعِ لُنْ فَاعِلَاتُنْ per syathr: **mujtats**. Kuncinya: «إِنْ جُثَّتِ الْحَرَكَاتُ / مُسْتَفْعِلُنْ فَاعِلَاتُ»."
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. وَالشَّرُّ: hamzah washal gugur, lam ta'rif melebur ke syin, syaddah menjadi dua huruf: وَشْشَرْرُ. فِي النَّاسِ: seperti syathr pertama. أَكْثَرْ diwaqafkan."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama. فِنْنَاسِخَيْ = 1010110 dan رُنْكَثِيرُنْ = 1011010. Dua taf'ilah itu sudah Anda kenal dari khafif: مُسْتَفْعِ لُنْ di tengah khafif, dan فَاعِلَاتُنْ di kedua sisinya. Mujtats mengambil keduanya, tetapi dimulai dengan مُسْتَفْعِ لُنْ.",
+        "Kitab menjelaskan bahwa khafif dan mujtats berasal dari satu da'irah (lingkaran) yang sama. Asal mujtats di da'irah adalah مُسْتَفْعِ لُنْ فَاعِلَاتُنْ فَاعِلَاتُنْ, tetapi penyair tidak pernah memakainya kecuali **majzu'**, dipotong menjadi dua taf'ilah per syathr. Karena itu mujtats selalu pendek. Namanya pun berarti \"yang dicabut\", seperti kata جُثَّتْ dalam kuncinya.",
+        "Karena taf'ilah pertamanya مُسْتَفْعِ لُنْ, aturan watad mafruq dari Modul 17 berlaku di sini. Fa-nya bagian dari watad تَفْعِ, maka bentuk 101110 (thayy) patah di mujtats, walaupun sah di rajaz.",
+        "Contoh kedua, doa al-Basthi. إِنْلَمْتُيَسْ = 1010110, سِرْسَرَاحِي = 1011010. يَارَبْبِيَسْ = 1010110, سِرْمَمَاتِي = 1011010. Perhatikan bahwa batas taf'ilah sering jatuh di tengah kata تُيَسِّرْ dan يَسِّرْ. Di bahr pendek, jarang satu kata mengisi satu taf'ilah dengan pas.",
+        "Contoh ketiga dan keempat memperlihatkan pembuka yang mudah: isim ber-al yang dua suku, lalu satu huruf hidup dan satu suku panjang. الدَّهْرُ يَوْ = 1010110, وَالْعَيْشُ عُذْ = 1010110, وَاللَّهُ فِي = 1010110. Mujtats tidak punya bentuk ujung yang wajib; keempat contoh ini berakhir dengan فَاعِلَاتُنْ utuh."
+      ],
+      "keliru": [
+        {
+          "salah": "Menukar urutan: فَاعِلَاتُنْ dulu, baru مُسْتَفْعِ لُنْ.",
+          "benar": "Mujtats dimulai dengan مُسْتَفْعِ لُنْ.",
+          "sebab": "Syathr yang dibuka dengan فَاعِلَاتُنْ lalu مُسْتَفْعِ لُنْ adalah awal khafif, bahr Modul 17."
+        },
+        {
+          "salah": "Membawa thayy dari rajaz ke pembuka mujtats (101110).",
+          "benar": "Pembuka mujtats harus 1010110 atau, dengan khabn, 110110.",
+          "sebab": "Fa مُسْتَفْعِ لُنْ adalah bagian dari watad mafruq, dan zihaf tidak menyentuh watad."
+        },
+        {
+          "salah": "Menulis mujtats tiga taf'ilah per syathr, mengikuti asalnya di da'irah.",
+          "benar": "Mujtats selalu majzu': dua taf'ilah per syathr, empat per bait.",
+          "sebab": "Bentuk tamnya tidak pernah dipakai penyair."
+        }
+      ],
+      "qaidah": [
+        "**Mujtats** = مُسْتَفْعِ لُنْ فَاعِلَاتُنْ dalam satu syathr, selalu majzu'. Satu bait berisi empat taf'ilah.",
+        "Lagunya: لا لا نعم · لا نعم لا. Bandingkan dengan khafif: لا نعم لا · لا لا نعم · لا نعم لا.",
+        "Taf'ilah pertama memakai watad mafruq seperti di tengah khafif. Akibatnya thayy (101110) di pembuka mujtats adalah patah.",
+        "Mujtats tidak punya bentuk ujung yang wajib; فَاعِلَاتُنْ utuh sah di kedua ujung.",
+        "Kunci mujtats: «إِنْ جُثَّتِ الْحَرَكَاتُ / مُسْتَفْعِلُنْ فَاعِلَاتُ». Ujung syathr pertamanya sudah berubah, maka kunci ini ditimbang di Pelajaran 2."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
+          "soal": [
+            {
+              "soal": "Mujtats tersusun dari?",
+              "pilihan": [
+                "فَاعِلَاتُنْ مُسْتَفْعِ لُنْ",
+                "مُسْتَفْعِ لُنْ فَاعِلَاتُنْ",
+                "مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ",
+                "فَاعِلَاتُنْ فَاعِلَاتُنْ"
+              ],
+              "jawaban": 1,
+              "alasan": "Pilihan pertama adalah awal khafif, ketiga rajaz majzu', keempat ramal majzu'.",
+              "arab": true
+            },
+            {
+              "soal": "Mengapa mujtats selalu pendek?",
+              "pilihan": [
+                "Penyair hanya memakainya majzu'",
+                "Karena qafiyahnya selalu muqayyadah",
+                "Karena watad mafruq tidak boleh di ujung"
+              ],
+              "jawaban": 0,
+              "alasan": "Asalnya di da'irah tiga taf'ilah, tetapi yang dipakai selalu dua."
+            },
+            {
+              "soal": "فِنْنَاسِخَيْ = 1010110 dalam bait Manshur al-Faqih adalah?",
+              "pilihan": [
+                "مُسْتَفْعِ لُنْ utuh",
+                "فَاعِلَاتُنْ utuh",
+                "Patah, karena berhenti di tengah kata"
+              ],
+              "jawaban": 0,
+              "alasan": "Batas taf'ilah boleh jatuh di tengah kata; yang dihitung huruf hidup dan matinya."
+            },
+            {
+              "soal": "Bentuk 101110 di pembuka mujtats adalah?",
+              "pilihan": [
+                "Patah",
+                "Thayy yang shalih",
+                "Khabn"
+              ],
+              "jawaban": 0,
+              "alasan": "Fa مُسْتَفْعِ لُنْ termasuk watad mafruq."
+            },
+            {
+              "soal": "Khafif dan mujtats sama-sama memakai?",
+              "pilihan": [
+                "مُسْتَفْعِ لُنْ dengan watad mafruq dan فَاعِلَاتُنْ",
+                "مُتَفَاعِلُنْ",
+                "فَعُولُنْ"
+              ],
+              "jawaban": 0,
+              "alasan": "Keduanya dari da'irah yang sama; urutan dan panjangnya yang berbeda."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait Abu Tammam. الدَّهْرُ: hamzah washal di awal bait dibaca, lam ta'rif melebur ke dal. يَوْمُ di ujung bait: dhammah dipanjangkan.",
+          "bait": [
+            "الدَّهْرُ يَوْمٌ وَيَوْمُ",
+            "وَالْعَيْشُ عُذْرٌ وَلَوْمُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Masa itu hari demi hari, dan hidup itu antara dimaafkan dan dicela."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait Abu Nuwas. Lagukan bersamanya tiga kali, lalu lagukan bait Manshur al-Faqih dengan nada yang sama tanpa melihat layar.",
+          "bait": [
+            "وَاللَّهُ فِي كُلِّ هَذَا",
+            "حَسْبِي وَنِعْمَ الْوَكِيلُ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Allah dalam semua urusan ini cukup bagiku, dan Dialah sebaik-baik pelindung."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Lagukan setiap baris dengan nada mujtats: لا لا نعم · لا نعم لا. Centang yang tersendat, lalu periksa.",
+          "bahr": "mujtats",
+          "baris": [
+            {
+              "bait": [
+                "فِي النَّاسِ خَيْرٌ كَثِيرٌ",
+                "وَالشَّرُّ فِي النَّاسِ أَكْثَرْ"
+              ],
+              "catatan": "Bait Manshur al-Faqih, asli."
+            },
+            {
+              "bait": [
+                "فِي النَّاسِ خَيْرٌ كَثِيرٌ",
+                "وَالشَّرُّ فِيهِمْ أَكْثَرُ"
+              ],
+              "catatan": "فِي النَّاسِ diganti فِيهِمْ supaya ringkas, dan أَكْثَرْ diberi harakat. Satu suku hilang. Diubah, bukan kutipan."
+            },
+            {
+              "bait": [
+                "الدَّهْرُ يَوْمٌ وَيَوْمُ",
+                "وَالْعَيْشُ عُذْرٌ وَلَوْمُ"
+              ],
+              "catatan": "Bait Abu Tammam, asli."
+            },
+            {
+              "bait": [
+                "الدَّهْرُ يَوْمٌ وَيَوْمُ",
+                "وَالْعَيْشُ فِيهِ عُذْرٌ وَلَوْمُ"
+              ],
+              "catatan": "فِيهِ ditambahkan. Syathr kedua kelebihan. Diubah, bukan kutipan."
+            },
+            {
+              "bait": [
+                "النَّاسُ بَحْرٌ عَمِيقٌ",
+                "وَالْبُعْدُ عَنْهُمْ سَفِينَهْ"
+              ],
+              "catatan": "Bait Manshur al-Faqih, asli. https://poetry.dctabudhabi.ae/diwan/poem/83028."
+            }
+          ]
+        },
+        {
+          "jenis": "tebak",
+          "petunjuk": "Bahr apa ini? Tanpa petunjuk. Hitung dulu jumlah taf'ilah per syathr, lalu dengarkan pembukanya: لا نعم لا atau لا لا نعم?",
+          "pilihan": [
+            "khafif",
+            "mujtats",
+            "ramalMajzu",
+            "rajaz"
+          ],
+          "baris": [
+            {
+              "bait": [
+                "النَّاسُ بَحْرٌ عَمِيقٌ",
+                "وَالْبُعْدُ عَنْهُمْ سَفِينَهْ"
+              ],
+              "bahr": "mujtats",
+              "sumber": "Manshur bin Isma'il al-Faqih; https://poetry.dctabudhabi.ae/diwan/poem/83028"
+            },
+            {
+              "bait": [
+                "كُلُّ عَيْشٍ مَا لَمْ تُطَبْهُ حِمَامٌ",
+                "كُلُّ شَمْسٍ مَا لَمْ تَكُنْهَا ظَلَامُ"
+              ],
+              "bahr": "khafif",
+              "sumber": "Al-Mutanabbi; https://www.aldiwan.net/poem10141.html"
+            },
+            {
+              "bait": [
+                "مَا أَشَدَّ الْحُبَّ يَا سُبْ",
+                "حَانَكَ اللَّهُمَّ رَبِّي"
+              ],
+              "bahr": "ramalMajzu",
+              "sumber": "Abu al-'Atahiyah; https://www.aldiwan.net/poem63231.html"
+            },
+            {
+              "bait": [
+                "لِي فِيكَ قَصْدٌ جَمِيلٌ",
+                "لَا خَيَّبَ اللَّهُ قَصْدَكْ"
+              ],
+              "bahr": "mujtats",
+              "sumber": "Baha' ad-Din Zuhair; https://www.aldiwan.net/poem42934.html"
+            },
+            {
+              "bait": [
+                "يَا رَفِيقِي إِنْ كُنْتَ نِعْمَ الرَّفِيقُ",
+                "دَعْ مَلَامِي فَالْقَلْبُ صَبٌّ مَشُوقُ"
+              ],
+              "bahr": "khafif",
+              "sumber": "Fityan asy-Syaghuri; https://www.aldiwan.net/poem32689.html"
+            },
+            {
+              "bait": [
+                "صِفْ ذَا ثَنَا كَمْ جَادَ شَخْصٌ قَدْ سَمَا",
+                "دُمْ طَيِّبًا زِدْ فِي تُقًى ضَعْ ظَالِمَا"
+              ],
+              "bahr": "rajaz",
+              "sumber": "Tuhfatul Athfal bait 16"
+            }
+          ]
+        },
+        {
+          "jenis": "panen",
+          "petunjuk": "**Panen tanpa kotak.** Potong sendiri tiga potongan kata berurutan dari bait Ibnu al-Abbar yang masing-masing tepat satu taf'ilah utuh. Simpan ke Laci saya; tulis \"cocok untuk\" pembuka atau ujung syathr mujtats.",
+          "bait": [
+            "إِنْ شِئْتَ يَا دَهْرُ حَارِبْ",
+            "أَوْ شِئْتَ يَا دَهْرُ سَالِمْ"
+          ],
+          "bahr": "mujtats",
+          "jumlah": 3,
+          "kotak": false,
+          "sumber": "Ibnu al-Abbar al-Balansi, qashidah «إن شئت يا دهر حارب». https://www.aldiwan.net/poem25419.html. Harakat dilengkapi."
+        }
+      ],
+      "patokan": "Bait Abu Tammam ditimbang sendiri sampai benar, minimal lima dari enam bait tebak dikenali bahrnya, dan tiga potongan bait Ibnu al-Abbar tersimpan di Laci saya.",
+      "dengar": [
+        {
+          "judul": "Bahr mujtats (Madrasa)",
+          "url": "https://www.youtube.com/watch?v=MM1fnUrPoOE",
+          "catatan": "Bahasa Arab, penjelasan singkat bahr mujtats."
+        }
+      ]
+    },
+    {
+      "nomor": 2,
+      "versi": 2,
+      "judul": "Khabn di mujtats",
+      "ringkas": "Satu perubahan utama: khabn, di kedua taf'ilah, dinilai hasan. Bait-bait zuhud al-Khalil bin Ahmad memakainya hampir di setiap syathr.",
+      "menit": 30,
+      "analogi": "Di khafif Anda sudah bertemu khabn di tiga tempat. Di mujtats tempatnya tinggal dua, jadi satu khabn langsung terasa. Seperti satu huruf yang dibuang dari kata pendek: lebih kentara daripada dari kata panjang.",
       "amtsilah": [
         {
           "bait": [
@@ -19,7 +347,7 @@
           "bahr": "mujtats",
           "makna": "Kalau engkau tidak punya daging, cukuplah bagimu cuka dan minyak zaitun.",
           "sumber": "Al-Khalil bin Ahmad al-Farahidi, peletak ilmu 'arudh. Ibnu Hibban, Raudhat al-'Uqala' (bab dorongan bertawakal kepada Yang menjamin rezeki) dan ats-Tsiqat (biografi al-Khalil); adz-Dzahabi, Tarikh al-Islam, biografi al-Khalil. Dicocokkan lewat turath.io.",
-          "catatan": "Bait zuhud dari orang yang pertama kali menyusun ilmu 'arudh. Syathr pertama مُسْتَفْعِلُنْ فَعِلَاتُنْ, syathr kedua مُتَفْعِلُنْ فَاعِلَاتُنْ."
+          "catatan": "Syathr pertama مُسْتَفْعِ لُنْ فَعِلَاتُنْ, syathr kedua مُتَفْعِ لُنْ فَاعِلَاتُنْ. Khabn di kedua taf'ilah, bergantian."
         },
         {
           "bait": [
@@ -28,8 +356,18 @@
           ],
           "bahr": "mujtats",
           "makna": "Kalau yang ini dan yang itu pun tidak ada, cukuplah sepotong roti dan sebuah rumah kecil.",
-          "sumber": "Al-Khalil bin Ahmad al-Farahidi, peletak ilmu 'arudh. Ibnu Hibban, Raudhat al-'Uqala' (bab dorongan bertawakal kepada Yang menjamin rezeki) dan ats-Tsiqat (biografi al-Khalil); adz-Dzahabi, Tarikh al-Islam, biografi al-Khalil. Dicocokkan lewat turath.io. Riwayat adz-Dzahabi: إِنْ لَا يَكُنْ ذَا وَلَا ذَا.",
-          "catatan": "بُيَيْتٌ adalah tashghir بَيْت (wazan فُعَيْل): rumah kecil yang sederhana."
+          "sumber": "Al-Khalil bin Ahmad al-Farahidi. Ibnu Hibban, Raudhat al-'Uqala' dan ats-Tsiqat; adz-Dzahabi, Tarikh al-Islam. Dicocokkan lewat turath.io. Riwayat adz-Dzahabi: إِنْ لَا يَكُنْ ذَا وَلَا ذَا.",
+          "catatan": "Syathr pertama utuh, syathr kedua makhbun dua kali. بُيَيْتٌ adalah tashghir بَيْت (wazan فُعَيْل): rumah kecil."
+        },
+        {
+          "bait": [
+            "مَا أَقْرَبَ الْمَوْتَ مِنَّا",
+            "تَجَاوَزَ اللَّهُ عَنَّا"
+          ],
+          "bahr": "mujtats",
+          "makna": "Betapa dekatnya kematian dari kita. Semoga Allah memaafkan kita.",
+          "sumber": "Abu al-'Atahiyah, qashidah «ما أقرب الموت منا». https://www.aldiwan.net/poem63162.html. Harakat dilengkapi.",
+          "catatan": "Syathr pertama utuh, syathr kedua dibuka dengan khabn: تَجَاوَزَلْ = 110110. Pasangan yang paling jelas untuk membandingkan."
         },
         {
           "bait": [
@@ -39,7 +377,17 @@
           "bahr": "mujtats",
           "makna": "Bila harakat-harakatnya dipangkas: itulah mujtats, artinya yang dipangkas. (Baris kedua adalah timbangannya.)",
           "sumber": "Kunci bahr mujtats (miftah al-buhur) yang masyhur; lihat juga Wikipedia Arab, بحر المجتث.",
-          "catatan": "جُثَّ = dicabut sampai akar. Mujtats dipandang sebagai potongan dari bahr yang lebih panjang."
+          "catatan": "Ujung syathr pertama, لْحَرَكَاتُو = 111010: فَعِلَاتُنْ. Seperti kunci khafif, kunci mujtats pun memakai khabn di 'arudh."
+        },
+        {
+          "bait": [
+            "جَعَلْتُ كُتْبِي أَنِيسِي",
+            "مِنْ دُونِ كُلِّ أَنِيسِ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kujadikan buku-bukuku teman setia, bukan teman-teman yang lain.",
+          "sumber": "Ibnu al-Mu'tazz. Al-Khathib al-Baghdadi, Taqyid al-'Ilm, meriwayatkannya dengan label \"min al-mujtats\". Dicocokkan lewat turath.io.",
+          "catatan": "كُتْبِي dibaca dengan ta sukun: takhfif jamak فُعُل yang sah, seperti رُسْلُنَا dalam qira'ah Abu 'Amr."
         }
       ],
       "bahts": {
@@ -53,11 +401,7 @@
         "langkah": [
           {
             "tampil": "bait",
-            "kata": "Bait ini milik al-Khalil bin Ahmad, orang yang pertama kali menyusun ilmu 'arudh. Ia menulis tentang hidup sederhana dalam bahr pendek bernama **mujtats**."
-          },
-          {
-            "tampil": "irama",
-            "kata": "Dengar. Awalnya terasa seperti rajaz, lalu di tengah berbelok menjadi ramal."
+            "kata": "Bait ini milik al-Khalil bin Ahmad, orang yang pertama kali menyusun ilmu 'arudh. Ia menulis tentang hidup sederhana dalam mujtats. Kita timbang **syathr pertama**."
           },
           {
             "tampil": "kitabah",
@@ -65,39 +409,62 @@
           },
           {
             "tampil": "tanda",
-            "kata": "Beri tanda 1 dan 0. Hitung hurufnya: hanya 13, sedikit seperti ramal majzu'."
+            "kata": "Beri tanda 1 dan 0."
+          },
+          {
+            "tampil": "kelompok",
+            "kata": "Kelompokkan 7, 6. Taf'ilah kedua kurang satu huruf."
           },
           {
             "tampil": "mizan",
-            "kata": "إِنْ لَمْ يَكُنْ = 10 10 110 = **مُسْتَفْعِلُنْ**. لَكَ لَحْمُنْ = 1 1 10 10 = 111010: **فَاعِلَاتُنْ** yang alifnya dibuang, **فَعِلَاتُنْ**. Lagu kunci mujtats: لا لا نعم · لا نعم لا, separuh rajaz lalu separuh ramal. Di bait ini فَعِلَاتُنْ dilagukan لَ نعم لا."
+            "kata": "إِنْ لَمْ يَكُنْ = 10 10 110 = 1010110, utuh. لَكَ لَحْمُنْ = 1 1 10 10 = **111010**: alif فَاعِلَاتُنْ, huruf kedua yang mati, dibuang. Inilah **فَعِلَاتُنْ**, khabn."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bandingkan dengan bait Abu al-'Atahiyah. Syathr pertama utuh, syathr kedua dibuka dengan khabn di taf'ilah pertama: تَجَاوَزَلْ = 110110, مُتَفْعِ لُنْ.",
+            "bait": [
+              "مَا أَقْرَبَ الْمَوْتَ مِنَّا",
+              "تَجَاوَزَ اللَّهُ عَنَّا"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Sekarang bait itu diubah: مَا أَقْرَبَ diganti قَدْ قَرُبَ. Polanya 10 1 1 10, thayy yang sah di rajaz. Di mujtats, fa-nya bagian dari watad mafruq: patah.",
+            "bait": [
+              "قَدْ قَرُبَ الْمَوْتُ مِنَّا",
+              "تَجَاوَزَ اللَّهُ عَنَّا"
+            ],
+            "patah": 1
           },
           {
             "tampil": "bahr",
-            "kata": "مُسْتَفْعِلُنْ فَاعِلَاتُنْ per syathr: **mujtats**. Di kitab, مُسْتَفْعِلُنْ di sini ditulis مُسْتَفْعِ لُنْ karena watadnya berbeda susunan, tetapi tanda 1 dan 0-nya sama. Untuk menimbang, cukup ingat bunyinya."
+            "kata": "Khabn di mujtats **hasan**, di kedua taf'ilah. Pada taf'ilah pertama ada juga **kaff** (membuang nun لُنْ: 101011) dan **syakl** (khabn dan kaff bersama: 11011). Keduanya qabih: kenali bila bertemu, jangan dipakai."
           }
         ],
         "giliran": {
           "syathr": 1,
-          "petunjuk": "Giliran Anda: **syathr kedua**. كَفَاكَ: كَ فَا كَ. خَلٌّ: syaddah menjadi dua huruf, خَلْ لُنْ. وَزَيْتُ: ya sakin setelah fathah, lalu ta dipanjangkan di ujung bait, وَزَيْتُو."
+          "petunjuk": "Giliran Anda: **syathr kedua**. كَفَاكَ: كَ فَا كَ. خَلٌّ: syaddah menjadi dua huruf, خَلْ لُنْ. وَزَيْتُ: ya sakin setelah fathah, lalu ta dipanjangkan di ujung bait, وَزَيْتُو. Di taf'ilah mana khabn jatuh?"
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama, bait al-Khalil «إِنْ لَمْ يَكُنْ لَكَ لَحْمٌ». إِنْ لَمْ يَكُنْ = 10 10 110 = **مُسْتَفْعِلُنْ**, taf'ilah yang sudah Anda kenal sejak rajaz. Lalu لَكَ لَحْمُنْ = 1 1 10 10. Ini **فَاعِلَاتُنْ** dari ramal, tetapi alifnya (huruf kedua yang sakin) dibuang: **فَعِلَاتُنْ**. Membuang huruf kedua yang sakin adalah **khabn**, sama seperti di rajaz.",
-        "Syathr keduanya, «كَفَاكَ خَلٌّ وَزَيْتُ», memakai khabn di tempat lain. كَفَاكَخَلْ = 1 10 1 10 = 110110: مُسْتَفْعِلُنْ yang kehilangan sin, **مُتَفْعِلُنْ**. Lalu لُنْوَزَيْتُو = 1011010, فَاعِلَاتُنْ utuh. Dalam satu bait pendek, khabn bisa jatuh di taf'ilah mana pun.",
-        "Contoh kedua, «إِنْ لَا يَكُنْ ذَا وَهَذَا / فَكِسْرَةٌ وَبُيَيْتُ». Di syathr pertama keduanya utuh: إِنْ لَا يَكُنْ (1010110) dan ذَا وَهَا ذَا (1011010). Perhatikan هَذَا: alifnya tidak tertulis setelah ha, tetapi dibaca, maka ia dihitung. Di syathr kedua, وَبُيَيْتُو = 111010. بُيَيْتٌ adalah tashghir بَيْت: rumah kecil. Wazan فُعَيْل memberi dua huruf hidup di depan, pas untuk فَعِلَاتُنْ.",
-        "Contoh ketiga adalah kunci: «إِنْ جُثَّتِ الْحَرَكَاتُ». جُثَّ artinya dicabut. Mujtats dipandang sebagai potongan dari bahr yang lebih panjang, maka ia selalu pendek: dua taf'ilah per syathr, empat per bait.",
-        "Kalau Anda bandingkan dengan Modul 9 dan 10, ada tiga zihaf yang sering tertukar. **Khabn** membuang huruf kedua yang sakin (مُسْتَفْعِلُنْ → مُتَفْعِلُنْ). **Qabdh** membuang huruf kelima yang sakin (فَعُولُنْ → فَعُولُ). **'Ashb** menyukunkan huruf kelima yang hidup. Di mujtats, yang Anda temui hampir selalu khabn."
+        "Perhatikan contoh pertama, bait al-Khalil. إِنْ لَمْ يَكُنْ = 1010110 utuh, lalu لَكَ لَحْمُنْ = 111010: فَاعِلَاتُنْ yang alifnya dibuang, **فَعِلَاتُنْ**. Di syathr kedua, khabn pindah ke taf'ilah pertama: كَفَاكَخَلْ = 110110, **مُتَفْعِ لُنْ**, lalu لُنْوَزَيْتُو = 1011010 utuh. Dalam satu bait pendek, khabn bisa jatuh di taf'ilah mana pun.",
+        "Contoh kedua: syathr pertama utuh, إِنْلَايَكُنْ dan ذَاوَهَاذَا. Perhatikan هَذَا: alifnya tidak tertulis setelah ha, tetapi dibaca, maka ia dihitung. Di syathr kedua, فَكِسْرَتُنْ = 110110 dan وَبُيَيْتُو = 111010, dua khabn. بُيَيْتٌ, tashghir بَيْت, memberi dua huruf hidup di depan, pas untuk فَعِلَاتُنْ.",
+        "Contoh ketiga, Abu al-'Atahiyah, adalah pasangan terbaik untuk membandingkan. مَا أَقْرَبَلْ = 1010110, utuh. تَجَاوَزَلْ = 110110, khabn. Dua pembuka itu bermakna lain tetapi sama tempatnya; yang kedua lebih pendek satu huruf di depan.",
+        "Contoh keempat adalah kunci mujtats. جُثَّتْ artinya dicabut. Ujung syathr pertamanya, لْحَرَكَاتُو, adalah فَعِلَاتُنْ. Karena itu kunci ini baru ditimbang sekarang. Syathr keduanya, مُسْتَفْعِلُنْ فَاعِلَاتُ, utuh bila ta di ujung dipanjangkan.",
+        "Contoh kelima dari Ibnu al-Mu'tazz. جَعَلْتُكُتْ = 110110, khabn. كُتْبِي dibaca dengan ta sukun, lughah yang sah untuk jamak wazan فُعُل. Kalau dibaca كُتُبِي, satu huruf hidup bertambah dan taf'ilah pertama patah.",
+        "Satu yang tetap terlarang: thayy di taf'ilah pertama. Peragaan Hudhud memperlihatkan قَدْ قَرُبَ الْ (101110) patah di mujtats, padahal pola yang sama sah di rajaz. Watad mafruq bekerja di mujtats sama seperti di tengah khafif."
       ],
       "keliru": [
         {
-          "salah": "Menukar urutan: فَاعِلَاتُنْ dulu baru مُسْتَفْعِلُنْ.",
-          "benar": "Mujtats: مُسْتَفْعِلُنْ lalu فَاعِلَاتُنْ.",
-          "sebab": "Urutan sebaliknya (فَاعِلَاتُنْ مُسْتَفْعِلُنْ) adalah awal bahr khafif, bahr yang lain."
-        },
-        {
           "salah": "Menganggap لَكَ لَحْمُنْ (111010) patah karena tidak sama dengan فَاعِلَاتُنْ.",
           "benar": "Itu فَعِلَاتُنْ, khabn yang hasan.",
-          "sebab": "Alif فَاعِلَاتُنْ adalah huruf kedua yang sakin; membuangnya diperbolehkan, sama seperti sin مُسْتَفْعِلُنْ di rajaz."
+          "sebab": "Alif فَاعِلَاتُنْ adalah huruf kedua yang mati; membuangnya diperbolehkan."
+        },
+        {
+          "salah": "Menganggap semua perubahan yang sah di rajaz juga sah di pembuka mujtats.",
+          "benar": "Hanya khabn yang hasan. Thayy patah; kaff dan syakl qabih.",
+          "sebab": "Pembuka mujtats adalah مُسْتَفْعِ لُنْ dengan watad mafruq, bukan مُسْتَفْعِلُنْ rajaz."
         },
         {
           "salah": "Tidak menghitung alif هَذَا karena tidak tertulis.",
@@ -106,9 +473,10 @@
         }
       ],
       "qaidah": [
-        "**Mujtats** = مُسْتَفْعِلُنْ فَاعِلَاتُنْ dalam satu syathr, selalu pendek (majzu'). Satu bait = empat taf'ilah.",
-        "Perubahan yang lazim: **khabn** di kedua taf'ilah. مُسْتَفْعِلُنْ → مُتَفْعِلُنْ (110110), فَاعِلَاتُنْ → فَعِلَاتُنْ (111010). Keduanya hasan. Bait al-Khalil memakai keduanya: كَفَاكَخَلْ (110110), لَكَلَحْمُنْ (111010).",
-        "Ujung syathr mujtats adalah فَاعِلَاتُنْ atau فَعِلَاتُنْ: لُنْوَزَيْتُو (1011010), وَبُيَيْتُو (111010).",
+        "**Khabn** di mujtats: مُسْتَفْعِ لُنْ (1010110) menjadi مُتَفْعِ لُنْ (110110); فَاعِلَاتُنْ (1011010) menjadi فَعِلَاتُنْ (111010). Keduanya hasan.",
+        "Khabn boleh di kedua taf'ilah, termasuk di ujung syathr.",
+        "**Kaff** (مُسْتَفْعِ لُ, 101011) dan **syakl** (مُتَفْعِ لُ, 11011) pada taf'ilah pertama dinilai qabih: cukup dikenali.",
+        "**Thayy patah** di taf'ilah pertama, karena fa-nya bagian dari watad mafruq.",
         "Hafalkan kuncinya: إِنْ جُثَّتِ الْحَرَكَاتُ، مُسْتَفْعِلُنْ فَاعِلَاتُ."
       ],
       "tamarin": [
@@ -117,61 +485,60 @@
           "petunjuk": "Jawab satu per satu. Salah boleh dicoba lagi; skor dihitung dari jawaban yang benar pada percobaan pertama.",
           "soal": [
             {
-              "soal": "Mujtats tersusun dari?",
-              "pilihan": [
-                "فَاعِلَاتُنْ مُسْتَفْعِلُنْ",
-                "مُسْتَفْعِلُنْ فَاعِلَاتُنْ",
-                "مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ",
-                "مُسْتَفْعِلُنْ فَاعِلُنْ"
-              ],
-              "jawaban": 1,
-              "alasan": "Mustaf'ilun dulu, baru fa'ilatun. Urutan sebaliknya (فَاعِلَاتُنْ مُسْتَفْعِلُنْ) adalah awal bahr khafif.",
-              "arab": true
-            },
-            {
               "soal": "لَكَ لَحْمُنْ ditimbang?",
               "pilihan": [
                 "111010, فَعِلَاتُنْ",
                 "1011010, فَاعِلَاتُنْ",
-                "110110, مُتَفْعِلُنْ"
+                "110110, مُتَفْعِ لُنْ"
               ],
               "jawaban": 0,
               "alasan": "لَ = 1, كَ = 1, لَحْ = 10, مُنْ = 10. Alif فَاعِلَاتُنْ dibuang."
             },
             {
-              "soal": "Khabn adalah?",
-              "pilihan": [
-                "Membuang huruf kedua yang sakin",
-                "Membuang huruf kelima yang sakin",
-                "Menyukunkan huruf kelima yang hidup"
-              ],
-              "jawaban": 0,
-              "alasan": "Yang kedua adalah qabdh (thawil), yang ketiga 'ashb (wafir)."
-            },
-            {
-              "soal": "مُتَفْعِلُنْ (110110) di awal syathr mujtats?",
+              "soal": "تَجَاوَزَلْ (110110) di awal syathr mujtats?",
               "pilihan": [
                 "Sah, khabn yang hasan",
-                "Patah"
+                "Patah",
+                "Thayy"
               ],
               "jawaban": 0,
-              "alasan": "كَفَاكَخَلْ dalam bait al-Khalil adalah مُتَفْعِلُنْ."
+              "alasan": "Dua bit pertama 11: sin مُسْتَفْعِ لُنْ dibuang."
             },
             {
-              "soal": "Satu bait mujtats berisi berapa taf'ilah?",
+              "soal": "قَدْ قَرُبَلْ (101110) di awal syathr mujtats?",
               "pilihan": [
-                "Empat",
-                "Enam",
-                "Delapan"
+                "Patah",
+                "Sah, thayy",
+                "Sah, khabn"
               ],
               "jawaban": 0,
-              "alasan": "Dua per syathr. Selalu majzu'."
+              "alasan": "Thayy membuang fa, dan fa di sini bagian dari watad mafruq."
+            },
+            {
+              "soal": "Kaff dan syakl pada taf'ilah pertama mujtats dinilai?",
+              "pilihan": [
+                "Qabih",
+                "Hasan",
+                "Wajib"
+              ],
+              "jawaban": 0,
+              "alasan": "Boleh dikenali, tetapi dihindari di bait sendiri."
+            },
+            {
+              "soal": "Mengapa kunci mujtats baru ditimbang di pelajaran ini?",
+              "pilihan": [
+                "'Arudh-nya makhbun: لْحَرَكَاتُو = فَعِلَاتُنْ",
+                "Kunci itu patah",
+                "Kunci itu milik khafif"
+              ],
+              "jawaban": 0,
+              "alasan": "Pelajaran 1 hanya memakai bait yang utuh semua."
             }
           ]
         },
         {
           "jenis": "tandai",
-          "petunjuk": "Beri tanda pada kata-kata bait al-Khalil, dari yang pendek ke yang panjang.",
+          "petunjuk": "Beri tanda pada kata-kata bait al-Khalil dan Abu al-'Atahiyah, lalu sebutkan: potongan ini membuka taf'ilah utuh atau makhbun?",
           "butir": [
             "إِنْ لَمْ",
             "يَكُنْ",
@@ -181,8 +548,8 @@
             "وَزَيْتُ",
             "وَهَذَا",
             "فَكِسْرَةٌ",
-            "وَبُيَيْتُ",
-            "الْحَرَكَاتُ"
+            "تَجَاوَزَ",
+            "أَقْرَبَ"
           ]
         },
         {
@@ -207,7 +574,7 @@
         },
         {
           "jenis": "pincang",
-          "petunjuk": "Lagukan setiap baris dengan nada mujtats: rajaz di depan, ramal di belakang. Centang yang tersendat.",
+          "petunjuk": "Centang yang pincang. Yang pincang hanya berbeda satu atau dua kata dari aslinya.",
           "bahr": "mujtats",
           "baris": [
             {
@@ -222,21 +589,28 @@
                 "إِنْ لَمْ يَكُنْ عِنْدَكَ لَحْمٌ",
                 "كَفَاكَ خَلٌّ وَزَيْتُ"
               ],
-              "catatan": "لَكَ diganti عِنْدَكَ. Maknanya sama, tetapi عِنْ menambah satu sabab, dan فَاعِلَاتُنْ menjadi terlalu panjang. Bait latihan, bukan kutipan."
+              "catatan": "لَكَ diganti عِنْدَكَ. Maknanya sama, tetapi عِنْ menambah satu sabab. Diubah, bukan kutipan."
             },
             {
               "bait": [
-                "إِنْ جُثَّتِ الْحَرَكَاتُ",
-                "مُسْتَفْعِلُنْ فَاعِلَاتُ"
+                "مَا أَقْرَبَ الْمَوْتَ مِنَّا",
+                "تَجَاوَزَ اللَّهُ عَنَّا"
               ],
-              "catatan": "Kunci mujtats."
+              "catatan": "Bait Abu al-'Atahiyah, asli."
             },
             {
               "bait": [
-                "إِنْ لَا يَكُنْ ذَا وَهَذَا",
-                "فَكِسْرَةٌ وَبُيَيْتٌ صَغِيرٌ"
+                "قَدْ قَرُبَ الْمَوْتُ مِنَّا",
+                "تَجَاوَزَ اللَّهُ عَنَّا"
               ],
-              "catatan": "صَغِيرٌ ditambahkan untuk menjelaskan بُيَيْتٌ. Padahal tashghir sudah bermakna kecil. Syathr kedua kelebihan satu taf'ilah. Bait latihan, bukan kutipan."
+              "catatan": "مَا أَقْرَبَ diganti قَدْ قَرُبَ: thayy di pembuka mujtats. Diubah, bukan kutipan."
+            },
+            {
+              "bait": [
+                "جَعَلْتُ كُتُبِي أَنِيسِي",
+                "مِنْ دُونِ كُلِّ أَنِيسِ"
+              ],
+              "catatan": "كُتْبِي dibaca penuh, كُتُبِي. Satu huruf hidup bertambah. Diubah, bukan kutipan."
             },
             {
               "bait": [
@@ -249,7 +623,7 @@
         },
         {
           "jenis": "irama",
-          "petunjuk": "Putar bait ketiga al-Khalil. Lagukan bersamanya tiga kali, lalu lagukan keempat baitnya berurutan tanpa melihat layar.",
+          "petunjuk": "Putar bait ketiga al-Khalil. Lagukan bersamanya tiga kali, dan dengarkan di mana suku panjang pembuka menjadi pendek.",
           "bait": [
             "تَظَلُّ فِيهِ وَتَأْوِي",
             "حَتَّى يَجِيئَكَ مَوْتُ"
@@ -258,21 +632,22 @@
           "makna": "Engkau bernaung dan berlindung di dalamnya sampai ajal datang menjemputmu."
         }
       ],
-      "patokan": "Syathr kedua bait al-Khalil dan kunci mujtats ditandai sendiri sampai benar, dan baris yang pincang ditemukan dengan telinga sebelum diperiksa.",
+      "patokan": "Kunci mujtats dan bait kedua al-Khalil ditimbang sendiri dengan setiap khabn diberi nama, dan baris قَدْ قَرُبَ dikenali patah dengan alasannya.",
       "dengar": [
         {
-          "judul": "Bahr mujtats (Madrasa)",
-          "url": "https://www.youtube.com/watch?v=MM1fnUrPoOE",
-          "catatan": "Bahasa Arab, penjelasan singkat bahr mujtats."
+          "judul": "Syarah bahr mujtats (Akadimi Himmah al-Adab)",
+          "url": "https://www.youtube.com/watch?v=Dh8K8lXlFtQ",
+          "catatan": "Bahasa Arab."
         }
       ]
     },
     {
-      "nomor": 2,
-      "judul": "Laci qafiyah dan empat bait",
-      "ringkas": "Qafiyah ber-ridf lin pada bait al-Khalil, qafiyah ber-ridf ya pada bait buku Ibnu al-Mu'tazz, lalu laci ـالِي dan empat bait Anda.",
-      "menit": 30,
-      "analogi": "Di sharaf, shighat muntahal jumu' (مَفَاعِل، فَوَاعِل) dari isim naqish berakhir ya: الْمَعَالِي، النَّوَاحِي، اللَّيَالِي. Bentuk ini seperti dibuat untuk ujung mujtats: setelah الْ, polanya 1 10 10, tepat menutup فَاعِلَاتُنْ.",
+      "nomor": 3,
+      "versi": 2,
+      "judul": "Laci ـالِي dan empat bait",
+      "ringkas": "Qafiyah ber-ridf lin pada bait al-Khalil, satu cetakan, mu'aradhah doa al-Basthi, lalu empat bait mujtats dengan tema saja.",
+      "menit": 40,
+      "analogi": "Di sharaf, shighat muntahal jumu' (مَفَاعِل، فَوَاعِل) dari isim naqish berakhir ya: الْمَعَالِي، النَّوَاحِي، اللَّيَالِي. Bentuk ini seperti dibuat untuk ujung mujtats: setelah الْ dan huruf jar, polanya tepat menutup فَاعِلَاتُنْ.",
       "amtsilah": [
         {
           "bait": [
@@ -281,7 +656,7 @@
           ],
           "bahr": "mujtats",
           "makna": "Engkau bernaung dan berlindung di dalamnya sampai ajal datang menjemputmu.",
-          "sumber": "Al-Khalil bin Ahmad al-Farahidi, peletak ilmu 'arudh. Ibnu Hibban, Raudhat al-'Uqala' (bab dorongan bertawakal kepada Yang menjamin rezeki) dan ats-Tsiqat (biografi al-Khalil); adz-Dzahabi, Tarikh al-Islam, biografi al-Khalil. Dicocokkan lewat turath.io. Ibnu Hibban dalam ats-Tsiqat: حَتَّى يَجِيئَكَ مَوْتُكَ; al-Ashbahani, Siyar as-Salaf: مُوَيْتُ.",
+          "sumber": "Al-Khalil bin Ahmad al-Farahidi. Ibnu Hibban, Raudhat al-'Uqala' dan ats-Tsiqat; adz-Dzahabi, Tarikh al-Islam. Dicocokkan lewat turath.io. Ibnu Hibban dalam ats-Tsiqat: حَتَّى يَجِيئَكَ مَوْتُكَ; al-Ashbahani, Siyar as-Salaf: مُوَيْتُ.",
           "catatan": "مَوْتُ ber-ridf waw lin, berqafiyah dengan زَيْتُ dan بُيَيْتُ yang ber-ridf ya lin."
         },
         {
@@ -291,18 +666,8 @@
           ],
           "bahr": "mujtats",
           "makna": "Demi hidupku, itulah kecukupan. Jangan sampai angan-angan \"andai saja\" memperdayamu.",
-          "sumber": "Al-Khalil bin Ahmad al-Farahidi, peletak ilmu 'arudh. Ibnu Hibban, Raudhat al-'Uqala' (bab dorongan bertawakal kepada Yang menjamin rezeki) dan ats-Tsiqat (biografi al-Khalil); adz-Dzahabi, Tarikh al-Islam, biografi al-Khalil. Dicocokkan lewat turath.io. Riwayat al-Ashbahani: فَلَنْ يَغُرَّكَ لَيْتُ.",
-          "catatan": "لَيْتُ di sini dijadikan isim (dirafa'kan sebagai fa'il): angan-angan yang dimulai dengan لَيْتَ. لَعَمْرِي ungkapan penguat yang lazim dalam bahasa Arab."
-        },
-        {
-          "bait": [
-            "جَعَلْتُ كُتْبِي أَنِيسِي",
-            "مِنْ دُونِ كُلِّ أَنِيسِ"
-          ],
-          "bahr": "mujtats",
-          "makna": "Kujadikan buku-bukuku teman setia, bukan teman-teman yang lain.",
-          "sumber": "Ibnu al-Mu'tazz. Al-Khathib al-Baghdadi, Taqyid al-'Ilm, meriwayatkannya dengan label \"min al-mujtats\". Dicocokkan lewat turath.io.",
-          "catatan": "كُتْبِي dibaca dengan ta sukun: takhfif jamak فُعُل yang sah, seperti رُسْلُنَا dalam qira'ah Abu 'Amr."
+          "sumber": "Al-Khalil bin Ahmad al-Farahidi. Ibnu Hibban, Raudhat al-'Uqala' dan ats-Tsiqat; adz-Dzahabi, Tarikh al-Islam. Dicocokkan lewat turath.io. Riwayat al-Ashbahani: فَلَنْ يَغُرَّكَ لَيْتُ.",
+          "catatan": "لَيْتُ di sini dijadikan isim (dirafa'kan sebagai fa'il): angan-angan yang dimulai dengan لَيْتَ."
         },
         {
           "bait": [
@@ -313,6 +678,16 @@
           "makna": "Karena aku tidak rela kecuali dengan yang berharga.",
           "sumber": "Ibnu al-Mu'tazz. Al-Khathib al-Baghdadi, Taqyid al-'Ilm, meriwayatkannya dengan label \"min al-mujtats\". Dicocokkan lewat turath.io. Bait kedua.",
           "catatan": "أَنِيسِ dan نَفِيسِ: rawiy sin kasrah, ridf ya (wazan فَعِيل)."
+        },
+        {
+          "bait": [
+            "إِنْ لَمْ تُيَسِّرْ سَرَاحِي",
+            "يَا رَبِّ يَسِّرْ مَمَاتِي"
+          ],
+          "bahr": "mujtats",
+          "makna": "Jika Engkau tidak memudahkan kepergianku, ya Tuhan, mudahkanlah kematianku.",
+          "sumber": "'Abd al-Karim al-Basthi, qashidah «إن لم تيسر سراحي». https://poetry.dctabudhabi.ae/diwan/poem/53963. Harakat dilengkapi.",
+          "catatan": "Pola mu'aradhah pelajaran ini. Ujungnya berpola فَعَالِي setelah satu huruf: سَرَاحِي, مَمَاتِي."
         }
       ],
       "bahts": {
@@ -353,37 +728,32 @@
           },
           {
             "tampil": "mizan",
-            "kata": "وَصْ عَدْ بِهِي = 1010110, مُسْتَفْعِلُنْ. لِلْ مَعَا لِي = 1011010, فَاعِلَاتُنْ. Jamak الْمَعَالِي menutup bait dengan pas."
+            "kata": "وَصْ عَدْ بِهِي = 1010110, مُسْتَفْعِ لُنْ. لِلْ مَعَا لِي = 1011010, فَاعِلَاتُنْ. Jamak الْمَعَالِي menutup bait dengan pas."
           },
           {
             "tampil": "teks",
             "kata": "Ganti الْمَعَالِي dengan anggota laci lain, polanya tetap: لِلْعَوَالِي، فِي اللَّيَالِي. Ini laci wazan: satu pola sharaf, banyak kata.",
-            "papan": "ـِ + الْ + فَعَالِي = فَاعِلَاتُنْ\nلِلْمَعَالِي · فِلْلَيَالِي · نُورُلْعَوَالِي"
+            "papan": "ـِ + الْ + فَعَالِي = فَاعِلَاتُنْ\nلِلْمَعَالِي · فِلْلَيَالِي · لِلْعَوَالِي"
           }
         ],
         "giliran": {
           "syathr": 0,
-          "petunjuk": "Giliran Anda: tandai **syathr pertama**. الْعِلْمِ: hamzah washal gugur, بَلْعِلْ. جِدَّا: syaddah jadi dua huruf, alif ithlaq di ujung syathr dibaca."
+          "petunjuk": "Giliran Anda: tandai **syathr pertama**. الْعِلْمِ: hamzah washal gugur, بَلْعِلْ. جِدَّا: syaddah jadi dua huruf, alif di ujung syathr dibaca. Di mana batas taf'ilah jatuh?"
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama dan kedua, bait ketiga dan keempat al-Khalil. Ujungnya مَوْتُ dan لَيْتُ. Di Pelajaran 1 Anda sudah melihat زَيْتُ dan بُيَيْتُ. Empat kata itu satu qafiyah: rawiy ت berharakat dhammah, dan sebelumnya ada ya atau waw sakin setelah fathah.",
-        "Ya dan waw sakin setelah fathah adalah huruf **lin**, yang Anda kenal dari mad lin dalam tajwid (خَوْفٍ، بَيْتٍ). Di qafiyah, huruf lin sebelum rawiy dihitung **ridf**, dan waw serta ya boleh bergantian. Karena itu مَوْتُ bisa bersanding dengan زَيْتُ. Tetapi ia tidak bisa bersanding dengan بَاتُ, karena ridf alif tidak dicampur dengan lin.",
-        "Contoh kedua juga mengajarkan nahwu. فَلَا يَغُرَّكَ لَيْتُ: لَيْتَ biasanya huruf, tetapi di sini dijadikan nama bagi angan-angan, maka ia isim yang dirafa'kan sebagai fa'il dari يَغُرَّ. Penyair memakainya di posisi rawiy, dan dhammahnya dipanjangkan: لَيْتُو.",
-        "Contoh ketiga dari Ibnu al-Mu'tazz. جَعَلْتُ كُتْبِي: jamak كُتُب dibaca dengan ta sukun. Ini lughah yang sah untuk jamak wazan فُعُل, sama seperti رُسْلُنَا dalam qira'ah Abu 'Amr. Kalau dibaca كُتُبِي, satu huruf hidup bertambah dan taf'ilah pertama patah. Syair memilih bacaan yang ringan.",
-        "Ujung bait Ibnu al-Mu'tazz, أَنِيسِ dan نَفِيسِ, punya rawiy sin kasrah dan ridf ya. لِأَنِيسِي dan لِنَفِيسِي sama-sama 1 1 10 10 = فَعِلَاتُنْ. Wazan فَعِيل setelah satu huruf hidup adalah penutup mujtats yang sangat pas.",
-        "Terakhir, peragaan Hudhud. إِلَى الْمَعَالِي patah, لِلْمَعَالِي lurus. Huruf jar لِ dan إِلَى sama-sama menunjukkan arah, tetapi لِ lebih ringan. Laci ـالِي (الْمَعَالِي، الْعَوَالِي، اللَّيَالِي) menutup فَاعِلَاتُنْ dengan pas, dan dari laci itulah Anda menyusun empat bait."
+        "Perhatikan contoh pertama dan kedua, bait ketiga dan keempat al-Khalil. Ujungnya مَوْتُ dan لَيْتُ. Di Pelajaran 2 Anda sudah melihat زَيْتُ dan بُيَيْتُ. Empat kata itu satu qafiyah: rawiy ت berharakat dhammah, dan sebelumnya ada ya atau waw mati setelah fathah.",
+        "Ya dan waw mati setelah fathah adalah huruf **lin**, yang Anda kenal dari mad lin dalam tajwid (خَوْفٍ، بَيْتٍ). Di qafiyah, huruf lin sebelum rawiy dihitung ridf, dan waw serta ya boleh bergantian. Karena itu مَوْتُ bisa bersanding dengan زَيْتُ. Tetapi ia tidak bisa bersanding dengan بَاتُ, karena ridf alif tidak dicampur dengan lin.",
+        "Contoh ketiga dari Ibnu al-Mu'tazz. Ujungnya, أَنِيسِ dan نَفِيسِ, punya rawiy sin kasrah dan ridf ya. بِكُلْلِنَفِيسِي: لِنَفِيسِي = 111010, فَعِلَاتُنْ. Wazan فَعِيل setelah satu huruf hidup adalah penutup mujtats yang pas, dengan khabn.",
+        "Contoh keempat, doa al-Basthi, menjadi pola mu'aradhah. سِرْسَرَاحِي dan سِرْمَمَاتِي: suku panjang, lalu kata berwazan فَعَالِي. Kata lain yang sewazan dan seqafiyah: حَيَاتِي, نَجَاتِي, صَلَاتِي.",
+        "Peragaan Hudhud: إِلَى الْمَعَالِي patah, لِلْمَعَالِي lurus. Huruf jar لِ dan إِلَى sama-sama menunjukkan arah, tetapi لِ lebih ringan. Di bahr sependek mujtats, satu huruf hidup tambahan sudah mematahkan.",
+        "Bantuan yang dicabut di pelajaran ini: hanya satu cetakan, calon kata hanya diberikan sekali, dan susun empat bait tidak memakai pola maupun rancangan, hanya tema. Qafiyah Anda pilih sendiri."
       ],
       "keliru": [
         {
           "salah": "Menganggap مَوْتُ tidak boleh berqafiyah dengan زَيْتُ karena hurufnya berbeda.",
           "benar": "Boleh: waw dan ya lin sama-sama ridf.",
           "sebab": "Yang harus sama adalah rawiy (ت) dan harakatnya; ridf lin waw dan ya boleh bergantian."
-        },
-        {
-          "salah": "Membaca كُتُبِي dengan dua dhammah di bait Ibnu al-Mu'tazz.",
-          "benar": "كُتْبِي, ta sukun.",
-          "sebab": "Takhfif jamak فُعُل adalah lughah yang sah; bacaan penuh menambah satu huruf hidup."
         },
         {
           "salah": "Memakai إِلَى di bahr pendek.",
@@ -397,11 +767,11 @@
         }
       ],
       "qaidah": [
-        "**Laci wazan ـالِي**: jamak taksir naqish berpola مَفَاعِل / فَوَاعِل / فَعَالِي (الْمَعَالِي، الْعَوَالِي، اللَّيَالِي، الْأَمَالِي) dan mufrad فَعَال (الْكَمَالِ، الْجَمَالِ). Setelah huruf hidup + الْ, semuanya membentuk فَاعِلَاتُنْ.",
-        "Semua kata itu ber-ridf alif dan berawiy lam kasrah, jadi bisa dipakai bersama dalam satu qashidah.",
-        "**Ridf lin**: ya atau waw sakin setelah fathah (زَيْتُ، مَوْتُ، لَيْتُ) juga dihitung ridf, dan keduanya boleh bergantian dalam satu qashidah. Ridf alif tidak boleh dicampur dengannya.",
-        "Ruang mujtats sempit seperti ramal majzu'. Huruf jar yang panjang (إِلَى، عَلَى) sering kelebihan; coba لِ atau بِ.",
-        "Empat bait satu qafiyah: tentukan qafiyah, isi laci dulu (minimal enam kata), baru susun."
+        "**Laci wazan ـالِي**: jamak taksir naqish berpola مَفَاعِل / فَوَاعِل / فَعَالِي (الْمَعَالِي، الْعَوَالِي، اللَّيَالِي، الْأَمَالِي) dan mufrad فَعَال (الْكَمَالِ، الْجَمَالِ). Setelah huruf jar dan الْ, semuanya membentuk فَاعِلَاتُنْ.",
+        "**Ridf lin**: ya atau waw mati setelah fathah (زَيْتُ، مَوْتُ، لَيْتُ) juga dihitung ridf, dan keduanya boleh bergantian. Ridf alif tidak boleh dicampur dengannya.",
+        "Ruang mujtats sempit. Huruf jar yang panjang (إِلَى، عَلَى) sering kelebihan; coba لِ atau بِ.",
+        "Pembuka mujtats: utuh (1010110) atau makhbun (110110). Bukan thayy.",
+        "Empat bait satu qafiyah: tentukan qafiyah, isi laci ujung dulu (minimal enam kata), baru susun."
       ],
       "tamarin": [
         {
@@ -428,27 +798,19 @@
                 "الْكَمَالِ"
               ],
               "jawaban": 2,
-              "alasan": "الْمَعَانِي rawiy-nya nun, bukan lam. Tiga lainnya berawiy lam kasrah dengan ridf alif.",
+              "alasan": "الْمَعَانِي rawiy-nya nun, bukan lam.",
               "arab": true
             },
             {
-              "soal": "بُيَيْتٌ adalah?",
+              "soal": "Pengganti مَمَاتِي yang sewazan dan seqafiyah?",
               "pilihan": [
-                "Tashghir بَيْت",
-                "Jamak بَيْت",
-                "Fi'il"
+                "نَجَاتِي",
+                "مَوْتِي",
+                "أُمُورِي"
               ],
               "jawaban": 0,
-              "alasan": "Wazan فُعَيْل: rumah kecil."
-            },
-            {
-              "soal": "كُتْبِي dibaca dengan ta sukun karena?",
-              "pilihan": [
-                "Lughah ringan jamak فُعُل, dan wazan memerlukannya",
-                "Salah cetak"
-              ],
-              "jawaban": 0,
-              "alasan": "Seperti رُسْلُنَا dalam qira'ah Abu 'Amr."
+              "alasan": "مَوْتِي kurang satu huruf hidup; أُمُورِي sewazan tetapi rawiy-nya ra.",
+              "arab": true
             },
             {
               "soal": "Ridf dalam أَنِيسِ adalah?",
@@ -464,83 +826,8 @@
           ]
         },
         {
-          "jenis": "tandai",
-          "petunjuk": "Beri tanda pada kata-kata bait al-Khalil dan Ibnu al-Mu'tazz, lalu kata dari laci ـالِي.",
-          "butir": [
-            "فِيهِ",
-            "تَظَلُّ",
-            "وَتَأْوِي",
-            "يَجِيئَكَ",
-            "مَوْتُ",
-            "لَعَمْرِي",
-            "كُتْبِي",
-            "أَنِيسِي",
-            "لِلْمَعَالِي",
-            "اللَّيَالِي"
-          ]
-        },
-        {
-          "jenis": "taqthi",
-          "petunjuk": "Timbang bait ini. لِسَانُهُ: ha dhamir di antara dua huruf hidup dipanjangkan, نُهُو. جِرَاحِ di ujung bait: kasrah dipanjangkan.",
-          "bait": [
-            "لِي صَاحِبٌ لَيْسَ يَخْلُو",
-            "لِسَانُهُ مِنْ جِرَاحِ"
-          ],
-          "bahr": "mujtats",
-          "makna": "Aku punya seorang kawan yang lisannya tak pernah sepi dari melukai."
-        },
-        {
-          "jenis": "pincang",
-          "petunjuk": "Centang yang pincang. Yang pincang hanya berbeda satu kata dari aslinya.",
-          "bahr": "mujtats",
-          "baris": [
-            {
-              "bait": [
-                "تَظَلُّ فِيهِ وَتَأْوِي",
-                "حَتَّى يَجِيئَكَ مَوْتُ"
-              ],
-              "catatan": "Bait al-Khalil, asli."
-            },
-            {
-              "bait": [
-                "تَظَلُّ فِيهِ وَتَأْوِي",
-                "حَتَّى يَأْتِيَكَ الْمَوْتُ"
-              ],
-              "catatan": "يَجِيئَكَ مَوْتُ diganti يَأْتِيَكَ الْمَوْتُ. Maknanya sama, tetapi kedua taf'ilah syathr kedua bergeser. Bait latihan, bukan kutipan."
-            },
-            {
-              "bait": [
-                "جَعَلْتُ كُتْبِي أَنِيسِي",
-                "مِنْ دُونِ كُلِّ أَنِيسِ"
-              ],
-              "catatan": "Bait Ibnu al-Mu'tazz, asli."
-            },
-            {
-              "bait": [
-                "جَعَلْتُ كُتُبِي أَنِيسِي",
-                "مِنْ دُونِ كُلِّ أَنِيسِ"
-              ],
-              "catatan": "كُتْبِي dibaca penuh, كُتُبِي. Satu huruf hidup bertambah: 110111. Bait latihan, bukan kutipan."
-            },
-            {
-              "bait": [
-                "يُجِيدُ تَمْزِيقَ عِرْضِي",
-                "عَلَى سَبِيلِ الْمُزَاحِ"
-              ],
-              "catatan": "Bait kedua «لِي صَاحِبٌ», asli."
-            },
-            {
-              "bait": [
-                "يَا طَالِبَ الْعِلْمِ جِدَّا",
-                "وَاصْعَدْ بِهِ إِلَى الْمَعَالِي"
-              ],
-              "catatan": "Draf peragaan dengan إِلَى. Bait latihan, bukan kutipan."
-            }
-          ]
-        },
-        {
           "jenis": "cetakan",
-          "petunjuk": "Isi kotak dengan kata dari laci ـالِي. Buat **tiga baris** berbeda, semuanya lurus.",
+          "petunjuk": "**Satu kotak, di ujung.** Isi kotak dengan kata dari laci ـالِي. Buat **tiga baris** berbeda, semuanya lurus.",
           "cetakan": "فَالْعِلْمُ نُورُ الْ{1}",
           "kotak": [
             {
@@ -559,169 +846,89 @@
         },
         {
           "jenis": "susun",
-          "petunjuk": "Susun **4 bait mujtats** satu qafiyah. Isi laci ـالِي dulu, lalu ikuti rancangan. Timbang setiap bait, periksa qafiyahnya, salin keempatnya ke Diwan.",
+          "petunjuk": "**Mu'aradhah** doa al-Basthi. Mulai dari pola, naiki tangganya, timbang setiap langkah. Qafiyah ـَاتِي tetap.",
           "bahr": "mujtats",
-          "makna": "Usul tema: menuntut ilmu di malam hari. Usul qafiyah: ـالِي (اللَّيَالِي، الْمَعَالِي، الْعَوَالِي، الْكَمَالِ).",
+          "makna": "Tema: doa memohon kemudahan.",
+          "bankKata": true,
+          "pola": {
+            "bait": [
+              "إِنْ لَمْ تُيَسِّرْ سَرَاحِي",
+              "يَا رَبِّ يَسِّرْ مَمَاتِي"
+            ],
+            "sumber": "'Abd al-Karim al-Basthi; https://poetry.dctabudhabi.ae/diwan/poem/53963. Harakat dilengkapi."
+          },
+          "tangga": [
+            {
+              "teks": "Ganti **satu kata**: مَمَاتِي. Dari tiga calon, satu sewazan dan seqafiyah, satu pincang, dan satu lurus tetapi rawiy-nya lain. Timbang sendiri, lalu pakai yang tepat.",
+              "ganti": "مَمَاتِي",
+              "calon": [
+                "نَجَاتِي",
+                "مَوْتِي",
+                "أُمُورِي"
+              ]
+            },
+            "Ganti **satu syathr**: tulis syathr pertama Anda sendiri. Pembuka 1010110 atau 110110, ujung فَاعِلَاتُنْ.",
+            "**Bait sendiri**: kedua syathr kata Anda, mujtats lurus, berujung ـَاتِي."
+          ]
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Empat bait mujtats**, satu qafiyah, tanpa pola dan tanpa rancangan. Pilih qafiyah sendiri (usul: ـالِي), isi laci ujung minimal enam kata, susun, timbang setiap bait, lalu jalani tashih i'rab sebelum menyalin ke Diwan.",
+          "bahr": "mujtats",
+          "makna": "Tema: menuntut ilmu di malam hari.",
           "bankKata": true,
           "jumlah": 4,
           "qafiyah": "satu",
-          "rancangan": [
-            "Seruan kepada penuntut ilmu",
-            "Begadang belajar di malam-malam",
-            "Ilmu mengangkat ke derajat tinggi",
-            "Doa agar ilmu sempurna dan bermanfaat"
+          "judulDiwan": "Empat bait mujtats",
+          "bantuan": {
+            "diberi": [
+              "Timbangan dan pemeriksa qafiyah",
+              "Laci mujtats dan Laci saya",
+              "Tema"
+            ],
+            "dicabut": [
+              "Pola mu'aradhah",
+              "Rancangan per bait",
+              "Calon kata"
+            ]
+          },
+          "tashih": true
+        },
+        {
+          "jenis": "panen",
+          "petunjuk": "**Panen tanpa kotak.** Dari bait Abu al-'Atahiyah, potong sendiri dua potongan yang masing-masing tepat satu taf'ilah utuh. Salah satunya anggota laci ـالِي.",
+          "bait": [
+            "هَوَّنْتَ عَسْفَ اللَّيَالِي",
+            "هَوَّنْتَ مَا لَا يَهُونُ"
           ],
-          "judulDiwan": "Empat bait mujtats"
+          "bahr": "mujtats",
+          "jumlah": 2,
+          "kotak": false,
+          "sumber": "Abu al-'Atahiyah, qashidah «سكر الشباب جنون». https://www.aldiwan.net/poem63129.html. Harakat dilengkapi."
         }
       ],
-      "patokan": "Laci ـالِي berisi minimal enam kata, tiga baris cetakan lurus, dan empat bait mujtats satu qafiyah (0 patah) tersimpan di Diwan.",
-      "dengar": [
-        {
-          "judul": "Syarah bahr mujtats (Akadimi Himmah al-Adab)",
-          "url": "https://www.youtube.com/watch?v=Dh8K8lXlFtQ",
-          "catatan": "Bahasa Arab."
-        }
-      ]
+      "patokan": "Tiga baris cetakan lurus, mu'aradhah sampai bait sendiri, dan empat bait mujtats satu qafiyah (0 patah, tanpa thayy di pembuka) tersimpan di Diwan, dengan minimal satu potongan dari Laci saya."
     }
   ],
   "laci": [
-    {
-      "teks": "كَفَاكَ",
-      "arti": "cukuplah bagimu",
-      "laci": "hasyw",
-      "catatan": "كَفَاكَخَلْ = مُتَفْعِلُنْ bila disambung kata bersyaddah.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "إِنْ لَمْ يَكُنْ",
-      "arti": "kalau tidak ada",
-      "laci": "hasyw",
-      "catatan": "Satu مُسْتَفْعِلُنْ utuh.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "خَلٌّ وَزَيْتٌ",
-      "arti": "cuka dan minyak zaitun",
-      "laci": "umum",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "كِسْرَةٌ",
-      "arti": "sepotong roti",
-      "laci": "wazan",
-      "catatan": "Wazan فِعْلَة: sepotong dari sesuatu.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "بُيَيْتٌ",
-      "arti": "rumah kecil",
-      "laci": "qafiyah",
-      "catatan": "Tashghir بَيْت, wazan فُعَيْل. Qafiyah ـيْتُ, ridf ya lin.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "مَوْتُ",
-      "arti": "kematian",
-      "laci": "qafiyah",
-      "catatan": "Ridf waw lin; berqafiyah dengan زَيْتُ، لَيْتُ.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "فَلَا يَغُرَّكَ",
-      "arti": "maka jangan sampai memperdayamu",
-      "laci": "hasyw",
-      "catatan": "Satu مُتَفْعِلُنْ: فَلَا يَغُرْ.",
-      "dari": "al-Khalil bin Ahmad"
-    },
-    {
-      "teks": "أَنِيسِي",
-      "arti": "teman akrabku",
-      "laci": "qafiyah",
-      "catatan": "Wazan فَعِيل; qafiyah ـيسِ.",
-      "dari": "Ibnu al-Mu'tazz"
-    },
-    {
-      "teks": "نَفِيسِ",
-      "arti": "yang berharga",
-      "laci": "qafiyah",
-      "catatan": "Wazan فَعِيل; pasangan أَنِيسِ.",
-      "dari": "Ibnu al-Mu'tazz"
-    },
-    {
-      "teks": "مِنْ دُونِ كُلِّ",
-      "arti": "bukan (memilih) semua yang lain",
-      "laci": "hasyw",
-      "catatan": "Satu مُسْتَفْعِلُنْ: مِنْ دُونِ كُلْ.",
-      "dari": "Ibnu al-Mu'tazz"
-    },
-    {
-      "teks": "عَلَى سَبِيلِ",
-      "arti": "dengan cara, sebagai",
-      "laci": "hasyw",
-      "catatan": "Satu مُتَفْعِلُنْ: عَلَى سَبِي.",
-      "dari": "«لِي صَاحِبٌ»"
-    },
-    {
-      "teks": "اللَّيَالِي",
-      "arti": "malam-malam",
-      "laci": "wazan",
-      "catatan": "Jamak taksir فَعَالِي dari لَيْلَة. Qafiyah ـالِي.",
-      "dari": "Laci Bonus mujtats"
-    },
-    {
-      "teks": "الْمَعَالِي",
-      "arti": "derajat-derajat yang tinggi",
-      "laci": "wazan",
-      "catatan": "Jamak مَفَاعِل (naqish) dari مَعْلَاة. Qafiyah ـالِي.",
-      "dari": "Laci Bonus mujtats"
-    },
-    {
-      "teks": "الْعَوَالِي",
-      "arti": "yang tinggi-tinggi",
-      "laci": "wazan",
-      "catatan": "Jamak فَوَاعِل (naqish) dari عَالِيَة.",
-      "dari": "Laci Bonus mujtats"
-    },
-    {
-      "teks": "الْأَمَالِي",
-      "arti": "imla'-imla' (catatan majelis guru)",
-      "laci": "wazan",
-      "catatan": "Jamak dari أُمْلِيَّة; nama kitab kumpulan pelajaran yang didiktekan.",
-      "dari": "Laci Bonus mujtats"
-    },
-    {
-      "teks": "الْكَمَالِ",
-      "arti": "kesempurnaan",
-      "laci": "qafiyah",
-      "catatan": "Mufrad فَعَال; tetap satu qafiyah dengan ـالِي.",
-      "dari": "Laci Bonus mujtats"
-    },
-    {
-      "teks": "يَا طَالِبَ الْعِلْمِ",
-      "arti": "wahai penuntut ilmu",
-      "laci": "hasyw",
-      "catatan": "Satu مُسْتَفْعِلُنْ: يَا طَالِبَلْ.",
-      "dari": "Bait latihan Bonus mujtats"
-    },
-    {
-      "teks": "وَاصْعَدْ بِهِ",
-      "arti": "dan naiklah dengannya",
-      "laci": "hasyw",
-      "catatan": "Satu مُسْتَفْعِلُنْ: وَصْعَدْبِهِي.",
-      "dari": "Bait latihan Bonus mujtats"
-    },
-    {
-      "teks": "لِلْمَعَالِي",
-      "arti": "menuju derajat tinggi",
-      "laci": "qafiyah",
-      "catatan": "Satu فَاعِلَاتُنْ; pengganti إِلَى الْمَعَالِي yang patah.",
-      "dari": "Bait latihan Bonus mujtats"
-    },
-    {
-      "teks": "فَالْعِلْمُ نُورٌ",
-      "arti": "ilmu itu cahaya",
-      "laci": "hasyw",
-      "dari": "Cetakan Bonus mujtats"
-    }
+    { "teks": "إِنْ لَمْ يَكُنْ", "arti": "kalau tidak ada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "al-Khalil bin Ahmad" },
+    { "teks": "وَاللَّهُ فِي", "arti": "dan Allah dalam", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110: وَلْلَاهُفِي.", "dari": "Abu Nuwas" },
+    { "teks": "إِنْ شِئْتَ يَا", "arti": "jika engkau mau, wahai", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu al-Abbar" },
+    { "teks": "يَا رَبِّ هَبْ", "arti": "ya Tuhanku, anugerahkanlah", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110. Lanjutkan dengan لِي dan objeknya di taf'ilah kedua.", "dari": "Laci mujtats" },
+    { "teks": "تُهْدَى إِلَى", "arti": "dipersembahkan kepada", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "asy-Syarif al-Murtadha" },
+    { "teks": "يَرْتَاحُ إِنْ", "arti": "ia bergembira bila", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh", "catatan": "1010110.", "dari": "Ibnu Zakur" },
+    { "teks": "كَفَاكَ", "arti": "cukuplah bagimu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn), disambung satu suku panjang", "catatan": "كَفَاكَخَلْ = 110110.", "dari": "al-Khalil bin Ahmad" },
+    { "teks": "فَلَا يَغُرَّكَ", "arti": "maka jangan sampai memperdayamu", "laci": "hasyw", "cocok": "pembuka مُتَفْعِ لُنْ (khabn)", "catatan": "فَلَايَغُرْ = 110110, lalu رَكَ masuk taf'ilah kedua.", "dari": "al-Khalil bin Ahmad" },
+    { "teks": "لِلْمَعَالِي", "arti": "menuju derajat tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010.", "dari": "Bait latihan mujtats" },
+    { "teks": "فِي اللَّيَالِي", "arti": "di malam-malam", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "فِلْلَيَالِي = 1011010.", "dari": "Laci mujtats" },
+    { "teks": "لِلْعَوَالِي", "arti": "menuju yang tinggi-tinggi", "laci": "qafiyah", "cocok": "ujung bait ـالِي, فَاعِلَاتُنْ utuh", "catatan": "1011010. Jamak فَوَاعِل dari عَالِيَة.", "dari": "Laci mujtats" },
+    { "teks": "الْمَعَالِي", "arti": "derajat-derajat yang tinggi", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Jamak مَفَاعِل (naqish) dari مَعْلَاة.", "dari": "Laci mujtats" },
+    { "teks": "الْأَمَالِي", "arti": "imla'-imla' (catatan majelis guru)", "laci": "wazan", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Nama kitab kumpulan pelajaran yang didiktekan.", "dari": "Laci mujtats" },
+    { "teks": "الْكَمَالِ", "arti": "kesempurnaan", "laci": "qafiyah", "cocok": "ujung bait ـالِي setelah huruf jar atau huruf hidup", "catatan": "Mufrad فَعَال; tetap satu qafiyah dengan ـالِي.", "dari": "Laci mujtats" },
+    { "teks": "نَجَاتِي", "arti": "keselamatanku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010, seperti مَمَاتِي.", "dari": "Mu'aradhah al-Basthi" },
+    { "teks": "حَيَاتِي", "arti": "hidupku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi" },
+    { "teks": "صَلَاتِي", "arti": "shalatku", "laci": "qafiyah", "cocok": "ujung bait ـَاتِي setelah satu suku panjang", "catatan": "11010.", "dari": "Mu'aradhah al-Basthi" },
+    { "teks": "أَنِيسِي", "arti": "teman akrabku", "laci": "qafiyah", "cocok": "ujung bait ـيسِ, فَعِلَاتُنْ setelah satu huruf hidup", "catatan": "Wazan فَعِيل.", "dari": "Ibnu al-Mu'tazz" },
+    { "teks": "فَالْعِلْمُ نُورٌ", "arti": "ilmu itu cahaya", "laci": "hasyw", "cocok": "pembuka مُسْتَفْعِ لُنْ utuh, lalu رُنْ membuka taf'ilah kedua", "catatan": "فَلْعِلْمُنُو = 1010110.", "dari": "Cetakan mujtats" }
   ]
 }
