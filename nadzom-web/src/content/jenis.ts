@@ -98,6 +98,8 @@ export type Tamrin =
       periksa?: true
       /** Laci hanya menampilkan kata bertema ini. */
       tema?: string
+      /** `saya`: hanya Laci saya, laci bawaan dicabut (Ujian Akhir). */
+      laci?: 'saya'
       /** Boss (spec 077): bantuan yang masih diberikan dan yang dicabut di sini. */
       bantuan?: { diberi: string[]; dicabut: string[] }
       /** Daftar periksa tashih i'rab sebelum salin ke Diwan; mesin tidak memeriksa lughah. */

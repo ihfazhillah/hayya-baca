@@ -30,10 +30,12 @@ interface Props {
   bahr?: KodeBahr
   /** Saring: hanya kata bertema ini (Fase E). */
   tema?: string
+  /** Hanya Laci saya; laci bawaan tidak ditampilkan (Ujian Akhir). */
+  hanyaSaya?: boolean
 }
 
 /** Laci kata: Laci saya (hasil panen sendiri) lalu laci bawaan, dikelompokkan per laci, dengan pola bit dan asalnya. */
-export default function Laci({ kata, pilihLaci = true, sampai, bahr, tema }: Props) {
+export default function Laci({ kata, pilihLaci = true, sampai, bahr, tema, hanyaSaya }: Props) {
   const id = useId()
   const [laci, setLaci] = useState<JenisLaci | 'semua'>('semua')
   const [cari, setCari] = useState('')
@@ -49,6 +51,7 @@ export default function Laci({ kata, pilihLaci = true, sampai, bahr, tema }: Pro
   const ada = URUT.filter((l) => isi.some((k) => (k.laci ?? 'umum') === l))
   const tampil = (laci === 'semua' ? ada : [laci]).filter((l) => cocok.some((k) => (k.laci ?? 'umum') === l))
 
+  if (hanyaSaya) return <LaciSaya cari={q} />
   return (
     <div className="tumpuk">
       {!kata && <LaciSaya cari={q} />}

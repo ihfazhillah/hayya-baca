@@ -476,3 +476,13 @@ describe('Fase E: dari lurus ke benar dan sesuai (spec 077)', () => {
     expect(screen.queryByText('ilmu')).toBeNull()
   })
 })
+
+describe('Ujian Akhir: hanya Laci saya (audit 2026-10-26)', () => {
+  it('laci bawaan dicabut, Laci saya tetap ada', async () => {
+    const user = userEvent.setup()
+    render(<Susun t={{ jenis: 'susun', petunjuk: 'Susun.', bahr: 'rajaz', makna: 'Bebas.', bankKata: true, laci: 'saya' }} />)
+    await user.click(screen.getByRole('button', { name: 'Buka laci kata' }))
+    expect(screen.getByRole('region', { name: 'Laci saya' })).toBeInTheDocument()
+    expect(document.querySelectorAll('.laci caption').length).toBe(0)
+  })
+})

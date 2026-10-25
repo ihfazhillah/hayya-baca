@@ -290,6 +290,17 @@ export const BAHR = {
       [FAILATUN_KHAFIF, MUSTAFI_LUN, KHAFIF_DHARB],
     ],
   },
+  rajazMajzu: {
+    kode: 'rajazMajzu',
+    nama: "Rajaz majzu'",
+    namaAr: 'الرَّجَز الْمَجْزُوء',
+    kunci: ['مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ', 'مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ'],
+    kunciMakna: "Mizan rajaz majzu': dua مُسْتَفْعِلُنْ per syathr. Tanpa satu pun مُتَفَاعِلُنْ utuh, bait dua taf'ilah ini dibaca rajaz, bukan kamil majzu'.",
+    slot: [
+      [MUSTAFILUN, MUSTAFILUN],
+      [MUSTAFILUN, MUSTAFILUN_DHARB],
+    ],
+  },
   kamilMajzu: {
     kode: 'kamilMajzu',
     nama: "Kamil majzu'",
@@ -337,7 +348,7 @@ export const BAHR = {
 } satisfies Record<string, Bahr>
 
 /** Urutan juga pemecah seri saat menebak: rajaz didahulukan dari kamil yang semuanya mudhmar. */
-export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats, BAHR.mutaqarib, BAHR.khafif, BAHR.kamilMajzu, BAHR.wafirMajzu, BAHR.basithMajzu, BAHR.hazaj]
+export const DAFTAR_BAHR: Bahr[] = [BAHR.rajaz, BAHR.ramalMajzu, BAHR.ramal, BAHR.kamil, BAHR.basith, BAHR.thawil, BAHR.wafir, BAHR.mujtats, BAHR.mutaqarib, BAHR.khafif, BAHR.rajazMajzu, BAHR.kamilMajzu, BAHR.wafirMajzu, BAHR.basithMajzu, BAHR.hazaj]
 
 export function cariBahr(kode: string): Bahr | undefined {
   return DAFTAR_BAHR.find((x) => x.kode === kode)

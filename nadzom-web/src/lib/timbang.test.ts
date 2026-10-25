@@ -335,7 +335,7 @@ describe('lagu لا/نعم (tanghim): لا = 10, نعم = 110, لَ = 1', () => 
     }
   })
 
-  const BELUM_ADA_NAGHAM: string[] = ['mutaqarib', 'khafif', 'kamilMajzu', 'wafirMajzu', 'basithMajzu', 'hazaj']
+  const BELUM_ADA_NAGHAM: string[] = ['mutaqarib', 'khafif', 'rajazMajzu', 'kamilMajzu', 'wafirMajzu', 'basithMajzu', 'hazaj']
   it('setiap bahr: semua bentuknya punya lagu dan video nagham', () => {
     for (const kode of Object.keys(BAHR) as (keyof typeof BAHR)[]) {
       for (const syathr of BAHR[kode].slot) for (const slot of syathr) for (const b of slot) expect(b.lagu, `${kode} ${b.nama}`).toBeTruthy()
@@ -448,5 +448,12 @@ describe("kamil majzu': murafal dan mudzayyal (perbaikan 2026-10-25)", () => {
     const mudzayyal = timbangBait(kitabahOk(['جَدَثٌ يَكُونُ مُقَامُهُ', 'أَبَدًا بِمُخْتَلِفِ الرِّيَاحْ']), BAHR.kamilMajzu)
     expect(mudzayyal.patah).toBe(0)
     expect(mudzayyal.syathr[1].potongan.at(-1)?.bentuk.zihaf).toBe('tadzyil')
+  })
+})
+
+describe("rajaz majzu' (audit 2026-10-26)", () => {
+  it("dua مُسْتَفْعِلُنْ tanpa مُتَفَاعِلُنْ utuh ditebak rajaz majzu'; dengan satu مُتَفَاعِلُنْ, kamil majzu'", () => {
+    expect(tebakBahr(kitabahOk(['مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ', 'مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ'])).bahr.kode).toBe('rajazMajzu')
+    expect(tebakBahr(kitabahOk(['مُتَفَاعِلُنْ مُسْتَفْعِلُنْ', 'مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ'])).bahr.kode).toBe('kamilMajzu')
   })
 })
