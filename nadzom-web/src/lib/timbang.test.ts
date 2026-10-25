@@ -403,3 +403,20 @@ describe('bahr baru untuk Jilid 3 (spec 077): mutaqarib dan khafif', () => {
     expect(tebakBahr(kitabahOk(bait)).bahr.kode).toBe('khafif')
   })
 })
+
+describe('bentuk baku (spec 077): perubahan yang wajib di ujung dihitung utuh', () => {
+  it("'arudh basith فَعِلُنْ, 'arudh thawil مَفَاعِلُنْ, ujung wafir مُفَاعَلْ: utuh dengan catatan bentuk baku", () => {
+    const basith = timbangBait(kitabahOk(BAHR.basith.kunci), BAHR.basith)
+    expect(basith.syathr[0].potongan.at(-1)).toMatchObject({ status: 'utuh', bentuk: { nama: 'فَعِلُنْ' } })
+    expect(basith.syathr[0].potongan.at(-1)?.catatan).toContain('bentuk baku')
+    const thawil = timbangBait(kitabahOk(BAHR.thawil.kunci), BAHR.thawil)
+    expect(thawil.syathr[0].potongan.at(-1)).toMatchObject({ status: 'utuh', bentuk: { nama: 'مَفَاعِلُنْ' } })
+    const wafir = timbangBait(kitabahOk(BAHR.wafir.kunci), BAHR.wafir)
+    expect(wafir.syathr.map((s) => s.potongan.at(-1)?.status)).toEqual(['utuh', 'utuh'])
+  })
+
+  it('khabn di hasyw basith tetap berubah', () => {
+    const h = timbangBait(kitabahOk(['زِيَادَةُ الْمَرْءِ فِي دُنْيَاهُ نُقْصَانُ', 'وَرِبْحُهُ غَيْرَ مَحْضِ الْخَيْرِ خُسْرَانُ']), BAHR.basith)
+    expect(h.syathr[0].potongan[0]).toMatchObject({ status: 'berubah', bentuk: { zihaf: 'khabn' } })
+  })
+})

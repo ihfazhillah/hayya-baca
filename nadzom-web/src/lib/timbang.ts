@@ -14,7 +14,7 @@ export interface Cocok {
 export function cocokkan(seg: string, bentuk: Bentuk[]): Cocok {
   const cocok = bentuk.find((x) => x.bit === seg)
   if (cocok) {
-    return cocok.zihaf
+    return cocok.zihaf && !cocok.baku
       ? { bentuk: cocok, status: 'berubah', biaya: BIAYA.berubah }
       : { bentuk: cocok, status: 'utuh', biaya: BIAYA.utuh }
   }
@@ -72,7 +72,10 @@ export function timbangSyathr(huruf: Huruf[], slot: Bentuk[][]): Omit<HasilSyath
 }
 
 function buatPotongan(mulai: number, akhir: number, seg: string, c: Cocok): Potongan {
-  if (c.status === 'utuh') return { mulai, akhir, bit: seg, status: 'utuh', bentuk: c.bentuk, salah: [], catatan: '' }
+  if (c.status === 'utuh') {
+    const catatan = c.bentuk.baku ? `${c.bentuk.nama}${c.bentuk.namaLain ? ` (${c.bentuk.namaLain})` : ''}: bentuk baku, memang wajib di posisi ini.` : ''
+    return { mulai, akhir, bit: seg, status: 'utuh', bentuk: c.bentuk, salah: [], catatan }
+  }
   if (c.status === 'berubah') {
     return {
       mulai, akhir, bit: seg, status: 'berubah', bentuk: c.bentuk, salah: [],

@@ -25,6 +25,8 @@ export interface Bentuk {
   namaLain?: string
   /** Penilaian ulama untuk zihaf: hasan, shalih, qabih (kurang baik). */
   nilai?: 'hasan' | 'shalih' | 'qabih'
+  /** Bentuk baku: perubahan yang wajib di posisi ini (mis. 'arudh basith فَعِلُنْ). Dihitung utuh, juga di Jilid 1. */
+  baku?: true
   /** Lagu tanghim per juz, dipisah spasi: لا = 10, نعم = 110, لَ = 1. Lihat `lib/lagu.ts`. */
   lagu?: string
 }

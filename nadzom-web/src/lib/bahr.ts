@@ -1,7 +1,7 @@
 /** Definisi bahr. Bahr baru = data baru di sini. Bentuk tanpa `zihaf` = utuh. */
 import type { Bahr, Bentuk } from './jenis'
 
-type Tambahan = Pick<Bentuk, 'illah' | 'namaLain' | 'nilai' | 'lagu'>
+type Tambahan = Pick<Bentuk, 'illah' | 'namaLain' | 'nilai' | 'lagu' | 'baku'>
 const b = (nama: string, bit: string, zihaf?: string, lain: Tambahan = {}): Bentuk =>
   zihaf ? { nama, bit, zihaf, ...lain } : { nama, bit, ...lain }
 
@@ -24,8 +24,8 @@ const FAILUN = [
   b('فَاعِلُنْ', '10110', 'hadzf', { illah: true, lagu: 'لا نعم' }),
   b('فَعِلُنْ', '1110', 'khabn + hadzf', { illah: true, lagu: 'لَ نعم' }),
 ]
-/** Ramal tam: 'arudh selalu mahdzufah; dharb shahih, maqshur, atau mahdzuf. */
-const RAMAL_ARUDH = FAILUN
+/** Ramal tam: 'arudh selalu mahdzufah (bentuk baku); dharb shahih, maqshur, atau mahdzuf. */
+const RAMAL_ARUDH = FAILUN.map((x) => ({ ...x, baku: true as const }))
 const RAMAL_DHARB = [
   ...FAILATUN,
   ...FAILUN,
@@ -60,8 +60,9 @@ const KAMIL_DHARB = [
 /** Basith: فاعلن di hasyw; 'arudh makhbunah; dharb makhbun atau maqthu'. */
 const FAILUN_ASLI = [b('فَاعِلُنْ', '10110', undefined, { lagu: 'لا نعم' }), b('فَعِلُنْ', '1110', 'khabn', { nilai: 'hasan', lagu: 'لَ نعم' })]
 /** 'Arudh tam selalu makhbunah; فَاعِلُنْ di ujung syathr pertama hanya lewat tasri'. */
-const BASITH_ARUDH = [FAILUN_ASLI[1]]
-const BASITH_DHARB = [FAILUN_ASLI[1], b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ', lagu: 'لا لا' })]
+const FAILUN_BAKU = { ...FAILUN_ASLI[1], baku: true as const }
+const BASITH_ARUDH = [FAILUN_BAKU]
+const BASITH_DHARB = [FAILUN_BAKU, b('فَاعِلْ', '1010', "qath'", { illah: true, namaLain: 'فَعْلُنْ', lagu: 'لا لا' })]
 
 /** Thawil: 'arudh selalu maqbudhah; dharb shahih, maqbudh, atau mahdzuf. */
 const FAULUN = [b('فَعُولُنْ', '11010', undefined, { lagu: 'نعم لا' }), b('فَعُولُ', '1101', 'qabdh', { nilai: 'hasan', lagu: 'نعم لَ' })]
@@ -70,7 +71,7 @@ const MAFAILUN = [
   b('مَفَاعِلُنْ', '110110', 'qabdh', { nilai: 'hasan', lagu: 'نعم لَ لا' }),
   b('مَفَاعِيلُ', '110101', 'kaff', { nilai: 'shalih', lagu: 'نعم لا لَ' }),
 ]
-const THAWIL_ARUDH = [b('مَفَاعِلُنْ', '110110', 'qabdh', { lagu: 'نعم لَ لا' })]
+const THAWIL_ARUDH = [b('مَفَاعِلُنْ', '110110', 'qabdh', { lagu: 'نعم لَ لا', baku: true })]
 const THAWIL_DHARB = [...MAFAILUN.slice(0, 2), b('مَفَاعِي', '11010', 'hadzf', { illah: true, namaLain: 'فَعُولُنْ', lagu: 'نعم لا' })]
 
 /** Wafir tam: 'arudh dan dharb selalu maqthufah. 'Ashb (huruf kelima disukunkan) sangat lazim. */
@@ -80,7 +81,7 @@ const MUFAALATUN = [
   b('مُفَاعَتُنْ', '110110', "'aql", { namaLain: 'مَفَاعِلُنْ', nilai: 'qabih', lagu: 'نعم لَ لا' }),
   b('مُفَاعَلْتُ', '110101', 'naqsh', { namaLain: 'مَفَاعِيلُ', nilai: 'qabih', lagu: 'نعم لا لَ' }),
 ]
-const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, namaLain: 'فَعُولُنْ', lagu: 'نعم لا' })]
+const WAFIR_AKHIR = [b('مُفَاعَلْ', '11010', 'qathf', { illah: true, namaLain: 'فَعُولُنْ', lagu: 'نعم لا', baku: true })]
 
 /** Mujtats: selalu majzu', dua taf'ilah per syathr. */
 const MUSTAFILUN_MUJTATS = [
