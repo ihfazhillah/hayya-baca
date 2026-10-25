@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { kitabahBait } from '@/lib/kitabah'
 import { tebakBahr, timbangBait } from '@/lib/timbang'
+import { bedaUjung } from '@/lib/qafiyah'
 import { cariBahr } from '@/lib/bahr'
 import { BABAK, BANK_KATA, MODUL, urutanModul } from '.'
 import type { KodeBahr } from './jenis'
@@ -12,7 +13,13 @@ function timbang(bait: string[], kode: KodeBahr) {
   return timbangBait(k.syathr, cariBahr(kode)!)
 }
 
-const berubah = (bait: string[], kode: KodeBahr) => timbang(bait, kode).syathr.flatMap((s) => s.potongan).filter((p) => p.status === 'berubah').length
+/** Taf'ilah berubah, dihitung tanpa isyba' ha sesudah huruf mati (darurah Modul 19): salim harus salim tanpa darurah. */
+const berubah = (bait: string[], kode: KodeBahr) => {
+  const k = kitabahBait(bait)
+  if (!k.ok) throw new Error(`${bait.join(' / ')}: ${k.galat}`)
+  const syathr = k.syathr.map((s) => s.filter((h, i) => !(h.opsional && s[i - 2]?.bit === 0)))
+  return timbangBait(syathr, cariBahr(kode)!).syathr.flatMap((s) => s.potongan).filter((p) => p.status !== 'utuh').length
+}
 const pola = (teks: string) => {
   const k = kitabahBait([teks], { tanpaAkhir: true })
   return k.ok ? k.syathr[0].map((h) => h.bit).join('') : ''
@@ -106,9 +113,27 @@ for (const modul of MODUL) {
             if (t.jenis === 'susun' && t.pola) expect(timbang(t.pola.bait, t.bahr).patah, "pola mu'aradhah lurus").toBe(0)
             if (t.jenis === 'susun') for (const g of t.tangga ?? []) {
               if (typeof g === 'string') continue
-              const pg = pola(g.ganti)
-              expect(g.calon.some((c) => pola(c) === pg), `ada calon sewazan dengan ${g.ganti}`).toBe(true)
-              expect(g.calon.some((c) => pola(c) !== pg), `ada calon pengecoh untuk ${g.ganti}`).toBe(true)
+              const baris = t.pola?.bait.findIndex((b) => b.includes(g.ganti)) ?? -1
+              if (t.pola && baris >= 0) {
+                // Ditimbang di dalam bait pola: satu calon lurus, satu pincang.
+                // Pengecoh boleh pincang, atau lurus tetapi merusak qafiyah (ridf/rawiy lain dari pola).
+                const asal = kitabahBait(t.pola.bait)
+                const nilai = g.calon.map((c) => {
+                  const bait = t.pola!.bait.map((b, i) => (i === baris ? b.replace(g.ganti, c) : b))
+                  const k = kitabahBait(bait)
+                  const patah = timbang(bait, t.bahr).patah
+                  // Ujung syathr pertama hanya mengikat qafiyah bila pola ber-tashri'.
+                  const mengikat = asal.ok && (baris === asal.syathr.length - 1 || !bedaUjung(asal.syathr[0], asal.syathr.at(-1)!))
+                  const qafiyahLain = mengikat && asal.ok && k.ok ? !!bedaUjung(asal.syathr[baris], k.syathr[baris]) : false
+                  return { benar: patah === 0 && !qafiyahLain, pengecoh: patah > 0 || qafiyahLain }
+                })
+                expect(nilai.some((x) => x.benar), `ada calon yang lurus di pola untuk ${g.ganti}`).toBe(true)
+                expect(nilai.some((x) => x.pengecoh), `ada calon pengecoh (pincang atau qafiyah lain) di pola untuk ${g.ganti}`).toBe(true)
+              } else {
+                const pg = pola(g.ganti)
+                expect(g.calon.some((c) => pola(c) === pg), `ada calon sewazan dengan ${g.ganti}`).toBe(true)
+                expect(g.calon.some((c) => pola(c) !== pg), `ada calon pengecoh untuk ${g.ganti}`).toBe(true)
+              }
             }
             if (t.jenis === 'salah') {
               for (const b of t.baris) expect(timbang(b.bait, t.bahr).patah, `lurus tapi salah, harus lurus: ${b.bait[0]}`).toBe(0)

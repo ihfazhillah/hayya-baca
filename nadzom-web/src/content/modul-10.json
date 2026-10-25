@@ -937,7 +937,7 @@
             {
               "teks": "Ganti satu taf'ilah pembuka: يُخَاطِبُنِي. Mana yang sewazan? Timbang ketiga calon sendiri.",
               "ganti": "يُخَاطِبُنِي",
-              "calon": ["يُجَادِلُنِي", "يَسُبُّنِي", "يُكَلِّمُنِي"]
+              "calon": ["يُجَادِلُنِي", "يَشْتُمُنِي", "يُكَلِّمُنِي"]
             },
             {
               "teks": "Ganti قُبْحٍ dengan kata lain berarti keburukan. Mana yang sepola?",
