@@ -1,14 +1,14 @@
 {
   "nomor": 7,
   "judul": "Laci ـانِ",
-  "tujuan": "Membedah ujung nuniyah: rawiy, harakatnya (majra), dan alif sebelumnya (ridf). Mengisi laci qafiyah ـانِ dari Nuniyah Ibnul Qayyim, lalu menyusun 3 bait kamil dengan satu qafiyah.",
+  "tujuan": "Qafiyah satu sudah Anda latih di rajaz (Modul 5) dan di ramal majzu' (Modul 14). Modul ini memperdalamnya di kamil, dengan ujung Nuniyah Ibnul Qayyim: nama lengkap bagian ujung bait (majra, wasl, ta'sis), dua cacat yang dihindari (iqwa' dan ita'), laci qafiyah ـانِ yang dipilah menurut pola, lalu 3 bait kamil satu qafiyah dengan bait pola dan tangga bercalon.",
   "pelajaran": [
     {
       "nomor": 1,
-      "judul": "Rawiy, majra, ridf",
-      "ringkas": "Tiga bagian ujung bait yang harus sama dari bait pertama sampai terakhir.",
+      "judul": "Majra, wasl, ta'sis",
+      "ringkas": "Rawiy, harakatnya, dan ridf sudah Anda jaga sejak Modul 5. Kini namanya dilengkapi: majra, wasl, dan ta'sis, ditambah cacat iqwa'.",
       "menit": 25,
-      "analogi": "Di Babak 1, muzdawij hanya menuntut dua syathr dalam satu bait berpasangan. Qashidah lebih ketat: ujung setiap bait, dari bait pertama sampai ribuan bait berikutnya, memakai huruf yang sama dengan harakat yang sama. Seperti i'rab dalam satu kalimat panjang: satu harakat salah, seluruh susunan terasa janggal.",
+      "analogi": "Di Modul 5 Anda sudah memegang satu rawiy untuk tiga bait rajaz, dan di Modul 14 untuk empat bait ramal majzu'. Nuniyah Ibnul Qayyim memegangnya ribuan bait. Agar bisa memeriksa ujung bait sepanjang itu, setiap bagiannya perlu nama, seperti nahwu memberi nama setiap kedudukan kata: mubtada', khabar, fa'il. Nama membuat kesalahan mudah ditunjuk.",
       "amtsilah": [
         {
           "bait": [
@@ -42,7 +42,7 @@
         "langkah": [
           {
             "tampil": "bait",
-            "kata": "Bait ketiga Nuniyah. Kali ini kita tidak hanya menimbang; kita membedah **ujung bait**, bagian yang menentukan nama qashidah."
+            "kata": "Bait ketiga Nuniyah. Kali ini kita tidak hanya menimbang; kita membedah **ujung bait** dan memberi nama lengkap pada setiap bagiannya."
           },
           {
             "tampil": "kitabah",
@@ -54,17 +54,17 @@
           },
           {
             "tampil": "teks",
-            "kata": "**Rawiy**: huruf tumpuan qafiyah yang berulang di ujung setiap bait. Di sini ن. Ya isyba' sesudahnya bukan rawiy; ia disebut **wasl**, sambungan suara.",
+            "kata": "**Rawiy** sudah Anda kenal dari Modul 5: huruf tumpuan qafiyah yang berulang di ujung setiap bait. Di sini ن. Yang baru: ya isyba' sesudahnya bukan rawiy; ia disebut **wasl**, sambungan suara.",
             "papan": "الْإِحْسَانِ → ـسَا · نِ · (ي)\nrawiy: ن\nwasl: ي isyba'"
           },
           {
             "tampil": "teks",
-            "kata": "**Majra**: harakat rawiy. Di sini kasrah. Seluruh nuniyah ini berakhir نِ; tidak pernah نُ atau نَ.",
+            "kata": "Harakat rawiy, yang di Modul 5 Anda samakan di setiap bait, bernama **majra**. Di sini kasrah. Seluruh nuniyah ini berakhir نِ; tidak pernah نُ atau نَ.",
             "papan": "majra: kasrah → ـنِ"
           },
           {
             "tampil": "teks",
-            "kata": "**Ridf**: huruf mad tepat sebelum rawiy. Di sini alif dalam ـسَانِ. Karena bait pertama punya ridf alif, setiap bait harus punya alif di tempat itu juga.",
+            "kata": "**Ridf**, yang Anda kenal dari Modul 3 dan 5: huruf mad tepat sebelum rawiy. Di sini alif dalam ـسَانِ. Karena bait pertama punya ridf alif, setiap bait harus punya alif di tempat itu juga.",
             "papan": "ridf: ا\nqafiyah nuniyah: ـَانِ = fathah · alif · nun kasrah"
           }
         ],
@@ -74,11 +74,11 @@
         }
       },
       "syarh": [
-        "Perhatikan contoh pertama, bait ketiga Nuniyah. Ujungnya الْإِحْسَانِ, dibaca ـسَانِي. Mulailah dari belakang. Ya terakhir tidak tertulis; ia lahir dari kasrah yang dipanjangkan. Huruf ini disebut **wasl**. Sebelumnya ada ن berkasrah: inilah **rawiy**, huruf yang berulang di ujung setiap bait dan memberi nama qashidah: nuniyah.",
+        "Perhatikan contoh pertama, bait ketiga Nuniyah. Ujungnya الْإِحْسَانِ, dibaca ـسَانِي. Mulailah dari belakang. Ya terakhir tidak tertulis; ia lahir dari kasrah yang dipanjangkan. Huruf ini disebut **wasl**. Di Modul 14 Anda menyebut qafiyah seperti ini muthlaqah; wasl adalah nama huruf panjangnya. Sebelumnya ada ن berkasrah: rawiy yang memberi nama qashidah, nuniyah.",
         "Harakat rawiy, di sini kasrah, disebut **majra**. Ia seperti harakat i'rab di ujung kalimat: kalau satu bait berakhir نِ dan bait lain نُ, telinga langsung merasakan janggal. Cacat ini disebut **iqwa'**. Di Nuniyah, kasrah itu terjaga ribuan bait.",
-        "Satu langkah lagi ke belakang: alif dalam ـسَا. Huruf mad tepat sebelum rawiy disebut **ridf**. Dalam tajwid Anda mengenalnya sebagai mad thabi'i. Karena bait pertama memakai ridf alif (الْأَرْكَانِ، يَدَانِ), setiap bait harus beridf alif juga: الْإِحْسَانِ، الْإِيمَانِ، الْخَصْمَانِ.",
-        "Contoh kedua, bait 97, juga berakhir الْإِحْسَانِ. Kata الْإِيمَانِ di depannya tidak ikut diperiksa, dan ujung syathr pertama (تَابِعٌ) pun bebas. Qafiyah qashidah hanya mengikat ujung syathr kedua, kecuali bait pertama yang ber-tasri'.",
-        "Ada satu bagian lagi yang tidak muncul di Nuniyah tetapi perlu dikenal: **ta'sis**. Ta'sis adalah alif yang berjarak satu huruf hidup dari rawiy, seperti جَاهِلُ: alif, lalu ه (disebut dakhil), lalu rawiy ل. Bandingkan الْأَمَاكِنِ: alif, ك, lalu rawiy ن berkasrah. Rawiy dan majranya sama dengan Nuniyah, tetapi alif di sana bukan ridf, melainkan ta'sis. Karena itu الْأَمَاكِنِ tidak boleh menutup bait dalam qashidah ـانِ.",
+        "Satu langkah lagi ke belakang: alif dalam ـسَا, ridf yang sudah Anda kenal. Karena bait pertama memakai ridf alif (الْأَرْكَانِ، يَدَانِ), setiap bait harus beridf alif juga: الْإِحْسَانِ، الْإِيمَانِ، الْخَصْمَانِ.",
+        "Contoh kedua, bait 97, juga berakhir الْإِحْسَانِ. Kata الْإِيمَانِ di depannya tidak ikut diperiksa, dan ujung syathr pertama (تَابِعٌ) pun bebas. Qafiyah qashidah hanya mengikat ujung syathr kedua, kecuali bait pertama yang ber-tashri'.",
+        "Sekarang bagian yang di Modul 5 baru disebut namanya: **ta'sis**. Ingat وَاحِدَا dan رَاشِدَا: alifnya tidak tepat sebelum rawiy, ada satu huruf hidup di antaranya. Alif seperti itu adalah ta'sis, dan huruf hidup di antaranya disebut **dakhil**. Contoh lain جَاهِلُ: alif, lalu ه (dakhil), lalu rawiy ل. Bandingkan الْأَمَاكِنِ: alif, ك, lalu rawiy ن berkasrah. Rawiy dan majranya sama dengan Nuniyah, tetapi alif di sana bukan ridf, melainkan ta'sis. Karena itu الْأَمَاكِنِ tidak boleh menutup bait dalam qashidah ـانِ.",
         "Ringkasnya, baca ujung bait dari belakang: wasl (bila ada), rawiy, majranya, lalu periksa huruf tepat sebelum rawiy (ridf) dan alif dua huruf sebelum rawiy (ta'sis). Semuanya harus sama dengan bait pertama."
       ],
       "keliru": [
@@ -104,11 +104,11 @@
         }
       ],
       "qaidah": [
-        "**Rawiy**: huruf tumpuan qafiyah, berulang di ujung setiap bait. Qashidah dinamai dengan rawiynya: nuniyah (nun), lamiyah (lam), mimiyah (mim).",
+        "**Rawiy** (Modul 5): huruf tumpuan qafiyah, berulang di ujung setiap bait. Qashidah dinamai dengan rawiynya: nuniyah (nun), lamiyah (lam), mimiyah (mim).",
         "**Majra**: harakat rawiy. Harus sama di semua bait. Mencampur نِ dengan نُ dalam satu qashidah adalah cacat yang disebut **iqwa'**.",
         "**Ridf**: huruf mad (ا، و، ي) tepat sebelum rawiy. Ridf alif tidak boleh berganti. Ridf waw dan ya boleh saling bergantian (الْعُيُونِ dengan الْمُبِينِ).",
         "**Wasl**: huruf mad yang terdengar setelah rawiy berharakat (ya isyba' setelah نِ). Ia bukan rawiy.",
-        "**Ta'sis**: alif yang dipisah satu huruf hidup (dakhil) dari rawiy, seperti جَاهِلُ، الْأَمَاكِنِ. Kalau bait pertama memakai ta'sis, semua bait memakainya; kalau tidak, tidak boleh ada. Ta'sis dan ridf tidak bercampur."
+        "**Ta'sis**: alif yang dipisah satu huruf hidup (**dakhil**) dari rawiy, seperti رَاشِدَا، جَاهِلُ، الْأَمَاكِنِ. Kalau bait pertama memakai ta'sis, semua bait memakainya; kalau tidak, tidak boleh ada. Ta'sis dan ridf tidak bercampur."
       ],
       "tamarin": [
         {
@@ -271,7 +271,8 @@
           "makna": "Lalu para saksi pertemuan datang dan bersaksi bahwa ia benar, terjadi di majelis kebaikan."
         }
       ],
-      "patokan": "Ujung tiga bait dibedah: rawiy, majra, ridf, dan wasl disebut untuk masing-masing. Bait أَوْ صَحْبُهُ ditandai sendiri sampai benar."
+      "patokan": "Ujung tiga bait dibedah: rawiy, majra, ridf, dan wasl disebut untuk masing-masing. Bait أَوْ صَحْبُهُ ditandai sendiri sampai benar.",
+      "versi": 2
     },
     {
       "nomor": 2,
@@ -552,9 +553,9 @@
     {
       "nomor": 3,
       "judul": "Tiga bait, satu qafiyah",
-      "ringkas": "Susun 3 bait kamil yang semuanya berakhir ـانِ.",
+      "ringkas": "Susun 3 bait kamil yang semuanya berakhir ـانِ, dengan bait pembuka Nuniyah sebagai pola dan tangga bercalon untuk kata ujung.",
       "menit": 30,
-      "analogi": "Tiga bait pertama sebuah nuniyah seperti tiga rakaat dengan satu niat: satu bahr, satu rawiy, satu majra, satu ridf dari awal sampai akhir. Yang berganti hanya kata-katanya.",
+      "analogi": "Qafiyah satu bukan hal baru: Anda sudah menyusun tiga bait rajaz (Modul 5) dan empat bait ramal majzu' (Modul 14) dengan satu rawiy. Yang baru di sini adalah wadahnya: kamil, dengan ujung maqthu' Nuniyah. Seperti tiga rakaat dengan satu niat: satu bahr, satu rawiy, satu majra, satu ridf dari awal sampai akhir. Yang berganti hanya kata-katanya.",
       "amtsilah": [
         {
           "bait": [
@@ -654,10 +655,11 @@
       },
       "syarh": [
         "Perhatikan tiga contoh berurutan: bait 1, 2, 3 Nuniyah. Ujungnya يَدَانِ، الْخَصْمَانِ، الْإِحْسَانِ. Tiga kata berbeda, satu bunyi: rawiy ن, majra kasrah, ridf alif, wasl ya isyba', tanpa ta'sis.",
-        "Bait 1 ber-tasri': syathr pertamanya juga berakhir ـانِ (الْأَرْكَانِ). Di bait 2 dan 3, syathr pertama bebas: حُكْمَهَا dan أَنَّهُ. Qafiyah qashidah hanya mengikat ujung syathr kedua.",
+        "Bait 1 ber-tashri': syathr pertamanya juga berakhir ـانِ (الْأَرْكَانِ). Di bait 2 dan 3, syathr pertama bebas: حُكْمَهَا dan أَنَّهُ. Qafiyah qashidah hanya mengikat ujung syathr kedua.",
         "Lihat polanya. يَدَانِ (11010) didahului كَ dari ذَاكَ, jadi ujungnya 111010. الْخَصْمَانِ dan الْإِحْسَانِ (101010) berdiri sendiri. Ibnul Qayyim mencampur keduanya, karena ujung bait boleh مُتَفَاعِلْ (111010) atau مُتْفَاعِلْ (101010).",
         "Sekarang draf latihan di peragaan. Draf pertama dibuka dengan نُورُ الْقُرْآنِ: نُورُلْقُرْآ = 10101010, sabab berderet tanpa watad. Perbaikannya bukan mengganti makna, tetapi mengganti kata dengan sinonim yang sepola: الْكِتَابِ.",
-        "Urutan kerjanya: makna dulu, lalu tiga kata qafiyah dari laci, baru isi bait. Seperti menyusun kalimat bahasa Arab: Anda tahu khabar yang mau disampaikan sebelum memilih kata, dan ujung bait adalah tempat yang paling sempit."
+        "Urutan kerjanya: makna dulu, lalu tiga kata qafiyah dari laci, baru isi bait. Seperti menyusun kalimat bahasa Arab: Anda tahu khabar yang mau disampaikan sebelum memilih kata, dan ujung bait adalah tempat yang paling sempit.",
+        "Bantuan di pelajaran ini: bait pembuka Nuniyah sebagai pola, laci ـانِ yang dipilah menurut pola, dan tangga bercalon untuk menguji kata ujung. Di setiap anak tangga bercalon ada tiga kata ـانِ; satu di antaranya tidak sewazan dengan kata yang diganti. Timbang dulu, baru pilih."
       ],
       "keliru": [
         {
@@ -679,7 +681,7 @@
       "qaidah": [
         "Satu qashidah = satu bahr, satu rawiy, satu majra, satu ridf. Tentukan keempatnya sebelum bait pertama.",
         "Pilih kata qafiyah untuk semua bait **sebelum** menyusun isinya. Tiga bait, tiga kata berbeda.",
-        "Bait pertama boleh ber-tasri' (kedua syathr berakhir ـانِ), seperti pembuka Nuniyah. Bait berikutnya cukup syathr kedua.",
+        "Bait pertama boleh ber-tashri' (kedua syathr berakhir ـانِ), seperti pembuka Nuniyah. Bait berikutnya cukup syathr kedua.",
         "Setelah semua bait lurus, periksa qafiyah sekali lagi: rawiy ن, majra kasrah, ridf alif di setiap ujung bait."
       ],
       "tamarin": [
@@ -722,7 +724,7 @@
             {
               "soal": "Apakah syathr pertama bait 2 harus berakhir ـانِ?",
               "pilihan": [
-                "Tidak, hanya bait pertama yang ber-tasri'",
+                "Tidak, hanya bait pertama yang ber-tashri'",
                 "Ya, setiap syathr"
               ],
               "jawaban": 0,
@@ -798,16 +800,58 @@
         },
         {
           "jenis": "susun",
-          "petunjuk": "Susun **3 bait kamil** yang semuanya berakhir ـانِ. Tulis makna ketiganya dulu, pilih tiga kata qafiyah berbeda dari laci, lalu susun dan timbang bait demi bait. Catat jumlah patah setiap bait di Diwan.",
+          "petunjuk": "Susun **3 bait kamil** yang semuanya berakhir ـانِ. Qafiyah satu sudah Anda kuasai di rajaz; kini wadahnya kamil dengan ujung maqthu'. Ikuti tangganya: makna dulu, uji kata ujung dengan calon, lalu susun dan timbang bait demi bait. Catat jumlah patah setiap bait di Diwan.",
           "bahr": "kamil",
           "makna": "Usul makna: keutamaan Al-Qur'an, ketenangan saat membacanya di malam hari, dan doa agar ia menjadi teman hidup. Boleh tema lain.",
           "bankKata": true,
           "jumlah": 3,
           "qafiyah": "satu",
-          "judulDiwan": "Tiga bait kamil"
+          "judulDiwan": "Tiga bait kamil",
+          "pola": {
+            "bait": [
+              "حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ",
+              "مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ"
+            ],
+            "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), bait 1 (Wikisource ar, القصيدة النونية)"
+          },
+          "tangga": [
+            "Tulis makna tiga bait dalam bahasa sendiri, satu kalimat per bait.",
+            "Buka laci ـانِ. Pilih tiga kata ujung yang berbeda: kelompok 101010 atau 111010 berdiri sendiri; kelompok 11010 butuh satu huruf hidup sebelumnya.",
+            {
+              "teks": "Bait 1 ber-tashri', jadi syathr pertamanya juga berujung ـانِ. Kata mana yang sewazan dengan الْأَرْكَانِ dan tetap beridf alif?",
+              "ganti": "الْأَرْكَانِ",
+              "calon": [
+                "الْبُنْيَانِ",
+                "الدِّينِ",
+                "الْإِيمَانِ"
+              ]
+            },
+            {
+              "teks": "Ujung bait 1 dalam pola: ذَاكَ يَدَانِ. Kata mana yang bisa menggantikan يَدَانِ setelah huruf hidup?",
+              "ganti": "يَدَانِ",
+              "calon": [
+                "أَمَانِ",
+                "الْبَيَانِ",
+                "لِسَانِ"
+              ]
+            },
+            {
+              "teks": "Bait 3 Nuniyah ditutup فِي مَجْلِسِ الْإِحْسَانِ. Kata mana yang bisa menggantikan الْإِحْسَانِ di sana?",
+              "ganti": "الْإِحْسَانِ",
+              "calon": [
+                "الْعِرْفَانِ",
+                "الْأَمَانِ",
+                "الْغُفْرَانِ"
+              ]
+            },
+            "Susun bait 1 dengan kedua syathr berujung ـانِ. Timbang. 'Arudhnya ikut maqthu' karena tashri'.",
+            "Susun bait 2 dan 3. Ujung syathr pertama bebas dan utuh; ujung bait kembali ke ـانِ dengan kata yang belum dipakai.",
+            "Periksa qafiyah: rawiy ن, majra kasrah, ridf alif, tanpa ta'sis, dan tidak ada kata ujung yang diulang (ita')."
+          ]
         }
       ],
-      "patokan": "Tiga bait kamil berqafiyah ـانِ, setiap bait 0 patah atau patahnya tercatat, dan pemeriksa qafiyah tidak menemukan masalah."
+      "patokan": "Tiga bait kamil berqafiyah ـانِ, setiap bait 0 patah atau patahnya tercatat, dan pemeriksa qafiyah tidak menemukan masalah.",
+      "versi": 2
     }
   ],
   "laci": [
@@ -815,118 +859,151 @@
       "teks": "الْإِيمَانِ",
       "arti": "iman",
       "laci": "qafiyah",
-      "catatan": "Pola إِيمَانِي = 101010, mengisi ujung bait sendirian.",
+      "catatan": "إِيمَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 21, 97"
     },
     {
       "teks": "الْإِحْسَانِ",
       "arti": "ihsan, kebaikan",
       "laci": "qafiyah",
-      "catatan": "Pola 101010. Pasangan: الْإِيمَانِ (عَلَى الْإِيمَانِ وَالْإِحْسَانِ).",
+      "catatan": "إِحْسَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 3, 97"
     },
     {
       "teks": "الْقُرْآنِ",
       "arti": "Al-Qur'an",
       "laci": "qafiyah",
-      "catatan": "Pola قُرْآنِي = 101010.",
-      "dari": "Nuniyah Ibnul Qayyim (banyak bait)"
+      "catatan": "قُرْآنِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
       "teks": "الْفُرْقَانِ",
       "arti": "al-Furqan, pembeda yang haq dan batil",
       "laci": "qafiyah",
-      "catatan": "Pola 101010. Pengganti الْقُرْآنِ agar tidak terjadi ita'.",
+      "catatan": "فُرْقَانِي = 101010. Pengganti الْقُرْآنِ agar tidak terjadi ita'.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 190"
     },
     {
       "teks": "الْبُرْهَانِ",
       "arti": "bukti yang terang",
       "laci": "qafiyah",
-      "catatan": "Pola 101010.",
+      "catatan": "بُرْهَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 96"
     },
     {
       "teks": "الرَّحْمَنِ",
       "arti": "Yang Maha Pengasih",
       "laci": "qafiyah",
-      "catatan": "Pola رَحْمَانِي = 101010. إِلَى الرَّحْمَنِ → إِلَرْرَحْمَانِي.",
-      "dari": "Nuniyah Ibnul Qayyim (banyak bait)"
-    },
-    {
-      "teks": "الْهَذَيَانِ",
-      "arti": "igauan, omong kosong",
-      "laci": "qafiyah",
-      "catatan": "Pola هَذَيَانِي = 111010, mengisi ujung bait sendirian.",
-      "dari": "Nuniyah Ibnul Qayyim bait 189"
-    },
-    {
-      "teks": "أَمَانِ",
-      "arti": "rasa aman",
-      "laci": "qafiyah",
-      "catatan": "Pola 11010: butuh satu huruf hidup sebelumnya (خَيْرُ أَمَانِ).",
-      "dari": "Bait latihan modul ini"
+      "catatan": "رَحْمَانِي = 101010. إِلَى الرَّحْمَنِ dibaca إِلَرْرَحْمَانِي.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
       "teks": "الْأَحْزَانِ",
       "arti": "duka-duka",
       "laci": "qafiyah",
-      "catatan": "Pola 101010. Jamak dari حُزْنٌ, wazan أَفْعَالٌ.",
-      "dari": "Bait latihan modul ini"
+      "catatan": "Jamak حُزْنٌ, wazan أَفْعَالٌ: أَحْزَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
       "teks": "الْبُطْلَانِ",
       "arti": "kebatilan, ketidakabsahan",
       "laci": "qafiyah",
-      "catatan": "Pola 101010. Wazan فُعْلَانٌ.",
+      "catatan": "Wazan فُعْلَانٌ: بُطْلَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 6"
     },
     {
       "teks": "سُلْطَانِ",
       "arti": "kekuasaan, wewenang",
       "laci": "qafiyah",
-      "catatan": "Pola 101010.",
-      "dari": "Nuniyah Ibnul Qayyim bait 4 (مِنْ سُلْطَانِ)"
+      "catatan": "سُلْطَانِي = 101010. Tanpa alif lam, kata sebelumnya harus berakhir huruf mati (مَجْلِسٍ سُلْطَانِ).",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "dari": "Nuniyah Ibnul Qayyim bait 4"
     },
     {
       "teks": "الْأَبْدَانِ",
       "arti": "badan-badan",
       "laci": "qafiyah",
-      "catatan": "Pola 101010. Wazan أَفْعَالٌ.",
-      "dari": "Nuniyah Ibnul Qayyim, pasal nyanyian"
+      "catatan": "Wazan أَفْعَالٌ: أَبْدَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
-      "teks": "وَانْصُرْ كِتَابَ اللَّهِ",
-      "arti": "dan belalah Kitab Allah",
-      "laci": "hasyw",
-      "catatan": "وَنْصُرْ كِتَا = 1010110, بَلْلَاهِ ... lanjut ke taf'ilah kedua.",
-      "dari": "Nuniyah Ibnul Qayyim bait 190"
+      "teks": "الْعِرْفَانِ",
+      "arti": "pengenalan, makrifat",
+      "laci": "qafiyah",
+      "catatan": "عِرْفَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
-      "teks": "عَنِ الْمَبْعُوثِ",
-      "arti": "dari Nabi yang diutus",
-      "laci": "hasyw",
-      "dari": "Nuniyah Ibnul Qayyim bait 190"
+      "teks": "الْغُفْرَانِ",
+      "arti": "ampunan",
+      "laci": "qafiyah",
+      "catatan": "غُفْرَانِي = 101010. Cocok untuk bait doa.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
     },
     {
-      "teks": "كُنْ فِي أُمُورِكَ كُلِّهَا",
-      "arti": "dalam semua urusanmu, jadilah",
-      "laci": "hasyw",
-      "catatan": "Pembuka nasihat: 1010110 lalu 11010.",
+      "teks": "الْإِتْقَانِ",
+      "arti": "kesungguhan dan ketelitian kerja",
+      "laci": "qafiyah",
+      "catatan": "إِتْقَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian"
+    },
+    {
+      "teks": "الْخَصْمَانِ",
+      "arti": "dua pihak yang bersengketa",
+      "laci": "qafiyah",
+      "catatan": "Mutsanna marfu', nunnya tetap berkasrah: خَصْمَانِي = 101010.",
+      "cocok": "ujung bait ـانِ, mengisi 101010 sendirian",
+      "dari": "Nuniyah Ibnul Qayyim bait 2"
+    },
+    {
+      "teks": "الْهَذَيَانِ",
+      "arti": "igauan, omong kosong",
+      "laci": "qafiyah",
+      "catatan": "Wazan فَعَلَانٌ: هَذَيَانِي = 111010, tiga huruf hidup sendiri.",
+      "cocok": "ujung bait ـانِ, mengisi 111010 sendirian",
       "dari": "Nuniyah Ibnul Qayyim bait 189"
+    },
+    {
+      "teks": "يَدَانِ",
+      "arti": "daya, kemampuan (harfiah: dua tangan)",
+      "laci": "qafiyah",
+      "catatan": "مَا لِـ… بِـ… يَدَانِ = tidak punya daya untuk. يَدَانِي = 11010: ذَاكَ يَدَانِ menjadi كَيَدَانِي.",
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)",
+      "dari": "Nuniyah Ibnul Qayyim bait 1"
+    },
+    {
+      "teks": "أَمَانِ",
+      "arti": "rasa aman",
+      "laci": "qafiyah",
+      "catatan": "أَمَانِي = 11010: خَيْرُ أَمَانِ menjadi رُأَمَانِي.",
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
+    },
+    {
+      "teks": "لِسَانِ",
+      "arti": "lisan",
+      "laci": "qafiyah",
+      "catatan": "لِسَانِي = 11010.",
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
+    },
+    {
+      "teks": "بَيَانِ",
+      "arti": "penjelasan",
+      "laci": "qafiyah",
+      "catatan": "بَيَانِي = 11010. Dengan alif lam (الْبَيَانِ) setelah huruf mati, ujung bait kurang satu huruf hidup.",
+      "cocok": "ujung bait ـانِ setelah huruf hidup (jadi 111010)"
     },
     {
       "teks": "مُتَمَسِّكًا",
       "arti": "sambil berpegang teguh",
       "laci": "wazan",
-      "catatan": "Wazan مُتَفَعِّلًا (isim fa'il dari تَفَعَّلَ, sebagai hal). مُتَمَسْسِكَنْ = 11 10 1 10 = 1110110, pas satu مُتَفَاعِلُنْ utuh.",
-      "dari": "Nuniyah Ibnul Qayyim bait 189"
-    },
-    {
-      "teks": "عَلَى الْإِيمَانِ وَالْإِحْسَانِ",
-      "arti": "di atas iman dan ihsan",
-      "laci": "hasyw",
-      "dari": "Nuniyah Ibnul Qayyim bait 97"
+      "catatan": "Wazan مُتَفَعِّلًا (isim fa'il dari تَفَعَّلَ, sebagai hal). مُتَمَسْسِكَنْ = 1110110.",
+      "dari": "Nuniyah Ibnul Qayyim bait 189",
+      "cocok": "satu مُتَفَاعِلُنْ utuh"
     }
   ]
 }
