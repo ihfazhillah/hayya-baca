@@ -239,9 +239,9 @@
       ],
       "keliru": [
         {
-          "salah": "Menghitung seperti suku kata bahasa Indonesia: دَارٌ dianggap dua ketukan, «da-run».",
-          "benar": "دَارٌ = دَارُنْ = 1010: dua huruf hidup, dua huruf mati.",
-          "sebab": "Wazan Arab menghitung huruf hidup dan huruf mati, bukan suku kata. Huruf mad dan nun tanwin ikut dihitung sebagai 0."
+          "salah": "Menghitung ketukan tanpa membedakan panjang dan pendek, dan melupakan nun tanwin: دَارٌ dibaca «da-ru» saja.",
+          "benar": "دَارٌ = دَارُنْ = 1010: dua suku panjang, دَا (10) dan رُنْ (10).",
+          "sebab": "Satu suku pendek = 1, satu suku panjang = 10. Huruf mad dan nun tanwin yang menutup suku dihitung 0; nun tanwin mudah terlupa karena tidak tertulis sebagai huruf."
         },
         {
           "salah": "Alif pada دَا diberi 1 karena ia tertulis.",
