@@ -14,6 +14,9 @@ export const MODUL: Modul[] = Object.values(berkas)
 
 export const ISTILAH: Istilah[] = rujukan.istilah
 
+/** Setelah course: tangga kitab, bahr yang belum dipelajari, kebiasaan (spec 077). */
+export const LANJUTAN: { kitab: { judul: string; penulis: string; tingkat: string; catatan: string }[]; bahrSisa: string[]; kebiasaan: string[] } = rujukan.lanjutan
+
 /** Laci: bank kata awal ditambah kata dari setiap modul, tanpa duplikat. */
 export const BANK_KATA: KataBank[] = [
   ...(rujukan.bankKata as KataBank[]),

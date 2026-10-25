@@ -1,4 +1,4 @@
-import { ISTILAH } from '@/content'
+import { ISTILAH, LANJUTAN } from '@/content'
 import { DAFTAR_BAHR } from '@/lib/bahr'
 import { kitabahBait } from '@/lib/kitabah'
 import { timbangBait } from '@/lib/timbang'
@@ -97,6 +97,30 @@ export default function Rujukan() {
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section className="bagian" aria-label="Langkah berikutnya">
+        <div className="bagian-judul"><h2>Langkah berikutnya</h2></div>
+        <p className="redup">Seperti santri yang naik dari Jurumiyah sampai Alfiyah, lalu terbang sendiri: setelah course ini, lanjutkan dengan kitab.</p>
+        <ol className="tumpuk">
+          {LANJUTAN.kitab.map((k) => (
+            <li key={k.judul} className="kartu">
+              <div className="baris-antara"><strong>{k.judul}</strong><span className="chip">{k.tingkat}</span></div>
+              <p className="redup kecil">{k.penulis}</p>
+              <p><Teks>{k.catatan}</Teks></p>
+            </li>
+          ))}
+        </ol>
+        <div className="kartu">
+          <span className="label">Bahr yang belum dipelajari di course</span>
+          <ul className="baris" style={{ gap: 'var(--s-2)', listStyle: 'none', padding: 0 }}>
+            {LANJUTAN.bahrSisa.map((b) => <li key={b} className="chip">{b}</li>)}
+          </ul>
+        </div>
+        <div className="kartu">
+          <span className="label">Kebiasaan setelah course</span>
+          <ul>{LANJUTAN.kebiasaan.map((k) => <li key={k}><Teks>{k}</Teks></li>)}</ul>
         </div>
       </section>
 

@@ -333,3 +333,14 @@ describe('panen laci sendiri (spec 077)', () => {
     expect((screen.getByLabelText('Markdown Laci saya') as HTMLTextAreaElement).value).toContain('صُبْحٌ بَدَا')
   })
 })
+
+describe('langkah berikutnya (spec 077)', () => {
+  it('rujukan menampilkan tangga kitab, bahr yang belum dipelajari, dan kebiasaan setelah course', () => {
+    buka('/rujukan')
+    const bagian = screen.getByRole('region', { name: 'Langkah berikutnya' })
+    expect(within(bagian).getByText(/Mizan adz-Dzahab/)).toBeInTheDocument()
+    expect(within(bagian).getByText(/ar-Ramizah al-Khazrajiyyah/)).toBeInTheDocument()
+    expect(within(bagian).getByText('Mutadarik')).toBeInTheDocument()
+    expect(within(bagian).getByText(/mu'aradhah per bulan/)).toBeInTheDocument()
+  })
+})

@@ -234,5 +234,55 @@
       "modul": 0,
       "bahr": "rajaz"
     }
-  ]
+  ],
+  "lanjutan": {
+    "kitab": [
+      {
+        "judul": "Mizan adz-Dzahab fi Shina'at Syi'r al-'Arab",
+        "penulis": "Ahmad al-Hasyimi",
+        "tingkat": "Jembatan",
+        "catatan": "Bahasa Arab modern yang jernih; setiap bahr dengan contoh dan wajahnya. Cocok dibaca langsung setelah course ini."
+      },
+      {
+        "judul": "Matn al-Kafi fi 'Ilmay al-'Arudh wa al-Qawafi, dengan al-Mukhtashar asy-Syafi",
+        "penulis": "Matn: Ahmad bin Syu'aib al-Qina'i; syarah: Muhammad ad-Damanhuri",
+        "tingkat": "Mutawassith",
+        "catatan": "Kitab 'arudh yang lazim dikaji di pesantren. Istilah course ini (zihaf, 'illah, rawiy, ridf) dipakai persis seperti di sini."
+      },
+      {
+        "judul": "al-Kafi fi al-'Arudh wa al-Qawafi",
+        "penulis": "al-Khathib at-Tabrizi",
+        "tingkat": "Lanjut",
+        "catatan": "Rujukan klasik yang lengkap: lima belas bahr dengan semua surahnya, ditambah bab qawafi."
+      },
+      {
+        "judul": "ar-Ramizah al-Khazrajiyyah, dengan al-'Uyun al-Ghamizah",
+        "penulis": "Matn: Dhiya'uddin al-Khazraji; syarah: Badruddin ad-Damamini",
+        "tingkat": "Tinggi",
+        "catatan": "Matn 'arudh berbentuk nadzom; syahid دَارٌ لِسَلْمَى di Modul 0 diambil dari syarahnya. Setara Alfiyah dalam tangga nahwu."
+      },
+      {
+        "judul": "al-Qawafi",
+        "penulis": "al-Akhfasy al-Awsath",
+        "tingkat": "Lanjut (qafiyah)",
+        "catatan": "Kitab tertua yang sampai kepada kita tentang qafiyah, untuk mendalami huruf dan harakat qafiyah serta 'uyub-nya."
+      }
+    ],
+    "bahrSisa": [
+      "Madid",
+      "Hazaj",
+      "Sari'",
+      "Munsarih",
+      "Mudhari'",
+      "Muqtadhab",
+      "Mutadarik",
+      "Rajaz masythur, manhuk, dan majzu'"
+    ],
+    "kebiasaan": [
+      "Muraja'ah Diwan sepekan sekali: timbang ulang bait lama, catat versi barunya.",
+      "Satu mu'aradhah per bulan atas qashidah klasik: pinjam bahr dan qafiyahnya, isi dengan makna Anda.",
+      "Panen laci dari setiap bait yang Anda baca atau dengar, lalu ekspor Laci saya ke catatan.",
+      "Hafalkan satu matn nadzom 'arudh, misalnya ar-Ramizah, sedikit demi sedikit."
+    ]
+  }
 }
