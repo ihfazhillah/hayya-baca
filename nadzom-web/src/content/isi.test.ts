@@ -158,7 +158,7 @@ describe("darurah belum dipakai sebelum Modul 19", () => {
   const tanpaDarurah = (bait: string[], kode: KodeBahr) => {
     const k = kitabahBait(bait)
     if (!k.ok) return 0
-    const syathr = k.syathr.map((s) => s.filter((h, i) => !(h.opsional && s[i - 1]?.bit === 0)))
+    const syathr = k.syathr.map((s) => s.filter((h, i) => !(h.opsional && s[i - 2]?.bit === 0)))
     return timbangBait(syathr, cariBahr(kode)!).patah
   }
   for (const m of MODUL.filter((x) => urutanModul(x.nomor) < urutanModul(19))) {
