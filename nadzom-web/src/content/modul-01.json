@@ -1,12 +1,14 @@
 {
   "nomor": 1,
+  "salim": true,
   "judul": "Telinga Rajaz",
-  "tujuan": "Kunci rajaz hafal dan terdengar: panjang, panjang, pendek, panjang. Nada Alfiyah dipakai sebagai alat periksa pertama, lalu Bait #1 direvisi menjadi v2.",
+  "tujuan": "Kunci rajaz hafal dan terdengar: لا لا نعم, panjang, panjang, pendek, panjang. Nada matan dipakai sebagai alat periksa pertama, lalu Bait #1 direvisi menjadi v2 yang utuh semua.",
   "pelajaran": [
     {
       "nomor": 1,
+      "versi": 2,
       "judul": "Kunci di telinga",
-      "ringkas": "Suku pendek dan suku panjang. مُسْتَفْعِلُنْ dilagukan, bukan hanya dihitung.",
+      "ringkas": "Suku pendek dan suku panjang. مُسْتَفْعِلُنْ dilagukan لا لا نعم, bukan hanya dihitung.",
       "menit": 25,
       "analogi": "Panjang mad dalam tajwid Anda pelajari lewat talaqqi: didengar, ditirukan, lalu terasa sendiri kalau ada yang kurang. Rajaz juga begitu. Setelah kuncinya hafal di telinga, Anda bisa merasakan bait yang pincang sebelum menghitung satu huruf pun.",
       "amtsilah": [
@@ -16,43 +18,53 @@
             "مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ"
           ],
           "bahr": "rajaz",
-          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)",
-          "sumber": "Kunci bahr rajaz (miftah al-buhur) yang masyhur; tercantum misalnya di al-Mu'allimi, Mukhtashar Matn al-Kafi fi al-'Arudh wa al-Qawafi, dan di buku-buku 'arudh modern.",
-          "catatan": "Lagukan baris kedua seperti orang mengetuk meja: مُسْ تَفْ عِ لُنْ, panjang, panjang, pendek, panjang."
+          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. Baris kedua adalah timbangannya.",
+          "sumber": "Kunci bahr rajaz (miftah al-buhur) yang masyhur, biasa dinisbatkan kepada Shafiyuddin al-Hilli; tercantum misalnya di al-Mu'allimi, Mukhtashar Matn al-Kafi.",
+          "catatan": "Lagukan baris kedua seperti orang mengetuk meja: مُسْ تَفْ عِ لُنْ, lalu dengan lagu لا لا نعم. Taf'ilah terakhir dibaca مُسْتَفْعِلُو: harakat di ujung bait dipanjangkan (isyba'), jadi tetap utuh."
         },
         {
           "bait": [
-            "وَاللَّهِ لَوْلَا اللَّهُ مَا اهْتَدَيْنَا",
-            "وَلَا تَصَدَّقْنَا وَلَا صَلَّيْنَا"
+            "صِفْ ذَا ثَنَا كَمْ جَادَ شَخْصٌ قَدْ سَمَا",
+            "دُمْ طَيِّبًا زِدْ فِي تُقًى ضَعْ ظَالِمَا"
           ],
           "bahr": "rajaz",
-          "makna": "Demi Allah, kalau bukan karena Allah, kami tidak akan mendapat petunjuk, tidak akan bersedekah, dan tidak akan shalat.",
-          "sumber": "Rajaz yang dilantunkan Nabi ﷺ sambil mengangkut tanah saat menggali Khandaq, dari kata-kata 'Abdullah bin Rawahah. Shahih al-Bukhari no. 4104 dan 6620 (dari al-Bara'); penisbatan kepada Ibnu Rawahah ada di riwayat al-Bara' no. 4106 (يَرْتَجِزُ بِكَلِمَاتِ ابْنِ رَوَاحَةَ, dengan lafal اللَّهُمَّ لَوْلَا أَنْتَ).",
-          "catatan": "Ujung kedua syathr sama-sama ـيْنَا. Dengarkan bagaimana مَا اهْتَدَيْنَا dibaca مَهْتَدَيْنَا: suku-sukunya tetap mengalir."
+          "makna": "Pujilah orang yang layak dipuji; betapa banyak orang dermawan yang telah luhur. Tetaplah baik, tambahlah takwa, tinggalkan orang zalim. Huruf awal setiap kata adalah lima belas huruf ikhfa'.",
+          "sumber": "Tuhfatul Athfal (al-Jamzuri), bab hukum nun sakinah dan tanwin, bait 16. Teks berharakat dari sumber: https://github.com/jashan190/hifz-al-mutun-/blob/main/Tools/sources/tuhfa.txt",
+          "catatan": "Hampir setiap taf'ilah adalah satu potongan kata yang utuh: صِفْ ذَا ثَنَا، دُمْ طَيِّبًا، زِدْ فِي تُقًى، ضَعْ ظَالِمَا. Lagukan: لا لا نعم, empat kali dengan kata yang berbeda."
         },
         {
           "bait": [
-            "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ",
-            "وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ"
+            "طِبْ ثُمَّ صِلْ رُحْمًا تَفُزْ ضِفْ ذَا نِعَمْ",
+            "دَعْ سُوءَ ظَنٍّ زُرْ شَرِيفًا لِلْكَرَمْ"
           ],
           "bahr": "rajaz",
-          "makna": "Kalam menurut kami adalah lafaz yang memberi faedah, seperti \"Istaqim!\". Kalim itu ada tiga: isim, fi'il, lalu huruf.",
-          "sumber": "Alfiyah Ibnu Malik, bait 8 (awal bab al-Kalam). Teks berharakat: Mutun Thalib al-'Ilm (Shamela no. 1091) dan Syarh al-Faridhi 'ala Alfiyah (Shamela no. 174).",
-          "catatan": "Bait yang paling sering dilagukan di pesantren. Lagunya Anda sudah punya; sekarang kita dengarkan ketukannya."
+          "makna": "Jadilah baik, lalu sambunglah kerabat, niscaya engkau beruntung; bertamulah kepada pemilik nikmat. Tinggalkan buruk sangka, kunjungilah orang mulia demi kemuliaan. Huruf awal setiap kata adalah huruf syamsiyah.",
+          "sumber": "Tuhfatul Athfal (al-Jamzuri), bab hukum lam al dan lam fi'il, bait 27. Teks berharakat dari sumber: https://github.com/jashan190/hifz-al-mutun-/blob/main/Tools/sources/tuhfa.txt",
+          "catatan": "ثُمَّ dibaca ثُمْ مَ: syaddah adalah dua huruf, yang pertama mati dan yang kedua hidup. Satu syaddah bisa memisah dua suku."
+        },
+        {
+          "bait": [
+            "وَالشَّرْطُ يُغْنِي عَنْ جَوَابٍ قَدْ عُلِمْ",
+            "وَالْعَكْسُ قَدْ يَأْتِي إِنِ الْمَعْنَى فُهِمْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Syarat boleh mencukupi dari jawab yang sudah diketahui. Kebalikannya kadang terjadi, bila maknanya dipahami.",
+          "sumber": "Alfiyah Ibnu Malik, bab 'awamil al-jazm, bait 705. Teks berharakat dari sumber, ortografi dinormalisasi: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json",
+          "catatan": "Bait Alfiyah yang keenam taf'ilahnya utuh. Kedua syathr berakhir sebunyi: عُلِمْ dan فُهِمْ."
         }
       ],
       "bahts": {
         "bait": [
-          "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ",
-          "وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ"
+          "وَالشَّرْطُ يُغْنِي عَنْ جَوَابٍ قَدْ عُلِمْ",
+          "وَالْعَكْسُ قَدْ يَأْتِي إِنِ الْمَعْنَى فُهِمْ"
         ],
         "bahr": "rajaz",
-        "makna": "Kalam menurut kami adalah lafaz yang memberi faedah, seperti \"Istaqim!\". Kalim itu ada tiga: isim, fi'il, lalu huruf.",
+        "makna": "Syarat boleh mencukupi dari jawab yang sudah diketahui. Kebalikannya kadang terjadi, bila maknanya dipahami.",
         "syathr": 0,
         "langkah": [
           {
             "tampil": "bait",
-            "kata": "Modul ini melatih telinga. Kita mulai dari bait yang mungkin sudah Anda hafal: awal bab al-Kalam dari Alfiyah."
+            "kata": "Modul ini melatih telinga. Kita mulai dari bait Alfiyah yang semua taf'ilahnya utuh: bait 705, bab 'awamil al-jazm."
           },
           {
             "tampil": "irama",
@@ -60,7 +72,7 @@
           },
           {
             "tampil": "kitabah",
-            "kata": "Sekarang tulis seperti diucapkan. كَاسْتَقِمْ menjadi كَسْتَقِمْ: alif washal tidak diucapkan. Jebakan seperti ini dibahas tuntas di Modul 2."
+            "kata": "Sekarang tulis seperti diucapkan. وَالشَّرْطُ dibaca وَشْشَرْطُ: hamzah washal tidak diucapkan, lam syamsiyah lebur ke syin. جَوَابٍ dibaca جَوَابِنْ: tanwin ditulis nun mati. Jebakan seperti ini dibahas tuntas di Modul 2."
           },
           {
             "tampil": "tanda",
@@ -68,16 +80,16 @@
           },
           {
             "tampil": "kelompok",
-            "kata": "Inilah jembatan ke telinga. Satu huruf hidup yang berdiri sendiri (**1**) adalah suku pendek, seperti لَ dalam لَكَ. Huruf hidup yang diikuti huruf mati (**10**) adalah suku panjang, seperti لَمْ. Jadi sabab khafif 10 = satu suku panjang; watad majmu' 110 = pendek lalu panjang."
+            "kata": "Inilah jembatan ke telinga. **10** adalah satu suku panjang, seperti لَمْ; kita lagukan **لا**. **110** adalah suku pendek lalu suku panjang, seperti نَعَمْ; kita lagukan **نعم**. Jadi sabab = لا, watad = نعم."
           },
           {
             "tampil": "mizan",
-            "kata": "كَلَامُنَا = 110110: pendek, panjang, pendek, panjang. Itu مُتَفْعِلُنْ, wajah lain مُسْتَفْعِلُنْ (khabn). Dua taf'ilah berikutnya utuh: panjang, panjang, pendek, panjang."
+            "kata": "Tiga kali لا لا نعم, semuanya utuh: وَشْ شَرْ طُ يُغْ, lalu نِي عَنْ جَ وَا, lalu بِنْ قَدْ عُ لِمْ. Perhatikan: batas taf'ilah tidak harus sama dengan batas kata. يُغْنِي terbelah dua, dan nun tanwin جَوَابٍ membuka taf'ilah ketiga."
           },
           {
             "tampil": "teks",
             "kata": "Ketuk meja dengan pola ini sambil melagukan kunci. Ketukan ketiga selalu singkat. Kalau di bait Anda ketukan itu hilang atau bertambah, telinga akan merasa tersandung.",
-            "papan": "مُسْ · تَفْ · عِ · لُنْ\npanjang · panjang · pendek · panjang\ntaa · taa · ta · taa"
+            "papan": "مُسْ · تَفْ · عِ · لُنْ\nلا · لا · نَ · عَمْ\npanjang · panjang · pendek · panjang"
           },
           {
             "tampil": "bahr",
@@ -86,38 +98,39 @@
         ],
         "giliran": {
           "syathr": 1,
-          "petunjuk": "Giliran Anda: **syathr kedua**. Perhatikan حَرْفٌ الْكَلِمْ: tanwin bertemu lam sukun, maka nunnya diberi kasrah, حَرْفُنِلْ. ثُمَّ = ثُمْمَ. Ketuk kotak di bawah setiap huruf."
+          "petunjuk": "Giliran Anda: **syathr kedua**. وَالْعَكْسُ dibaca وَلْعَكْسُ: lam qamariyah tetap dibaca. Pada إِنِ الْمَعْنَى nun diberi kasrah lalu menempel ke lam: إِنِلْمَعْنَى. Ujung فُهِمْ berhenti pada mim mati. Ketuk kotak di bawah setiap huruf."
         }
       },
       "syarh": [
-        "Perhatikan **contoh pertama**. Baris keduanya bukan syair, melainkan timbangan: مُسْتَفْعِلُنْ diulang tiga kali, yang terakhir tanpa nun. Baris pertama berjalan di atas timbangan itu. فِي أَبْحُرِلْ dibaca فِي · أَبْ · حُ · رِلْ, persis مُسْ · تَفْ · عِ · لُنْ: panjang, panjang, pendek, panjang.",
-        "Lalu **contoh kedua**, rajaz Khandaq. Awalnya وَاللَّهِ لَوْ dibaca وَلْ · لَا · هِ · لَوْ: lagi-lagi panjang, panjang, pendek, panjang. Pola yang sama dilantunkan para sahabat sambil mengangkut tanah. Kunci itu bukan rumus buatan ahli 'arudh; ia ketukan yang memang hidup di lidah orang Arab.",
-        "Sekarang **contoh ketiga**, bait al-Kalam. كَلَامُنَا dibaca كَ · لَا · مُ · نَا: pendek, panjang, pendek, panjang. Ketukan panjang pertama diganti ketukan pendek. Telinga tidak tersandung, karena ujungnya, عِلُنْ (pendek lalu panjang), tetap di tempatnya. Wajah ini disebut **khabn**.",
-        "Dari tiga contoh itu kita tarik satuan yang didengar telinga, yaitu **suku**. Satu huruf hidup yang berdiri sendiri (**1**) terdengar pendek. Huruf hidup yang ditutup huruf mati (**10**) terdengar panjang. Ini sama dengan yang Anda kenal di tajwid: لَا adalah huruf hidup ditambah alif mad, satu tarikan panjang.",
-        "Rajaz hanya punya satu pola dasar: panjang, panjang, pendek, panjang, tiga kali dalam satu syathr. Awal taf'ilah boleh dilonggarkan; ujungnya dijaga. Mirip sharaf: ada huruf yang boleh mengalami i'lal, ada huruf inti yang tidak disentuh.",
-        "Mengapa dilagukan, bukan dihitung saja? Menghitung itu lambat dan mudah salah di kata yang panjang. Telinga yang sudah hafal pola menunjuk tempat masalah dalam sekejap. Hitungan dipakai sesudahnya, untuk memastikan."
+        "Perhatikan **contoh pertama**. Baris keduanya bukan syair, melainkan timbangan: مُسْتَفْعِلُنْ diulang tiga kali. Baris pertama berjalan di atas timbangan itu. فِي أَبْحُرِلْ dibaca فِي · أَبْ · حُ · رِلْ, persis مُسْ · تَفْ · عِ · لُنْ: panjang, panjang, pendek, panjang. Di ujung, يَسْهُلُ dibaca يَسْهُلُو, sehingga taf'ilah terakhir tetap utuh.",
+        "Lalu **contoh kedua**, Tuhfatul Athfal bait 16. Taf'ilah pertama tepat tiga kata: صِفْ ذَا ثَنَا = لا لا نعم. Taf'ilah kedua memotong kata شَخْصٌ: كَمْ جَا دَ شَخْ, lalu sisa صُنْ membuka taf'ilah ketiga, صُنْ قَدْ سَ مَا. Syathr kedua lebih rapi lagi: دُمْ طَيِّبًا، زِدْ فِي تُقًى، ضَعْ ظَالِمَا, tiga potongan dan tiga taf'ilah.",
+        "Sekarang **contoh ketiga**, Tuhfatul Athfal bait 27. طِبْ ثُمَّ صِلْ dibaca طِبْ · ثُمْ · مَ · صِلْ. Syaddah pada ثُمَّ adalah dua mim: mim pertama mati dan menutup suku ثُمْ, mim kedua hidup dan menjadi suku pendek مَ. Lagunya tetap لا لا نعم.",
+        "Lalu **contoh keempat**, Alfiyah bait 705. Di sini batas taf'ilah sering tidak sama dengan batas kata: وَشْ شَرْ طُ يُغْ، نِي عَنْ جَ وَا، بِنْ قَدْ عُ لِمْ. Telinga tidak peduli batas kata. Ia hanya mendengar urutan panjang dan pendek.",
+        "Dari empat contoh itu kita tarik satuan yang didengar telinga, yaitu **suku**. Satu huruf hidup yang berdiri sendiri (**1**) terdengar pendek. Huruf hidup yang ditutup huruf mati (**10**) terdengar panjang. Ini sama dengan yang Anda kenal di tajwid: ذَا adalah huruf hidup ditambah alif mad, satu tarikan panjang.",
+        "Mengapa dilagukan, bukan dihitung saja? Menghitung itu lambat dan mudah salah di kata yang panjang. Telinga yang sudah hafal لا لا نعم menunjuk tempat masalah dalam sekejap. Hitungan dipakai sesudahnya, untuk memastikan."
       ],
       "keliru": [
         {
-          "salah": "Menghitung huruf, bukan suku: كَلَامُنَا dianggap enam ketukan karena tertulis enam huruf.",
-          "benar": "كَ · لَا · مُ · نَا = empat suku: pendek, panjang, pendek, panjang.",
+          "salah": "Menghitung huruf, bukan suku: ثَنَا dianggap tiga ketukan karena tertulis tiga huruf.",
+          "benar": "ثَ · نَا = dua suku: pendek, panjang. Itulah نعم.",
           "sebab": "Alif mad tidak berdiri sendiri; ia menutup suku sebelumnya, seperti mad thabi'i yang dibaca dalam satu tarikan."
         },
         {
           "salah": "Membaca مُسْتَفْعِلُنْ dengan tekanan ala bahasa Indonesia, sehingga عِ ikut dipanjangkan: mus-taf-'ii-lun.",
           "benar": "عِ dibaca singkat, satu harakat. Yang panjang hanya مُسْ، تَفْ، لُنْ.",
-          "sebab": "'Arudh mengukur panjang dan pendek, bukan tekanan. Memanjangkan عِ sama dengan menambah mad yang tidak ada asalnya, kesalahan yang Anda hindari dalam tajwid."
+          "sebab": "Timbangan syair mengukur panjang dan pendek, bukan tekanan. Memanjangkan عِ sama dengan menambah mad yang tidak ada asalnya, kesalahan yang Anda hindari dalam tajwid."
         },
         {
-          "salah": "Mencap كَلَامُنَا pincang karena awalnya tidak berbunyi مُسْ.",
-          "benar": "مُتَفْعِلُنْ (khabn) adalah wajah yang sah. Selama ujung عِلُنْ utuh, telinga menerimanya.",
-          "sebab": "Perubahan di awal taf'ilah (zihaf) lazim dalam rajaz, seperti i'lal yang mengubah bentuk kata tanpa merusak wazannya."
+          "salah": "Mencari batas taf'ilah di batas kata, sehingga شَخْصٌ dipaksa masuk satu taf'ilah utuh.",
+          "benar": "Taf'ilah boleh membelah kata: كَمْ جَادَ شَخْ lalu صُنْ قَدْ سَمَا.",
+          "sebab": "Yang ditimbang adalah deretan bunyi setelah disambung, bukan kata satu per satu."
         }
       ],
       "qaidah": [
         "**Suku pendek** = satu huruf hidup tanpa huruf mati sesudahnya (**1**). **Suku panjang** = huruf hidup lalu huruf mati (**10**).",
-        "مُسْتَفْعِلُنْ = مُسْ تَفْ عِ لُنْ = **panjang, panjang, pendek, panjang**. Rajaz = pola itu tiga kali dalam satu syathr.",
-        "Wajah yang sering muncul: مُتَفْعِلُنْ (khabn) = **pendek, panjang, pendek, panjang**. Ujung watad (pendek, panjang) tetap; yang longgar hanya awalnya.",
+        "**Sabab** 10 dilagukan **لا**. **Watad** 110 dilagukan **نعم**.",
+        "مُسْتَفْعِلُنْ = مُسْ تَفْ عِ لُنْ = **لا لا نعم** = panjang, panjang, pendek, panjang. Rajaz = pola itu tiga kali dalam satu syathr.",
+        "Batas taf'ilah tidak harus sama dengan batas kata.",
         "Hafal kunci = punya nada dasar. Lagukan bait di atas nada itu; kalau tersandung, baru dihitung."
       ],
       "tamarin": [
@@ -134,47 +147,47 @@
                 "panjang, panjang, panjang, pendek"
               ],
               "jawaban": 0,
-              "alasan": "مُسْ (10) panjang, تَفْ (10) panjang, عِ (1) pendek, لُنْ (10) panjang. Watad عِلُنْ selalu berbunyi pendek lalu panjang."
+              "alasan": "مُسْ = 10, panjang. تَفْ = 10, panjang. عِ = 1, pendek. لُنْ = 10, panjang. Dilagukan: لا لا نعم."
             },
             {
-              "soal": "Suku seperti لَمْ (huruf hidup lalu huruf mati) terdengar?",
+              "soal": "Dalam lagu لا لا نعم, bagian نعم mewakili?",
               "pilihan": [
-                "pendek",
-                "panjang"
+                "satu suku panjang",
+                "suku pendek lalu suku panjang, yaitu 110",
+                "dua suku panjang"
               ],
               "jawaban": 1,
-              "alasan": "10 adalah satu suku panjang. Inilah sabab khafif, bahan dasar taf'ilah."
+              "alasan": "نَ pendek, عَمْ panjang: 110, yaitu watad. Setiap لا adalah sabab 10."
             },
             {
-              "soal": "Berapa suku dalam كَلَامُنَا?",
+              "soal": "Berapa suku dalam ثَنَا?",
               "pilihan": [
+                "dua",
                 "tiga",
-                "empat",
-                "enam"
+                "empat"
               ],
-              "jawaban": 1,
-              "alasan": "كَ · لَا · مُ · نَا. Hurufnya enam (ك ل ا م ن ا), tetapi kedua alif hanya menutup suku sebelumnya."
+              "jawaban": 0,
+              "alasan": "ثَ · نَا: pendek lalu panjang. Hurufnya tiga, tetapi alif hanya menutup suku نَا."
             },
             {
-              "soal": "Ketukan \"pendek, panjang, pendek, panjang\" seperti كَلَامُنَا adalah?",
+              "soal": "Bagaimana ثُمَّ ditulis seperti diucapkan?",
               "pilihan": [
-                "مُسْتَفْعِلُنْ yang utuh",
-                "مُتَفْعِلُنْ, wajah khabn yang sah",
-                "Tanda baitnya pincang"
+                "Dengan satu mim saja",
+                "Dua mim: yang pertama mati, yang kedua hidup",
+                "Dengan alif di ujung"
               ],
               "jawaban": 1,
-              "alasan": "Suku panjang pertama (مُسْ) diganti suku pendek (مُ): sin sakinah dibuang. Itu khabn, sangat lazim dalam rajaz, dan telinga yang terbiasa akan menerimanya. Ujung watadnya tetap."
+              "alasan": "Syaddah = dua huruf. ثُمْ adalah suku panjang, مَ suku pendek. Karena itu طِبْ ثُمَّ صِلْ = طِبْ · ثُمْ · مَ · صِلْ = لا لا نعم."
             },
             {
-              "soal": "Bagian mana dari مُسْتَفْعِلُنْ yang dijaga tetap dalam rajaz?",
+              "soal": "Di Tuhfatul Athfal bait 16, taf'ilah kedua adalah كَمْ جَادَ شَخْ. Ke mana sisa kata شَخْصٌ, yaitu صُنْ?",
               "pilihan": [
-                "مُسْ",
-                "تَفْ",
-                "عِلُنْ"
+                "Dibuang",
+                "Membuka taf'ilah ketiga",
+                "Tetap di taf'ilah kedua"
               ],
-              "jawaban": 2,
-              "alasan": "عِلُنْ adalah watad (110): pendek lalu panjang. Zihaf rajaz hanya menyentuh مُسْ dan تَفْ.",
-              "arab": true
+              "jawaban": 1,
+              "alasan": "صُنْ قَدْ سَ مَا = لا لا نعم. Taf'ilah boleh membelah kata."
             },
             {
               "soal": "Satu syathr rajaz berisi berapa taf'ilah?",
@@ -184,110 +197,112 @@
                 "empat"
               ],
               "jawaban": 1,
-              "alasan": "Kunci: مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ. Satu bait (dua syathr) berisi enam."
+              "alasan": "Kunci: مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ. Satu bait, yaitu dua syathr, berisi enam."
             }
           ]
         },
         {
           "jenis": "tandai",
-          "petunjuk": "Beri tanda hidup **1** dan mati **0** pada kata-kata dari bait pelajaran ini. Setelah selesai, lagukan: setiap **1** yang berdiri sendiri pendek, setiap **10** panjang.",
+          "petunjuk": "Beri tanda hidup **1** dan mati **0** pada kata-kata dari bait pelajaran ini. Setelah selesai, lagukan: setiap **1** yang berdiri sendiri pendek, setiap **10** panjang, setiap **110** نعم.",
           "butir": [
-            "لَفْظٌ",
-            "يَسْهُلُ",
-            "وَفِعْلٌ",
-            "مُفِيدٌ",
-            "كَلَامُنَا",
-            "فِي أَبْحُرِ",
+            "ثَنَا",
+            "شَخْصٌ",
+            "طَيِّبًا",
+            "جَوَابٍ",
+            "يُغْنِي",
+            "رُحْمًا",
+            "زِدْ فِي تُقًى",
             "مُسْتَفْعِلُنْ",
-            "لَفْظٌ مُفِيدٌ",
             "بَحْرٌ يَسْهُلُ"
           ]
         },
         {
           "jenis": "irama",
-          "petunjuk": "Putar kunci rajaz, lalu lagukan bersamanya lima kali. Kali keenam, lagukan tanpa melihat layar sambil mengetuk meja.",
+          "petunjuk": "Putar kunci rajaz, lalu lagukan bersamanya lima kali. Kali keenam, lagukan tanpa melihat layar sambil mengetuk meja: لا لا نعم.",
           "bait": [
             "فِي أَبْحُرِ الْأَرْجَازِ بَحْرٌ يَسْهُلُ",
             "مُسْتَفْعِلُنْ مُسْتَفْعِلُنْ مُسْتَفْعِلُ"
           ],
           "bahr": "rajaz",
-          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. (Baris kedua adalah timbangannya.)"
+          "makna": "Di antara bahr-bahr rajaz, ada satu bahr yang mudah dilalui. Baris kedua adalah timbangannya."
         },
         {
           "jenis": "taqthi",
-          "petunjuk": "Timbang rajaz Khandaq. Sebelum mengetuk kotak, lagukan dulu; perhatikan bahwa مَا اهْتَدَيْنَا dibaca مَهْتَدَيْنَا.",
+          "petunjuk": "Timbang Tuhfatul Athfal bait 27. Sebelum mengetuk kotak, lagukan dulu. Perhatikan syaddah pada ثُمَّ dan ظَنٍّ: dua huruf, yang pertama mati.",
           "bait": [
-            "وَاللَّهِ لَوْلَا اللَّهُ مَا اهْتَدَيْنَا",
-            "وَلَا تَصَدَّقْنَا وَلَا صَلَّيْنَا"
+            "طِبْ ثُمَّ صِلْ رُحْمًا تَفُزْ ضِفْ ذَا نِعَمْ",
+            "دَعْ سُوءَ ظَنٍّ زُرْ شَرِيفًا لِلْكَرَمْ"
           ],
           "bahr": "rajaz",
-          "makna": "Demi Allah, kalau bukan karena Allah, kami tidak akan mendapat petunjuk, tidak akan bersedekah, dan tidak akan shalat."
+          "makna": "Jadilah baik, lalu sambunglah kerabat, niscaya engkau beruntung; bertamulah kepada pemilik nikmat. Tinggalkan buruk sangka, kunjungilah orang mulia demi kemuliaan."
         },
         {
           "jenis": "pincang",
-          "petunjuk": "Lagukan setiap baris dengan nada kunci. Centang baris yang membuat lagu tersandung, lalu periksa dengan timbangan.",
+          "petunjuk": "Lagukan setiap baris dengan lagu لا لا نعم. Centang baris yang membuat lagu tersandung, lalu periksa dengan timbangan.",
           "bahr": "rajaz",
           "baris": [
             {
               "bait": [
-                "وَاللَّهِ لَوْلَا اللَّهُ مَا اهْتَدَيْنَا"
+                "وَالشَّرْطُ يُغْنِي عَنْ جَوَابٍ قَدْ عُلِمْ"
               ],
-              "catatan": "Asli: rajaz Khandaq, Shahih al-Bukhari no. 4104."
+              "catatan": "Asli: Alfiyah bait 705."
             },
             {
               "bait": [
-                "وَاللَّهِ لَوْلَا رَبُّنَا مَا اهْتَدَيْنَا"
+                "وَالشَّرْطُ يُغْنِي عَنِ الْجَوَابِ قَدْ عُلِمْ"
               ],
-              "catatan": "Baris latihan: اللَّهُ diganti رَبُّنَا. Maknanya dekat, tetapi لَوْلَا اللَّهُ disambung menjadi لَوْلَلْلَاهُ, sedangkan لَوْلَا رَبُّنَا tidak punya lam penutup itu. Suku-sukunya bergeser dan taf'ilah ketiga patah."
+              "catatan": "Diubah, bukan kutipan: ganti جَوَابٍ dengan الْجَوَابِ. Tanwin hilang, sehingga suku panjang بِنْ menjadi suku pendek بِ. Taf'ilah ketiga patah."
             },
             {
               "bait": [
-                "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ"
+                "وَالْعَكْسُ قَدْ يَأْتِي إِنِ الْمَعْنَى فُهِمْ"
               ],
-              "catatan": "Asli: Alfiyah bait 8."
+              "catatan": "Asli: Alfiyah bait 705."
             },
             {
               "bait": [
-                "وَاسْمٌ وَفِعْلٌ وَحَرْفٌ الْكَلِمْ"
+                "وَالْعَكْسُ يَأْتِي إِنِ الْمَعْنَى فُهِمْ"
               ],
-              "catatan": "Baris latihan: ثُمَّ diganti وَ. Satu suku panjang (ثُمْ) hilang, taf'ilah kedua tinggal 10110: patah."
+              "catatan": "Diubah, bukan kutipan: قَدْ dibuang. Satu لا hilang, dan lagu لا لا نعم tidak bisa diisi penuh: patah."
             },
             {
               "bait": [
-                "وَلَا تَصَدَّقْنَا وَلَا صَلَّيْنَا"
+                "دَعْ سُوءَ ظَنٍّ زُرْ كَرِيمًا لِلْكَرَمْ"
               ],
-              "catatan": "Asli: rajaz Khandaq."
+              "catatan": "Diubah, bukan kutipan: ganti شَرِيفًا dengan كَرِيمًا. Keduanya pendek, panjang, panjang: tetap lurus dan utuh."
             },
             {
               "bait": [
-                "وَلَا تَصَدَّقْنَا وَلَا صُمْنَا"
+                "دَعْ سُوءَ الظَّنِّ زُرْ شَرِيفًا لِلْكَرَمْ"
               ],
-              "catatan": "Baris latihan: صَلَّيْنَا (صَلْ · لَيْ · نَا) diganti صُمْنَا (صُمْ · نَا). Satu ketukan panjang hilang di ujung: patah."
+              "catatan": "Diubah, bukan kutipan: ganti سُوءَ ظَنٍّ dengan سُوءَ الظَّنِّ. Hamzah washal gugur dan lam lebur, tetapi tanwin yang menutup suku hilang. Urutan panjang-pendek bergeser: patah."
             }
           ]
         },
         {
           "jenis": "irama",
-          "petunjuk": "Putar rajaz Khandaq. Lagukan bersamanya sampai Anda bisa melanjutkan sendiri setelah syathr pertama.",
+          "petunjuk": "Putar Tuhfatul Athfal bait 16. Lagukan bersamanya sampai Anda bisa melanjutkan sendiri setelah syathr pertama. Rasakan: hampir setiap لا لا نعم adalah satu potongan kata.",
           "bait": [
-            "وَاللَّهِ لَوْلَا اللَّهُ مَا اهْتَدَيْنَا",
-            "وَلَا تَصَدَّقْنَا وَلَا صَلَّيْنَا"
+            "صِفْ ذَا ثَنَا كَمْ جَادَ شَخْصٌ قَدْ سَمَا",
+            "دُمْ طَيِّبًا زِدْ فِي تُقًى ضَعْ ظَالِمَا"
           ],
           "bahr": "rajaz",
-          "makna": "Demi Allah, kalau bukan karena Allah, kami tidak akan mendapat petunjuk, tidak akan bersedekah, dan tidak akan shalat."
+          "makna": "Pujilah orang yang layak dipuji; betapa banyak orang dermawan yang telah luhur. Tetaplah baik, tambahlah takwa, tinggalkan orang zalim."
         },
         {
-          "jenis": "irama",
-          "petunjuk": "Satu bait lagi dari muqaddimah Alfiyah. Ikuti ketukannya, lalu ulangi dengan lagu yang Anda kenal dari pesantren. Ketukannya sama.",
+          "jenis": "panen",
+          "petunjuk": "Panen dari Tuhfatul Athfal bait 16. Pilih kata berurutan yang pas mengisi **satu مُسْتَفْعِلُنْ utuh**, beri arti, lalu simpan ke Laci saya. Kotak taf'ilah sudah ditampilkan sebagai bantuan.",
           "bait": [
-            "وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ",
-            "مَقَاصِدُ النَّحْوِ بِهَا مَحْوِيَّهْ"
+            "صِفْ ذَا ثَنَا كَمْ جَادَ شَخْصٌ قَدْ سَمَا",
+            "دُمْ طَيِّبًا زِدْ فِي تُقًى ضَعْ ظَالِمَا"
           ],
           "bahr": "rajaz",
-          "makna": "Aku memohon pertolongan Allah dalam menyusun seribu bait ini, yang menghimpun inti-inti ilmu nahwu."
+          "jumlah": 3,
+          "kotak": true,
+          "sumber": "Tuhfatul Athfal bait 16"
         }
       ],
-      "patokan": "Kunci rajaz dilagukan tanpa melihat sambil mengetuk pola panjang, panjang, pendek, panjang; lalu bait al-Kalam dilagukan dengan ketukan yang sama.",
+      "patokan": "Kunci rajaz dilagukan tanpa melihat sambil mengetuk لا لا نعم; lalu Alfiyah bait 705 dilagukan dengan ketukan yang sama, dan tiga potongan Tuhfatul Athfal bait 16 tersimpan di Laci saya.",
       "dengar": [
         {
           "judul": "Lalaran Alfiyah, santri PP al-Anwar Sarang",
@@ -303,115 +318,147 @@
     },
     {
       "nomor": 2,
-      "judul": "Nada Alfiyah sebagai alat periksa",
+      "versi": 2,
+      "judul": "Nada matan sebagai alat periksa",
       "ringkas": "Ganti satu kata, lagukan, rasakan di mana tersandung, lalu pastikan dengan timbangan.",
       "menit": 25,
-      "analogi": "Waktu murajaah hafalan, salah satu harakat saja langsung terasa janggal, padahal Anda tidak sedang menghitung apa pun. Lagu Alfiyah bisa dipakai begitu: alat periksa cepat. Telinga menunjuk tempat yang mencurigakan; taqthi' memastikan.",
+      "analogi": "Waktu murajaah hafalan, salah satu harakat saja langsung terasa janggal, padahal Anda tidak sedang menghitung apa pun. Lagu matan bisa dipakai begitu: alat periksa cepat. Telinga menunjuk tempat yang mencurigakan; taqthi' memastikan.",
       "amtsilah": [
         {
           "bait": [
-            "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ",
-            "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+            "وَالْعَطْفُ إِنْ يُمْكِنْ بِلَا ضَعْفٍ أَحَقّْ",
+            "وَالنَّصْبُ مُخْتَارٌ لَدَى ضَعْفِ النَّسَقْ"
           ],
           "bahr": "rajaz",
-          "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas, dan memberi dengan lapang lewat janji yang ditepati.",
-          "sumber": "Alfiyah Ibnu Malik, bait 4. Mutun Thalib al-'Ilm (Shamela no. 1091); Syarh al-Faridhi (Shamela no. 174).",
-          "catatan": "Ujung kedua syathr berpasangan: مُوجَزِ dan مُنْجَزِ. Keduanya dibaca panjang di ujung: مُوجَزِي."
+          "makna": "Bila 'athaf mungkin tanpa kelemahan, 'athaf lebih berhak. Nashab sebagai maf'ul ma'ah dipilih ketika 'athaf nasaq lemah.",
+          "sumber": "Alfiyah Ibnu Malik, bab al-maf'ul ma'ah, bait 314. Teks berharakat dari sumber, ortografi dinormalisasi: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json",
+          "catatan": "Coba ganti بِلَا dengan بِغَيْرِ, atau لَدَى dengan عِنْدَ. Maknanya sama, tetapi lagunya tersandung."
         },
         {
           "bait": [
-            "وَاحِدُهُ كَلِمَةٌ وَالْقَوْلُ عَمّْ",
-            "وَكِلْمَةٌ بِهَا كَلَامٌ قَدْ يُؤَمّْ"
+            "وَٱسْتَعْمَلُوا أَيْضًا كَكُلٍّ فَاعِلَهْ",
+            "مِنْ عَمَّ فِي التَّوْكِيدِ مِثْلَ النَّافِلَهْ"
           ],
           "bahr": "rajaz",
-          "makna": "Satuannya disebut kalimah; adapun qaul, ia mencakup semuanya. Kadang kata \"kalimah\" dipakai untuk maksud kalam.",
-          "sumber": "Alfiyah Ibnu Malik, bait 9. Mutun Thalib al-'Ilm (Shamela no. 1091); Syarh al-Faridhi (Shamela no. 174).",
-          "catatan": "كَلِمَتُنْ = 11110: tiga suku pendek lalu satu panjang. Terasa \"berlari\", tetapi sah (khabl, jarang). Telinga boleh curiga; timbangan yang memutuskan."
+          "makna": "Mereka juga memakai, seperti kata kull, kata berwazan fa'ilah dari 'amma, yaitu 'ammah, untuk taukid, sewazan dengan kata nafilah.",
+          "sumber": "Alfiyah Ibnu Malik, bab at-taukid, bait 523. Teks berharakat dari sumber, ortografi dinormalisasi: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json",
+          "catatan": "Ibnu Malik sendiri berbicara tentang wazan. فَاعِلَهْ dan النَّافِلَهْ sewazan, maka selagu: keduanya mengakhiri syathr dengan bunyi yang sama."
+        },
+        {
+          "bait": [
+            "فِيمَا سِوَى هَذَا ٱنْسُبَنْ لِلْأَوَّلِ",
+            "مَا لَمْ يُخَفْ لَبْسٌ كَعَبْدِ الْأَشْهَلِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Pada selain yang tersebut ini, nisbahkanlah kepada bagian pertama, selama tidak dikhawatirkan rancu, seperti 'Abdul Asyhal yang dinisbahkan kepada bagian keduanya.",
+          "sumber": "Alfiyah Ibnu Malik, bab an-nasab, bait 872. Teks berharakat dari sumber, ortografi dinormalisasi: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json",
+          "catatan": "هَذَا ٱنْسُبَنْ dibaca هَاذَنْسُبَنْ: hamzah washal gugur, alif هَذَا menempel. Taf'ilah kedua tepat dua kata ini."
+        },
+        {
+          "bait": [
+            "وَالنَّصُّ عُرْفًا كُلُّ لَفْظٍ وَارِدِ",
+            "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Nash menurut istilah adalah setiap lafaz yang datang dan tidak mengandung kemungkinan selain satu makna.",
+          "sumber": "Nazhm al-Waraqat (Tashil ath-Thuruqat) karya Syarafuddin al-'Imrithi, bait 97; harakat dilengkapi. Teks: https://github.com/OpenITI/RELEASE/blob/master/data/0989SharafDinCimriti/0989SharafDinCimriti.Tashil/0989SharafDinCimriti.Tashil.ShamAY0037471-ara1",
+          "catatan": "لَفْظٍ bisa diganti قَوْلٍ atau نُطْقٍ tanpa tersandung. Ganti dengan كَلَامٍ, dan lagunya pincang."
+        },
+        {
+          "bait": [
+            "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+            "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka adalah Adam, Idris, Nuh, Hud, beserta Shalih dan Ibrahim; masing-masing diikuti.",
+          "sumber": "'Aqidatul 'Awam (Ahmad al-Marzuqi), bait 16; harakat dilengkapi. Teks: https://areq.net/m/عقيدة_العوام.html",
+          "catatan": "Nama pun punya lagu. نُوحٌ = نُو حُنْ, dua suku panjang. Bila diganti nama lain yang lagunya berbeda, baitnya tersandung."
         }
       ],
       "bahts": {
         "bait": [
-          "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ",
-          "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+          "وَالنَّصُّ عُرْفًا كُلُّ لَفْظٍ وَارِدِ",
+          "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
         ],
         "bahr": "rajaz",
-        "makna": "Ia mendekatkan pembahasan yang jauh dengan lafaz yang ringkas, dan memberi dengan lapang lewat janji yang ditepati.",
+        "makna": "Nash menurut istilah adalah setiap lafaz yang datang dan tidak mengandung kemungkinan selain satu makna.",
         "syathr": 0,
         "langkah": [
           {
             "tampil": "bait",
-            "kata": "Bait 4 Alfiyah. Kita pakai sebagai bahan percobaan: satu kata akan sengaja diganti."
+            "kata": "Nazhm al-Waraqat bait 97: definisi nash. Kita pakai sebagai bahan percobaan: satu kata akan sengaja diganti."
           },
           {
             "tampil": "irama",
-            "kata": "Putar dan lagukan dulu bait aslinya. Ingat rasanya: tidak ada yang tersendat."
+            "kata": "Putar dan lagukan dulu bait aslinya dengan nada matan. Ingat rasanya: tidak ada yang tersendat."
           },
           {
             "tampil": "bait",
-            "kata": "Sekarang الْأَقْصَى diganti الْبَعِيدَ. Maknanya hampir sama: yang jauh. Lagukan dengan nada yang sama. Di tengah syathr pertama lagunya tersandung, bukan?",
+            "kata": "Sekarang ganti لَفْظٍ dengan كَلَامٍ. Baris ini diubah, bukan kutipan. Maknanya dekat. Lagukan dengan nada yang sama. Di tengah syathr pertama lagunya tersandung, bukan?",
             "bait": [
-              "تُقَرِّبُ الْبَعِيدَ بِلَفْظٍ مُوجَزِ",
-              "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+              "وَالنَّصُّ عُرْفًا كُلُّ كَلَامٍ وَارِدِ",
+              "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
             ]
           },
           {
             "tampil": "timbang",
-            "kata": "Timbangan memastikan: satu taf'ilah patah. Setelah disambung, لْأَقْ صَى adalah dua suku panjang; لْبَ عِي دَ menjadi pendek, panjang, pendek. Suku pendek yang muncul itu tidak punya tempat.",
+            "kata": "Timbangan memastikan: satu taf'ilah patah. لَفْظٍ = لَفْ · ظِنْ, dua suku panjang, لا لا. كَلَامٍ = كَ · لَا · مِنْ, satu suku pendek lalu dua panjang. Suku pendek yang muncul itu tidak punya tempat.",
             "bait": [
-              "تُقَرِّبُ الْبَعِيدَ بِلَفْظٍ مُوجَزِ",
-              "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+              "وَالنَّصُّ عُرْفًا كُلُّ كَلَامٍ وَارِدِ",
+              "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
             ],
             "patah": 1
           },
           {
             "tampil": "timbang",
-            "kata": "Bait asli ditimbang lagi: lurus. Pelajarannya: kata yang **semakna** belum tentu **setimbang**.",
+            "kata": "Sekarang ganti dengan قَوْلٍ, juga diubah, bukan kutipan. قَوْ · لِنْ = لا لا, sama dengan لَفْظٍ. Lurus, dan semua taf'ilah utuh. Pelajarannya: kata yang **semakna** belum tentu **selagu**.",
             "bait": [
-              "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ",
-              "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+              "وَالنَّصُّ عُرْفًا كُلُّ قَوْلٍ وَارِدِ",
+              "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
             ],
             "patah": 0
           },
           {
             "tampil": "teks",
             "kata": "Inilah lingkaran periksa yang akan Anda pakai setiap kali menyusun. Telinga dulu karena cepat; timbangan sesudahnya karena pasti.",
-            "papan": "lagukan → tersandung di mana? → timbang → ganti kata → lagukan lagi"
+            "papan": "lagukan, lalu cari tempat tersandung\ntimbang\nganti kata yang lagunya sama\nlagukan lagi"
           }
         ],
         "giliran": {
           "syathr": 1,
-          "petunjuk": "Giliran Anda: **syathr kedua** bait asli. Perhatikan الْبَذْلَ: lam qamariyah tetap dibaca, لْبَذْ. Ujung مُنْجَزِ dipanjangkan menjadi مُنْجَزِي."
+          "petunjuk": "Giliran Anda: **syathr kedua** bait asli. إِلَّا dibaca إِلْلَا. Pada لِمَعْنًى tanwin dibaca nun mati: لِمَعْنَنْ. Ujung وَاحِدِ dipanjangkan menjadi وَاحِدِي."
         }
       },
       "syarh": [
-        "Perhatikan **contoh pertama**, bait 4 Alfiyah. Lagukan dengan nada Alfiyah: تُقَرِّبُ الْأَقْصَى mengalir. Di peragaan, Hudhud mengganti الْأَقْصَى dengan الْبَعِيدَ. Maknanya hampir sama, tetapi lagunya tersandung di tengah syathr.",
-        "Mengapa? Setelah disambung, lam ta'rif menempel ke suku sebelumnya (بُلْ). Sisanya berbeda: أَقْ · صَى = panjang, panjang; بَ · عِي · دَ = pendek, panjang, pendek. Jumlah hurufnya mirip, urutan panjang-pendeknya lain. Timbangan hanya peduli urutan itu.",
-        "Lalu **contoh kedua**, bait 9: وَاحِدُهُ كَلِمَةٌ. كَلِمَتُنْ = 11110: tiga suku pendek lalu satu panjang. Telinga mungkin curiga karena lagunya terasa berlari. Timbangan berkata sah: itu **khabl** (مُتَعِلُنْ), wajah yang jarang tetapi diterima.",
-        "Dua contoh ini memperlihatkan dua arah. Telinga bisa benar ketika menunjuk tempat tersendat (الْبَعِيدَ). Telinga juga bisa terlalu curiga (كَلِمَةٌ). Karena itu jalurnya selalu sama: lagukan dulu, lalu pastikan dengan taqthi'.",
-        "Untuk menyusun, pelajarannya jelas: cari pengganti yang bunyinya sama, bukan hanya maknanya. Ini mirip memilih wazan dalam sharaf. يَقْضِي dan يُعْطِي beda bab, tetapi sama-sama 1010. مُفِيدٌ dan سَدِيدٌ sama-sama 11010. نَافِعٌ semakna dengan مُفِيدٌ, tetapi polanya 10110: tidak bisa langsung menggantikan."
+        "Perhatikan **contoh pertama**, Alfiyah bait 314. Lagukan dengan nada Alfiyah: يُمْكِنْ بِلَا mengalir, لا لا نعم. Sekarang ganti بِلَا dengan بِغَيْرِ. Maknanya sama, tetapi بِلَا = بِ · لَا, yaitu نعم, sedangkan بِغَيْرِ = بِ · غَيْ · رِ, pendek, panjang, pendek. Satu suku pendek bertambah, dan lagunya tersandung.",
+        "Di syathr kedua bait yang sama, ganti لَدَى dengan عِنْدَ. لَدَى = لَ · دَى, yaitu نعم. عِنْدَ = عِنْ · دَ, panjang lalu pendek: urutannya terbalik. Jumlah hurufnya mirip, urutan panjang-pendeknya lain. Timbangan hanya peduli urutan itu.",
+        "Lalu **contoh kedua**, Alfiyah bait 523. Ibnu Malik sendiri berbicara tentang wazan: kata فَاعِلَة dari عَمَّ. Lihat ujung kedua syathrnya: فَاعِلَهْ dan النَّافِلَهْ sewazan, maka bunyinya sama, فَا · عِ · لَهْ. Inilah alat pertama untuk mencari pengganti: **kata yang sewazan memberi lagu yang sama**. Hati-hati dengan syaddah: عَامَّة juga berwazan فَاعِلَة, tetapi mim gandanya mengubah bunyi, sehingga tidak bisa langsung menggantikan فَاعِلَهْ.",
+        "**Contoh ketiga**, Alfiyah bait 872, memperlihatkan jebakan yang sama dari arah lain. Ganti هَذَا dengan ذَلِكَ: maknanya hampir sama, tetapi هَا · ذَا adalah dua suku panjang, sedangkan ذَا · لِ · كَ panjang lalu dua pendek. Baitnya pincang.",
+        "Lalu **contoh keempat** di peragaan, Nazhm al-Waraqat bait 97. لَفْظٍ، قَوْلٍ، نُطْقٍ sama-sama لا لا: ketiganya bisa saling menggantikan. كَلَامٍ semakna, tetapi berawal suku pendek. **Contoh kelima**, 'Aqidatul 'Awam bait 16, berlaku sama untuk nama: ganti نُوحٌ dengan يُونُسُ, dan lagunya tersandung, karena يُو · نُ · سُ tidak sama dengan نُو · حُنْ.",
+        "Dari semua contoh itu jalurnya selalu sama: lagukan dulu, cari tempat yang tersendat, lalu pastikan dengan taqthi'. Telinga bisa terlalu longgar karena lagu lalaran kadang menarik atau memendekkan suku. Karena itu timbangan tetap yang memutuskan."
       ],
       "keliru": [
         {
-          "salah": "Mengganti kata dengan sinonim lalu menganggap timbangan aman: الْأَقْصَى → الْبَعِيدَ.",
-          "benar": "Timbang pola penggantinya dulu: أَقْصَى = 1010, بَعِيدَ = 1101. Pilih pengganti yang polanya sama.",
+          "salah": "Mengganti kata dengan sinonim lalu menganggap timbangan aman, misalnya ganti بِلَا dengan بِغَيْرِ.",
+          "benar": "Timbang pola penggantinya dulu: بِلَا = 110, بِغَيْرِ = 1101. Pilih pengganti yang polanya sama.",
           "sebab": "Timbangan membaca bunyi, bukan makna; dalam sharaf pun dua kata semakna bisa berbeda wazan."
-        },
-        {
-          "salah": "Mencap baris pincang hanya karena terasa aneh, mis. وَاحِدُهُ كَلِمَةٌ yang terasa berlari.",
-          "benar": "Telinga menunjuk tempat; timbangan yang memutuskan. 11110 (khabl) sah walau jarang.",
-          "sebab": "Asing di telinga belum tentu salah, sebagaimana wazan yang jarang tetap wazan yang sah."
         },
         {
           "salah": "Menganggap baris lurus karena enak dilagukan dengan lagu lalaran pesantren.",
           "benar": "Ketuk polanya, jangan hanya ikut lagu. Lagu bisa menarik atau memendekkan suku agar terasa pas.",
           "sebab": "Lagu boleh menambah keindahan, tetapi seperti tajwid, panjang-pendek huruf tidak boleh berubah karena lagu."
+        },
+        {
+          "salah": "Menganggap dua kata pasti selagu karena wazan sharafnya sama, misalnya ganti فَاعِلَهْ dengan عَامَّهْ.",
+          "benar": "Tulis dulu seperti diucapkan. عَامَّهْ = عَامْمَهْ: dua huruf mati bertemu, bunyinya lain dari فَاعِلَهْ.",
+          "sebab": "Wazan sharaf menjadi pegangan, tetapi syaddah dan i'lal bisa mengubah bunyinya."
         }
       ],
       "qaidah": [
-        "**Telinga** menunjuk tempat yang mencurigakan; **taqthi'** memastikan. Jangan mencap bait pincang hanya karena terasa aneh, dan jangan menganggapnya lurus hanya karena enak dilagukan.",
-        "Kata yang semakna belum tentu setimbang: الْأَقْصَى berbunyi panjang, panjang; الْبَعِيدَ berbunyi pendek, panjang, pendek.",
-        "Kata pengganti yang polanya sama biasanya aman: يَقْضِي dan يُعْطِي sama-sama 1010.",
-        "Wajah yang jarang (mis. 11110, khabl) bisa terasa berlari. Kalau timbangan berkata sah, ia sah."
+        "**Telinga** menunjuk tempat yang mencurigakan; **taqthi'** memastikan. Jangan menganggap baris lurus hanya karena enak dilagukan.",
+        "Kata yang semakna belum tentu selagu: لَدَى = نعم, عِنْدَ = panjang lalu pendek.",
+        "Kata yang sewazan biasanya selagu: فَاعِلَهْ dan النَّافِلَهْ, juga يَحْصُلُ dan يَثْبُتُ.",
+        "Sebelum mengganti, tulis kata pengganti seperti diucapkan, terutama bila ada syaddah atau tanwin."
       ],
       "tamarin": [
         {
@@ -419,62 +466,62 @@
           "petunjuk": "Enam soal tentang telinga dan timbangan. Lagukan setiap kata atau baris sebelum menjawab.",
           "soal": [
             {
-              "soal": "Baris ubahan ini (bukan teks Alfiyah): وَاللَّهُ يُعْطِي بِهِبَاتٍ وَافِرَهْ. Aslinya يَقْضِي. Pincang atau lurus?",
+              "soal": "Baris ini diubah, bukan kutipan: وَالْعِلْمُ إِمَّا بِاضْطِرَارٍ يَثْبُتُ. Aslinya يَحْصُلُ. Pincang atau lurus?",
               "pilihan": [
                 "Pincang, karena katanya diganti",
-                "Lurus, karena يُعْطِي dan يَقْضِي sama-sama 1010",
+                "Lurus, karena يَحْصُلُ dan يَثْبُتُ sewazan",
                 "Tidak bisa diketahui tanpa makna"
               ],
               "jawaban": 1,
-              "alasan": "Yang ditimbang bunyinya, bukan maknanya. يُعْ طِي dan يَقْ ضِي sama-sama dua suku panjang. Lagukan: tidak ada yang tersendat."
+              "alasan": "Yang ditimbang bunyinya, bukan maknanya. يَحْ صُ لُ dan يَثْ بُ تُ sama-sama panjang, pendek, pendek. Lagukan: tidak ada yang tersendat."
             },
             {
-              "soal": "Kata mana yang bisa menggantikan مُفِيدٌ dalam كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ tanpa membuatnya pincang?",
+              "soal": "Kata mana yang bisa menggantikan لَفْظٍ dalam Nazhm al-Waraqat bait 97 tanpa membuatnya pincang?",
               "pilihan": [
-                "نَافِعٌ",
-                "سَدِيدٌ",
-                "مُفِيدَةٌ"
+                "كَلَامٍ",
+                "نُطْقٍ",
+                "لَفْظَةٍ"
               ],
               "jawaban": 1,
-              "alasan": "سَدِيدٌ = 11010, sama dengan مُفِيدٌ. نَافِعٌ = 10110, urutannya terbalik. مُفِيدَةٌ menambah satu suku pendek.",
+              "alasan": "نُطْقٍ = 1010, sama dengan لَفْظٍ. كَلَامٍ berawal suku pendek. لَفْظَةٍ menambah satu suku pendek.",
               "arab": true
             },
             {
-              "soal": "الْأَقْصَى dan الْبَعِيدَ semakna. Setelah lam ta'rif menempel ke suku sebelumnya, bunyi sisanya?",
+              "soal": "لَدَى dan عِنْدَ semakna. Bagaimana bunyinya?",
               "pilihan": [
                 "Sama: dua suku panjang",
-                "أَقْصَى panjang, panjang; بَعِيدَ pendek, panjang, pendek",
+                "لَدَى pendek lalu panjang; عِنْدَ panjang lalu pendek",
                 "Sama-sama tiga suku pendek"
               ],
               "jawaban": 1,
-              "alasan": "أَقْ · صَى = 1010; بَ · عِي · دَ = 1101. Itulah sebabnya bait 4 tersandung ketika katanya diganti."
+              "alasan": "لَدَى = 110, yaitu نعم. عِنْدَ = 101. Karena itu Alfiyah bait 314 pincang bila katanya diganti."
             },
             {
-              "soal": "Baris ubahan: كَلَامُنَا لَفْظٌ مُفِيدٌ كَقُمْ. Di mana telinga Anda tersandung?",
+              "soal": "Baris ini diubah, bukan kutipan: وَالْعَطْفُ إِنْ يُمْكِنْ بِغَيْرِ ضَعْفٍ أَحَقّْ. Di mana telinga Anda tersandung?",
               "pilihan": [
-                "Di awal: كَلَامُنَا",
-                "Di tengah: لَفْظٌ مُفِيدٌ",
-                "Di ujung: كَقُمْ, ketukannya kurang"
-              ],
-              "jawaban": 2,
-              "alasan": "كَسْتَقِمْ = panjang, pendek, panjang; كَقُمْ = pendek, panjang. Satu suku panjang hilang di ujung, jadi taf'ilah ketiga hanya 10110: patah. Ujung syathr paling mudah didengar karena di sana lagu berhenti."
-            },
-            {
-              "soal": "Telinga merasa وَاحِدُهُ كَلِمَةٌ berlari. Langkah berikutnya?",
-              "pilihan": [
-                "Langsung ganti kata",
-                "Taqthi' dulu; kalau timbangan berkata sah, biarkan",
-                "Abaikan saja, telinga pasti salah"
+                "Di awal: وَالْعَطْفُ إِنْ",
+                "Di tengah: بِغَيْرِ ضَعْفٍ",
+                "Tidak tersandung sama sekali"
               ],
               "jawaban": 1,
-              "alasan": "Telinga menunjuk tempat yang perlu diperiksa, bukan memutuskan. كَلِمَتُنْ = 11110 adalah khabl yang sah."
+              "alasan": "بِغَيْرِ menambah satu suku pendek dibanding بِلَا. Lagu لا لا نعم di taf'ilah kedua dan ketiga bergeser."
+            },
+            {
+              "soal": "Mengapa فَاعِلَهْ dan النَّافِلَهْ berbunyi sama di ujung kedua syathr Alfiyah bait 523?",
+              "pilihan": [
+                "Karena hurufnya sama",
+                "Karena sewazan: فَا · عِ · لَهْ",
+                "Karena keduanya isim ma'rifah"
+              ],
+              "jawaban": 1,
+              "alasan": "Kata yang sewazan memberi urutan panjang-pendek yang sama. Itu sebabnya wazan sharaf menjadi alat pertama mencari pengganti."
             },
             {
               "soal": "Urutan lingkaran periksa yang benar?",
               "pilihan": [
-                "timbang → lagukan → selesai",
-                "lagukan → cari tempat tersendat → timbang → ganti kata → lagukan lagi",
-                "ganti kata → timbang → selesai"
+                "timbang, lagukan, selesai",
+                "lagukan, cari tempat tersendat, timbang, ganti kata, lagukan lagi",
+                "ganti kata, timbang, selesai"
               ],
               "jawaban": 1,
               "alasan": "Telinga dulu karena cepat, timbangan sesudahnya karena pasti, lalu telinga lagi untuk memastikan perbaikannya enak didengar."
@@ -483,201 +530,249 @@
         },
         {
           "jenis": "tandai",
-          "petunjuk": "Pasangan kata semakna dari pelajaran ini. Beri tanda **1**/**0**, lalu bandingkan polanya: mana yang setimbang, mana yang tidak.",
+          "petunjuk": "Pasangan kata semakna dari pelajaran ini. Beri tanda **1**/**0**, lalu bandingkan polanya: mana yang selagu, mana yang tidak.",
           "butir": [
-            "يَقْضِي",
-            "يُعْطِي",
-            "مُفِيدٌ",
-            "سَدِيدٌ",
-            "نَافِعٌ",
-            "كَلِمَةٌ",
-            "الْأَقْصَى",
-            "تُقَرِّبُ الْأَقْصَى",
-            "تُقَرِّبُ الْبَعِيدَ"
+            "لَفْظٍ",
+            "قَوْلٍ",
+            "كَلَامٍ",
+            "بِلَا",
+            "بِغَيْرِ",
+            "لَدَى",
+            "عِنْدَ",
+            "يَحْصُلُ",
+            "يَثْبُتُ",
+            "فَاعِلَهْ"
           ]
         },
         {
           "jenis": "taqthi",
-          "petunjuk": "Bait 12 Alfiyah. Lagukan dulu, tandai dalam hati tempat yang terasa ganjil, lalu timbang. Perhatikan سِوَاهُمَا الْحَرْفُ: alif هُمَا gugur, lam qamariyah tetap dibaca.",
+          "petunjuk": "Nazhm al-Waraqat bait 26. Lagukan dulu, tandai dalam hati tempat yang terasa ganjil, lalu timbang. Perhatikan بِاضْطِرَارٍ: hamzah washal gugur, ba menempel ke dhad mati.",
           "bait": [
-            "سِوَاهُمَا الْحَرْفُ كَهَلْ وَفِي وَلَمْ",
-            "فِعْلٌ مُضَارِعٌ يَلِي لَمْ كَيَشَمْ"
+            "وَالْعِلْمُ إِمَّا بِاضْطِرَارٍ يَحْصُلُ",
+            "أَوْ بِاكْتِسَابٍ حَاصِلٌ فَالْأَوَّلُ"
           ],
           "bahr": "rajaz",
-          "makna": "Selain keduanya (tanpa tanda isim dan tanda fi'il) adalah huruf, seperti هَلْ، فِي، dan لَمْ. Fi'il mudhari' adalah yang dapat didahului لَمْ, seperti يَشَمْ."
+          "makna": "Ilmu itu adakalanya diperoleh tanpa usaha, adakalanya diperoleh dengan usaha. Yang pertama, dijelaskan di bait sesudahnya."
         },
         {
           "jenis": "pincang",
-          "petunjuk": "Lagukan keenam baris dengan nada Alfiyah. Sebagian sudah diubah. Centang yang pincang, lalu periksa.",
+          "petunjuk": "Bait-bait Alfiyah dan ubahannya. Lagukan dengan nada Alfiyah, centang yang pincang, lalu periksa.",
           "bahr": "rajaz",
           "baris": [
             {
               "bait": [
-                "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ"
+                "وَالْعَطْفُ إِنْ يُمْكِنْ بِلَا ضَعْفٍ أَحَقّْ"
               ],
-              "catatan": "Asli: Alfiyah bait 8."
+              "catatan": "Asli: Alfiyah bait 314."
             },
             {
               "bait": [
-                "كَلَامُنَا لَفْظٌ نَافِعٌ كَاسْتَقِمْ"
+                "وَالْعَطْفُ إِنْ يُمْكِنْ بِغَيْرِ ضَعْفٍ أَحَقّْ"
               ],
-              "catatan": "مُفِيدٌ diganti نَافِعٌ (baris latihan, bukan teks Alfiyah). مُفِيدُنْ = pendek, panjang, panjang; نَافِعُنْ = panjang, pendek, panjang. Taf'ilah kedua menjadi 1010101: patah."
+              "catatan": "Diubah, bukan kutipan: ganti بِلَا dengan بِغَيْرِ. Semakna, tetapi satu suku pendek bertambah: patah."
             },
             {
               "bait": [
-                "وَأَسْتَعِينُ اللَّهَ فِي أَلْفِيَّهْ"
+                "وَالنَّصْبُ مُخْتَارٌ لَدَى ضَعْفِ النَّسَقْ"
               ],
-              "catatan": "Asli: Alfiyah bait 3."
+              "catatan": "Asli: Alfiyah bait 314."
             },
             {
               "bait": [
-                "وَأَسْتَعِينُ رَبِّي فِي أَلْفِيَّهْ"
+                "وَالنَّصْبُ مُخْتَارٌ عِنْدَ ضَعْفِ النَّسَقْ"
               ],
-              "catatan": "اللَّهَ diganti رَبِّي (baris latihan). Pada اللَّهَ hamzah washal gugur, sehingga lam ta'rif menutup suku sebelumnya: نُلْ menjadi panjang. Pada رَبِّي tidak ada penutup itu: نُ dan رَ sama-sama pendek. Taf'ilah kedua menjadi 1101010: patah."
+              "catatan": "Diubah, bukan kutipan: ganti لَدَى dengan عِنْدَ. Pendek lalu panjang menjadi panjang lalu pendek: patah."
             },
             {
               "bait": [
-                "وَاللَّهُ يُعْطِي بِهِبَاتٍ وَافِرَهْ"
+                "وَٱسْتَعْمَلُوا أَيْضًا كَكُلٍّ فَاعِلَهْ"
               ],
-              "catatan": "Baris latihan: يَقْضِي diganti يُعْطِي. Keduanya 1010, jadi tetap lurus."
+              "catatan": "Asli: Alfiyah bait 523."
             },
             {
               "bait": [
-                "كَلَامُنَا لَفْظٌ مُفِيدٌ كَقُمْ"
+                "وَٱسْتَعْمَلُوا أَيْضًا كَكُلٍّ عَامَّهْ"
               ],
-              "catatan": "كَسْتَقِمْ = panjang, pendek, panjang; كَقُمْ = pendek, panjang. Satu suku panjang hilang di ujung, jadi taf'ilah ketiga hanya 10110: patah. Ujung syathr paling mudah didengar karena di sana lagu berhenti."
+              "catatan": "Diubah, bukan kutipan: ganti فَاعِلَهْ dengan عَامَّهْ. Wazan sharafnya sama, tetapi mim ganda membuat dua huruf mati bertemu: patah."
+            },
+            {
+              "bait": [
+                "فِيمَا سِوَى هَذَا ٱنْسُبَنْ لِلْأَوَّلِ"
+              ],
+              "catatan": "Asli: Alfiyah bait 872."
+            },
+            {
+              "bait": [
+                "فِيمَا سِوَى ذَلِكَ ٱنْسُبَنْ لِلْأَوَّلِ"
+              ],
+              "catatan": "Diubah, bukan kutipan: ganti هَذَا dengan ذَلِكَ. Dua suku panjang menjadi panjang lalu dua pendek: patah."
             }
           ]
         },
         {
           "jenis": "pincang",
-          "petunjuk": "Bait 4 Alfiyah dan ubahannya. Mana yang tersandung?",
+          "petunjuk": "Nazhm al-Waraqat, 'Aqidatul 'Awam, dan ubahannya. Sebagian ubahan tetap lurus. Mana yang tersandung?",
           "bahr": "rajaz",
           "baris": [
             {
               "bait": [
-                "تُقَرِّبُ الْأَقْصَى بِلَفْظٍ مُوجَزِ"
+                "وَالْعِلْمُ إِمَّا بِاضْطِرَارٍ يَحْصُلُ"
               ],
-              "catatan": "Asli: Alfiyah bait 4."
+              "catatan": "Asli: Nazhm al-Waraqat bait 26."
             },
             {
               "bait": [
-                "تُقَرِّبُ الْبَعِيدَ بِلَفْظٍ مُوجَزِ"
+                "وَالْعِلْمُ إِمَّا بِاضْطِرَارٍ يَثْبُتُ"
               ],
-              "catatan": "Baris latihan: بَ · عِي · دَ (pendek, panjang, pendek) menggantikan أَقْ · صَى (panjang, panjang). Taf'ilah kedua menjadi 1101110: patah."
+              "catatan": "Diubah, bukan kutipan: ganti يَحْصُلُ dengan يَثْبُتُ. Sewazan, jadi tetap lurus dan utuh."
             },
             {
               "bait": [
-                "وَتَبْسُطُ الْبَذْلَ بِوَعْدٍ مُنْجَزِ"
+                "أَوْ بِاكْتِسَابٍ حَاصِلٌ وَالْأَوَّلُ"
               ],
-              "catatan": "Asli: Alfiyah bait 4."
+              "catatan": "Diubah, bukan kutipan: ganti فَ dengan وَ. Satu huruf hidup diganti satu huruf hidup: tetap lurus dan utuh."
             },
             {
               "bait": [
-                "وَتَبْسُطُ الْعَطَاءَ بِوَعْدٍ مُنْجَزِ"
+                "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ"
               ],
-              "catatan": "Baris latihan: الْبَذْلَ (بَذْ · لَ) diganti الْعَطَاءَ (عَ · طَا · ءَ). Semakna, tetapi satu suku pendek bertambah di depan: patah."
+              "catatan": "Asli: 'Aqidatul 'Awam bait 16."
             },
             {
               "bait": [
-                "تُقَرِّبُ الْأَقْصَى بِقَوْلٍ مُوجَزِ"
+                "هُمْ آدَمٌ إِدْرِيسُ يُونُسُ هُودُ مَعْ"
               ],
-              "catatan": "Baris latihan: لَفْظٍ diganti قَوْلٍ. Keduanya 1010 bila bertanwin, jadi tetap lurus."
+              "catatan": "Diubah, bukan kutipan: ganti نُوحٌ dengan يُونُسُ. Dua suku panjang menjadi panjang lalu dua pendek: patah."
+            },
+            {
+              "bait": [
+                "وَالنَّصُّ عُرْفًا كُلُّ كَلَامٍ وَارِدِ",
+                "لَمْ يَحْتَمِلْ إِلَّا لِمَعْنًى وَاحِدِ"
+              ],
+              "catatan": "Diubah, bukan kutipan: ganti لَفْظٍ dengan كَلَامٍ di Nazhm al-Waraqat bait 97. Satu suku pendek muncul di depan: patah."
             }
           ]
         },
         {
           "jenis": "cetakan",
-          "petunjuk": "Ganti لَفْظٍ di bait 4 dengan kata lain yang setimbang. Buat **dua baris berbeda**; keduanya harus lurus. Lagukan dulu sebelum menimbang.",
-          "cetakan": "تُقَرِّبُ الْأَقْصَى بِ{1} مُوجَزِ",
+          "petunjuk": "Ganti لَفْظٍ di Nazhm al-Waraqat bait 97 dengan kata lain yang selagu, لا لا. Buat **dua baris berbeda**; keduanya harus lurus dan utuh. Lagukan dulu sebelum menimbang.",
+          "cetakan": "وَالنَّصُّ عُرْفًا كُلُّ {1} وَارِدِ",
           "kotak": [
             {
-              "petunjuk": "Isim bertanwin kasrah, pola 1010 (dua suku panjang), mis. قَوْلٍ، نَظْمٍ",
+              "petunjuk": "Isim bertanwin kasrah, pola 1010 (dua suku panjang), mis. قَوْلٍ، نُطْقٍ",
               "pola": "1010",
               "contoh": [
                 "لَفْظٍ",
                 "قَوْلٍ",
-                "نَظْمٍ"
+                "نُطْقٍ"
               ]
             }
           ],
           "bahr": "rajaz",
           "jumlah": 2
+        },
+        {
+          "jenis": "panen",
+          "petunjuk": "Panen dari Alfiyah bait 314. Pilih kata berurutan yang pas mengisi **satu مُسْتَفْعِلُنْ utuh**, beri arti, lalu simpan ke Laci saya.",
+          "bait": [
+            "وَالْعَطْفُ إِنْ يُمْكِنْ بِلَا ضَعْفٍ أَحَقّْ",
+            "وَالنَّصْبُ مُخْتَارٌ لَدَى ضَعْفِ النَّسَقْ"
+          ],
+          "bahr": "rajaz",
+          "jumlah": 2,
+          "kotak": true,
+          "sumber": "Alfiyah bait 314"
         }
       ],
-      "patokan": "Dua set \"cari yang pincang\" dijawab dengan telinga dulu, lalu dicek dengan timbangan. Di Diwan, catat satu contoh: kata asli, kata pengganti, dan suku mana yang membuat lagu tersandung."
+      "patokan": "Dua set cari yang pincang dijawab dengan telinga dulu, lalu dicek dengan timbangan. Di Diwan, catat satu contoh: kata asli, kata pengganti, dan suku mana yang membuat lagu tersandung."
     },
     {
       "nomor": 3,
+      "versi": 2,
       "judul": "Bait #1 v2",
-      "ringkas": "Lagukan Bait #1 v1, temukan bagian yang tersendat, perbaiki, timbang, catat v2.",
+      "ringkas": "Lagukan Bait #1 v1, temukan bagian yang tersendat, perbaiki sampai utuh semua, timbang, catat v2.",
       "menit": 30,
       "analogi": "Hafalan yang disetor hari ini sering baru terlihat salahnya besok pagi. Bait juga begitu. Bait #1 v1 Anda disusun ketika telinga belum terlatih; sekarang telinga itu sudah punya nada dasar. Revisi berarti membaca bait sendiri dengan telinga yang baru.",
       "amtsilah": [
         {
           "bait": [
-            "وَاللَّهُ يَقْضِي بِهِبَاتٍ وَافِرَهْ",
-            "لِي وَلَهُ فِي دَرَجَاتِ الْآخِرَهْ"
+            "غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ",
+            "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
           ],
           "bahr": "rajaz",
-          "makna": "Semoga Allah menetapkan karunia yang melimpah untukku dan untuknya di derajat-derajat akhirat.",
-          "sumber": "Alfiyah Ibnu Malik, bait 7 (penutup muqaddimah). Mutun Thalib al-'Ilm (Shamela no. 1091); Syarh al-Faridhi (Shamela no. 174).",
-          "catatan": "Contoh penutup yang baik: doa singkat, qafiyah berpasangan وَافِرَهْ dan الْآخِرَهْ."
+          "makna": "Ampunan-Mu, ya Allah, sungguh aku berdosa. Rahmat-Mu, wahai Yang Maha Pengasih, sungguh aku menyesal.",
+          "sumber": "Ibnu Zakur al-Fasi (w. 1120 H); harakat dilengkapi. Teks: https://www.aldiwan.net/poem19084.html",
+          "catatan": "Ujung kedua syathr sewazan: جَارِمُ dan نَادِمُ, wazan فَاعِلُ. Huruf sebelum mim hidup, sehingga taf'ilah terakhir utuh."
         },
         {
           "bait": [
-            "فَأَنْزِلَنْ سَكِينَةً عَلَيْنَا",
-            "وَثَبِّتِ الْأَقْدَامَ إِنْ لَاقَيْنَا"
+            "طُوبَى لِنَفْسٍ أَسْلَمَتْ وَاسْتَسْلَمَتْ",
+            "وَاسْتَغْفَرَتْ مِنْ كُلِّ مَا قَدْ أَجْرَمَتْ"
           ],
           "bahr": "rajaz",
-          "makna": "Maka turunkanlah ketenangan kepada kami, dan kokohkan kaki kami bila kami berhadapan dengan musuh.",
-          "sumber": "Lanjutan rajaz Khandaq, Shahih al-Bukhari no. 4104 (dari al-Bara').",
-          "catatan": "Kedua syathr berakhir ـيْنَا. Perhatikan dharbnya: لَاقَيْنَا = 101010, wajah مُسْتَفْعِلْ (qath') yang sah di ujung bait."
+          "makna": "Beruntunglah jiwa yang berserah diri dan tunduk, lalu memohon ampun dari setiap dosa yang telah ia perbuat.",
+          "sumber": "Radhiyuddin ash-Shaghani (w. 650 H), urjuzah «أقول والدمع يسحّ جونه»; harakat dilengkapi. Teks: https://poetry.dct.gov.ae/diwan/poem/85000",
+          "catatan": "Ujung ـمَتْ didahului huruf hidup: وَاسْتَسْلَمَتْ dan أَجْرَمَتْ. Dua kata itu sewazan dengan أَسْلَمَتْ."
+        },
+        {
+          "bait": [
+            "وَالشَّرْطُ يُغْنِي عَنْ جَوَابٍ قَدْ عُلِمْ",
+            "وَالْعَكْسُ قَدْ يَأْتِي إِنِ الْمَعْنَى فُهِمْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Syarat boleh mencukupi dari jawab yang sudah diketahui. Kebalikannya kadang terjadi, bila maknanya dipahami.",
+          "sumber": "Alfiyah Ibnu Malik, bab 'awamil al-jazm, bait 705. Teks berharakat dari sumber, ortografi dinormalisasi: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json",
+          "catatan": "Dari Pelajaran 1. عُلِمْ dan فُهِمْ sewazan, dan huruf sebelum mim hidup."
         }
       ],
       "bahts": {
         "bait": [
-          "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْ مَا مَضَى",
-          "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+          "غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ",
+          "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
         ],
         "bahr": "rajaz",
-        "makna": "Sabarlah dalam pelajaran dan ulangi yang sudah lewat; ilmu tidak datang kepada orang yang berpaling darinya.",
+        "makna": "Ampunan-Mu, ya Allah, sungguh aku berdosa. Rahmat-Mu, wahai Yang Maha Pengasih, sungguh aku menyesal.",
         "syathr": 0,
         "langkah": [
           {
             "tampil": "teks",
-            "kata": "Kita revisi satu Bait #1 contoh. Maknanya dulu, seperti di Modul 0.",
-            "papan": "Sabarlah belajar dan ulangi pelajaran; ilmu tidak datang kepada yang berpaling."
+            "kata": "Kita revisi satu draf Bait #1 contoh. Draf ini dibuat dengan mengubah bait Ibnu Zakur, jadi diubah, bukan kutipan, seperti draf mu'aradhah di Modul 0. Maknanya dulu.",
+            "papan": "Ampunan-Mu, ya Allah, aku berdosa.\nRahmat-Mu, wahai Tuhan, aku menyesal."
           },
           {
             "tampil": "bait",
-            "kata": "Ini v1. Lagukan dengan nada kunci. Syathr kedua mengalir; syathr pertama tersendat di ujung.",
+            "kata": "Ini v1. Lagukan dengan لا لا نعم. Syathr pertama mengalir; syathr kedua tersandung di tengah.",
             "bait": [
-              "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْهُ دَائِمًا",
-              "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+              "غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبٌ",
+              "رُحْمَاكَ يَا رَبُّ إِنِّي نَادِمُ"
             ]
           },
           {
             "tampil": "timbang",
-            "kata": "Timbangan sepakat dengan telinga: taf'ilah ketiga syathr pertama patah. وَكَرِّرْهُ دَائِمًا terlalu panjang satu suku.",
+            "kata": "Timbangan sepakat dengan telinga: taf'ilah kedua syathr kedua patah. رَبْ · بُ · إِنْ · نِي berlagu لا نعم لا, bukan لا لا نعم. رَبُّ kurang satu suku panjang.",
             "bait": [
-              "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْهُ دَائِمًا",
-              "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+              "غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبٌ",
+              "رُحْمَاكَ يَا رَبُّ إِنِّي نَادِمُ"
             ],
             "patah": 1
           },
           {
+            "tampil": "timbang",
+            "kata": "Ganti رَبُّ dengan رَحْمَانُ. Maknanya tetap seruan kepada Allah. رَحْ · مَا · نُ · إِنْ = لا لا نعم. Lurus, semua taf'ilah utuh.",
+            "bait": [
+              "غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبٌ",
+              "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
+            ],
+            "patah": 0
+          },
+          {
             "tampil": "teks",
-            "kata": "Ada masalah kedua yang tidak dicari timbangan: ujung دَائِمًا tidak sebunyi dengan أَعْرَضَا. Rajaz nadzom biasanya berpasangan di dua syathr. Satu perbaikan bisa menyelesaikan keduanya.",
-            "papan": "دَائِمًا ✗ أَعْرَضَا\nmaksud tetap: ulangi pelajaran\ncari ujung ـضَى: مَا مَضَى"
+            "kata": "Ada masalah kedua yang tidak dicari timbangan: ujung مُذْنِبٌ tidak sebunyi dengan نَادِمُ. Cari kata semakna yang berakhir mim, sewazan dengan نَادِمُ, dan huruf sebelum mimnya hidup.",
+            "papan": "ujung syathr pertama: مُذْنِبٌ\nujung syathr kedua: نَادِمُ\nmaksud tetap: aku berdosa\ncalon sewazan: جَارِمُ، آثِمُ"
           },
           {
             "tampil": "timbang",
-            "kata": "وَكَرِّرْهُ دَائِمًا diganti وَكَرِّرْ مَا مَضَى: ulangi yang sudah lewat. Maknanya tetap, ujungnya kini ـضَى, dan timbangannya lurus.",
-            "bait": [
-              "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْ مَا مَضَى",
-              "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
-            ],
+            "kata": "Ganti مُذْنِبٌ dengan جَارِمُ. Kini kedua syathr berakhir dengan mim yang didahului huruf hidup, dan kedua kata ujung sewazan. Lurus, utuh semua, dan sebunyi. Inilah bait Ibnu Zakur yang asli.",
             "patah": 0
           },
           {
@@ -686,43 +781,45 @@
           },
           {
             "tampil": "teks",
-            "kata": "Catat di Diwan di bawah v1. Tulis juga kata apa yang diganti; catatan ini kelak menjadi bank kata Anda sendiri.",
-            "papan": "Bait #1 v1 · patah 1\nBait #1 v2 · patah 0 · وَكَرِّرْهُ دَائِمًا → وَكَرِّرْ مَا مَضَى"
+            "kata": "Catat di Diwan di bawah v1. Tulis juga kata apa yang diganti; catatan ini kelak mengisi Laci saya.",
+            "papan": "Bait #1 v1 · patah 1\nBait #1 v2 · utuh semua\nganti رَبُّ dengan رَحْمَانُ\nganti مُذْنِبٌ dengan جَارِمُ"
           }
         ],
         "giliran": {
           "syathr": 1,
-          "petunjuk": "Giliran Anda: **syathr kedua**. فَالْعِلْمُ = فَلْعِلْمُ: hamzah washal gugur, lam qamariyah tetap. Ujung أَعْرَضَا: alifnya dibaca, jadi berakhir dengan huruf mati."
+          "petunjuk": "Giliran Anda: **syathr kedua**. Pada رُحْمَاكَ alif mad menutup suku مَا. إِنِّي dibaca إِنْنِي. Ujung نَادِمُ dipanjangkan menjadi نَادِمُو."
         }
       },
       "syarh": [
-        "Perhatikan **contoh pertama**, bait 7 Alfiyah, penutup muqaddimah. Ibnu Malik menutup dengan doa pendek, dan kedua syathrnya berakhir sebunyi: وَافِرَهْ dan الْآخِرَهْ. Ini wujud bait yang selesai: lurus, bermakna, dan ujungnya berpasangan.",
-        "Lalu **contoh kedua**, lanjutan rajaz Khandaq. Lihat ujungnya: لَاقَيْنَا = 101010. Itu bukan مُسْتَفْعِلُنْ utuh, melainkan مُسْتَفْعِلْ (qath'): huruf hidup terakhir watad dibuang. Wajah ini sah di ujung bait. Jadi kalau timbangan menulis \"berubah\" di ujung, belum tentu ada yang perlu direvisi.",
-        "Sekarang **bait yang direvisi** di peragaan (bait latihan, bukan kutipan). Versi pertamanya: اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْهُ دَائِمًا. Lagukan: syathr pertama tersendat di وَكَرِّرْهُ دَائِمًا. Timbangan sepakat: satu taf'ilah patah. Selain itu, دَائِمًا tidak sebunyi dengan أَعْرَضَا.",
-        "Perbaikannya dicari dari **makna**, bukan dari kata. Maksudnya \"ulangi pelajaran\". Frasa وَكَرِّرْ مَا مَضَى (ulangi yang sudah lewat) membawa maksud yang sama, ujungnya ـضَى, dan timbangannya lurus. Satu perbaikan menyelesaikan dua masalah.",
-        "Setelah itu v2 dilagukan lagi dan dicatat. Revisi selesai bila telinga dan timbangan sama-sama tenang. Mirip murajaah hafalan: tidak cukup benar sekali; dibaca ulang sampai lancar, dan catatan kesalahan disimpan agar tidak terulang."
+        "Perhatikan **contoh pertama**, bait Ibnu Zakur. Doa pendek, dan kedua syathrnya berakhir sebunyi: جَارِمُ dan نَادِمُ. Keduanya berwazan فَاعِلُ, maka lagunya sama: جَا · رِ · مُو dan نَا · دِ · مُو. Ini wujud bait yang selesai: lurus, utuh semua, bermakna, dan ujungnya berpasangan.",
+        "Lalu **contoh kedua**, ash-Shaghani. Ujungnya وَاسْتَسْلَمَتْ dan أَجْرَمَتْ: huruf ujung ta, dan huruf sebelumnya, mim, hidup. Lihat juga syathr pertama: أَسْلَمَتْ dan وَاسْتَسْلَمَتْ berakar sama, satu bunyi bergema di dalam bait.",
+        "**Contoh ketiga**, Alfiyah bait 705, sudah Anda kenal dari Pelajaran 1. عُلِمْ dan فُهِمْ juga sewazan, dan huruf sebelum mim hidup. Di Jilid 1 inilah cara pertama memilih kata ujung: **huruf sebelum huruf ujung harus hidup**. Bila huruf itu mati, misalnya mad, taf'ilah terakhir tidak utuh. Taf'ilah yang berubah dibahas di Jilid 2.",
+        "Sekarang **draf yang direvisi** di peragaan, diubah dari bait Ibnu Zakur. Versi pertamanya memakai يَا رَبُّ dan مُذْنِبٌ. Lagukan: syathr kedua tersendat di يَا رَبُّ إِنِّي. Timbangan sepakat: satu taf'ilah patah. Selain itu, مُذْنِبٌ tidak sebunyi dengan نَادِمُ.",
+        "Perbaikannya dicari dari **makna**, bukan dari kata. Maksudnya seruan kepada Allah, maka dicari nama yang lagunya لا لا pendek: رَحْمَانُ, juga غَفَّارُ atau تَوَّابُ. Maksud ujungnya aku berdosa, maka dicari kata sewazan نَادِمُ: جَارِمُ atau آثِمُ. Dua perbaikan kecil menyelesaikan timbangan dan ujung sekaligus.",
+        "Setelah itu v2 dilagukan lagi dan dicatat. Revisi selesai bila telinga dan timbangan sama-sama tenang, dan timbangan menulis utuh semua. Mirip murajaah hafalan: tidak cukup benar sekali; dibaca ulang sampai lancar, dan catatan kesalahan disimpan agar tidak terulang."
       ],
       "keliru": [
         {
           "salah": "Menambah atau membuang kata sembarang sampai timbangan lurus, walau maknanya bergeser.",
-          "benar": "Pegang maknanya, ganti cara mengatakannya: وَكَرِّرْهُ دَائِمًا → وَكَرِّرْ مَا مَضَى.",
-          "sebab": "Bait yang lurus tetapi kehilangan maksud tidak lagi مُفِيد, seperti kalam dalam definisi bait 8."
+          "benar": "Pegang maknanya, ganti cara mengatakannya: ganti رَبُّ dengan رَحْمَانُ, sama-sama seruan kepada Allah.",
+          "sebab": "Bait yang lurus tetapi kehilangan maksud tidak lagi memberi faedah."
         },
         {
-          "salah": "Merevisi setiap taf'ilah yang ditandai \"berubah\", mis. لَاقَيْنَا = 101010 di ujung bait.",
-          "benar": "Yang direvisi hanya yang **patah**. Wajah berubah yang sah dibiarkan.",
-          "sebab": "Seperti i'lal dalam sharaf: قَالَ asalnya قَوَلَ, bentuknya berubah tetapi benar."
-        },
-        {
-          "salah": "Memperbaiki timbangan tetapi lupa ujung: syathr pertama berakhir ـمَا, syathr kedua ـضَا.",
-          "benar": "Usahakan kedua syathr sebunyi (muzdawij): مَضَى / أَعْرَضَا.",
+          "salah": "Memperbaiki timbangan tetapi lupa ujung: syathr pertama berakhir مُذْنِبٌ, syathr kedua نَادِمُ.",
+          "benar": "Usahakan kedua syathr sebunyi (qafiyah muzdawij): جَارِمُ dan نَادِمُ.",
           "sebab": "Ujung syathr adalah tempat lagu berhenti, maka telinga paling peka di sana."
+        },
+        {
+          "salah": "Memilih kata ujung yang huruf sebelum huruf ujungnya mati, misalnya ganti جَارِمُ dengan عَاصٍ.",
+          "benar": "Pilih kata ujung yang huruf sebelumnya hidup: جَارِمُ، آثِمُ، نَادِمُ.",
+          "sebab": "Pada عَاصٍ, huruf sebelum shad adalah alif mati. Timbangan Jilid 1 akan menulis belum utuh."
         }
       ],
       "qaidah": [
-        "**Revisi** = lagukan v1 → tandai tempat tersendat → timbang → ganti kata dengan makna sama dan timbangan pas → timbang lagi → lagukan lagi.",
-        "Perbaikan yang baik sering menyelesaikan dua masalah sekaligus: timbangan dan qafiyah.",
-        "Dalam nadzom rajaz, kedua syathr satu bait biasanya berakhir dengan bunyi yang sama (مُوجَزِ / مُنْجَزِ, وَافِرَهْ / الْآخِرَهْ). Ini disebut muzdawij, dibahas di Modul 5.",
+        "**Revisi** = lagukan v1, tandai tempat tersendat, timbang, ganti kata dengan makna sama dan lagu sama, timbang lagi, lagukan lagi.",
+        "Di Jilid 1, revisi selesai bila **0 patah dan utuh semua**.",
+        "**Huruf sebelum huruf ujung harus hidup**: جَارِمُ، نَادِمُ، أَجْرَمَتْ، عُلِمْ.",
+        "Dalam nadzom rajaz, kedua syathr satu bait biasanya berakhir dengan bunyi yang sama (qafiyah muzdawij). Kata ujung yang sewazan paling mudah: جَارِمُ dan نَادِمُ.",
         "Setiap versi dicatat di Diwan, lengkap dengan jumlah patah dan kata yang diganti."
       ],
       "tamarin": [
@@ -731,45 +828,44 @@
           "petunjuk": "Lima soal tentang revisi. Bayangkan Anda sedang memperbaiki bait sendiri.",
           "soal": [
             {
-              "soal": "Pada v1, وَكَرِّرْهُ دَائِمًا membuat syathr pertama patah. Pengganti mana yang lurus dan sebunyi dengan أَعْرَضَا?",
+              "soal": "Pada v1, يَا رَبُّ membuat taf'ilah kedua syathr kedua patah. Pengganti mana yang lurus dan utuh?",
               "pilihan": [
-                "وَكَرِّرْهُ كُلَّ يَوْمٍ",
-                "وَأَعِدْهُ دَائِمًا",
-                "وَرَاجِعْ مَا مَضَى"
+                "يَا رَبِّي",
+                "يَا رَبَّنَا",
+                "يَا تَوَّابُ"
               ],
               "jawaban": 2,
-              "alasan": "Dengan وَرَاجِعْ مَا مَضَى, taf'ilah kedua دَرْسِ وَرَا = 101110 (thayy, sah) dan taf'ilah ketiga جِعْ مَا مَضَى = 1010110 (utuh); ujungnya ـضَى. كُلَّ يَوْمٍ menambah terlalu banyak suku; وَأَعِدْهُ membuat empat huruf hidup berturut-turut. Keduanya tetap patah, dan ujungnya tidak sebunyi."
-            },
-            {
-              "soal": "Pasangan ujung mana yang sebunyi?",
-              "pilihan": [
-                "دَائِمًا / أَعْرَضَا",
-                "مَضَى / أَعْرَضَا",
-                "وَافِرَهْ / مُنْجَزِ"
-              ],
-              "jawaban": 1,
-              "alasan": "مَضَى dan أَعْرَضَا sama-sama berakhir ـضَا. وَافِرَهْ berpasangan dengan الْآخِرَهْ, bukan مُنْجَزِ.",
+              "alasan": "تَوْ · وَا · بُ = لا لا pendek, sama dengan رَحْمَانُ. رَبِّي dan رَبَّنَا tetap membuat lagu bergeser: keduanya patah.",
               "arab": true
             },
             {
-              "soal": "لَاقَيْنَا di ujung rajaz Khandaq berpola 101010. Ini?",
+              "soal": "Pasangan ujung mana yang sebunyi dan utuh?",
               "pilihan": [
-                "Patah, harus direvisi",
-                "مُسْتَفْعِلْ (qath'), sah di ujung bait",
-                "Tanda bahrnya bukan rajaz"
+                "مُذْنِبٌ dan نَادِمُ",
+                "جَارِمُ dan نَادِمُ",
+                "عُلِمْ dan أَجْرَمَتْ"
               ],
               "jawaban": 1,
-              "alasan": "Huruf hidup terakhir مُسْتَفْعِلُنْ dibuang: مُسْتَفْعِلْ = 101010. 'Illah ini lazim di dharb rajaz."
+              "alasan": "جَارِمُ dan نَادِمُ sama-sama berakhir mim yang didahului huruf hidup, dan sewazan. Pasangan lain tidak sebunyi."
             },
             {
-              "soal": "Pada v1, bagian mana yang diperbaiki?",
+              "soal": "Mengapa جَارِمُ dan آثِمُ sama-sama bisa menggantikan مُذْنِبٌ di ujung syathr pertama?",
               "pilihan": [
-                "وَكَرِّرْهُ دَائِمًا, karena di sanalah taf'ilah patah dan ujungnya tidak sebunyi",
-                "اصْبِرْ, karena kata pertama selalu diganti",
-                "Syathr kedua, karena lebih panjang"
+                "Karena keduanya sewazan فَاعِلُ, sama dengan نَادِمُ",
+                "Karena hurufnya sama banyak dengan مُذْنِبٌ",
+                "Karena keduanya isim ma'rifah"
               ],
               "jawaban": 0,
-              "alasan": "Timbangan menunjuk taf'ilah ketiga syathr pertama, dan telinga tersandung di tempat yang sama. Syathr kedua sudah lurus."
+              "alasan": "Kata sewazan memberi lagu sama. Karena نَادِمُ juga فَاعِلُ, ujung kedua syathr ikut sebunyi."
+            },
+            {
+              "soal": "Kata ujung mana yang membuat taf'ilah terakhir tetap utuh?",
+              "pilihan": [
+                "عَاصٍ",
+                "جَارِمُ"
+              ],
+              "jawaban": 1,
+              "alasan": "Pada جَارِمُ huruf sebelum mim, yaitu ra, hidup. Pada عَاصٍ huruf sebelum shad adalah alif mati, sehingga taf'ilah terakhir tidak utuh."
             },
             {
               "soal": "Apa yang dicatat di Diwan setelah revisi?",
@@ -779,33 +875,34 @@
                 "Hanya kata yang diganti"
               ],
               "jawaban": 1,
-              "alasan": "Catatan lengkap memperlihatkan kemajuan dan menjadi bank kata Anda sendiri."
+              "alasan": "Catatan lengkap memperlihatkan kemajuan, dan kata penggantinya bisa disimpan ke Laci saya."
             }
           ]
         },
         {
           "jenis": "tandai",
-          "petunjuk": "Frasa dari v1, v2, dan contoh pelajaran ini. Beri tanda **1**/**0**; bandingkan وَكَرِّرْهُ دَائِمًا dengan وَكَرِّرْ مَا مَضَى.",
+          "petunjuk": "Kata dari v1, v2, dan contoh pelajaran ini. Beri tanda **1**/**0**; bandingkan جَارِمُ dengan مُذْنِبٌ, dan رَحْمَانُ dengan رَبُّ.",
           "butir": [
-            "اصْبِرْ",
-            "إِنْ لَاقَيْنَا",
-            "لِمَنْ قَدْ أَعْرَضَا",
-            "وَكَرِّرْ مَا مَضَى",
-            "وَرَاجِعْ مَا مَضَى",
-            "وَكَرِّرْهُ دَائِمًا",
-            "بِهِبَاتٍ وَافِرَهْ",
-            "فَأَنْزِلَنْ سَكِينَةً"
+            "جَارِمُ",
+            "نَادِمُ",
+            "آثِمُ",
+            "مُذْنِبٌ",
+            "رَحْمَانُ",
+            "رَبُّ",
+            "غَفَّارُ",
+            "قَدْ أَجْرَمَتْ",
+            "وَاسْتَسْلَمَتْ"
           ]
         },
         {
           "jenis": "taqthi",
-          "petunjuk": "Timbang lanjutan rajaz Khandaq. Perhatikan ujungnya: لَاقَيْنَا akan ditandai \"berubah\", bukan patah.",
+          "petunjuk": "Timbang Alfiyah bait 872 dari Pelajaran 2. Perhatikan ujungnya: لِلْأَوَّلِ dan الْأَشْهَلِ, lam yang didahului huruf hidup, lalu dipanjangkan menjadi ـلِي.",
           "bait": [
-            "فَأَنْزِلَنْ سَكِينَةً عَلَيْنَا",
-            "وَثَبِّتِ الْأَقْدَامَ إِنْ لَاقَيْنَا"
+            "فِيمَا سِوَى هَذَا ٱنْسُبَنْ لِلْأَوَّلِ",
+            "مَا لَمْ يُخَفْ لَبْسٌ كَعَبْدِ الْأَشْهَلِ"
           ],
           "bahr": "rajaz",
-          "makna": "Maka turunkanlah ketenangan kepada kami, dan kokohkan kaki kami bila kami berhadapan dengan musuh."
+          "makna": "Pada selain yang tersebut ini, nisbahkanlah kepada bagian pertama, selama tidak dikhawatirkan rancu, seperti 'Abdul Asyhal yang dinisbahkan kepada bagian keduanya."
         },
         {
           "jenis": "pincang",
@@ -814,171 +911,269 @@
           "baris": [
             {
               "bait": [
-                "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْهُ دَائِمًا",
-                "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+                "غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبٌ",
+                "رُحْمَاكَ يَا رَبُّ إِنِّي نَادِمُ"
               ],
-              "catatan": "Bait latihan v1: وَكَرِّرْهُ دَائِمًا terlalu panjang satu suku, taf'ilah ketiga syathr pertama patah."
+              "catatan": "Draf v1, diubah, bukan kutipan: رَبُّ kurang satu suku panjang, taf'ilah kedua syathr kedua patah."
             },
             {
               "bait": [
-                "وَاللَّهُ يَقْضِي بِهِبَاتٍ وَافِرَهْ"
+                "غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبٌ",
+                "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
               ],
-              "catatan": "Asli: Alfiyah bait 7."
+              "catatan": "Draf antara, diubah, bukan kutipan: lurus dan utuh, tetapi ujung kedua syathr belum sebunyi."
             },
             {
               "bait": [
-                "وَاللَّهُ يَقْضِي بِهِبَاتٍ كَثِيرَهْ"
+                "طُوبَى لِنَفْسٍ أَسْلَمَتْ وَاسْتَسْلَمَتْ"
               ],
-              "catatan": "Baris latihan: وَافِرَهْ (وَا · فِ · رَهْ) diganti كَثِيرَهْ (كَ · ثِي · رَهْ). Semakna, tetapi panjang-pendeknya tertukar di ujung: patah."
+              "catatan": "Asli: ash-Shaghani."
             },
             {
               "bait": [
-                "فَأَنْزِلَنْ سَكِينَةً عَلَيْنَا"
+                "طُوبَى لِنَفْسٍ قَدْ أَسْلَمَتْ وَاسْتَسْلَمَتْ"
               ],
-              "catatan": "Asli: rajaz Khandaq, Shahih al-Bukhari no. 4104."
+              "catatan": "Diubah, bukan kutipan: قَدْ ditambahkan. Satu suku panjang berlebih: patah."
             },
             {
               "bait": [
-                "فَأَنْزِلِ السَّكِينَةَ عَلَيْنَا"
+                "طُوبَى لِنَفْسٍ آمَنَتْ وَاسْتَسْلَمَتْ"
               ],
-              "catatan": "Baris latihan: فَأَنْزِلَنْ سَكِينَةً diganti فَأَنْزِلِ السَّكِينَةَ. Tanwin hilang, sehingga satu suku panjang menjadi pendek: taf'ilah kedua patah."
+              "catatan": "Diubah, bukan kutipan: ganti أَسْلَمَتْ dengan آمَنَتْ. Sewazan, jadi tetap lurus dan utuh."
             },
             {
               "bait": [
-                "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْ مَا مَضَى",
-                "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+                "غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ",
+                "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
               ],
-              "catatan": "Bait latihan v2: lurus, dan kedua ujungnya sebunyi."
+              "catatan": "Asli: Ibnu Zakur. Lurus, utuh semua, dan kedua ujungnya sebunyi."
             }
           ]
         },
         {
-          "jenis": "irama",
-          "petunjuk": "Putar Bait #1 v2 contoh, lagukan, lalu lagukan Bait #1 v1 Anda sendiri dengan nada yang sama. Tandai di kertas kata yang membuat Anda tersendat.",
+          "jenis": "panen",
+          "petunjuk": "Panen dari bait ash-Shaghani. Pilih kata berurutan yang pas mengisi **satu مُسْتَفْعِلُنْ utuh**, beri arti, lalu simpan ke Laci saya. Potongan ini bisa langsung Anda pakai untuk Bait #1 v2.",
           "bait": [
-            "اصْبِرْ عَلَى الدَّرْسِ وَكَرِّرْ مَا مَضَى",
-            "فَالْعِلْمُ لَا يَأْتِي لِمَنْ قَدْ أَعْرَضَا"
+            "طُوبَى لِنَفْسٍ أَسْلَمَتْ وَاسْتَسْلَمَتْ",
+            "وَاسْتَغْفَرَتْ مِنْ كُلِّ مَا قَدْ أَجْرَمَتْ"
           ],
           "bahr": "rajaz",
-          "makna": "Sabarlah dalam pelajaran dan ulangi yang sudah lewat; ilmu tidak datang kepada orang yang berpaling darinya."
+          "jumlah": 3,
+          "kotak": true,
+          "sumber": "ash-Shaghani, urjuzah «أقول والدمع يسحّ جونه»"
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar bait Ibnu Zakur, lagukan, lalu lagukan Bait #1 v1 Anda sendiri dengan nada yang sama. Tandai di kertas kata yang membuat Anda tersendat.",
+          "bait": [
+            "غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ",
+            "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Ampunan-Mu, ya Allah, sungguh aku berdosa. Rahmat-Mu, wahai Yang Maha Pengasih, sungguh aku menyesal."
         },
         {
           "jenis": "susun",
-          "petunjuk": "Ambil **Bait #1 v1** dari Diwan Anda. Lagukan, tandai tempat tersendat, ganti kata, lalu timbang. Ulangi sampai jumlah patahnya lebih kecil dari v1, idealnya 0. Bonus: buat kedua syathr berakhir dengan bunyi yang sama.",
+          "petunjuk": "Ambil **Bait #1 v1** dari Diwan Anda. Lagukan, tandai tempat tersendat, ganti kata, lalu timbang. Ulangi sampai 0 patah dan **utuh semua**. Buat kedua syathr berakhir dengan bunyi yang sama, dengan huruf hidup sebelum huruf ujung.",
           "bahr": "rajaz",
           "makna": "Makna sama dengan Bait #1 v1 Anda. Yang berubah hanya kata-katanya.",
           "bankKata": true,
-          "judulDiwan": "Bait #1 v2"
+          "judulDiwan": "Bait #1 v2",
+          "pola": {
+            "bait": [
+              "غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ",
+              "رُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ"
+            ],
+            "sumber": "Ibnu Zakur al-Fasi (w. 1120 H); harakat dilengkapi."
+          },
+          "tangga": [
+            {
+              "teks": "Pemanasan pada pola: kata ujung جَارِمُ akan diganti. Pilih calon yang lagunya sama dan huruf sebelum huruf ujungnya hidup.",
+              "ganti": "جَارِمُ",
+              "calon": [
+                "مُذْنِبٌ",
+                "آثِمُ",
+                "عَاصٍ"
+              ]
+            },
+            {
+              "teks": "Pemanasan kedua: ganti رَحْمَانُ dengan nama Allah lain yang lagunya sama.",
+              "ganti": "رَحْمَانُ",
+              "calon": [
+                "رَبُّ",
+                "غَفَّارُ",
+                "تَوَّابُ"
+              ]
+            },
+            "Buka **Bait #1 v1** Anda. Lagukan dengan لا لا نعم; tandai kata tempat lagu tersandung.",
+            "Timbang. Ganti kata yang patah atau belum utuh dengan kata yang lagunya sama, dari laci Modul 0 dan 1 atau dari Laci saya.",
+            "Periksa ujung: kedua syathr sebunyi, dan huruf sebelum huruf ujung hidup. Timbang lagi sampai **utuh semua**; inilah **Bait #1 v2**."
+          ]
         }
       ],
-      "patokan": "Bait #1 v2 tercatat di Diwan di bawah v1, dengan jumlah patah lebih kecil (target 0) dan catatan kata yang diganti."
+      "patokan": "Bait #1 v2 tercatat di Diwan di bawah v1: 0 patah, utuh semua, kedua syathr berakhir sebunyi, dengan catatan kata yang diganti. Minimal satu kata pengganti diambil dari Laci saya."
     }
   ],
   "laci": [
     {
-      "teks": "لَفْظٌ مُفِيدٌ",
-      "arti": "lafaz yang memberi faedah",
+      "teks": "دُمْ طَيِّبًا",
+      "arti": "tetaplah baik",
       "laci": "hasyw",
-      "catatan": "Pengisi tengah syathr: panjang, panjang, pendek, panjang, panjang.",
-      "dari": "Alfiyah bait 8"
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110, لا لا نعم.",
+      "dari": "Tuhfatul Athfal bait 16"
     },
     {
-      "teks": "تُقَرِّبُ",
-      "arti": "ia mendekatkan",
-      "laci": "wazan",
-      "catatan": "Wazan تُفَعِّلُ: pendek, panjang, pendek, pendek. Fi'il mazid dengan tadh'if, enak di awal syathr.",
-      "dari": "Alfiyah bait 4"
-    },
-    {
-      "teks": "بِلَفْظٍ مُوجَزِ",
-      "arti": "dengan lafaz yang ringkas",
-      "laci": "qafiyah",
-      "catatan": "Pasangan qafiyah ـزِ: مُوجَزِ، مُنْجَزِ.",
-      "dari": "Alfiyah bait 4"
-    },
-    {
-      "teks": "بِوَعْدٍ مُنْجَزِ",
-      "arti": "dengan janji yang ditepati",
-      "laci": "qafiyah",
-      "catatan": "Pasangan qafiyah ـزِ: مُوجَزِ، مُنْجَزِ.",
-      "dari": "Alfiyah bait 4"
-    },
-    {
-      "teks": "وَأَسْتَعِينُ اللَّهَ",
-      "arti": "dan aku memohon pertolongan Allah",
+      "teks": "زِدْ فِي تُقًى",
+      "arti": "tambahlah takwa",
       "laci": "hasyw",
-      "catatan": "Pembuka permohonan. Hamzah washal اللَّهَ gugur, sehingga نُ menjadi suku panjang نُلْ: وَأَسْتَعِينُلْلَاهَ.",
-      "dari": "Alfiyah bait 3"
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110. Tanwin تُقًى dibaca nun mati.",
+      "dari": "Tuhfatul Athfal bait 16"
     },
     {
-      "teks": "مَقَاصِدُ",
-      "arti": "maksud-maksud, inti-inti",
-      "laci": "wazan",
-      "catatan": "Wazan مَفَاعِلُ (jamak taksir): pendek, panjang, pendek, pendek.",
-      "dari": "Alfiyah bait 3"
-    },
-    {
-      "teks": "بِهِبَاتٍ وَافِرَهْ",
-      "arti": "dengan karunia yang melimpah",
-      "laci": "qafiyah",
-      "catatan": "Pasangan qafiyah ـرَهْ: وَافِرَهْ، الْآخِرَهْ.",
-      "dari": "Alfiyah bait 7"
-    },
-    {
-      "teks": "فِي دَرَجَاتِ الْآخِرَهْ",
-      "arti": "di derajat-derajat akhirat",
-      "laci": "qafiyah",
-      "catatan": "Penutup doa. Ta marbuthah di ujung bait dibaca ha sakinah.",
-      "dari": "Alfiyah bait 7"
-    },
-    {
-      "teks": "مَا اهْتَدَيْنَا",
-      "arti": "niscaya kami tidak mendapat petunjuk",
-      "laci": "qafiyah",
-      "catatan": "Qafiyah ـيْنَا: صَلَّيْنَا، عَلَيْنَا، لَاقَيْنَا.",
-      "dari": "Rajaz Khandaq"
-    },
-    {
-      "teks": "وَلَا صَلَّيْنَا",
-      "arti": "dan kami tidak akan shalat",
-      "laci": "qafiyah",
-      "catatan": "Qafiyah ـيْنَا.",
-      "dari": "Rajaz Khandaq"
-    },
-    {
-      "teks": "فَأَنْزِلَنْ سَكِينَةً",
-      "arti": "maka turunkanlah ketenangan",
+      "teks": "طِبْ ثُمَّ صِلْ",
+      "arti": "jadilah baik, lalu sambunglah",
       "laci": "hasyw",
-      "catatan": "أَنْزِلَنْ: fi'il amr dengan nun taukid khafifah.",
-      "dari": "Rajaz Khandaq"
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110. Syaddah ثُمَّ memisah dua suku.",
+      "dari": "Tuhfatul Athfal bait 27"
     },
     {
-      "teks": "وَثَبِّتِ الْأَقْدَامَ",
-      "arti": "dan kokohkan kaki-kaki kami",
+      "teks": "ضِفْ ذَا نِعَمْ",
+      "arti": "bertamulah kepada pemilik nikmat",
       "laci": "hasyw",
-      "catatan": "ثَبِّتِ: amr wazan فَعِّلْ, diberi kasrah karena bertemu hamzah washal.",
-      "dari": "Rajaz Khandaq"
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "Tuhfatul Athfal bait 27"
     },
     {
-      "teks": "وَكَرِّرْ مَا مَضَى",
-      "arti": "dan ulangi yang sudah lewat",
+      "teks": "وَالْعَكْسُ قَدْ",
+      "arti": "dan kebalikannya kadang",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110. Pembuka syathr: lam qamariyah tetap dibaca.",
+      "dari": "Alfiyah bait 705"
+    },
+    {
+      "teks": "وَٱسْتَعْمَلُوا",
+      "arti": "dan mereka memakai",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Satu kata, satu taf'ilah: وَسْ تَعْ مَ لُو.",
+      "dari": "Alfiyah bait 523"
+    },
+    {
+      "teks": "فِيمَا سِوَى",
+      "arti": "pada selain",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "Alfiyah bait 872"
+    },
+    {
+      "teks": "مَا لَمْ يُخَفْ",
+      "arti": "selama tidak dikhawatirkan",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "Alfiyah bait 872"
+    },
+    {
+      "teks": "لَمْ يَحْتَمِلْ",
+      "arti": "tidak mengandung kemungkinan",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "Nazhm al-Waraqat bait 97"
+    },
+    {
+      "teks": "رُحْمَاكَ يَا",
+      "arti": "rahmat-Mu, wahai",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110. Lanjutkan dengan nama Allah yang lagunya لا لا pendek: رَحْمَانُ، غَفَّارُ، تَوَّابُ.",
+      "dari": "Ibnu Zakur"
+    },
+    {
+      "teks": "وَاسْتَغْفَرَتْ",
+      "arti": "dan ia memohon ampun",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Satu kata, satu taf'ilah.",
+      "dari": "ash-Shaghani"
+    },
+    {
+      "teks": "مِنْ كُلِّ مَا",
+      "arti": "dari setiap yang",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "ash-Shaghani"
+    },
+    {
+      "teks": "قَدْ عُلِمْ",
+      "arti": "yang sudah diketahui",
       "laci": "qafiyah",
-      "catatan": "Pasangan qafiyah ـضَى: أَعْرَضَا. Dari bait latihan.",
-      "dari": "Bait #1 v2 contoh"
+      "cocok": "ujung bait",
+      "catatan": "Ujung ـمْ, huruf sebelum mim hidup. Pasangannya فُهِمْ.",
+      "dari": "Alfiyah bait 705"
     },
     {
-      "teks": "لِمَنْ قَدْ أَعْرَضَا",
-      "arti": "bagi orang yang telah berpaling",
+      "teks": "فُهِمْ",
+      "arti": "dipahami",
       "laci": "qafiyah",
-      "catatan": "Pasangan qafiyah ـضَا: مَضَى. Dari bait latihan.",
-      "dari": "Bait #1 v2 contoh"
+      "cocok": "ujung bait",
+      "catatan": "Ujung ـمْ, huruf sebelum mim hidup. Pasangannya عُلِمْ.",
+      "dari": "Alfiyah bait 705"
     },
     {
-      "teks": "اصْبِرْ",
-      "arti": "bersabarlah",
-      "laci": "wazan",
-      "catatan": "Amr wazan افْعِلْ; di awal syathr hamzahnya dibaca إِصْ.",
-      "dari": "Bait #1 v2 contoh"
+      "teks": "جَارِمُ",
+      "arti": "orang yang berdosa",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Wazan فَاعِلُ, huruf sebelum mim hidup. Sewazan: نَادِمُ، آثِمُ.",
+      "dari": "Ibnu Zakur"
+    },
+    {
+      "teks": "نَادِمُ",
+      "arti": "orang yang menyesal",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Wazan فَاعِلُ, huruf sebelum mim hidup. Pasangannya جَارِمُ.",
+      "dari": "Ibnu Zakur"
+    },
+    {
+      "teks": "قَدْ أَجْرَمَتْ",
+      "arti": "yang telah ia perbuat sebagai dosa",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Ujung ـمَتْ, huruf sebelum ta hidup. Sewazan: أَسْلَمَتْ.",
+      "dari": "ash-Shaghani"
+    },
+    {
+      "teks": "لِلْأَوَّلِ",
+      "arti": "kepada yang pertama",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Ujung ـلِ, huruf sebelum lam hidup; dipanjangkan menjadi ـلِي. Pasangannya الْأَشْهَلِ.",
+      "dari": "Alfiyah bait 872"
+    },
+    {
+      "teks": "وَاحِدِ",
+      "arti": "satu",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Wazan فَاعِلِ, huruf sebelum dal hidup. Pasangannya وَارِدِ.",
+      "dari": "Nazhm al-Waraqat bait 97"
+    },
+    {
+      "teks": "النَّافِلَهْ",
+      "arti": "tambahan, yang sunnah",
+      "laci": "qafiyah",
+      "cocok": "ujung bait",
+      "catatan": "Ujung ـلَهْ, huruf sebelum ha hidup. Sewazan: فَاعِلَهْ.",
+      "dari": "Alfiyah bait 523"
     }
   ]
 }

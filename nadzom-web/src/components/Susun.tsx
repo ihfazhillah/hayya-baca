@@ -68,7 +68,7 @@ export default function Susun({ t }: { t: TamrinSusun }) {
     if (acuan)
       syathr.forEach((b, k) =>
         b.forEach((s, i) => {
-          const m = bedaUjung(acuan, s)
+          const m = bedaUjung(acuan, s, !salim)
           if (m) qafiyah.push({ bait: k + 1, pesan: `Ujung syathr ${i + 1}: ${m}.` })
         }),
       )

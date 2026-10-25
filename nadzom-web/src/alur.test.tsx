@@ -102,45 +102,57 @@ describe('pelajaran 1: peragaan lalu giliran', () => {
   })
 })
 
-describe('pelajaran 2: cetakan', () => {
-  it('baris dengan kata sendiri ditimbang langsung dan bisa disimpan bila lurus', async () => {
+describe('pelajaran 2: cetakan rajaz salim', () => {
+  it('cetakan dua kotak: baris dengan kata sendiri ditimbang langsung dan bisa disimpan bila lurus dan utuh', async () => {
     const user = userEvent.setup()
     buka('/modul/0/2')
     const latihan = screen.getByRole('region', { name: 'Latihan' })
-    await user.type(within(latihan).getByLabelText('Kotak 1'), 'عِلْمِ')
-    await user.type(within(latihan).getByLabelText('Kotak 2'), 'نُورٌ')
+    await user.type(within(latihan).getAllByLabelText('Kotak 1')[1], 'عِلْمٌ نَمَا')
+    await user.type(within(latihan).getByLabelText('Kotak 2'), 'قَلْبٌ صَفَا')
     expect(within(latihan).getByText('Lurus, 0 patah. Simpan baris ini.')).toBeInTheDocument()
-    await user.click(within(latihan).getByRole('button', { name: 'Simpan baris' }))
+    await user.click(within(latihan).getAllByRole('button', { name: 'Simpan baris' })[1])
     expect(within(latihan).getByText('1 dari 3 baris')).toBeInTheDocument()
   })
 })
 
-describe("pelajaran 3: mu'aradhah rajaz Khandaq menggantikan susun bebas", () => {
-  it('pola tampil berlagu; mulai dari pola, yang belum diganti ditolak, ganti satu kata lalu timbang, ujung lain ditandai', async () => {
+describe("pelajaran 3: mu'aradhah bait salim Ibnu Zakur", () => {
+  it('pola tampil berlagu utuh; mulai dari pola, yang belum diganti ditolak, ganti satu kata lalu timbang, ujung lain ditandai', async () => {
     const user = userEvent.setup()
     buka('/modul/0/3')
     const latihan = screen.getByRole('region', { name: 'Latihan' })
     const pola = within(latihan).getByRole('region', { name: "Pola mu'aradhah" })
-    expect(within(pola).getByText('نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا')).toBeInTheDocument()
-    expect(within(pola).getAllByText('لَ لا نعم').length).toBeGreaterThan(0)
+    expect(within(pola).getByText('غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ')).toBeInTheDocument()
+    expect(within(pola).getAllByText('لا لا نعم')).toHaveLength(6)
 
     const isian = within(latihan).getByLabelText(/Bait Anda/) as HTMLTextAreaElement
     const susun = within(isian.closest('.tumpuk') as HTMLElement)
     await user.click(susun.getByRole('button', { name: 'Mulai dari pola' }))
-    expect(isian.value).toBe('نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا\nعَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا')
+    expect(isian.value).toBe('غُفْرَانَكَ اللَّهُمَّ إِنِّي جَارِمُ\nرُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ')
     await user.click(susun.getByRole('button', { name: 'Timbang' }))
     expect(susun.getByText(/Masih sama dengan pola/)).toBeInTheDocument()
 
     await user.clear(isian)
-    await user.type(isian, 'نَحْنُ الَّذِينَ عَاهَدُوا مُحَمَّدَا\nعَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا')
+    await user.type(isian, 'غُفْرَانَكَ اللَّهُمَّ إِنِّي ظَالِمُ\nرُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ')
     await user.click(susun.getByRole('button', { name: 'Timbang' }))
     expect(susun.getByText('patah 0')).toBeInTheDocument()
+    expect(susun.getByText('utuh semua')).toBeInTheDocument()
     expect(susun.queryByText(/Ujung syathr/)).toBeNull()
 
     await user.clear(isian)
-    await user.type(isian, 'بَدَأْتُ نَظْمِي حَامِدًا لِلْأَوَّلِ\nمُصَلِّيًا عَلَى النَّبِيِّ الْمُرْسَلِ')
+    await user.type(isian, 'غُفْرَانَكَ اللَّهُمَّ إِنِّي مُذْنِبُ\nرُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ')
     await user.click(susun.getByRole('button', { name: 'Timbang' }))
-    expect(susun.getByText(/Ujung syathr 1: rawiy ل berbeda dari د/)).toBeInTheDocument()
+    expect(susun.getByText(/Ujung syathr 1: rawiy ب berbeda dari م/)).toBeInTheDocument()
+  })
+
+  it("Jilid 1: ujung tanpa alif yang semestinya dijelaskan tanpa istilah ta'sis", async () => {
+    const user = userEvent.setup()
+    buka('/modul/0/3')
+    const isian = within(screen.getByRole('region', { name: 'Latihan' })).getByLabelText(/Bait Anda/)
+    const susun = within(isian.closest('.tumpuk') as HTMLElement)
+    await user.type(isian, 'غُفْرَانَكَ اللَّهُمَّ إِنِّي مُجْرِمُ\nرُحْمَاكَ يَا رَحْمَانُ إِنِّي نَادِمُ')
+    await user.click(susun.getByRole('button', { name: 'Timbang' }))
+    expect(susun.getByText(/Pakai kata berwazan فَاعِلُ/)).toBeInTheDocument()
+    expect(susun.queryByText(/ta'sis/)).toBeNull()
   })
 })
 

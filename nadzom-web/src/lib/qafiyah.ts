@@ -48,17 +48,20 @@ export function qafiyah(huruf: Huruf[]): Qafiyah {
 
 const ridfSama = (a?: string, b?: string) => (a === 'ا' || b === 'ا' ? a === b : !a === !b)
 
-function beda(a: Qafiyah, b: Qafiyah): string | null {
+/** `istilah: false` (Jilid 1): pesan tanpa nama ridf/ta'sis yang belum diajarkan. */
+function beda(a: Qafiyah, b: Qafiyah, istilah = true): string | null {
   if (a.rawiy !== b.rawiy) return `rawiy ${b.rawiy || '?'} berbeda dari ${a.rawiy}`
   if (a.harakat !== b.harakat) return `rawiy ${b.rawiy} ber-${NAMA[b.harakat]}, seharusnya ${NAMA[a.harakat]}`
   if (!ridfSama(a.ridf, b.ridf)) return a.ridf ? `sebelum rawiy seharusnya ada huruf mad ${a.ridf}` : `huruf mad ${b.ridf} sebelum rawiy tidak ada di bait pertama`
+  if (!a.tasis !== !b.tasis && !istilah)
+    return a.tasis ? 'pola memakai alif yang berjarak satu huruf sebelum huruf ujung (seperti جَارِمُ); di sini tidak ada. Pakai kata berwazan فَاعِلُ' : 'di sini ada alif yang berjarak satu huruf sebelum huruf ujung; di pola tidak ada'
   if (!a.tasis !== !b.tasis) return a.tasis ? `bait pertama memakai ta'sis (alif sebelum huruf sebelum rawiy, seperti جَاهِلُ); di sini tidak ada` : `di sini ada ta'sis (alif sebelum huruf sebelum rawiy), bait pertama tidak`
   return null
 }
 
 /** Ujung syathr dibandingkan dengan ujung acuan (mis. bait pola mu'aradhah); null bila sama. */
-export function bedaUjung(acuan: Huruf[], syathr: Huruf[]): string | null {
-  return beda(qafiyah(acuan), qafiyah(syathr))
+export function bedaUjung(acuan: Huruf[], syathr: Huruf[], istilah = true): string | null {
+  return beda(qafiyah(acuan), qafiyah(syathr), istilah)
 }
 
 export interface MasalahQafiyah {
