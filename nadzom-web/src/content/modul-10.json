@@ -91,7 +91,7 @@
           },
           {
             "tampil": "bahr",
-            "kata": "مُفَاعَلَتُنْ dua kali, lalu فَعُولُنْ: **wafir**. Wafir artinya yang melimpah: harakatnya paling banyak di antara bahr-bahr."
+            "kata": "مُفَاعَلَتُنْ dua kali, lalu فَعُولُنْ: **wafir**. Wafir artinya yang melimpah: dinamai begitu karena banyak harakatnya (sebagian ulama: karena banyak bagiannya)."
           }
         ],
         "giliran": {
@@ -104,14 +104,14 @@
         "Jadi شَكَوْتُ إِلَى = 110 + 1110 = 1101110 = **مُفَاعَلَتُنْ**. Ta pada شَكَوْتُ berharakat dhammah karena ia dhamir fa'il mutakallim. Kalau Anda menyukunkannya saat membaca cepat, fashilah itu rusak, dan nahwunya juga salah.",
         "Taf'ilah kedua: وَكِيعِنْ سُو. وَكِي = 110, lalu عِنْ = 10, سُو = 10. Hasilnya 1101010. Di mana tiga huruf hidupnya? Huruf kelima مُفَاعَلَتُنْ (lam) disukunkan, sehingga fashilah 1110 menjadi dua sabab 10 10. Ini **'ashb**. Bunyinya sama dengan مَفَاعِيلُنْ dari thawil.",
         "Taf'ilah ketiga, ءَحِفْظِي = 1 10 10 = 11010, فَعُولُنْ. Wafir tam selalu ditutup taf'ilah pendek ini. Dari mana asalnya akan dibahas di Pelajaran 2.",
-        "Contoh kedua, «وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ». وَأَخْبَرَنِي = 1 10 1 1 10 = 1101110, utuh, dengan tiga huruf hidup بَ رَ نِ. Di syathr kedua, وَنُورُلْلَا dan هِلَا يُهْدَى masing-masing 1101010: seluruhnya ber-'ashb. Kalau Anda hanya mendengar dua taf'ilah itu, ia terdengar seperti hazaj. Yang menandai wafir adalah ujungnya: لِعَاصِي = 11010.",
+        "Contoh kedua, «وَأَخْبَرَنِي بِأَنَّ الْعِلْمَ نُورٌ». وَأَخْبَرَنِي = 1 10 1 1 10 = 1101110, utuh, dengan tiga huruf hidup بَ رَ نِ. Di syathr kedua, وَنُورُلْلَا dan هِلَا يُهْدَى masing-masing 1101010: seluruhnya ber-'ashb. Kalau Anda hanya mendengar dua taf'ilah itu, ia terdengar seperti hazaj. Yang menandai wafir adalah jumlahnya: tiga taf'ilah per syathr, dan yang ketiga pendek (لِعَاصِي = 11010). Hazaj hanya dua per syathr.",
         "Contoh ketiga, kunci wafir, mencampur keduanya. بُحُورُشْشِعْ = 1101010 ('ashb), رِوَافِرُهَا = 1101110 (utuh), جَمِيلُو = فَعُولُنْ. Satu bait boleh mencampur utuh dan 'ashb dengan bebas. Mirip taskin dalam bacaan: harakat yang dilepas membuat bunyi lebih padat, tanpa mengubah kata."
       ],
       "keliru": [
         {
           "salah": "Mengira bait wafir yang semua taf'ilahnya 1101010 adalah hazaj atau thawil.",
-          "benar": "Lihat taf'ilah ketiga. Kalau فَعُولُنْ (11010), itu wafir.",
-          "sebab": "Hazaj tidak punya ujung pendek seperti itu, dan thawil berselang-seling فَعُولُنْ مَفَاعِيلُنْ sejak taf'ilah pertama."
+          "benar": "Hitung taf'ilahnya. Tiga per syathr dengan ujung فَعُولُنْ (11010): wafir. Dua per syathr: hazaj.",
+          "sebab": "Hazaj selalu dua taf'ilah per syathr, dan ia pun bisa berujung فَعُولُنْ (dharb mahdzuf), jadi ujung pendek saja bukan pembeda. Thawil berselang-seling فَعُولُنْ مَفَاعِيلُنْ sejak taf'ilah pertama."
         },
         {
           "salah": "Membaca شَكَوْتْ إِلَى dengan ta sukun.",
@@ -128,7 +128,7 @@
         "**Fashilah shughra** = tiga huruf hidup lalu satu mati = **1110**, seperti عَلَتُنْ atau كَتَبَتْ.",
         "**مُفَاعَلَتُنْ** = watad (110) + fashilah (1110) = **1101110**. **Wafir** = مُفَاعَلَتُنْ مُفَاعَلَتُنْ فَعُولُنْ dalam satu syathr.",
         "**'Ashb** = huruf kelima (lam) disukunkan: مُفَاعَلَتُنْ → **مُفَاعَلْتُنْ** (1101010), bunyinya sama dengan مَفَاعِيلُنْ. Hasan dan sangat sering.",
-        "Kalau satu bait wafir semuanya ber-'ashb, polanya mirip hazaj (مَفَاعِيلُنْ). Ciri wafir tetap terlihat dari **taf'ilah ketiga yang pendek** (فَعُولُنْ)."
+        "Kalau satu bait wafir semuanya ber-'ashb, polanya mirip hazaj (مَفَاعِيلُنْ). Pembedanya **jumlah taf'ilah**: wafir tam tiga per syathr dengan ujung فَعُولُنْ, hazaj selalu dua. Wafir majzu' (dua per syathr) yang ber-'ashb semua memang sama bunyinya dengan hazaj; bait lain dalam qashidah itu yang memutuskan."
       ],
       "tamarin": [
         {
