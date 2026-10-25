@@ -440,3 +440,13 @@ describe("bentuk majzu' dan hazaj (spec 077, Jilid 3)", () => {
     expect(h.syathr.map((s) => s.potongan.at(-1)?.bentuk.zihaf)).toEqual(["khabn + qath' (mukhalla')", "khabn + qath' (mukhalla')"])
   })
 })
+
+describe("kamil majzu': murafal dan mudzayyal (perbaikan 2026-10-25)", () => {
+  it('syahid kitab: tarfil مُتَفَاعِلَاتُنْ dan tadzyil مُتَفَاعِلَانْ lurus', () => {
+    const murafal = timbangBait(kitabahOk(['وَغَرَرْتَنِي وَزَعَمْتَ أَنْـ', 'ـنَكَ لَابِنٌ فِي الصَّيْفِ تَامِرْ']), BAHR.kamilMajzu)
+    expect(murafal.patah).toBe(0)
+    const mudzayyal = timbangBait(kitabahOk(['جَدَثٌ يَكُونُ مُقَامُهُ', 'أَبَدًا بِمُخْتَلِفِ الرِّيَاحْ']), BAHR.kamilMajzu)
+    expect(mudzayyal.patah).toBe(0)
+    expect(mudzayyal.syathr[1].potongan.at(-1)?.bentuk.zihaf).toBe('tadzyil')
+  })
+})

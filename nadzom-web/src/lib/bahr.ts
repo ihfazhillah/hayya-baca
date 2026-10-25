@@ -113,8 +113,10 @@ const KHAFIF_DHARB = [...FAILATUN, TASYITH, ...FAILUN]
 /** Kamil majzu': dua مُتَفَاعِلُنْ per syathr; dharb shahih, murafal, mudzayyal, atau maqthu'. */
 const KAMIL_MAJZU_DHARB = [
   ...MUTAFAILUN,
-  b('مُتَفَاعِلَاتُنْ', '11101010', 'tarfil', { illah: true, lagu: 'لَ لَ لا لا لا' }),
-  b('مُتَفَاعِلَانْ', '1110100', 'tadzyil', { illah: true, lagu: 'لَ لَ لا لال' }),
+  b('مُتَفَاعِلَاتُنْ', '111011010', 'tarfil', { illah: true, lagu: 'لَ لَ لا نعم لا' }),
+  b('مُتْفَاعِلَاتُنْ', '101011010', 'tarfil + idhmar', { illah: true, lagu: 'لا لا نعم لا' }),
+  b('مُتَفَاعِلَانْ', '11101100', 'tadzyil', { illah: true, lagu: 'لَ لَ لا نعام' }),
+  b('مُتْفَاعِلَانْ', '10101100', 'tadzyil + idhmar', { illah: true, lagu: 'لا لا نعام' }),
   b('مُتَفَاعِلْ', '111010', "qath'", { illah: true, namaLain: 'فَعِلَاتُنْ', lagu: 'لَ لَ لا لا' }),
 ]
 /** Hazaj: selalu majzu', dua مَفَاعِيلُنْ; kaff dan qabdh di hasyw; dharb shahih atau mahdzuf. */
