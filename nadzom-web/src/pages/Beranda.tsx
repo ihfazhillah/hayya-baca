@@ -7,7 +7,7 @@ import Teks from '@/components/Teks'
 function pelajaranBerikut(): { modul: number; nama: string; pelajaran: number; mulai: boolean } {
   for (const m of MODUL) {
     for (const p of m.pelajaran) {
-      if (!sudahSelesai(kodePelajaran(m.nomor, p.nomor))) {
+      if (!sudahSelesai(kodePelajaran(m.nomor, p.nomor, p.versi))) {
         return { modul: m.nomor, nama: namaModul(m), pelajaran: p.nomor, mulai: m.nomor === 0 && p.nomor === 1 }
       }
     }

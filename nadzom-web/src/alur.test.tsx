@@ -36,7 +36,7 @@ describe('peta', () => {
   })
 
   it('Lanjutkan menunjuk pelajaran pertama yang belum selesai, mengikuti urutan peta', () => {
-    for (const p of MODUL[0].pelajaran) aturSelesai(kodePelajaran(0, p.nomor), true)
+    for (const p of MODUL[0].pelajaran) aturSelesai(kodePelajaran(0, p.nomor, p.versi), true)
     buka('/')
     expect(screen.getByRole('link', { name: /Lanjutkan: Modul 1, pelajaran 1/ })).toHaveAttribute('href', '/modul/1/1')
   })

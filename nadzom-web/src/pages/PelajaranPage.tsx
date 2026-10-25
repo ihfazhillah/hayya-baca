@@ -113,7 +113,7 @@ export default function PelajaranPage() {
   const params = useParams()
   const modul = cariModul(Number(params.modul))
   const p = modul?.pelajaran.find((x) => x.nomor === Number(params.pelajaran))
-  const kode = kodePelajaran(Number(params.modul), Number(params.pelajaran))
+  const kode = kodePelajaran(Number(params.modul), Number(params.pelajaran), p?.versi)
   const [selesai, setSelesai] = useState(() => sudahSelesai(kode))
   if (!modul || !p) return <div className="tumpuk"><h1>Pelajaran belum tersedia</h1><Link to="/">Kembali ke peta</Link></div>
 

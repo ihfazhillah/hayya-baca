@@ -18,7 +18,7 @@ export default function ModulPage() {
       </section>
       <section className="babak" aria-label="Daftar pelajaran">
         {modul.pelajaran.map((p) => {
-          const selesai = sudahSelesai(kodePelajaran(modul.nomor, p.nomor))
+          const selesai = sudahSelesai(kodePelajaran(modul.nomor, p.nomor, p.versi))
           return (
             <Link key={p.nomor} className="pelajaran-baris" to={`/modul/${modul.nomor}/${p.nomor}`}>
               <span className={`centang${selesai ? ' ya' : ''}`} aria-label={selesai ? 'selesai' : 'belum'}>

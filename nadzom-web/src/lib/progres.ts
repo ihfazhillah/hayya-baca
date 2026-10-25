@@ -10,8 +10,9 @@ function baca(): string[] {
   }
 }
 
-export function kodePelajaran(modul: number, pelajaran: number): string {
-  return `${modul}-${pelajaran}`
+/** Pelajaran yang isinya ditulis ulang diberi `versi`, supaya centang lama tidak terbawa. */
+export function kodePelajaran(modul: number, pelajaran: number, versi?: number): string {
+  return versi ? `${modul}-${pelajaran}.v${versi}` : `${modul}-${pelajaran}`
 }
 
 export function sudahSelesai(kode: string): boolean {

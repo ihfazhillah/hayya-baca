@@ -102,6 +102,8 @@ export type Tamrin =
 
 export interface Pelajaran {
   nomor: number
+  /** Naik bila isi pelajaran ditulis ulang; tanda selesai lama tidak berlaku lagi. */
+  versi?: number
   judul: string
   ringkas: string
   menit: number
