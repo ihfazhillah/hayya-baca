@@ -1,0 +1,953 @@
+{
+  "nomor": 19,
+  "judul": "Darurah syi'riyyah",
+  "tujuan": "Mengenal enam darurah syi'riyyah yang paling sering ditemui di nadzom dan syair: isyba' ha setelah huruf mati, sharf ghairu munsharif, qashr mamdud, taskin, takhfif, dan naql harakat hamzah. Untuk setiap darurah: apa itu, contoh asli, dan sikap penyusun 'ajam: boleh, tetapi jangan jadi kebiasaan. Di akhir, satu bait lama di Diwan direvisi.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "versi": 2,
+      "judul": "Darurah yang menambah bunyi",
+      "ringkas": "Isyba' ha setelah huruf mati dan tanwin pada isim ghairu munsharif (sharf).",
+      "menit": 30,
+      "analogi": "Dalam fiqh ada rukhshah: musafir boleh mengqashar shalat. Rukhshah itu sah, tetapi tidak dipakai di rumah tanpa sebab. Darurah syi'riyyah adalah rukhshah penyair: penyimpangan kecil dari kaidah bahasa yang dibolehkan demi wazan. Ulama berkata, الضَّرُورَةُ تُقَدَّرُ بِقَدَرِهَا: darurah dipakai seperlunya saja.",
+      "amtsilah": [
+        {
+          "bait": [
+            "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+            "وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ"
+          ],
+          "bahr": "wafir",
+          "makna": "Jika engkau tidak sanggup melakukan sesuatu, tinggalkanlah, dan beralihlah kepada yang engkau sanggupi.",
+          "sumber": "'Amr bin Ma'dikarib az-Zubaidi, qashidah «أَمِنْ رَيْحَانَةَ الدَّاعِي السَّمِيعُ». Teks: https://www.aldiwan.net/poem44492.html. Juga dikutip al-Hatimi, Hilyat al-Muhadharah, dengan label «وافر»: https://shamela.ws/book/5372/39. Harakat dari penyusun.",
+          "catatan": "وَجَاوِزْهُ dibaca وَجَاوِزْهُو: ha dhamir dipanjangkan walaupun zai sebelumnya mati. Inilah isyba' ha setelah sukun."
+        },
+        {
+          "bait": [
+            "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+            "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka adalah Adam, Idris, Nuh, Hud, bersama Shalih dan Ibrahim; semuanya diikuti.",
+          "sumber": "'Aqidatul 'Awam (Ahmad al-Marzuqi), bait 16. Sumber: https://areq.net/m/عقيدة_العوام.html. Harakat dilengkapi.",
+          "catatan": "آدَمٌ ditanwin padahal ia ghairu munsharif: inilah sharf. Dibaca ءَادَمُنْ."
+        },
+        {
+          "bait": [
+            "وَلِاضْطِرَارٍ أَوْ تَنَاسُبٍ صُرِفْ",
+            "ذُو الْمَنْعِ وَالْمَصْرُوفُ قَدْ لَا يَنْصَرِفْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Karena darurat (syair) atau demi keserasian, isim ghairu munsharif boleh ditanwin; dan isim munsharif kadang tidak ditanwin.",
+          "sumber": "Alfiyah Ibnu Malik, bab Ma la Yansharif, bait 675. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "Ibnu Malik sendiri menyebut sharf karena darurah. Separuh kedua bait, kebalikannya, diperselisihkan ulama."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+          "وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ"
+        ],
+        "bahr": "wafir",
+        "makna": "Jika engkau tidak sanggup melakukan sesuatu, tinggalkanlah, dan beralihlah kepada yang engkau sanggupi.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait hikmah 'Amr bin Ma'dikarib, sahabat Nabi ﷺ dari kabilah Zubaid. Bahrnya wafir, yang Anda kenal sejak Modul 10. Perhatikan kata pertama syathr kedua: وَجَاوِزْهُ."
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "Dalam bahasa biasa, ha dhamir setelah huruf mati dibaca pendek: مِنْهُ، فِيهِ، جَاوِزْهُ. Di sini ia dipanjangkan: وَجَاوِزْهُو إِلَى. Lalu تَسْتَطِيعُ di ujung bait dibaca تَسْتَطِيعُو."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "وَجَاوِزْهُو = 1101010, مُفَاعَلْتُنْ yang di-'ashb. إِلَى مَا تَسْ = 1101010. تَطِيعُو = 11010, qathf baku di ujung wafir."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Sekarang buang ha itu sama sekali: وَجَاوِزْ إِلَى. Maknanya hampir sama, tetapi taf'ilah pertama kehilangan satu huruf hidup. Patah. (Baris latihan, bukan kutipan.)",
+            "bait": [
+              "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+              "وَجَاوِزْ إِلَى مَا تَسْتَطِيعُ"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "teks",
+            "kata": "Tanpa isyba', وَجَاوِزْهُ إِلَى memberi dua huruf hidup beruntun (هُ إِ) di tempat yang menuntut huruf mati. Dengan isyba', waw yang lahir dari dhammah mengisi tempat itu.",
+            "papan": "tanpa isyba': وَ جَا وِزْ هُ إِ لَى = 1 10 10 1 1 10\ndengan isyba': وَ جَا وِزْ هُو إِ لَى = 1 10 10 10 | 1 10\nmufa'altun: 1101010"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bait asli: lurus. Timbangan Hudhud mengenal isyba' ini sebagai **bacaan pilihan**. Ia hanya dipakai bila membuat bait lurus, dan hasil timbangan menuliskannya: isyba' setelah هُ."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Inilah **darurah** pertama: **isyba' ha setelah sukun**. Di Jilid 1 dan 2, tidak ada bait Anda yang bergantung padanya. Mulai sekarang Anda boleh memakainya, tetapi tandai di draf.",
+            "papan": "darurah = penyimpangan kecil dari kaidah bahasa, dibolehkan dalam syair demi wazan\nisyba' ha setelah sukun: وَجَاوِزْهُو، مِنْهُو، فِيهِي"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. شَيْئًا: tanwin fathah dibaca نْ. فَدَعْهُ di ujung syathr juga dipanjangkan, tetapi itu isyba' ujung yang biasa, bukan darurah."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, bait 'Amr bin Ma'dikarib. Kata وَجَاوِزْهُ terdiri dari fi'il amr جَاوِزْ dan dhamir هُ. Dalam bacaan biasa, ha setelah huruf mati dibaca pendek, sebagaimana Hafsh membaca مِنْهُ dan فِيهِ. 'Amr memanjangkannya: وَجَاوِزْهُو. Tanpa waw itu, taf'ilah pertama syathr kedua kekurangan satu huruf mati dan bait patah.",
+        "Isyba' ini bukan karangan penyair. Ibnu Katsir membaca ha dhamir setelah huruf mati dengan panjang dalam Al-Qur'an: فِيهِي هُدًى، مِنْهُو. Karena itu ulama menilainya darurah yang ringan. Bandingkan dengan فَدَعْهُ di ujung syathr pertama: ha di sana juga setelah huruf mati dan juga dipanjangkan, tetapi itu isyba' ujung syathr yang Anda pelajari di Modul 2. Darurah hanya yang terjadi di tengah syathr.",
+        "Contoh kedua, bait 16 'Aqidatul 'Awam. Di Modul 2 Anda diminta membaca آدَمٌ seperti tertulis, dengan tanwin. Sekarang Anda tahu namanya. آدَمُ adalah isim 'alam 'ajam, ghairu munsharif: dalam nahwu ia tidak menerima tanwin. Al-Marzuqi memberinya tanwin: ءَادَمُنْ. Memberi tanwin kepada isim ghairu munsharif disebut **sharf**. Tanpa tanwin, هُمْ آدَمُ إِدْ kehilangan satu huruf mati dan taf'ilah pertama patah.",
+        "Contoh ketiga adalah kaidahnya, dari Ibnu Malik sendiri. وَلِاضْطِرَارٍ أَوْ تَنَاسُبٍ صُرِفْ ذُو الْمَنْعِ: isim yang terhalang tanwin boleh ditanwin karena darurat atau demi keserasian. Sharf karena darurah disepakati ulama. Separuh kedua, وَالْمَصْرُوفُ قَدْ لَا يَنْصَرِفْ, yaitu membuang tanwin dari isim munsharif, diperselisihkan: ulama Kufah membolehkan, ulama Bashrah menolak. Penyusun pemula cukup memegang yang disepakati.",
+        "Kedua darurah ini **menambah bunyi**: satu huruf mad (isyba') atau satu nun mati (tanwin). Keduanya dipakai ketika satu taf'ilah kekurangan satu huruf mati. Sebelum memakainya, tanyakan dulu: bisakah kata lain mengisi tempat itu? Darurah adalah jalan terakhir, bukan jalan pertama.",
+        "Mengapa penyusun 'ajam harus lebih hati-hati? Penyair Arab memakai darurah dengan lisan yang fasih; pembacanya tahu itu disengaja. Bagi penyusun 'ajam, pembaca bisa mengira tanwin pada آدَمٌ adalah salah nahwu. Patokan kita: **boleh, tapi jangan jadi kebiasaan**. Satu darurah dalam satu bait sudah cukup, dan tandai di draf agar Anda ingat itu disengaja."
+      ],
+      "keliru": [
+        {
+          "salah": "Memakai isyba' ha setelah sukun di banyak bait karena timbangan menerimanya.",
+          "benar": "Cari dulu kata lain yang mengisi taf'ilah itu. Isyba' dipakai hanya bila tidak ada jalan lain.",
+          "sebab": "Timbangan hanya memeriksa wazan. Bait yang penuh darurah terasa dipaksa, walau semua taf'ilahnya sah."
+        },
+        {
+          "salah": "Menyebut فَدَعْهُو di ujung syathr sebagai darurah.",
+          "benar": "Isyba' di ujung syathr adalah aturan biasa. Darurah isyba' ha hanya di tengah syathr, seperti وَجَاوِزْهُو إِلَى.",
+          "sebab": "Harakat terakhir syathr selalu dipanjangkan, apa pun huruf sebelumnya (Modul 2)."
+        },
+        {
+          "salah": "Membuang tanwin dari isim munsharif, misalnya كِتَابُ tanpa tanwin, dengan alasan Alfiyah bait 675 membolehkannya.",
+          "benar": "Yang disepakati hanya sharf: menambah tanwin pada ghairu munsharif. Kebalikannya diperselisihkan; jangan dipakai.",
+          "sebab": "Ibnu Malik menulis قَدْ لَا يَنْصَرِفْ: kadang, menurut sebagian ulama. Pembaca akan mengira Anda salah i'rab."
+        },
+        {
+          "salah": "Mengoreksi آدَمٌ di 'Aqidatul 'Awam menjadi آدَمُ karena ia ghairu munsharif.",
+          "benar": "Baca seperti tertulis. Tanwin itu sharf yang disengaja penadzom.",
+          "sebab": "Tanpa tanwin, taf'ilah pertama bait itu patah."
+        }
+      ],
+      "qaidah": [
+        "**Darurah syi'riyyah**: penyimpangan kecil dari kaidah bahasa yang dibolehkan dalam syair demi wazan atau qafiyah. Ia adalah rukhshah, bukan kaidah baru: الضَّرُورَةُ تُقَدَّرُ بِقَدَرِهَا.",
+        "**Isyba' ha setelah sukun**: ha dhamir setelah huruf mati, di tengah syathr, dipanjangkan: وَجَاوِزْهُو، مِنْهُو، فِيهِي. Ringan, karena sama dengan bacaan Ibnu Katsir. Timbangan memakainya sebagai bacaan pilihan.",
+        "**Sharf**: memberi tanwin kepada isim ghairu munsharif, seperti آدَمٌ di 'Aqidatul 'Awam. Disepakati boleh dalam syair. Kebalikannya, membuang tanwin isim munsharif, diperselisihkan: hindari.",
+        "Darurah yang menambah bunyi dipakai ketika taf'ilah kekurangan satu huruf mati. Coba dulu ganti kata; darurah adalah anak tangga terakhir.",
+        "**Boleh, tapi jangan jadi kebiasaan.** Paling banyak satu darurah dalam satu bait, dan tandai di draf."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Kenali darurah yang menambah bunyi.",
+          "soal": [
+            {
+              "soal": "Dalam وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ, darurah apa yang dipakai?",
+              "pilihan": [
+                "Isyba' ha setelah huruf mati",
+                "Sharf",
+                "Isyba' ujung syathr",
+                "Tidak ada darurah"
+              ],
+              "jawaban": 0,
+              "alasan": "Ha dhamir setelah zai mati dipanjangkan di tengah syathr: وَجَاوِزْهُو. Isyba' تَسْتَطِيعُو di ujung bait adalah aturan biasa."
+            },
+            {
+              "soal": "آدَمٌ dalam 'Aqidatul 'Awam disebut darurah sharf karena?",
+              "pilihan": [
+                "آدَمُ ghairu munsharif, tetapi ditanwin",
+                "Hamzahnya dipendekkan",
+                "Huruf hidupnya disukunkan"
+              ],
+              "jawaban": 0,
+              "alasan": "Sharf = memberi tanwin kepada isim ghairu munsharif. آدَمُ adalah 'alam 'ajam."
+            },
+            {
+              "soal": "Mana yang BUKAN darurah?",
+              "pilihan": [
+                "فَدَعْهُو di ujung syathr",
+                "وَجَاوِزْهُو di tengah syathr",
+                "آدَمٌ dengan tanwin"
+              ],
+              "jawaban": 0,
+              "alasan": "Harakat di ujung syathr selalu dipanjangkan. Itu aturan biasa, bukan rukhshah."
+            },
+            {
+              "soal": "Menurut Alfiyah bait 675, mana yang disepakati boleh?",
+              "pilihan": [
+                "Menanwin isim ghairu munsharif",
+                "Membuang tanwin isim munsharif",
+                "Keduanya sama-sama disepakati"
+              ],
+              "jawaban": 0,
+              "alasan": "صُرِفْ ذُو الْمَنْعِ disepakati. وَالْمَصْرُوفُ قَدْ لَا يَنْصَرِفْ diperselisihkan."
+            },
+            {
+              "soal": "Draf Anda patah di satu taf'ilah yang kekurangan satu huruf mati. Langkah pertama?",
+              "pilihan": [
+                "Cari kata lain yang sewazan atau semakna",
+                "Langsung beri isyba' pada ha terdekat",
+                "Beri tanwin pada nama nabi di dekatnya"
+              ],
+              "jawaban": 0,
+              "alasan": "Darurah adalah anak tangga terakhir. Tangga revisi Modul 4 dicoba dulu."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait 16 'Aqidatul 'Awam sendiri. Tandai di mana sharf terjadi, lalu sebutkan apa yang terjadi bila tanwin itu dibuang.",
+          "bait": [
+            "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+            "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka adalah Adam, Idris, Nuh, Hud, bersama Shalih dan Ibrahim; semuanya diikuti."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Bait 'Amr bin Ma'dikarib dan an-Nabighah, ditambah baris yang diubah. Lagukan, centang yang pincang, lalu periksa.",
+          "bahr": "wafir",
+          "baris": [
+            {
+              "bait": [
+                "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+                "وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ"
+              ],
+              "catatan": "Asli: 'Amr bin Ma'dikarib. Lurus dengan isyba' وَجَاوِزْهُو."
+            },
+            {
+              "bait": [
+                "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+                "وَجَاوِزْ إِلَى مَا تَسْتَطِيعُ"
+              ],
+              "catatan": "Diubah, bukan kutipan: dhamir هُ dibuang. Taf'ilah pertama syathr kedua kekurangan satu huruf."
+            },
+            {
+              "bait": [
+                "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+                "وَدَعْهُ إِلَى مَا تَسْتَطِيعُ"
+              ],
+              "catatan": "Diubah, bukan kutipan: وَجَاوِزْهُ diganti وَدَعْهُ. Satu sabab hilang, taf'ilah kedua patah."
+            },
+            {
+              "bait": [
+                "شَهِدْتُ لَهُمْ مَوَاطِنَ صَادِقَاتٍ",
+                "أَتَيْنَهُمُ بِوُدِّ الصَّدْرِ مِنِّي"
+              ],
+              "catatan": "Asli: an-Nabighah adz-Dzubyani. أَتَيْنَهُمُ dibaca dengan isyba' mim jama'; itu bacaan biasa, bukan darurah."
+            }
+          ]
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Rajaz: bait 'Aqidatul 'Awam dan Alfiyah, sebagian diubah. Centang yang pincang.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+                "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+              ],
+              "catatan": "Asli: 'Aqidatul 'Awam bait 16, dengan sharf آدَمٌ."
+            },
+            {
+              "bait": [
+                "هُمْ آدَمُ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+                "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+              ],
+              "catatan": "Diubah, bukan kutipan: tanwin آدَمٌ dibuang mengikuti kaidah nahwu. Taf'ilah pertama patah."
+            },
+            {
+              "bait": [
+                "وَلِاضْطِرَارٍ أَوْ تَنَاسُبٍ صُرِفْ",
+                "ذُو الْمَنْعِ وَالْمَصْرُوفُ قَدْ لَا يَنْصَرِفْ"
+              ],
+              "catatan": "Asli: Alfiyah bait 675."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama Alfiyah bait 675, kaidah sharf dari Ibnu Malik. Hafalkan bait ini: ia dalil Anda bila ditanya mengapa آدَمٌ ditanwin.",
+          "bait": [
+            "وَلِاضْطِرَارٍ أَوْ تَنَاسُبٍ صُرِفْ",
+            "ذُو الْمَنْعِ وَالْمَصْرُوفُ قَدْ لَا يَنْصَرِفْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Karena darurat (syair) atau demi keserasian, isim ghairu munsharif boleh ditanwin; dan isim munsharif kadang tidak ditanwin."
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0. Bandingkan pasangan dengan dan tanpa darurah: berapa huruf mati yang bertambah? Huruf terakhir tidak dipanjangkan di drill ini.",
+          "butir": [
+            "هُمْ آدَمٌ",
+            "هُمْ آدَمُ",
+            "ذُو الْمَنْعِ",
+            "تَنَاسُبٍ صُرِفْ",
+            "وَلِاضْطِرَارٍ",
+            "شَيْئًا فَدَعْهُ"
+          ]
+        }
+      ],
+      "patokan": "Dapat menunjuk isyba' ha setelah sukun dan sharf dalam bait, menjelaskan mengapa wazan memerlukannya, dan membedakannya dari isyba' ujung syathr yang biasa."
+    },
+    {
+      "nomor": 2,
+      "versi": 2,
+      "judul": "Darurah yang meringankan",
+      "ringkas": "Qashr mamdud, taskin, takhfif, dan naql harakat hamzah: empat cara membuang atau memindah satu bunyi.",
+      "menit": 35,
+      "analogi": "Dalam tajwid Anda mengenal bacaan Warsy: قَدَ افْلَحَ, hamzah dibuang dan harakatnya dipindah ke huruf sebelumnya. Itu naql. Syair punya beberapa cara serupa untuk meringankan bunyi. Semuanya mengurangi satu huruf hidup atau satu huruf mati, supaya kata yang panjang muat di taf'ilahnya.",
+      "amtsilah": [
+        {
+          "bait": [
+            "أَرْسَلَ أَنْبِيَا ذَوِي فَطَانَهْ",
+            "بِالصِّدْقِ وَالتَّبْلِيغِ وَالْأَمَانَهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dia mengutus para nabi yang cerdas, (bersifat) jujur, menyampaikan risalah, dan amanah.",
+          "sumber": "'Aqidatul 'Awam (Ahmad al-Marzuqi), bait tentang sifat wajib para rasul. Sumber: https://areq.net/m/عقيدة_العوام.html. Harakat dilengkapi.",
+          "catatan": "أَنْبِيَا = أَنْبِيَاءَ yang dipendekkan: qashr mamdud."
+        },
+        {
+          "bait": [
+            "وَقَصْرُ ذِي الْمَدِّ اضْطِرَارًا مُجْمَعُ",
+            "عَلَيْهِ وَالْعَكْسُ بِخُلْفٍ يَقَعُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Memendekkan isim mamdud karena darurat disepakati; kebalikannya (memanjangkan isim maqshur) terjadi dengan perselisihan.",
+          "sumber": "Alfiyah Ibnu Malik, bab al-Maqshur wal-Mamdud, bait 777. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "Kaidah qashr dari Ibnu Malik. Perhatikan susunannya: kalimat dimulai di syathr pertama dan baru selesai di syathr kedua (مُجْمَعُ عَلَيْهِ)."
+        },
+        {
+          "bait": [
+            "وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا",
+            "مُسْتَوْجِبٌ ثَنَائِيَ الْجَمِيلَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dan dia (Ibnu Mu'thi), karena lebih dahulu, berhak atas keutamaan dan layak mendapat pujianku yang indah.",
+          "sumber": "Alfiyah Ibnu Malik, muqaddimah, bait 6. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "وَهْوَ: ha disukunkan setelah waw. Inilah taskin."
+        },
+        {
+          "bait": [
+            "جَعَلْتُ كُتْبِي أَنِيسِي",
+            "مِنْ دُونِ كُلِّ أَنِيسِ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kujadikan buku-bukuku teman setia, bukan teman-teman yang lain.",
+          "sumber": "Ibnu al-Mu'tazz. Al-Khathib al-Baghdadi, Taqyid al-'Ilm, meriwayatkannya dengan label \"min al-mujtats\". Dicocokkan lewat turath.io.",
+          "catatan": "كُتْبِي dari كُتُبٌ: huruf tengah jamak فُعُل disukunkan. Inilah takhfif, yang Anda temui di Modul 15."
+        },
+        {
+          "bait": [
+            "مَوْصُولُ الَٱسْمَاءِ الَّذِي الْأُنْثَى الَّتِي",
+            "وَالْيَا إِذَا مَا ثُنِّيَا لَا تُثْبِتِ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Isim maushul (antara lain) الَّذِي, dan untuk perempuan الَّتِي; ya-nya jangan ditetapkan bila keduanya ditatsniyahkan.",
+          "sumber": "Alfiyah Ibnu Malik, bab al-Maushul, bait 88. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dan tanda naql dari sumber; tanda kutip dibuang.",
+          "catatan": "الَٱسْمَاءِ: hamzah أَ dibuang dan fathahnya dipindah ke lam. Dibaca مَوْصُولُ لَسْمَاءِ. Inilah naql harakat hamzah."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "مَوْصُولُ الَٱسْمَاءِ الَّذِي الْأُنْثَى الَّتِي",
+          "وَالْيَا إِذَا مَا ثُنِّيَا لَا تُثْبِتِ"
+        ],
+        "bahr": "rajaz",
+        "makna": "Isim maushul (antara lain) الَّذِي, dan untuk perempuan الَّتِي; ya-nya jangan ditetapkan bila keduanya ditatsniyahkan.",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Bait pembuka bab al-Maushul. Lihat tulisan الَٱسْمَاءِ di kitab: lam berfathah, lalu alif washal. Tanda ini bukan salah cetak."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Dulu kita baca seperti biasa: مَوْصُولُ الْأَسْمَاءِ, lam mati lalu hamzah. مَوْصُولُلْأَسْ = 10101010: empat sabab beruntun tanpa watad. Patah. (Bacaan keliru, bukan teks kitab.)",
+            "bait": [
+              "مَوْصُولُ الْأَسْمَاءِ الَّذِي الْأُنْثَى الَّتِي",
+              "وَالْيَا إِذَا مَا ثُنِّيَا لَا تُثْبِتِ"
+            ],
+            "patah": 1
+          },
+          {
+            "tampil": "kitabah",
+            "kata": "Bacaan kitab: hamzah أَ dalam الْأَسْمَاءِ dibuang, fathahnya dipindah ke lam yang tadinya mati. Hamzah washal di awal الْ ikut gugur di tengah kalam. Jadi مَوْصُولُ لَسْمَاءِ."
+          },
+          {
+            "tampil": "mizan",
+            "kata": "مَوْصُولُ لَسْ = 1010110. مَاءِلْلَذِلْ = 1010110. أُنْثَلْلَتِي = 1010110. Semua utuh."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Bait seperti tertulis di kitab: lurus."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Ini **naql harakat hamzah**: hamzah qath' dibuang dan harakatnya dipindah ke huruf mati sebelumnya. Anda mengenalnya dari qira'ah Warsy. Hasilnya satu huruf berkurang: lam mati dan hamzah berharakat menjadi satu lam berharakat.",
+            "papan": "biasa: لْ أَ = 0 1\nnaql: لَ = 1\nالْأَسْمَاءِ dibaca لَسْمَاءِ · الْأَعْلَامِ dibaca لَعْلَامِ · الْأَرْضِ dibaca لَرْضِ"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Naql adalah satu dari empat darurah yang **meringankan**. Tiga lainnya ada di contoh-contoh: qashr (أَنْبِيَا), taskin (وَهْوَ), takhfif (كُتْبِي).",
+            "papan": "qashr: أَنْبِيَاءَ dibaca أَنْبِيَا (hamzah dan madnya dibuang)\ntaskin: وَهُوَ dibaca وَهْوَ (huruf hidup disukunkan)\ntakhfif: كُتُبِي dibaca كُتْبِي (huruf tengah disukunkan)\nnaql: الْأَسْمَاءِ dibaca لَسْمَاءِ (hamzah dibuang, harakatnya pindah)"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua**. وَالْيَا: alif washal gugur, lam qamariyah mati. Kata الْيَا sendiri adalah nama huruf ya, ditulis pendek. ثُنِّيَا: syaddah pada nun. تُثْبِتِ di ujung bait dibaca تُثْبِتِي."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama dari 'Aqidatul 'Awam. Jamak نَبِيٌّ adalah أَنْبِيَاءُ, isim mamdud: berakhir alif lalu hamzah. Al-Marzuqi menulis أَنْبِيَا, tanpa hamzah. Inilah **qashr mamdud**: isim mamdud dipendekkan. Dengan hamzah, بِيَاءَ ذَوِي mendapat satu huruf hidup tambahan dan taf'ilah kedua patah. Qashr sangat sering di nadzom: الْعُلَمَا، الْأَشْيَا، السَّمَا.",
+        "Contoh kedua adalah kaidahnya. Ibnu Malik berkata qashr mamdud karena darurat مُجْمَعُ عَلَيْهِ, disepakati. Kebalikannya, memanjangkan isim maqshur (الْهُدَى menjadi الْهُدَاءُ), بِخُلْفٍ يَقَعُ, diperselisihkan. Polanya sama dengan sharf di Pelajaran 1: yang menuju bentuk ringan disepakati, yang menambah bentuk baru diperselisihkan.",
+        "Contoh ketiga, bait 6 Alfiyah: وَهْوَ. Anda sudah menemuinya di Modul 2 (فَهْوَ di al-Baiquniyyah). Ha pada هُوَ dan هِيَ disukunkan setelah وَ، فَ، لَ. Inilah **taskin**: huruf hidup disukunkan. Taskin هُوَ dan هِيَ sangat ringan; ia lughah Arab dan qira'ah Qalun, Abu 'Amr, dan al-Kisa'i. Taskin lain yang Anda kenal adalah صَالِحْ di 'Aqidatul 'Awam: isim majrur yang mestinya صَالِحٍ dibaca mati di tengah kalam, seakan-akan waqaf. Yang kedua ini lebih berat.",
+        "Contoh keempat dari Ibnu al-Mu'tazz: كُتْبِي. Jamak فُعُلٌ (كُتُبٌ، رُسُلٌ) boleh dibaca dengan huruf tengah mati: كُتْبٌ، رُسْلٌ. Inilah **takhfif**. Ia juga lughah Arab, seperti رُسْلُنَا dalam qira'ah Abu 'Amr. Tanpa takhfif, جَعَلْتُ كُتُبِي = 110111: satu huruf hidup bertambah, dan patah.",
+        "Contoh kelima, bacaan peragaan: الَٱسْمَاءِ. Kitab menuliskan tandanya sendiri: lam berfathah. Inilah **naql harakat hamzah**: hamzah qath' dibuang, harakatnya pindah ke huruf mati sebelumnya. Tanpa naql, مَوْصُولُ الْأَسْمَاءِ memberi empat sabab beruntun. Naql dalam Alfiyah muncul berkali-kali, hampir selalu pada الْ yang diikuti hamzah: الَٱعْلَامِ، الَٱجْنَاسِ، الَٱرْضِ.",
+        "Keempat darurah ini membuang satu bunyi. Qashr membuang hamzah dan mad, taskin dan takhfif membuang satu harakat, naql membuang satu hamzah. Urutan beratnya kira-kira begini: taskin هُوَ dan takhfif فُعُل paling ringan karena memang lughah; naql dan qashr ringan dan sering di nadzom; taskin harakat i'rab (صَالِحْ) lebih berat. Ini patokan course, bukan istilah ulama, tetapi ia membantu Anda memutuskan kapan sebuah darurah layak dipertahankan."
+      ],
+      "keliru": [
+        {
+          "salah": "Membaca أَنْبِيَا di 'Aqidatul 'Awam dengan hamzah, أَنْبِيَاءَ, karena itu bentuk yang benar dalam nahwu.",
+          "benar": "Baca seperti tertulis: أَنْبِيَا. Qashr itu disengaja.",
+          "sebab": "Dengan hamzah, taf'ilah kedua kelebihan satu huruf hidup dan bait patah."
+        },
+        {
+          "salah": "Memanjangkan isim maqshur demi wazan, misalnya الْهُدَاءُ untuk الْهُدَى.",
+          "benar": "Cari kata lain. Kebalikan qashr diperselisihkan ulama.",
+          "sebab": "Alfiyah bait 777: وَالْعَكْسُ بِخُلْفٍ يَقَعُ."
+        },
+        {
+          "salah": "Mensukunkan harakat i'rab sembarang, misalnya يَعْلَمُ dibaca يَعْلَمْ di tengah kalimat padahal marfu'.",
+          "benar": "Taskin yang aman bagi pemula hanya وَهْوَ، فَهْوَ، وَهْيَ dan takhfif jamak فُعُل. Harakat i'rab dijaga.",
+          "sebab": "Pembaca akan mengira fi'il itu majzum. Maknanya bisa berubah, bukan hanya wazannya."
+        },
+        {
+          "salah": "Memakai naql pada kata yang hamzahnya tidak didahului huruf mati, misalnya فِي أَرْضِ dibaca فِيَرْضِ.",
+          "benar": "Naql terjadi pada huruf mati sebelum hamzah, paling sering lam الْ: الَٱرْضِ.",
+          "sebab": "Ya pada فِي adalah huruf mad; naql pada mad tidak lazim, dan pembaca tidak akan mengenalinya."
+        }
+      ],
+      "qaidah": [
+        "**Qashr mamdud**: isim mamdud dipendekkan, hamzah dan alifnya dibuang: أَنْبِيَاءُ menjadi أَنْبِيَا، الْعُلَمَاءُ menjadi الْعُلَمَا. Disepakati (Alfiyah bait 777). Kebalikannya, memanjangkan maqshur, diperselisihkan: hindari.",
+        "**Taskin**: huruf hidup disukunkan. Yang ringan: هُوَ dan هِيَ setelah وَ، فَ، لَ (وَهْوَ، فَهْوَ، وَهْيَ). Yang lebih berat: harakat akhir kata disukunkan di tengah kalam (صَالِحْ).",
+        "**Takhfif**: huruf tengah jamak فُعُل disukunkan: كُتُبٌ menjadi كُتْبٌ، رُسُلٌ menjadi رُسْلٌ. Lughah Arab yang sah.",
+        "**Naql harakat hamzah**: hamzah qath' dibuang dan harakatnya pindah ke huruf mati sebelumnya: الْأَسْمَاءِ dibaca لَسْمَاءِ. Kitab sering menandainya: الَٱسْمَاءِ.",
+        "Bila kitab menulis bentuk darurah, baca seperti tertulis. Bila Anda sendiri yang menyusun, coba dulu tanpa darurah."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Sebutkan darurah dalam setiap kata.",
+          "soal": [
+            {
+              "soal": "أَنْبِيَا dalam أَرْسَلَ أَنْبِيَا ذَوِي فَطَانَهْ?",
+              "pilihan": [
+                "Qashr mamdud",
+                "Naql",
+                "Takhfif",
+                "Sharf"
+              ],
+              "jawaban": 0,
+              "alasan": "أَنْبِيَاءُ isim mamdud; hamzahnya dibuang."
+            },
+            {
+              "soal": "وَهْوَ dalam وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا?",
+              "pilihan": [
+                "Taskin",
+                "Qashr",
+                "Isyba'"
+              ],
+              "jawaban": 0,
+              "alasan": "Ha pada هُوَ disukunkan setelah waw."
+            },
+            {
+              "soal": "كُتْبِي dalam جَعَلْتُ كُتْبِي أَنِيسِي?",
+              "pilihan": [
+                "Takhfif",
+                "Naql",
+                "Sharf"
+              ],
+              "jawaban": 0,
+              "alasan": "كُتُبٌ berwazan فُعُل; huruf tengahnya disukunkan."
+            },
+            {
+              "soal": "الَٱسْمَاءِ dalam مَوْصُولُ الَٱسْمَاءِ الَّذِي?",
+              "pilihan": [
+                "Naql harakat hamzah",
+                "Qashr mamdud",
+                "Taskin"
+              ],
+              "jawaban": 0,
+              "alasan": "Hamzah أَ dibuang; fathahnya pindah ke lam. Mad dan hamzah di ujung الْأَسْمَاءِ tetap ada, jadi ini bukan qashr."
+            },
+            {
+              "soal": "Menurut Alfiyah bait 777, memanjangkan isim maqshur (kebalikan qashr) hukumnya?",
+              "pilihan": [
+                "Diperselisihkan",
+                "Disepakati boleh",
+                "Wajib dalam syair"
+              ],
+              "jawaban": 0,
+              "alasan": "وَالْعَكْسُ بِخُلْفٍ يَقَعُ."
+            },
+            {
+              "soal": "Mana yang paling ringan untuk dipakai pemula?",
+              "pilihan": [
+                "وَهْوَ untuk وَهُوَ",
+                "Mensukunkan يَعْلَمُ yang marfu'",
+                "Memanjangkan الْهُدَى menjadi الْهُدَاءُ"
+              ],
+              "jawaban": 0,
+              "alasan": "Taskin هُوَ adalah lughah dan qira'ah. Dua lainnya berat atau diperselisihkan."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada pasangan dengan dan tanpa darurah. Perhatikan: setiap darurah di pelajaran ini mengurangi satu huruf. Huruf terakhir tidak dipanjangkan di drill ini.",
+          "butir": [
+            "وَهْوَ بِسَبْقٍ",
+            "وَهُوَ بِسَبْقٍ",
+            "جَعَلْتُ كُتْبِي",
+            "جَعَلْتُ كُتُبِي",
+            "أَرْسَلَ أَنْبِيَا",
+            "مَوْصُولُ الَٱسْمَاءِ",
+            "مَوْصُولُ الْأَسْمَاءِ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait 'Aqidatul 'Awam ini sendiri. Baca أَنْبِيَا tanpa hamzah, dan ingat: ta marbuthah di ujung diwaqafkan (فَطَانَهْ).",
+          "bait": [
+            "أَرْسَلَ أَنْبِيَا ذَوِي فَطَانَهْ",
+            "بِالصِّدْقِ وَالتَّبْلِيغِ وَالْأَمَانَهْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Dia mengutus para nabi yang cerdas, (bersifat) jujur, menyampaikan risalah, dan amanah."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Bait asli memakai darurah. Baris yang diubah membaca kata itu dengan bentuk biasa. Centang yang pincang.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "أَرْسَلَ أَنْبِيَا ذَوِي فَطَانَهْ",
+                "بِالصِّدْقِ وَالتَّبْلِيغِ وَالْأَمَانَهْ"
+              ],
+              "catatan": "Asli: 'Aqidatul 'Awam, dengan qashr أَنْبِيَا."
+            },
+            {
+              "bait": [
+                "أَرْسَلَ أَنْبِيَاءَ ذَوِي فَطَانَهْ",
+                "بِالصِّدْقِ وَالتَّبْلِيغِ وَالْأَمَانَهْ"
+              ],
+              "catatan": "Diubah, bukan kutipan: hamzah أَنْبِيَاءَ dikembalikan. Satu huruf hidup bertambah di taf'ilah kedua."
+            },
+            {
+              "bait": [
+                "وَهْوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا",
+                "مُسْتَوْجِبٌ ثَنَائِيَ الْجَمِيلَا"
+              ],
+              "catatan": "Asli: Alfiyah bait 6, dengan taskin وَهْوَ."
+            },
+            {
+              "bait": [
+                "وَهُوَ بِسَبْقٍ حَائِزٌ تَفْضِيلَا",
+                "مُسْتَوْجِبٌ ثَنَائِيَ الْجَمِيلَا"
+              ],
+              "catatan": "Diubah, bukan kutipan: وَهُوَ dengan ha berharakat. Lima huruf hidup beruntun di awal bait."
+            },
+            {
+              "bait": [
+                "مَوْصُولُ الْأَسْمَاءِ الَّذِي الْأُنْثَى الَّتِي",
+                "وَالْيَا إِذَا مَا ثُنِّيَا لَا تُثْبِتِ"
+              ],
+              "catatan": "Diubah, bukan kutipan: dibaca tanpa naql. Empat sabab beruntun di taf'ilah pertama."
+            },
+            {
+              "bait": [
+                "مَوْصُولُ الَٱسْمَاءِ الَّذِي الْأُنْثَى الَّتِي",
+                "وَالْيَا إِذَا مَا ثُنِّيَا لَا تُثْبِتِ"
+              ],
+              "catatan": "Asli: Alfiyah bait 88, dengan naql."
+            }
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama Alfiyah bait 777, kaidah qashr. Syathr pertama berhenti di مُجْمَعُ, tetapi kalimatnya baru selesai di عَلَيْهِ.",
+          "bait": [
+            "وَقَصْرُ ذِي الْمَدِّ اضْطِرَارًا مُجْمَعُ",
+            "عَلَيْهِ وَالْعَكْسُ بِخُلْفٍ يَقَعُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Memendekkan isim mamdud karena darurat disepakati; kebalikannya (memanjangkan isim maqshur) terjadi dengan perselisihan."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait Ibnu al-Mu'tazz sendiri (mujtats). Baca كُتْبِي dengan ta mati.",
+          "bait": [
+            "جَعَلْتُ كُتْبِي أَنِيسِي",
+            "مِنْ دُونِ كُلِّ أَنِيسِ"
+          ],
+          "bahr": "mujtats",
+          "makna": "Kujadikan buku-bukuku teman setia, bukan teman-teman yang lain."
+        }
+      ],
+      "patokan": "Dapat menyebut nama empat darurah peringan pada bait kitab, membaca bait itu seperti tertulis, dan menjelaskan apa yang patah bila darurahnya dibuang."
+    },
+    {
+      "nomor": 3,
+      "versi": 2,
+      "judul": "Revisi bait lama",
+      "ringkas": "Membaca ulang bait di Diwan: darurah mana yang perlu, mana yang bisa diganti.",
+      "menit": 35,
+      "analogi": "Mengqashar shalat di perjalanan itu sah. Tetapi orang yang sudah sampai di rumah dan tetap mengqashar karena kebiasaan, telah keluar dari rukhshahnya. Bait lama Anda mungkin memakai darurah karena dulu belum ada jalan lain. Sekarang laci Anda lebih penuh: periksa apakah rukhshah itu masih diperlukan.",
+      "amtsilah": [
+        {
+          "bait": [
+            "وَوَضَعُوا لِبَعْضِ الَٱجْنَاسِ عَلَمْ",
+            "كَعَلَمِ الْأَشْخَاصِ لَفْظًا وَهْوَ عَمّْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka (orang Arab) membuat 'alam untuk sebagian jenis, seperti 'alam orang dari sisi lafaznya, padahal maknanya umum.",
+          "sumber": "Alfiyah Ibnu Malik, bab al-'Alam, bait 79. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dan tanda naql dari sumber; tanda kutip dan koma dibuang.",
+          "catatan": "Dua darurah dalam satu bait: naql الَٱجْنَاسِ dan taskin وَهْوَ. Keduanya dari jenis yang ringan."
+        },
+        {
+          "bait": [
+            "هُمْ آدَمٌ إِدْرِيسُ نُوحٌ هُودُ مَعْ",
+            "صَالِحْ وَإِبْرَاهِيمُ كُلٌّ مُتَّبَعْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka adalah Adam, Idris, Nuh, Hud, bersama Shalih dan Ibrahim; semuanya diikuti.",
+          "sumber": "'Aqidatul 'Awam (Ahmad al-Marzuqi), bait 16. Sumber: https://areq.net/m/عقيدة_العوام.html. Harakat dilengkapi.",
+          "catatan": "Juga dua darurah: sharf آدَمٌ dan taskin صَالِحْ. Bait ini harus memuat tujuh nama nabi dalam urutan tertentu. Ruangnya sangat sempit; darurah di sini benar-benar diperlukan."
+        },
+        {
+          "bait": [
+            "إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ",
+            "وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ"
+          ],
+          "bahr": "wafir",
+          "makna": "Jika engkau tidak sanggup melakukan sesuatu, tinggalkanlah, dan beralihlah kepada yang engkau sanggupi.",
+          "sumber": "'Amr bin Ma'dikarib az-Zubaidi, qashidah «أَمِنْ رَيْحَانَةَ الدَّاعِي السَّمِيعُ». Teks: https://www.aldiwan.net/poem44492.html. Harakat dari penyusun.",
+          "catatan": "Satu darurah saja, dan maknanya justru nasihat untuk revisi: kalau satu jalan tidak bisa, beralihlah ke jalan lain."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ أَهْلَ الْهُدَى",
+          "فَإِنَّهُمْ وُرَّاثُ مَنْ قَدْ أَرْشَدَا"
+        ],
+        "bahr": "rajaz",
+        "makna": "Wahai penuntut ilmu, dengarkanlah orang-orang yang berpetunjuk, karena mereka pewaris (Nabi) yang telah membimbing. (Bait latihan, bukan kutipan.)",
+        "syathr": 0,
+        "langkah": [
+          {
+            "tampil": "timbang",
+            "kata": "Ini draf lama seorang pelajar, ditulis saat ia baru mengenal darurah. Lurus, dan kedua syathr berujung ـيَا. (Bait latihan, bukan kutipan.)",
+            "bait": [
+              "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ لِلْأَتْقِيَا",
+              "فَإِنَّهُمْ وُرَّاثُ خَيْرِ الْأَنْبِيَا"
+            ],
+            "patah": 0
+          },
+          {
+            "tampil": "teks",
+            "kata": "Langkah 1: **tandai setiap darurah**. Ada dua qashr, dan keduanya di ujung syathr: الْأَتْقِيَا dari الْأَتْقِيَاءِ dan الْأَنْبِيَا dari الْأَنْبِيَاءِ. Qafiyah bait ini seluruhnya bergantung pada darurah.",
+            "papan": "لِلْأَتْقِيَا = qashr\nالْأَنْبِيَا = qashr\n2 darurah dalam 1 bait"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Langkah 2: **kembalikan bentuk biasa** dan timbang. Dengan hamzah, kedua ujung patah. Jadi darurah itu memang menopang wazan. (Bait latihan, bukan kutipan.)",
+            "bait": [
+              "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ لِلْأَتْقِيَاءِ",
+              "فَإِنَّهُمْ وُرَّاثُ خَيْرِ الْأَنْبِيَاءِ"
+            ],
+            "patah": 2
+          },
+          {
+            "tampil": "teks",
+            "kata": "Langkah 3: **cari ujung lain yang tidak memerlukan darurah**. Isim maqshur seperti الْهُدَى sudah pendek dari asalnya, jadi tidak ada yang dipotong. Pasangannya harus berawiy د berfathah: أَرْشَدَا.",
+            "papan": "لِلْأَتْقِيَا ganti dengan أَهْلَ الْهُدَى (1010110)\nخَيْرِ الْأَنْبِيَا ganti dengan مَنْ قَدْ أَرْشَدَا\nrawiy: د · majra: fathah"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Langkah 4: **timbang versi baru**. Lurus, nol darurah, dan maknanya tetap: ulama sebagai pewaris Nabi ﷺ yang membimbing umat. (Bait latihan, bukan kutipan.)"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Langkah 5: **putuskan**. Tidak setiap darurah harus dibuang. Kalau penggantinya merusak makna, darurah ringan boleh dipertahankan, seperti sharf آدَمٌ di bait tujuh nabi. Catat keputusan Anda di Diwan.",
+            "papan": "1. tandai darurah\n2. kembalikan bentuk biasa, timbang\n3. cari kata lain (tangga Modul 4)\n4. timbang versi baru\n5. putuskan: buang, atau pertahankan dengan alasan"
+          }
+        ],
+        "giliran": {
+          "syathr": 1,
+          "petunjuk": "Giliran Anda: **syathr kedua** versi baru. وُرَّاثُ: syaddah pada ra. قَدْ أَرْشَدَا: hamzah أَ tetap dibaca, tidak di-naql. Ujungnya أَرْشَدَا, alif di akhir sudah panjang."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, Alfiyah bait 79. Ibnu Malik memakai dua darurah: naql pada الَٱجْنَاسِ dan taskin pada وَهْوَ. Keduanya dari jenis paling ringan, sehingga para pensyarah tidak mempersoalkannya. Dua darurah dalam satu bait bukan aib, asal masing-masing diperlukan dan ringan.",
+        "Contoh kedua, bait tujuh nabi. Penadzom harus menyebut Adam, Idris, Nuh, Hud, Shalih, Ibrahim dalam satu bait. Nama-nama itu tidak bisa diganti sinonim. Maka sharf آدَمٌ dan taskin صَالِحْ di sini bukan kemalasan, melainkan satu-satunya jalan. Inilah darurah yang tepat: الضَّرُورَةُ تُقَدَّرُ بِقَدَرِهَا.",
+        "Bandingkan dengan draf di peragaan. Kata الْأَتْقِيَاءِ dan الْأَنْبِيَاءِ bisa diganti; maknanya bisa dicapai dengan kata lain. Darurah di sana tidak salah, tetapi tidak perlu. Revisinya, أَهْلَ الْهُدَى dan مَنْ قَدْ أَرْشَدَا, lurus tanpa satu darurah pun.",
+        "Contoh ketiga menjadi nasihatnya sendiri: إِذَا لَمْ تَسْتَطِعْ شَيْئًا فَدَعْهُ وَجَاوِزْهُ إِلَى مَا تَسْتَطِيعُ. Kalau satu kata tidak muat tanpa darurah, jangan memaksanya; beralihlah ke kata lain. Itulah inti tangga revisi Modul 4, dan darurah adalah anak tangga terakhirnya.",
+        "Satu peringatan lagi tentang qafiyah. Kalau ujung bait bergantung pada darurah, setiap bait berikutnya akan tergoda memakai darurah yang sama. Draf peragaan menunjukkannya: ujung ـيَا hasil qashr akan menarik الْأَوْلِيَا، الْأَصْفِيَا، الْأَشْقِيَا, semuanya qashr. Pilih kata qafiyah yang bentuk aslinya sudah pas."
+      ],
+      "keliru": [
+        {
+          "salah": "Menghapus semua darurah dari bait lama, walau maknanya jadi kabur.",
+          "benar": "Buang darurah yang punya pengganti sepadan. Darurah ringan yang menopang makna boleh dipertahankan, dengan alasan dicatat.",
+          "sebab": "Patokannya boleh, tapi jangan jadi kebiasaan. Bukan haram."
+        },
+        {
+          "salah": "Memilih kata qafiyah yang hanya muat lewat qashr (الْعُلَمَا، الْأَنْبِيَا) untuk qashidah panjang.",
+          "benar": "Pilih kata qafiyah yang bentuk aslinya sudah pas: isim maqshur (الْهُدَى، الْوَرَى) atau fi'il madhi (أَرْشَدَا).",
+          "sebab": "Setiap bait berikutnya akan memerlukan qashr lagi. Darurah menjadi kebiasaan."
+        },
+        {
+          "salah": "Menukar satu darurah dengan darurah lain, misalnya qashr diganti sharf أَحْمَدٍ.",
+          "benar": "Revisi berarti mengurangi darurah, bukan memindahkannya.",
+          "sebab": "Pembaca tetap menemukan penyimpangan; Anda hanya mengganti jenisnya."
+        }
+      ],
+      "qaidah": [
+        "Revisi darurah dalam lima langkah: tandai darurah, kembalikan bentuk biasa lalu timbang, cari kata lain dengan tangga Modul 4, timbang versi baru, lalu putuskan.",
+        "Darurah yang **perlu**: kata itu tidak punya pengganti (nama, istilah, kutipan) dan darurahnya ringan. Pertahankan, catat alasannya.",
+        "Darurah yang **tidak perlu**: ada kata lain yang sepadan. Ganti.",
+        "Jangan menaruh darurah di kata qafiyah qashidah. Ujung bait berulang di setiap bait, dan darurahnya ikut berulang.",
+        "Revisi tidak boleh menukar satu darurah dengan darurah lain."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Putuskan: darurah ini perlu atau tidak?",
+          "soal": [
+            {
+              "soal": "Sharf آدَمٌ di bait tujuh nabi 'Aqidatul 'Awam?",
+              "pilihan": [
+                "Perlu: nama nabi tidak bisa diganti",
+                "Tidak perlu: ganti dengan nabi lain"
+              ],
+              "jawaban": 0,
+              "alasan": "Bait itu menyebut para rasul yang wajib diketahui. Nama tidak punya sinonim."
+            },
+            {
+              "soal": "Qashr الْأَتْقِيَا di ujung draf peragaan?",
+              "pilihan": [
+                "Tidak perlu: ada أَهْلَ الْهُدَى",
+                "Perlu: tidak ada kata lain"
+              ],
+              "jawaban": 0,
+              "alasan": "Maknanya bisa dicapai dengan kata lain yang lurus tanpa darurah."
+            },
+            {
+              "soal": "Draf Anda: فَهْوَ دَلِيلٌ. Taskin فَهْوَ perlu dibuang?",
+              "pilihan": [
+                "Tidak harus: taskin هُوَ adalah lughah yang paling ringan",
+                "Harus: setiap darurah wajib dibuang"
+              ],
+              "jawaban": 0,
+              "alasan": "Ibnu Malik dan al-Baiquni memakainya. Pertahankan bila maknanya pas."
+            },
+            {
+              "soal": "Revisi mana yang benar untuk ujung الْأَنْبِيَا?",
+              "pilihan": [
+                "مَنْ قَدْ أَرْشَدَا",
+                "أَحْمَدٍ dengan tanwin",
+                "الْأَنْبِيَاءِ dengan hamzah"
+              ],
+              "jawaban": 0,
+              "alasan": "أَحْمَدٍ menukar qashr dengan sharf. الْأَنْبِيَاءِ membuat ujung patah."
+            }
+          ]
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Draf dan revisi dari peragaan, ditambah satu revisi yang gagal. Centang yang pincang.",
+          "bahr": "rajaz",
+          "baris": [
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ لِلْأَتْقِيَا",
+                "فَإِنَّهُمْ وُرَّاثُ خَيْرِ الْأَنْبِيَا"
+              ],
+              "catatan": "Bait latihan, bukan kutipan: draf lama dengan dua qashr. Lurus."
+            },
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ لِلْأَتْقِيَاءِ",
+                "فَإِنَّهُمْ وُرَّاثُ خَيْرِ الْأَنْبِيَاءِ"
+              ],
+              "catatan": "Bait latihan, bukan kutipan: bentuk biasa dikembalikan. Kedua ujung patah."
+            },
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ أَهْلَ الْهُدَى",
+                "فَإِنَّهُمْ وُرَّاثُ أَحْمَدٍ الْهُدَى"
+              ],
+              "catatan": "Bait latihan, bukan kutipan: revisi yang gagal. Sharf أَحْمَدٍ, kata الْهُدَى diulang, dan ujungnya patah."
+            },
+            {
+              "bait": [
+                "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ أَهْلَ الْهُدَى",
+                "فَإِنَّهُمْ وُرَّاثُ مَنْ قَدْ أَرْشَدَا"
+              ],
+              "catatan": "Bait latihan, bukan kutipan: revisi akhir, tanpa darurah. Lurus."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang Alfiyah bait 79 sendiri. Tandai dua darurahnya. Baca الَٱجْنَاسِ dengan naql: لَجْنَاسِ. Ujung عَمّْ ditimbang seperti عَمْ.",
+          "bait": [
+            "وَوَضَعُوا لِبَعْضِ الَٱجْنَاسِ عَلَمْ",
+            "كَعَلَمِ الْأَشْخَاصِ لَفْظًا وَهْوَ عَمّْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Mereka (orang Arab) membuat 'alam untuk sebagian jenis, seperti 'alam orang dari sisi lafaznya, padahal maknanya umum."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "Latihan revisi pada draf peragaan sebelum menyentuh Diwan Anda. Ikuti tangga, timbang setiap percobaan.",
+          "bahr": "rajaz",
+          "makna": "Wahai penuntut ilmu, dengarkan para ulama, karena mereka pewaris Nabi ﷺ.",
+          "bankKata": true,
+          "qafiyah": "muzdawij",
+          "judulDiwan": "Latihan revisi darurah",
+          "tangga": [
+            "Tulis draf lama: يَا طَالِبَ الْعِلْمِ اسْتَمِعْ لِلْأَتْقِيَا / فَإِنَّهُمْ وُرَّاثُ خَيْرِ الْأَنْبِيَا. Tandai dua qashr-nya.",
+            {
+              "teks": "Ganti لِلْأَتْقِيَا dengan frasa sewazan yang tanpa darurah. Timbang ketiga calon sendiri.",
+              "ganti": "لِلْأَتْقِيَا",
+              "calon": [
+                "أَهْلَ الْهُدَى",
+                "أُولِي الْهُدَى",
+                "لِلْأَتْقِيَاءِ"
+              ]
+            },
+            {
+              "teks": "Ganti خَيْرِ الْأَنْبِيَا dengan ujung berawiy د berfathah. Pilih yang sewazan.",
+              "ganti": "خَيْرِ الْأَنْبِيَا",
+              "calon": [
+                "مَنْ قَدْ أَرْشَدَا",
+                "أَحْمَدٍ الْهُدَى",
+                "مَنْ أَرْشَدَا"
+              ]
+            },
+            "Timbang versi baru. Periksa: kedua syathr berawiy د berfathah, tidak ada kata qafiyah yang diulang.",
+            "Tulis di Diwan: berapa darurah di draf lama, berapa di versi baru."
+          ]
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Revisi satu bait lama dari Diwan.** Pilih bait yang memakai darurah, atau yang dulu terasa dipaksa. Ikuti lima langkah peragaan. Tempel versi lama, lalu perbaiki di tempat.",
+          "bahr": "rajaz",
+          "makna": "Makna sama dengan bait lama Anda. Yang diperiksa adalah darurahnya.",
+          "bankKata": true,
+          "qafiyah": "muzdawij",
+          "judulDiwan": "Bait lama, revisi darurah",
+          "tashih": true,
+          "tangga": [
+            "Buka Diwan. Pilih satu bait rajaz dari Jilid 1–2: Bait #1, Bait #2, atau satu bait Nasihat untuk Anak.",
+            "Tandai setiap darurah: isyba' ha setelah sukun, sharf, qashr, taskin, takhfif, naql. Tandai juga kata yang mungkin salah nahwu, padahal Anda kira darurah.",
+            "Kembalikan setiap darurah ke bentuk biasa dan timbang. Yang patah menunjukkan darurah yang menopang wazan.",
+            "Untuk setiap darurah penopang, coba tangga Modul 4: buang, geser, ganti sewazan, ganti semakna.",
+            "Putuskan: buang darurah yang punya pengganti, pertahankan yang perlu. Di Diwan, tulis versi baru di bawah versi lama, beserta alasan setiap darurah yang tersisa."
+          ]
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama versi revisi. Bandingkan di telinga dengan draf lama: iramanya sama, karena wazan tidak berubah; yang berubah hanya bahasanya.",
+          "bait": [
+            "يَا طَالِبَ الْعِلْمِ اسْتَمِعْ أَهْلَ الْهُدَى",
+            "فَإِنَّهُمْ وُرَّاثُ مَنْ قَدْ أَرْشَدَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Wahai penuntut ilmu, dengarkanlah orang-orang yang berpetunjuk, karena mereka pewaris (Nabi) yang telah membimbing. (Bait latihan, bukan kutipan.)"
+        }
+      ],
+      "patokan": "Satu bait lama di Diwan sudah direvisi: setiap darurahnya ditandai, yang tidak perlu diganti, dan yang tersisa diberi alasan. Versi baru lurus dan pasangan qafiyahnya sah."
+    }
+  ],
+  "laci": [
+    {
+      "teks": "أَهْلَ الْهُدَى",
+      "arti": "orang-orang yang berpetunjuk",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pengganti الْعُلَمَا tanpa qashr. Pola 1010110.",
+      "dari": "Bait latihan Modul 19",
+      "bahr": "rajaz"
+    },
+    {
+      "teks": "قَدْ أَرْشَدَا",
+      "arti": "telah membimbing",
+      "laci": "qafiyah",
+      "cocok": "ujung syathr, satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Qafiyah ـدَا tanpa darurah. Pasangan: الْهُدَى، اهْتَدَى.",
+      "dari": "Bait latihan Modul 19",
+      "bahr": "rajaz"
+    },
+    {
+      "teks": "وُرَّاثُ مَنْ",
+      "arti": "para pewaris orang yang",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pola 1010110.",
+      "dari": "Bait latihan Modul 19",
+      "bahr": "rajaz"
+    },
+    {
+      "teks": "أُولُو النُّهَى",
+      "arti": "orang-orang berakal",
+      "laci": "hasyw",
+      "cocok": "satu مُتَفْعِلُنْ (khabn)",
+      "catatan": "Waw kedua dalam أُولُو tidak dibaca. Pola 110110. Isim maqshur النُّهَى tidak perlu dipotong.",
+      "dari": "Modul 19",
+      "bahr": "rajaz"
+    },
+    {
+      "teks": "خَيْرُ الْوَرَى",
+      "arti": "makhluk terbaik (Nabi ﷺ)",
+      "laci": "hasyw",
+      "cocok": "satu مُسْتَفْعِلُنْ utuh",
+      "catatan": "Pengganti خَيْرُ الْأَنْبِيَا tanpa qashr. Pola 1010110.",
+      "dari": "Modul 19",
+      "bahr": "rajaz"
+    },
+    {
+      "teks": "وَهْوَ",
+      "arti": "dan dia (laki-laki)",
+      "laci": "umum",
+      "catatan": "Taskin ringan: lughah dan qira'ah. Pola 101. Boleh, tapi jangan di setiap bait.",
+      "dari": "Alfiyah bait 6"
+    },
+    {
+      "teks": "فَهْوَ",
+      "arti": "maka dia (laki-laki)",
+      "laci": "umum",
+      "catatan": "Taskin ringan, seperti di al-Baiquniyyah. Pola 101.",
+      "dari": "al-Baiquniyyah"
+    },
+    {
+      "teks": "وَهْيَ",
+      "arti": "dan dia (perempuan)",
+      "laci": "umum",
+      "catatan": "Taskin ringan. Pola 101.",
+      "dari": "Modul 19"
+    },
+    {
+      "teks": "كُتْبِي",
+      "arti": "buku-bukuku",
+      "laci": "umum",
+      "catatan": "Takhfif jamak فُعُل: lughah yang sah. Pola 1010.",
+      "dari": "Ibnu al-Mu'tazz"
+    },
+    {
+      "teks": "رُسْلُنَا",
+      "arti": "rasul-rasul Kami",
+      "laci": "umum",
+      "catatan": "Takhfif jamak فُعُل, qira'ah Abu 'Amr. Pola 10110.",
+      "dari": "Modul 19"
+    }
+  ]
+}

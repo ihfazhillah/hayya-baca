@@ -1,0 +1,925 @@
+{
+  "nomor": 20,
+  "judul": "Jenis dan cacat qafiyah",
+  "tujuan": "Merapikan semua yang sudah Anda ketahui tentang qafiyah ke dalam pembagian ulama: muthlaqah dan muqayyadah, masing-masing mujarradah, mardufah, atau mu'assasah; nama huruf dan harakat qafiyah; lima jenis qafiyah menurut jarak dua sukun; dan lima cacat: iqwa', ikfa', ita', sinad, tadhmin. Di akhir, Anda memeriksa qashidah-qashidah lama di Diwan sendiri.",
+  "pelajaran": [
+    {
+      "nomor": 1,
+      "versi": 2,
+      "judul": "Enam wajah qafiyah",
+      "ringkas": "Muthlaqah atau muqayyadah, lalu mujarradah, mardufah, atau mu'assasah. Ditambah nama setiap huruf dan harakat di ujung bait.",
+      "menit": 30,
+      "analogi": "Dalam sharaf, satu kata dikenali dari dua sisi: bina'nya (shahih, mu'tal) dan wazannya. Qafiyah juga dikenali dari dua sisi. Sisi pertama: rawiynya berharakat atau mati. Sisi kedua: apa yang berdiri sebelum rawiy, huruf mad (ridf), alif yang berjarak (ta'sis), atau tidak ada apa-apa. Dua sisi itu memberi enam wajah.",
+      "amtsilah": [
+        {
+          "bait": [
+            "قِفَا نَبْكِ مِنْ ذِكْرَى حَبِيبٍ وَمَنْزِلِ",
+            "بِسِقْطِ اللِّوَى بَيْنَ الدَّخُولِ فَحَوْمَلِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Berhentilah kalian berdua, mari kita menangis karena teringat kekasih dan tempat tinggal, di ujung bukit pasir antara ad-Dakhul dan Haumal.",
+          "sumber": "Imru'ul Qais, Mu'allaqah, bait 1. Teks: https://ar.wikisource.org/wiki/معلقة_امرئ_القيس. Harakat dilengkapi.",
+          "catatan": "Ujung فَحَوْمَلِ: rawiy ل berkasrah, lalu wasl ي. Sebelum rawiy tidak ada ridf atau ta'sis: muthlaqah mujarradah."
+        },
+        {
+          "bait": [
+            "حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ",
+            "مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Putusan cinta itu kokoh pilar-pilarnya; sikap berpaling tidak punya daya untuk membatalkannya.",
+          "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), bait 1. Teks: Wikisource ar, القصيدة النونية; Syarh as-Sa'di (archive.org). Harakat dari penyusun.",
+          "catatan": "Ujung يَدَانِ: ridf alif tepat sebelum rawiy ن: muthlaqah mardufah."
+        },
+        {
+          "bait": [
+            "عَلَى قَدْرِ أَهْلِ الْعَزْمِ تَأْتِي الْعَزَائِمُ",
+            "وَتَأْتِي عَلَى قَدْرِ الْكِرَامِ الْمَكَارِمُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Sesuai kadar orang-orang yang bertekad, datanglah tekad-tekad besar; dan sesuai kadar orang-orang mulia, datanglah kemuliaan-kemuliaan.",
+          "sumber": "Al-Mutanabbi, mathla' qashidah mimiyah tentang Saifud Daulah. Teks: https://ar.wikisource.org/wiki/على_قدر_أهل_العزم_تأتي_العزائم. Harakat dilengkapi.",
+          "catatan": "Ujung الْمَكَارِمُ: alif, lalu ر (dakhil), lalu rawiy م. Alif itu ta'sis: muthlaqah mu'assasah."
+        },
+        {
+          "bait": [
+            "كَلَامُنَا لَفْظٌ مُفِيدٌ كَٱسْتَقِمْ",
+            "وَٱسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Kalam menurut kami adalah lafaz yang memberi faedah, seperti اسْتَقِمْ. Isim, fi'il, lalu huruf adalah kalim.",
+          "sumber": "Alfiyah Ibnu Malik, bab al-Kalam, bait 8. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "Ujung الْكَلِمْ: rawiy م mati, tanpa ridf: muqayyadah mujarradah."
+        },
+        {
+          "bait": [
+            "عَفَتِ الدِّيَارُ مَحَلُّهَا فَمُقَامُهَا",
+            "بِمِنًى تَأَبَّدَ غَوْلُهَا فَرِجَامُهَا"
+          ],
+          "bahr": "kamil",
+          "makna": "Telah lenyap jejak perkampungan, tempat singgah dan tempat tinggalnya, di Mina; Ghaul dan Rijam (dua bukit) kini sunyi menjadi tempat binatang liar.",
+          "sumber": "Labid bin Rabi'ah, Mu'allaqah, bait 1. Teks: https://adabworld.com/poems/aft-aldyar-mhlha-fmqamha-j6h5yd. Harakat dilengkapi.",
+          "catatan": "Ujung فَرِجَامُهَا memuat hampir semua nama huruf qafiyah: ridf ا, rawiy م, wasl ه, khuruj ا."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "عَفَتِ الدِّيَارُ مَحَلُّهَا فَمُقَامُهَا",
+          "بِمِنًى تَأَبَّدَ غَوْلُهَا فَرِجَامُهَا"
+        ],
+        "bahr": "kamil",
+        "makna": "Telah lenyap jejak perkampungan, tempat singgah dan tempat tinggalnya, di Mina; Ghaul dan Rijam (dua bukit) kini sunyi menjadi tempat binatang liar.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Mathla' Mu'allaqah Labid, salah satu qashidah terpanjang Jahiliyah. Labid kemudian masuk Islam. Kamil utuh: enam مُتَفَاعِلُنْ. Kita bedah ujungnya, فَرِجَامُهَا, huruf demi huruf dari belakang."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Lurus: semua taf'ilah 1110110."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Mulai dari belakang. Alif terakhir lahir dari fathah ha. Ha itu dhamir, berharakat, setelah huruf hidup. Huruf tumpuannya ada sebelum ha: **م**. Itulah rawiy. Seluruh qashidah ini berakhir ـامُهَا: مِيمِيَّةُ لَبِيدٍ.",
+            "papan": "فَرِجَامُهَا\nا = khuruj (mad setelah ha wasl)\nه = wasl (ha setelah rawiy)\nم = rawiy\nا = ridf"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Di Modul 7 Anda mengenal wasl sebagai ya isyba' setelah نِ. Wasl bisa juga **ha** yang mengikuti rawiy berharakat. Bila ha wasl itu berharakat, mad sesudahnya disebut **khuruj**.",
+            "papan": "wasl: mad setelah rawiy (ـنِي) ATAU ha setelah rawiy (ـمُهَا)\nkhuruj: mad setelah ha wasl"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Harakat juga punya nama. Harakat rawiy: **majra** (dhammah م). Harakat ha wasl: **nafadz** (fathah ه). Harakat sebelum ridf: **hadzw** (fathah ج). Tiga lainnya dipakai bila ada ta'sis atau rawiy mati: **rass**, **isyba'**, **taujih**.",
+            "papan": "majra = harakat rawiy\nnafadz = harakat ha wasl\nhadzw = harakat sebelum ridf\nrass = fathah sebelum alif ta'sis\nisyba' = harakat dakhil\ntaujih = harakat sebelum rawiy mati"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Sekarang jenisnya. Rawiy م berharakat: **muthlaqah**. Sebelum rawiy ada alif tepat di sebelahnya: **mardufah**. Jadi qafiyah Labid adalah muthlaqah mardufah, yang ber-wasl ha.",
+            "papan": "rawiy berharakat: muthlaqah · rawiy mati: muqayyadah\ntanpa ridf/ta'sis: mujarradah · ada ridf: mardufah · ada ta'sis: mu'assasah\nLabid: muthlaqah mardufah"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. Labid ber-tasri': syathr pertama juga berakhir ـامُهَا. عَفَتِ الدِّيَارُ: kasrah ta menyambung ke lam syamsiyah yang lebur. مَحَلُّهَا: syaddah pada lam."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, mathla' Imru'ul Qais. Ujungnya فَحَوْمَلِ, dibaca فَحَوْمَلِي. Rawiy ل berharakat kasrah, jadi qafiyahnya **muthlaqah**. Huruf sebelum rawiy adalah م berharakat; tidak ada huruf mad di sana dan tidak ada alif dua huruf sebelumnya. Qafiyah tanpa ridf dan tanpa ta'sis disebut **mujarradah**.",
+        "Contoh kedua, Nuniyah Ibnul Qayyim, yang Anda bedah di Modul 7. Rawiy ن berkasrah, didahului alif: ridf. Qafiyah ber-ridf disebut **mardufah**. Contoh ketiga, al-Mutanabbi. Ujung الْمَكَارِمُ: alif, lalu ر, lalu rawiy م. Alif berjarak satu huruf hidup itu ta'sis; huruf di antaranya disebut **dakhil**. Qafiyah ber-ta'sis disebut **mu'assasah**.",
+        "Contoh keempat dari Alfiyah: الْكَلِمْ. Rawiy م mati. Qafiyah dengan rawiy mati disebut **muqayyadah**, seperti yang Anda pelajari di ramal majzu'. Sebelum م ada لِ berharakat, tanpa ridf: muqayyadah mujarradah. Muqayyadah juga bisa mardufah (ridf lalu rawiy mati, seperti بِعُسْفَانْ di Modul 14) atau mu'assasah, tetapi keduanya jarang.",
+        "Jadi ada enam wajah: muthlaqah mujarradah, muthlaqah mardufah, muthlaqah mu'assasah, muqayyadah mujarradah, muqayyadah mardufah, muqayyadah mu'assasah. Wajah yang dipilih di bait pertama mengikat seluruh qashidah. Itulah sebabnya pemeriksa qafiyah membandingkan setiap bait dengan bait pertama.",
+        "Contoh kelima, Labid, memperlihatkan nama-nama huruf yang paling lengkap. Huruf qafiyah ada enam: **rawiy**, **wasl**, **khuruj** (sesudah rawiy), dan **ridf**, **ta'sis**, **dakhil** (sebelum rawiy). Harakatnya juga enam: **majra** (harakat rawiy), **nafadz** (harakat ha wasl), **hadzw** (harakat sebelum ridf), **rass** (fathah sebelum alif ta'sis), **isyba'** (harakat dakhil), dan **taujih** (harakat sebelum rawiy yang mati).",
+        "Hati-hati dengan nama **isyba'** di sini. Di Modul 2, isyba' berarti memanjangkan harakat. Dalam ilmu qafiyah, isyba' adalah nama harakat dakhil: kasrah ر dalam الْمَكَارِمُ. Nama sama, arti lain, seperti istilah yang berbeda antara nahwu dan tajwid. Untuk menyusun, Anda tidak perlu menghafal keenam nama harakat; yang wajib dijaga adalah rawiy, majra, ridf, dan ta'sis. Nama lainnya membantu Anda membaca kitab qafiyah."
+      ],
+      "keliru": [
+        {
+          "salah": "Menyebut ha dalam فَرِجَامُهَا sebagai rawiy karena ia huruf terakhir yang tertulis.",
+          "benar": "Rawiy م. Ha dhamir berharakat setelah huruf hidup adalah wasl; alif sesudahnya khuruj.",
+          "sebab": "Qashidah Labid disebut mimiyah, bukan haiyah. Ha dhamir berpindah-pindah kata, sedangkan م tetap."
+        },
+        {
+          "salah": "Mengira الْمَكَارِمُ mardufah karena ada alif di dekat rawiy.",
+          "benar": "Alifnya berjarak satu huruf (ر): itu ta'sis. Qafiyahnya mu'assasah.",
+          "sebab": "Ridf harus tepat sebelum rawiy, seperti يَدَانِ."
+        },
+        {
+          "salah": "Mencampur الْكَلِمْ (muqayyadah) dengan الْكَلِمِ (muthlaqah) dalam satu qashidah.",
+          "benar": "Rawiy mati atau rawiy berharakat dipilih sekali, di bait pertama.",
+          "sebab": "Rawiy mati dan rawiy berharakat memberi dua bunyi ujung yang berbeda, dan sering dua dharb yang berbeda pula."
+        },
+        {
+          "salah": "Menyamakan isyba' dalam ilmu qafiyah dengan isyba' memanjangkan harakat.",
+          "benar": "Dalam qafiyah, isyba' adalah nama harakat dakhil (kasrah ر dalam الْمَكَارِمُ).",
+          "sebab": "Satu nama dipakai untuk dua hal di dua bab yang berbeda."
+        }
+      ],
+      "qaidah": [
+        "**Muthlaqah**: rawiy berharakat, diikuti wasl. **Muqayyadah**: rawiy mati.",
+        "**Mujarradah**: tanpa ridf dan tanpa ta'sis. **Mardufah**: ada ridf, huruf mad tepat sebelum rawiy. **Mu'assasah**: ada ta'sis, alif yang dipisah satu huruf hidup (dakhil) dari rawiy.",
+        "Enam wajah: muthlaqah atau muqayyadah, dikali mujarradah, mardufah, atau mu'assasah. Wajah bait pertama mengikat seluruh qashidah.",
+        "**Huruf qafiyah**: rawiy, wasl (mad atau ha setelah rawiy), khuruj (mad setelah ha wasl), ridf, ta'sis, dakhil.",
+        "**Harakat qafiyah**: majra (rawiy), nafadz (ha wasl), hadzw (sebelum ridf), rass (sebelum ta'sis), isyba' (dakhil), taujih (sebelum rawiy mati). Yang wajib dijaga saat menyusun: majra, dan ada tidaknya ridf dan ta'sis."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Sebutkan wajah setiap qafiyah.",
+          "soal": [
+            {
+              "soal": "فَحَوْمَلِ (Imru'ul Qais)?",
+              "pilihan": [
+                "Muthlaqah mujarradah",
+                "Muthlaqah mardufah",
+                "Muqayyadah mujarradah",
+                "Muthlaqah mu'assasah"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy ل berkasrah, tanpa ridf atau ta'sis."
+            },
+            {
+              "soal": "يَدَانِ (Nuniyah)?",
+              "pilihan": [
+                "Muthlaqah mardufah",
+                "Muthlaqah mu'assasah",
+                "Muqayyadah mardufah"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy ن berkasrah, ridf alif tepat sebelumnya."
+            },
+            {
+              "soal": "الْمَكَارِمُ (al-Mutanabbi)?",
+              "pilihan": [
+                "Muthlaqah mu'assasah",
+                "Muthlaqah mardufah",
+                "Muthlaqah mujarradah"
+              ],
+              "jawaban": 0,
+              "alasan": "Alif berjarak satu huruf (ر, dakhil) dari rawiy م: ta'sis."
+            },
+            {
+              "soal": "الْكَلِمْ (Alfiyah bait 8)?",
+              "pilihan": [
+                "Muqayyadah mujarradah",
+                "Muthlaqah mujarradah",
+                "Muqayyadah mardufah"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy م mati, tanpa ridf."
+            },
+            {
+              "soal": "Dalam فَرِجَامُهَا, ha disebut?",
+              "pilihan": [
+                "Wasl",
+                "Rawiy",
+                "Khuruj",
+                "Ridf"
+              ],
+              "jawaban": 0,
+              "alasan": "Ha setelah rawiy berharakat adalah wasl. Alif sesudahnya khuruj."
+            },
+            {
+              "soal": "Harakat ر dalam الْمَكَارِمُ (dakhil) disebut?",
+              "pilihan": [
+                "Isyba'",
+                "Majra",
+                "Taujih",
+                "Hadzw"
+              ],
+              "jawaban": 0,
+              "alasan": "Harakat dakhil = isyba'. Majra adalah harakat rawiy (dhammah م)."
+            },
+            {
+              "soal": "Harakat lam dalam الْكَلِمْ, sebelum rawiy yang mati, disebut?",
+              "pilihan": [
+                "Taujih",
+                "Nafadz",
+                "Rass"
+              ],
+              "jawaban": 0,
+              "alasan": "Taujih = harakat sebelum rawiy muqayyad."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang mathla' al-Mutanabbi sendiri, lalu bedah ujungnya: rass, ta'sis, dakhil, isyba', rawiy, majra, wasl.",
+          "bait": [
+            "عَلَى قَدْرِ أَهْلِ الْعَزْمِ تَأْتِي الْعَزَائِمُ",
+            "وَتَأْتِي عَلَى قَدْرِ الْكِرَامِ الْمَكَارِمُ"
+          ],
+          "bahr": "thawil",
+          "makna": "Sesuai kadar orang-orang yang bertekad, datanglah tekad-tekad besar; dan sesuai kadar orang-orang mulia, datanglah kemuliaan-kemuliaan."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama mathla' Imru'ul Qais. Dengarkan ujungnya: فَحَوْمَلِي, rawiy ل lalu wasl ي, tanpa mad sebelumnya.",
+          "bait": [
+            "قِفَا نَبْكِ مِنْ ذِكْرَى حَبِيبٍ وَمَنْزِلِ",
+            "بِسِقْطِ اللِّوَى بَيْنَ الدَّخُولِ فَحَوْمَلِ"
+          ],
+          "bahr": "thawil",
+          "makna": "Berhentilah kalian berdua, mari kita menangis karena teringat kekasih dan tempat tinggal, di ujung bukit pasir antara ad-Dakhul dan Haumal."
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Bait Labid dan beberapa baris yang ujungnya diubah. Semua baris memakai qafiyah ـامُهَا; yang diuji hanya timbangannya. Centang yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "عَفَتِ الدِّيَارُ مَحَلُّهَا فَمُقَامُهَا",
+                "بِمِنًى تَأَبَّدَ غَوْلُهَا فَرِجَامُهَا"
+              ],
+              "catatan": "Asli: Labid, Mu'allaqah bait 1."
+            },
+            {
+              "bait": [
+                "عَفَتِ الدِّيَارُ مَحَلُّهَا فَمُقَامُهَا",
+                "بِمِنًى تَأَبَّدَ غَوْلُهَا وَرِجَامُهَا"
+              ],
+              "catatan": "Diubah, bukan kutipan: فَ diganti وَ. Wazannya tetap; huruf hidup diganti huruf hidup."
+            },
+            {
+              "bait": [
+                "عَفَتِ الدِّيَارُ مَحَلُّهَا فَمُقَامُهَا",
+                "بِمِنًى تَأَبَّدَ غَوْلُهَا وَفَرِجَامُهَا"
+              ],
+              "catatan": "Diubah, bukan kutipan: وَ ditambahkan di depan فَرِجَامُهَا. Ujung bait kelebihan satu huruf hidup."
+            },
+            {
+              "bait": [
+                "عَفَتِ الدِّيَارُ مَحَلُّهَا وَمُقَامُهَا",
+                "بِمِنًى تَأَبَّدَ غَوْلُهَا فَرِجَامُهَا"
+              ],
+              "catatan": "Diubah, bukan kutipan: فَمُقَامُهَا diganti وَمُقَامُهَا. Lurus."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada kata-kata ujung, lalu sebutkan wajah qafiyahnya. Huruf terakhir tidak dipanjangkan di drill ini.",
+          "butir": [
+            "فَحَوْمَلِ",
+            "يَدَانِ",
+            "الْمَكَارِمُ",
+            "الْكَلِمْ",
+            "فَرِجَامُهَا",
+            "الْعَزَائِمُ"
+          ]
+        }
+      ],
+      "patokan": "Dapat menyebut wajah qafiyah (enam jenis) dari ujung bait mana pun, dan menunjuk rawiy, wasl, khuruj, ridf, ta'sis, dan dakhil bila ada."
+    },
+    {
+      "nomor": 2,
+      "versi": 2,
+      "judul": "Lima jenis menurut jarak sukun",
+      "ringkas": "Mutaradif, mutawatir, mutadarik, mutarakib, mutakawis: dibaca langsung dari deretan 1 dan 0 di ujung bait.",
+      "menit": 25,
+      "analogi": "Sejak Modul 0 Anda menulis bait sebagai deretan 1 dan 0. Ulama qafiyah juga menghitung begitu. Menurut al-Khalil, qafiyah adalah ujung bait sampai huruf mati terdekat sebelum huruf mati terakhir, ditambah satu huruf hidup sebelumnya. Yang menentukan jenisnya hanya satu hal: berapa huruf hidup di antara dua huruf mati terakhir.",
+      "amtsilah": [
+        {
+          "bait": [
+            "حُكْمُ الْمَحَبَّةِ ثَابِتُ الْأَرْكَانِ",
+            "مَا لِلصُّدُودِ بِفَسْخِ ذَاكَ يَدَانِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Putusan cinta itu kokoh pilar-pilarnya; sikap berpaling tidak punya daya untuk membatalkannya.",
+          "sumber": "Ibnul Qayyim, al-Kafiyah asy-Syafiyah (Nuniyah), bait 1. Teks: Wikisource ar, القصيدة النونية; Syarh as-Sa'di (archive.org). Harakat dari penyusun.",
+          "catatan": "يَدَانِي: ا (0) نِ (1) ي (0). Satu huruf hidup di antara dua mati: mutawatir."
+        },
+        {
+          "bait": [
+            "مِكَرٍّ مِفَرٍّ مُقْبِلٍ مُدْبِرٍ مَعًا",
+            "كَجُلْمُودِ صَخْرٍ حَطَّهُ السَّيْلُ مِنْ عَلِ"
+          ],
+          "bahr": "thawil",
+          "makna": "(Kudaku) cepat menyerang, cepat berbalik, maju dan mundur sekaligus, seperti batu besar yang dihempaskan banjir dari tempat tinggi.",
+          "sumber": "Imru'ul Qais, Mu'allaqah. Teks: https://ar.wikisource.org/wiki/معلقة_امرئ_القيس. Harakat dilengkapi.",
+          "catatan": "مِنْ عَلِي: نْ (0) عَ لِ (11) ي (0). Dua huruf hidup: mutadarik."
+        },
+        {
+          "bait": [
+            "أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ",
+            "مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ"
+          ],
+          "bahr": "basith",
+          "makna": "Apakah karena teringat tetangga di Dzu Salam, engkau mencampur air mata yang mengalir dari kelopak mata dengan darah?",
+          "sumber": "Al-Bushiri, al-Burdah, bait 1. Teks: https://poetry.dctabudhabi.ae/diwan/poem/58211. Harakat dilengkapi; ujung syathr pertama ditulis سَلَمِ tanpa tanwin.",
+          "catatan": "مُقْلَتِنْ بِدَمِي: نْ (0) بِ دَ مِ (111) ي (0). Tiga huruf hidup: mutarakib."
+        },
+        {
+          "bait": [
+            "وَجُرَّ مَا يَتْبَعُ مَا جُرَّ وَمَنْ",
+            "رَاعَى فِي الِاتْبَاعِ الْمَحَلَّ فَحَسَنْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Jarrkanlah kata yang mengikuti kata yang dijarrkan; dan siapa yang memperhatikan (i'rab) mahal dalam itba', itu baik.",
+          "sumber": "Alfiyah Ibnu Malik, bab I'mal al-Mashdar, bait 426. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "الْمَحَلَّ فَحَسَنْ: لْ (0) لَ فَ حَ سَ (1111) نْ (0). Empat huruf hidup: mutakawis, jenis yang paling jarang."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ",
+          "مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ"
+        ],
+        "bahr": "basith",
+        "makna": "Apakah karena teringat tetangga di Dzu Salam, engkau mencampur air mata yang mengalir dari kelopak mata dengan darah?",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "Mathla' al-Burdah. Basith, dengan dharb فَعِلُنْ yang baku. Kita baca jenis qafiyahnya langsung dari timbangan."
+          },
+          {
+            "tampil": "tanda",
+            "kata": "Beri tanda ujung bait: مِنْ مُقْلَتِنْ بِدَمِي. Huruf mati terakhir adalah ya isyba' (0). Mundur: مِ (1), دَ (1), بِ (1), lalu nun tanwin مُقْلَتِنْ (0)."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Di antara dua huruf mati terakhir ada **tiga** huruf hidup. Qafiyahnya dari nun tanwin sampai akhir, ditambah ت sebelumnya: تِنْ بِدَمِي. Tiga huruf hidup beruntun di antara dua sukun disebut **mutarakib**.",
+            "papan": "ujung bit: … 1 0 | 1 1 1 | 0\nqafiyah: تِنْ بِدَمِي\n3 huruf hidup = mutarakib"
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Timbangan menunjukkan dharb بِدَمِي = 1110, فَعِلُنْ. Setiap qashidah basith yang dharbnya فَعِلُنْ dan qafiyahnya muthlaqah pasti mutarakib di ujungnya, karena فَعِلُنْ + wasl selalu berakhir 1110."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Lima jenis, dari yang paling rapat sampai yang paling renggang. Cukup lihat ekor deretan 1 dan 0.",
+            "papan": "00 = mutaradif (0 huruf hidup)\n010 = mutawatir (1)\n0110 = mutadarik (2)\n01110 = mutarakib (3)\n011110 = mutakawis (4)"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Mutaradif hanya ada pada qafiyah muqayyadah mardufah: ridf lalu rawiy mati, seperti syahid kitab 'arudh di Modul 14. Ia muncul di dharb yang sangat panjang (tasbigh).",
+            "papan": "يَا خَلِيلَيَّ ارْبَعَا فَاسْـ / ـتَخْبِرَا رَسْمًا بِعُسْفَانْ\nبِعُسْفَانْ: ا (0) نْ (0) = mutaradif\n(al-'Iqd al-Farid, juz 5, bab 'arudh)"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. Burdah ber-tasri': بِذِي سَلَمِ juga berakhir 1110, mutarakib. تَذَكُّرِ: syaddah pada kaf. جِيرَانٍ: tanwin dibaca نْ."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama, Nuniyah. Ujungnya يَدَانِي. Ekor bitnya: alif (0), نِ (1), ya isyba' (0). Satu huruf hidup di antara dua mati: **mutawatir**, dari kata تَوَاتُر, datang bergiliran satu-satu. Hampir semua qafiyah mardufah muthlaqah adalah mutawatir, karena ridf selalu huruf mati tepat sebelum rawiy.",
+        "Contoh kedua, Imru'ul Qais: مِنْ عَلِي. Ekornya نْ (0), عَ لِ (1 1), ya (0). Dua huruf hidup: **mutadarik**, susul-menyusul. Mathla' Mu'allaqah, فَحَوْمَلِي, juga mutadarik: وْ (0) مَ لِ (1 1) ي (0). Thawil dengan dharb مَفَاعِلُنْ (110110) selalu mutadarik di ujungnya.",
+        "Contoh ketiga, Burdah, sudah dibedah di peragaan: tiga huruf hidup, **mutarakib**, bertumpuk. Contoh keempat dari Alfiyah: الْمَحَلَّ فَحَسَنْ. Ekornya lam syaddah yang mati (0), lalu لَ فَ حَ سَ (empat huruf hidup), lalu نْ (0). Inilah **mutakawis**, berdesakan. Ia hanya muncul bila taf'ilah ujung kehilangan sabab-nya, di sini مُتَعِلُنْ (11110), wajah khabl yang jarang.",
+        "Kelima nama ini bukan aturan yang harus dijaga seperti rawiy dan majra. Ia lahir sendiri dari dharb yang Anda pilih. Gunanya dua. Pertama, membaca kitab qafiyah dan syarh, yang sering menyebut qashidah dengan nama ini. Kedua, memeriksa diri: kalau satu qashidah Anda sebagian mutawatir dan sebagian mutadarik, berarti dharb atau ridfnya berganti di tengah jalan.",
+        "Jembatannya dengan timbangan Hudhud sederhana. Di layar timbangan, lihat taf'ilah terakhir syathr kedua dan hitung angka 1 di antara dua 0 terakhir. 0 kali: mutaradif. 1: mutawatir. 2: mutadarik. 3: mutarakib. 4: mutakawis."
+      ],
+      "keliru": [
+        {
+          "salah": "Menghitung huruf mati terakhir dari tulisan, tanpa ya atau waw isyba'.",
+          "benar": "Hitung dari bunyi: بِدَمِ dibaca بِدَمِي, dan ya itu huruf mati terakhir.",
+          "sebab": "Qafiyah ditimbang dengan kitabah 'arudhiyyah, sama seperti taf'ilah."
+        },
+        {
+          "salah": "Mengira mutawatir lebih baik daripada mutadarik, lalu memaksa semua bait mutawatir.",
+          "benar": "Kelima jenis sama sahnya. Jenisnya mengikuti dharb dan ridf yang Anda pilih di bait pertama.",
+          "sebab": "Nama-nama ini deskripsi, bukan penilaian."
+        },
+        {
+          "salah": "Mengira mutakawis terjadi di setiap rajaz karena ujungnya sering berakhir dengan banyak huruf hidup.",
+          "benar": "Mutakawis hanya bila taf'ilah ujung berbentuk مُتَعِلُنْ (11110), seperti فَحَسَنْ. Ujung rajaz biasa (مُسْتَفْعِلُنْ, 1010110) memberi mutadarik.",
+          "sebab": "Ekor مُسْتَفْعِلُنْ adalah 0110: dua huruf hidup."
+        }
+      ],
+      "qaidah": [
+        "Qafiyah menurut al-Khalil: dari huruf terakhir bait sampai huruf mati pertama sebelumnya, ditambah huruf hidup sebelum huruf mati itu.",
+        "Jenisnya ditentukan jumlah huruf hidup di antara dua huruf mati terakhir: 0 **mutaradif** (00), 1 **mutawatir** (010), 2 **mutadarik** (0110), 3 **mutarakib** (01110), 4 **mutakawis** (011110).",
+        "Hitung dari kitabah 'arudhiyyah, termasuk wasl dan isyba' ujung bait.",
+        "Jenis ini lahir dari dharb dan ridf. Kalau jenisnya berganti di tengah qashidah, periksa dharb dan ridf Anda."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Hitung huruf hidup di antara dua huruf mati terakhir, lalu sebutkan jenisnya.",
+          "soal": [
+            {
+              "soal": "Ujung يَدَانِي?",
+              "pilihan": [
+                "Mutawatir",
+                "Mutadarik",
+                "Mutaradif",
+                "Mutarakib"
+              ],
+              "jawaban": 0,
+              "alasan": "ا (0) نِ (1) ي (0): satu huruf hidup."
+            },
+            {
+              "soal": "Ujung فَحَوْمَلِي?",
+              "pilihan": [
+                "Mutadarik",
+                "Mutawatir",
+                "Mutakawis"
+              ],
+              "jawaban": 0,
+              "alasan": "وْ (0) مَ لِ (1 1) ي (0): dua huruf hidup."
+            },
+            {
+              "soal": "Ujung مُقْلَتِنْ بِدَمِي?",
+              "pilihan": [
+                "Mutarakib",
+                "Mutadarik",
+                "Mutakawis"
+              ],
+              "jawaban": 0,
+              "alasan": "نْ (0) بِ دَ مِ (1 1 1) ي (0): tiga huruf hidup."
+            },
+            {
+              "soal": "Ujung الْمَحَلَّ فَحَسَنْ?",
+              "pilihan": [
+                "Mutakawis",
+                "Mutarakib",
+                "Mutadarik"
+              ],
+              "jawaban": 0,
+              "alasan": "لْ (0) لَ فَ حَ سَ (1 1 1 1) نْ (0): empat huruf hidup."
+            },
+            {
+              "soal": "Ujung بِعُسْفَانْ?",
+              "pilihan": [
+                "Mutaradif",
+                "Mutawatir",
+                "Mutadarik"
+              ],
+              "jawaban": 0,
+              "alasan": "ا (0) نْ (0): dua huruf mati bertemu, nol huruf hidup."
+            },
+            {
+              "soal": "Ujung الْمَكَارِمُو (al-Mutanabbi)?",
+              "pilihan": [
+                "Mutadarik",
+                "Mutawatir",
+                "Mutarakib"
+              ],
+              "jawaban": 0,
+              "alasan": "ا (0) رِ مُ (1 1) و (0): dua huruf hidup. Alif ta'sis di sini menjadi huruf mati yang dihitung."
+            }
+          ]
+        },
+        {
+          "jenis": "tandai",
+          "petunjuk": "Beri tanda 1 dan 0 pada ujung-ujung ini, lalu hitung huruf hidup di antara dua 0 terakhir. Di drill ini huruf terakhir tidak dipanjangkan, jadi tambahkan sendiri 0 isyba' di ujung kata muthlaqah.",
+          "butir": [
+            "ذَاكَ يَدَانِ",
+            "مِنْ عَلِ",
+            "مُقْلَةٍ بِدَمِ",
+            "الْمَحَلَّ فَحَسَنْ",
+            "رَسْمًا بِعُسْفَانْ",
+            "الْكِرَامِ الْمَكَارِمُ"
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait Imru'ul Qais ini sendiri. Lalu lihat taf'ilah terakhir: hitung angka 1 di antara dua 0 terakhirnya.",
+          "bait": [
+            "مِكَرٍّ مِفَرٍّ مُقْبِلٍ مُدْبِرٍ مَعًا",
+            "كَجُلْمُودِ صَخْرٍ حَطَّهُ السَّيْلُ مِنْ عَلِ"
+          ],
+          "bahr": "thawil",
+          "makna": "(Kudaku) cepat menyerang, cepat berbalik, maju dan mundur sekaligus, seperti batu besar yang dihempaskan banjir dari tempat tinggi."
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang Alfiyah bait 426 sendiri. Taf'ilah terakhir adalah مُتَعِلُنْ (khabl): dari sinilah lahir mutakawis.",
+          "bait": [
+            "وَجُرَّ مَا يَتْبَعُ مَا جُرَّ وَمَنْ",
+            "رَاعَى فِي الِاتْبَاعِ الْمَحَلَّ فَحَسَنْ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Jarrkanlah kata yang mengikuti kata yang dijarrkan; dan siapa yang memperhatikan (i'rab) mahal dalam itba', itu baik."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama mathla' Burdah. Dengarkan tiga suku pendek beruntun di ujung: بِ دَ مِي.",
+          "bait": [
+            "أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ",
+            "مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ"
+          ],
+          "bahr": "basith",
+          "makna": "Apakah karena teringat tetangga di Dzu Salam, engkau mencampur air mata yang mengalir dari kelopak mata dengan darah?"
+        },
+        {
+          "jenis": "pilih",
+          "soal": "Qashidah basith Anda di Boss 3 berdharb فَعِلُنْ dan berqafiyah muthlaqah. Jenis qafiyahnya pasti?",
+          "pilihan": [
+            "Mutarakib",
+            "Mutawatir",
+            "Mutadarik"
+          ],
+          "jawaban": 0,
+          "alasan": "فَعِلُنْ (1110) ditambah wasl memberi ekor 0 1 1 1 0: tiga huruf hidup."
+        }
+      ],
+      "patokan": "Dapat menyebut jenis qafiyah (lima jenis) dari ekor deretan 1 dan 0 di timbangan, untuk bait sendiri maupun bait kitab."
+    },
+    {
+      "nomor": 3,
+      "versi": 2,
+      "judul": "Cacat qafiyah dan periksa Diwan",
+      "ringkas": "Iqwa', ikfa', ita', sinad, tadhmin; lalu memeriksa qashidah-qashidah lama Anda sendiri.",
+      "menit": 40,
+      "analogi": "Dalam tajwid ada lahn jali dan lahn khafi. Lahn jali terdengar oleh semua orang: harakat berubah. Lahn khafi hanya tertangkap telinga yang terlatih. Cacat qafiyah juga begitu. Iqwa' terdengar oleh siapa saja; sinad dan ita' baru terasa oleh orang yang sudah biasa mendengar qashidah. Bahkan penyair besar pernah tergelincir.",
+      "amtsilah": [
+        {
+          "bait": [
+            "أَفِدَ التَّرَحُّلُ غَيْرَ أَنَّ رِكَابَنَا",
+            "لَمَّا تَزُلْ بِرِحَالِنَا وَكَأَنْ قَدِ"
+          ],
+          "bahr": "kamil",
+          "makna": "Waktu berangkat sudah dekat, hanya saja unta-unta kami belum bergerak dengan pelana kami, padahal seakan-akan sudah.",
+          "sumber": "An-Nabighah adz-Dzubyani, qashidah «أَمِنْ آلِ مَيَّةَ رَائِحٌ أَوْ مُغْتَدِ», bait 2. Teks: https://www.aldiwan.net/poem2002.html (tertulis التَرَجُّلُ; riwayat yang masyhur di kitab nahwu التَّرَحُّلُ). Harakat dilengkapi.",
+          "catatan": "Ujung قَدِ: rawiy د berkasrah. Seluruh qashidah berqafiyah dal kasrah."
+        },
+        {
+          "bait": [
+            "زَعَمَ الْبَوَارِحُ أَنَّ رِحْلَتَنَا غَدًا",
+            "وَبِذَاكَ خَبَّرَنَا الْغُدَافُ الْأَسْوَدُ"
+          ],
+          "bahr": "kamil",
+          "makna": "Burung-burung pertanda sial menyangka keberangkatan kami besok, dan itulah yang dikabarkan gagak hitam kepada kami.",
+          "sumber": "An-Nabighah adz-Dzubyani, qashidah yang sama, bait 3. Teks: https://www.aldiwan.net/poem2002.html. Harakat dilengkapi.",
+          "catatan": "Ujung الْأَسْوَدُ: rawiy د berdhammah, padahal bait sebelumnya berkasrah. Inilah iqwa', syahid terkenal di kitab-kitab qafiyah."
+        },
+        {
+          "bait": [
+            "بُنَيَّ إِنَّ الْبِرَّ شَيْءٌ هَيِّنُ",
+            "الْمَنْطِقُ اللَّيِّنُ وَالطُّعَيِّمُ"
+          ],
+          "bahr": "rajaz",
+          "makna": "Wahai anakku, kebaikan itu perkara yang mudah: tutur kata yang lembut dan sedikit makanan (yang diberikan).",
+          "sumber": "Dikutip az-Zabidi, Taj al-'Arus, entri كفأ, sebagai contoh ikfa'. Teks: https://arabiclexicon.hawramani.com/%d9%83%d9%81%d8%a3/. Harakat dari sumber.",
+          "catatan": "Rajaz masythur: setiap syathr seharusnya berqafiyah sama. هَيِّنُ berawiy ن, الطُّعَيِّمُ berawiy م. Dua huruf yang makhrajnya dekat: ikfa'."
+        },
+        {
+          "bait": [
+            "وَهُمْ وَرَدُوا الْجِفَارَ عَلَى تَمِيمٍ",
+            "وَهُمْ أَصْحَابُ يَوْمِ عُكَاظَ إِنِّي"
+          ],
+          "bahr": "wafir",
+          "makna": "Merekalah yang mendatangi al-Jifar menyerang Tamim, dan merekalah para pahlawan hari 'Ukazh. Sesungguhnya aku...",
+          "sumber": "An-Nabighah adz-Dzubyani, qashidah «غَشِيتُ مَنَازِلًا بِعُرَيْتِنَاتٍ». Teks: https://www.aldiwan.net/poem1959.html. Harakat dilengkapi.",
+          "catatan": "Bait berakhir إِنِّي: khabar إِنَّ baru datang di bait berikutnya. Inilah tadhmin."
+        },
+        {
+          "bait": [
+            "شَهِدْتُ لَهُمْ مَوَاطِنَ صَادِقَاتٍ",
+            "أَتَيْنَهُمُ بِوُدِّ الصَّدْرِ مِنِّي"
+          ],
+          "bahr": "wafir",
+          "makna": "...menyaksikan bagi mereka medan-medan (perang) yang jujur; medan-medan itu mendatangkan bagi mereka kasih sayang dari dadaku.",
+          "sumber": "An-Nabighah adz-Dzubyani, qashidah yang sama, bait sesudahnya. Teks: https://www.aldiwan.net/poem1959.html (tertulis بِوُدَّ). Harakat dilengkapi.",
+          "catatan": "شَهِدْتُ adalah khabar dari إِنِّي di bait sebelumnya."
+        },
+        {
+          "bait": [
+            "وَفِعْلُ أَمْرٍ وَمُضِيٌّ بُنِيَا",
+            "وَأَعْرَبُوا مُضَارِعًا إِنْ عَرِيَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Fi'il amr dan fi'il madhi dibangun mabni; dan mereka meng-i'rab fi'il mudhari' jika ia bebas...",
+          "sumber": "Alfiyah Ibnu Malik, bab al-Mu'rab wal-Mabni, bait 19. Sumber: https://github.com/FadyFouad/arabsyntax-web/blob/main/content/mutun/alfiyya.json. Harakat dari sumber, ejaan disesuaikan.",
+          "catatan": "إِنْ عَرِيَا: bebas dari apa? Jawabannya baru di bait 20: مِنْ نُونِ تَوْكِيدٍ... Tadhmin dalam nadzom ilmi."
+        }
+      ],
+      "bahts": {
+        "bait": [
+          "زَعَمَ الْبَوَارِحُ أَنَّ رِحْلَتَنَا غَدًا",
+          "وَبِذَاكَ خَبَّرَنَا الْغُدَافُ الْأَسْوَدُ"
+        ],
+        "bahr": "kamil",
+        "makna": "Burung-burung pertanda sial menyangka keberangkatan kami besok, dan itulah yang dikabarkan gagak hitam kepada kami.",
+        "syathr": 1,
+        "langkah": [
+          {
+            "tampil": "bait",
+            "kata": "An-Nabighah adz-Dzubyani, salah satu penyair terbesar Jahiliyah; ia menjadi hakim para penyair di pasar 'Ukazh. Bait ini datang tepat setelah bait «… وَكَأَنْ قَدِ»."
+          },
+          {
+            "tampil": "timbang",
+            "kata": "Timbangan: lurus. Kamil, hampir semua taf'ilah utuh. Wazannya tidak bercacat."
+          },
+          {
+            "tampil": "teks",
+            "kata": "Sekarang qafiyahnya. Letakkan ujung bait sebelumnya di samping ujung bait ini.",
+            "papan": "bait 2: … وَكَأَنْ قَدِ = rawiy د, majra kasrah\nbait 3: … الْغُدَافُ الْأَسْوَدُ = rawiy د, majra dhammah"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Rawiy sama, majra berbeda. Inilah **iqwa'**, cacat yang Anda kenal di Modul 7. الْأَسْوَدُ marfu' karena sifat الْغُدَافُ; i'rabnya benar, qafiyahnya cacat. Penyair besar pun tergelincir di sini, karena telinga Arab mendengar i'rab dulu, qafiyah kemudian.",
+            "papan": "rawiy sama: د\nmajra berganti: kasrah lalu dhammah\n= iqwa'"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Cacat qafiyah yang lain mengikuti pola yang sama: satu unsur ujung bait tidak setia kepada bait pertama.",
+            "papan": "iqwa' = majra berganti (dَ dengan dُ, atau dِ dengan dُ)\nikfa' = rawiy berganti ke huruf yang makhrajnya dekat (ن dengan م)\nita' = kata qafiyah diulang dengan makna sama, dalam jarak dekat\nsinad = unsur sebelum rawiy berganti (ridf, ta'sis, atau harakatnya)\ntadhmin = makna bait bergantung pada bait sesudahnya"
+          },
+          {
+            "tampil": "teks",
+            "kata": "Pemeriksa qafiyah Hudhud menangkap iqwa', ikfa', dan sinad ridf serta ta'sis, karena ia membandingkan rawiy, majra, ridf, dan ta'sis setiap bait dengan bait pertama. Ita', tadhmin, dan sinad harakat harus Anda periksa sendiri.",
+            "papan": "ditangkap mesin: iqwa', ikfa'/ijazah, sinad ridf, sinad ta'sis\ndiperiksa sendiri: ita', tadhmin, sinad harakat"
+          }
+        ],
+        "giliran": {
+          "syathr": 0,
+          "petunjuk": "Giliran Anda: **syathr pertama**. زَعَمَ الْبَوَا: tiga huruf hidup lalu lam syamsiyah yang lebur ke ب. غَدًا di ujung syathr: tanwin dibaca نْ."
+        }
+      },
+      "syarh": [
+        "Perhatikan contoh pertama dan kedua, dua bait berurutan dari an-Nabighah. Bait 2 berakhir قَدِ, bait 3 berakhir الْأَسْوَدُ. Rawiynya sama, د, tetapi majranya berganti dari kasrah ke dhammah. Inilah **iqwa'**. Para ulama qafiyah menjadikan bait ini syahid karena penyairnya justru seorang hakim syair. Iqwa' adalah cacat qafiyah yang paling mudah terdengar.",
+        "Contoh ketiga dari Taj al-'Arus: هَيِّنُ dan الطُّعَيِّمُ. Rajaz masythur menuntut setiap syathr berqafiyah sama. Di sini rawiy berganti dari ن ke م, dua huruf yang makhrajnya berdekatan dan sama-sama ghunnah. Pergantian rawiy dengan huruf yang dekat makhrajnya disebut **ikfa'**. Bila hurufnya berjauhan, ulama menyebutnya ijazah, dan itu lebih buruk lagi. Bagi kita keduanya satu hukum: rawiy tidak boleh berganti.",
+        "**Ita'** adalah mengulang kata qafiyah dengan lafaz dan makna yang sama dalam jarak dekat. Anda sudah diperingatkan di Modul 7: jangan menutup tiga bait dengan الْقُرْآنِ. Ulama membolehkan pengulangan setelah jarak yang jauh, sebagian menyebut tujuh bait. Bila lafaznya sama tetapi maknanya berbeda (عَيْنٌ mata dan عَيْنٌ mata air), itu bukan ita', melainkan jinas.",
+        "**Sinad** adalah berubahnya sesuatu sebelum rawiy. Bentuk yang paling sering: satu bait ber-ridf dan bait lain tidak (sinad ridf), atau satu bait ber-ta'sis dan bait lain tidak (sinad ta'sis). Di Modul 7, menutup nuniyah ـانِ dengan الدِّينِ adalah sinad ridf, dan dengan الْأَمَاكِنِ adalah sinad ta'sis. Ada pula sinad harakat: hadzw atau taujih berganti, misalnya qafiyah muqayyadah yang taujihnya fathah lalu kasrah. Sinad harakat lebih halus dan ulama berbeda pendapat tentang beratnya.",
+        "Contoh keempat dan kelima, an-Nabighah lagi. Bait pertama berakhir إِنِّي: sesungguhnya aku... dan khabarnya, شَهِدْتُ, baru datang di bait berikutnya. Bait yang maknanya tidak selesai sampai bait sesudahnya disebut **tadhmin**. Dalam qashidah, tadhmin dinilai cacat, karena setiap bait qashidah semestinya bisa dikutip sendiri. Semakin erat ketergantungannya, seperti إِنَّ dan khabarnya, semakin berat cacatnya.",
+        "Contoh keenam memperlihatkan sisi lain. Dalam Alfiyah, إِنْ عَرِيَا menunggu jawabannya di bait 20: مِنْ نُونِ تَوْكِيدٍ مُبَاشِرٍ وَمِنْ نُونِ إِنَاثٍ. Dalam nadzom ilmi, tadhmin lazim dan tidak dicela, karena yang dituju adalah kaidah yang utuh, bukan bait yang dikutip sendiri. Untuk Diwan Anda: qashidah, hindari tadhmin; nadzom ilmi, boleh, tetapi usahakan setiap bait tetap bisa dipahami."
+      ],
+      "keliru": [
+        {
+          "salah": "Menganggap iqwa' wajar bila i'rabnya benar, seperti الْأَسْوَدُ yang memang marfu'.",
+          "benar": "I'rab dan qafiyah sama-sama harus benar. Kalau i'rab memaksa majra lain, susun ulang kalimatnya.",
+          "sebab": "Qafiyah mengikat bunyi ujung; benar nahwu tidak menghapus cacat qafiyah."
+        },
+        {
+          "salah": "Mencampur ن dan م di ujung rajaz karena keduanya berdengung.",
+          "benar": "Rawiy harus satu huruf. ن dengan م adalah ikfa'.",
+          "sebab": "Kedekatan makhraj membuat telinga 'ajam tidak sadar, tetapi telinga Arab segera menangkapnya."
+        },
+        {
+          "salah": "Mengira setiap pengulangan kata qafiyah adalah ita'.",
+          "benar": "Ita' = lafaz dan makna sama, jaraknya dekat. Makna berbeda atau jarak jauh tidak dicela.",
+          "sebab": "Ulama membolehkan pengulangan setelah jarak yang cukup, dan menilai jinas sebagai keindahan."
+        },
+        {
+          "salah": "Menyambung makna antarbait di qashidah seperti di nadzom Alfiyah.",
+          "benar": "Dalam qashidah, selesaikan makna di setiap bait. Tadhmin lazim hanya di nadzom ilmi.",
+          "sebab": "Bait qashidah dinilai sebagai satuan yang utuh; tadhmin membuatnya tidak bisa dikutip sendiri."
+        }
+      ],
+      "qaidah": [
+        "**Iqwa'**: majra berganti dengan rawiy yang sama (قَدِ dengan الْأَسْوَدُ).",
+        "**Ikfa'**: rawiy berganti ke huruf yang dekat makhrajnya (هَيِّنُ dengan الطُّعَيِّمُ). Bila hurufnya berjauhan disebut ijazah.",
+        "**Ita'**: kata qafiyah diulang, lafaz dan maknanya sama, dalam jarak dekat.",
+        "**Sinad**: sesuatu sebelum rawiy berganti: ridf ada dan tidak ada, ta'sis ada dan tidak ada, atau harakat sebelum rawiy (hadzw, taujih, isyba') berubah.",
+        "**Tadhmin**: makna bait bergantung pada bait sesudahnya. Cacat dalam qashidah, lazim dalam nadzom ilmi.",
+        "Pemeriksa qafiyah Hudhud menangkap iqwa', ikfa'/ijazah, dan sinad ridf/ta'sis. Ita', tadhmin, dan sinad harakat diperiksa dengan mata Anda sendiri."
+      ],
+      "tamarin": [
+        {
+          "jenis": "kenali",
+          "petunjuk": "Sebutkan cacatnya. Semua contoh di soal ini adalah ujung-ujung bait dalam satu qashidah.",
+          "soal": [
+            {
+              "soal": "Bait 1 berakhir قَدِ, bait 2 berakhir الْأَسْوَدُ.",
+              "pilihan": [
+                "Iqwa'",
+                "Ikfa'",
+                "Sinad",
+                "Ita'"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy د sama, majra berganti dari kasrah ke dhammah."
+            },
+            {
+              "soal": "Syathr 1 berakhir هَيِّنُ, syathr 2 berakhir الطُّعَيِّمُ (rajaz masythur).",
+              "pilihan": [
+                "Ikfa'",
+                "Iqwa'",
+                "Tadhmin"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy berganti dari ن ke م, dua huruf yang makhrajnya dekat."
+            },
+            {
+              "soal": "Bait 1 berakhir الْأَرْكَانِ, bait 2 berakhir الدِّينِ.",
+              "pilihan": [
+                "Sinad",
+                "Iqwa'",
+                "Ikfa'"
+              ],
+              "jawaban": 0,
+              "alasan": "Rawiy dan majra sama, tetapi ridf alif berganti ridf ya: sinad ridf."
+            },
+            {
+              "soal": "Bait 3 dan bait 5 sama-sama berakhir الْقُرْآنِ, dengan makna yang sama.",
+              "pilihan": [
+                "Ita'",
+                "Sinad",
+                "Tidak cacat"
+              ],
+              "jawaban": 0,
+              "alasan": "Lafaz dan makna sama, jaraknya dekat."
+            },
+            {
+              "soal": "Bait qashidah berakhir إِنِّي, dan khabarnya di bait sesudahnya.",
+              "pilihan": [
+                "Tadhmin",
+                "Ita'",
+                "Iqwa'"
+              ],
+              "jawaban": 0,
+              "alasan": "Makna bait bergantung pada bait berikutnya."
+            },
+            {
+              "soal": "Bait 1 berakhir الرَّحْمَنِ, bait 2 berakhir الْأَمَاكِنِ.",
+              "pilihan": [
+                "Sinad ta'sis",
+                "Iqwa'",
+                "Tidak cacat"
+              ],
+              "jawaban": 0,
+              "alasan": "Alif di الْأَمَاكِنِ adalah ta'sis, sedangkan bait 1 beridf. Ta'sis dan ridf tidak boleh bercampur."
+            },
+            {
+              "soal": "Tadhmin di Alfiyah bait 19 dan 20 dinilai?",
+              "pilihan": [
+                "Lazim dan tidak dicela dalam nadzom ilmi",
+                "Cacat berat seperti dalam qashidah"
+              ],
+              "jawaban": 0,
+              "alasan": "Nadzom ilmi menyusun kaidah, bukan bait yang dikutip sendiri."
+            }
+          ]
+        },
+        {
+          "jenis": "pincang",
+          "petunjuk": "Ingat: cacat qafiyah tidak membuat wazan patah. Bait beriqwa' ini lurus timbangannya. Hanya satu baris yang diubah sampai pincang. Centang yang pincang.",
+          "bahr": "kamil",
+          "baris": [
+            {
+              "bait": [
+                "زَعَمَ الْبَوَارِحُ أَنَّ رِحْلَتَنَا غَدًا",
+                "وَبِذَاكَ خَبَّرَنَا الْغُدَافُ الْأَسْوَدُ"
+              ],
+              "catatan": "Asli: an-Nabighah. Lurus wazannya, tetapi beriqwa'."
+            },
+            {
+              "bait": [
+                "أَفِدَ التَّرَحُّلُ غَيْرَ أَنَّ رِكَابَنَا",
+                "لَمَّا تَزُلْ بِرِحَالِنَا وَكَأَنْ قَدِ"
+              ],
+              "catatan": "Asli: an-Nabighah, bait sebelumnya."
+            },
+            {
+              "bait": [
+                "زَعَمَ الْبَوَارِحُ أَنَّ رِحْلَتَنَا غَدًا",
+                "وَبِذَاكَ خَبَّرَنَا الْغُرَابُ الْأَسْوَدُ"
+              ],
+              "catatan": "Diubah, bukan kutipan: الْغُدَافُ diganti sinonimnya الْغُرَابُ. Wazannya tetap, qafiyahnya tetap beriqwa'."
+            },
+            {
+              "bait": [
+                "زَعَمَ الْبَوَارِحُ أَنَّ رِحْلَتَنَا غَدًا",
+                "وَبِذَلِكَ خَبَّرَنَا الْغُدَافُ الْأَسْوَدُ"
+              ],
+              "catatan": "Diubah, bukan kutipan: بِذَاكَ diganti بِذَلِكَ. Maknanya sama, tetapi taf'ilah pertama syathr kedua kelebihan satu huruf hidup."
+            }
+          ]
+        },
+        {
+          "jenis": "taqthi",
+          "petunjuk": "Timbang bait an-Nabighah yang berakhir إِنِّي sendiri. Ia lurus, qafiyahnya benar; cacatnya ada pada makna yang menggantung.",
+          "bait": [
+            "وَهُمْ وَرَدُوا الْجِفَارَ عَلَى تَمِيمٍ",
+            "وَهُمْ أَصْحَابُ يَوْمِ عُكَاظَ إِنِّي"
+          ],
+          "bahr": "wafir",
+          "makna": "Merekalah yang mendatangi al-Jifar menyerang Tamim, dan merekalah para pahlawan hari 'Ukazh. Sesungguhnya aku..."
+        },
+        {
+          "jenis": "irama",
+          "petunjuk": "Putar irama Alfiyah bait 19, lalu baca bait 20 dalam hati: مِنْ نُونِ تَوْكِيدٍ مُبَاشِرٍ وَمِنْ نُونِ إِنَاثٍ. Rasakan bahwa bait 19 belum selesai.",
+          "bait": [
+            "وَفِعْلُ أَمْرٍ وَمُضِيٌّ بُنِيَا",
+            "وَأَعْرَبُوا مُضَارِعًا إِنْ عَرِيَا"
+          ],
+          "bahr": "rajaz",
+          "makna": "Fi'il amr dan fi'il madhi dibangun mabni; dan mereka meng-i'rab fi'il mudhari' jika ia bebas..."
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Periksa Diwan sendiri: qashidah kamil.** Tempel Nuniyah Kecil (Boss 2) atau Tiga bait kamil (Modul 7), satu bait per baris, persis seperti tersimpan. Jangan diperbaiki dulu. Biarkan pemeriksa qafiyah bekerja, lalu ikuti daftar periksa.",
+          "bahr": "kamil",
+          "makna": "Isi qashidah lama Anda. Yang diperiksa adalah qafiyahnya, bukan maknanya.",
+          "bankKata": true,
+          "jumlah": 5,
+          "qafiyah": "satu",
+          "judulDiwan": "Periksa Diwan: qashidah kamil",
+          "tangga": [
+            "Tempel semua bait. Catat pesan pemeriksa qafiyah untuk setiap bait: rawiy, majra, ridf, ta'sis.",
+            "Tulis wajah qafiyah bait pertama: muthlaqah atau muqayyadah, mujarradah, mardufah, atau mu'assasah. Lalu jenisnya menurut jarak sukun.",
+            "Periksa ita' dengan mata: adakah kata qafiyah yang diulang dengan makna sama?",
+            "Periksa tadhmin: bacalah setiap bait sendiri-sendiri. Adakah bait yang maknanya menggantung?",
+            "Perbaiki setiap cacat, timbang ulang, lalu simpan versi baru di Diwan di bawah versi lama, dengan nama cacat yang diperbaiki."
+          ]
+        },
+        {
+          "jenis": "susun",
+          "petunjuk": "**Periksa Diwan sendiri: qashidah thawil.** Tempel tiga bait Nasihat thalabul ilmi (Boss 3) bila Anda menyusunnya dalam thawil. Kalau Anda memilih basith di Boss 3, periksa versi basith dengan langkah yang sama di alat timbang.",
+          "bahr": "thawil",
+          "makna": "Nasihat thalabul ilmi dari Boss 3. Yang diperiksa adalah qafiyahnya.",
+          "bankKata": true,
+          "jumlah": 3,
+          "qafiyah": "satu",
+          "judulDiwan": "Periksa Diwan: qashidah thawil",
+          "tangga": [
+            "Tempel ketiga bait persis seperti tersimpan. Catat pesan pemeriksa qafiyah.",
+            "Sebutkan wajah dan jenis qafiyahnya. Dharb thawil مَفَاعِلُنْ dengan qafiyah muthlaqah biasanya mutadarik; bila jenisnya berganti antarbait, periksa dharbnya.",
+            "Periksa ita' dan tadhmin dengan mata.",
+            "Perbaiki, timbang ulang, simpan versi baru di Diwan."
+          ]
+        }
+      ],
+      "patokan": "Setidaknya satu qashidah lama di Diwan sudah diperiksa: wajah dan jenis qafiyahnya tertulis, setiap cacat (iqwa', ikfa', ita', sinad, tadhmin) dicatat, dan versi perbaikannya lolos pemeriksa qafiyah."
+    }
+  ],
+  "laci": [
+    {
+      "teks": "الْمَكَارِمُ",
+      "arti": "kemuliaan-kemuliaan",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mu'assasah: ta'sis ا, dakhil ر, rawiy م. Pasangan: الْعَزَائِمُ، الْعَظَائِمُ.",
+      "dari": "al-Mutanabbi",
+      "bahr": "thawil"
+    },
+    {
+      "teks": "الْعَزَائِمُ",
+      "arti": "tekad-tekad",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mu'assasah, sama dengan الْمَكَارِمُ.",
+      "dari": "al-Mutanabbi",
+      "bahr": "thawil"
+    },
+    {
+      "teks": "وَمَنْزِلِ",
+      "arti": "dan tempat tinggal",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mujarradah, rawiy ل kasrah, mutadarik.",
+      "dari": "Imru'ul Qais",
+      "bahr": "thawil"
+    },
+    {
+      "teks": "فَحَوْمَلِ",
+      "arti": "dan (sampai) Haumal",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mujarradah, mutadarik: وْ مَ لِ ي.",
+      "dari": "Imru'ul Qais",
+      "bahr": "thawil"
+    },
+    {
+      "teks": "فَمُقَامُهَا",
+      "arti": "dan tempat menetapnya",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mardufah dengan wasl ha dan khuruj alif: rawiy م.",
+      "dari": "Labid",
+      "bahr": "kamil"
+    },
+    {
+      "teks": "فَرِجَامُهَا",
+      "arti": "dan (bukit) Rijam-nya",
+      "laci": "qafiyah",
+      "catatan": "Pasangan فَمُقَامُهَا. Ridf ا, rawiy م, wasl ه, khuruj ا.",
+      "dari": "Labid",
+      "bahr": "kamil"
+    },
+    {
+      "teks": "بِدَمِ",
+      "arti": "dengan darah",
+      "laci": "qafiyah",
+      "catatan": "Muthlaqah mujarradah, rawiy م kasrah. Setelah huruf mati (مُقْلَتِنْ) memberi mutarakib.",
+      "dari": "al-Burdah",
+      "bahr": "basith"
+    },
+    {
+      "teks": "سَلَمِ",
+      "arti": "(Dzu) Salam, nama tempat",
+      "laci": "qafiyah",
+      "catatan": "Pasangan بِدَمِ di mathla' Burdah.",
+      "dari": "al-Burdah",
+      "bahr": "basith"
+    }
+  ]
+}
