@@ -57,8 +57,10 @@ export default function Beranda() {
                       <span className="modul-judul">{judulPeta(m)}</span>
                       <span className="modul-fokus">{m.fokus} · hasil: {m.hasil}</span>
                     </span>
-                    {m.jilid && <span className="chip">Jilid {m.jilid}</span>}
-                    <span className={aktif ? 'chip ok' : 'chip'}>{aktif ? 'Buka' : 'Segera'}</span>
+                    <span className="modul-chip">
+                      {m.jilid && <span className="chip">Jilid {m.jilid}</span>}
+                      <span className={aktif ? 'chip ok' : 'chip'}>{aktif ? 'Buka' : 'Segera'}</span>
+                    </span>
                   </>
                 )
                 const kelas = `modul-baris${aktif ? ' aktif' : ' segera'}${m.boss ? ' boss' : ''}`
